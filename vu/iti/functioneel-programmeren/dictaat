@@ -40,6 +40,19 @@ en ML strict.
 Mogelijke opgaven
 =================
 
+De opgaven op
+http://www.cs.caltech.edu/courses/cs134/cs134b/2002/index.html
+zijn veel te groot en moeilijk voor onze twee
+weken. Bovendien zijn ze erg gericht op
+compilerbouw, iets dat niet zo zeer binnen de
+rest van ITI past.
+Opgave bij lab 1 (splay trees) zou nog kunnen,
+maar dan is er waarschijnlijk nog weinig ruimte
+voor meer.
+
+
+Ideeen:
+
 * Definieer Church Numerals
   http://kjew.xs4all.nl/repository/hacks/ocaml/church.ml
 
@@ -51,11 +64,12 @@ Mogelijke opgaven
 * Definieer een datatype Lambda Calculus termen
   Misschien te lastig? Wel veel leuke operaties
   op te doen.
+  http://kjew.xs4all.nl/repository/hacks/ocaml/lc.ml
 
 
 Hoe testen we opgaven? Moet er code bijgeleverd
-worden die laat zien dat er gedaan is wat gevraagd
-werd?
+worden die laat zien dat er gedaan is wat
+gevraagd werd?
 
 We kunnen niet het module systeem van OCaml gaan
 behandelen lijkt me.
