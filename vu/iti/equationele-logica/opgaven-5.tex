@@ -467,7 +467,7 @@ $\texttt{[A1]}$, $\texttt{[M2]}$ en $\texttt{[E2]}$ zien dat ze waar zijn in
 $\mathfrak{M}$, de rest gaat op vergelijkbare wijze.
 
 Laat nu $\theta$ een assignment zijn van elementen uit $A$ aan de variabelen
-$x$ en $y$. We stellen dat $\theta(x) = m$ en $\theta(y) = n$.
+$x$ en $y$. We stellen dat $\theta(x) = a$ en $\theta(y) = b$.
 
 \begin{itemize}
 
@@ -475,13 +475,13 @@ $x$ en $y$. We stellen dat $\theta(x) = m$ en $\theta(y) = n$.
 \begin{align*}
 \bar \theta(\texttt{add}(x,\texttt{0})) &= \texttt{add}_{\mathfrak{M}}(\bar \theta(x), \bar \theta(\texttt{0})) \\
                                         &= \texttt{add}_{\mathfrak{M}}(\theta(x), 0_{\mathfrak{M}}) \\
-                                        &= \texttt{add}_{\mathfrak{M}}(m, 0) \\
-                                        &= m
+                                        &= \texttt{add}_{\mathfrak{M}}(a, 0) \\
+                                        &= a
 \end{align*}
 
 \begin{align*}
 \bar \theta(x) &= \theta(x) \\
-               &= m
+               &= a
 \end{align*}
 
 \item{$\texttt{[M2] mul(x,succ(y)) = add(mul(x,y),x)}$}
@@ -491,8 +491,8 @@ We schrijven eerst de linkerkant uit.
 \begin{align*}
 \bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(\bar \theta(x), \bar \theta(\texttt{succ}(y))) \\
                                               &= \texttt{mul}_{\mathfrak{M}}(\theta(x), \texttt{succ}_{\mathfrak{M}}(\bar \theta(y))) \\
-                                              &= \texttt{mul}_{\mathfrak{M}}(m, \texttt{succ}_{\mathfrak{M}}(\theta(y))) \\
-                                              &= \texttt{mul}_{\mathfrak{M}}(m, \texttt{succ}_{\mathfrak{M}}(n))
+                                              &= \texttt{mul}_{\mathfrak{M}}(a, \texttt{succ}_{\mathfrak{M}}(\theta(y))) \\
+                                              &= \texttt{mul}_{\mathfrak{M}}(a, \texttt{succ}_{\mathfrak{M}}(b))
 \end{align*}
 
 We onderscheiden nu verschillende gevallen voor $m$ en $n$.
@@ -500,7 +500,7 @@ We onderscheiden nu verschillende gevallen voor $m$ en $n$.
 \begin{itemize}
 
 \item
-Wanneer $m = n = \omega$ hebben we:
+Wanneer $a = b = \omega$ hebben we:
 \begin{align*}
 \bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(\omega, \texttt{succ}_{\mathfrak{M}}(\omega)) \\
                                               &= \texttt{mul}_{\mathfrak{M}}(\omega, \omega) \\
@@ -508,25 +508,25 @@ Wanneer $m = n = \omega$ hebben we:
 \end{align*}
 
 \item
-Wanneer $m,n \in \mathbb{N}$ hebben we:
+Wanneer $a,b \in \mathbb{N}$ hebben we:
 
 \begin{align*}
-\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(m, n+1) \\
-                                              &= m*(n+1)
+\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(a, b+1) \\
+                                              &= a*(b+1)
 \end{align*}
 
 \item
-Wanneer $m \omega$ en $n \in \mathbb{N}$ hebben we:
+Wanneer $a = \omega$ en $b \in \mathbb{N}$ hebben we:
 \begin{align*}
-\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(\omega, n+1) \\
+\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(\omega, b+1) \\
                                               &= \omega
 \end{align*}
 
 \item
-Wanneer $m \in \mathbb{N}$ en $n = \omega$ hebben we:
+Wanneer $a \in \mathbb{N}$ en $b = \omega$ hebben we:
 \begin{align*}
-\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(m, \texttt{succ}_{\mathfrak{M}}(\omega)) \\
-                                              &= \texttt{mul}_{\mathfrak{M}}(m, \omega) \\
+\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(a, \texttt{succ}_{\mathfrak{M}}(\omega)) \\
+                                              &= \texttt{mul}_{\mathfrak{M}}(a, \omega) \\
                                               &= \omega
 \end{align*}
 
@@ -538,42 +538,42 @@ En vervolgens schrijven we de rechterkant uit.
 \bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\bar \theta(\texttt{mul}(x,y),x)) \\
                                                &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\bar \theta(x),\bar \theta(y)),\bar \theta(x)) \\
                                                &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\theta(x),\theta(y)),\theta(x)) \\
-                                               &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(m,n),m)
+                                               &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(a,b),a)
 \end{align*}
 
-We onderscheiden nu weer dezelfde gevallen voor $m$ en $n$.
+We onderscheiden nu weer dezelfde gevallen voor $a$ en $b$.
 
 \begin{itemize}
 
 \item
-Wanneer $m = n = \omega$ hebben we:
+Wanneer $a = b = \omega$ hebben we:
 \begin{align*}
 \bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\omega,\omega),\omega) \\
                                                &= \omega
 \end{align*}
 
 \item
-Wanneer $m,n \in \mathbb{N}$ hebben we:
+Wanneer $a,b \in \mathbb{N}$ hebben we:
 \begin{align*}
-\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(m,n),m) \\
-                                               &= \texttt{add}_{\mathfrak{M}}(m*n,m) \\
-                                               &= (m*n)+m \\
-                                               &= m*(n+1)
+\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(a,b),a) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(a*b,a) \\
+                                               &= (a*b)+a \\
+                                               &= a*(b+1)
 \end{align*}
 
 \item
-Wanneer $m \omega$ en $n \in \mathbb{N}$ hebben we:
+Wanneer $a = \omega$ en $b \in \mathbb{N}$ hebben we:
 \begin{align*}
-\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\omega,n),\omega) \\
+\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\omega,b),\omega) \\
                                                &= \texttt{add}_{\mathfrak{M}}(\ldots,\omega) \\
                                                &= \omega
 \end{align*}
 
 \item
-Wanneer $m \in \mathbb{N}$ en $n = \omega$ hebben we:
+Wanneer $a \in \mathbb{N}$ en $b = \omega$ hebben we:
 \begin{align*}
-\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(m,\omega),m) \\
-                                               &= \texttt{add}_{\mathfrak{M}}(\omega,m) \\
+\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(a,\omega),a) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(\omega,a) \\
                                                &= \omega
 \end{align*}
 
@@ -587,27 +587,27 @@ We schrijven weer eerst de linkerkant uit.
 \bar \theta(\texttt{even}(\texttt{succ}(x))) &= \texttt{even}_{\mathfrak{M}}(\bar \theta(\texttt{succ}(x))) \\
                                              &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(\bar \theta(x)))) \\
                                              &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(\theta(x)))) \\
-                                             &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(m))
+                                             &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(a))
 \end{align*}
 
-We onderscheiden twee gevallen voor $m$.
+We onderscheiden twee gevallen voor $a$.
 
 \begin{itemize}
 
 \item
-Wanneer $m \in \mathbb{N}$ hebben we:
+Wanneer $a \in \mathbb{N}$ hebben we:
 \begin{align*}
-\bar \theta(\texttt{even}(\texttt{succ}(x))) &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(m)) \\
-                                             &= \texttt{even}_{\mathfrak{M}}(m+1) \\
-                                             &= \texttt{even}_{\mathfrak{M}}(m+1) \\
+\bar \theta(\texttt{even}(\texttt{succ}(x))) &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(a)) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(a+1) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(a+1) \\
                                              &= \begin{cases}
-  F & \text{als $m$ even is} \\
-  T & \text{als $m$ oneven is}
+  F & \text{als $a$ even is} \\
+  T & \text{als $a$ oneven is}
 \end{cases}
 \end{align*}
 
 \item
-Wanneer $m = \omega$ hebben we:
+Wanneer $a = \omega$ hebben we:
 \begin{align*}
 \bar \theta(\texttt{even}(\texttt{succ}(x))) &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(\omega)) \\
                                              &= \texttt{even}_{\mathfrak{M}}(\omega) \\
@@ -621,27 +621,27 @@ En vervolgens schrijven we de rechterkant uit.
 \begin{align*}
 \bar \theta(\texttt{odd}(x)) &= \texttt{odd}_{\mathfrak{M}}(\bar \theta(x)) \\
                              &= \texttt{odd}_{\mathfrak{M}}(\theta(x)) \\
-                             &= \texttt{odd}_{\mathfrak{M}}(m)
+                             &= \texttt{odd}_{\mathfrak{M}}(a)
 \end{align*}
 
-We onderscheiden weer twee gevallen voor $m$.
+We onderscheiden weer twee gevallen voor $a$.
 
 \begin{itemize}
 
 \item
-Wanneer $m \in \mathbb{N}$ hebben we:
+Wanneer $a \in \mathbb{N}$ hebben we:
 \begin{align*}
-\bar \theta(\texttt{odd}(x)) &= \texttt{odd}_{\mathfrak{M}}(m) \\
+\bar \theta(\texttt{odd}(x)) &= \texttt{odd}_{\mathfrak{M}}(a) \\
                              &= \begin{cases}
-  F & \text{als $m$ even is} \\
-  T & \text{als $m$ oneven is}
+  F & \text{als $a$ even is} \\
+  T & \text{als $a$ oneven is}
 \end{cases}
 \end{align*}
 
 \item
-Wanneer $m = \omega$ hebben we:
+Wanneer $a = \omega$ hebben we:
 \begin{align*}
-\bar \theta(\texttt{odd}(x)) &= \texttt{odd}_{\mathfrak{M}}(m) \\
+\bar \theta(\texttt{odd}(x)) &= \texttt{odd}_{\mathfrak{M}}(a) \\
                              &= \texttt{odd}_{\mathfrak{M}}(\omega) \\
                              &= T
 \end{align*}
