@@ -1,0 +1,55 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{amsfonts}
+\usepackage{a4}
+\usepackage{latexsym}
+\usepackage{fitch} % http://folk.uio.no/johanw/FitchSty.html
+
+% niet te gewichtig willen doen met veel ruimte
+\setlength{\textwidth}{16cm}
+\setlength{\textheight}{23.0cm}
+\setlength{\topmargin}{0cm}
+\setlength{\oddsidemargin}{0.2mm}
+\setlength{\evensidemargin}{0.2mm}
+\setlength{\parindent}{0cm}
+
+% standaard enumerate met abc
+\renewcommand\theenumi{\alph{enumi}}
+
+
+\begin{document}
+
+
+{\bf Uitwerkingen bij Inleiding Theoretische Informatica\\
+Deel 1: Equationele Logica -- Afleidbaarheid}\\[2em]
+
+
+{\bf Opgave 3.1}
+
+\begin{enumerate}
+
+\item % afleiding voor pop(pop(pop(empty))) = empty
+Een afleiding in de specificate \verb|Stack-Of-Data| van de vergelijking
+\begin{verbatim}
+pop(pop(pop(empty))) = empty
+\end{verbatim}
+
+\begin{equation*}
+\begin{fitch}
+pop(empty) = empty                             & [1]       \\
+\neg K \neg K p \to K p                        & PROP, 1   \\
+K(p \to q) \to (K p \to K q)                   & DB        \\
+K(p \to (p \vee q)) \to (K p \to K (p \vee q)) & SUB, 3    \\
+p \to (p \vee q)                               & CT        \\
+K(p \to (p \vee q))                            & UG, 5     \\
+K p \to K (p \vee q)                           & MP, 4,6   \\
+\neg K \neg K p \to K (p \vee q)               & \dag, 2,7
+\end{fitch}
+\end{equation*}
+
+\item % afleiding voor pop(push(x, pop(push(x, empty)))) = empty
+
+\end{enumerate}
+
+
+\end{document}
