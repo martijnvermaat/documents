@@ -30,8 +30,8 @@ Deel 1: Equationele Logica -- Abstracte specificaties}\\[2em]
 \item % eindige signatuur voor gehele getallen
 Signatuur $(S, \Sigma)$ met
 \begin{eqnarray*}
-S & = & \{int\}                                     \\
-\Sigma_{\rightarrow int} & = & \{0\}               \\
+S & = & \{int\} \\
+\Sigma_{\rightarrow int} & = & \{0\} \\
 \Sigma_{int \rightarrow int} & = & \{succ, pred\}.
 \end{eqnarray*}
 
@@ -43,7 +43,8 @@ Of in ASF notatie.
 [E2] pred(succ(x)) = x
 \end{verbatim}
 
-\item Optioneel ook \verb|add| en \verb|mul| toevoegen, bijvoorbeeld zo:
+\item % extra
+Optioneel ook \verb|add| en \verb|mul| toevoegen, bijvoorbeeld zo:
 
 \begin{verbatim}
 functions
@@ -62,12 +63,12 @@ equations
   [M3] : mul(x, pred(y)) = sub(mul(x, y), x)
 \end{verbatim}
 
-Klopt dit allemaal?
+(Klopt dit allemaal?)
 
 \end{enumerate}
 
 
-{\bf Opgave 2.2}
+{\bf Opgave 2.2} % FIFO queue
 
 Specificatie voor een FIFO queue:
 
@@ -94,7 +95,7 @@ end FIFO
 \end{verbatim}
 
 
-{\bf Opgave 2.3}
+{\bf Opgave 2.3} % specificatie voor: d(x,y) <-> x is een deler van y
 
 We breiden \verb|NatBool| uit met de functie \verb|d|:
 
