@@ -79,17 +79,19 @@ module FIFO
     data, queue
 
   functions
-    head    : queue        -> data
+    peek    : queue        -> data
     dequeue : queue        -> queue
-    enqueue : queue # data -> queue
+    enqueue : data # queue -> queue
     empty   :              -> queue
     error   :              -> data
 
   equations
-    [H1] head(empty)        = error
-    [H2] head(put(q, d))    = d
-    [D1] dequeue(empty)     = empty
-    [D2] dequeue(put(q, d)) = q
+    [P1] peek(empty)                        = error
+    [P2] peek(enqueue(x, empty)             = x
+    [P3] peek(enqueue(x, enqueue(y, z)))    = peek(enqueue(y, z))
+    [D1] dequeue(empty)                     = empty
+    [D2] dequeue(enqueue(x, empty))         = x
+    [D3] dequeue(enqueue(x, enqueue(y, z))) = enqueue(x, dequeue(enqueue(y, z)))
 
 end FIFO
 \end{verbatim}
