@@ -324,7 +324,41 @@ is van $\mathfrak{N}$, de structuur van de natuurlijke getallen.\\[2em]
 
 {\bf Opgave 5.3}
 
-Todo.
+Om te laten zien dat een substitutie $\sigma : Ter_{\Sigma}(X) \rightarrow
+Ter_{\Sigma}(X)$ een homomorfisme is van de termalgebra
+$\mathfrak{Ter}_{\Sigma}(X)$ naar zichzelf, moeten we laten zien dat $\sigma$
+voldoet aan de twee voorwaarden die gesteld worden aan een homomorfisme:
 
+\begin{itemize}
+
+\item
+$\sigma(c_{\mathfrak{Ter}_{\Sigma}}) = c_{\mathfrak{Ter}_{\Sigma}}$ voor alle
+  constanten $c$ uit $\Sigma$.
+
+\item
+$\sigma(f_{\mathfrak{Ter}_{\Sigma}}(a_{1}, \ldots, a_{n}))
+= f_{\mathfrak{Ter}_{\Sigma}}(\sigma(a_{1}), \ldots, \sigma(a_{n}))$ voor alle
+functiesymbolen $f$ uit $\Sigma$ en alle $a_{i}$ uit $Ter_{\Sigma}(X)$.
+
+\end{itemize}
+
+We bekijken eerst het geval van een willekeurige constante $c$ uit $\Sigma$:
+
+\begin{align*}
+\sigma(c_{\mathfrak{Ter}_{\Sigma}})
+&= c_{\mathfrak{Ter}_{\Sigma}} &&\text{(volgens definitie 3.1)}
+\end{align*}
+
+En vervolgens het geval van een $n$-plaatsig functiesymbool $f$ met
+willekeurige termen $a_{1} \ldots a_{n}$ uit $Ter_{\Sigma}$:
+
+\begin{align*}
+\sigma(f_{\mathfrak{Ter}_{\Sigma}}(a_{1}, \ldots, a_{n}))
+&= f_{\mathfrak{Ter}_{\Sigma}}(\sigma(a_{1}), \ldots, \sigma(a_{n}))
+&&\text{(volgens definitie 3.1)}
+\end{align*}
+
+Hiermee is een substitutie dus een homomorphisme van
+$\mathfrak{Ter}_{\Sigma}(X)$ naar $\mathfrak{Ter}_{\Sigma}(X)$.
 
 \end{document}
