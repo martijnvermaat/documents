@@ -82,7 +82,32 @@ een tegenmodel) en dus bevat $\mathfrak{P}(\{\})$ confusion.\\[2em]
 
 \item % model voor Booleans met junk met confusion
 
-Todo.\\[2em]
+We bekijken de algebra $\mathfrak{B}_{3}$ voor de specificatie
+$\texttt{Booleans}$ met als drager $\{A,B,C\}$ en interpretaties
+\begin{align*}
+\texttt{true}_{\mathfrak{B}_{3}}     &= B, \\
+\texttt{false}_{\mathfrak{B}_{3}}    &= B, \\
+\texttt{and}_{\mathfrak{B}_{3}}(x,y) &= B, \\
+\texttt{or}_{\mathfrak{B}_{3}}(x,y)  &= B, \\
+\texttt{not}_{\mathfrak{B}_{3}}(x)   &= B.
+\end{align*}
+Dat $\mathfrak{B}_{3}$ een model is voor $\texttt{Booleans}$ mag duidelijk
+zijn (iedere term evalueert naar $B$ en dus is iedere vergelijking waar).
+
+\paragraph{Wel junk}
+
+Het is niet moeilijk in te zien dat iedere gesloten term uit
+$\texttt{Booleans}$ wordt in $\mathfrak{B}_{3}$ ge\"interpreteerd als $B$. Dit
+betekent dat de elementen $A$ en $C$ niet de interpretatie van een gesloten
+term zijn en dus dat $\mathfrak{B}_{3}$ junk bevat.
+
+\paragraph{Wel confusion}
+
+In de algebra $\mathfrak{B}_{3}$ worden de interpretaties van de termen
+$\texttt{true}$ en $\texttt{false}$ ge\"identificeerd. Toch is de vergelijking
+$\texttt{true} = \texttt{false}$ niet afleidbaar uit de specificatie
+$\texttt{Booleans}$ (bovenstaande algebra $\mathfrak{P}(F)$ is bijvoorbeeld
+een tegenmodel) en dus bevat $\mathfrak{B}_{3}$ confusion.\\[2em]
 
 \end{enumerate}
 
