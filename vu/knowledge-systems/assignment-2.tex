@@ -62,20 +62,25 @@ mvermaat@cs.vu.nl}
 To pack the bag in such way that everything fits and that the maximum wait is 
 not exceeded, the dimensional and weight properties of every part is recorded in
 the component model. The weight is in Kilograms, the dimensions in centimeters.
+The solid property specifies whether another component may be placed on top of 
+it, i.e. this component is fragile and must be placed on top in the bag.
 
 \begin{itemize}
-\item Tent: Weight=12; Dim=10,15,30
-\item Hotel guide: Weight=0,12; Dim=12,3,15
-\item Sleeping bag: Weight=0,7; Dim=30,25,45
-\item Aerobed: Weight=4; Dim=35,30,4
-\item Sleeping carpet: Weight=5; Dim=40,25,65
-\item Cooking construction: Weight 4,5; Dim=25,20,35
-\item Socks: Weight=0,03; Dim=2,6,15
+\item Tent: Weight=12; Dim=10,15,30; Solid=true
+\item Hotel guide: Weight=0,12; Dim=12,3,15; Solid=true
+\item Sleeping bag: Weight=0,7; Dim=30,25,45; Solid=true
+\item Aerobed: Weight=4; Dim=35,30,4; Solid=true
+\item Sleeping carpet: Weight=5; Dim=40,25,65; Solid=true
+\item Cooking construction: Weight 4,5; Dim=25,20,35; Solid=true
+\item Socks: Weight=0,03; Dim=2,6,15; Solid=true
 \item ...
 \end{itemize}
 
 
 \subsection*{Component Functions}
+
+From these functions, the key components can be derived by using
+the MCF1 technique.
 
 \begin{description}
 
@@ -156,13 +161,20 @@ The arrangement model therefore specifies the dimensions of the bag.
 Components with any of their three dimensions longer than the largest dimension 
 of the bag will be excluded beforehand.
 
+When choosing from alternative components, we use the evaluation function
+described above. It expresses some preferences and tries to take small and light
+components rather than big and heavy components.
+
 
 \section{Knowledge About Sharing}
 
-With the MCF1 technique, we assume there is no sharing of functionality by
-several components. This is of course a simplification, because, for example, a
-hotel guide could also be used as a note book if we needed one. However, by
-using MCF1, we ignore such knowledge about sharing.
+MCF1 does not take sharing into account. This does not seem to result in optimal 
+solutions. For example, when a phone is required by the specification model, 
+saying that a communication device is needed to communicate with family members, 
+while at the same time a communication device is necessary to make hotel 
+reservations. This phone could then easily be shared by these two requirements. 
+To conclude, this knowledge system might propose packing equal components twice, 
+while this is unnecessary.
 
 
 \section{Possible Scenario}
