@@ -359,6 +359,63 @@ willekeurige termen $a_{1} \ldots a_{n}$ uit $Ter_{\Sigma}$:
 \end{align*}
 
 Hiermee is een substitutie dus een homomorphisme van
-$\mathfrak{Ter}_{\Sigma}(X)$ naar $\mathfrak{Ter}_{\Sigma}(X)$.
+$\mathfrak{Ter}_{\Sigma}(X)$ naar $\mathfrak{Ter}_{\Sigma}(X)$.\\[2em]
+
+
+{\bf Opgave 5.4}
+
+\begin{enumerate}
+
+\item % laat zien dat eval_term de identiteit is
+
+We laten voor iedere term $t$ uit $Ter_{\Sigma}$ zien dat
+$eval_{\mathfrak{Ter}_{\Sigma}}(t) = t$ met inductie naar de structuur van
+$t$.
+
+In het basisgeval is $t$ een constante en hebben we:
+
+\begin{align*}
+eval_{\mathfrak{Ter}_{\Sigma}}(t) &= t_{\mathfrak{Ter}_{\Sigma}} \\
+                                  &= t &&\text{(volgens definitie termalgebra)}
+\end{align*}
+
+In de inductiestap bekijken we termen van de vorm $f(t_{1}, \ldots, t_{n})$,
+waarbij we volgens de inductiehypothese mogen aannemen dat
+$eval_{\mathfrak{Ter}_{\Sigma}}(t_{i}) = t_{i}$ voor $1 \ge i \ge n$:
+
+\begin{align*}
+eval_{\mathfrak{Ter}_{\Sigma}}(f(t_{1}, \ldots, t_{n})) &=
+f_{\mathfrak{Ter}_{\Sigma}}(eval_{\mathfrak{Ter}_{\Sigma}}(t_{1}), \ldots,
+eval_{\mathfrak{Ter}_{\Sigma}}(t_{n})) \\
+    &= f_{\mathfrak{Ter}_{\Sigma}}(t_{1}, \ldots, t_{n}) &&\text{(volgens inductiehypothese)} \\
+    &= f(t_{1}, \ldots, t_{n}) &&\text{(volgens definitie termalgebra)}
+\end{align*}
+
+\item % laat zien dat eval(t) = ass(t) voor iedere algebra en assignment ass
+
+Gegeven een algebra $\mathfrak{A}$ en een assignment $\theta : X \rightarrow
+A$, is $\bar \theta$ een homomorfisme van $\mathfrak{Ter}_{\Sigma}(X)$ naar
+$\mathfrak{A}$. We bekijken nu de assignment $\theta' : \{\} \rightarrow A$ en
+zien dat $\bar \theta(t) = \bar \theta'(t)$ voor iedere gesloten term $t$.
+
+Nu is $\bar \theta'$ een homomorfisme van $\mathfrak{Ter}_{\Sigma}$ naar
+$\mathfrak{A}$, net zoals $eval_{\mathfrak{A}}$. Volgens gevolg 5.3 is er maar
+\'e\'en zo'n homomorfisme en dus zijn $\bar \theta'$ en $eval_{\mathfrak{A}}$
+gelijk. Omdat we voor iedere gesloten term $t$ al zagen dat $\bar \theta(t) =
+\bar \theta'(t)$, zien we nu ook dat voor iedere gesloten term $t$
+
+\begin{align*}
+\bar \theta(t) = eval_{\mathfrak{A}}(t)
+\end{align*}
+
+waar moet zijn.\\[2em]
+
+\end{enumerate}
+
+
+{\bf Opgave 5.5}
+
+Todo.
+
 
 \end{document}
