@@ -61,6 +61,7 @@ echo Changing links in .pdftex_t files
 # Now also change te links to those files
 for i in $( ls *.pdftex_t ); do
     sed -e 's/includegraphics.*\/\([^/]*\)\.pdftex/includegraphics\{\1\.pdf/' $i > $i.tmp
+    #sed -e 's/includegraphics{\(.*\)\.pdftex/includegraphics\{\1\.pdf/' $i > $i.tmp
     mv $i.tmp $i
 done
 
