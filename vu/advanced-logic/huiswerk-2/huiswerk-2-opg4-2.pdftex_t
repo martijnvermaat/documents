@@ -9,5 +9,17 @@
   \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
   \selectfont}%
 \fi\endgroup%
-\begin{picture}(4114,4014)(306,-3440)
+\begin{picture}(4163,4014)(306,-3440)
+\put(3331,-61){\makebox(0,0)[lb]{\smash{{\SetFigFont{12}{14.4}{\familydefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$s_{1}, t_{2}$}%
+}}}}
+\put(3331,-2896){\makebox(0,0)[lb]{\smash{{\SetFigFont{12}{14.4}{\familydefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$s_{3}, t_{2}$}%
+}}}}
+\put(3331,-1501){\makebox(0,0)[lb]{\smash{{\SetFigFont{12}{14.4}{\familydefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$s_{2}, t_{2}$}%
+}}}}
+\put(1036,-61){\makebox(0,0)[lb]{\smash{{\SetFigFont{12}{14.4}{\familydefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$s_{1}, t_{1}$}%
+}}}}
+\put(1036,-1501){\makebox(0,0)[lb]{\smash{{\SetFigFont{12}{14.4}{\familydefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$s_{2}, t_{1}$}%
+}}}}
+\put(1036,-2896){\makebox(0,0)[lb]{\smash{{\SetFigFont{12}{14.4}{\familydefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$s_{3}, t_{1}$}%
+}}}}
 \end{picture}%
