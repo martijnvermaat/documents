@@ -79,12 +79,75 @@ voorwaarden van een homomorphisme:
 \end{itemize}
 
 Hiermee hebben we laten zien dat $\phi$ aan alle voorwaarden van een
-homomorphisme voldoet.\\[2em]
+homomorphisme voldoet.
+
+\item % bestaan er meer homomorphismes van N naar Z?
+
+Nee?
+
+\item % laat zien dat er geen homomorphismes bestaan van Z naar N
+
+Stel, er is een homomorphisme $\phi$ van $\mathfrak{Z}$ naar
+$\mathfrak{N}$. We bekijken $\phi(-1)=n$ en weten dat $n \in \mathcal{N}$ ($n
+\ge 0$). Nu hebben we
+
+\begin{displaymath}
+\phi(\verb|succ|_{\mathfrak{Z}}(-1)) \, = \, \phi(0) \, = \, 0
+\end{displaymath}
+
+omdat $\phi(\verb|0|_{\mathfrak{Z}}=0)$ gelijk moet zijn aan
+$\verb|0|_{\mathfrak{N}} = 0$.
+
+Vervolgens zien we dat
+
+\begin{displaymath}
+\verb|succ|_{\mathfrak{N}}(\phi(-1)) = \verb|succ|_{\mathfrak{N}}(n) = n+1 \ne 0
+\end{displaymath}
+
+en dus voldoet $\phi$ niet aan de voorwaarden van een homomorphisme. Dit is in
+tegenspraak met de aanname dat $\phi$ een homomorphisme is, dus kan $\phi$ niet
+bestaan.\\[2em]
 
 \end{enumerate}
 
 
 {\bf Opgave 4.2}
+
+\begin{enumerate}
+
+\item % is \n->n+3 een homomorphisme in N+
+
+  $\phi(n) = n+3$ is geen homomorphisme in $\mathcal{N}^{+}$, want we zien
+  bijvoorbeeld dat:
+
+  \begin{eqnarray*}
+    \phi(\verb|add|(2,5)) & = & \phi(7) \\
+                          & = & 10 \\
+                          & \ne & 13 \\
+                          & = & \verb|add|(5,8) \\
+                          & = & \verb|add|(\phi(2),\phi(5))
+  \end{eqnarray*}
+
+\item % is \n->2n een homomorphisme in N+
+
+  $\phi(n) = 2n$ is wel een homomorphisme in $\mathcal{N}^{+}$, want voor
+  willekeurige $x,y$ uit $\mathbb{N}$:
+
+  \begin{eqnarray*}
+    \phi(\verb|0|_{\mathbb{N}^{+}}) & = & \phi(0) \\
+                                    & = & 0 \\
+                                    & = & \verb|0|_{\mathbb{N}^{+}}
+  \end{eqnarray*}
+
+  \begin{eqnarray*}
+    \phi(\verb|add|(x,y)) & = & \phi(x+y) \\
+                          & = & 2(x+y) \\
+                          & = & 2x \, + \, 2y \\
+                          & = & \verb|add|(2x, 2y) \\
+                          & = & \verb|add|(\phi(x), \phi(y))
+  \end{eqnarray*}
+
+\end{enumerate}
 
 
 \end{document}
