@@ -99,15 +99,131 @@ vergelijking nog nodig:
 
 \item % kta voor specificatie Booleans
 
-Als drager de termen $\texttt{true}$ en $\texttt{false}$.
+Er zijn twee equivalentieklassen onder afleidbare gelijkheid van gesloten
+termen. Uit beide klassen kiezen we \'e\'en representant voor de drager van de
+kanonieke term algebra $\mathfrak{A}_{1}$:
+\begin{align*}
+A_{1} &= \{\texttt{true}, \texttt{false}\}
+\end{align*}
+De functiesymbolen uit $\texttt{Booleans}$ interpreteren we als volgt:
+\begin{align*}
+\texttt{true}_{\mathfrak{A}_{1}}     &= \texttt{true} \\
+\texttt{false}_{\mathfrak{A}_{1}}    &= \texttt{false} \\
+\texttt{and}_{\mathfrak{A}_{1}}(t,s) &= \begin{cases}
+  \texttt{true}  & \text{als $t = s = \texttt{true}$} \\
+  \texttt{false} & \text{in de overige gevallen}
+\end{cases} \\
+\texttt{or}_{\mathfrak{A}_{1}}(t,s) &= \begin{cases}
+  \texttt{true}  & \text{als $t = \texttt{true}$} \\
+  \texttt{true}  & \text{als $s = \texttt{true}$} \\
+  \texttt{false} & \text{in de overige gevallen}
+\end{cases} \\
+\texttt{not}_{\mathfrak{A}_{1}}(t) &= \begin{cases}
+  \texttt{true}  & \text{als $t = \texttt{false}$} \\
+  \texttt{false} & \text{als $t = \texttt{true}$}
+\end{cases}
+\end{align*}
 
 \item % nog een
 
-Als drager de termen $\texttt{true}$ en $\texttt{not(true)}$.
+We kunnen ook andere representanten voor de drager kiezen, bijvoorbeeld zoals
+in deze algebra $\mathfrak{A}_{2}$:
+\begin{align*}
+A_{2} &= \{\texttt{true}, \texttt{not(true)}\}
+\end{align*}
+De functiesymbolen uit $\texttt{Booleans}$ interpreteren we nu als volgt:
+\begin{align*}
+\texttt{true}_{\mathfrak{A}_{2}}     &= \texttt{true} \\
+\texttt{false}_{\mathfrak{A}_{2}}    &= \texttt{not(true)} \\
+\texttt{and}_{\mathfrak{A}_{2}}(t,s) &= \begin{cases}
+  \texttt{true}      & \text{als $t = s = \texttt{true}$} \\
+  \texttt{not(true)} & \text{in de overige gevallen}
+\end{cases} \\
+\texttt{or}_{\mathfrak{A}_{2}}(t,s) &= \begin{cases}
+  \texttt{true}      & \text{als $t = \texttt{true}$} \\
+  \texttt{true}      & \text{als $s = \texttt{true}$} \\
+  \texttt{not(true)} & \text{in de overige gevallen}
+\end{cases} \\
+\texttt{not}_{\mathfrak{A}_{2}}(t) &= \begin{cases}
+  \texttt{true}      & \text{als $t = \texttt{not(true)}$} \\
+  \texttt{not(true)} & \text{als $t = \texttt{true}$}
+\end{cases}
+\end{align*}
 
 \item % nog een
 
-Als drager de termen $\texttt{not(false)}$ en $\texttt{false}$.
+De derde (en laatste) mogelijkheid voor de drager van een kta bij deze
+specificatie is de volgende algebra $\mathfrak{A}_{3}$:
+\begin{align*}
+A_{3} &= \{\texttt{not(false)}, \texttt{false}\}
+\end{align*}
+De functiesymbolen uit $\texttt{Booleans}$ interpreteren we nu als volgt:
+\begin{align*}
+\texttt{true}_{\mathfrak{A}_{3}}     &= \texttt{not(false)} \\
+\texttt{false}_{\mathfrak{A}_{3}}    &= \texttt{false} \\
+\texttt{and}_{\mathfrak{A}_{3}}(t,s) &= \begin{cases}
+  \texttt{not(false)} & \text{als $t = s = \texttt{not(false)}$} \\
+  \texttt{false}      & \text{in de overige gevallen}
+\end{cases} \\
+\texttt{or}_{\mathfrak{A}_{3}}(t,s) &= \begin{cases}
+  \texttt{not(false)} & \text{als $t = \texttt{not(false)}$} \\
+  \texttt{not(false)} & \text{als $s = \texttt{not(false)}$} \\
+  \texttt{false}      & \text{in de overige gevallen}
+\end{cases} \\
+\texttt{not}_{\mathfrak{A}_{3}}(t) &= \begin{cases}
+  \texttt{not(false)} & \text{als $t = \texttt{false}$} \\
+  \texttt{false}      & \text{als $t = \texttt{not(false)}$}
+\end{cases}
+\end{align*}
+
+\end{enumerate}
+
+
+{\bf Opgave 7.4}
+
+\begin{enumerate}
+
+\item % initieel correcte specificatie E voor B
+
+Een initieel correcte specificatie $E$ voor $\mathfrak{B}$ bestaat uit de
+volgende vergelijkingen:
+\begin{verbatim}
+[E1] f(f(f(x))) = f(f(c))
+[E2] f(a) = c
+\end{verbatim}
+
+\item % kta voor E
+
+Een kta voor $E$ is de algebra $\mathfrak{E}$ met als drager de verzameling
+\begin{align*}
+\{\texttt{a}, \, \texttt{c}, \, \texttt{f(c)}, \, \texttt{f(f(c))}\}
+\end{align*}
+en als interpretaties
+\begin{align*}
+\texttt{a}_{\mathfrak{E}}          &= \texttt{a}, \\
+\texttt{c}_{\mathfrak{E}}          &= \texttt{c}, \\
+\texttt{f}_{\mathfrak{E}}(a)       &= \texttt{c}, \\
+\texttt{f}_{\mathfrak{E}}(c)       &= \texttt{f(c)}, \\
+\texttt{f}_{\mathfrak{E}}(f(c))    &= \texttt{f(f(c))}, \\
+\texttt{f}_{\mathfrak{E}}(f(f(c))) &= \texttt{f(f(c))}.
+\end{align*}
+
+\end{enumerate}
+
+
+{\bf Opgave 7.5}
+
+\begin{enumerate}
+
+\item % laat zien dat afleidbaar is in(a,in(b,in(a,e)))=in(a,in(b,e))
+
+\item % zijn K,L,M modellen van Abc?
+
+\item % initiele modellen?
+
+\item % beschrijf initieel model met uit elke equivalentieklasse een element
+
+\item % is dit een kta? zo nee, pas het aan tot een kta
 
 \end{enumerate}
 
