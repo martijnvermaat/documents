@@ -1,0 +1,152 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4}
+\usepackage{latexsym}
+\usepackage[
+	colorlinks,
+	pdftitle={IGV solutions week 14},
+	pdfsubject={Werkcollege Inleiding Gegevensverwerking week 14},
+	pdfauthor={Laurens Bronwasser, Martijn Vermaat}
+]{hyperref}
+
+\title{IGV solutions week 14}
+\author{
+	Laurens Bronwasser\footnote{E-mail: lmbronwa@cs.vu.nl, homepage: http://www.cs.vu.nl/\~{}lmbronwa/}
+	\and
+	Martijn Vermaat\footnote{E-mail: mvermaat@cs.vu.nl, homepage: http://www.cs.vu.nl/\~{}mvermaat/}
+}
+\date{8th April 2003}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In this document we present the solutions to exercises 1 through 5 of the assignment for werkcollege \emph{\mbox{Inleiding Gegevensverwerking}} \mbox{week 14}.
+\end{abstract}
+
+\tableofcontents
+
+
+\newpage
+
+\section{Exercise 1}
+
+\begin{quote}
+Provide a few facts that express \verb|X| is married with \verb|Y|.
+\end{quote}
+
+\subsection*{Solution}
+
+We have \verb|ralf| and \verb|ellen| in our facts, which are father and mother of \verb|berenike| and \verb|bernadette|. We would like to express that \verb|ralf| is married with \verb|ellen|. Because the \verb|married| relation should be associative we have to provide facts for both ways. These two facts express \verb|ralf| is married with \verb|ellen|:
+
+\begin{verbatim}
+married(ralf,ellen).
+married(ellen,ralf).
+\end{verbatim}
+
+
+\newpage
+
+\section{Exercise 2}
+
+\begin{quote}
+Provide a query to see if anyone is apparantly married with several people.
+\end{quote}
+
+\subsection*{Solution}
+
+To see if there's a person \verb|X| that's married with at least two people \verb|Y| and \verb|Z| we trigger the following query. We have to make sure \verb|Y| and \verb|Z| are not the same person, hence the negated \verb|Y=Z|:
+
+\begin{verbatim}
+1 ?- married(X,Y),
+|    married(X,Z),
+|    \+ Y=Z.
+
+No
+\end{verbatim}
+
+\newpage
+
+\section{Exercise 3}
+
+\begin{quote}
+Provide rules for the ``grand parent'' relation. Describe two different ways to establish if someone is a grandfather as opposed to a grandmother.
+\end{quote}
+
+\subsection*{Solution}
+
+First we define the \verb|grandparent| relation between \verb|X| and \verb|Y|. \verb|Y| must have a parent \verb|Z| which in turn must have \verb|X| as parent:
+
+\begin{verbatim}
+grandparent(X,Y) :- parent(Z,Y),
+                    parent(X,Z).
+\end{verbatim}
+
+Now we would like to have a rule that tells us if someone is a grandfather of any other person. We can easily express this by saying \verb|X| is a grandfather if \verb|X| is a grandparent (of any person) and \verb|X| is a father (of any person):
+
+\begin{verbatim}
+grandfather(X) :- grandparent(X,_),
+                  father(X,_).
+\end{verbatim}
+
+Another approach of defining the same is the following. \verb|X| is a grandfather if \verb|X| is father of a certain \verb|Y| and that \verb|Y| is parent of any person:
+
+\begin{verbatim}
+grandfather(X) :- father(X,Y),
+                  parent(Y,_).
+\end{verbatim}
+
+
+\newpage
+
+\section{Exercise 4}
+
+\begin{quote}
+Provide rules that define the ``root ancestor'' of a person \verb|X|, that is, the oldest person \verb|Y| with a series of father/mother relationships leading to \verb|X|. Hint: you might need to use negation ``\verb|\+|'' to express that there is no parent. This takes the form ``\verb|parent(A,B)|''.
+\end{quote}
+
+\subsection*{Solution}
+
+We begin by making a rule for the \verb|ancestor| relationship between \verb|X| and \verb|Y|. If this relation exists, it means \verb|X| is an ancestor of \verb|Y|.
+
+We will use a recursive definition here. \verb|X| is always an ancestor of \verb|Y| if \verb|X| is the parent of \verb|Y|. The only other possibility of \verb|X| being an ancestor of \verb|Y| is if a certain \verb|Z| is parent of \verb|Y| and \verb|X| is an ancestor of \verb|Z|. Notice the recursion in the previous sentence.
+
+Putting all this together, this will be our rule for the \verb|ancestor| relationship:
+
+\begin{verbatim}
+ancestor(X,Y) :- parent(X,Y).
+ancestor(X,Y) :- parent(Z,Y),
+                 ancestor(X,Z).
+\end{verbatim}
+
+Now we can define the root ancestor relationship. \verb|X| is a root ancestor of \verb|Y| if \verb|X| is an ancestor of \verb|Y| and \verb|X| has no parent (again, we use an anonymous variable for this singleton):
+
+\begin{verbatim}
+root(X,Y) :- ancestor(X,Y),
+             \+ parent(_,X).
+\end{verbatim}
+
+
+\newpage
+
+\section{Exercise 5}
+
+\begin{quote}
+Provide a query to test if there is no parent that is claimed to be younger than its child. Hint: You will rely on the \verb|birthday| facts here. There are predefined predicates for arithmetic comparison: \verb|>|, \verb|>=|, etc. For example, the query ``\verb|2 > 1|'' succeeds.
+\end{quote}
+
+\subsection*{Solution}
+
+We try to find a parent \verb|X| of \verb|Y| where the birthday of \verb|X| was after the birthday of \verb|Y|. If a birthday was after another birthday it is greater, so our query becomes:
+
+\begin{verbatim}
+1 ?- parent(X,Y),
+|    birthday(X,A),
+|    birthday(Y,B),
+|    A>B.
+
+No
+\end{verbatim}
+
+
+\end{document}

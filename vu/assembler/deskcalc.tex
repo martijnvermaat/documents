@@ -1,0 +1,138 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4}
+\usepackage{latexsym}
+\usepackage[
+	colorlinks,
+	pdftitle={Design Document Assembler Assignment 1},
+	pdfsubject={Assembler Programmeren Practicum},
+	pdfauthor={Martijn Vermaat}
+]{hyperref}
+
+\title{Design Document Assembler Assignment 1}
+\author{
+	Martijn Vermaat (Partner: Laurens Bronwasser)
+}
+\date{19th January 2004}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The first assignment for the Assembler Programmeren Practicum was to program an extra feature in a given Reverse Polish calculator program that lets it accept lines in infix notation. In this document I describe in some detail the working of the original program, and the changes we made to satisfy the assignment objectives.
+\end{abstract}
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+
+The existing calculator program, written in \verb|8088| assembly language, can read simple formulas with integer operands and basic operations in Reverse Polish notation from standard input in order to evaluate them. The program works with a stack containing 8-byte integers and provides some operations to modify this stack (\verb|s| is ``store variable'', \verb|r| is ``recall variable'', \verb|p| is ``pop'', etc...).
+
+It is the aim of the assignment to extend this program to accept lines in ordinary infix notation. Special stack operations like \verb|s|, \verb|p|, and \verb|^| should not be accepted in infix notation. However, the \verb|r| command \emph{should} be accepted. Hence, lines like \verb|23 + rA * 3| should give the expected result (push the result of 23 plus the value of variable \verb|A| multiplied by 3 on the stack and print it).
+
+To distinct lines in infix notation from lines in Reverse Polish notation, a trailing \verb|=| character has to be added with the use of infix notation. To complete the assignment, one will probably want to add some code that checks for the trailing \verb|=| character, and converts the input line to Reverse Polish if it was found. The program should continue as usual after that.
+
+
+\section{Code structure}
+
+\subsection{The dispatch table}
+
+The original code leans heavily on the dispatch table, tabeled \verb|DTABLE|. This dispatch table is constructed by 128 \emph{words}, one for each character in the \emph{ASCII character set}. Each word in the table contains an address to a piece of code (in the source code a label for this address is used), effectively mapping each ASCII character code to a piece of code in the program.
+
+The dispatch table is used to jump to the right procedure while processing each of the characters from the input line.
+
+\subsection{The 8-byte integer stack}
+
+Also central in the working of the original program is the 8-byte integer stack, \verb|nstack|. A memory space of 8192 bytes is reserved for this stack, allowing 1024 8-byte integers to be stored. The stack grows from high to low memory addresses (just as the main stack on the \verb|8088| machine), and the bottom of the stack is referenced by the \verb|stkend| label. The top of the stack is pointed to by the stack pointer, which will be stored in the \verb|BX| register.
+
+\subsection{Processing input}
+
+Three procedures are executed after each other, to process a line of input in Reverse Polish notation. First, \verb|rdline| reads all of the input characters and stores them in memory, located at the \verb|inputb| label. Then, \verb|central| processes all of the characters in this buffer one by one (calling \verb|getcbuf| to set pointers to current and next charachters), thereby evaluating the formula. After that, the \verb|snlcr| procedure prints the value on top of the stack.
+
+These steps are repeated while characters are available on standard input.
+
+
+\section{Changes we made}
+
+\subsection{Intermediate input buffer}
+
+In order to satisfy the assignment objectives, we changed the source code of the original program. When converting input in infix notation to Reverse Polish notation, the converted input has to be stored somewhere. We added a second buffer after the \verb|inputb| buffer for this, and labeled it \verb|convertb|.
+
+After reading input characters and storing them in the \verb|inputb| buffer, the modified program checks if the last character on the input line is a \verb|=| character. If this is the case, the line is converted to Reverse Polish notation and stored in the \verb|convertb| buffer, and pointers to the \verb|inputb| buffer will be adjusted to point to the new \verb|convertb| buffer. If there was no \verb|=| character, nothing is changed.
+
+\subsection{Converting infix to Reverse Polish}
+
+To convert lines in infix notation to Reverse Polish notation, we use the algorithm described by Andy Tanenbaum in ``Structured Computer Organisation'', page 338. This algorithm writes operands directly to the \verb|convertb| buffer and uses a stack for pushing and popping operators. We call this stack \verb|opstack| and use the \verb|BX| register as stack pointer.
+
+Tanenbaum includes a table to determine the action to be taken on processing operators. We encoded this table in assembly, using a sequence of bytes for each possible operator currently on top of the operator stack (rows in the Tanenbaum table). Each sequence starts with a byte containing the \emph{ASCII character code} for the stack operator it refers to. Next, for each possible operator as next input character, two bytes are used. The first of these two bytes contains the \emph{ASCII character code} for that operator, and the second contains a number (1 through 5) as presented in the table by Tanenbaum. Illustrating this with a small example:
+
+\begin{verbatim}
+.BYTE '-', '+', 2, '-', 2, '*', 1, ':', 1
+.BYTE '*', '+', 2, '-', 2, '*', 2, ':', 2
+\end{verbatim}
+
+We extend this with data for a unary minus sign (\verb|~|), and a remainder operator. In honour of Andy Tanenbaum we labeled the table \verb|TANENBAUM|. He is the greatest teacher, yeah.
+
+To be able to decode this table in the program, we added a \verb|rowlength| label, containing the number of bytes used per row in the table (19).
+
+\subsection{Converting character after character}
+
+The procedure \verb|convert| sets up the registers \verb|SI| and \verb|DI| (pointing to \verb|inputb| and \verb|convertb| respectively) and loops over the input characters. In the loop, \verb|LODSB| is used to load the next character to the \verb|AL| register, and \verb|convertchar| is called to process this character.
+
+In \verb|convertchar|, the character is checked to be an operand or part of an operand. If that is indeed the case, the character will be written to the \verb|convertb| buffer with \verb|STOSB|. Otherwise, \verb|convertoperator| will be called. (Spaces in input are ignored; a space character will be written to \verb|convertb| after every call to \verb|convertoperator|.)
+
+The \verb|convertoperator| procedure now has to check what the operator on the top of the operator stack is to know what action to take next. This action is stored in the \verb|TANENBAUM| table (decoding the table is discussed in the subsection after this). The actions are labeled 1 through 5, and depending on this number, a jump is made to procedures \verb|op_push|, \verb|op_pop|, \verb|op_delete|, \verb|op_done|, and \verb|op_error|. These procedures do the obvious, I will not discuss them.
+
+\subsection{Reading the Tanenbaum table}
+
+We begin by setting the \verb|BX| register to the beginning of the \verb|TANENBAUM| table. We loop while \verb|BX| does not yet point to the same character as the current top of the operator stack, adding \verb|rowlength| to \verb|BX| after every iteration. Now \verb|BX| points to the start of the row in the table we are looking for.
+
+Next, we loop a maximum of \verb|rowlength| times to find the correct entry in the row. Every iteration, we add 2 to \verb|BX| and break out of the loop if \verb|BX| points to the same character as the curren character from the input buffer.
+
+If the loop stops before we break out of it, this means the next input character is not a known operator. It is also not a valid operand, since we checked that before, hence, we print an error message.
+
+
+\section{Design decisions}
+
+\subsection{The intermediate conversion buffer}
+
+At first, we had the idea to use \verb|inputb| not only as input buffer for converting infix formulas, but also as output buffer for the converting process. Because writing the converted formula couldn't go faster than reading the infix formula (and in general would be behind several characters stored in the operator buffer), we thought this would be possible. But it isn't possible, because the Reverse Polish notation sometimes requires to insert some delimiter (space character) between two operands, where the infix notation doesn't. Because of this, writing the converted formula could go faster than reading the infix formula.
+
+We quickly decided to use a second buffer, \verb|convertb|. The choice was now to either copy this entire buffer to \verb|inputb| after converting, or reset some pointers to point to the new buffer. Because the latter seemed much more elegant and easier to implement, we choose it.
+
+\subsection{Encoding the Tanenbaum table}
+
+If one chooses to use the algorithm described by Tanenbaum, encoding the operator table in memory one way or another is inevitable. One verbose way of course, would be explicitly listing all possible combinations of two operators and storing a number for each of these combinations. Thinking about seperately storing at least 70 combinations for our program makes my head feel like pudding.
+
+Our design is a lot more maintainable. It could be done with ever less bytes, by realising that the number 2 is the most frequently used number in the table. By using this as the default number, all combinations leading to a number 2 could be removed. However, accessing the information in the table would be somewhat more troublesome, so I wouldn't recommend this `optimization'.
+
+Also, why didn't we store the number of operator entries per row in the table (in \verb|rowlength|) in stead of the number of bytes used per row? Good question. I guess we just didn't. Storing the number of operator entries seems like a much nicer approach indeed.
+
+\subsection{Finding the correct row}
+
+In order to locate the row we are looking for in the Tanenbaum table, we loop until we found it. This is potentially a risk of endless looping (in the case there is no row for the current operator on top of the stack). However, while the program is running, only `valid' operators will be pushed on the operator stack, so a correct row will always be found in finite time. It would be hard to prove this formaly though.
+
+\subsection{Numbers 1 through 5 versus direct dispatching}
+
+The use of the numbers 1 through 5 for decoding the different actions to be taken on finding an operator, may seem a bit of a strange approach. Why not use the Tanenbaum table as a dispatch table, eliminating the need to decode the numbers to equivalent procedure labels? We thought about it, and decided it was not worth the hassle of using \verb|word| values in the table where \verb|byte| values are so much easier to use (certainly when \emph{ASCII character codes} have to be stored in the same memory space).
+
+
+\section{Problems we encountered}
+
+Of course, before starting to write code, we thought about how to do the infix to Reverse Polish conversion. Unfortunately, it turned out we didn't think long enough. The idea we started with--only a linear operator precedence is neccesary to do the conversion--seemed to be no good. The really bad thing about this, was that we discovered our major mistake just half a day before the assignment deadline. We managed to write new code, using a complete Tanenbaum table.
+
+Principle learned: after thinking about something, think about it again.
+
+
+\section{Errors tested for}
+
+We really didn't do a lot of testing. The modified program runs correctly on all input we gave it. This input ranged from simple to more complex formulas in infix notation, using all available operators and brackets. In addition, unbalanced formulas are rejected, as are formulas containing invalid characters.
+
+Also running the program in the tracer gave us a lot of usefull clues about what went wrong and what went right.
+
+The original program contains a number of bugs. Some of them are easy to fix (and so we did), others are more fundamental and therefore harder to fix.
+
+
+\end{document}

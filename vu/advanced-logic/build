@@ -1,0 +1,94 @@
+#!/bin/sh
+
+# This builds a PDF file from LaTeX source
+#
+# 2004-10-12
+# Martijn Vermaat, mvermaat@cs.vu.nl
+#
+# Assumed is that there are one or more LaTeX source
+# files with .tex extension. References may exist to
+# figure files with a .pdftex_t extension. For each
+# .pdftex_t figure file, there is an .pdftex file.
+#
+# This script builds all LaTeX source files to PDF
+# while assembling any figure files.
+#
+# Usage: just run this script from the directory
+# containing all source files.
+
+
+# CAUTION: This dir and all contents will be deleted
+# on each run! It acts as temporary dir.
+BUILDDIR=tempdir
+
+
+# Store current working dir
+CURRENTDIR=`pwd`
+
+echo Purging $BUILDDIR/
+
+# Remove possible old build dir
+rm -Rf $BUILDDIR/
+
+# Create new build dir
+mkdir $BUILDDIR
+
+echo Copying source files to $BUILDDIR/
+
+# Move LaTeX files to build dir
+cp *.tex $BUILDDIR/
+
+# Move figure files to buid dir
+cp *.pdftex_t $BUILDDIR/
+cp *.pdftex $BUILDDIR/
+
+# Change to build dir
+cd $BUILDDIR/
+
+
+# The following is a hack for LaTeX to recognize included
+# files for figures
+
+echo Changing .pdftex extensions to .pdf
+
+# For each .pdftex file
+for i in $( ls *.pdftex ); do
+    mv $i `echo $i | sed s/pdftex/pdf/`
+done
+
+echo Changing links in .pdftex_t files
+
+# Now also change te links to those files
+for i in $( ls *.pdftex_t ); do
+    sed -e 's/includegraphics.*\/\([^/]*\)\.pdftex/includegraphics\{\1\.pdf/' $i > $i.tmp
+    mv $i.tmp $i
+done
+
+echo Building PDF from LaTeX sources: *.tex
+
+# Build PDF from LaTeX source
+pdflatex *.tex
+
+echo Rebuild PDF files for references
+
+# And again, for references
+pdflatex *.tex
+
+echo Removing all temporary files
+
+# Remove figure included files
+for i in $( ls *.pdftex_t ); do
+    rm `echo $i | sed s/pdftex_t/pdf/`
+done
+
+# Remove all temporary files
+rm *.pdftex_t *.aux *.log *.out *.tex
+
+# Move PDF files to original working dir
+mv *.pdf $CURRENTDIR/
+
+# Return to original working dir
+cd $CURRENTDIR/
+
+# Remove temporary build dir
+rm -Rf $BUILDDIR/

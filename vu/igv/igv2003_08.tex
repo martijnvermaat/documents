@@ -1,0 +1,186 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4}
+\usepackage{latexsym}
+\usepackage[
+	colorlinks,
+	pdftitle={IGV solutions week 8},
+	pdfsubject={Werkcollege Inleiding Gegevensverwerking week 8},
+	pdfauthor={Laurens Bronwasser, Martijn Vermaat}
+]{hyperref}
+
+\title{IGV solutions week 8}
+\author{
+	Laurens Bronwasser\footnote{E-mail: lmbronwa@cs.vu.nl, homepage: http://www.cs.vu.nl/\~{}lmbronwa/}
+	\and
+	Martijn Vermaat\footnote{E-mail: mvermaat@cs.vu.nl, homepage: http://www.cs.vu.nl/\~{}mvermaat/}
+}
+\date{23rd February 2003}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In this document we present the solutions to exercises 1 through 5 of the assignment for werkcollege \emph{\mbox{Inleiding Gegevensverwerking}} \mbox{week 8}.
+\end{abstract}
+
+\tableofcontents
+
+
+\newpage
+
+\section{Exercise 1}
+
+\begin{quote}
+Let's prepare for sending out some spam email. That is, what are the email addresses of all the students that we have in our database? Supply the relational algebra expression to list these email addresses.
+\end{quote}
+
+\subsection*{Solution}
+
+We use the \emph{projection} operator $\pi$ to project the relation $ALL\_STUDENTS$\footnote{We use the five relations $STUDENTS\_LAST\_YEAR$, $STUDENTS\_THIS\_YEAR$, $ALL\_STUDENTS$, $COURSES$, and $DUTIES$ which are given in \mbox{werkcollege IGV} reader chapter \mbox{week 8} \emph{\mbox{The Relational Algebra}}.} to the column $EMAIL$:
+
+\begin{displaymath}
+ALL\_EMAIL \ \gets \ \pi_{EMAIL}(ALL\_STUDENTS)
+\end{displaymath}
+
+
+\newpage
+
+\section{Exercise 2}
+
+\begin{quote}
+Who is a freshman at \emph{VU}? That is, who is a student this year, but was not a student last year? Provide the relational algebra expression to list the names of the corresponding students.
+\end{quote}
+
+\subsection*{Solution}
+
+The \emph{difference} operator $\backslash$ returns a relation which contains all the tuples which are in the left operand but not in the right operand. Therefore, $\backslash$ can be used with $STUDENTS\_THIS\_YEAR$ and $STUDENTS\_LAST\_YEAR$ to return all freshmen. Applying the $\pi$ operator on this result, we end up with all freshmen's names:
+
+\begin{eqnarray*}
+FRESHMAN\_NAMES & \gets & \pi_{NAME} ( \\
+& & STUDENTS\_THIS\_YEAR \ \backslash \\
+& & STUDENTS\_LAST\_YEAR \\
+& & )
+\end{eqnarray*}
+
+
+\newpage
+
+\section{Exercise 3}
+
+\begin{quote}
+Who is lazy at \emph{VU}? That is, who claims to be a student this year but is not taking any courses? Supply the relational algebra expression to list the students from this year (say, their names) who did not sign for any courses.
+\end{quote}
+
+\subsection*{Solution}
+
+We use the $\pi$ operator on the resulting relation of applying a \emph{natural join} to the relations $STUDENTS\_THIS\_YEAR$ and $DUTIES$ to list the names of all current students taking courses. Using this as the second operand and the list of names of all current students as the first operand for a \emph{difference} operation will result in the names of all current students not taking any courses:
+
+\begin{eqnarray*}
+LAZY\_ONES & \gets & \pi_{NAME}STUDENTS\_THIS\_YEAR \ \backslash \\
+& & \pi_{NAME}(STUDENTS\_THIS\_YEAR \ \ast \ DUTIES)
+\end{eqnarray*}
+
+
+\newpage
+
+\section{Exercise 4}
+
+\begin{quote}
+\emph{Sherlock Holmes} needs to know: is there anybody from Italy (``IT'') who took a course with ``Robbie Richard''? Supply the relational algebra expression to list the names of these suspicious students.
+\end{quote}
+
+\subsection*{Solution}
+
+We begin by constructing a relation with all courses Robbie follows. The \emph{selection} operator $\sigma$ can be used to select all students named ``Robbie Richard''. We use this result in a \emph{natural join} with the relation $DUTIES$. Projecting this on the $CN$ column results in a list of all course numbers Robbie folows:
+
+\begin{eqnarray*}
+ROBBIES\_CNS & \gets & \pi_{CN} ( \\
+& & DUTIES \ \ast \\
+& & \sigma_{NAME='Robbie'}ALL\_STUDENTS \\
+& & )
+\end{eqnarray*}
+
+We use the relation $ROBBIES\_CNS$ in a \emph{natural join} with the relation $DUTIES$. The result can be joined with the relation $ALL\_STUDENTS$ to obtain a relation with all students who took a course with Robbie. From those students, we only need the Italian ones, and only their names:
+
+\begin{eqnarray*}
+SUSPECTS & \gets & \pi_{NAME} ( \sigma_{CC='IT'} ( \\
+& & ALL\_STUDENTS \ \ast \\
+& & (DUTIES \ \ast \ ROBBIES\_CNS) \\
+& & ))
+\end{eqnarray*}
+
+
+\newpage
+
+\section{Exercise 5}
+
+\begin{quote}
+How do you systematically turn a natural join into a theta join? Explain the corresponding steps. Use Example 5 (\ref{xmpl:five}) and Example 6 (\ref{xmpl:six}) from the reader chapter to see if your explanations are clear and correct.
+\end{quote}
+
+\subsection*{Solution}
+
+Let $R_{1}$ and $R_{2}$ be two relations with columns $C$, $A_{1} \ldots A_{n}$ and $C$, $B_{1} \ldots B_{m}$ where $C$ is the supposed \emph{join attribute}. The \emph{natural join} on $R_{1}$ and $R_{2}$ is defined as:
+
+\begin{displaymath}
+R_{1} \ \ast \ R_{2}
+\end{displaymath}
+
+To construct a \emph{theta join} on $R_{1}$ and $R_{2}$ we need to rename the join attribute $C$ for one of the relations. We rename the $C$ column of the relation $R_{2}$ to $C'$:
+
+\begin{displaymath}
+\rho_{C',B_{1} \ldots B_{m}}(R_{2})
+\end{displaymath}
+
+The resulting relation can be used to construct a \emph{theta join} on $R_{1}$ and $R_{2}$ using $C$ and $C'$ as join attributes. The \emph{natural join} which we want to express in a \emph{theta join} applies an equality comparison on the join attributes, hence we want to apply an equality comparison on the join attributes $C$ and $C'$ in our \emph{theta join}:
+
+\begin{displaymath}
+C \ = \ C'
+\end{displaymath}
+
+Putting it al together we have our \emph{theta join} effectively performing a \emph{natural join}:
+
+\begin{displaymath}
+R_{1} \ \Join_{C=C'} \ \rho_{C',B_{1} \ldots B_{m}}(R_{2})
+\end{displaymath}
+
+Please note that the difference between the relations returned by the \emph{natural join} and the \emph{theta join} is the extra $C'$ column in the result of the \emph{theta join}, which of course always has the same value of the $C$ column present in both relations.
+
+We could discard the $C'$ column with a projection on all columns, except the $C'$ column:
+
+\begin{displaymath}
+\pi_{C, A_{1} \ldots A_{n}, B_{1} \ldots B_{m}} ( R_{1} \ \Join_{C=C'} \ \rho_{C',B_{1} \ldots B_{m}}(R_{2}) )
+\end{displaymath}
+
+
+\newpage
+
+\appendix
+\section{Examples from reader}
+
+\subsection{Example 5}\label{xmpl:five}
+
+A join in a sense is a short-cut for a Cartesian product, followed by a selection operation. Thus, we can reconstruct Example 4 by using a natural join.
+
+\begin{eqnarray*}
+NO\_DUTIES & \gets & STUDENTS\_THIS\_YEAR \ \backslash \\
+& & \pi_{NAME,SSN,CC,EMAIL}( \\
+& & STUDENTS\_THIS\_YEAR \ \ast \ DUTIES \\
+& & )
+\end{eqnarray*}
+
+\subsection{Example 6}\label{xmpl:six}
+
+We can also reconstruct Example 4 by using a theta join. This is more verbose, but it illustrates the relation between theta and natural join. In fact, the specific theta join which we use below is an equi join.
+
+\begin{eqnarray*}
+NO\_DUTIES & \gets & STUDENTS\_THIS\_YEAR \ \backslash \\
+& & \pi_{NAME,SSN,CC,EMAIL}( \\
+& & STUDENTS\_THIS\_YEAR \ \Join_{SSN=SSN'} \\
+& & \qquad \rho_{SSN',CN}(DUTIES) \\
+& & )
+\end{eqnarray*}
+
+
+\end{document}

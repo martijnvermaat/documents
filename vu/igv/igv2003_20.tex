@@ -1,0 +1,83 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4}
+\usepackage{latexsym}
+\usepackage[
+	colorlinks,
+	pdftitle={IGV solutions week 20},
+	pdfsubject={Werkcollege Inleiding Gegevensverwerking week 20},
+	pdfauthor={Laurens Bronwasser, Martijn Vermaat}
+]{hyperref}
+
+\title{IGV solutions week 20}
+\author{
+	Laurens Bronwasser\footnote{E-mail: lmbronwa@cs.vu.nl, homepage: http://www.cs.vu.nl/\~{}lmbronwa/}
+	\and
+	Martijn Vermaat\footnote{E-mail: mvermaat@cs.vu.nl, homepage: http://www.cs.vu.nl/\~{}mvermaat/}
+}
+\date{16th May 2003}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In this document we present the solutions to the assignment for werkcollege \emph{\mbox{Inleiding Gegevensverwerking}} \mbox{week 20}.
+\end{abstract}
+
+\tableofcontents
+
+
+\newpage
+
+\section{Assignment}
+
+
+Perform ``data structure extraction'' for the Cobol program \verb|order.cob| from the DBMAIN examples directory. More specifically, you are asked to perform the following actions:
+
+\begin{itemize}
+
+\item
+Start a new DB-MAIN project.
+
+\item
+Extract the raw physical schema from \verb|order.cob| with File $\rightarrow$ Extract $\rightarrow$ Cobol.
+
+\item
+\textbf{Refinement of field structure:} There are the unusually long fields \verb|CUS-DESCR|, \verb|CUS-HIST|, \verb|ORD-DETAIL|, \verb|STK-NAME|. Determine the \emph{variable dependency graph} for these fields to see if these fields are used in any way that allows us to refine their structure. Hint: Check, for example, how the attribute \verb|CUS-DESCR| of the entity \verb|CUS| and the data field \verb|DESCRIPTION| from the program relate to each other. Perform all your refinements of the entities by defining appropriate nested attributes for the structured attributes.
+
+\item
+\textbf{Explicit foreign keys:} The physical schema is unconnected in the sense that we have no explicit \emph{ref}erence constraints between the entities. Investigate the Cobol program to propose foreign key attributes. Hint: Check, for example, if \verb|ORD.ORD-CUSTOMER| could possibly refer to \verb|CUS|. Use ``add constraint'' to make explicit all your foreign key findings.
+
+\end{itemize}
+
+You are requested to perform the steps in every detail by using DB-MAIN, to document
+all your findings, arguments, and specific actions. Please deliver your documentation
+and the resulting physical model (i.e., printout of diagram). Note that the documentation
+of your extraction is as crucial as the final model if you want to get your solution
+accepted.
+
+\textbf{Note:} There is a designated reader chapter for this week.
+
+
+\newpage
+
+\section{Solution}
+
+A printout of the physical model can be found in a seperate document. In this document we will document the steps we had to make to create the desired diagram.
+
+
+\subsection{Refinement of field structure}
+
+We look at some unusually long fields and examine how they relate to some data fields. We define appropriate nested attributes for these structured attributes. Below we will look at these fields one by one.
+
+
+\subsubsection{CUS-DESCR}
+
+
+
+
+
+
+
+
+\end{document}

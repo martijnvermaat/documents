@@ -1,0 +1,248 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{listings}
+\usepackage[dutch]{babel}
+\usepackage{a4}
+\usepackage{color, rotating}
+\usepackage{latexsym}
+\usepackage[
+    colorlinks,
+    pdftitle={Uitwerkingen eerste huiswerkopdracht},
+    pdfsubject={Voortgezette Logica},
+    pdfauthor={Martijn Vermaat}
+]{hyperref}
+
+% Couldn't find a symbol for bisimulation in standard LaTeX.
+% Then I found the following workaround by Rob van Glabbeek.
+% http://kilby.stanford.edu/~rvg/
+
+\newcommand{\bis}[1]{ \;% bisimulation
+  \raisebox{.3ex}{$\underline{\makebox[.7em]{$\leftrightarrow$}}$}
+                  \,_{#1}\,}
+\newcommand{\nobis}[1]{\mbox{$\,\not\hspace{-2.5pt}% no bisimulation
+    \raisebox{.3ex}{$\underline{\makebox[.7em]{$\leftrightarrow$}}$}
+                  \,_{#1}\,$}}
+
+\title{Uitwerkingen eerste huiswerkopdracht\\Voortgezette Logica}
+\author{
+    Martijn Vermaat\\
+    mvermaat@cs.vu.nl
+}
+\date{11 oktober 2004}
+
+\begin{document}
+\maketitle
+
+
+\section*{Opgave 1}
+
+\begin{quote}
+Uit: het tentamen van 16 juni 2004
+\end{quote}
+
+De volgende modale formule $\varphi$ is equivalent met $\triangle p$:
+
+\begin{eqnarray*}
+\varphi & = & p \, \land \, \Diamond \lnot p
+\end{eqnarray*}
+
+
+\section*{Opgave 2}
+
+\begin{quote}
+Uit: het tentamen van 16 juni 2004
+\end{quote}
+
+\begin{description}
+
+\item[a)]
+
+Plaatjes maken alles makkelijker:\\[1em]
+
+\input{huiswerk-1-opg2.pdftex_t}
+
+De relatie $\mathcal{Z}$ is een bisimulatie tussen de modellen $\mathcal{M}$ en
+$\mathcal{M'}$:
+
+\begin{eqnarray*}
+\mathcal{Z} & = & \{ \langle s, s' \rangle , \, \langle s, t' \rangle \}
+\end{eqnarray*}
+
+\item[b)]
+
+We proberen een tegenspraak af te leiden uit de aanname dat er een modale
+basisformule $\psi$ bestaat die equivalent is met $\bowtie p$:
+
+\begin{eqnarray*}
+\psi & \leftrightarrow & \bowtie p
+\end{eqnarray*}
+
+We bekijken de waarheidswaarde van $\psi$ in wereld $s$. Omdat $\psi$
+equivalent is met $\bowtie p$ en $\bowtie p$ volgens de semantiek van
+$\bowtie$ niet waar is in $s$ (er bestaat geen wereld $x \not= s$ met $Rsx$)
+geldt:
+
+\begin{eqnarray}\label{eqn:first}
+\mathcal{M},s & \not\models & \psi
+\end{eqnarray}
+
+Vervolgens bekijken we de waarheidswaarde van $\psi$ in wereld $s'$. Omdat
+$\bowtie p$ volgens de semantiek van $\bowtie$ waar is in $s'$ (want
+$\mathcal{M'},s' \models p$ en er bestaat een wereld $x \not= s'$ met $R's'x$,
+namelijk $t'$, zo dat $\mathcal{M'},x \models p$) volgt op gelijke wijze:
+
+\begin{eqnarray}\label{eqn:second}
+\mathcal{M'},s' & \models & \psi
+\end{eqnarray}
+
+Omdat $s$ bisimuleert met $s'$ volgt uit de preservatie van waarheid onder
+bisimulatie en uit \ref{eqn:second} dat:
+
+\begin{eqnarray*}
+\mathcal{M},s & \models & \psi
+\end{eqnarray*}
+
+Dit is echter in tegenspraak met \ref{eqn:first} waardoor onze aanname niet
+juist geweest kan zijn.
+
+\end{description}
+
+
+\section*{Opgave 3}
+
+\begin{quote}
+Uit: \emph{Handout 1: Multimodale Logica}
+\end{quote}
+
+\begin{description}
+
+\item[a)]
+
+Het model $\mathcal{M} = (W,<,\pi)$ uit het bewijs van propositie 2.18 uit de
+syllabus kan opgevat worden als een $\{F,P\}$-model $\mathcal{N} =
+(W,<_{F},<_{P},\pi)$ door voor $<_{F}$ de temporele ordening $<$ te nemen en
+voor $<_{P}$ de omkering $>$ van $<$.
+
+Evenzo kunnen we het model $\mathcal{M'} = (W',<',\pi')$ uit hetzelfde bewijs
+opvatten als een $\{F,P\}$-model $\mathcal{N'} = (W',<_{F}',<_{P}',\pi')$ door
+voor $<_{F}'$ de temporele ordening $<'$ te nemen en voor $<_{P}'$ de omkering
+$>'$ van $<'$.
+
+\item[b)]
+
+De relatie $\mathcal{Z}$ met elementen uit $W \times W'$ is een bisimulatie
+tussen $\mathcal{N}$ en $\mathcal{N'}$ als aan de drie voorwaarden uit de
+definitie van bisimulatie uit de handout is voldaan.
+
+\begin{enumerate}
+
+\item
+
+Voor ieder paar $(w,w')$ uit $\mathcal{Z}$ geldt $\pi(w)(p) = \pi'(w')(p)$ en
+$\pi(w)(q) = \pi'(w')(q)$ (bekijk hiervoor de figuur uit de syllabus). Er
+worden geen andere propositionele variabelen in $W$ en $W'$ beschouwd en dus
+is er aan de eerste voorwaarde voldaan.
+
+\item
+
+We beschouwen de tweede voorwaarde eerste met betrekking tot de
+toegankelijkheidsrelaties $>_{F}$ en $>_{F}'$ welke gelijk zijn aan de in de
+syllabus met pijlen aangegeven $>$ en $>'$. Om te voldoen aan de voorwaarde
+moet er in de figuur voor iedere $(w,w')$ uit $\mathcal{Z}$ gelden:
+
+\begin{quote}
+
+er loopt een pijl van $w$ naar $\psi$
+
+$\quad \Longrightarrow$
+
+er loopt een pijl van $w'$ naar $\psi' \in W'$ en $(\psi,\psi') \in \mathcal{Z}$
+
+\end{quote}
+
+Dit geldt inderdaad. Eigenlijk moeten we er enkele pijlen bij denken, omdat
+temporele frames per definitie transitief zijn, maar ook dan blijft
+bovenstaande gelden.
+
+Door alle pijlen in de figuur om te draaien krijgen we een voorstelling van de
+toegankelijkheidsrelaties $<$ en $<'$ welke gelijk zijn aan $>_{P}$ en
+$>_{P}'$. Op dezelfde manier kunnen we inzien dat ook met betrekking tot deze
+toegankelijkheidsrelaties voldaan is aan de voorwaarde.
+
+\item
+
+De derde voorwaarde is symmetrisch in $\mathcal{Z}$ met de tweede voorwaarde
+en daarom is het nu triviaal om in te zien dat ook aan deze voorwaarde voldaan
+is.
+
+\end{enumerate}
+
+\item[c)]
+
+We nemen aan dat er een modale formule $\varphi$ over $\{F,P\}$ bestaat die
+equivalent is met $p \mathcal{U} q$:
+
+\begin{eqnarray*}
+\psi & \leftrightarrow & \bowtie p
+\end{eqnarray*}
+
+We bekijken de waarheidswaarde van $\varphi$ in wereld $s_{0}$. Volgens de
+semantiek van $\mathcal{U}$ is $\varphi$ waar in $s_{0}$ dan en slechts dan
+als:
+
+\begin{enumerate}
+
+\item
+
+er een wereld $v$ bestaat waarin $q$ waar is; en
+
+\item
+
+er een pijl loopt van $s_{0}$ naar deze wereld $v$; en
+
+\item
+
+in alle werelden waarnaar een pijl loopt vanaf $s_{0}$ en een pijl vanaf loopt
+naar $v$ de propositie $p$ waar is.
+
+\end{enumerate}
+
+Kiezen we voor $v$ de wereld $v_{1}$, dan zien we snel dat:
+
+\begin{eqnarray}\label{eqn:third}
+\mathcal{M},s_{0} & \models & \varphi
+\end{eqnarray}
+
+(Bedenk hierbij weer dat er ook een niet getekende pijl loopt van $s_{0}$ naar
+$v_{1}$ wegens de transitiviteit van $<$ en $<_{F}$.)
+
+\paragraph{}
+
+Vervolgens bekijken we de waarheidswaarde van $\varphi$ in wereld
+$s'$ op vergelijkbare wijze. Nu kunnen kunnen we echter in bovenstaand verhaal
+alleen $v'$ kiezen voor de rol van $v$ (het is immers de enige wereld in
+$\mathcal{M'}$ die $q$ waar maakt). Omdat er een pijl van $s'$ naar $t'$ en
+een pijl van $t'$ naar $v'$ lopen moet volgens de laatste voorwaarde $p$ waar
+zijn in $t'$. Dat is niet het geval, dus geldt:
+
+\begin{eqnarray}\label{eqn:fourth}
+\mathcal{M'},s' & \not\models & \varphi
+\end{eqnarray}
+
+\paragraph{}
+
+Eerder hebben we aangetoond dat $\mathcal{M},s_{0} \bis{}
+\mathcal{M'},s'$. Samen met \ref{eqn:third} volgt daarmee volgens stelling 8
+uit de handout:
+
+\begin{eqnarray*}
+\mathcal{M'},s' & \models & \varphi
+\end{eqnarray*}
+
+Dit is echter in tegenspraak met \ref{eqn:fourth} en dus is de aanname dat
+$\varphi$ een modale formule over $\{F,P\}$ is die equivalent is met $p
+\mathcal{U} q$ niet juist geweest.
+
+\end{description}
+
+
+\end{document}

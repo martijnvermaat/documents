@@ -1,0 +1,115 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4}
+\usepackage{latexsym}
+\usepackage[
+	colorlinks,
+	pdftitle={Design Document Assembler Assignment 2},
+	pdfsubject={Assembler Programmeren Practicum},
+	pdfauthor={Martijn Vermaat}
+]{hyperref}
+
+\title{Design Document Assembler Assignment 2}
+\author{
+	Martijn Vermaat (Partner: Laurens Bronwasser)
+}
+\date{26th January 2004}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The aim of the second assignment for the Assembler Programmeren Practicum was to program an emulator for a small black and white display. Some supporting subroutines for the emulator were given. It was our job to extend these subroutines with additional code in order to complete the emulator program. In this document I describe in some detail the working of the original program, and the changes we made to satisfy the assignment objectives.
+\end{abstract}
+
+\tableofcontents
+
+\newpage
+
+
+\section{Introduction}
+
+On execution, the original code reads a terminal bitmap from memory, shows it in a graphical window and exits. A \emph{Postscript} image of the terminal bitmap and a portable bitmap image are written to two seperate files. The terminal bitmap in memory is empty, so the window we see is empty too.
+
+It is our job to add code, so that the program will read characters from standard input and for printable characters write the bitmap to the terminal bitmap. The subroutines in the original code will then display the contents of the terminal bitmap in a window.
+
+
+\section{Code structure}
+
+\subsection{Important subroutines}
+
+The original source code has a main routine which calls three subroutines: \verb|tm_in|, \verb|tm_rd|, and \verb|tm_wr|. The first subroutine, \verb|tm_in|, loads some configuration files in memory and sets up an empty terminal bitmap. One configuration file contains some terminal information, such as width and height. Another configuration file that is loaded is the default font table. Font table files contain bitmaps for all \emph{ASCII} characters and size information for these bitmaps.
+
+The \verb|tm_wr| subroutine writes the terminal bitmap in memory to output. This output is either a window (displayed using the \emph{Tcl/Tk} toolkit), a \emph{Postscript} file, or a portable bitmap file. Therefore, \verb|tm_wr| can call \verb|posout|, \verb|pbmout|, and/or \verb|tclout|.
+
+The second subroutine, \verb|tm_rd|, should read some characters from standard input and fill the terminal bitmap in memory. This part is missing in the original code, so it is this wat we will have to do.
+
+\subsection{Terminal bitmap memory space}
+
+The terminal bitmap will be stored in memory, at label \verb|tm_ch|. The space reserved for this bitmap (in bytes) is the value of \verb|TM_CH_SZ|, by default 8192. Each byte contains information on eight points or pixels, so to store a bitmap of 288*224 we need \verb|288*224/8=8064| bytes, which will fit in the reserved 8192 bytes.
+
+
+\section{Changes we made}
+
+We introduce two new subroutines, called by \verb|tm_rd|: \verb|read_buffer| and \verb|write_bitmap|. The former reads characters from standard input and stores them in a buffer labeled \verb|inputbuffer|, and the latter processes the characters in the buffer one by one, writing the terminal bitmap.
+
+\subsection{Reading characters from standard input}
+
+For reading characters from standard input we use a loop which reads at most \verb|INPUT_BUFFER_SIZE| characters, where \verb|INPUT_BUFFER_SIZE| is a constant defining the number of bytes reserved in memory for the input buffer. This ensures no overflow will occur. The loop also stops when an end of file character is encountered.
+
+\subsection{Processing the input buffer}
+
+We read the input buffer one character at a time and call the \verb|process_char| subroutine to process each character. To determine the action to be taken we use the following method.
+
+\begin{itemize}
+\item
+    If the character is mapped in the dispatch table \verb|DTABLE|, we use the table to call the correct subroutine.
+\item
+    If the character is in the range of `normal' characters, we have to print the bitmap for this character, so we call the \verb|convert_char| subroutine.
+\item
+    Otherwise, the character is ignored.
+\end{itemize}
+
+\subsection{The dispatch table}
+
+In order to map subroutines to `special' characters, we use a dispatch table, labeled \verb|DTABLE|. It consists of \verb|word| addresses to subroutines, one for each `special' character. Below is a sample piece of the table to illustrate things:
+
+\begin{verbatim}
+.WORD snop,  stab,  seoln, snop,  snop,  snop,  snormal
+!     back   tab    \n     vtab   newpag \cr    ctrl-N
+\end{verbatim}
+
+So when a `tab' character is encountered, the \verb|stab| subroutine will be called. The \verb|snop| entries will make a call to \verb|snop| which does nothing, so these characters are ignored. We have to include some of them in the dispatch table because they are between two or more characters we really need to dispatch on.
+
+\subsection{Converting characters to their bitmap representation}
+
+The printable characters will cause a call to the \verb|convert_char| subroutine. It locates the bitmap definition for the character, and writes this to the terminal bitmap using a loop that will loop just as much as the number of bytes in the bitmap definition (which is is in fact the number of points the font bitmap is high).
+
+After the character bitmap has been written to the terminal bitmap, the destination index in the terminal bitmap is set to the position where we sould start writing the next character bitmap. If we are at the end of a terminal bitmap line now, this position will be set corresponding to the start of the next line.
+
+
+\section{Design decisions}
+
+\subsection{`Special' characters and `normal' characters}
+
+We choose to make a distinction between `special' characters and `normal' characters. The `special' chracters are mapped to a subroutine in the dispatch table \verb|DTABLE|. The `normal' characters cause a call to one subroutine. All other characters (in a sense a third category) are ignored.
+
+A simplere approach would have used only the dispatch table (every character would be `special') to map all \emph{ASCII} character codes to a subroutine (a lot of them would map to \verb|snop| and \verb|convert_char|). We discarded this approach because it is painfull to maintain a dispatch table with 128 entries. Also, a lot of characters would map to the same subroutine, making the dispatch table a bit of an overkill.
+
+The other extreme --not using a dispatch table at all-- would require a lot of subsequent `if-statements' (in assembly \verb|cmp| and conditional jump statements) which is not \emph{The Right Solution} we think (for one thing, it would be much harder to maintain). So we settled for a bit of both worlds.
+
+\subsection{Changes in environment}
+
+Our code should behave well in a changed environment. For example, the size of the terminal bitmap could be changed. It does not only depend on our code if such changes will be handled correctly. It also depends on the original code and things like sizes of data structures.
+
+One thing quite difficult to handle would be a width of a character bitmap other than one byte. We explicitly use this one byte value in our code, so changing the definition in a configuration file will not be handled correctly. We thought it would be very hard to change this, and it is not part of the assignment.
+
+
+\section{Errors tested for}
+
+The modified program checks if the input does not overflow the input buffer. In addition, it checks that no bytes are written after the terminal bitmap memory--a overflow messages is printed instead and the program continues with what does fit in the bitmap. `Illegal' characters are ignored, so no possible error in the input is fatal.
+
+We tested the program with a variety of input texts, to make sure all special characters are handled correctly (which they are, we believe). Testing the program with different environment settings is something we haven't taken much time for, so this would be my main bet for a source of possible bugs. To make up for this, we took special care to be sure no bits were harmed during the filming of this assignment.
+
+
+\end{document}

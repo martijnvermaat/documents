@@ -1,0 +1,198 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4}
+\usepackage{latexsym}
+\usepackage[
+	colorlinks,
+	pdftitle={Towers of Hanoi in Lambda Calculus},
+	pdfsubject={Towers of Hanoi in Lambda Calculus},
+	pdfauthor={Martijn Vermaat}
+]{hyperref}
+
+\title{Towers of Hanoi in Lambda Calculus}
+\author{
+	Martijn Vermaat\footnote{E-mail: mvermaat@cs.vu.nl, homepage: http://www.cs.vu.nl/\~{}mvermaat/}
+}
+\date{29th February 2004}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In this document we will see how a solution to the Towers of Hanoi problem can be constructed in pure, untyped Lambda Calculus.
+\end{abstract}
+
+\tableofcontents
+
+\section{The problem of the Towers of Hanoi}
+
+The problem definition below is taken from Wikipedia\footnote{Tower of Hanoi, http://en.wikipedia.org/wiki/Tower\_{}of\_{}Hanoi}.
+
+\begin{quote}
+The Tower of Hanoi (also called Towers of Hanoi) is a mathematical game or puzzle. It consists of three pegs, and a number of discs of different sizes which can slot onto any peg. The puzzle starts with the discs neatly stacked in order of size on one peg, smallest at the top, thus making a conical shape.
+
+The object of the game is to move the entire stack to another peg, obeying the following rules:
+\begin{itemize}
+\item
+only one disc may be moved at a time
+\item
+a disc can only be placed onto a larger disc (it doesn't have to be the adjacent size, though: the smallest disc may sit directly on the largest disc) 
+\end{itemize}
+\end{quote}
+
+This problem is often used in programming courses to illustrate the use of recursion. Solutions have been programmed in allmost every language known to human kind. Having taken a introductory course on Lambda Calculus, I searched for a solution for the Towers of Hanoi problem in Lambda Calculus. Much to my suprise, I wasn't able to find one.
+
+
+\section{A solution in untyped Lambda Calculus}
+
+
+\subsection{The simple solution in Haskell}
+
+The solution is basically a translation to Lambda Calculus of the following obvious solution in Haskell:
+
+\begin{verbatim}
+hanoi (0, _, _, _)         = []
+hanoi (n, from, to, using) = hanoi(n-1, from, using, to) ++
+                               (from, to) :
+                               hanoi(n-1, using, to, from)
+\end{verbatim}
+
+That is, to move \verb|n| discs from \verb|from| to \verb|to| (using \verb|using|), all we have to do is move \verb|n-1| discs to \verb|using|, then move the last disc to \verb|to|, and finaly move the \verb|n-1| discs from \verb|using| to \verb|to|. The trivial case here is moving 0 discs--just don't do anything (return the empty list of pairs). Calling \verb|hanoi| as follows will return a list of pairs, where each pair denotes a move:
+
+\begin{verbatim}
+> hanoi (3, 1, 3, 2)
+[(1,3),(1,2),(3,2),(1,3),(2,1),(2,3),(1,3)]
+\end{verbatim}
+
+In Lambda Calculus, we can try to do the same thing, using notations for pairs, lists, and natural numbers. Because we are talking about untyped Lambda Calculus, the result will be complicated to read (but nevertheless it can well be a correct solution).
+
+
+\subsection{Translating to Lambda Calculus}
+
+To denote numbers, we will use the common notation known as Church Numerals. The most important part of the translation is what we can do in Haskelly with simple pattern matching: to distinguish in the number 0 and all numbers above.
+
+By realising what happend if we apply two arguments on a Church Numeral, we find the following body for our Hanoi function:
+
+\begin{displaymath}
+\lambda n.n \quad (\lambda x.A) \quad B
+\end{displaymath}
+
+where $A$ is some Lambda term not containing $x$ and $B$ an arbitrary Lambda term. This function expects one argument, a Church numeral, and will reduce to $A$ on applications on numbers greater than zero, and $B$ on application on zero.
+
+Now, moving on, we can fill in the $B$ part. The resulting term for zero has to be the empty list. We do have to make sure though, to discard the three arguments $from$, $to$, and $using$. So, using $empty$ as the empty list constructor, we have our new Hanoi function:
+
+\begin{displaymath}
+\lambda n.n \quad (\lambda x.A) \quad (\lambda f \; t \; u.empty)
+\end{displaymath}
+
+The $A$ part is a bit more complicated, but can nevertheless be translated from the Haskell solution fairly straightforward by making use of some predefined functions:
+
+\begin{displaymath}
+\begin{array}{ll}
+\lambda f \; t \; u\;. \quad append & (hanoi\;(pre\;n)\;f\;u\;t) \\
+& (cons \; (pair\;f\;t) \; (hanoi\;(pre\;n)\;u\;t\;f))
+\end{array}
+\end{displaymath}
+
+where:
+
+\begin{itemize}
+\item $append$ is the append operator for lists
+\item $pre$ is the predecessor function
+\item $cons$ is the list constructor function
+\item $pair$ is the pairing constructor function
+\item $hanoi$ is a recursive call to the Hanoi function itself
+\end{itemize}
+
+Combining these results, we then have a complete Hanoi function:
+
+\begin{displaymath}
+\begin{array}{llll}
+hanoi \to & \lambda n.n & ( \lambda f \; t \; u\;. \; append & (hanoi\;(pre\;n)\;f\;u\;t) \\
+& & & (cons \; (pair\;f\;t) \; (hanoi\;(pre\;n)\;u\;t\;f)) ) \\
+& & (\lambda f \; t \; u.empty) &
+\end{array}
+\end{displaymath}
+
+
+\subsubsection{Recursion in Lambda Calculus}
+
+The problem is that we now have a definition in terms of it self. We say we now how $hanoi$ goed, but only if we know $hanoi$. We can transform this recursive definition in a non-recursive one using a little trick and the fixed-point combinator $Y$\footnote{For a short explanation of the fixed-point combinator, see for example http://wombat.doc.ic.ac.uk/foldoc/foldoc.cgi?fixed+point+combinator on FOLDOC}.
+
+We can rewrite the term we just had to the following (taking the $hanoi$ references outside the term):
+
+\begin{displaymath}
+\begin{array}{llll}
+hanoi \to & (\lambda h \; n.n & ( \lambda f \; t \; u\;. \; append & (h\;(pre\;n)\;f\;u\;t) \\
+& & & (cons \; (pair\;f\;t) \; (h\;(pre\;n)\;u\;t\;f)) ) \\
+& & (\lambda f \; t \; u.empty)) & \\
+& hanoi & &
+\end{array}
+\end{displaymath}
+
+The resulting definition is still recursive, but if we look closely, we can see that $hanoi$ seems to be a fixed-point of the function consisting of the complex inner term (everything between the two $hanoi$'s).
+
+That observation makes it possible to write $hanoi$ using the fixed-point combinator $Y$, as follows:
+
+\begin{displaymath}
+\begin{array}{llll}
+hanoi \to & Y \quad \lambda h \; n.n & ( \lambda f \; t \; u\;. \; append & (h\;(pre\;n)\;f\;u\;t) \\
+& & & (cons \; (pair\;f\;t) \; (h\;(pre\;n)\;u\;t\;f)) ) \\
+& & (\lambda f \; t \; u.empty) &
+\end{array}
+\end{displaymath}
+
+And there we have our final definition of a solution for the Towers of Hanoi problem in untyped Lambda Calculus. Please don't try to prove its correctness by reducing
+
+\begin{displaymath}
+hanoi \; 4 \; left \; right \; middle
+\end{displaymath}
+
+by hand. Let's instead just assume it's correct enough.
+
+
+\appendix
+
+\section{Function definitions}
+
+Below are the definitions of the functions used in the construction of our solution. These definitions are widely used and are certainly not `invented' by me. Because there we have smart people for.
+
+\subsection*{General combinators}
+
+\begin{displaymath}
+\begin{array}{rll}
+I & \to & \lambda x.x \\
+Y & \to & \lambda f. \; (\lambda x.f(x \; x)) \; (\lambda x.f(x \; x))
+\end{array}
+\end{displaymath}
+
+\subsection*{Church numerals}
+
+\begin{displaymath}
+\begin{array}{rll}
+zero & \to & \lambda s \; z.z \\
+suc & \to & \lambda x \; s \; z.s \; (x \; s \; z) \\
+pre & \to & \lambda c.c \; (\lambda z. \; (z \; I (suc \; z))) \; (\lambda a. \; (\lambda x.zero))
+\end{array}
+\end{displaymath}
+
+\subsection*{Pairing constructor}
+
+\begin{displaymath}
+\begin{array}{rll}
+pair & \to & \lambda l \; r \; z.z \; l \; r
+\end{array}
+\end{displaymath}
+
+\subsection*{Lists}
+
+\begin{displaymath}
+\begin{array}{rll}
+empty & \to & \lambda x \; y.y \\
+cons & \to & \lambda h \; t \; z.z \; h \; t \\
+append & \to & Y \quad (\lambda a \; l \; r.l \; (\lambda h \; t \; z.cons \; h \; (a \; t \; r)) \; r)
+\end{array}
+\end{displaymath}
+
+
+\end{document}

@@ -1,0 +1,189 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4}
+\usepackage{latexsym}
+\usepackage[
+	colorlinks,
+	pdftitle={IGV solutions week 17},
+	pdfsubject={Werkcollege Inleiding Gegevensverwerking week 17},
+	pdfauthor={Laurens Bronwasser, Martijn Vermaat}
+]{hyperref}
+
+\title{IGV solutions week 17}
+\author{
+	Laurens Bronwasser\footnote{E-mail: lmbronwa@cs.vu.nl, homepage: http://www.cs.vu.nl/\~{}lmbronwa/}
+	\and
+	Martijn Vermaat\footnote{E-mail: mvermaat@cs.vu.nl, homepage: http://www.cs.vu.nl/\~{}mvermaat/}
+}
+\date{8th May 2003}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In this document we present the solutions to exercises 1 and 2 of the assignment for werkcollege \emph{\mbox{Inleiding Gegevensverwerking}} \mbox{week 17}.
+\end{abstract}
+
+\tableofcontents
+
+
+\newpage
+
+\section{Exercise 1}
+
+\begin{quote}
+Derive a relational schema from the ERM for the \emph{MyDell} corporation as of week 15. Use DB-MAIN to perform the derivation. (Note: you are not supposed to use DBMAIN's global transformation ``Transform / Relational model'' but you are requested to perform the various steps as exercised in phase 3 of the DB-MAIN tutorial.) Please use the reference solution for week 15 instead of your personal solution. Please deliver the relational schema in diagram form as printout. Please, also deliver a list of actions that you performed during the conversion, e.g., ``Created a `relationship-relation' for
+relationship XYZ.''.
+\end{quote}
+
+\subsection*{Solution}
+
+A printout of the relational schema in diagram form can be found in a seperate document. In this document we will document the steps we had to make to create the desired relational schema.
+
+
+\subsubsection*{Copy the conceptual schema}
+
+We make a copy of the conceptual schema (as found in the reference solution for week 15) in which the relational structures will be developed. We name it ``MyDell/Relational''.
+
+
+\subsubsection*{Transform multivalued attributes}
+
+Multivalued attributes have to be transformed into entity types, but since we have no multivalued attributes in our schema we can skip this step.
+
+
+\subsubsection*{\emph{Many-to-many} relationship types}
+
+We transform all \emph{many-to-many} relationship types into a new entity type and two new (simpler) relationship types. We list the transformed relationship types in the following table:
+
+\begin{tabular}[t]{*{4}{l}}
+\hline
+\multicolumn{1}{c|}{\emph{Relationship type}}     &
+\multicolumn{2}{c|}{\emph{Entity types}}          &
+\multicolumn{1}{c}{\emph{New entity type}}        \\
+\hline
+combines & Product   & Bundle     & ProductBundle       \\
+contains & Bundle    & Order      & BundleOrder         \\
+consists & Component & Product    & ComponentProduct    \\
+uses     & Component & Technician & ComponentTechnician \\
+contains & Order     & Product    & OrderProduct        \\
+\hline
+\end{tabular}
+
+
+\subsubsection*{Disaggregate compound attributes}
+
+In a relational model, compound attributes are not allowed and have to be removed. Since we have no compound attributes in our schema, we can proceed to the next step.
+
+
+\subsubsection*{\emph{One-to-many} relationship types}
+
+All relationship types that are left in our schema are \emph{one-to-many} relationship types. We can transform these into \emph{foreign keys}. Cardinality is lost with the transformation, but can always be looked up in the conceptual schema. In the following table we list the transformed relationship types (entity types where the foreign key is added are listed first):
+
+\noindent
+\begin{tabular}[t]{*{5}{l}}
+\hline
+\multicolumn{1}{c|}{\emph{Rel. type}}      &
+\multicolumn{2}{c|}{\emph{Entity types}}   &
+\multicolumn{1}{c}{\emph{New foreign key}} \\
+\hline
+pro\_com     & ProductComponent    & Component       & Component\_id     \\
+pro\_pro     & ProductComponent    & Product         & Product\_id       \\
+com\_com     & ComponentTechnician & Component       & Component\_id     \\
+com\_tec     & ComponentTechnician & Technician      & Technician\_id    \\
+pro\_pro\_1  & ProductBundle       & Product         & Product\_id       \\
+pro\_bun     & ProductBundle       & Bundle          & Bundle\_id        \\
+bun\_bun     & BundleOrder         & Bundle          & Bundle\_id        \\
+bun\_ord     & BundleOrder         & Order           & Ordernumber       \\
+ord\_pro	 & OrderProduct        & Product         & Product\_id       \\
+ord\_ord     & OrderProduct        & Order           & Ordernumber       \\
+assembles    & Product             & Technician      & Technician\_id    \\
+has          & Customer            & Company         & Company\_id       \\
+has	         & Company             & Manager         & Manager\_id       \\
+manufactures & Product             & Company         & Company\_id       \\
+supervisies  & Sales assistent     & Manager         & Manager\_id       \\
+supervises   & Technician          & Manager         & Manager\_id       \\
+works on     & Order               & Technician      & Technician\_id    \\
+places       & Order               & Customer        & Customer\_id      \\
+enquires     & Order               & Customer        & Enq\_Customer\_id \\
+handles	     & Order               & Sales assistent & Sassistent\_id    \\
+\hline
+\end{tabular}
+
+
+\subsubsection*{Transforming names}
+
+In order to be fully compliant with the \emph{SQL} syntax, we transform all names to uppercase and replace spaces with underscores. 
+
+
+\newpage
+
+\section{Exercise 2}
+
+\begin{quote}
+Derive a physical schema from the above relational schema. Use DB-MAIN to perform the derivation. Please deliver the generated SQL code as printout. The derivation of the physical schema basically amounts to the definition of indexes and storage spaces. Please, also deliver a list of actions that you performed during the conversion, e.g., ``Defined a storage space for XYZ.''. A useful definition of indexes and storage spaces is up to you.
+\end{quote}
+
+\subsection*{Solution}
+
+A printout of the physical schema in diagram form and the generated SQL code can be found in a seperate document. In this document we will document the steps we had to make to create the desired physical schema and generate the SQL code.
+
+
+\subsubsection*{Copy the relational schema}
+
+We make a copy of the relational schema we created for exercise 2 in which the physical structures will be developed. We name it ``MyDell'' and make the version ``SQL''.
+
+
+\subsubsection*{Define the indexes}
+
+In principle, indexes have to be created for each identifier and each foreign key, so we add these.
+
+
+\subsubsection*{Remove prefix indexes}
+
+Some indexes are redundant and can be removed. We remove all indexes whose components appear in the first position in another index. Removed indexes are listed in the following table:
+
+\begin{tabular}[t]{*{2}{l}}
+\hline
+\multicolumn{1}{c|}{\emph{Index}}       &
+\multicolumn{1}{c}{\emph{Entity type}}  \\
+\hline
+TECHNICIAN\_ID & COMPONENTTECHNICIAN \\
+ORDERNUMBER    & BUNDLEORDER         \\
+BUNDLE\_ID     & PRODUCTBUNDLE       \\
+ORDERNUMBER    & ORDERPRODUCT        \\
+COMPONENT\_ID  & PRODUCTCOMPONENT    \\
+\hline
+\end{tabular}
+
+
+\subsubsection*{Define storage spaces}
+
+We define storage spaces in which the table rows will be stored. In the following table we list the storage spaces and the assigned tables:
+
+\begin{tabular}[t]{*{2}{l}}
+\hline
+\multicolumn{1}{c|}{\emph{Storage space}} &
+\multicolumn{1}{c}{\emph{TableS}}         \\
+\hline
+CUSTOMER\_SPC & CUSTOMER            \\
+              & ORDER               \\
+              & ORDERPRODUCT        \\
+              & BUNDLEORDER         \\
+\hline
+COMPANY\_SPC  & COMPANY             \\
+              & MANAGER             \\
+              & TECHNICIAN          \\
+              & SALES\_ASSISTANT    \\
+\hline
+PRODUCT\_SPC  & PRODUCT             \\
+              & BUNDLE              \\
+              & COMPONENT           \\
+              & COMPONENTTECHNICIAN \\
+              & PRODUCTBUNDLE       \\
+              & PRODUCTCOMPONENT    \\
+\hline
+\end{tabular}
+
+
+
+\end{document}

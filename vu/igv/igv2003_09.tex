@@ -1,0 +1,335 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4}
+\usepackage{latexsym}
+\usepackage[
+	colorlinks,
+	pdftitle={IGV solutions week 9},
+	pdfsubject={Werkcollege Inleiding Gegevensverwerking week 9},
+	pdfauthor={Laurens Bronwasser, Martijn Vermaat}
+]{hyperref}
+
+\title{IGV solutions week 9}
+\author{
+	Laurens Bronwasser\footnote{E-mail: lmbronwa@cs.vu.nl, homepage: http://www.cs.vu.nl/\~{}lmbronwa/}
+	\and
+	Martijn Vermaat\footnote{E-mail: mvermaat@cs.vu.nl, homepage: http://www.cs.vu.nl/\~{}mvermaat/}
+}
+\date{4th March 2003}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In this document we present the solutions to exercises 1 through 5 of the assignment for werkcollege \emph{\mbox{Inleiding Gegevensverwerking}} \mbox{week 9}.
+\end{abstract}
+
+\tableofcontents
+
+
+\newpage
+
+\section{Exercise 1}
+
+\begin{quote}
+List all names of all animals.
+\end{quote}
+
+\subsection*{Solution}
+
+The very trivial solution to this problem uses a \verb|SELECT| query on the \verb|Animal| table\footnote{With the solutions we list the output as printed in the \emph{MySQL} terminal; some lines of this output may be ommited in case of a very large resultset}:
+
+\begin{verbatim}
+mysql> SELECT name FROM Animal;
++------------+
+| name       |
++------------+
+| Cow1       |
+| Cow2       |
+| Cow3       |
+| Cow4       |
+| Cow6       |
+| Cow7       |
+
+...
+
+| Beefy II   |
+| Angus      |
+| Angus II   |
+| Cotton II  |
+| Merino III |
+| SilkyIV    |
+| Tender VI  |
+| Beefy VII  |
+| Angus V    |
+| Angus O    |
+| Angus O++  |
+| Angus Meat |
++------------+
+52 rows in set (0.00 sec)
+\end{verbatim}
+
+
+\newpage
+
+\section{Exercise 2}
+
+\begin{quote}
+It's time for a merger. The two farms `Meat Plant I' and `Meat Plant II' become one, say `Meat Plant'. This is not a commercial problem because they are both owned by `Harry Footnmouth' anyway. So update the corresponding tuples in the database. Also, clean up the database because there will be one \verb|Farm| less at the end.
+\end{quote}
+
+\subsection*{Solution}
+
+First we have to know the \verb|farmid|s of the two farms `Meat Plant I' and `Meat Plant II'. We also need to know the \verb|county| and \verb|owner| of these farms. Therefore we use a \verb|SELECT| query to list these fields (and \verb|farmname|, to check the results) of the rows in \verb|Farm| where \verb|farmname| contains `Meat Plant' and optional other characters (we hope to match `Meat Plant I' and `Meat Plant II'):
+
+\begin{verbatim}
+mysql> SELECT
+    ->    farmid,
+    ->    farmname,
+    ->    county,
+    ->    owner
+    -> FROM
+    ->    Farm
+    -> WHERE
+    ->    farmname LIKE 'Meat Plant%';
++--------+---------------+--------+-------+
+| farmid | farmname      | county | owner |
++--------+---------------+--------+-------+
+|      9 | Meat Plant II | Galway |     6 |
+|     10 | Meat Plant I  | Galway |     6 |
++--------+---------------+--------+-------+
+2 rows in set (0.00 sec)
+\end{verbatim}
+
+We almost have the information we need for the new farm `Meat Plant'. To insert this farm in the \verb|Farm| table we need to know what numbers are in used for \verb|farmid| so we can choose a new one without accidentily inserting a new farm with an already existing \verb|farmid|\footnote{In an optimized database choosing a new identifier number will not be necessary because the database will provide an automatic numbering system}:
+
+\newpage
+
+\begin{verbatim}
+mysql> SELECT farmid FROM Farm;
++--------+
+| farmid |
++--------+
+|      1 |
+|      2 |
+|      3 |
+|      4 |
+|      5 |
+|      6 |
+|      7 |
+|      8 |
+|      9 |
+|     10 |
++--------+
+10 rows in set (0.00 sec)
+\end{verbatim}
+
+We see we can use any number greater than `10', so we will use `923' for our \verb|farmid|. By using an \verb|INSERT| statement we can add the new farm `Meat Plant' to the \verb|Farm| table:
+
+\begin{verbatim}
+mysql> INSERT INTO Farm
+    ->    (farmid, farmname, county, owner)
+    -> VALUES
+    ->    (923, 'Meat Plant', 'Galway', 6);
+Query OK, 1 row affected (0.01 sec)
+\end{verbatim}
+
+Now we have our new farm we need to change all references to the old farms `Meat Plant I' and `Meat Plant II' in references to `Meat Plant'. We remember the old identifier numbers of the two farms, so we can execute this \verb|UPDATE| statements on the \verb|Animal| and \verb|Contaminated| tables:
+
+\newpage
+
+\begin{verbatim}
+mysql> UPDATE
+    ->    Animal
+    -> SET
+    ->    location = 11
+    -> WHERE
+    ->    location = 9
+    ->    OR
+    ->    location = 10;
+Query OK, 18 rows affected (0.06 sec)
+Rows matched: 18  Changed: 18  Warnings: 0
+
+mysql> UPDATE
+    ->    Contaminated
+    -> SET
+    ->    farm = 11
+    -> WHERE
+    ->    farm = 9
+    ->    OR
+    ->    farm = 10;
+Query OK, 17 rows affected (0.03 sec)
+Rows matched: 17  Changed: 17  Warnings: 0
+\end{verbatim}
+
+Now all references are updated, we only need to remove the old farms `Meat Plant I' and `Meat Plant II' from the database:
+
+\begin{verbatim}
+mysql> DELETE FROM Farm WHERE farmid = 9 OR farmid = 10;
+Query OK, 2 rows affected (0.02 sec)
+\end{verbatim}
+
+
+\newpage
+
+\section{Exercise 3}
+
+\begin{quote}
+Looking closely at the schema, it seems that there is some redundancy involved. That is, the table \verb|Contaminated| provides a column not just for the \verb|animal| but also for the \verb|farm|. However, the latter can be derived already from the \verb|animal| itself. So find out if there are any integrity violations in the sense that the two derivable farm locations would be different for any given animal. Describe the needed query, and report on your findings. Hint: You will need a join operation. You will need both equality (``\verb|=|'') and inequality (``\verb|<>|'') conditions. (See the last example in Sec. 3.1 of the reader chapter on SQL and MySQL.)
+\end{quote}
+
+\subsection*{Solution}
+
+We would like to know the identifier numbers (\verb|animalid|) for the animals that suffer from an integrity violation. We can list these \verb|animalid|s by selecting all animals with a matching reference from the \verb|Contaminated| table and a non-matching farm location:
+
+\begin{verbatim}
+mysql> SELECT
+    ->    Animal.animalid
+    -> FROM
+    ->    Animal, Contaminated
+    -> WHERE
+    ->    Contaminated.animal = Animal.animalid
+    ->    AND
+    ->    Contaminated.farm <> Animal.location;
++----------+
+| animalid |
++----------+
+|       39 |
+|       42 |
++----------+
+2 rows in set (0.00 sec)
+\end{verbatim}
+
+
+\newpage
+
+\section{Exercise 4}
+
+\begin{quote}
+Design a query which involves a double join, that is, three tables. Explain the purpose of your query briefly.
+\end{quote}
+
+\subsection*{Solution}
+
+We would like to have some more information on the animals suffering from an integrity violation\footnote{See exercise 3}. So we list the names of these animals and the names of the two derivable farms for them. In this query we need to rename the double joined \verb|Farm| table to prevent any ambigueties:
+
+\begin{verbatim}
+mysql> SELECT
+    ->    Animal.name,
+    ->    AnimalFarm.farmname,
+    ->    ContaminatedFarm.farmname
+    -> FROM
+    ->    Animal,
+    ->    Contaminated,
+    ->    Farm AnimalFarm,
+    ->    Farm ContaminatedFarm
+    -> WHERE
+    ->    Contaminated.animal = Animal.animalid
+    ->    AND
+    ->    AnimalFarm.farmid = Animal.location
+    ->    AND
+    ->    ContaminatedFarm.farmid = Contaminated.farm
+    ->    AND
+    ->    Contaminated.farm <> Animal.location;
++---------+------------+------------+
+| name    | farmname   | farmname   |
++---------+------------+------------+
+| SilkyII | Meat Plant | God Fellow |
+| Angus   | God Fellow | Meat Plant |
++---------+------------+------------+
+2 rows in set (0.00 sec)
+\end{verbatim}
+
+
+\newpage
+
+\section{Exercise 5}
+
+\begin{quote}
+It was decided to create a hospital farm. In fact, this farm will specialise in BSE. So please create all tuples that are needed for this farm to exist, and move all cows who suffer from BSE to this new farm. Hint: in updating the \verb|Animal| table you first determine all \verb|animalids| to be moved by a \verb|SELECT| statement. In a subsequent step, you perform an \verb|UPDATE| statement with a \verb|WHERE| condition as follows:
+\begin{displaymath}
+animalid\ IN(\ldots)
+\end{displaymath}
+Replace ``\ldots'' by the result of the output of the \verb|SELECT| statement. If necessary, see the
+MySQL manual; comparison operators for the \verb|IN| operator for membership test.
+\end{quote}
+
+\subsection*{Solution}
+
+Firts, we have to add the new farm to the \verb|Farm| table, we name it `HospitalFarm':
+
+\begin{verbatim}
+mysql> INSERT INTO Farm
+    ->    (farmid, farmname)
+    -> VALUES
+    ->    (329, 'HospitalFarm');
+Query OK, 1 row affected (0.00 sec)
+\end{verbatim}
+
+Next, we need to know all identifier numbers for the cows that suffer from `BSE':
+
+\newpage
+
+\begin{verbatim}
+mysql> SELECT
+    ->    Animal.animalid
+    -> FROM
+    ->    Animal, Contaminated
+    -> WHERE
+    ->    Contaminated.animal = Animal.animalid
+    ->    AND
+    ->    Animal.type = 'cow'
+    ->    AND
+    ->    Contaminated.type = 'BSE';
++----------+
+| animalid |
++----------+
+|        1 |
+|        2 |
+|       13 |
+|       14 |
+|       15 |
+|       16 |
+|       17 |
+|       24 |
+|       25 |
+|       26 |
+|       27 |
+|       30 |
+|       31 |
+|       32 |
+|       33 |
+|       34 |
+|       43 |
++----------+
+17 rows in set (0.00 sec)
+\end{verbatim}
+
+With this information we can change the references to the \verb|Farm| table in the \verb|Animal| and \verb|Contaminated| tables:
+
+\begin{verbatim}
+mysql> UPDATE
+    ->    Animal
+    -> SET
+    ->    location = 329
+    -> WHERE
+    ->    animalid IN(
+    ->    1,2,13,14,15,16,17,24,25,26,27,30,31,32,33,34,43
+    ->    );
+Query OK, 17 rows affected (0.01 sec)
+Rows matched: 17  Changed: 17  Warnings: 0
+
+mysql> UPDATE
+    ->    Contaminated
+    -> SET
+    ->    farm = 329
+    -> WHERE
+    ->    animal IN(
+    ->    1,2,13,14,15,16,17,24,25,26,27,30,31,32,33,34,43
+    ->    );
+Query OK, 17 rows affected (0.00 sec)
+Rows matched: 17  Changed: 17  Warnings: 0
+\end{verbatim}
+
+
+\end{document}

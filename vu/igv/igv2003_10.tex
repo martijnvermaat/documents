@@ -1,0 +1,139 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4}
+\usepackage{latexsym}
+\usepackage[
+	colorlinks,
+	pdftitle={IGV solutions week 10},
+	pdfsubject={Werkcollege Inleiding Gegevensverwerking week 10},
+	pdfauthor={Laurens Bronwasser, Martijn Vermaat}
+]{hyperref}
+
+\title{IGV solutions week 10}
+\author{
+	Laurens Bronwasser\footnote{E-mail: lmbronwa@cs.vu.nl, homepage: http://www.cs.vu.nl/\~{}lmbronwa/}
+	\and
+	Martijn Vermaat\footnote{E-mail: mvermaat@cs.vu.nl, homepage: http://www.cs.vu.nl/\~{}mvermaat/}
+}
+\date{8th March 2003}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In this document we present the solutions to exercises 1 through 4 of the assignment for werkcollege \emph{\mbox{Inleiding Gegevensverwerking}} \mbox{week 10}.
+\end{abstract}
+
+\tableofcontents
+
+
+\newpage
+
+\section{Exercise 1}
+
+\begin{quote}
+CREATE database TABLEs for veterinarians and for appointments to treat animals during the consultation hours.
+\end{quote}
+
+\subsection*{Solution}
+
+First we have to create a table for veterinarians. A veterinarian needs a name, an address and a unique identifier number. A \verb|VARCHAR| column with length 20 seems to be good enough to store a veterinarian's name and address. For the unique identifier, which will be the \verb|PRIMARY KEY|, we use the \verb|BIGINT| type\footnote{While a $BIGINT$ type may seem to be a bit much for a simple $PRIMARY\ KEY$, we use it anyway, just to keep in line with the other identifiers in the database (a $BIGINT$ value can range from -9223372036854775808 to 9223372036854775807, it doesn't seem likely there will ever fit that many cows and sheep on the entire earth)}. So the table definition becomes\footnote{With the solutions we list the output as printed in the \emph{MySQL} terminal; some lines of this output may be ommited in case of a very large resultset}:
+
+\begin{verbatim}
+mysql> CREATE TABLE Veterinarian (
+    ->    vetid BIGINT PRIMARY KEY,
+    ->    vetname VARCHAR(20),
+    ->    address VARCHAR(20)
+    -> );
+Query OK, 0 rows affected (0.17 sec)
+\end{verbatim}
+
+Now we'd like to be able to store some appointments. An appointment tells us which animal is seeing a veterinarian, which veterinarian this will be, and when all this will take place. The unique identifier for any appointment could be composed from the animal identifier and the veterinarian identifier, but that will render the situation of an animal seeing a particular veterinarian twice impossible\footnote{Something similar is already the case for the given $Contaminated$ table: one animal cannot suffer from more than one type of contamination}. Therefore, we don't use a compound \verb|PRIMARY KEY| for our \verb|Appointment| table, and, a bit straightforward, our \verb|CREATE TABLE| statement will look like this:
+
+\begin{verbatim}
+mysql> CREATE TABLE Appointment (
+    ->    appid BIGINT PRIMARY KEY,
+    ->    animalid BIGINT NOT NULL REFERENCES Animal(animalid),
+    ->    vetid BIGINT NOT NULL REFERENCES Veterinarian(vetid),
+    ->    dateandtime DATETIME
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+\end{verbatim}
+
+
+\newpage
+
+\section{Exercise 2}
+
+\begin{quote}
+Study the \verb|CREATE INDEX| statement. It is covered by the MySQL manual while its discussion is omitted in the reader chapter. Use this statement to optimise the database for frequent queries that are ordered by the price of animals.
+\end{quote}
+
+\subsection*{Solution}
+
+In the \emph{MySQL Reference Manual} we find the syntax for the \verb|CREATE INDEX| statement\footnote{Section 6.5.7 CREATE INDEX Syntax, available online at $http://www.mysql.com$}:
+
+\begin{verbatim}
+CREATE [UNIQUE|FULLTEXT] INDEX index_name
+       ON tbl_name (col_name[(length)],... )
+\end{verbatim}
+
+We simply want to create an index on the \verb|price| column of the \verb|Animal| table to speed up sorting on that column, so a simple statement of the following form will do:
+
+\begin{verbatim}
+mysql> CREATE INDEX price ON Animal (price);
+Query OK, 52 rows affected (0.25 sec)
+Records: 52  Duplicates: 0  Warnings: 0
+\end{verbatim}
+
+
+\newpage
+
+\section{Exercise 3}
+
+\begin{quote}
+Recall Exercise 3 from Week 9. Alter the database schema in a way to remove the described redundancy.
+\end{quote}
+
+\subsection*{Solution}
+
+The redundancy comes from the fact that a farm for any given contaminated animal can be derived in two different ways. One of these has to be eliminated. We choose to remove the \verb|farm| column from the \verb|Contaminated| table:
+
+\begin{verbatim}
+mysql> ALTER TABLE Contaminated DROP farm;
+Query OK, 43 rows affected (0.20 sec)
+Records: 43  Duplicates: 0  Warnings: 0
+\end{verbatim}
+
+The obvious consequence of this action is that all information stored in the \verb|farm| column is now lost. But that's just what we want.
+
+
+\newpage
+
+\section{Exercise 4}
+
+\begin{quote}
+Attempt an alternative solution for the removal of redundancy. Instead of altering the existing \verb|Contaminated| table, create a new table \verb|NonredundantContaminated| which does not suffer from the redundancy. Be sure to use the \verb|CREATE TABLE| syntax which involves a \verb|SELECT| statement as explained at the end of Sec. 4.1 in the reader chapter on SQL and MySQL. Once you have created the new table, you can drop the old table. This is all very simple.
+\end{quote}
+
+\subsection*{Solution}
+
+We execute a \verb|CREATE TABLE| statement in which we use a \verb|SELECT| statement. We select the columns \verb|animal| and \verb|type| from the \verb|Contaminated| table to create the new table \verb|NonredundantContaminated|. We would also like to have a \verb|PRIMARY KEY| for this table, so we choose \verb|animal| for this\footnote{Downside of this approach is that one animal can never suffer from more than one contamination, but that was also the case in the old $Contaminated$ table}.
+
+\begin{verbatim}
+mysql> CREATE TABLE NonredundantContaminated
+    ->    (PRIMARY KEY (animal))
+    ->    SELECT animal, type FROM Contaminated;
+Query OK, 43 rows affected (0.05 sec)
+Records: 43  Duplicates: 0  Warnings: 0
+\end{verbatim}
+
+We now only have to \verb|DROP| the old \verb|Contaminated| table:
+
+\begin{verbatim}
+mysql> DROP TABLE Contaminated;
+Query OK, 0 rows affected (0.00 sec)
+\end{verbatim}
+
+
+\end{document}
