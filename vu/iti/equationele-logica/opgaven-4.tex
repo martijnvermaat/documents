@@ -228,9 +228,42 @@ Hieruit volgt dat $\phi$ een homomorphisme van $\mathfrak{A}$ naar
 $\mathfrak{B}$ is en dus bestaat een dergelijk homomorphisme.\\[2em]
 
 
-{\bf Opgave 4.5}
+{\bf Opgave 4.5} % beschrijf termalgebra's van Naturals, Booleans en NatBool
 
-Todo.\\[2em]
+De termalgebra $\mathfrak{Ter}_{\texttt{Naturals}}$ heeft als drager de
+verzameling gesloten termen $Ter_{\Sigma}$ uit $\texttt{Naturals}$. De
+interpretaties van de functiesymbolen uit $\texttt{Naturals}$ zijn als volgt:
+
+\begin{eqnarray*}
+  \texttt{0}_{\mathfrak{Ter}_{\texttt{Naturals}}}        & = & \texttt{0} \\
+  \texttt{succ}_{\mathfrak{Ter}_{\texttt{Naturals}}}(t)  & = & \texttt{succ}(t) \\
+  \texttt{add}_{\mathfrak{Ter}_{\texttt{Naturals}}}(t,u) & = & \texttt{add}(t,u) \\
+  \texttt{mul}_{\mathfrak{Ter}_{\texttt{Naturals}}}(t,u) & = & \texttt{mul}(t,u)
+\end{eqnarray*}
+
+Voor de termalgebra $\mathfrak{Ter}_{\texttt{Booleans}}$ van
+$\texttt{Booleans}$ gebruiken we als drager de verzameling gesloten termen
+$Ter_{\Sigma}$ uit $\texttt{Booleans}$. De interpretaties van de
+functiesymbolen zijn als volgt:
+
+\begin{eqnarray*}
+  \texttt{true}_{\mathfrak{Ter}_{\texttt{Naturals}}}     & = & \texttt{true} \\
+  \texttt{false}_{\mathfrak{Ter}_{\texttt{Naturals}}}    & = & \texttt{false} \\
+  \texttt{and}_{\mathfrak{Ter}_{\texttt{Naturals}}}(t,u) & = & \texttt{and}(t,u) \\
+  \texttt{or}_{\mathfrak{Ter}_{\texttt{Naturals}}}(t,u)  & = & \texttt{or}(t,u) \\
+  \texttt{not}_{\mathfrak{Ter}_{\texttt{Naturals}}}(t)   & = & \texttt{not}(t)
+\end{eqnarray*}
+
+De drager van de termalgebra $\mathfrak{Ter}_{\texttt{NatBool}}$ is de
+verzameling gesloten termen $Ter_{\Sigma}$ uit $\texttt{NatBool}$. De
+interpretaties van de functiesymbolen zijn dezelfde als in
+$\mathfrak{Ter}_{\texttt{Naturals}}$ en $\mathfrak{Ter}_{\texttt{Booleans}}$
+met daar aan toegevoegd de volgende interpretaties:
+
+\begin{eqnarray*}
+  \texttt{even}_{\mathfrak{Ter}_{\texttt{NatBool}}}(t)   & = & \texttt{even}(t) \\
+  \texttt{odd}_{\mathfrak{Ter}_{\texttt{NatBool}}}(t)   & = & \texttt{odd}(t)
+\end{eqnarray*}
 
 
 {\bf Opgave 4.6}
