@@ -36,8 +36,10 @@ mvermaat@cs.vu.nl}
 \subsection*{Components to Choose From}
 
 \begin{itemize}
-\item Sleeping bag (gewicht, afmetingen)
-\item Tent (...)
+\item Tent (gewicht, afmetingen)
+\item Hotel guide (...)
+\item Sleeping bag (...)
+\item Sleeping carpet (...)
 \item Cooking construction
 \item Cooking pan
 \item Barbeque
@@ -46,12 +48,31 @@ mvermaat@cs.vu.nl}
 \end{itemize}
 
 
+\subsection*{Component Functions}
+
+\begin{description}
+
+\item{A place to sleep}
+
+Provided by a tent and by a hotel guide.
+
+\item{Something to prepare food}
+
+Provided by a cooking construction and by a barbeque.
+
+\item{Something to sleep on}
+
+Provided by a sleeping bag and by a sleeping carpet.
+
+\end{description}
+
+
 \subsection*{Component Relations}
 
 \paragraph{Required Components}
 
 \begin{itemize}
-\item A tent requires a sleeping bag.
+\item A tent requires something to sleep on.
 \item A cooking construction requires a cooking pan.
 \item A barbeque requires barbeque coal.
 \item ...
@@ -79,11 +100,22 @@ mvermaat@cs.vu.nl}
 
 \section*{Knowledge About Configuration}
 
+We can only take a total of 10 kilograms in our backpack.
+Also, the components have to fit in the packpack.
+
 
 \section*{Knowledge About Sharing}
 
 
-\section*{Beschrijving Stappen}
+\section*{Possible Scenario}
+
+The following is part of a possible scenario of applying the
+MCF1 technique.
+
+\paragraph{Functional Requirements}
+
+To go on a camping holiday, we need to arrange for the following
+in our backpack: something to prepare food, a place to sleep.
 
 
 \end{document}
