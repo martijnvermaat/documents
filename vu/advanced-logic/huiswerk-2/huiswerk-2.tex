@@ -1,5 +1,6 @@
 \documentclass[a4paper,11pt]{article}
 \usepackage{amssymb}
+\usepackage{fitch}
 \usepackage[dutch]{babel}
 \usepackage{a4}
 \usepackage{color, rotating}
@@ -78,6 +79,29 @@ K_{i} p \, \wedge \, K_{j} p & \nvDash & K_{i} K_{j} p
 \end{eqnarray*}
 
 waarbij $i$ en $j$ twee kenners zijn.
+
+
+\section*{Opgave 2}
+
+Een afleiding in $S5$ voor $\neg K \neg K p \to K ( p \vee q )$:
+
+\begin{equation*}
+\begin{fitch}
+\neg K p \to K \neg K p                        & A3        \\
+\neg K \neg K p \to K p                        & PROP, 1   \\
+K(p \to q) \to (K p \to K q)                   & DB        \\
+K(p \to (p \vee q)) \to (K p \to K (p \vee q)) & SUB, 3    \\
+p \to (p \vee q)                               & CT        \\
+K(p \to (p \vee q))                            & UG, 5     \\
+K p \to K (p \vee q)                           & MP, 4,6   \\
+\neg K \neg K p \to K (p \vee q)               & \dag, 2,7
+\end{fitch}
+\end{equation*}
+
+
+\section*{Opgave 3}
+
+
 
 
 \end{document}
