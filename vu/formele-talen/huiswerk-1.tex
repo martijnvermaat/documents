@@ -1,0 +1,50 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{listings}
+\usepackage[dutch]{babel}
+\usepackage{a4}
+\usepackage{color, rotating}
+\usepackage{latexsym}
+\usepackage[
+    colorlinks,
+    pdftitle={Formele Talen - Inleveropgaven I},
+    pdfsubject={Formele Talen},
+    pdfauthor={Martijn Vermaat}
+]{hyperref}
+
+\title{Formele Talen - Inleveropgaven I}
+\author{
+    Martijn Vermaat\\
+    mvermaat@cs.vu.nl
+}
+\date{16 november 2004}
+
+\begin{document}
+\maketitle
+
+
+\section*{Opgave 1}
+
+
+\begin{description}
+
+
+\item[a)]
+
+Grammatica:
+
+\begin{eqnarray}
+S & \rightarrow & aAb \, | \, aAc \, | \, bAa \, | \, bAc \, | \, cAa \, | \, cAb \nonumber \\
+A & \rightarrow & \lambda \, | \, aA \, | \, bA \, | \, cA \nonumber
+\end{eqnarray}
+
+\item[b)]
+
+dfa:\\[1em]
+
+\input{huiswerk-1-opg1b.pdftex_t}
+
+
+\end{description}
+
+
+\end{document}
