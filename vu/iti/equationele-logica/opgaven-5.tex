@@ -3,7 +3,6 @@
 \usepackage{amsfonts}
 \usepackage{a4}
 \usepackage{latexsym}
-\usepackage{fitch} % http://folk.uio.no/johanw/FitchSty.html
 
 % niet te gewichtig willen doen met veel ruimte
 \setlength{\textwidth}{16cm}
@@ -45,56 +44,102 @@ zijn in $\mathfrak{P}(V)$.
 
 \paragraph{}
 
-We doen dit (nog) niet helemaal volgens de formele methode uit het dictaat
-(met een assignment, een homomorphisme van de termalgebra naar
-$\mathfrak{P}(V)$), omdat dit nog niet op het college behandeld is. We leiden
-de vergelijkingen af voor willekeurige $x$ en $y$ uit $\mathcal{P}(V)$:
+Laat $\theta$ een assignment zijn van elementen uit $\mathcal{P}(V)$ aan
+de variabelen $x$ en $y$, volgens
+
+\begin{eqnarray*}
+\theta & : & \{x,y\} \rightarrow \mathcal{P}(V) \\
+\theta(x) & = & X \\
+\theta(y) & = & Y.
+\end{eqnarray*}
+
+We laten nu zien dat voor iedere vergelijking uit $\texttt{Booleans}$ de
+rechter kant identiek is aan de linker kant onder $\bar \theta$.
 
 \begin{itemize}
 
-\item{Vergelijking $\texttt{[B1]}$:}
+\item{$\texttt{[B1] and(true,x) = x}$}
 \begin{eqnarray*}
-\texttt{and}_{\mathfrak{P}(V)}(\texttt{true}_{\mathfrak{P}(V)},x) & = & \texttt{and}_{\mathfrak{P}(V)}(V,x) \\
-                                                                  & = & V \cap x \\
-                                                                  & = & x
+\bar \theta(\texttt{and}(\texttt{true}, x)) & = & \texttt{and}_{\mathfrak{P}(V)}(\bar \theta(\texttt{true}), \bar \theta(x)) \\
+                                            & = & \texttt{and}_{\mathfrak{P}(V)}(\texttt{true}_{\mathfrak{P}(V)}, \theta(x)) \\
+                                            & = & \texttt{and}_{\mathfrak{P}(V)}(V,X) \\
+                                            & = & V \cap X \\
+                                            & = & X
 \end{eqnarray*}
 
-\item{Vergelijking $\texttt{[B2]}$:}
 \begin{eqnarray*}
-\texttt{and}_{\mathfrak{P}(V)}(\texttt{false}_{\mathfrak{P}(V)},x) & = & \texttt{and}_{\mathfrak{P}(V)}(\{\},x) \\
-                                                                   & = & \{\} \cap x \\
-                                                                   & = & \{\} \\
-                                                                   & = & \texttt{false}_{\mathfrak{P}(V)}
+\bar \theta(x) & = & \theta(x) \\
+               & = & X
 \end{eqnarray*}
 
-\item{Vergelijking $\texttt{[B3]}$:}
+\item{$\texttt{[B2] and(false,x) = false}$}
 \begin{eqnarray*}
-\texttt{not}_{\mathfrak{P}(V)}(\texttt{true}_{\mathfrak{P}(V)}) & = & \texttt{not}_{\mathfrak{P}(V)}(V) \\
-                                                                & = & V - V \\
-                                                                & = & \{\} \\
-                                                                & = & \texttt{false}_{\mathfrak{P}(V)}
+\bar \theta(\texttt{and}(\texttt{false}, x)) & = & \texttt{and}_{\mathfrak{P}(V)}(\bar \theta(\texttt{false}), \bar \theta(x)) \\
+                                             & = & \texttt{and}_{\mathfrak{P}(V)}(\texttt{false}_{\mathfrak{P}(V)}, \theta(x)) \\
+                                             & = & \texttt{and}_{\mathfrak{P}(V)}(\{\},X) \\
+                                             & = & \{\} \cap X \\
+                                             & = & \{\}
 \end{eqnarray*}
 
-\item{Vergelijking $\texttt{[B4]}$:}
 \begin{eqnarray*}
-\texttt{not}_{\mathfrak{P}(V)}(\texttt{false}_{\mathfrak{P}(V)}) & = & \texttt{not}_{\mathfrak{P}(V)}(\{\}) \\
-                                                                 & = & V - \{\} \\
-                                                                 & = & V \\
-                                                                 & = & \texttt{true}_{\mathfrak{P}(V)}
+\bar \theta(\texttt{false}) & = & \texttt{false}_{\mathfrak{P}(V)} \\
+                            & = & \{\}
 \end{eqnarray*}
 
-\item{Vergelijking $\texttt{[B5]}$:}
+\item{$\texttt{[B3] not(true) = false}$}
 \begin{eqnarray*}
-\texttt{or}_{\mathfrak{P}(V)}(x,y) & = & x \cup y \\
-                                   & = & V - ((V - x) \cap (V - y)) \\
-                                   & = & \texttt{not}_{\mathfrak{P}(V)}((V - x) \cap (V - y)) \\
-                                   & = & \texttt{not}_{\mathfrak{P}(V)}(\texttt{and}_{\mathfrak{P}(V)}(V - x, V - y)) \\
-                                   & = & \texttt{not}_{\mathfrak{P}(V)}(\texttt{and}_{\mathfrak{P}(V)}(\texttt{not}_{\mathfrak{P}(V)}(x),\texttt{not}_{\mathfrak{P}(V)}(y)))
+\bar \theta(\texttt{not(true)}) & = & \texttt{not}_{\mathfrak{P}(V)}(\bar \theta(\texttt{true})) \\
+                                & = & \texttt{not}_{\mathfrak{P}(V)}(\texttt{true}_{\mathfrak{P}(V)}) \\
+                                & = & \texttt{not}_{\mathfrak{P}(V)}(V) \\
+                                & = & V - V \\
+                                & = & \{\}
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\bar \theta(\texttt{false}) & = & \texttt{false}_{\mathfrak{P}(V)} \\
+                            & = & \{\}
+\end{eqnarray*}
+
+\item{$\texttt{[B4] not(false) = true}$}
+\begin{eqnarray*}
+\bar \theta(\texttt{not(false)}) & = & \texttt{not}_{\mathfrak{P}(V)}(\bar \theta(\texttt{false})) \\
+                                 & = & \texttt{not}_{\mathfrak{P}(V)}(\texttt{false}_{\mathfrak{P}(V)}) \\
+                                 & = & \texttt{not}_{\mathfrak{P}(V)}(\{\}) \\
+                                 & = & V - \{\} \\
+                                 & = & V
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\bar \theta(\texttt{true}) & = & \texttt{true}_{\mathfrak{P}(V)} \\
+                            & = & V
+\end{eqnarray*}
+
+\item{$\texttt{[B5] or(x,y) = not(and(not(x),not(y)))}$}
+\begin{eqnarray*}
+\bar \theta(\texttt{or}(x,y)) & = & \texttt{or}_{\mathfrak{P}(V)}(\bar \theta(x), \bar \theta(y)) \\
+                              & = & \texttt{or}_{\mathfrak{P}(V)}(\theta(x), \theta(y)) \\
+                              & = & \texttt{or}_{\mathfrak{P}(V)}(X,Y) \\
+                              & = & X \cup Y
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\bar \theta(\texttt{not}(\texttt{and}(\texttt{not}(x), \texttt{not}(y))))
+      & = & \texttt{not}_{\mathfrak{P}(V)}(\bar \theta(\texttt{and}(\texttt{not}(x), \texttt{not}(y)))) \\
+      & = & \texttt{not}_{\mathfrak{P}(V)}(\texttt{and}_{\mathfrak{P}(V)}(\bar \theta(\texttt{not}(x)), \bar \theta(\texttt{not}(y)))) \\
+      & = & \texttt{not}_{\mathfrak{P}(V)}(\texttt{and}_{\mathfrak{P}(V)}(\texttt{not}_{\mathfrak{P}(V)}(\bar \theta(x)), \texttt{not}_{\mathfrak{P}(V)}(\bar \theta(y)))) \\
+      & = & \texttt{not}_{\mathfrak{P}(V)}(\texttt{and}_{\mathfrak{P}(V)}(\texttt{not}_{\mathfrak{P}(V)}(\theta(x)), \texttt{not}_{\mathfrak{P}(V)}(\theta(y)))) \\
+      & = & \texttt{not}_{\mathfrak{P}(V)}(\texttt{and}_{\mathfrak{P}(V)}(\texttt{not}_{\mathfrak{P}(V)}(X), \texttt{not}_{\mathfrak{P}(V)}(Y))) \\
+      & = & \texttt{not}_{\mathfrak{P}(V)}(\texttt{and}_{\mathfrak{P}(V)}(V - X, V - Y)) \\
+      & = & \texttt{not}_{\mathfrak{P}(V)}((V - X) \cap (V - Y)) \\
+      & = & V - ((V - X) \cap (V - Y)) \\
+      & = & X \cup Y
 \end{eqnarray*}
 
 \end{itemize}
 
-Hierbij is het wat intu\"itiever om $\texttt[B5]$ van achter naar voor te lezen.\\[2em]
+Hiermee hebben we laten zien dat iedere vergelijking in $\texttt{Booleans}$
+waar is in $\mathfrak{P}(V)$ en dus dat $\mathfrak{P}(V)$ een model is voor de
+specificatie $\texttt{Booleans}$.\\[2em]
 
 
 {\bf Opgave 5.2}
