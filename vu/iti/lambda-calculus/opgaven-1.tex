@@ -1,0 +1,224 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{fitch}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+
+\title{Uitwerkingen bij Inleiding Theoretische Informatica\\
+Deel 2: Lambda Calculus}
+\date{} % no date
+
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Termen en reductie}
+
+
+\begin{enumerate}
+
+
+\item % 1
+$\lambda x. \texttt{0}$
+
+
+\item % 2
+$\lambda x. \lambda y. \texttt{0}$ of $\lambda xy. \texttt{0}$
+
+
+\item % 3
+
+\begin{description}
+
+\item{(a)}
+$( \, (\lambda x. (\lambda y. (x \, (y \, z)))) \quad (\lambda x. ((y \, x) \, x)) \, )$
+
+\item{(b)}
+$( \, (\lambda x. (\lambda y. (((x \, y) \, y) \, y))) \quad (\lambda x. (z \, x)) \, )$
+
+\end{description}
+
+
+\item % 4
+
+\begin{description}
+
+\item{(a)}
+$(\lambda x. \lambda y. x \, y \, z \, u \, (v \, w)) \quad \lambda x. y \, (x \, x)$
+
+\item{(b)}
+$(\lambda x. x) \quad (\lambda x. \lambda y. x \, y \, y) \quad \lambda x. \lambda y. x \, (x \, y)$
+
+\end{description}
+
+
+\item %5
+Even geen zin in tekeningetjes.
+
+
+\item % 6
+
+\begin{description}
+
+\item{(a)}
+$( \lambda x. \lambda y. \lambda z. \underline{y} \, (\underline{x} \,
+  \underline{y} \, \underline{z})) \quad \lambda v. \lambda w. \underline{v}
+  \, \underline{w}$
+
+\item{(b)}
+$( \lambda x. \lambda y. \underline{x} \, \underline{x} \, \underline{y})
+  \quad ( \lambda z. \lambda u. \underline{u} \, (\underline{u} \,
+  \underline{z})) \quad \lambda w. \underline{w}$
+
+\end{description}
+
+
+\item % 7
+
+\begin{description}
+
+\item{(a)} Nee.
+\item{(b)} Ja.
+\item{(c)} Nee.
+\item{(d)} Ja.
+\item{(e)} Nee.
+\item{(f)} Ja.
+\item{(g)} Nee.
+\item{(h)} Ja.
+\item{(i)} Nee.
+
+\end{description}
+
+
+\item % 8
+
+\begin{description}
+
+\item{(a)} $(\textsf{mul} \, 5 \, 5)$
+
+\item{(b)} $(\lambda x. \textsf{mul} \, x \, y)$
+
+\item{(c)} $(\lambda x. \textsf{mul} \, x \, 5)$
+
+\item{(d)} $(\lambda z. \textsf{mul} \, z \, (\textsf{plus} \, x \, x))$
+
+\item{(e)} $(\lambda z. \textsf{plus} \, x \, 3)$
+
+\item{(f)} $(\textsf{mul} \, x \, x)$
+
+\item{(g)} $(\lambda z. \textsf{plus} \, y \, 5)$
+
+\item{(h)} $(\lambda z. (\lambda y. \textsf{plus} \, x \, y) \, z)$
+
+\item{(i)} $((\lambda x. \textsf{mul} \, x \, 7) \, 3)$
+
+\item{(j)} $((\lambda x. \textsf{mul} \, x \, 7) \, ((\lambda x. \textsf{mul} \, x \, 7) \, x))$
+
+\end{description}
+
+
+\item % 9
+
+\begin{description}
+
+\item{(a)} Ja.
+\item{(b)} Ja.
+\item{(c)} Nee.
+\item{(d)} Nee.
+\item{(e)} Nee.
+\item{(f)} Nee.
+
+\end{description}
+
+
+\item % 10
+
+\begin{description}
+
+\item{(a)}
+$\underline{(\lambda y. \textsf{mul} \, 3 \, y) \; 7}
+  \quad \rightarrow_{\beta} \quad
+  \textsf{mul} \, 3 \, 7
+  \quad \rightarrow_{\delta} \quad
+  21$
+
+\item{(b)}
+$(\underline{(\lambda x \, y. \textsf{mul} \, x \, y) \, 3}) \, 7
+  \quad \rightarrow_{\beta} \quad
+  \underline{(\lambda y. \textsf{mul} \, 7 \, y) \, 3}
+  \quad \rightarrow_{\beta} \quad
+  \underline{\textsf{mul} \, 7 \, 3}
+  \quad \rightarrow_{\delta} \quad
+  21$
+
+\item{(c)}
+\begin{align*}
+  \underline{(\lambda x. x) \; (\lambda y. \textsf{mul} \, 3 \, y)} \; 7
+  & \quad \rightarrow_{\beta} \quad
+  \underline{(\lambda y. \textsf{mul} \, 3 \, y) \; 7} \\
+  & \quad \rightarrow_{\beta} \quad
+  \underline{\textsf{mul} \, 3 \, 7} \\
+  & \quad \rightarrow_{\beta} \quad
+  \underline{\textsf{mul} \, 3 \, 7} \\
+  & \quad \rightarrow_{\delta} \quad
+  21
+\end{align*}
+
+\item{(d)}
+\begin{align*}
+  \underline{(\lambda f \, x. f \, x) \quad (\lambda y. \textsf{plus} \, x \, y)} \quad 3
+  & \quad \rightarrow_{\beta} \quad
+  \underline{(\lambda z. \underline{(\lambda y. \textsf{plus} \, x \, y) \, z}) \quad 3} \\
+  & \quad \rightarrow_{\beta} \quad
+  \underline{(\lambda z. \textsf{plus} \, x \, z) \quad 3} \\
+  & \quad \rightarrow_{\beta} \quad
+  \underline{\textsf{plus} \, x \, 3}
+\end{align*}
+
+\item{(e)}
+\begin{align*}
+  \underline{(\lambda f. f \, 3) \; (\lambda x. \textsf{mul} \, x \, 7)}
+  & \quad \rightarrow_{\beta} \quad
+  \underline{(\lambda x. \textsf{mul} \, x \, 7) \, 3} \\
+  & \quad \rightarrow_{\beta} \quad
+  \underline{\textsf{mul} \, 3 \, 7} \\
+  & \quad \rightarrow_{\delta} \quad
+  21
+\end{align*}
+
+\item{(f)}
+\begin{align*}
+  \underline{(\lambda f \, x. f \, (f \, (x))) \; (\lambda x. \textsf{mul} \, x \, 7)} \; 3
+  & \quad \rightarrow_{\beta} \quad
+  \underline{(\lambda x. \underline{(\lambda x. \textsf{mul} \, x \, 7) \, (\underline{(\lambda x. \textsf{mul} \, x \, 7) \, (x)})}) \; 3} \\
+  & \quad \rightarrow_{\beta} \quad
+  \underline{(\lambda x. \underline{(\lambda x. \textsf{mul} \, x \, 7) \, (\textsf{mul} \, x \, 7)}) \; 3} \\
+  & \quad \rightarrow_{\beta} \quad
+  \underline{(\lambda x. \textsf{mul} \, (\textsf{mul} \, x \, 7) \, 7) \; 3} \\
+  & \quad \rightarrow_{\beta} \quad
+  \textsf{mul} \, (\underline{\textsf{mul} \, 3 \, 7}) \, 7 \\
+  & \quad \rightarrow_{\delta} \quad
+  \underline{\textsf{mul} \, 21 \, 7} \\
+  & \quad \rightarrow_{\delta} \quad
+  147
+\end{align*}
+
+\end{description}
+
+
+\item % 11
+
+\item % 12
+
+\item % 13
+
+
+\end{enumerate}
+
+
+\end{document}
