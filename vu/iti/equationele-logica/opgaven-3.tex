@@ -72,7 +72,8 @@ de opgave) en bovendien \verb|x| ook gebruikt wordt in het axioma \verb|[3]|
 \begin{enumerate}
 
 \item % afleiding voor and(not(x), not(y)) = not(or(x, y))
-Todo.
+Deze is niet af te leiden in de huidige specificatie \verb|Booleans|, maar
+wel na toevoeging van bijvoorbeeld een regel \verb|not(not(x))=x|.
 
 \item % afleiding voor mul(succ(0), add(0, succ(0))) = succ(0)
 We geven een afleiding in de specificatie \verb|Naturals| voor de vergelijking
@@ -89,7 +90,7 @@ mul(succ(0), add(0, succ(0))) = succ(0)
 \verb|succ(add(0, 0)) = succ(0)|                      & congr, 4       \\ % 5
 \verb|add(0, succ(0)) = succ(0)|                      & trans, 2, 5    \\ % 6
 \verb|succ(0) = succ(0)|                              & refl           \\ % 7
-\verb|mul(succ(0), add(0, succ(0))) = mul(succ(0), succ(0))|  & congr, 6, 7 \\ % 8
+\verb|mul(succ(0), add(0, succ(0))) = mul(succ(0), succ(0))| & congr, 6, 7 \\ % 8
 \verb|mul(x, succ(y)) = add(mul(x, y), x)|            & [N2]           \\ % 9
 \verb|mul(succ(0), succ(0)) = add(mul(succ(0), 0), succ(0))| & subs, 9 \\ % 10
 \verb|mul(x, 0) = 0|                                  & [N1]           \\ % 11
