@@ -84,7 +84,9 @@ homomorphisme voldoet.
 
 \item % bestaan er meer homomorphismes van N naar Z?
 
-Nee?
+Nee, de interpretaties van $\texttt{0}$ liggen vast en door de successor
+functie ligt daarmee alles vast.
+
 
 \item % laat zien dat er geen homomorphismes bestaan van Z naar N
 
@@ -175,11 +177,12 @@ gedefini\"eerd als
 \begin{displaymath}
 \phi(x) = \begin{cases}
   \square & \text{als $x \in A_{\texttt{data}}$;} \\
-  |x|     & \text{als $x \in A_{\texttt{stack}}$.}
+  |x|     & \text{als $x \in A_{\texttt{stack}}$,}
 \end{cases}
 \end{displaymath}
 
-Voor alle constanten $\texttt{di}_{\mathfrak{A}}$ hebben we
+waarbij $|x|$ de lengte van de string $x$ geeft. Voor alle constanten
+$\texttt{di}_{\mathfrak{A}}$ hebben we
 
 \begin{eqnarray*}
 \phi(\texttt{di}_{\mathfrak{A}}) & = & \phi(a_{i}) \\
@@ -447,7 +450,50 @@ Hiermee hebben we laten zien dat $\cong$ een equivalentierelatie is.\\[2em]
 
 {\bf Opgave 4.7}
 
-Todo (verbindingslijntjes tekenen als bij een bisimulatie).\\[2em]
+\begin{enumerate}
+
+\item % Laat zien dat D een homomorf beeld is van C en E een van D
+
+We kunnen het homomorphisme van $\mathfrak{C}$ naar $\mathfrak{D}$  zien als
+het afbeelden van de natuurlijke getallen op `even' en `oneven'. Het
+homomorphisme van $\mathfrak{D}$ naar $\mathfrak{E}$ `vergeet' nog meer van de
+onderliggende structuur (hier is alleen nog te zien dat ieder element een
+opvolger heeft).
+
+\paragraph{}
+
+De functie $\phi : C \rightarrow D$ is een homomorphisme van $\mathfrak{C}$ naar
+$\mathfrak{D}$ en gedefini\"eerd als
+
+\begin{displaymath}
+\phi(a_{n}) = \begin{cases}
+  d_{e} & \text{als $n$ even is;} \\
+  d_{o} & \text{als $n$ oneven is.}
+\end{cases}
+\end{displaymath}
+
+We kunnen weer het toepassen van $\phi$ op $f_{\mathcal{C}}$ gaan uitschrijven
+om te laten zien dat $\phi$ inderdaad een homomorphisme is, maar het is
+waarschijnlijk instructiever het in een plaatje te laten zien. Teken $\phi$
+met lijntjes van $\mathcal{C}$ naar $\mathcal{D}$, net zoals je bij een
+bisimulatie kunt doen. Je ziet dat $\phi$ surjectief is doordat er lijntjes
+naar iedere element van de drager van $\mathcal{D}$ gaan.
+
+\paragraph{}
+
+Op dezelfde manier geven we ook alleen de functie $\psi : D \rightarrow E$,
+een homomorphisme van $\mathfrak{C}$ naar $\mathfrak{D}$, zonder te bewijzen
+dat het een homomorphisme is, als
+
+\begin{eqnarray*}
+\phi(d_{s}) & = & a \quad \text{voor $s \in \{e,o\}$.}
+\end{eqnarray*}
+
+\item % Interessante vraag, maar behandelen we nog niet
+
+Todo.
+
+\end{enumerate}
 
 
 \end{document}
