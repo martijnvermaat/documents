@@ -36,6 +36,8 @@
 
 \section*{Opgave 1}
 
+HIER EVEN NIET MEER UITGAAN VAN S5, is niet nodig!
+
 Gezocht wordt een model met 3 kenners waar in een bepaalde wereld
 $t$ de volgende formules waar zijn:
 
@@ -101,7 +103,39 @@ K p \to K (p \vee q)                           & MP, 4,6   \\
 
 \section*{Opgave 3}
 
+In het axiomatisch systeem $(K^{n})^{+}$ hebben we voor alle $i,j,k \in \{1,\ldots,n\}$
+de volgende afleiding:
 
+\begin{equation*}
+\begin{fitch}
+K_{i}(p \to q) \to (K_{i} p \to K_{i} q)                        & DB        \\
+K_{i}(p \to K_{j} p) \to (K_{i} p \to K_{i} K_{j} p)            & SUB, 1    \\
+(p \to K_{i} p) \to ((p \to K_{j} p) \to K_{i}(p \to K_{j} p))  & PROP      \\
+(p \to K_{i} p) \to (p \to K_{j} K_{k} p)                       & PROP
+\end{fitch}
+\end{equation*}
+
+We kunnen hier volgens $PROP$ ook volstaan met alleen het axioma $DB$ direct
+gevolgd door de conclusie middels een enkele $PROP$, maar het is nu al
+ingewikkeld genoeg.
+
+We kunnen dit resultaat met het axioma $AE$ omschrijven naar:
+
+\begin{displaymath}
+\vdash_{(K^{n})^{+}} \, (p \to E p) \to (p \to E E p)
+\end{displaymath}
+
+En gelukkig hebben we volledigheid van $(K^{n})^{+}$ voor de klasse van alle
+epistemische frames, dus kunnen we ook zeggen:
+
+\begin{displaymath}
+\vDash \, (p \to E p) \to (p \to E E p)
+\end{displaymath}
+
+Dit is wat gevraagd werd te bewijzen.
+
+
+\section*{Opgave 4}
 
 
 \end{document}
