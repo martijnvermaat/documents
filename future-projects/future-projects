@@ -17,6 +17,10 @@ Some ideas for future projects when I am bored:
   - implement 1st order propositional logic deduction algorithm
   - another idea?
 
+* Some nice MetaBorg things with O'Caml
+  - Concrete syntax for Lambda calculus in O'Caml
+  - Need an SDF definition for O'Caml
+
 * Think of something to do in (Common) Lisp
 
 * Martin has some ideas:
