@@ -1,6 +1,0 @@
-\BOOKMARK [1][-]{section.1}{The problem of the Towers of Hanoi}{}
-\BOOKMARK [1][-]{section.2}{A solution in untyped Lambda Calculus}{}
-\BOOKMARK [2][-]{subsection.2.1}{The simple solution in Haskell}{section.2}
-\BOOKMARK [2][-]{subsection.2.2}{Translating to Lambda Calculus}{section.2}
-\BOOKMARK [3][-]{subsubsection.2.2.1}{Recursion in Lambda Calculus}{subsection.2.2}
-\BOOKMARK [1][-]{section.A}{Function definitions}{}
