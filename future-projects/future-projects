@@ -1,0 +1,19 @@
+Some ideas for future projects when I am bored:
+
+* Visual DFA/NFA builder on top of dk.brics.automaton (Java)
+  - animated execution of the automaton
+  - possibly implemented using GEF
+  - or something similar in Python with wxWindows
+
+* Unicode support in (the Java implementation of) SGLR
+  - ambitious project
+  - will be welcomed by many
+
+* Do something with the Stratego language
+  - Lambda Calculus interpreter (not difficult)
+  - implement 1st order propositional logic deduction algorithm
+  - another idea?
+
+* Think of something to do in (Common) Lisp
+
+* Still time left...
