@@ -1,0 +1,1078 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{fitch}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+
+\title{Voorbeeld uitwerkingen Equationele Logica\\
+\normalsize{bij opgaven 3.1, 3.4, 4.1, 4.4, 4.6, 5.1, 5.5, 6.1, 6.2, 7.3 en 7.4}}
+\date{5 maart 2005}
+
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Opgave 3.1}
+
+\begin{description}
+
+\item{\bf (a)}
+Een afleiding in de specificate $\texttt{Stack-Of-Data}$ van de vergelijking
+\begin{quote}
+\begin{verbatim}
+pop(pop(pop(empty))) = empty
+\end{verbatim}
+\end{quote}
+\begin{equation*}
+\begin{fitch}
+\texttt{pop(empty) = empty}                        & \texttt{[1]}  \\ % 1
+\texttt{pop(pop(empty)) = pop(empty)}              & congr, 1      \\ % 2
+\texttt{pop(pop(pop(empty))) = pop(pop(empty))}    & congr, 2      \\ % 3
+\texttt{pop(pop(empty))) = empty}                  & trans, 1, 2   \\ % 4
+\texttt{pop(pop(pop(empty))) = empty}              & trans, 3, 4      % 5
+\end{fitch}
+\end{equation*}
+
+\item{\bf (b)}
+Een afleiding in de specificatie \texttt{Stack-Of-Data} van de vergelijking
+\begin{quote}
+\begin{verbatim}
+pop(push(x, pop(push(x, empty)))) = empty
+\end{verbatim}
+\end{quote}
+\begin{equation*}
+\begin{fitch}
+\texttt{pop(push(x, s)) = s}                                     & \texttt{[3]}  \\ % 1
+\texttt{pop(push(x, empty)) = empty}                             & subs, 1       \\ % 2
+\texttt{pop(push(x, pop(push(x, empty)))) = pop(push(x, empty))} & subs, 1       \\ % 3
+\texttt{pop(push(x, pop(push(x, empty)))) = empty}               & trans, 3, 2      % 4
+\end{fitch}
+\end{equation*}
+
+\end{description}
+
+
+\section*{Opgave 3.4}
+
+Om te laten zien dat $\sim$ een equivalentierelatie is, laten we zien dat $\sim$
+transitief, symmetrisch en reflexief is.
+
+\begin{description}
+
+\item{Transitiviteit}
+
+  Stel $t \sim u$ en $u \sim v$, dan is volgens de definitie $E \vdash t = u$ en
+  $E \vdash u = v$. Wegens de regel \emph{transitiviteit} van de
+  afleidbaarheid, is dan ook $E \vdash t = v$. Met de definitie zien we dan
+  weer dat ook $t \sim v$ waar is en dus is $\sim$ transitief.
+
+\item{Symmetrie}
+
+  Stel $t \sim u$, dan is volgens de definitie $E \vdash t = u$. De
+  afleidingsregel \emph{symmetrie} zegt dat dan ook $E \vdash u = t$ en
+  volgens de definitie zien we dan weer dat ook $u \sim t$. En dus is $\sim$
+  symmetrisch.
+
+\item{Reflexiviteit}
+
+  Voor iedere term $t$ geldt volgens de afleidingsregel \emph{reflexiviteit}
+  dat $E \vdash t = t$. Onze definitie zegt dan dat ook $t \sim t$ en dus is
+  $\sim$ reflexief.
+
+\end{description}
+
+Omdat $\sim$ transitief, symmetrisch en reflexief is, is $\sim$ een
+equivalentierelatie.
+
+
+\section*{Opgave 4.1}
+
+\begin{description}
+
+\item{\bf (a)}
+Hiertoe moeten we laten zien dat $\phi$ over alle functies voldoet aan de
+voorwaarden van een homomorphisme:
+
+\begin{itemize}
+
+\item{de constante $\texttt{0}_{\mathfrak{N}}$}
+  \begin{align*}
+    \phi(\texttt{0}_{\mathfrak{N}}) &= \phi(0) \\
+                                    &= 0 \\
+                                    &= \texttt{0}_{\mathfrak{Z}}
+  \end{align*}
+
+\item{de functie $\texttt{succ}_{\mathfrak{N}}$}
+
+  Voor willekeurige $x \in \mathbb{N}$ hebben we:
+  \begin{align*}
+    \phi(\texttt{succ}_{\mathfrak{N}}(x)) &= \phi(x+1) \\
+                                          &= x+1 \\
+                                          &= \texttt{succ}_{\mathfrak{Z}}(x) \\
+                                          &= \texttt{succ}_{\mathfrak{Z}}(\phi(x))
+  \end{align*}
+
+\item{de functie $\texttt{add}_{\mathfrak{N}}$}
+
+  Voor willekeurige $x,y \in \mathbb{N}$ hebben we:
+  \begin{align*}
+    \phi(\texttt{add}_{\mathfrak{N}}(x,y)) &= \phi(x+y) \\
+                                           &= x+y \\
+                                           &= \texttt{add}_{\mathfrak{Z}}(x,y) \\
+                                           &= \texttt{add}_{\mathfrak{Z}}(\phi(x),\phi(y))
+  \end{align*}
+
+\item{de functie $\texttt{mul}_{\mathfrak{N}}$}
+
+  Voor willekeurige $x,y \in \mathbb{N}$ hebben we:
+  \begin{align*}
+    \phi(\texttt{mul}_{\mathfrak{N}}(x,y)) &= \phi(x*y) \\
+                                           &= x*y \\
+                                           &= \texttt{mul}_{\mathfrak{Z}}(x,y) \\
+                                           &= \texttt{mul}_{\mathfrak{Z}}(\phi(x),\phi(y))
+  \end{align*}
+
+\end{itemize}
+
+Hiermee hebben we laten zien dat $\phi$ aan alle voorwaarden van een
+homomorphisme voldoet.
+
+\item{\bf (b)} % bestaan er meer homomorphismes van N naar Z?
+Nee, de interpretatie van $\texttt{0}$ in $\mathfrak{N}$ moet op de
+interpretatie van $\texttt{0}$ in $\mathfrak{Z}$ afgebeeld worden. Met de
+voorwaarden van een homomorfisme over de successor functie ligt daarmee heel
+de afbeelding vast.
+
+\item{\bf (c)} % laat zien dat er geen homomorphismes bestaan van Z naar N
+Stel, er is een homomorphisme $\phi$ van $\mathfrak{Z}$ naar
+$\mathfrak{N}$. We bekijken $\phi(-1)=n$ en weten dat $n \in \mathbb{N}$ ($n
+\ge 0$). Nu hebben we
+\begin{displaymath}
+\phi(\texttt{succ}_{\mathfrak{Z}}(-1)) \, = \, \phi(0) \, = \, 0
+\end{displaymath}
+omdat $\phi(\texttt{0}_{\mathfrak{Z}}=0)$ gelijk moet zijn aan
+$\texttt{0}_{\mathfrak{N}} = 0$.
+
+Vervolgens zien we dat
+\begin{displaymath}
+\texttt{succ}_{\mathfrak{N}}(\phi(-1)) = \texttt{succ}_{\mathfrak{N}}(n) = n+1 \ne 0
+\end{displaymath}
+en dus voldoet $\phi$ niet aan de voorwaarden van een homomorphisme. Dit is in
+tegenspraak met de aanname dat $\phi$ een homomorphisme is, dus kan $\phi$ niet
+bestaan.
+
+\end{description}
+
+
+\section*{Opgave 4.4}
+
+De vraag
+\begin{quote}``Laat zien dat er een \ldots bestaat.''\end{quote}
+betekent in de praktijk (bijna) altijd:
+\begin{quote}``Geef een \ldots en laat zien dat het een \ldots is.''\end{quote}
+
+We geven het homomorphisme $\phi$ van $\mathfrak{A}$ naar $\mathfrak{B}$
+gedefini\"eerd als
+\begin{align*}
+\phi(x) &= \begin{cases}
+  \square & \text{als $x \in A_{\texttt{data}}$;} \\
+  |x|     & \text{als $x \in A_{\texttt{stack}}$,}
+\end{cases}
+\end{align*}
+waarbij $|x|$ de lengte van de string $x$ geeft.
+
+Nu laten we zien dat $\phi$ daadwerkelijk een homomorfisme is. Voor alle
+constanten $\texttt{di}_{\mathfrak{A}}$ hebben we
+\begin{align*}
+\phi(\texttt{di}_{\mathfrak{A}}) &= \phi(a_{i}) \\
+                                 &= \square \\
+                                 &= \texttt{di}_{\mathfrak{B}},
+\end{align*}
+en voor $\texttt{error}_{\mathfrak{A}}$ hebben we
+\begin{align*}
+\phi(\texttt{error}_{\mathfrak{A}}) &= \phi(\bot) \\
+                                    &= \square \\
+                                    &= \texttt{di}_{\mathfrak{B}}.
+\end{align*}
+
+Ook over $\texttt{push}$, $\texttt{pop}$ en $\texttt{top}$ voldoet $\phi$ aan
+de voorwaarden, want voor alle $d \in A_{\texttt{data}}$ en $s \in
+A_{\texttt{stack}}$ is
+\begin{align*}
+\phi(\texttt{push}_{\mathfrak{A}}(d,s)) &= \phi(conc(d,s)) \\
+                                        &= |conc(d,s)| \\
+                                        &= |s| + 1 \\
+                                        &= \texttt{push}_{\mathfrak{B}}(\square,|s|) \\
+                                        &= \texttt{push}_{\mathfrak{B}}(\phi(d),\phi(s)),
+\end{align*}
+\begin{align*}
+\phi(\texttt{pop}_{\mathfrak{A}}(s)) &= \phi(tail(s)) \\
+                                     &= |tail(s)| \\
+                                     &= max(|s| - 1, \, 0) \\
+                                     &= \texttt{pop}_{\mathfrak{B}}(|s|) \\
+                                     &= \texttt{pop}_{\mathfrak{B}}(\phi(s)),
+\end{align*}
+en
+\begin{align*}
+\phi(\texttt{top}_{\mathfrak{A}}(s)) &= \phi(head(s)) \\
+                                     &= \phi(e) &&\text{met $e \in A_{\texttt{data}}$} \\
+                                     &= \square \\
+                                     &= \texttt{top}_{\mathfrak{B}}(|s|) \\
+                                     &= \texttt{top}_{\mathfrak{B}}(\phi(s)).
+\end{align*}
+
+Hieruit volgt dat $\phi$ een homomorphisme van $\mathfrak{A}$ naar
+$\mathfrak{B}$ is en dus bestaat een dergelijk homomorphisme.
+
+
+\section*{Opgave 4.6}
+
+\begin{description}
+
+\item{\bf (a)} % laat zien dat de eigenschap homomorphisme gesloten is onder compositie
+Gegeven een homomorphisme van $\mathfrak{A}$ naar $\mathfrak{B}$
+\begin{align*}
+\psi &: A \rightarrow B
+\end{align*}
+en een homomorphisme van $\mathfrak{B}$ naar $\mathfrak{C}$
+\begin{align*}
+\omega &: B \rightarrow C
+\end{align*}
+krijgen we met de compositie
+\begin{align*}
+\phi &: A \rightarrow C \\
+\phi &= \omega \circ \psi
+\end{align*}
+een homomorphisme van $\mathfrak{A}$ naar $\mathfrak{C}$.
+
+We hebben namelijk voor alle constanten $c$
+\begin{align*}
+\phi(c_{\mathfrak{A}}) &= \omega(\psi(c_{\mathfrak{A}})) \\
+                       &= \omega(c_{\mathfrak{B}}) \\
+                       &= c_{\mathfrak{C}}
+\end{align*}
+en voor alle functiesymbolen $f$ (waarbij $n$ het aantal argumenten van $f$
+is)
+\begin{align*}
+\phi(f_{\mathfrak{A}}(a_{1}, \ldots, a_{n})) &=
+                                             \omega(\psi(f_{\mathfrak{A}}(a_{1},
+                                             \ldots, a_{n}))) \\
+                                             &=
+                                             \omega(f_{\mathfrak{B}}(\psi(a_{1}),
+                                             \ldots, \psi(a_{n}))) \\
+                                             &=
+                                             f_{\mathfrak{C}}(\omega(\psi(a_{1})),
+                                             \ldots, \omega(\psi(a_{n}))) \\
+                                             &=
+                                             f_{\mathfrak{C}}(\phi(a_{1}),
+                                             \ldots, \phi(a_{n})).
+\end{align*}
+
+\item{\bf (b)} % laat zien dat de eigenschap isomorfisme gesloten is onder conversie
+Gegeven een isomorfisme van $\mathfrak{A}$ naar $\mathfrak{B}$
+\begin{align*}
+\psi &: A \rightarrow B
+\end{align*}
+construeren we een isomorfisme van $\mathfrak{B}$ naar $\mathfrak{A}$ als
+\begin{align*}
+\phi &: B \rightarrow A \\
+\phi &= \psi^{-1}.
+\end{align*}
+
+De inverse van $\psi$ bestaat omdat $\psi$ een bijectie is. Bovendien is de
+inverse van een bijectie ook weer een bijectie, dus is $\phi$ een bijectie.
+
+We laten nu zien dat $\phi$ een homomorphisme is van $\mathfrak{B}$ naar
+$\mathfrak{A}$. Voor alle constanten $c$ hebben we
+\begin{align*}
+\phi(c_{\mathfrak{B}}) &= \psi^{-1}(c_{\mathfrak{B}}) \\
+                       &= c_{\mathfrak{A}}
+\end{align*}
+en voor alle functiesymbolen $f$ hebben we
+\begin{align*}
+\phi(f_{\mathfrak{B}}(a_{1}, \ldots, a_{n})) &= \psi^{-1}(f_{\mathfrak{B}}(a_{1}, \ldots, a_{n})) \\
+                                             &=
+                                             f_{\mathfrak{A}}(\phi(a_{1}),
+                                             \ldots, \phi(a_{n})).
+\end{align*}
+\begin{quote}
+Ter verduidelijking: deze laatste gelijkheid volgt uit het feit dat $\psi$ een
+homomorphisme is, want daarmee is
+\begin{align*}
+\psi(f_{\mathfrak{A}}(\phi(a_{1}), \ldots, \phi(a_{n}))) &= f_{\mathfrak{B}}(\psi(\phi(a_{1})), \ldots, \psi(\phi(a_{n}))) \\
+                                                         &= f_{\mathfrak{B}}(a_{1}, \ldots, a_{n}).
+\end{align*}
+\end{quote}
+
+We hebben nu laten zien dat $\phi$ een bijectief homomorphisme is en dus een isomorphisme.
+
+\item{\bf (c)} % laat zien dat isomorphie een equivalentierelatie is
+Een relatie is een equivalentierelatie als deze reflexief, symmetrisch en
+transitief is.
+
+\paragraph{Reflexiviteit}
+
+Gegeven een algebra $\mathfrak{A}$ bekijken we het isomorphisme
+\begin{align*}
+\phi(x) &= x.
+\end{align*}
+
+Dat $\phi$ bijectief is moge duidelijk zijn. We laten kort zien dat $\phi$ een
+homomorphisme is en daarmee dus ook een isomorphisme. Voor constanten $c$ en
+functiesymbolen $f$ hebben we
+\begin{align*}
+\phi(c_{\mathfrak{A}})                       &= c_{\mathfrak{A}} \\
+\phi(f_{\mathfrak{A}}(a_{1}, \ldots, a_{n})) &= f_{\mathfrak{A}}(a_{1}, \ldots, a_{n}) \\
+                                             &= f_{\mathfrak{A}}(\phi(a_{1}), \ldots, \phi(a_{n})).
+\end{align*}
+
+Hiermee is $\phi$ een isomorphisme van $\mathfrak{A}$ naar $\mathfrak{A}$ en
+hebben we dus
+\begin{align*}
+\mathfrak{A} &\cong \mathfrak{A}.
+\end{align*}
+
+\paragraph{Symmetrie}
+
+Gegeven twee algebra's $\mathfrak{A}$ en $\mathfrak{B}$ met
+\begin{align*}
+\mathfrak{A} &\cong \mathfrak{B}.
+\end{align*}
+
+Er bestaat dus een isomorphisme van $\mathfrak{A}$ naar $\mathfrak{B}$. We
+hebben bij {\bf (b)} gezien dat de inverse van dit isomorphisme een
+isomorphisme is van $\mathfrak{B}$ naar $\mathfrak{A}$ en dus hebben we ook
+\begin{align*}
+\mathfrak{B} &\cong \mathfrak{A}.
+\end{align*}
+
+\paragraph{Transitiviteit}
+
+Gegeven drie algebra's $\mathfrak{A}$, $\mathfrak{B}$ en $\mathfrak{C}$ met
+\begin{align*}
+\mathfrak{A} &\cong \mathfrak{B} \\
+\mathfrak{B} &\cong \mathfrak{C}.
+\end{align*}
+
+Er bestaan dus isomorphismes $\phi$ van $\mathfrak{A}$ naar $\mathfrak{B}$ en
+$\psi$ van $\mathfrak{B}$ naar $\mathfrak{C}$. We construeren nu
+\begin{align*}
+\omega &= \psi \circ \phi
+\end{align*}
+welke een homomorphisme van $\mathfrak{A}$ naar $\mathfrak{C}$ is. De
+compositie van twee bijecties geeft weer een bijectie en dus is $\omega$ een
+isomorphisme van $\mathfrak{A}$ naar $\mathfrak{C}$ en hebben we
+\begin{align*}
+\mathfrak{A} &\cong \mathfrak{C}.
+\end{align*}
+
+Hiermee hebben we laten zien dat $\cong$ een equivalentierelatie is.\\[2em]
+
+\end{description}
+
+
+\section*{Opgave 5.1}
+
+De algebra $\mathfrak{P}(V)$ (met $V$ een verzameling) heeft als drager de
+machtsverzameling van $V$. De functies worden ge\"interpreteerd als
+\begin{align*}
+\texttt{true}_{\mathfrak{P}(V)}     &= V , \\
+\texttt{false}_{\mathfrak{P}(V)}    &= \{\} , \\
+\texttt{not}_{\mathfrak{P}(V)}(X)   &= V - X , \\
+\texttt{and}_{\mathfrak{P}(V)}(X,Y) &= X \cap Y , \\
+\texttt{or}_{\mathfrak{P}(V)}(X,Y)  &= X \cup Y .
+\end{align*}
+
+We constateren eerst dat $\mathfrak{P}(V)$ een algebra voor
+$\texttt{Booleans}$ is omdat de functietypes kloppen. Vervolgens laten we zien
+dat $\mathfrak{P}(V)$ zelfs een model is voor $\texttt{Booleans}$ door te
+laten zien dat alle vergelijkingen ($\texttt{[B1]} \ldots \texttt{[B5]}$) waar
+zijn in $\mathfrak{P}(V)$.
+
+\paragraph{}
+
+Laat $\theta$ een assignment zijn van elementen uit $\mathcal{P}(V)$ aan
+de variabelen $x$ en $y$, volgens
+\begin{align*}
+\theta    &: \{x,y\} \rightarrow \mathcal{P}(V), \\
+\theta(x) &= X, \\
+\theta(y) &= Y.
+\end{align*}
+
+We laten nu zien dat voor iedere vergelijking uit $\texttt{Booleans}$ de
+rechter kant identiek is aan de linker kant onder $\bar \theta$.
+
+\begin{itemize}
+
+\item{$\texttt{[B1] and(true,x) = x}$}
+\begin{align*}
+\bar \theta(\texttt{and}(\texttt{true}, x)) &= \texttt{and}_{\mathfrak{P}(V)}(\bar \theta(\texttt{true}), \bar \theta(x)) \\
+                                            &= \texttt{and}_{\mathfrak{P}(V)}(\texttt{true}_{\mathfrak{P}(V)}, \theta(x)) \\
+                                            &= \texttt{and}_{\mathfrak{P}(V)}(V,X) \\
+                                            &= V \cap X \\
+                                            &= X
+\end{align*}
+
+\begin{align*}
+\bar \theta(x) &= \theta(x) \\
+               &= X
+\end{align*}
+
+\item{$\texttt{[B2] and(false,x) = false}$}
+\begin{align*}
+\bar \theta(\texttt{and}(\texttt{false}, x)) &= \texttt{and}_{\mathfrak{P}(V)}(\bar \theta(\texttt{false}), \bar \theta(x)) \\
+                                             &= \texttt{and}_{\mathfrak{P}(V)}(\texttt{false}_{\mathfrak{P}(V)}, \theta(x)) \\
+                                             &= \texttt{and}_{\mathfrak{P}(V)}(\{\},X) \\
+                                             &= \{\} \cap X \\
+                                             &= \{\}
+\end{align*}
+
+\begin{align*}
+\bar \theta(\texttt{false}) &= \texttt{false}_{\mathfrak{P}(V)} \\
+                            &= \{\}
+\end{align*}
+
+\item{$\texttt{[B3] not(true) = false}$}
+\begin{align*}
+\bar \theta(\texttt{not(true)}) &= \texttt{not}_{\mathfrak{P}(V)}(\bar \theta(\texttt{true})) \\
+                                &= \texttt{not}_{\mathfrak{P}(V)}(\texttt{true}_{\mathfrak{P}(V)}) \\
+                                &= \texttt{not}_{\mathfrak{P}(V)}(V) \\
+                                &= V - V \\
+                                &= \{\}
+\end{align*}
+
+\begin{align*}
+\bar \theta(\texttt{false}) &= \texttt{false}_{\mathfrak{P}(V)} \\
+                            &= \{\}
+\end{align*}
+
+\item{$\texttt{[B4] not(false) = true}$}
+\begin{align*}
+\bar \theta(\texttt{not(false)}) &= \texttt{not}_{\mathfrak{P}(V)}(\bar \theta(\texttt{false})) \\
+                                 &= \texttt{not}_{\mathfrak{P}(V)}(\texttt{false}_{\mathfrak{P}(V)}) \\
+                                 &= \texttt{not}_{\mathfrak{P}(V)}(\{\}) \\
+                                 &= V - \{\} \\
+                                 &= V
+\end{align*}
+
+\begin{align*}
+\bar \theta(\texttt{true}) &= \texttt{true}_{\mathfrak{P}(V)} \\
+                           &= V
+\end{align*}
+
+\item{$\texttt{[B5] or(x,y) = not(and(not(x),not(y)))}$}
+\begin{align*}
+\bar \theta(\texttt{or}(x,y)) &= \texttt{or}_{\mathfrak{P}(V)}(\bar \theta(x), \bar \theta(y)) \\
+                              &= \texttt{or}_{\mathfrak{P}(V)}(\theta(x), \theta(y)) \\
+                              &= \texttt{or}_{\mathfrak{P}(V)}(X,Y) \\
+                              &= X \cup Y
+\end{align*}
+
+\begin{align*}
+\bar \theta(\texttt{not}(\texttt{and}(\texttt{not}(x), \texttt{not}(y))))
+      &= \texttt{not}_{\mathfrak{P}(V)}(\bar \theta(\texttt{and}(\texttt{not}(x), \texttt{not}(y)))) \\
+      &= \texttt{not}_{\mathfrak{P}(V)}(\texttt{and}_{\mathfrak{P}(V)}(\bar \theta(\texttt{not}(x)), \bar \theta(\texttt{not}(y)))) \\
+      &= \texttt{not}_{\mathfrak{P}(V)}(\texttt{and}_{\mathfrak{P}(V)}(\texttt{not}_{\mathfrak{P}(V)}(\bar \theta(x)), \texttt{not}_{\mathfrak{P}(V)}(\bar \theta(y)))) \\
+      &= \texttt{not}_{\mathfrak{P}(V)}(\texttt{and}_{\mathfrak{P}(V)}(\texttt{not}_{\mathfrak{P}(V)}(\theta(x)), \texttt{not}_{\mathfrak{P}(V)}(\theta(y)))) \\
+      &= \texttt{not}_{\mathfrak{P}(V)}(\texttt{and}_{\mathfrak{P}(V)}(\texttt{not}_{\mathfrak{P}(V)}(X), \texttt{not}_{\mathfrak{P}(V)}(Y))) \\
+      &= \texttt{not}_{\mathfrak{P}(V)}(\texttt{and}_{\mathfrak{P}(V)}(V - X, V - Y)) \\
+      &= \texttt{not}_{\mathfrak{P}(V)}((V - X) \cap (V - Y)) \\
+      &= V - ((V - X) \cap (V - Y)) \\
+      &= X \cup Y
+\end{align*}
+
+\end{itemize}
+
+Hiermee hebben we laten zien dat iedere vergelijking in $\texttt{Booleans}$
+waar is in $\mathfrak{P}(V)$ en dus dat $\mathfrak{P}(V)$ een model is voor de
+specificatie $\texttt{Booleans}$.
+
+
+\section*{Opgave 5.5}
+
+Om te laten zien dat een bepaalde vergelijking niet afleidbaar is uit een
+specificatie kunnen we een tegenmodel construeren. Dit is een model voor de
+specificatie waarin de gegeven vergelijking niet waar is. Volgens de
+correctheidsstelling is deze vergelijking dan ook niet afleidbaar uit de
+specificatie.
+
+We volgen de hint op die bij de opgave gegeven wordt. We beschouwen de algebra
+$\mathfrak{M}$ voor de specificatie $\texttt{NatBool}$ met drager $A$ en
+interpretaties als we gewend zijn, behalve voor interpretaties hier onder
+gedefini\"eerd.
+
+\begin{align*}
+A_{\texttt{nat}} &= \{ \omega, 0, 1, 2, 3, \ldots \} \\
+A_{\texttt{bool}} &= \{T, F\}
+\end{align*}
+
+Voor alle $m,n \in \mathbb{N}$ defini\"eren we interpretaties als volgt.
+
+\begin{align*}
+\texttt{0}_{\mathfrak{M}}                  &= 0 \\
+\texttt{succ}_{\mathfrak{M}}(n)            &= n+1 \\
+\texttt{succ}_{\mathfrak{M}}(\omega)       &= \omega \\
+\texttt{add}_{\mathfrak{M}}(m,n)           &= m+n \\
+\texttt{add}_{\mathfrak{M}}(\omega,n)      &= \omega \\
+\texttt{add}_{\mathfrak{M}}(n,\omega)      &= \omega \\
+\texttt{add}_{\mathfrak{M}}(\omega,\omega) &= \omega \\
+\texttt{mul}_{\mathfrak{M}}(m,n)           &= m*n \\
+\texttt{mul}_{\mathfrak{M}}(\omega,0)      &= 0 \\
+\texttt{mul}_{\mathfrak{M}}(\omega,n+1)    &= \omega \\
+\texttt{mul}_{\mathfrak{M}}(n,\omega)      &= \omega \\
+\texttt{mul}_{\mathfrak{M}}(\omega,\omega) &= \omega \\
+\texttt{even}_{\mathfrak{M}}(n)            &= \begin{cases}
+  T & \text{als $n$ even is} \\
+  F & \text{als $n$ oneven is}
+\end{cases} \\
+\texttt{even}_{\mathfrak{M}}(\omega)       &= T \\
+\texttt{odd}_{\mathfrak{M}}(n)             &= \begin{cases}
+  F & \text{als $n$ even is} \\
+  T & \text{als $n$ oneven is}
+\end{cases} \\
+\texttt{odd}_{\mathfrak{M}}(\omega)        &= T
+\end{align*}
+
+We hebben dus een algebra geconstrueerd waarin we een extra element toegevoegd
+hebben dat `zowel even als oneven' is. Om alle vergelijkingen nog waar te
+maken was er wat puzzelwerk nodig (je kunt $\omega$ opvatten als nuldeler voor
+zowel optelling als vermeningvuldiging als je er iets in wilt zien).
+
+Nu moeten we laten zien dat $\mathfrak{M}$ een model is voor de specificatie
+$\texttt{NatBool}$. We laten de vergelijkingen $\texttt{[B1] \ldots [B5]}$
+voor wat ze zijn; onze toevoeging van $\omega$ heeft hier geen invloed
+op. Van de overige vergelijkingen uit $\texttt{NatBool}$ laten we voor
+$\texttt{[A1]}$, $\texttt{[M2]}$ en $\texttt{[E2]}$ zien dat ze waar zijn in
+$\mathfrak{M}$, de rest gaat op vergelijkbare wijze.
+
+\paragraph{}
+
+Laat nu $\theta$ een assignment zijn van elementen uit $A$ aan de variabelen
+$x$ en $y$. We stellen dat $\theta(x) = a$ en $\theta(y) = b$.
+
+\begin{itemize}
+
+\item{$\texttt{[A1] add(x,0) = x}$}
+\begin{align*}
+\bar \theta(\texttt{add}(x,\texttt{0})) &= \texttt{add}_{\mathfrak{M}}(\bar \theta(x), \bar \theta(\texttt{0})) \\
+                                        &= \texttt{add}_{\mathfrak{M}}(\theta(x), 0_{\mathfrak{M}}) \\
+                                        &= \texttt{add}_{\mathfrak{M}}(a, 0) \\
+                                        &= a
+\end{align*}
+
+\begin{align*}
+\bar \theta(x) &= \theta(x) \\
+               &= a
+\end{align*}
+
+\item{$\texttt{[M2] mul(x,succ(y)) = add(mul(x,y),x)}$}
+
+We schrijven eerst de linkerkant uit.
+\begin{align*}
+\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(\bar \theta(x), \bar \theta(\texttt{succ}(y))) \\
+                                              &= \texttt{mul}_{\mathfrak{M}}(\theta(x), \texttt{succ}_{\mathfrak{M}}(\bar \theta(y))) \\
+                                              &= \texttt{mul}_{\mathfrak{M}}(a, \texttt{succ}_{\mathfrak{M}}(\theta(y))) \\
+                                              &= \texttt{mul}_{\mathfrak{M}}(a, \texttt{succ}_{\mathfrak{M}}(b))
+\end{align*}
+
+We onderscheiden nu verschillende gevallen voor $a$ en $b$.
+
+\begin{itemize}
+
+\item
+Wanneer $a = b = \omega$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(\omega, \texttt{succ}_{\mathfrak{M}}(\omega)) \\
+                                              &= \texttt{mul}_{\mathfrak{M}}(\omega, \omega) \\
+                                              &= \omega
+\end{align*}
+
+\item
+Wanneer $a,b \in \mathbb{N}$ hebben we:
+
+\begin{align*}
+\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(a, b+1) \\
+                                              &= a*(b+1)
+\end{align*}
+
+\item
+Wanneer $a = \omega$ en $b \in \mathbb{N}$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(\omega, b+1) \\
+                                              &= \omega
+\end{align*}
+
+\item
+Wanneer $a \in \mathbb{N}$ en $b = \omega$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(a, \texttt{succ}_{\mathfrak{M}}(\omega)) \\
+                                              &= \texttt{mul}_{\mathfrak{M}}(a, \omega) \\
+                                              &= \omega
+\end{align*}
+
+\end{itemize}
+
+En vervolgens schrijven we de rechterkant uit.
+\begin{align*}
+\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\bar \theta(\texttt{mul}(x,y),x)) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\bar \theta(x),\bar \theta(y)),\bar \theta(x)) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\theta(x),\theta(y)),\theta(x)) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(a,b),a)
+\end{align*}
+
+We onderscheiden nu weer dezelfde gevallen voor $a$ en $b$.
+
+\begin{itemize}
+
+\item
+Wanneer $a = b = \omega$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\omega,\omega),\omega) \\
+                                               &= \omega
+\end{align*}
+
+\item
+Wanneer $a,b \in \mathbb{N}$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(a,b),a) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(a*b,a) \\
+                                               &= (a*b)+a \\
+                                               &= a*(b+1)
+\end{align*}
+
+\item
+Wanneer $a = \omega$ en $b \in \mathbb{N}$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\omega,b),\omega) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(\ldots,\omega) \\
+                                               &= \omega
+\end{align*}
+
+\item
+Wanneer $a \in \mathbb{N}$ en $b = \omega$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(a,\omega),a) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(\omega,a) \\
+                                               &= \omega
+\end{align*}
+
+\end{itemize}
+
+\item{$\texttt{[E2] even(succ(x)) = odd(x)}$}
+
+We schrijven weer eerst de linkerkant uit.
+\begin{align*}
+\bar \theta(\texttt{even}(\texttt{succ}(x))) &= \texttt{even}_{\mathfrak{M}}(\bar \theta(\texttt{succ}(x))) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(\bar \theta(x)))) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(\theta(x)))) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(a))
+\end{align*}
+
+We onderscheiden twee gevallen voor $a$.
+
+\begin{itemize}
+
+\item
+Wanneer $a \in \mathbb{N}$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{even}(\texttt{succ}(x))) &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(a)) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(a+1) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(a+1) \\
+                                             &= \begin{cases}
+  F & \text{als $a$ even is} \\
+  T & \text{als $a$ oneven is}
+\end{cases}
+\end{align*}
+
+\item
+Wanneer $a = \omega$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{even}(\texttt{succ}(x))) &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(\omega)) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(\omega) \\
+                                             &= T
+\end{align*}
+
+\end{itemize}
+
+En vervolgens schrijven we de rechterkant uit.
+\begin{align*}
+\bar \theta(\texttt{odd}(x)) &= \texttt{odd}_{\mathfrak{M}}(\bar \theta(x)) \\
+                             &= \texttt{odd}_{\mathfrak{M}}(\theta(x)) \\
+                             &= \texttt{odd}_{\mathfrak{M}}(a)
+\end{align*}
+
+We onderscheiden weer twee gevallen voor $a$.
+
+\begin{itemize}
+
+\item
+Wanneer $a \in \mathbb{N}$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{odd}(x)) &= \texttt{odd}_{\mathfrak{M}}(a) \\
+                             &= \begin{cases}
+  F & \text{als $a$ even is} \\
+  T & \text{als $a$ oneven is}
+\end{cases}
+\end{align*}
+
+\item
+Wanneer $a = \omega$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{odd}(x)) &= \texttt{odd}_{\mathfrak{M}}(a) \\
+                             &= \texttt{odd}_{\mathfrak{M}}(\omega) \\
+                             &= T
+\end{align*}
+
+\end{itemize}
+
+\end{itemize}
+
+\paragraph{}
+
+We hebben nu laten zien dat $\mathfrak{M}$ inderdaad een model is voor de
+specificatie $\texttt{NatBool}$. Nu bekijken we de vergelijking
+\begin{displaymath}
+\texttt{even(x) = not(odd(x))}
+\end{displaymath}
+en zien dat deze niet waar is in $\mathfrak{M}$. Beschouw bijvoorbeeld de
+assignment $\theta$ met $\theta(x) = \omega$. We hebben dan
+\begin{align*}
+\bar \theta(\texttt{even}(x)) &= \texttt{even}_{\mathfrak{M}}(\bar \theta(x)) \\
+                              &= \texttt{even}_{\mathfrak{M}}(\theta(x)) \\
+                              &= \texttt{even}_{\mathfrak{M}}(\omega) \\
+                              &= T
+\end{align*}
+en
+\begin{align*}
+\bar \theta(\texttt{not}(\texttt{odd}(x))) &= \texttt{not}_{\mathfrak{M}}(\bar \theta(\texttt{odd}(x))) \\
+                                           &= \texttt{not}_{\mathfrak{M}}(\texttt{odd}_{\mathfrak{M}}(\bar \theta(x))) \\
+                                           &= \texttt{not}_{\mathfrak{M}}(\texttt{odd}_{\mathfrak{M}}(\theta(x))) \\
+                                           &= \texttt{not}_{\mathfrak{M}}(\texttt{odd}_{\mathfrak{M}}(\omega)) \\
+                                           &= \texttt{not}_{\mathfrak{M}}(T) \\
+                                           &= F.
+\end{align*}
+
+Uit alle vergelijkingen van $\texttt{NatBool}$ volgt deze vergelijking dus
+niet semantisch. Volgens de correctheid van afleidbaarheid, is deze
+vergelijking dan ook niet afleidbaar in de specificatie $\texttt{NatBool}$.
+
+
+\section*{Opgave 6.1}
+
+\begin{description}
+
+\item{\bf (a)} % model voor Booleans met junk zonder confusion
+We hebben bij opgave 5.1 gezien dat iedere verzamelingsalgebra
+$\mathfrak{P}(V)$ over een verzameling $V$ (als in voorbeeld 4.3) een model is
+voor de specificatie $\texttt{Booleans}$. Nu beschouwen we de algebra
+$\mathfrak{P}(F)$ over de verzameling $F=\{1,2,3,4,5,6\}$ met als drager
+$\mathcal{P}(F)$.
+
+\paragraph{Wel junk}
+
+Iedere gesloten term uit $\texttt{Booleans}$ wordt in $\mathfrak{P}(F)$
+ge\"interpreteerd als \`ofwel heel F, \`ofwel de lege verzameling $\{\}$. Het
+bewijs hiervan verloopt via inductie naar de structuur van de term en laten we
+hier achterwege.
+
+Laten we nu het element $\{2,4,5\}$ uit $\mathfrak{P}(F)$ bekijken. Dit is
+niet $F$, ook niet $\{\}$ en dus niet de interpretatie van een gesloten
+term. Hieruit volgt dat $\mathfrak{P}(F)$ junk bevat.
+
+\paragraph{Geen confusion}
+
+Voor iedere gesloten term $t$ uit $\texttt{Booleans}$ geldt dat
+\begin{align*}
+\vdash t = \texttt{true} \quad \text{of} \quad \vdash t = \texttt{false}. &&\text{(volgens voorbeeld 6.3)}
+\end{align*}
+Laat nu $s$ en $t$ gesloten termen zijn met $\not \vdash t = s$. Dan moet
+\`ofwel $\vdash s = \texttt{true}$ en $\vdash t = \texttt{false}$, \`ofwel
+$\vdash s = \texttt{false}$ en $\vdash t = \texttt{true}$. In beide gevallen
+worden $s$ en $t$ als verschillende elementen van $\mathfrak{P}(F)$
+ge\"interpreteerd en dus bevat $\mathfrak{P}(F)$ geen confusion.
+
+\item{\bf (b)} % model voor Booleans zonder junk met confusion
+Laten we nu analoog aan onderdeel {\bf (a)} de verzamelingsalgebra
+$\mathfrak{P}(\{\})$ over de lege verzameling bekijken met in de drager als
+enige element $\{\}$.
+
+\paragraph{Geen junk}
+
+Volgens de definitie van de verzamelingsalgebra interpreteren we nu
+$\texttt{true}$ als $\{\}$. Hieruit volgt direct dat $\mathfrak{P}(\{\})$ geen
+junk bevat, want het enige element uit de drager is de interpretatie van een
+gesloten term.
+
+\paragraph{Wel confusion}
+
+In de algebra $\mathfrak{P}(\{\})$ worden de interpretaties van de termen
+$\texttt{true}$ en $\texttt{false}$ ge\"identificeerd. Toch is de vergelijking
+$\texttt{true} = \texttt{false}$ niet afleidbaar uit de specificatie
+$\texttt{Booleans}$ (bovenstaande algebra $\mathfrak{P}(F)$ is bijvoorbeeld
+een tegenmodel) en dus bevat $\mathfrak{P}(\{\})$ confusion.
+
+\item{\bf (c)} % model voor Booleans met junk met confusion
+We bekijken de algebra $\mathfrak{B}_{3}$ voor de specificatie
+$\texttt{Booleans}$ met als drager $\{A,B,C\}$ en interpretaties
+\begin{align*}
+\texttt{true}_{\mathfrak{B}_{3}}     &= B, \\
+\texttt{false}_{\mathfrak{B}_{3}}    &= B, \\
+\texttt{and}_{\mathfrak{B}_{3}}(x,y) &= B, \\
+\texttt{or}_{\mathfrak{B}_{3}}(x,y)  &= B, \\
+\texttt{not}_{\mathfrak{B}_{3}}(x)   &= B.
+\end{align*}
+Dat $\mathfrak{B}_{3}$ een model is voor $\texttt{Booleans}$ mag duidelijk
+zijn (iedere term evalueert naar $B$ en dus is iedere vergelijking waar).
+
+\paragraph{Wel junk}
+
+Het is niet moeilijk in te zien dat iedere gesloten term uit
+$\texttt{Booleans}$ wordt in $\mathfrak{B}_{3}$ ge\"interpreteerd als $B$. Dit
+betekent dat de elementen $A$ en $C$ niet de interpretatie van een gesloten
+term zijn en dus dat $\mathfrak{B}_{3}$ junk bevat.
+
+\paragraph{Wel confusion}
+
+In de algebra $\mathfrak{B}_{3}$ worden de interpretaties van de termen
+$\texttt{true}$ en $\texttt{false}$ ge\"identificeerd. Toch is de vergelijking
+$\texttt{true} = \texttt{false}$ niet afleidbaar uit de specificatie
+$\texttt{Booleans}$ (bovenstaande algebra $\mathfrak{P}(F)$ is bijvoorbeeld
+een tegenmodel) en dus bevat $\mathfrak{B}_{3}$ confusion.
+
+\end{description}
+
+
+\section*{Opgave 6.2}
+
+\begin{description}
+
+\item{\bf (a)} % construeer het termmodel voor Booleans
+We construeren het termmodel $\mathfrak{Ter}_{\Sigma}/\negmedspace\sim$ voor de
+specificatie $\texttt{Booleans}$ met behulp van de equivalentierelatie $\sim$
+op termen uit $Ter_{\Sigma}$:
+\begin{displaymath}
+s \sim t \, \Longleftrightarrow \, E \vdash s = t
+\end{displaymath}
+waarbij $E$ de verzameling vergelijkingen in $\texttt{Booleans}$ is.
+
+Als drager van het termmodel nemen we nu de equivalentieklassen van de
+gesloten termen onder $\sim$. We hebben eerder gezien dat iedere gesloten term
+in $\texttt{Booleans}$ afleidbaar gelijk is aan \`ofwel $\texttt{true}$
+\`ofwel $\texttt{false}$, dus hebben we als drager genoeg aan de twee
+equivalentieklassen $[\texttt{true}]$ en $[\texttt{false}]$ van de termen
+$\texttt{true}$ en $\texttt{false}$.
+
+De interpretaties van de constanten en functiesymbolen kiezen we in het
+termmodel als volgt:
+\begin{align*}
+\texttt{true}_{\mathfrak{Ter}_{\Sigma}/\sim}         &= [\texttt{true}] \\
+\texttt{false}_{\mathfrak{Ter}_{\Sigma}/\sim}        &= [\texttt{false}] \\
+\texttt{and}_{\mathfrak{Ter}_{\Sigma}/\sim}([t],[s]) &= [\texttt{and}(t,s)] \\
+\texttt{or}_{\mathfrak{Ter}_{\Sigma}/\sim}([t],[s])  &= [\texttt{or}(t,s)] \\
+\texttt{not}_{\mathfrak{Ter}_{\Sigma}/\sim}([t])     &= [\texttt{not}(t)] \\
+\end{align*}
+
+\item{\bf (b)} % laat zien dat het termmodel isomorf is met B2
+We bekijken nu de functie $\phi : Ter_{\Sigma}/\negmedspace\sim \,\,
+\rightarrow \, A$ die equivalentieklassen afbeelt op de drager $A$ van
+$\mathfrak{B}_{2}$ en gedefini\"eerd is als
+\begin{align*}
+\phi([\texttt{true}])  &= T, \\
+\phi([\texttt{false}]) &= F.
+\end{align*}
+
+Nu laten we zien dat $\phi$ een isomorfisme is van
+$\mathfrak{Ter}_{\Sigma}/\negmedspace\sim$ naar $\mathfrak{B}_{2}$.
+
+\paragraph{Homomorfisme}
+
+Eerst bekijken we of $\phi$ een homomorfisme is. Voor de constante
+$\texttt{true}$ hebben we:
+\begin{align*}
+\phi(\texttt{true}_{\mathfrak{Ter}_{\Sigma}/\sim}) &= \phi([\texttt{true}]) \\
+                                                   &= T \\
+                                                   &= \texttt{true}_{\mathfrak{B}_{2}}
+\end{align*}
+Voor de constante $\texttt{false}$ gaat dit op gelijke wijze. We bekijken nu
+het functiesymbool $\texttt{not}$ toegepast op het element $x$. Voor de waarde
+van $x$ zijn er twee mogelijkheden, we beperken ons hier tot
+$[\texttt{true}]$:
+\begin{align*}
+\phi(\texttt{not}_{\mathfrak{Ter}_{\Sigma}/\sim}(x)) &= \phi(\texttt{not}_{\mathfrak{Ter}_{\Sigma}/\sim}([\texttt{true}])) \\
+                                                     &= \phi([\texttt{not(true)}]) \\
+                                                     &= \phi([\texttt{false}]) \\
+                                                     &= F
+\end{align*}
+\begin{align*}
+\texttt{not}_{\mathfrak{B}_{2}}(\phi(x)) &= \texttt{not}_{\mathfrak{B}_{2}}(\phi([\texttt{true}])) \\
+                                         &= \texttt{not}_{\mathfrak{B}_{2}}(T) \\
+                                         &= F
+\end{align*}
+Vervolgens bekijken we het functiesymbool $\texttt{and}$ toegepast op de
+elementen $x$ en $y$. Ook hier zijn er voor $x$ en $y$ beiden twee mogelijke
+waarden, we behandelen alleen het geval dat $x = [\texttt{true}]$ en $y =
+[\texttt{false}]$:
+\begin{align*}
+\phi(\texttt{and}_{\mathfrak{Ter}_{\Sigma}/\sim}(x,y)) &= \phi(\texttt{and}_{\mathfrak{Ter}_{\Sigma}/\sim}([\texttt{true}],[\texttt{false}])) \\
+                                                       &= \phi([\texttt{and}(\texttt{true},\texttt{false})]) \\
+                                                       &= \phi([\texttt{false}]) \\
+                                                       &= F
+\end{align*}
+\begin{align*}
+\texttt{and}_{\mathfrak{B}_{2}}(\phi(x),\phi(y)) &= \texttt{and}_{\mathfrak{B}_{2}}(\phi([\texttt{true}]),\phi([\texttt{false}])) \\
+                                                 &= \texttt{and}_{\mathfrak{B}_{2}}(T,F) \\
+                                                 &= F
+\end{align*}
+Hetzelfde verhaal voor het functiesymbool $\texttt{or}$ zullen we achterwege
+laten. Hiermee hebben we laten zien dat $\phi$ een homomorfisme is van
+$\mathfrak{Ter}_{\Sigma}/\negmedspace\sim$ naar $\mathfrak{B}_{2}$.
+
+\paragraph{Surjectief}
+
+De drager van $\mathfrak{B}_{2}$ bestaat uit de elementen $T$ en $F$. In onze
+definitie van $\phi$ zien we duidelijk dat beiden het beeld zijn van een
+element uit $\mathfrak{Ter}_{\Sigma}/\negmedspace\sim$ en dus is $\phi$ surjectief.
+
+\paragraph{Injectief}
+
+Evenzo is gemakkelijk te zien dat de twee verschillende elementen
+$[\texttt{true}]$ en $[\texttt{false}]$ met $\phi$ ook twee verschillende
+beelden hebben, namelijk $T$ respectievelijk $F$. En dus is $\phi$ injectief.
+
+\paragraph{}
+
+Nu we hebben laten zien dat er een isomorfisme bestaat van
+$\mathfrak{Ter}_{\Sigma}/\negmedspace\sim$ naar $\mathfrak{B}_{2}$ ($\phi$ is een
+injectief en surjectief homomorfisme) weten we dus ook dat deze twee algebra's
+isomorf zijn.
+
+\end{description}
+
+
+\section*{Opgave 7.3}
+
+\begin{description}
+
+\item{\bf (a)} % kta voor specificatie Booleans
+Er zijn twee equivalentieklassen onder afleidbare gelijkheid van gesloten
+termen. Uit beide klassen kiezen we \'e\'en representant voor de drager van de
+kanonieke term algebra $\mathfrak{A}_{1}$:
+\begin{align*}
+A_{1} &= \{\texttt{true}, \texttt{false}\}.
+\end{align*}
+De functiesymbolen uit $\texttt{Booleans}$ interpreteren we als volgt:
+\begin{align*}
+\texttt{true}_{\mathfrak{A}_{1}}     &= \texttt{true}, \\
+\texttt{false}_{\mathfrak{A}_{1}}    &= \texttt{false}, \\
+\texttt{and}_{\mathfrak{A}_{1}}(t,s) &= \begin{cases}
+  \texttt{true}  & \text{als $t = s = \texttt{true}$;} \\
+  \texttt{false} & \text{in de overige gevallen},
+\end{cases} \\
+\texttt{or}_{\mathfrak{A}_{1}}(t,s) &= \begin{cases}
+  \texttt{true}  & \text{als $t = \texttt{true}$ of $s = \texttt{true}$;} \\
+  \texttt{false} & \text{in de overige gevallen,}
+\end{cases} \\
+\texttt{not}_{\mathfrak{A}_{1}}(t) &= \begin{cases}
+  \texttt{true}  & \text{als $t = \texttt{false}$;} \\
+  \texttt{false} & \text{als $t = \texttt{true}$.}
+\end{cases}
+\end{align*}
+
+\item{\bf (b)} % nog een
+We kunnen ook andere representanten voor de drager kiezen, bijvoorbeeld zoals
+in deze algebra $\mathfrak{A}_{2}$:
+\begin{align*}
+A_{2} &= \{\texttt{true}, \texttt{not(true)}\}.
+\end{align*}
+De functiesymbolen uit $\texttt{Booleans}$ interpreteren we nu als volgt:
+\begin{align*}
+\texttt{true}_{\mathfrak{A}_{2}}     &= \texttt{true}, \\
+\texttt{false}_{\mathfrak{A}_{2}}    &= \texttt{not(true)}, \\
+\texttt{and}_{\mathfrak{A}_{2}}(t,s) &= \begin{cases}
+  \texttt{true}      & \text{als $t = s = \texttt{true}$;} \\
+  \texttt{not(true)} & \text{in de overige gevallen},
+\end{cases} \\
+\texttt{or}_{\mathfrak{A}_{2}}(t,s) &= \begin{cases}
+  \texttt{true}      & \text{als $t = \texttt{true}$ of $s = \texttt{true}$;} \\
+  \texttt{not(true)} & \text{in de overige gevallen,}
+\end{cases} \\
+\texttt{not}_{\mathfrak{A}_{2}}(t) &= \begin{cases}
+  \texttt{true}      & \text{als $t = \texttt{not(true)}$;} \\
+  \texttt{not(true)} & \text{als $t = \texttt{true}$.}
+\end{cases}
+\end{align*}
+
+\item{\bf (c)} % nog een
+De derde mogelijkheid voor de drager van een kta bij deze
+specificatie is de volgende algebra $\mathfrak{A}_{3}$:
+\begin{align*}
+A_{3} &= \{\texttt{not(false)}, \texttt{false}\}.
+\end{align*}
+De functiesymbolen uit $\texttt{Booleans}$ interpreteren we nu als volgt:
+\begin{align*}
+\texttt{true}_{\mathfrak{A}_{3}}     &= \texttt{not(false)}, \\
+\texttt{false}_{\mathfrak{A}_{3}}    &= \texttt{false}, \\
+\texttt{and}_{\mathfrak{A}_{3}}(t,s) &= \begin{cases}
+  \texttt{not(false)} & \text{als $t = s = \texttt{not(false)}$;} \\
+  \texttt{false}      & \text{in de overige gevallen,}
+\end{cases} \\
+\texttt{or}_{\mathfrak{A}_{3}}(t,s) &= \begin{cases}
+  \texttt{not(false)} & \text{als $t = \texttt{not(false)}$ of $s = \texttt{not(false)}$;} \\
+  \texttt{false}      & \text{in de overige gevallen,}
+\end{cases} \\
+\texttt{not}_{\mathfrak{A}_{3}}(t) &= \begin{cases}
+  \texttt{not(false)} & \text{als $t = \texttt{false}$;} \\
+  \texttt{false}      & \text{als $t = \texttt{not(false)}$.}
+\end{cases}
+\end{align*}
+
+\end{description}
+
+Merk overigens op dat er geen andere mogelijkheden zijn voor een kanonieke
+term algebra voor de specificatie $\texttt{Booleans}$. Wanneer we twee andere
+representanten uit de twee equivalentieklassen kiezen voor de drager van een
+kta kunnen we niet voldoen aan de eis dat iedere subterm van een element uit
+de drager ook een element uit de drager is.
+Dit is alleen te voorkomen door meer dan twee elementen in de drager te
+plaatsen, maar dan voldoen we niet meer aan de eis dat iedere
+equivalentieklasse precies \'e\'en representant heeft in de drager.
+
+
+\section*{Opgave 7.4}
+
+\begin{description}
+
+\item{\bf (a)} % initieel correcte specificatie E voor B
+Een initieel correcte specificatie $E$ voor $\mathfrak{B}$ bestaat uit de
+volgende vergelijkingen:
+\begin{quote}
+\begin{verbatim}
+[E1] f(f(f(x))) = f(f(c))
+[E2] f(a) = c
+\end{verbatim}
+\end{quote}
+
+\item{\bf (b)} % kta voor E
+Een kta voor $E$ is de algebra $\mathfrak{E}$ met als drager de verzameling
+\begin{align*}
+\{\texttt{a}, \, \texttt{c}, \, \texttt{f(c)}, \, \texttt{f(f(c))}\}
+\end{align*}
+en als interpretaties
+\begin{align*}
+\texttt{a}_{\mathfrak{E}}          &= \texttt{a}, \\
+\texttt{c}_{\mathfrak{E}}          &= \texttt{c}, \\
+\texttt{f}_{\mathfrak{E}}(a)       &= \texttt{c}, \\
+\texttt{f}_{\mathfrak{E}}(c)       &= \texttt{f(c)}, \\
+\texttt{f}_{\mathfrak{E}}(f(c))    &= \texttt{f(f(c))}, \\
+\texttt{f}_{\mathfrak{E}}(f(f(c))) &= \texttt{f(f(c))}.
+\end{align*}
+
+\end{description}
+
+
+\end{document}
