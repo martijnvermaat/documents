@@ -1,0 +1,155 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{fitch}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+
+\title{Voorbeeld-tentamenvragen Equationele Logica\\
+Antwoorden}
+\date{5 maart 2005}
+
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Opgave 1}
+
+\begin{description}
+
+\item{\bf a.}
+\begin{equation*}
+\begin{fitch}
+\texttt{add(x,0) = x}                            & \texttt{[E1]} \\ %1
+\texttt{add(add(succ(z),0),0) = add(succ(z),0)}  & subst, 1      \\ %2
+\texttt{add(succ(z),0) = succ(z)}                & subst, 1      \\ %3
+\texttt{add(add(succ(z),0),0) = succ(z)}         & trans, 2, 3   \\ %4
+
+\texttt{add(x,succ(y)) = succ(add(x,y))}         & \texttt{[E2]} \\ %5
+\texttt{add(z,succ(0)) = succ(add(z,0))}         & subst, 5      \\ %6
+\texttt{add(z,0) = z}                            & subst, 1      \\ %7
+\texttt{succ(add(z,0)) = succ(z)}                & congr, 7      \\ %8
+\texttt{add(z,succ(0)) = succ(z)}                & trans, 6, 8   \\ %9
+\texttt{succ(z) = add(z,succ(0))}                & symm, 9       \\ %10
+
+\texttt{add(add(succ(z),0),0) = add(z,succ(0))}  & trans, 4, 10     %11
+\end{fitch}
+\end{equation*}
+
+\item{\bf b.}
+\begin{verbatim}
+module Spec
+
+  sorts object
+
+  functions
+    0    :                 -> object
+    succ : object          -> object
+    pred : object          -> object
+    add  : object # object -> object
+    sub  : object # object -> object
+
+  equations
+    [E1] : add(x,0)       = x
+    [E2] : add(x,succ(y)) = succ(add(x,y))
+    [E3] : add(x,pred(y)) = pred(add(x,y))
+    [E4] : succ(pred(x))  = x
+    [E5] : pred(succ(x))  = x
+    [E6] : sub(x,0)       = x
+    [E7] : sub(x,succ(y)) = pred(sub(x,y))
+    [E8] : sub(x,pred(y)) = succ(sub(x,y))
+
+end 
+\end{verbatim}
+
+\end{description}
+
+
+\section*{Opgave 2}
+
+De afbeelding gegeven bij {\bf a.} is geen homomorfisme, omdat $(2+5)+3 \ne
+(2+3)+(5+3)$.
+De afbeelding gegeven bij {\bf b.} is wel een homomorfisme.
+
+
+\section*{Opgave 3}
+
+\begin{description}
+
+\item{\bf a.}
+\begin{equation*}
+\begin{fitch}
+\texttt{s(h(x)) = s(x)}                 & \texttt{[E2]}  \\ % 1
+\texttt{s(s(h(x))) = s(s(x))}           & congr, 1       \\ % 2
+\texttt{s(s(h(a))) = s(s(a))}           & subst, 2       \\ % 3
+\texttt{s(h(s(a))) = s(s(a))}           & subst, 1       \\ % 4
+\texttt{s(s(a)) = s(h(s(a)))}           & symm, 4        \\ % 5
+\texttt{s(s(h(a))) = s(h(s(a)))}        & trans, 3, 5       % 6
+\end{fitch}
+\end{equation*}
+
+\item{\bf b.}
+De algebra $\mathfrak{K}$ is geen model voor de specificatie $\texttt{Spec}$
+omdat de vergelijking $\texttt{[E1]}$ hierin niet waar is. Kies bijvoorbeeld
+de assignment $\theta$ met $\theta(x) = 3$. We zien dan dat
+\begin{align*}
+\bar \theta(\texttt{h(h(x))}) &= 3+2 \\
+                              &= 5
+\end{align*}
+terwijl
+\begin{align*}
+\bar \theta(\texttt{x}) &= 3.
+\end{align*}
+
+\item{\bf c.}
+We bekijken voor de overige algebra's of ze initiele modellen zijn voor $\texttt{Spec}$.
+
+\paragraph{De algebra $\mathfrak{L}$}
+
+Deze algebra is geen initieel model voor $\texttt{Spec}$, omdat er junk
+is. Voor alle getallen ongelijk aan 0 geldt namelijk dat ze niet de
+interpretatie zijn van een gesloten term.
+
+Bovendien bevat deze algebra confusion, omdat iedere gesloten term
+ge\"interpreteerd wordt als het getal 0. Dit betekent dat iedere vergelijking
+van gesloten termen waar is in $\mathfrak{L}$, terwijl bijvoorbeeld
+$\texttt{s(x) = x}$ niet afleidbaar is in $\texttt{Spec}$.
+
+\paragraph{De algebra $\mathfrak{M}$}
+
+Deze algebra is geen initieel model voor $\texttt{Spec}$, omdat er confusion
+aanwezig is. De termen $\texttt{a}$ en $\texttt{h(a)}$ worden namelijk gelijk
+ge\"interpreteerd, terwijl ze niet als gelijk kunnen worden afgeleid in de
+specificatie $\texttt{Spec}$.
+
+\paragraph{De algebra $\mathfrak{N}$}
+
+Deze algebra is geen initieel model voor $\texttt{Spec}$, omdat er
+confusion aanwezig is. Bijvoorbeeld de termen $\texttt{x}$ en $\texttt{h(x)}$
+worden ge\"identificeerd, terwijl deze gelijkheid niet afleidbaar is in
+$\texttt{Spec}$.
+
+\item{\bf d.}
+Een kta voor $\texttt{Spec}$ is de algebra $\mathfrak{S}$ met als drager de
+verzameling
+\begin{align*}
+\{\, \ldots, \, \texttt{h(s(s(a)))}, \, \texttt{h(s(a))}, \, \texttt{h(a)}, \, \texttt{a}, \, \texttt{s(a)}, \, \texttt{s(s(a))}, \, \ldots \, \}
+\end{align*}
+en als interpretaties
+\begin{align*}
+\texttt{a}_{\mathfrak{S}}               &= \texttt{a}, \\
+\texttt{h}_{\mathfrak{S}}(t) &= \begin{cases}
+  s             & \text{als $t$ van de vorm $\texttt{h}(s)$ is;} \\
+  \texttt{h}(t) & \text{in de overige gevallen,}
+\end{cases} \\
+\texttt{s}_{\mathfrak{S}}(t)       &= \texttt{s}(t).
+\end{align*}
+
+\end{description}
+
+
+\end{document}

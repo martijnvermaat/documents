@@ -1,0 +1,151 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{fitch}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+
+\title{Voorbeeld-tentamenvragen Equationele Logica}
+\date{5 maart 2005}
+
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Opgave 1}
+
+Beschouw de volgende specificatie $\texttt{Spec}$:
+
+\begin{quote}
+\begin{verbatim}
+module Spec
+
+  sorts object
+
+  functions
+    0    :                 -> object
+    succ : object          -> object
+    add  : object # object -> object
+
+  equations
+    [E1] : add(x,0)       = x
+    [E2] : add(x,succ(y)) = succ(add(x,y))
+
+end 
+\end{verbatim}
+\end{quote}
+
+\begin{description}
+
+\item{\bf a.}
+Geef een formele afleiding in de specificatie $\texttt{Spec}$ van de
+vergelijking
+\begin{displaymath}
+\texttt{add(add(succ(z),0),0) = add(z,succ(0))}.
+\end{displaymath}
+
+\item{\bf b.}
+De specificatie beschrijft de natuurlijke getallen met $\texttt{succ}$ als de
+opvolger functie en $\texttt{add}$ als optelling. Om alle gehele getallen te
+kunnen beschrijven wordt de specificatie uitgebreid met de volgende
+functiesymbolen:
+
+\begin{quote}
+\begin{verbatim}
+    pred : object          -> object
+    sub  : object # object -> object
+\end{verbatim}
+\end{quote}
+
+Hiermee worden respectievelijk de functies voorganger en aftrekken
+bedoeld. Breid de specificatie uit met geschikte vergelijkingen die het gedrag
+van de nieuwe verzameling functiesymbolen op de gehele getallen beschrijven.
+
+\end{description}
+
+
+\section*{Opgave 2}
+
+We werken in de signatuur $(S,\Sigma)$ met \'e\'en soort: $\texttt{nat}$; en
+alleen de constante $\texttt{0}$ en het binaire functiesymbool
+$\texttt{add}$.
+$\mathcal{N}^{+}$ is de $\Sigma$-algebra met als domein de natuurlijke
+getallen en de voor de hand liggende interpretaties: $\texttt{0}$ als het
+getal $0$ en $\texttt{add}$ als de gewone optelling. Welke van de volgende
+twee afbeeldingen zijn homomorfismes? Toelichting is alleen nodig wanneer een
+afbeelding geen homomorfisme is.
+
+\begin{description}
+
+\item{\bf a.}
+$\phi$ gegeven door $\phi(n) = n+3$.
+
+\item{\bf b.}
+$\phi$ gegeven door $\phi(n) = 2n$.
+
+\end{description}
+
+
+\section*{Opgave 3}
+
+Gegeven is de volgende specificatie $\texttt{Spec}$:
+
+\begin{quote}
+\begin{verbatim}
+module Spec
+
+  sorts object
+
+  functions
+    a :        -> object
+    h : object -> object
+    s : object -> object
+
+  equations
+    [E1] : h(h(x)) = x
+    [E2] : s(h(x)) = s(x)
+
+end Spec
+\end{verbatim}
+\end{quote}
+
+Voor deze specificatie beschouwen we de volgende $\Sigma$-algebra's
+$\mathfrak{K}$, $\mathfrak{L}$, $\mathfrak{M}$ en $\mathfrak{N}$.
+
+\begin{align*}
+\mathfrak{K} &: & &K = \mathbb{N}, & &a_{\mathfrak{K}} = 0, & &h_{\mathfrak{K}}(n) = n+1, & &s_{\mathfrak{K}}(n) = n^{2}. \\
+\mathfrak{L} &: & &L = \mathbb{Z}, & &a_{\mathfrak{L}} = 0, & &h_{\mathfrak{L}}(z) = -z, & &s_{\mathfrak{L}}(z) = z^{2}. \\
+\mathfrak{M} &: & &M = \mathbb{Z}, & &a_{\mathfrak{M}} = 0, & &h_{\mathfrak{M}}(z) = -z, & &s_{\mathfrak{M}}(z) = |z|+1. \\
+\mathfrak{N} &: & &N = \{2,4,16,\ldots\}, & &a_{\mathfrak{N}} = 2, & &h_{\mathfrak{N}}(x) = x, & &s_{\mathfrak{N}}(x) = x^{2}.
+\end{align*}
+
+\begin{description}
+
+\item{\bf a.}
+Geef een afleiding voor de volgende vergelijking:
+\begin{displaymath}
+\texttt{s(s(h(a))) = s(h(s(a)))}.
+\end{displaymath}
+
+\item{\bf b.}
+Precies \'e\'en van de algebra's $\mathfrak{K}$, $\mathfrak{L}$,
+$\mathfrak{M}$, $\mathfrak{N}$ is \emph{geen} model voor de specificatie
+$\texttt{Spec}$. Geef aan welke dat is en waarom.
+
+\item{\bf c.}
+Ga voor elk van de drie algebra's van $\mathfrak{K}$, $\mathfrak{L}$,
+$\mathfrak{M}$, $\mathfrak{N}$ die een model zijn voor $\texttt{Spec}$ na of
+het een initieel model is voor $\texttt{Spec}$. Alleen negatieve antwoorden
+moeten worden gemotiveerd door het aangeven van junk en/of confusion.
+
+\item{\bf d.}
+Geef een kanonieke term algebra voor de specificatie $\texttt{Spec}$.
+
+\end{description}
+
+
+\end{document}
