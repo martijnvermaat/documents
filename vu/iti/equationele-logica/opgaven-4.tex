@@ -29,6 +29,7 @@ Deel 1: Equationele Logica -- Algebra's}\\[2em]
 \begin{enumerate}
 
 \item % laat zien dat \x->x een homomorphisme is van N naar Z
+
 Hiertoe moeten we laten zien dat $\phi$ over alle functies voldoet aan de
 voorwaarden van een homomorphisme:
 
@@ -268,12 +269,185 @@ met daar aan toegevoegd de volgende interpretaties:
 
 {\bf Opgave 4.6}
 
-Todo.\\[2em]
+\begin{enumerate}
+
+\item % laat zien dat de eigenschap homomorphisme gesloten is onder compositie
+
+Gegeven een homomorphisme van $\mathfrak{A}$ naar $\mathfrak{B}$
+
+\begin{eqnarray*}
+\psi & : & A \rightarrow B
+\end{eqnarray*}
+
+en een homomorphisme van $\mathfrak{B}$ naar $\mathfrak{C}$
+
+\begin{eqnarray*}
+\omega & : & B \rightarrow C
+\end{eqnarray*}
+
+krijgen we met de compositie
+
+\begin{eqnarray*}
+\phi & : & A \rightarrow C \\
+\phi & = & \omega \circ \psi
+\end{eqnarray*}
+
+een homomorphisme van $\mathfrak{A}$ naar $\mathfrak{C}$.
+
+We hebben namelijk voor alle constanten $c$
+
+\begin{eqnarray*}
+\phi(c_{\mathfrak{A}}) & = & \omega(\psi(c_{\mathfrak{A}})) \\
+                       & = & \omega(c_{\mathfrak{B}}) \\
+                       & = & c_{\mathfrak{C}}
+\end{eqnarray*}
+
+en voor alle functiesymbolen $f$ (aantal argumenten van $f$ is $n$)
+
+\begin{eqnarray*}
+\phi(f_{\mathfrak{A}}(a_{1}, \ldots, a_{n})) & = &
+                                             \omega(\psi(f_{\mathfrak{A}}(a_{1},
+                                             \ldots, a_{n}))) \\
+                                             & = &
+                                             \omega(f_{\mathfrak{B}}(\psi(a_{1}),
+                                             \ldots, \psi(a_{n}))) \\
+                                             & = &
+                                             f_{\mathfrak{C}}(\omega(\psi(a_{1})),
+                                             \ldots, \omega(\psi(a_{n}))) \\
+                                             & = &
+                                             f_{\mathfrak{C}}(\phi(a_{1}),
+                                             \ldots, \phi(a_{n})).
+\end{eqnarray*}
+
+\item % laat zien dat de eigenschap isomorfisme gesloten is onder conversie
+
+Gegeven een isomorfisme van $\mathfrak{A}$ naar $\mathfrak{B}$
+
+\begin{eqnarray*}
+\psi & : & A \rightarrow B
+\end{eqnarray*}
+
+construeren we een isomorfisme van $\mathfrak{B}$ naar $\mathfrak{A}$ als
+
+\begin{eqnarray*}
+\phi & : & B \rightarrow A \\
+\phi & = & \psi^{-1}.
+\end{eqnarray*}
+
+De inverse van $\psi$ bestaat omdat $\psi$ een bijectie is. Bovendien is de
+inverse van een bijectie ook weer een bijectie, dus is $\phi$ een bijectie.
+
+We laten nu zien dat $\phi$ een homomorphisme is van $\mathfrak{B}$ naar
+$\mathfrak{A}$. Voor alle constanten $c$ hebben we
+
+\begin{eqnarray*}
+\phi(c_{\mathfrak{B}}) & = & \psi^{-1}(c_{\mathfrak{B}}) \\
+                       & = & c_{\mathfrak{A}}
+\end{eqnarray*}
+
+en voor alle functiesymbolen $f$ hebben we
+
+\begin{eqnarray*}
+\phi(f_{\mathfrak{B}}(a_{1}, \ldots, a_{n})) & = & \psi^{-1}(f_{\mathfrak{B}}(a_{1}, \ldots, a_{n})) \\
+                                             & = &
+                                             f_{\mathfrak{A}}(\phi(a_{1}),
+                                             \ldots, \phi(a_{n})).
+\end{eqnarray*}
+
+\begin{quote}
+Ter verduidelijking: deze laatste gelijkheid volgt uit het feit dat $\psi$ een
+homomorphisme is, want daarmee is
+
+\begin{eqnarray*}
+\psi(f_{\mathfrak{A}}(\phi(a_{1}), \ldots, \phi(a_{n}))) & = & f_{\mathfrak{B}}(\psi(\phi(a_{1})), \ldots, \psi(\phi(a_{n}))) \\
+                                                         & = & f_{\mathfrak{B}}(a_{1}, \ldots, a_{n}).
+\end{eqnarray*}
+\end{quote}
+
+We hebben nu laten zien dat $\phi$ een bijectief homomorphisme is en dus een isomorphisme.
+
+\item % laat zien dat isomorphie een equivalentierelatie is
+
+Een relatie is een equivalentierelatie als deze reflexief, symmetrisch en
+transitief is.
+
+\begin{itemize}
+
+\item{Reflexiviteit}
+
+Gegeven een algebra $\mathfrak{A}$ bekijken we het isomorphisme
+
+\begin{eqnarray*}
+\phi(x) & = & x.
+\end{eqnarray*}
+
+Dat $\phi$ bijectief is moge duidelijk zijn. We laten kort zien dat $\phi$ een
+homomorphisme is en daarmee dus ook een isomorphisme. Voor constanten $c$ en
+functiesymbolen $f$ hebben we
+
+\begin{eqnarray*}
+\phi(c_{\mathfrak{A}})                       & = & c_{\mathfrak{A}} \\
+\phi(f_{\mathfrak{A}}(a_{1}, \ldots, a_{n})) & = & f_{\mathfrak{A}}(a_{1}, \ldots, a_{n}) \\
+                                             & = & f_{\mathfrak{A}}(\phi(a_{1}), \ldots, \phi(a_{n})).
+\end{eqnarray*}
+
+Hiermee is $\phi$ een isomorphisme van $\mathfrak{A}$ naar $\mathfrak{A}$ en
+hebben we dus
+
+\begin{eqnarray*}
+\mathfrak{A} & \cong & \mathfrak{A}.
+\end{eqnarray*}
+
+\item{Symmetrie}
+
+Gegeven twee algebra's $\mathfrak{A}$ en $\mathfrak{B}$ met
+
+\begin{eqnarray*}
+\mathfrak{A} & \cong & \mathfrak{B}.
+\end{eqnarray*}
+
+Er bestaat dus een isomorphisme van $\mathfrak{A}$ naar $\mathfrak{B}$. We
+hebben zojuist gezien dat de inverse van dit isomorphisme een isomorphisme is
+van $\mathfrak{B}$ naar $\mathfrak{A}$ en dus hebben we ook
+
+\begin{eqnarray*}
+\mathfrak{B} & \cong & \mathfrak{A}.
+\end{eqnarray*}
+
+\item{Transitiviteit}
+
+Gegeven drie algebra's $\mathfrak{A}$, $\mathfrak{B}$ en $\mathfrak{C}$ met
+
+\begin{eqnarray*}
+\mathfrak{A} & \cong & \mathfrak{B} \\
+\mathfrak{B} & \cong & \mathfrak{C}.
+\end{eqnarray*}
+
+Er bestaan dus isomorphismes $\phi$ van $\mathfrak{A}$ naar $\mathfrak{B}$ en
+$\psi$ van $\mathfrak{B}$ naar $\mathfrak{C}$. We construeren nu
+
+\begin{eqnarray*}
+\omega & = & \psi \circ \phi
+\end{eqnarray*}
+
+welke een homomorphisme van $\mathfrak{A}$ naar $\mathfrak{C}$ is. De
+compositie van twee bijecties geeft weer een bijectie en dus is $\omega$ een
+isomorphisme van $\mathfrak{A}$ naar $\mathfrak{C}$ en hebben we
+
+\begin{eqnarray*}
+\mathfrak{A} & \cong & \mathfrak{C}.
+\end{eqnarray*}
+
+\end{itemize}
+
+Hiermee hebben we laten zien dat $\cong$ een equivalentierelatie is.\\[2em]
+
+\end{enumerate}
 
 
 {\bf Opgave 4.7}
 
-Todo.\\[2em]
+Todo (verbindingslijntjes tekenen als bij een bisimulatie).\\[2em]
 
 
 \end{document}
