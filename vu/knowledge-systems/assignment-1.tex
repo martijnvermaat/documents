@@ -1,10 +1,8 @@
 \documentclass[a4paper,11pt]{article}
 \usepackage[english]{babel}
-\usepackage{a4,fullpage}
-\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{a4,fullpage} % small margins
 
-
-\renewcommand{\familydefault}{\sfdefault}
+\renewcommand{\familydefault}{\sfdefault} % sans serif font
 
 
 \title{Knowledge Systems - Assignment 1: Classification}
@@ -26,7 +24,7 @@ mvermaat@cs.vu.nl}
 \maketitle
 
 
-\renewcommand{\abstractname}{Introduction}
+\renewcommand{\abstractname}{Introduction} % abuse abstract environment
 \begin{abstract}
   The problem to be solved by our classification system is to determine why a
   desktop computer cannot access an http server on the Internet. Causes can
@@ -143,10 +141,57 @@ exactly this order, because an Ethernet cable is more likely to break than an
 Ethernet card.
 
 
-\section*{Todo}
+\section*{Example Scenario}
 
-Wat hieronder staat moet nog gedaan worden.
+\paragraph{Problem Description}
 
-voorbeeld scenario.
+We consider the following example use of our knowledge system. The user tries
+to issue a search query on the Google website via his personal computer. Upon
+submitting the query, the computer displays the message
+``$\texttt{www.google.com}$ could not be found''. Now the user asks our
+knowledge system for some help.
+
+\paragraph{Starting Situation and Properties}
+
+The system starts by asking the user the two seed questions as described
+above. In this example, the user has an ADSL modem that is connected directly
+to his computer. Now the system can generate the seed classes, for example:
+\begin{enumerate}
+\item There's a problem with the telephone line (the ADSL system uses the
+  telephone line).
+\item The computer suffers from a hardware failure.
+\item The problem has an external cause.
+\end{enumerate}
+This is where the system used some data abstraction techniques.
+
+\paragraph{Elimination of Classes}
+
+To be able to eliminate as much of the candidate classes as possible, the
+system now asks for some more information. This information can be either
+consistent or inconsistent with each of the selected candidate classes.
+
+In our example, the user is asked if he can hear a dial-tone when picking up
+the telephone. We assume he can and the system now eliminates the first seed
+class. This leaves us with two abstract classes.
+
+Now the system asks the user to try to open a random web address,
+e.g. `$\texttt{www.norvig.com}$'. Fortunately, the user is presented with the
+homepage requested. Hence the system can safely eliminate a hardware failure
+as the class of the problem.
+
+\paragraph{Generating Solutions}
+
+Only one abstract class of problems is left. The system now has to refine the
+classification of the problem into a subclass of this class. Among the
+consistent subclasses of problems with an external cause we find for example a
+`service temporary unavailable' and a `request for non-existing
+service'.
+
+After the user confirmed he is sure he typed the address of the service
+correct, the system generates the consistent solutions. After the last
+question, it is highly unlikely the user requested a non-existing service (it
+\emph{could} be discontinued recently), the cause with the highest ranking
+will be a temporary unavailable service.
+
 
 \end{document}
