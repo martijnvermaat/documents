@@ -278,39 +278,39 @@ En als $x$ oneven is:
 \item
 Als $x$ even is en $y$ oneven is of omgekeerd:
 \begin{eqnarray*}
-\phi(\texttt{add}_{\mathfrak{N}}(x,y) & = & \phi(x+y) \\
-                                      & = & F \\
-                                      & = & \underline{xor}(T, F) = \underline{xor}(F, T) \\
-                                      & = & \underline{xor}(\phi(x), \phi(y)) \\
-                                      & = & \texttt{add}_{\mathfrak{B}}(\phi(x),\phi(y))
+\phi(\texttt{add}_{\mathfrak{N}}(x,y)) & = & \phi(x+y) \\
+                                       & = & F \\
+                                       & = & \underline{xor}(T, F) = \underline{xor}(F, T) \\
+                                       & = & \underline{xor}(\phi(x), \phi(y)) \\
+                                       & = & \texttt{add}_{\mathfrak{B}}(\phi(x),\phi(y))
 \end{eqnarray*}
 
 Als $x$ en $y$ beiden even of beiden oneven zijn:
 \begin{eqnarray*}
-\phi(\texttt{add}_{\mathfrak{N}}(x,y) & = & \phi(x+y) \\
-                                      & = & T \\
-                                      & = & \underline{xor}(T, T) = \underline{xor}(F, F) \\
-                                      & = & \underline{xor}(\phi(x), \phi(y)) \\
-                                      & = & \texttt{add}_{\mathfrak{B}}(\phi(x),\phi(y))
+\phi(\texttt{add}_{\mathfrak{N}}(x,y)) & = & \phi(x+y) \\
+                                       & = & T \\
+                                       & = & \underline{xor}(T, T) = \underline{xor}(F, F) \\
+                                       & = & \underline{xor}(\phi(x), \phi(y)) \\
+                                       & = & \texttt{add}_{\mathfrak{B}}(\phi(x),\phi(y))
 \end{eqnarray*}
 
 \item
 Als $x$ en $y$ beiden oneven zijn:
 \begin{eqnarray*}
-\phi(\texttt{mul}_{\mathfrak{N}}(x,y) & = & \phi(x*y) \\
-                                      & = & F \\
-                                      & = & F \vee F \\
-                                      & = & \phi(x) \vee \phi(y) \\
-                                      & = & \texttt{mul}_{\mathfrak{B}}(\phi(x),\phi(y))
+\phi(\texttt{mul}_{\mathfrak{N}}(x,y)) & = & \phi(x*y) \\
+                                       & = & F \\
+                                       & = & F \vee F \\
+                                       & = & \phi(x) \vee \phi(y) \\
+                                       & = & \texttt{mul}_{\mathfrak{B}}(\phi(x),\phi(y))
 \end{eqnarray*}
 
 Als tenminste $x$ of $y$ even is:
 \begin{eqnarray*}
-\phi(\texttt{mul}_{\mathfrak{N}}(x,y) & = & \phi(x*y) \\
-                                      & = & T \\
-                                      & = & (T \vee T) = (T \vee F) = (F \vee T) \\
-                                      & = & \phi(x) \vee \phi(y) \\
-                                      & = & \texttt{mul}_{\mathfrak{B}}(\phi(x),\phi(y))
+\phi(\texttt{mul}_{\mathfrak{N}}(x,y)) & = & \phi(x*y) \\
+                                       & = & T \\
+                                       & = & (T \vee T) = (T \vee F) = (F \vee T) \\
+                                       & = & \phi(x) \vee \phi(y) \\
+                                       & = & \texttt{mul}_{\mathfrak{B}}(\phi(x),\phi(y))
 \end{eqnarray*}
 
 \end{itemize}
@@ -427,48 +427,51 @@ A_{\texttt{nat}} &= \{ \omega, 0, 1, 2, 3, \ldots \} \\
 A_{\texttt{bool}} &= \{T, F\}
 \end{align*}
 
+Voor alle $m,n \in \mathbb{N}$ defini\"eren we interpretaties als volgt.
+
 \begin{align*}
-\texttt{0}_{\mathfrak{M}} &= 0 \\
-\texttt{succ}_{\mathfrak{M}}(n) &= \begin{cases}
-  n+1 & \text{als $n \in \mathbb{N}$} \\
-  1   & \text{als $n = \omega$}
+\texttt{0}_{\mathfrak{M}}                  &= 0 \\
+\texttt{succ}_{\mathfrak{M}}(n)            &= n+1 \\
+\texttt{succ}_{\mathfrak{M}}(\omega)       &= \omega \\
+\texttt{add}_{\mathfrak{M}}(m,n)           &= m+n \\
+\texttt{add}_{\mathfrak{M}}(\omega,n)      &= \omega \\
+\texttt{add}_{\mathfrak{M}}(n,\omega)      &= \omega \\
+\texttt{add}_{\mathfrak{M}}(\omega,\omega) &= \omega \\
+\texttt{mul}_{\mathfrak{M}}(m,n)           &= m*n \\
+\texttt{mul}_{\mathfrak{M}}(\omega,0)      &= 0 \\
+\texttt{mul}_{\mathfrak{M}}(\omega,n+1)    &= \omega \\
+\texttt{mul}_{\mathfrak{M}}(n,\omega)      &= \omega \\
+\texttt{mul}_{\mathfrak{M}}(\omega,\omega) &= \omega \\
+\texttt{even}_{\mathfrak{M}}(n)            &= \begin{cases}
+  T & \text{als $n$ even is} \\
+  F & \text{als $n$ oneven is}
 \end{cases} \\
-\texttt{add}_{\mathfrak{M}}(n,m) &= \begin{cases}
-  n+m    & \text{als $n,m \in \mathbb{N}$} \\
-  \omega & \text{als $n = \omega$ of $m = \omega$}
+\texttt{even}_{\mathfrak{M}}(\omega)       &= T \\
+\texttt{odd}_{\mathfrak{M}}(n)             &= \begin{cases}
+  F & \text{als $n$ even is} \\
+  T & \text{als $n$ oneven is}
 \end{cases} \\
-\texttt{mul}_{\mathfrak{M}}(n,m) &= \begin{cases}
-  n*m & \text{als $n,m \in \mathbb{N}$} \\
-  m   & \text{als $n = \omega$ of $m = \omega$}
-\end{cases} \\
-\texttt{even}_{\mathfrak{M}} & = \begin{cases}
-  T & \text{als $n \in \mathbb{N}$ en $n$ is even} \\
-  F & \text{als $n \in \mathbb{N}$ en $n$ is oneven} \\
-  T & \text{als $n = \omega$}
-\end{cases} \\
-\texttt{odd}_{\mathfrak{M}} & = \begin{cases}
-  F & \text{als $n \in \mathbb{N}$ en $n$ is even} \\
-  T & \text{als $n \in \mathbb{N}$ en $n$ is oneven} \\
-  T & \text{als $n = \omega$}
-\end{cases}
+\texttt{odd}_{\mathfrak{M}}(\omega)        &= T
 \end{align*}
 
-We hebben dus een algebra geconstrueerd waarin we een `extra nul' toegevoegd
-hebben die `zowel even als oneven' is. niet commutatief is en, belangrijker, we een
-element $\omega$ hebben dat `zowel even als oneven' is.
+We hebben dus een algebra geconstrueerd waarin we een extra element toegevoegd
+hebben dat `zowel even als oneven' is. Om alle vergelijkingen nog waar te
+maken was er wat puzzelwerk nodig (je kunt $\omega$ opvatten als nuldeler voor
+zowel optelling als vermeningvuldiging als je er iets in wilt zien).
 
 Nu moeten we laten zien dat $\mathfrak{M}$ een model is voor de specificatie
 $\texttt{NatBool}$. We laten de vergelijkingen $\texttt{[B1] \ldots [B5]}$
 voor wat ze zijn; onze toevoeging van $\omega$ heeft hier geen invloed
-op. Voor de overige vergelijkingen uit $\texttt{NatBool}$ laten we zien dat ze
-waar zijn in $\mathfrak{M}$.
+op. Van de overige vergelijkingen uit $\texttt{NatBool}$ laten we voor
+$\texttt{[A1]}$, $\texttt{[M2]}$ en $\texttt{[E2]}$ zien dat ze waar zijn in
+$\mathfrak{M}$, de rest gaat op vergelijkbare wijze.
 
 Laat nu $\theta$ een assignment zijn van elementen uit $A$ aan de variabelen
 $x$ en $y$. We stellen dat $\theta(x) = m$ en $\theta(y) = n$.
 
 \begin{itemize}
 
-\item{$\texttt{[N1] add(x,0) = x}$}
+\item{$\texttt{[A1] add(x,0) = x}$}
 \begin{align*}
 \bar \theta(\texttt{add}(x,\texttt{0})) &= \texttt{add}_{\mathfrak{M}}(\bar \theta(x), \bar \theta(\texttt{0})) \\
                                         &= \texttt{add}_{\mathfrak{M}}(\theta(x), 0_{\mathfrak{M}}) \\
@@ -481,43 +484,50 @@ $x$ en $y$. We stellen dat $\theta(x) = m$ en $\theta(y) = n$.
                &= m
 \end{align*}
 
-\item{$\texttt{[N2] add(x,succ(y)) = succ(add(x,y))}$}
+\item{$\texttt{[M2] mul(x,succ(y)) = add(mul(x,y),x)}$}
 
 We schrijven eerst de linkerkant uit.
 
 \begin{align*}
-\bar \theta(\texttt{add}(x,\texttt{succ}(y))) &= \texttt{add}_{\mathfrak{M}}(\bar \theta(x), \bar \theta(\texttt{succ}(y))) \\
-                                              &= \texttt{add}_{\mathfrak{M}}(\theta(x), \texttt{succ}_{\mathfrak{M}}(\bar \theta(y))) \\
-                                              &= \texttt{add}_{\mathfrak{M}}(m, \texttt{succ}_{\mathfrak{M}}(\theta(y)))
+\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(\bar \theta(x), \bar \theta(\texttt{succ}(y))) \\
+                                              &= \texttt{mul}_{\mathfrak{M}}(\theta(x), \texttt{succ}_{\mathfrak{M}}(\bar \theta(y))) \\
+                                              &= \texttt{mul}_{\mathfrak{M}}(m, \texttt{succ}_{\mathfrak{M}}(\theta(y))) \\
+                                              &= \texttt{mul}_{\mathfrak{M}}(m, \texttt{succ}_{\mathfrak{M}}(n))
 \end{align*}
+
+We onderscheiden nu verschillende gevallen voor $m$ en $n$.
 
 \begin{itemize}
 
 \item
-In het geval van $m = \omega$ hebben we dan:
+Wanneer $m = n = \omega$ hebben we:
 \begin{align*}
-\bar \theta(\texttt{add}(x,\texttt{succ}(y))) &= \texttt{add}_{\mathfrak{M}}(\omega, \ldots) \\
+\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(\omega, \texttt{succ}_{\mathfrak{M}}(\omega)) \\
+                                              &= \texttt{mul}_{\mathfrak{M}}(\omega, \omega) \\
                                               &= \omega
 \end{align*}
 
 \item
-In het geval dat $n = \omega$ hebben we dan:
+Wanneer $m,n \in \mathbb{N}$ hebben we:
 
 \begin{align*}
-\bar \theta(\texttt{add}(x,\texttt{succ}(y))) &= \texttt{add}_{\mathfrak{M}}(m, \texttt{succ}_{\mathfrak{M}}(n)) \\
-                                              &= \texttt{add}_{\mathfrak{M}}(m, \texttt{succ}_{\mathfrak{M}}(\omega)) \\
-                                              &= \texttt{add}_{\mathfrak{M}}(m, \omega) \\
+\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(m, n+1) \\
+                                              &= m*(n+1)
+\end{align*}
+
+\item
+Wanneer $m \omega$ en $n \in \mathbb{N}$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(\omega, n+1) \\
                                               &= \omega
 \end{align*}
 
 \item
-En uiteindelijk in het geval dat $m$ en $n$ beiden uit $\mathbb{N}$ komen
-hebben we:
-
+Wanneer $m \in \mathbb{N}$ en $n = \omega$ hebben we:
 \begin{align*}
-\bar \theta(\texttt{add}(x,\texttt{succ}(y))) &= \texttt{add}_{\mathfrak{M}}(m, \texttt{succ}_{\mathfrak{M}}(n)) \\
-                                              &= \texttt{add}_{\mathfrak{M}}(m, n+1) \\
-                                              &= m+n+1
+\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(m, \texttt{succ}_{\mathfrak{M}}(\omega)) \\
+                                              &= \texttt{mul}_{\mathfrak{M}}(m, \omega) \\
+                                              &= \omega
 \end{align*}
 
 \end{itemize}
@@ -525,42 +535,151 @@ hebben we:
 En vervolgens schrijven we de rechterkant uit.
 
 \begin{align*}
-\bar \theta(\texttt{succ}(\texttt{add}(x,y))) &= \texttt{succ}_{\mathfrak{M}}(\bar \theta(\texttt{add}(x,y))) \\
-                                              &= \texttt{succ}_{\mathfrak{M}}(\texttt{add}_{\mathfrak{M}}(\bar \theta(x), \bar \theta(y))) \\
-                                              &= \texttt{succ}_{\mathfrak{M}}(\texttt{add}_{\mathfrak{M}}(\theta(x), \theta(y))) \\
-                                              &= \texttt{succ}_{\mathfrak{M}}(\texttt{add}_{\mathfrak{M}}(m, n)) \\
+\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\bar \theta(\texttt{mul}(x,y),x)) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\bar \theta(x),\bar \theta(y)),\bar \theta(x)) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\theta(x),\theta(y)),\theta(x)) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(m,n),m)
 \end{align*}
+
+We onderscheiden nu weer dezelfde gevallen voor $m$ en $n$.
 
 \begin{itemize}
 
 \item
-Als nu $m = \omega$ hebben we:
+Wanneer $m = n = \omega$ hebben we:
 \begin{align*}
-\bar \theta(\texttt{succ}(\texttt{add}(x,y))) &= \texttt{succ}_{\mathfrak{M}}(\texttt{add}_{\mathfrak{M}}(\omega, n)) \\
-                                              &= \texttt{succ}_{\mathfrak{M}}(\omega) \\
-                                              &= \omega
+\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\omega,\omega),\omega) \\
+                                               &= \omega
 \end{align*}
 
 \item
-En als $n = \omega$ hebben we:
+Wanneer $m,n \in \mathbb{N}$ hebben we:
 \begin{align*}
-\bar \theta(\texttt{succ}(\texttt{add}(x,y))) &= \texttt{succ}_{\mathfrak{M}}(\texttt{add}_{\mathfrak{M}}(m, \omega)) \\
-                                              &= \texttt{succ}_{\mathfrak{M}}(\omega) \\
-                                              &= \omega
+\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(m,n),m) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(m*n,m) \\
+                                               &= (m*n)+m \\
+                                               &= m*(n+1)
 \end{align*}
 
 \item
-En tenslotte als $m, n \in \mathbb{N}$ hebben we:
+Wanneer $m \omega$ en $n \in \mathbb{N}$ hebben we:
 \begin{align*}
-\bar \theta(\texttt{succ}(\texttt{add}(x,y))) &= \texttt{succ}_{\mathfrak{M}}(m+n) \\
-                                              &= m+n+1
+\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\omega,n),\omega) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(\ldots,\omega) \\
+                                               &= \omega
+\end{align*}
+
+\item
+Wanneer $m \in \mathbb{N}$ en $n = \omega$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(m,\omega),m) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(\omega,m) \\
+                                               &= \omega
 \end{align*}
 
 \end{itemize}
 
+\item{$\texttt{[E2] even(succ(x)) = odd(x)}$}
 
+We schrijven weer eerst de linkerkant uit.
+
+\begin{align*}
+\bar \theta(\texttt{even}(\texttt{succ}(x))) &= \texttt{even}_{\mathfrak{M}}(\bar \theta(\texttt{succ}(x))) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(\bar \theta(x)))) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(\theta(x)))) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(m))
+\end{align*}
+
+We onderscheiden twee gevallen voor $m$.
+
+\begin{itemize}
+
+\item
+Wanneer $m \in \mathbb{N}$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{even}(\texttt{succ}(x))) &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(m)) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(m+1) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(m+1) \\
+                                             &= \begin{cases}
+  F & \text{als $m$ even is} \\
+  T & \text{als $m$ oneven is}
+\end{cases}
+\end{align*}
+
+\item
+Wanneer $m = \omega$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{even}(\texttt{succ}(x))) &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(\omega)) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(\omega) \\
+                                             &= T
+\end{align*}
 
 \end{itemize}
 
+En vervolgens schrijven we de rechterkant uit.
+
+\begin{align*}
+\bar \theta(\texttt{odd}(x)) &= \texttt{odd}_{\mathfrak{M}}(\bar \theta(x)) \\
+                             &= \texttt{odd}_{\mathfrak{M}}(\theta(x)) \\
+                             &= \texttt{odd}_{\mathfrak{M}}(m)
+\end{align*}
+
+We onderscheiden weer twee gevallen voor $m$.
+
+\begin{itemize}
+
+\item
+Wanneer $m \in \mathbb{N}$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{odd}(x)) &= \texttt{odd}_{\mathfrak{M}}(m) \\
+                             &= \begin{cases}
+  F & \text{als $m$ even is} \\
+  T & \text{als $m$ oneven is}
+\end{cases}
+\end{align*}
+
+\item
+Wanneer $m = \omega$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{odd}(x)) &= \texttt{odd}_{\mathfrak{M}}(m) \\
+                             &= \texttt{odd}_{\mathfrak{M}}(\omega) \\
+                             &= T
+\end{align*}
+
+\end{itemize}
+
+\end{itemize}
+
+We hebben nu laten zien dat $\mathfrak{M}$ inderdaad een model is voor de
+specificatie $\texttt{NatBool}$. Nu bekijken we de vergelijking
+
+\begin{displaymath}
+\texttt{even(x) = not(odd(x))}
+\end{displaymath}
+
+en zien dat deze niet waar is in $\mathfrak{M}$. Beschouw bijvoorbeeld de
+assignment $\theta$ met $\theta(x) = \omega$. We hebben dan
+
+\begin{align*}
+\bar \theta(\texttt{even}(x)) &= \texttt{even}_{\mathfrak{M}}(\bar \theta(x)) \\
+                              &= \texttt{even}_{\mathfrak{M}}(\theta(x)) \\
+                              &= \texttt{even}_{\mathfrak{M}}(\omega) \\
+                              &= T
+\end{align*}
+
+en
+
+\begin{align*}
+\bar \theta(\texttt{not}(\texttt{odd}(x))) &= \texttt{not}_{\mathfrak{M}}(\bar \theta(\texttt{odd}(x))) \\
+                                           &= \texttt{not}_{\mathfrak{M}}(\texttt{odd}_{\mathfrak{M}}(\bar \theta(x))) \\
+                                           &= \texttt{not}_{\mathfrak{M}}(\texttt{odd}_{\mathfrak{M}}(\theta(x))) \\
+                                           &= \texttt{not}_{\mathfrak{M}}(\texttt{odd}_{\mathfrak{M}}(\omega)) \\
+                                           &= \texttt{not}_{\mathfrak{M}}(T) \\
+                                           &= F.
+\end{align*}
+
+Uit alle vergelijkingen van $\texttt{NatBool}$ volgt deze vergelijking dus
+niet semantisch. Volgens de correctheid van afleidbaarheid, is deze
+vergelijking dan ook niet afleidbaar in de specificatie $\texttt{NatBool}$.
 
 \end{document}
