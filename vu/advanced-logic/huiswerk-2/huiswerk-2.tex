@@ -1,5 +1,5 @@
 \documentclass[a4paper,11pt]{article}
-\usepackage{listings}
+\usepackage[defs]{ams}
 \usepackage[dutch]{babel}
 \usepackage{a4}
 \usepackage{color, rotating}
@@ -39,11 +39,41 @@ Gezocht wordt een model met 3 kenners waar in een bepaalde wereld
 $t$ de volgende formules waar zijn:
 
 \begin{eqnarray*}
-\mathcal{M},t & = & K_{1} p
-\mathcal{M},t & = & K_{2} p
-\mathcal{M},t & = & K_{3} K_{1} p
-\mathcal{M},t & = & K_{3} K_{2} p
+\mathcal{M},t & \Vdash & K_{1} p        \\
+\mathcal{M},t & \Vdash & K_{2} p        \\
+\mathcal{M},t & \Vdash & K_{3} K_{1} p  \\
+\mathcal{M},t & \nVdash & K_{3} K_{2} p
 \end{eqnarray*}
+
+We defini\"eren het frame $\mathcal{F}$ als volgt:
+
+\begin{eqnarray*}
+\mathcal{F} & = & (\{t,u,v\}, R_{1}, R_{2}, R_{3}) \\
+& & \mbox{waarbij}                                 \\
+& & R_{1} = \{(t,t), (u,u), (v,v)\}                \\
+& & R_{2} = \{(t,t), (u,u), (v,v), (u,v), (v,u)\}  \\
+& & R_{3} = \{(t,t), (u,u), (v,v), (t,u), (u,t)\}
+\end{eqnarray*}
+
+Nu voldoet het model $\mathcal{M}$ aan bovengenoemde eisen:
+
+\begin{eqnarray*}
+\mathcal{M} & = & (\mathcal{F}, \pi) \\
+& & \mbox{met}                       \\
+& & \pi(t)(p) = 1                    \\
+& & \pi(u)(p) = 1                    \\
+& & \pi(v)(p) = 0
+\end{eqnarray*}
+
+Dit is een tegenmodel voor de bewering dat wanneer twee kenners iets
+weten, ze dit ook van elkaar weten. We kunnen dus zeggen dat deze
+bewering niet in het algemeen geldt:
+
+\begin{eqnarray*}
+K_{i} p \, \wedge \, K_{j} p & \nvDash & K_{i} K_{j} p
+\end{eqnarray*}
+
+waarbij $i$ en $j$ twee kenners zijn.
 
 
 \end{document}
