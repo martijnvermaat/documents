@@ -1,0 +1,90 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{amsfonts}
+\usepackage{a4}
+\usepackage{latexsym}
+\usepackage{fitch} % http://folk.uio.no/johanw/FitchSty.html
+
+% niet te gewichtig willen doen met veel ruimte
+\setlength{\textwidth}{16cm}
+\setlength{\textheight}{23.0cm}
+\setlength{\topmargin}{0cm}
+\setlength{\oddsidemargin}{0.2mm}
+\setlength{\evensidemargin}{0.2mm}
+\setlength{\parindent}{0cm}
+
+% standaard enumerate met abc
+\renewcommand\theenumi{\alph{enumi}}
+
+
+\begin{document}
+
+
+{\bf Uitwerkingen bij Inleiding Theoretische Informatica\\
+Deel 1: Equationele Logica -- Algebra's}\\[2em]
+
+
+{\bf Opgave 4.1}
+
+\begin{enumerate}
+
+\item % laat zien dat \x->x een homomorphisme is van N naar Z
+Hiertoe moeten we laten zien dat $\phi$ over alle functies voldoet aan de
+voorwaarden van een homomorphisme:
+
+\begin{itemize}
+
+\item{de constante $\verb|0|_{\mathfrak{N}}$}
+
+  \begin{eqnarray*}
+    \phi(\verb|0|_{\mathfrak{N}}) & = & \phi(0) \\
+                                  & = & 0 \\
+                                  & = & \verb|0|_{\mathfrak{Z}}
+  \end{eqnarray*}
+
+\item{de functie $\verb|succ|_{\mathfrak{N}}$}
+
+  Voor willekeurige $x$ uit $\{0,1,2,\ldots\}$:
+
+  \begin{eqnarray*}
+    \phi(\verb|succ|_{\mathfrak{N}}(x)) & = & \phi(x+1) \\
+                                        & = & x+1 \\
+                                        & = & \verb|succ|_{\mathfrak{Z}}(x) \\
+                                        & = & \verb|succ|_{\mathfrak{Z}}(\phi(x))
+  \end{eqnarray*}
+
+\item{de functie $\verb|add|_{\mathfrak{N}}$}
+
+  Voor willekeurige $x,y$ uit $\{0,1,2,\ldots\}$:
+
+  \begin{eqnarray*}
+    \phi(\verb|add|_{\mathfrak{N}}(x,y)) & = & \phi(x+y) \\
+                                         & = & x+y \\
+                                         & = & \verb|add|_{\mathfrak{Z}}(x,y) \\
+                                         & = &
+                                         \verb|add|_{\mathfrak{Z}}(\phi(x),\phi(y))
+  \end{eqnarray*}
+
+\item{de functie $\verb|mul|_{\mathfrak{N}}$}
+
+  Voor willekeurige $x,y$ uit $\{0,1,2,\ldots\}$:
+
+  \begin{eqnarray*}
+    \phi(\verb|mul|_{\mathfrak{N}}(x,y)) & = & \phi(x*y) \\
+                                         & = & x*y \\
+                                         & = & \verb|mul|_{\mathfrak{Z}}(x,y) \\
+                                         & = & \verb|mul|_{\mathfrak{Z}}(\phi(x),\phi(y))
+  \end{eqnarray*}
+
+\end{itemize}
+
+Hiermee hebben we laten zien dat $\phi$ aan alle voorwaarden van een
+homomorphisme voldoet.\\[2em]
+
+\end{enumerate}
+
+
+{\bf Opgave 4.2}
+
+
+\end{document}
