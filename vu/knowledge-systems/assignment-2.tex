@@ -1,6 +1,7 @@
 \documentclass[a4paper,11pt]{article}
 \usepackage[english]{babel}
 \usepackage{a4,fullpage} % small margins
+\usepackage{graphicx}
 
 \renewcommand{\familydefault}{\sfdefault} % sans serif font
 
@@ -37,15 +38,30 @@ mvermaat@cs.vu.nl}
 \subsection*{Components to Choose From}
 
 \begin{itemize}
-\item Tent (gewicht, afmetingen)
-\item Hotel guide (...)
-\item Sleeping bag (...)
-\item Aerobed (...)
-\item Sleeping carpet (...)
+\item Tent 
+\item Hotel guide 
+\item Sleeping bag 
+\item Aerobed 
+\item Sleeping carpet 
 \item Cooking construction
 \item Cooking pan
 \item Barbeque
-\item Barbeque coal
+\item Trousers
+\item Socks
+\item ...
+\end{itemize}
+
+\paragraph{Properties}
+
+To pack the bag in such way that everything fits and that the maximum wait is 
+not exceeded, the dimensional and weight properties of every part is recorded in
+the component model. The weight is in Kilograms, the dimensions in centimeters.
+
+\begin{itemize}
+\item Tent: Weight=12; Dim=10,15,30;
+\item Hotel guide: Weight=0,12; Dim=12,3,15;
+\item Sleeping bag Weight=0,7; Dim=30,25,45;
+\item Socks Weight=0,03; Dim=2,6,15;
 \item ...
 \end{itemize}
 
@@ -56,7 +72,7 @@ mvermaat@cs.vu.nl}
 
 \item{A place to sleep}
 
-Provided by a tent and by a hotel guide.
+Provided by a tent or by a hotel guide.
 
 \item{Something to prepare food}
 
@@ -81,13 +97,17 @@ barbeque every day.
 
 \paragraph{Required Components}
 
-\begin{itemize}
-\item A tent requires something to sleep on and a
-  sleeping bag.
-\item A cooking construction requires a cooking pan.
-\item A barbeque requires barbeque coal.
-\item ...
-\end{itemize}
+The components required by other parts can be infered from the abstraction 
+hierarchy below. 
+
+\begin{figure}
+\begin{center}
+\includegraphics{subcomponents.jpg}
+\end{center}
+\caption{Required components}
+\label{figuur:RequiredComponents}
+\end{figure}
+
 
 \paragraph{Required Functions}
 
@@ -98,14 +118,14 @@ barbeque every day.
 \paragraph{Incompatible Components}
 
 \begin{itemize}
-\item ...
+\item Hotel guide <-> Tent
 \end{itemize}
 
 \paragraph{Alternative Components}
 
 \begin{itemize}
-\item A cooking construction can be replaced by a barbeque.
-\item ...
+\item Cooking contruction <-> Barbeque
+\item Phone <-> PDA
 \end{itemize}
 
 
@@ -113,6 +133,9 @@ barbeque every day.
 
 We can only take a total of 10 kilograms in our backpack.
 Also, the components have to fit in the packpack.
+The arrangement model therefore specifies the dimensions of the bag. 
+Components with any of their three dimensions longer than the largest dimension 
+of the bag will be excluded beforehand.
 
 
 \section*{Knowledge About Sharing}
