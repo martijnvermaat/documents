@@ -133,66 +133,70 @@ Aangezien het model $\mathcal{M}$ willekeurig gekozen was, is onze conclusie
 
 voor ieder epistemisch model $\mathcal{M}$.
 
-\paragraph{Vraag:}
+%\paragraph{Vraag:}
 
-Ik ben er niet zeker van dat ik met deze laatste notatie het mooist aangeef
-wat er gevraagd werd. Eerder had ik een alternatieve uitwerking van deze
-opgave (deze heb ik hier onder bijgevoegd), maar daarmee kom ik ten eerste tot
-een \emph{andere} conclusie (en volgens mij niet gelijk aan die gevraagd werd)
-en bovendien tot een \emph{verkeerde} conclusie (maw, ik denk niet dat de
-afleiding klopt).
+%Ik ben er niet zeker van dat ik met deze laatste notatie het mooist aangeef
+%wat er gevraagd werd. Eerder had ik een alternatieve uitwerking van deze
+%opgave (deze heb ik hier onder bijgevoegd), maar daarmee kom ik ten eerste tot
+%een \emph{andere} conclusie (en volgens mij niet gelijk aan die gevraagd werd)
+%en bovendien tot een \emph{verkeerde} conclusie (maw, ik denk niet dat de
+%afleiding klopt).
 
-Als alternatief voor de alternatieve uitwerking (snapt u het nog?) bedacht ik
-later om $p \to E p$ als extra axioma aan te nemen en van daaruit de conclusie
-af te leiden, maar ik denk dat dat ook niet juist is (het gaat namelijk niet
-om geldigheid, maar om waarheid).
+%Als alternatief voor de alternatieve uitwerking (snapt u het nog?) bedacht ik
+%later om $p \to E p$ als extra axioma aan te nemen en van daaruit de conclusie
+%af te leiden, maar ik denk dat dat ook niet juist is (het gaat namelijk niet
+%om geldigheid, maar om waarheid).
 
-Is dit `bewijs' \"uberhaupt op een aardige manier mogelijk in een Hilbert
-systeem? Zit ik op het juiste spoor als ik zeg dat het gevraagde niet direct
-uit te drukken is (hetzij mbv Kripke semantiek, hetzij mbv een Hilber systeem)
-zonder enige `meta-opmerkingen' (`als \ldots dan ook \ldots' in mijn
-conclusie)?
+%Is dit `bewijs' \"uberhaupt op een aardige manier mogelijk in een Hilbert
+%systeem? Zit ik op het juiste spoor als ik zeg dat het gevraagde niet direct
+%uit te drukken is (hetzij mbv Kripke semantiek, hetzij mbv een Hilber systeem)
+%zonder enige `meta-opmerkingen' (`als \ldots dan ook \ldots' in mijn
+%conclusie)?
 
 
-\section*{Opgave 3 - alternatieve uitwerking}
+%\section*{Opgave 3 - alternatieve uitwerking}
 
-In het axiomatisch systeem $(K^{n})^{+}$ hebben we voor alle $i,j,k \in \{1,\ldots,n\}$
-de volgende afleiding:
+%In het axiomatisch systeem $(K^{n})^{+}$ hebben we voor alle $i,j,k \in \{1,\ldots,n\}$
+%de volgende afleiding:
 
-\begin{equation*}
-\begin{fitch}
-K_{i}(p \to q) \to (K_{i} p \to K_{i} q)                        & DB        \\
-K_{i}(p \to K_{j} p) \to (K_{i} p \to K_{i} K_{j} p)            & SUB, 1    \\
-(p \to K_{i} p) \to ((p \to K_{j} p) \to K_{i}(p \to K_{j} p))  & PROP      \\
-(p \to K_{i} p) \to (p \to K_{j} K_{k} p)                       & PROP
-\end{fitch}
-\end{equation*}
+%\begin{equation*}
+%\begin{fitch}
+%K_{i}(p \to q) \to (K_{i} p \to K_{i} q)                        & DB        \\
+%K_{i}(p \to K_{j} p) \to (K_{i} p \to K_{i} K_{j} p)            & SUB, 1    \\
+%(p \to K_{i} p) \to ((p \to K_{j} p) \to K_{i}(p \to K_{j} p))  & PROP      \\
+%(p \to K_{i} p) \to (p \to K_{j} K_{k} p)                       & PROP
+%\end{fitch}
+%\end{equation*}
 
-We kunnen hier volgens $PROP$ ook volstaan met alleen het axioma $DB$ direct
-gevolgd door de conclusie middels een enkele $PROP$, maar het is nu al
-ingewikkeld genoeg.
+%We kunnen hier volgens $PROP$ ook volstaan met alleen het axioma $DB$ direct
+%gevolgd door de conclusie middels een enkele $PROP$, maar het is nu al
+%ingewikkeld genoeg.
 
-We kunnen dit resultaat met het axioma $AE$ omschrijven naar:
+%We kunnen dit resultaat met het axioma $AE$ omschrijven naar:
 
-\begin{displaymath}
-\vdash_{(K^{n})^{+}} \, (p \to E p) \to (p \to E E p)
-\end{displaymath}
+%\begin{displaymath}
+%\vdash_{(K^{n})^{+}} \, (p \to E p) \to (p \to E E p)
+%\end{displaymath}
 
-En gelukkig hebben we volledigheid van $(K^{n})^{+}$ voor de klasse van alle
-epistemische frames, dus kunnen we ook zeggen:
+%En gelukkig hebben we volledigheid van $(K^{n})^{+}$ voor de klasse van alle
+%epistemische frames, dus kunnen we ook zeggen:
 
-\begin{displaymath}
-\vDash \, (p \to E p) \to (p \to E E p)
-\end{displaymath}
+%\begin{displaymath}
+%\vDash \, (p \to E p) \to (p \to E E p)
+%\end{displaymath}
 
-Dit is wat gevraagd werd te bewijzen.
+%Dit is wat gevraagd werd te bewijzen.
 
-\paragraph{Noot:}
+%\paragraph{Noot:}
 
-Ik ben mij er van bewust dat deze uitwerking niet juist is.
+%Ik ben mij er van bewust dat deze uitwerking niet juist is.
 
 
 \section*{Opgave 4}
+
+Het frame ziet er in een plaatje als volgt $t_{1}$ uit:
+
+\input{huiswerk-2-opg4-1.pdftex_t}
 
 
 \end{document}
