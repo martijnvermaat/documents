@@ -3,7 +3,10 @@ Some ideas for future projects when I am bored:
 * Visual DFA/NFA builder on top of dk.brics.automaton (Java)
   - animated execution of the automaton
   - possibly implemented using GEF
+    (unfortunately building GEF standalone apps seems too difficult)
   - or something similar in Python with wxWindows
+  - this is exactly what JFLAP seems to do in plain Java
+    (http://www.cs.duke.edu/~rodger/tools/jflap/)
 
 * Unicode support in (the Java implementation of) SGLR
   - ambitious project
