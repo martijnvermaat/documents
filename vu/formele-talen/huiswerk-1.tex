@@ -31,10 +31,10 @@
 
 Een grammatica die $L$ genereert:
 
-\begin{eqnarray}
+\begin{eqnarray*}
 S & \rightarrow & aAb \, | \, aAc \, | \, bAa \, | \, bAc \, | \, cAa \, | \, cAb \nonumber \\
 A & \rightarrow & \lambda \, | \, aA \, | \, bA \, | \, cA \nonumber
-\end{eqnarray}
+\end{eqnarray*}
 
 \item[b)]
 
@@ -58,8 +58,106 @@ Een dfa die $L$ genereert:\\[1em]
 
 \input{huiswerk-1-opg2a.pdftex_t}
 
+\item[b)]
+
+We maken er eerst een nfa van waarbij we de trapstate $q_{3}$ weg laten en
+de drie accepterende states vervangen door \'e\'en accepterende state:\\[1em]
+
+\input{huiswerk-1-opg2b-1.pdftex_t}
+
+Vervolgens halen we $q_{1}$ weg volgens het algoritme op pagina's 82 en 83
+van het boek:\\[1em]
+
+\input{huiswerk-1-opg2b-2.pdftex_t}
+
+En zo ook $q_{2}$:\\[1em]
+
+\input{huiswerk-1-opg2b-3.pdftex_t}
+
+Volgens het recept uit datzelfde algoritme kunnen we uit deze nfa de
+volgende reguliere expressie construeren:
+
+\begin{eqnarray*}
+r = (11^{*}00 + 0)^{*} + (11^{*}\lambda + \lambda + 11^{*}0\lambda)
+\end{eqnarray*}
+
 
 \end{description}
+
+
+\section*{Opgave 3}
+
+
+We bewijzen dat de taal
+
+\begin{displaymath}
+\{a^{n} \, | \, n \mbox{ is \emph{geen} priemgetal}\}
+\end{displaymath}
+
+niet regulier is door met behulp van de pompstelling te bewijzen dat het
+complement van deze taal niet regulier is.
+
+\paragraph{Bewijs}
+
+We nemen aan dat de taal
+
+\begin{displaymath}
+L = \{a^{n} \, | \, n \mbox{ is een priemgetal}\}
+\end{displaymath}
+
+regulier is. Omdat $L$ een oneindige taal is (er zijn oneindig veel
+priemgetallen) kunnen we de pompstelling gebruiken. Volgens deze stelling
+bestaat er een geheel getal $m$, z\'o, dat voor iedere $w \in L$ met
+$|w| \geq m$ er een opdeling
+
+\begin{displaymath}
+w = xyz
+\end{displaymath}
+
+bestaat met $|xy| \leq m$ en $|y| \geq 1$ waarbij
+
+\begin{displaymath}
+w_{i} = xy^{i}z
+\end{displaymath}
+
+ook in $L$ zit (voor alle $i \geq 0$).
+
+Gegeven het gehele getal $m$, bekijken we de string
+
+\begin{displaymath}
+w = a^{n} \, \mbox{ ($n$ is het $m^{de}$ priemgetal).}
+\end{displaymath}
+
+Nu bekijken we met behulp van de genoemde opdeling $xyz$ van $w$ de string
+
+\begin{displaymath}
+w_{n} = xy^{n}z \, \mbox{ ($n = |w|+1$).}
+\end{displaymath}
+
+Nu hebben we $|w_{n}| = |w|+(|w|*|n|)$, waarbij we zeker weten dat deze
+lengte deelbaar is door $|w|$ (met als resultaat $|n|+1$). En dus zit $w_{n}$
+niet in $L$. Maar de pompstelling zegt dat $w_{n}$ wel in $L$ zit. Dit is
+een tegenspraak.
+
+Uit deze tegenspraak concluderen we dat onze aanname niet juist was en dus
+dat $L$ regulier is.
+
+Doordat de eigenschap `regulier' gesloten is onder de operatie
+complement\footnote{Eigenlijk gebruiken we hier dat het `\emph{niet}-regulier'
+zijn gesloten is onder de complement operatie. Dit is ook algemeen geldig,
+omdat een dubbel complement de originele taal geeft.}, is ook het complement
+
+\begin{displaymath}
+\{a^{n} \, | \, n \mbox{ is \emph{geen} priemgetal}\}
+\end{displaymath}
+
+van $L$ niet regulier. Dit wilden we bewijzen.
+
+\hfill\rule{2.1mm}{2.mm}
+
+
+\section*{Opgave 4}
+
 
 
 \end{document}
