@@ -1,0 +1,153 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{fitch}
+
+
+\renewcommand{\familydefault}{\sfdefault}
+
+
+\title{Knowledge Systems - Assignment 1: Classification}
+
+\author{Laurens Bronwasser\\
+1363956\\
+lmbronwa@cs.vu.nl
+\and
+Martijn Vermaat\\
+1362917\\
+mvermaat@cs.vu.nl}
+
+\date{March 2005}
+
+
+\begin{document}
+
+
+\maketitle
+
+
+\renewcommand{\abstractname}{Introduction}
+\begin{abstract}
+  The problem to be solved by our classification system is to determine why a
+  desktop computer cannot access an http server on the Internet. Causes can
+  be, among others, failing hardware (modem, router, NIC, or communication
+  wires) and improper configuration of certain devices or software like the
+  browser or firewall. The classification problem involved here is to
+  classify the reported problem into possible causes.
+\end{abstract}
+
+
+\section*{Classification Method}
+
+We found MC4 to be the best solution for this knowledge system. Because the
+system should be able to perform well enough regardless of the classification
+method used for our purposes (ignoring extremely na\"ive approaches of
+course), the computational properties of different classification methods were
+less important in choosing a method than some other properties like required
+efforts for the user.
+
+Not all possibly needed data is available at the beginning. Because
+acquisition of data takes considerable effort for the user (i.e. it might not
+be clear from the start what data is relevant), MC1 is not a good
+solution. For the same reason, we did not choose MC3. In addition, MC3 may
+also request unnecessary data.
+
+MC2 would be a good candidate, as it tries not to ask the user for irrelevant
+data. However, we also see some possibilities to model the solution space
+hierarchically. For instance, if it is known that some part of the complete
+system is working, it can be inferred that the problem is not related to the
+subparts of this part. Also, if some device (e.g. a router) is not part of a
+particular system, all problems associated with this device can be
+eliminated. This hierarchy yields solution MC4, which is basically an
+extension of MC2. It extends MC2 by using hierarchical solution discrimination
+techniques as applied in MC3.
+
+MC4, like MC2, requires initial data to determine the relevant classes to be
+considered and does not request irrelevant data. First, it applies initial data
+abstraction and establishes abstract `seed classes'. Then, it descends the
+hierarchy, starting at the seed classes and rules out classes by requesting
+additional data and dismissing classes not explaining the data.
+
+
+\section*{Initial Data}
+
+To determine the seed classes, the system asks for some initial data. The
+initial data concerns the following questions:
+\begin{enumerate}
+\item Is the system connected by means of a 56k modem, ADSL modem or cable
+  modem?
+\item Is the modem directly connected to the desktop computer, or is an
+  intermediate network involved?
+\end{enumerate}
+
+The first question is to rule out all problems concerning the modems that are
+not present. The second question is to eliminate all problems concerning local
+area networking. All further questions depend on the outcome of these two, and
+will therefore be considered after the seed classes have been determined.
+
+
+\section*{Reasoning}
+
+Reasoning is done by finding the covering relations of the solutions in the
+top of the hierarchy that have not yet been ruled out. Data is requested to
+check these covering relations.
+
+\paragraph{Form of Solution: Singleton Solution}
+
+In principle, every cause of failure corresponds to one problem to be
+solved. To achieve a system that can always return a single solution, every
+solution class has some discriminating properties, i.e. covering relations.
+
+\paragraph{Termination Criteria}
+
+The system does not immediately terminate after a possible solution is found,
+but tries to strengthen the arguments for the solution and find competing
+possible solutions. The two termination criteria used by the system are:
+\begin{enumerate}
+\item There are no more rules to apply that change the solution space.
+\item The user interferes the system (``This is taking too long, I'll just
+  have my six-year-old son look at this problem'').
+\end{enumerate}
+
+\paragraph{Inclusion Criteria}
+
+In order not to ignore possible solutions, the system uses conservative
+inclusion as the inclusion criterium. Compared to positive coverage, the
+advantage of conservative inclusion is that all consistent problem causes are
+considered, even if some of them don't follow directly from user data.
+
+The disadvantage is of course that the system needs a good ranking algorithm
+and enough related requests for user input for all possible solutions in order
+to come up with a high-quality set of solutions. If this turns out to be a
+problem in practice, a certain probability treshold could be added to the
+inclusion criteria.
+
+\paragraph{Completeness of Search: Exhaustive Search}
+
+If data that is necessary to discriminate certain classes cannot be obtained,
+the system provides a list of all possible solutions. This list can be ranked
+by likelyhood of the cause of failure (e.g. based on statistical data).
+
+\paragraph{Ranking Criteria}
+
+For ranking generated solutions, a number of methods are used. Of course,
+reasoning by elimination always seems like an obvious technique to
+employ--inconsistent solutions should be discarded in favour of consistent
+solutions. However, this still leaves room for more than one solution.
+
+The solutions still assumed valid at this stage are ranked by a ranking
+function. This ranking function is based on statistical and historical data.
+For example, if the system cannot determine whether (1) the Ethernet cable or
+(2) the Ethernet card is out of order, it reports these failure classes in
+exactly this order, because an Ethernet cable is more likely to break than an
+Ethernet card.
+
+
+\section*{Todo}
+
+Wat hieronder staat moet nog gedaan worden.
+
+voorbeeld scenario.
+
+\end{document}
