@@ -7,7 +7,7 @@
 let zero = fun s -> fun z -> z;;
 
 (*
- (* The lambda abstractions could be replaced by an explicit definition
+ (* The lambda abstractions could be replaced with an explicit definition
     with arguments, but the similarities with Lambda Calculus are less
     clear that way. *)
  let zero s z = z;;
@@ -26,8 +26,9 @@ let four = succ three;;
 let five = succ four;;
 
 (* show returns integer value denoted by the given church numeral. *)
-let show n = let inc n = n + 1
-in n inc 0;;
+let show n =
+  let inc n = n + 1 in
+  n inc 0;;
 
 
 let n = mul (add one two) (add four five)
