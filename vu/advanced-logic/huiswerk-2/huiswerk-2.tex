@@ -36,8 +36,6 @@
 
 \section*{Opgave 1}
 
-HIER EVEN NIET MEER UITGAAN VAN S5, is niet nodig!
-
 Gezocht wordt een model met 3 kenners waar in een bepaalde wereld
 $t$ de volgende formules waar zijn:
 
@@ -68,7 +66,7 @@ Nu voldoet het model $\mathcal{M}$ aan bovengenoemde eisen:
 & & \pi(v)(p) = 0
 \end{eqnarray*}
 
-En $\mathcal{M}$ in een plaatje gezien:\\[1em]
+En voor wie $\mathcal{M}$ in een plaatje wil zien:\\[1em]
 
 \input{huiswerk-2-opg1.pdftex_t}
 
@@ -103,6 +101,56 @@ K p \to K (p \vee q)                           & MP, 4,6   \\
 
 \section*{Opgave 3}
 
+In een willekeurig epistemisch model $\mathcal{M}$ bekijken we de
+toegankelijkheidsrelatie die hoort bij de operator $E$ (waarbij $n$ het aantal
+kenners is):
+
+\begin{displaymath}
+R_{E} = \bigcup_{i=1}^{n} \, R_{i}
+\end{displaymath}
+
+Volgens de semantiek van de kennis operator $K$ betekent $(p \to E p)$ nu dat er
+voor iedere wereld $s$ die $p$ waar maakt geldt: $p$ is waar in alle werelden
+$t$ met $R_{E} st$.
+
+Evenzo betekent $(p \to E E p)$ nu dat er voor iedere wereld $s$ die $p$ waar
+maakt geldt: $p$ is waar in alle werelden $u$ met $R_{E} st$ en $R_{E} tu$ en
+voor $t$ willekeurige werelden.
+
+\paragraph{}
+
+We zien dat, gegeven $\mathcal{M} \Vdash (p \to E p)$, in deze interpretatie
+van $(p \to E E p)$ de werelden $t$ allemaal $p$ waar maken. Eenvoudig is te
+zien dat nogmaals toepassen van het gegevene op alle werelden $t$ geeft dat
+alle werelden $u$ ook $p$ waar maken. En dat is precies wat nodig was om $(p
+\to E E p)$ waar te maken.
+
+Aangezien het model $\mathcal{M}$ willekeurig gekozen was, is onze conclusie
+
+\begin{displaymath}
+\mathcal{M} \Vdash (p \to E p) \quad \vDash \quad \mathcal{M} \Vdash(p \to E E p)
+\end{displaymath}
+
+voor ieder epistemisch model $\mathcal{M}$.
+
+\paragraph{Vraag:}
+
+Ik ben er niet zeker van dat ik met deze laatste notatie precies aangeef wat
+er gevraagd werd. Eerder had ik een alternatieve uitwerking van deze opgave
+(deze heb ik hier onder bijgevoegd), maar daarmee kom ik ten eerste tot een
+\emph{andere} conclusie (en volgens mij niet gelijk aan die gevraagd werd) en
+bovendien tot een \emph{verkeerde} conclusie (maw, ik denk niet dat de
+afleiding klopt).
+
+Als alternatief voor de alternatieve uitwerking (snapt u het nog?) bedacht ik
+later om $p \to E p$ als extra axioma aan te nemen en van daaruit de conclusie
+af te leiden, maar ik denk dat dat ook niet juist is (het gaat namelijk niet
+om geldigheid, maar om waarheid). Is dit \"uberhaupt op een aardige manier
+mogelijk in een Hilbert systeem (en zou het antwoord geaccepteerd worden)?
+
+
+\section*{Opgave 3 - alternatieve uitwerking}
+
 In het axiomatisch systeem $(K^{n})^{+}$ hebben we voor alle $i,j,k \in \{1,\ldots,n\}$
 de volgende afleiding:
 
@@ -133,6 +181,10 @@ epistemische frames, dus kunnen we ook zeggen:
 \end{displaymath}
 
 Dit is wat gevraagd werd te bewijzen.
+
+\paragraph{Noot:}
+
+Ik ben mij er van bewust dat deze uitwerking niet juist is.
 
 
 \section*{Opgave 4}
