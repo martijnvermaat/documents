@@ -138,9 +138,9 @@ termmodel als volgt:
 \begin{align*}
 \texttt{true}_{\mathfrak{Ter}_{\Sigma}/\sim}         &= [\texttt{true}] \\
 \texttt{false}_{\mathfrak{Ter}_{\Sigma}/\sim}        &= [\texttt{false}] \\
-\texttt{and}_{\mathfrak{Ter}_{\Sigma}/\sim}([t],[s]) &= [\texttt{and(t,s)}] \\
-\texttt{or}_{\mathfrak{Ter}_{\Sigma}/\sim}([t],[s])  &= [\texttt{or(t,s)}] \\
-\texttt{not}_{\mathfrak{Ter}_{\Sigma}/\sim}([t])     &= [\texttt{not(t)}] \\
+\texttt{and}_{\mathfrak{Ter}_{\Sigma}/\sim}([t],[s]) &= [\texttt{and}(t,s)] \\
+\texttt{or}_{\mathfrak{Ter}_{\Sigma}/\sim}([t],[s])  &= [\texttt{or}(t,s)] \\
+\texttt{not}_{\mathfrak{Ter}_{\Sigma}/\sim}([t])     &= [\texttt{not}(t)] \\
 \end{align*}
 
 \item % laat zien dat het termmodel isomorf is met B2
@@ -224,18 +224,164 @@ isomorf zijn.\\[2em]
 
 \item % construeer het termmodel voor Naturals
 
-Todo.
+Met behulp van de equivalentierelatie $\sim$ ($s \sim t \Leftrightarrow$ $s =
+t$ is afleidbaar uit $\texttt{Naturals}$) construeren we het termmodel
+$\mathfrak{Ter}_{\Sigma}/\sim$ met als drager de equivalentieklassen van de
+gesloten termen onder $\sim$.
+
+In opgave 3.3 hebben we bewezen dat iedere gesloten term in
+$\texttt{Naturals}$ afleidbaar gelijk is aan een term van de vorm
+$\texttt{succ}^{n}(\texttt{0})$, dus behoort ook iedere gesloten term tot een
+equivalentieklasse van de vorm $[\texttt{succ}^{n}(\texttt{0})]$. Onze drager
+bestaat dan ook precies uit de klassen van deze vorm.
+
+We bekijken nu de interpretaties van de constanten en functiesymbolen:
+
+\begin{align*}
+\texttt{0}_{\mathfrak{Ter}_{\Sigma}/\sim}            &= [\texttt{0}] \\
+\texttt{succ}_{\mathfrak{Ter}_{\Sigma}/\sim}([t])    &= [\texttt{succ}(t)] \\
+\texttt{add}_{\mathfrak{Ter}_{\Sigma}/\sim}([t],[s]) &= [\texttt{add}(t,s)] \\
+\texttt{mul}_{\mathfrak{Ter}_{\Sigma}/\sim}([t],[s]) &= [\texttt{mul}(t,s)] \\
+\end{align*}
+
+Juist omdat iedere term afleidbaar gelijk is aan een term van de vorm
+$\texttt{succ}^{n}(\texttt{0})$ zou je dezelfde interpretaties ook zo kunnen
+schrijven, het resultaat is exact hetzelfde:
+
+\begin{align*}
+\texttt{0}_{\mathfrak{Ter}_{\Sigma}/\sim}
+  &= [\texttt{0}] \\
+\texttt{succ}_{\mathfrak{Ter}_{\Sigma}/\sim}([\texttt{succ}^{n}(\texttt{0})])
+  &= [\texttt{succ}^{n+1}(\texttt{0})] \\
+\texttt{add}_{\mathfrak{Ter}_{\Sigma}/\sim}([\texttt{succ}^{m}(\texttt{0})],[\texttt{succ}^{n}(\texttt{0})])
+  &= [\texttt{succ}^{m+n}(\texttt{0})] \\
+\texttt{mul}_{\mathfrak{Ter}_{\Sigma}/\sim}([\texttt{succ}^{m}(\texttt{0})],[\texttt{succ}^{n}(\texttt{0})])
+  &= [\texttt{succ}^{m*n}(\texttt{0})]
+\end{align*}
 
 \item % laat zien dat het termmodel isomorf is met N
 
-Todo.\\[2em]
+We laten nu zien dat dit termmodel isomorf is met het model
+$\mathfrak{N}$. Hiertoe defini\"eren we een isomorphisme $\phi :
+Ter_{\Sigma}/\negmedspace\sim \, \, \rightarrow \, \mathbb{N}$ dat
+equivalentieklassen afbeelt op natuurlijke getallen als
+
+\begin{align*}
+\phi([\texttt{succ}^{n}(\texttt{0})]) &= n.
+\end{align*}
+
+We laten nu zien dat $\phi$ inderdaad een injectief en surjectief homomorfisme
+is van $\mathfrak{Ter}_{\Sigma}/\sim$ naar $\mathfrak{N}$.
+
+\paragraph{Homomorphisme}
+
+We bekijken op de gebruikelijke manier hoe $\phi$ zich gedraagt met betrekking
+tot de voorwaarden die gesteld worden aan een homomorfisme. Voor de constante
+$\texttt{0}$ hebben we:
+
+\begin{align*}
+\phi(\texttt{0}_{\mathfrak{Ter}_{\Sigma}/\sim}) &= \phi([\texttt{0}]) \\
+                                                &= 0 \\
+                                                &= \texttt{0}_{\mathfrak{N}}
+\end{align*}
+
+Voor iedere $n \ge 0$ hebben we voor de het functiesymbool $\texttt{succ}$:
+
+\begin{align*}
+\phi(\texttt{succ}_{\mathfrak{Ter}_{\Sigma}/\sim}([\texttt{succ}^{n}(\texttt{0})])
+  &= \phi([\texttt{succ}^{n+1}(\texttt{0})]) \\
+  &= n+1 \\
+  &= \texttt{succ}_{\mathfrak{N}}(n) \\
+  &= \texttt{succ}_{\mathfrak{N}}(\phi([\texttt{succ}^{n}(\texttt{0})]))
+\end{align*}
+
+Op dezelfde manier kunnen we de functiesymbolen $\texttt{add}$ en
+$\texttt{mul}$ beschouwen, iets dat we nu niet zullen doen. Hiermee hebben we
+laten zien dat $\phi$ inderdaad een homomorfisme is van
+$\mathfrak{Ter}_{\Sigma}/\sim$ naar $\mathfrak{N}$.
+
+\paragraph{Surjectief}
+
+Beschouw een willekeurig getal $n$ uit de drager van $\mathfrak{N}$. Volgens
+$\phi$ is dit getal het beeld van de equivalentieklasse
+$[\texttt{succ}^{n}(\texttt{0})]$ en deze equivalentieklasse is een element
+uit de drager van $\mathfrak{Ter}_{\Sigma}/\sim$. Dit betekent dat $\phi$
+surjectief is.
+
+\paragraph{Injectief}
+
+Beschouw nu twee equivalentieklassen $[\texttt{succ}^{m}(\texttt{0})]$ en
+$[\texttt{succ}^{n}(\texttt{0})]$. Wanneer dit verschillende elementen in de
+drager van het termmodel zijn, moet $m \neq n$. Omdat $m$ en $n$ precies de
+respectievelijke beelden zijn van deze twee klassen onder $\phi$, zijn deze
+ook verschillend. En dus is $\phi$ injectief.
+
+Omdat $\phi$ een injectief en surjectief homomorfisme is, is het een
+isomorfisme. Dit betekent dat $\mathfrak{Ter}_{\Sigma}/\sim$ en $\mathfrak{N}$
+isomorf zijn.\\[2em]
 
 \end{enumerate}
 
 
-{\bf Opgave 6.4}
+{\bf Opgave 6.5}
 
-Zie uitwerking van Roel de Vrijer.\\[2em]
+\begin{enumerate}
+
+\item % afleiding voor s(s(h(a))) = s(h(s(a)))
+
+Een afleiding voor $\texttt{s(s(h(a))) = s(h(s(a)))}$ in $\texttt{Spec}$:
+\begin{equation*}
+\begin{fitch}
+\texttt{s(h(x)) = s(x)}                 & \texttt{[E2]}  \\ % 1
+\texttt{s(s(h(x))) = s(s(x))}           & congr, 1       \\ % 2
+\texttt{s(s(h(a))) = s(s(a))}           & subst, 2       \\ % 3
+\texttt{s(h(s(a))) = s(s(a))}           & subst, 1       \\ % 4
+\texttt{s(s(a)) = s(h(s(a)))}           & symm, 4        \\ % 5
+\texttt{s(s(h(a))) = s(h(s(a)))}        & trans, 3, 5       % 6
+\end{fitch}
+\end{equation*}
+
+\item % welke algebra K,L,M,N is geen model voor Spec
+
+De algebra $\mathfrak{K}$ is geen model voor de specificatie $\texttt{Spec}$
+omdat de vergelijking $\texttt{[E1]}$ hierin niet waar is. Kies bijvoorbeeld
+de assignment $\theta$ met $\theta(x) = 3$. We zien dan dat
+\begin{align*}
+\bar \theta(\texttt{h(h(x))}) &= 3+2 \\
+                              &= 5
+\end{align*}
+terwijl
+\begin{align*}
+\bar \theta(\texttt{x}) &= 3.
+\end{align*}
+
+\item % bekijk voor de overige of ze initieel zijn
+
+We bekijken voor de overige algebra's of ze initiele modellen zijn voor $\texttt{Spec}$.
+
+\paragraph{De algebra $\mathfrak{L}$}
+
+Deze algebra is geen initieel model voor $\texttt{Spec}$, omdat er junk
+is. Voor alle getallen ongelijk aan 0 geldt namelijk dat ze niet de
+interpretatie zijn van een gesloten term.
+
+Bovendien bevat deze algebra confusion, omdat iedere gesloten term
+ge\"interpreteerd wordt als het getal 0. Dit betekent dat iedere vergelijking
+van gesloten termen waar is in $\mathfrak{L}$, terwijl bijvoorbeeld
+$\texttt{s(x) = x}$ niet afleidbaar is in $\texttt{Spec}$.
+
+\paragraph{De algebra $\mathfrak{M}$}
+
+Deze algebra is een initieel model voor $\texttt{Spec}$.
+
+\paragraph{De algebra $\mathfrak{N}$}
+
+Deze algebra is geen initieel model voor $\texttt{Spec}$, omdat er
+confusion aanwezig is. Bijvoorbeeld de termen $\texttt{x}$ en $\texttt{h(x)}$
+worden ge\"identificeerd, terwijl deze gelijkheid niet afleidbaar is in
+$\texttt{Spec}$.
+
+\end{enumerate}
 
 
 \end{document}
