@@ -393,29 +393,174 @@ eval_{\mathfrak{Ter}_{\Sigma}}(t_{n})) \\
 
 \item % laat zien dat eval(t) = ass(t) voor iedere algebra en assignment ass
 
-Gegeven een algebra $\mathfrak{A}$ en een assignment $\theta : X \rightarrow
-A$, is $\bar \theta$ een homomorfisme van $\mathfrak{Ter}_{\Sigma}(X)$ naar
-$\mathfrak{A}$. We bekijken nu de assignment $\theta' : \{\} \rightarrow A$ en
-zien dat $\bar \theta(t) = \bar \theta'(t)$ voor iedere gesloten term $t$.
+%Gegeven een algebra $\mathfrak{A}$ en een assignment $\theta : X \rightarrow
+%A$, is $\bar \theta$ een homomorfisme van $\mathfrak{Ter}_{\Sigma}(X)$ naar
+%$\mathfrak{A}$. We bekijken nu de assignment $\theta' : \{\} \rightarrow A$ en
+%zien dat $\bar \theta(t) = \bar \theta'(t)$ voor iedere gesloten term $t$.
 
-Nu is $\bar \theta'$ een homomorfisme van $\mathfrak{Ter}_{\Sigma}$ naar
-$\mathfrak{A}$, net zoals $eval_{\mathfrak{A}}$. Volgens gevolg 5.3 is er maar
-\'e\'en zo'n homomorfisme en dus zijn $\bar \theta'$ en $eval_{\mathfrak{A}}$
-gelijk. Omdat we voor iedere gesloten term $t$ al zagen dat $\bar \theta(t) =
-\bar \theta'(t)$, zien we nu ook dat voor iedere gesloten term $t$
+%Nu is $\bar \theta'$ een homomorfisme van $\mathfrak{Ter}_{\Sigma}$ naar
+%$\mathfrak{A}$, net zoals $eval_{\mathfrak{A}}$. Volgens gevolg 5.3 is er maar
+%\'e\'en zo'n homomorfisme en dus zijn $\bar \theta'$ en $eval_{\mathfrak{A}}$
+%gelijk. Omdat we voor iedere gesloten term $t$ al zagen dat $\bar \theta(t) =
+%\bar \theta'(t)$, zien we nu ook dat voor iedere gesloten term $t$
 
-\begin{align*}
-\bar \theta(t) = eval_{\mathfrak{A}}(t)
-\end{align*}
+%\begin{align*}
+%\bar \theta(t) = eval_{\mathfrak{A}}(t)
+%\end{align*}
 
-waar moet zijn.\\[2em]
+%waar moet zijn.\\[2em]
+
+Todo.\\[2em]
 
 \end{enumerate}
 
 
 {\bf Opgave 5.5}
 
-Todo.
+We volgen de hint op die bij de opgave gegeven wordt. We beschouwen de algebra
+$\mathfrak{M}$ voor de specificatie $\texttt{NatBool}$ met drager $A$ en
+interpretaties als we gewend zijn, behalve voor interpretaties hier onder
+gedefini\"eerd.
+
+\begin{align*}
+A_{\texttt{nat}} &= \{ \omega, 0, 1, 2, 3, \ldots \} \\
+A_{\texttt{bool}} &= \{T, F\}
+\end{align*}
+
+\begin{align*}
+\texttt{0}_{\mathfrak{M}} &= 0 \\
+\texttt{succ}_{\mathfrak{M}}(n) &= \begin{cases}
+  n+1 & \text{als $n \in \mathbb{N}$} \\
+  1   & \text{als $n = \omega$}
+\end{cases} \\
+\texttt{add}_{\mathfrak{M}}(n,m) &= \begin{cases}
+  n+m    & \text{als $n,m \in \mathbb{N}$} \\
+  \omega & \text{als $n = \omega$ of $m = \omega$}
+\end{cases} \\
+\texttt{mul}_{\mathfrak{M}}(n,m) &= \begin{cases}
+  n*m & \text{als $n,m \in \mathbb{N}$} \\
+  m   & \text{als $n = \omega$ of $m = \omega$}
+\end{cases} \\
+\texttt{even}_{\mathfrak{M}} & = \begin{cases}
+  T & \text{als $n \in \mathbb{N}$ en $n$ is even} \\
+  F & \text{als $n \in \mathbb{N}$ en $n$ is oneven} \\
+  T & \text{als $n = \omega$}
+\end{cases} \\
+\texttt{odd}_{\mathfrak{M}} & = \begin{cases}
+  F & \text{als $n \in \mathbb{N}$ en $n$ is even} \\
+  T & \text{als $n \in \mathbb{N}$ en $n$ is oneven} \\
+  T & \text{als $n = \omega$}
+\end{cases}
+\end{align*}
+
+We hebben dus een algebra geconstrueerd waarin we een `extra nul' toegevoegd
+hebben die `zowel even als oneven' is. niet commutatief is en, belangrijker, we een
+element $\omega$ hebben dat `zowel even als oneven' is.
+
+Nu moeten we laten zien dat $\mathfrak{M}$ een model is voor de specificatie
+$\texttt{NatBool}$. We laten de vergelijkingen $\texttt{[B1] \ldots [B5]}$
+voor wat ze zijn; onze toevoeging van $\omega$ heeft hier geen invloed
+op. Voor de overige vergelijkingen uit $\texttt{NatBool}$ laten we zien dat ze
+waar zijn in $\mathfrak{M}$.
+
+Laat nu $\theta$ een assignment zijn van elementen uit $A$ aan de variabelen
+$x$ en $y$. We stellen dat $\theta(x) = m$ en $\theta(y) = n$.
+
+\begin{itemize}
+
+\item{$\texttt{[N1] add(x,0) = x}$}
+\begin{align*}
+\bar \theta(\texttt{add}(x,\texttt{0})) &= \texttt{add}_{\mathfrak{M}}(\bar \theta(x), \bar \theta(\texttt{0})) \\
+                                        &= \texttt{add}_{\mathfrak{M}}(\theta(x), 0_{\mathfrak{M}}) \\
+                                        &= \texttt{add}_{\mathfrak{M}}(m, 0) \\
+                                        &= m
+\end{align*}
+
+\begin{align*}
+\bar \theta(x) &= \theta(x) \\
+               &= m
+\end{align*}
+
+\item{$\texttt{[N2] add(x,succ(y)) = succ(add(x,y))}$}
+
+We schrijven eerst de linkerkant uit.
+
+\begin{align*}
+\bar \theta(\texttt{add}(x,\texttt{succ}(y))) &= \texttt{add}_{\mathfrak{M}}(\bar \theta(x), \bar \theta(\texttt{succ}(y))) \\
+                                              &= \texttt{add}_{\mathfrak{M}}(\theta(x), \texttt{succ}_{\mathfrak{M}}(\bar \theta(y))) \\
+                                              &= \texttt{add}_{\mathfrak{M}}(m, \texttt{succ}_{\mathfrak{M}}(\theta(y)))
+\end{align*}
+
+\begin{itemize}
+
+\item
+In het geval van $m = \omega$ hebben we dan:
+\begin{align*}
+\bar \theta(\texttt{add}(x,\texttt{succ}(y))) &= \texttt{add}_{\mathfrak{M}}(\omega, \ldots) \\
+                                              &= \omega
+\end{align*}
+
+\item
+In het geval dat $n = \omega$ hebben we dan:
+
+\begin{align*}
+\bar \theta(\texttt{add}(x,\texttt{succ}(y))) &= \texttt{add}_{\mathfrak{M}}(m, \texttt{succ}_{\mathfrak{M}}(n)) \\
+                                              &= \texttt{add}_{\mathfrak{M}}(m, \texttt{succ}_{\mathfrak{M}}(\omega)) \\
+                                              &= \texttt{add}_{\mathfrak{M}}(m, \omega) \\
+                                              &= \omega
+\end{align*}
+
+\item
+En uiteindelijk in het geval dat $m$ en $n$ beiden uit $\mathbb{N}$ komen
+hebben we:
+
+\begin{align*}
+\bar \theta(\texttt{add}(x,\texttt{succ}(y))) &= \texttt{add}_{\mathfrak{M}}(m, \texttt{succ}_{\mathfrak{M}}(n)) \\
+                                              &= \texttt{add}_{\mathfrak{M}}(m, n+1) \\
+                                              &= m+n+1
+\end{align*}
+
+\end{itemize}
+
+En vervolgens schrijven we de rechterkant uit.
+
+\begin{align*}
+\bar \theta(\texttt{succ}(\texttt{add}(x,y))) &= \texttt{succ}_{\mathfrak{M}}(\bar \theta(\texttt{add}(x,y))) \\
+                                              &= \texttt{succ}_{\mathfrak{M}}(\texttt{add}_{\mathfrak{M}}(\bar \theta(x), \bar \theta(y))) \\
+                                              &= \texttt{succ}_{\mathfrak{M}}(\texttt{add}_{\mathfrak{M}}(\theta(x), \theta(y))) \\
+                                              &= \texttt{succ}_{\mathfrak{M}}(\texttt{add}_{\mathfrak{M}}(m, n)) \\
+\end{align*}
+
+\begin{itemize}
+
+\item
+Als nu $m = \omega$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{succ}(\texttt{add}(x,y))) &= \texttt{succ}_{\mathfrak{M}}(\texttt{add}_{\mathfrak{M}}(\omega, n)) \\
+                                              &= \texttt{succ}_{\mathfrak{M}}(\omega) \\
+                                              &= \omega
+\end{align*}
+
+\item
+En als $n = \omega$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{succ}(\texttt{add}(x,y))) &= \texttt{succ}_{\mathfrak{M}}(\texttt{add}_{\mathfrak{M}}(m, \omega)) \\
+                                              &= \texttt{succ}_{\mathfrak{M}}(\omega) \\
+                                              &= \omega
+\end{align*}
+
+\item
+En tenslotte als $m, n \in \mathbb{N}$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{succ}(\texttt{add}(x,y))) &= \texttt{succ}_{\mathfrak{M}}(m+n) \\
+                                              &= m+n+1
+\end{align*}
+
+\end{itemize}
+
+
+
+\end{itemize}
 
 
 \end{document}
