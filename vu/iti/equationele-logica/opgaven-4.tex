@@ -34,46 +34,46 @@ voorwaarden van een homomorphisme:
 
 \begin{itemize}
 
-\item{de constante $\verb|0|_{\mathfrak{N}}$}
+\item{de constante $\texttt{0}_{\mathfrak{N}}$}
 
   \begin{eqnarray*}
-    \phi(\verb|0|_{\mathfrak{N}}) & = & \phi(0) \\
+    \phi(\texttt{0}_{\mathfrak{N}}) & = & \phi(0) \\
                                   & = & 0 \\
-                                  & = & \verb|0|_{\mathfrak{Z}}
+                                  & = & \texttt{0}_{\mathfrak{Z}}
   \end{eqnarray*}
 
-\item{de functie $\verb|succ|_{\mathfrak{N}}$}
+\item{de functie $\texttt{succ}_{\mathfrak{N}}$}
 
   Voor willekeurige $x$ uit $\{0,1,2,\ldots\}$:
 
   \begin{eqnarray*}
-    \phi(\verb|succ|_{\mathfrak{N}}(x)) & = & \phi(x+1) \\
+    \phi(\texttt{succ}_{\mathfrak{N}}(x)) & = & \phi(x+1) \\
                                         & = & x+1 \\
-                                        & = & \verb|succ|_{\mathfrak{Z}}(x) \\
-                                        & = & \verb|succ|_{\mathfrak{Z}}(\phi(x))
+                                        & = & \texttt{succ}_{\mathfrak{Z}}(x) \\
+                                        & = & \texttt{succ}_{\mathfrak{Z}}(\phi(x))
   \end{eqnarray*}
 
-\item{de functie $\verb|add|_{\mathfrak{N}}$}
+\item{de functie $\texttt{add}_{\mathfrak{N}}$}
 
   Voor willekeurige $x,y$ uit $\{0,1,2,\ldots\}$:
 
   \begin{eqnarray*}
-    \phi(\verb|add|_{\mathfrak{N}}(x,y)) & = & \phi(x+y) \\
+    \phi(\texttt{add}_{\mathfrak{N}}(x,y)) & = & \phi(x+y) \\
                                          & = & x+y \\
-                                         & = & \verb|add|_{\mathfrak{Z}}(x,y) \\
+                                         & = & \texttt{add}_{\mathfrak{Z}}(x,y) \\
                                          & = &
-                                         \verb|add|_{\mathfrak{Z}}(\phi(x),\phi(y))
+                                         \texttt{add}_{\mathfrak{Z}}(\phi(x),\phi(y))
   \end{eqnarray*}
 
-\item{de functie $\verb|mul|_{\mathfrak{N}}$}
+\item{de functie $\texttt{mul}_{\mathfrak{N}}$}
 
   Voor willekeurige $x,y$ uit $\{0,1,2,\ldots\}$:
 
   \begin{eqnarray*}
-    \phi(\verb|mul|_{\mathfrak{N}}(x,y)) & = & \phi(x*y) \\
+    \phi(\texttt{mul}_{\mathfrak{N}}(x,y)) & = & \phi(x*y) \\
                                          & = & x*y \\
-                                         & = & \verb|mul|_{\mathfrak{Z}}(x,y) \\
-                                         & = & \verb|mul|_{\mathfrak{Z}}(\phi(x),\phi(y))
+                                         & = & \texttt{mul}_{\mathfrak{Z}}(x,y) \\
+                                         & = & \texttt{mul}_{\mathfrak{Z}}(\phi(x),\phi(y))
   \end{eqnarray*}
 
 \end{itemize}
@@ -92,16 +92,16 @@ $\mathfrak{N}$. We bekijken $\phi(-1)=n$ en weten dat $n \in \mathcal{N}$ ($n
 \ge 0$). Nu hebben we
 
 \begin{displaymath}
-\phi(\verb|succ|_{\mathfrak{Z}}(-1)) \, = \, \phi(0) \, = \, 0
+\phi(\texttt{succ}_{\mathfrak{Z}}(-1)) \, = \, \phi(0) \, = \, 0
 \end{displaymath}
 
-omdat $\phi(\verb|0|_{\mathfrak{Z}}=0)$ gelijk moet zijn aan
-$\verb|0|_{\mathfrak{N}} = 0$.
+omdat $\phi(\texttt{0}_{\mathfrak{Z}}=0)$ gelijk moet zijn aan
+$\texttt{0}_{\mathfrak{N}} = 0$.
 
 Vervolgens zien we dat
 
 \begin{displaymath}
-\verb|succ|_{\mathfrak{N}}(\phi(-1)) = \verb|succ|_{\mathfrak{N}}(n) = n+1 \ne 0
+\texttt{succ}_{\mathfrak{N}}(\phi(-1)) = \texttt{succ}_{\mathfrak{N}}(n) = n+1 \ne 0
 \end{displaymath}
 
 en dus voldoet $\phi$ niet aan de voorwaarden van een homomorphisme. Dit is in
@@ -121,11 +121,11 @@ bestaan.\\[2em]
   bijvoorbeeld dat:
 
   \begin{eqnarray*}
-    \phi(\verb|add|(2,5)) & = & \phi(7) \\
+    \phi(\texttt{add}(2,5)) & = & \phi(7) \\
                           & = & 10 \\
                           & \ne & 13 \\
-                          & = & \verb|add|(5,8) \\
-                          & = & \verb|add|(\phi(2),\phi(5))
+                          & = & \texttt{add}(5,8) \\
+                          & = & \texttt{add}(\phi(2),\phi(5))
   \end{eqnarray*}
 
 \item % is \n->2n een homomorphisme in N+
@@ -134,17 +134,17 @@ bestaan.\\[2em]
   willekeurige $x,y$ uit $\mathbb{N}$:
 
   \begin{eqnarray*}
-    \phi(\verb|0|_{\mathbb{N}^{+}}) & = & \phi(0) \\
+    \phi(\texttt{0}_{\mathbb{N}^{+}}) & = & \phi(0) \\
                                     & = & 0 \\
-                                    & = & \verb|0|_{\mathbb{N}^{+}}
+                                    & = & \texttt{0}_{\mathbb{N}^{+}}
   \end{eqnarray*}
 
   \begin{eqnarray*}
-    \phi(\verb|add|(x,y)) & = & \phi(x+y) \\
+    \phi(\texttt{add}(x,y)) & = & \phi(x+y) \\
                           & = & 2(x+y) \\
                           & = & 2x \, + \, 2y \\
-                          & = & \verb|add|(2x, 2y) \\
-                          & = & \verb|add|(\phi(x), \phi(y))
+                          & = & \texttt{add}(2x, 2y) \\
+                          & = & \texttt{add}(\phi(x), \phi(y))
   \end{eqnarray*}
 
   Hiermee voldoet $\phi$ aan alle voorwaarden.\\[2em]
@@ -154,27 +154,93 @@ bestaan.\\[2em]
 
 {\bf Opgave 4.3}
 
-Todo.
+Todo.\\[2em]
 
 
 {\bf Opgave 4.4}
 
-Todo.
+De vraag
+\begin{quote}
+``Laat zien dat er een \ldots bestaat.''
+\end{quote}
+betekent in de praktijk (bijna) altijd:
+\begin{quote}
+``Geef een \ldots en laat zien dat het een \ldots is.''
+\end{quote}
+
+We geven het homomorphisme $\phi$ van $\mathfrak{A}$ naar $\mathfrak{B}$
+gedefini\"eerd als
+
+\begin{displaymath}
+\phi(x) = \begin{cases}
+  \square & \text{als $x \in A_{\texttt{data}}$;} \\
+  |x|     & \text{als $x \in A_{\texttt{stack}}$.}
+\end{cases}
+\end{displaymath}
+
+Voor alle constanten $\texttt{di}_{\mathfrak{A}}$ hebben we
+
+\begin{eqnarray*}
+\phi(\texttt{di}_{\mathfrak{A}}) & = & \phi(a_{i}) \\
+                                 & = & \square \\
+                                 & = & \texttt{di}_{\mathfrak{B}},
+\end{eqnarray*}
+
+en voor $\texttt{error}_{\mathfrak{A}}$ hebben we
+
+\begin{eqnarray*}
+\phi(\texttt{error}_{\mathfrak{A}}) & = & \phi(\bot) \\
+                                    & = & \square \\
+                                    & = & \texttt{di}_{\mathfrak{B}}.
+\end{eqnarray*}
+
+Ook $\texttt{push}$, $\texttt{pop}$ en $\texttt{top}$ voldoen aan de
+voorwaarden, want voor alle $d \in A_{\texttt{data}}$, $s \in
+A_{\texttt{stack}}$ is
+
+\begin{eqnarray*}
+\phi(\texttt{push}_{\mathfrak{A}}(d,s)) & = & \phi(conc(d,s)) \\
+                                        & = & |conc(d,s)| \\
+                                        & = & |s| + 1 \\
+                                        & = & \texttt{push}_{\mathfrak{B}}(\square,|s|) \\
+                                        & = & \texttt{push}_{\mathfrak{B}}(\phi(d),\phi(s)),
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\phi(\texttt{pop}_{\mathfrak{A}}(s)) & = & \phi(tail(s)) \\
+                                     & = & |tail(s)| \\
+                                     & = & max(|s| - 1, 0) \\
+                                     & = & \texttt{pop}_{\mathfrak{B}}(|s|) \\
+                                     & = & \texttt{pop}_{\mathfrak{B}}(\phi(s)),
+\end{eqnarray*}
+
+en
+
+\begin{eqnarray*}
+\phi(\texttt{top}_{\mathfrak{A}}(s)) & = & \phi(head(s)) \\
+                                     & = & \phi(e) \quad \text{met $e \in A_{\texttt{data}}$} \\
+                                     & = & \square \\
+                                     & = & \texttt{top}_{\mathfrak{B}}(|s|) \\
+                                     & = & \texttt{top}_{\mathfrak{B}}(\phi(s)).
+\end{eqnarray*}
+
+Hieruit volgt dat $\phi$ een homomorphisme van $\mathfrak{A}$ naar
+$\mathfrak{B}$ is en dus bestaat een dergelijk homomorphisme.\\[2em]
 
 
 {\bf Opgave 4.5}
 
-Todo.
+Todo.\\[2em]
 
 
 {\bf Opgave 4.6}
 
-Todo.
+Todo.\\[2em]
 
 
 {\bf Opgave 4.7}
 
-Todo.
+Todo.\\[2em]
 
 
 \end{document}
