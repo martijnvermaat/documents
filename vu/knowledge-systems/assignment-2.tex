@@ -25,14 +25,17 @@ mvermaat@cs.vu.nl}
 \maketitle
 
 
-\renewcommand{\abstractname}{Introduction} % abuse abstract environment
-\begin{abstract}
-  Hmmm... (we kunnen misschien ook zonder intro, gewoon abstract
-  deel weghalen)
-\end{abstract}
+%\renewcommand{\abstractname}{Introduction} % abuse abstract environment
+%\begin{abstract}
+%  Hmmm... (we kunnen misschien ook zonder intro, gewoon abstract
+%  deel weghalen)
+%\end{abstract}
 
 
-\section*{Knowledge About Components}
+\tableofcontents
+
+
+\section{Knowledge About Components}
 
 
 \subsection*{Components to Choose From}
@@ -82,6 +85,10 @@ Provided by a cooking construction and by a barbeque.
 
 Provided by an aerobed and by a sleeping carpet.
 
+\item{Means of communication}
+
+Provided by a phone and by a PDA.
+
 \end{description}
 
 
@@ -92,13 +99,21 @@ when one goes on a `camping' holiday. But eating healthy
 food by using a cooking pan is prefered over using the
 barbeque every day.
 
+This evaluation gives rise to the following evaluation
+relationships:
+
+\begin{itemize}
+\item Tent $>$ Hotel guide
+\item Cooking construction $>$ Barbeque
+\end{itemize}
+
 
 \subsection*{Component Relations}
 
 \paragraph{Required Components}
 
 The components required by other parts can be infered from the abstraction 
-hierarchy below. 
+hierarchy in figure~\ref{figuur:RequiredComponents}.
 
 \begin{figure}
 \begin{center}
@@ -107,13 +122,6 @@ hierarchy below.
 \caption{Required components}
 \label{figuur:RequiredComponents}
 \end{figure}
-
-
-\paragraph{Required Functions}
-
-\begin{itemize}
-\item ...
-\end{itemize}
 
 \paragraph{Incompatible Components}
 
@@ -129,7 +137,7 @@ hierarchy below.
 \end{itemize}
 
 
-\section*{Knowledge About Configuration}
+\section{Knowledge About Configuration}
 
 We can only take a total of 10 kilograms in our backpack.
 Also, the components have to fit in the packpack.
@@ -138,15 +146,15 @@ Components with any of their three dimensions longer than the largest dimension
 of the bag will be excluded beforehand.
 
 
-\section*{Knowledge About Sharing}
+\section{Knowledge About Sharing}
 
 With the MCF1 technique, we assume there is no sharing of functionality by
-several components. This is of course a simplification, because a hotel guide
-could also be used as a note book if we needed one. However, by using MCF1, we
-ignore such knowledge about sharing.
+several components. This is of course a simplification, because, for example, a
+hotel guide could also be used as a note book if we needed one. However, by
+using MCF1, we ignore such knowledge about sharing.
 
 
-\section*{Possible Scenario}
+\section{Possible Scenario}
 
 The following is part of a possible scenario of applying the
 MCF1 technique.
