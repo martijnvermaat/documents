@@ -26,6 +26,90 @@ Deel 1: Equationele Logica -- Het termmodel}\\[2em]
 
 {\bf Opgave 7.1}
 
+Een mogelijkheid voor een initieel correcte specificatie voor de algebra
+$\mathfrak{B}$ is de volgende:
+\begin{verbatim}
+module Spec
+
+  sorts obj
+
+  functions
+    0    :           -> obj
+    succ : obj       -> obj
+    add  : obj # obj -> obj
+    mul  : obj # obj -> obj
+
+  equations
+    [E1] succ(succ(x)) = x
+    [E2] add(x,succ(x)) = succ(0)
+    [E3] add(x,x) = 0
+    [E4] mul(x,succ(x)) = 0
+    [E5] mul(x,x) = x
+
+end Spec
+\end{verbatim}
+
+
+{\bf Opgave 7.2}
+
+\begin{enumerate}
+
+\item % initieel correcte specificatie voor Z
+
+Een initieel correcte specificatie voor de algebra $\mathfrak{Z}$ is de
+volgende:
+\begin{verbatim}
+module Integers
+
+  sorts int
+
+  functions
+    succ : int -> int
+    pred : int -> int
+
+  equations
+    [E1] succ(pred(x)) = x
+    [E2] pred(succ(x)) = x
+
+end Integers
+\end{verbatim}
+Het lijkt logisch ook een constante ($\texttt{0}$) toe te voegen met als
+interpretatie het getal 0.
+
+\item % uitbreiden naar initieeel correcte specificatie voor Z+
+
+We breiden $\texttt{Integers}$ uit naar een initieel correcte specificatie
+voor $\mathfrak{Z}^{+}$ door de volgende vergelijking toe te voegen:
+\begin{verbatim}
+    [E3] neg(succ(x)) = pred(neg(x))
+    [E4] neg(pred(x)) = succ(neg(x))
+\end{verbatim}
+Wanneer ook de constante $\texttt{0}$ toegevoegd is, hebben we ook de volgende
+vergelijking nog nodig:
+\begin{verbatim}
+    [E5] neg(0) = 0
+\end{verbatim}
+
+\end{enumerate}
+
+
+{\bf Opgave 7.3}
+
+\begin{enumerate}
+
+\item % kta voor specificatie Booleans
+
+Als drager de termen $\texttt{true}$ en $\texttt{false}$.
+
+\item % nog een
+
+Als drager de termen $\texttt{true}$ en $\texttt{not(true)}$.
+
+\item % nog een
+
+Als drager de termen $\texttt{not(false)}$ en $\texttt{false}$.
+
+\end{enumerate}
 
 
 \end{document}
