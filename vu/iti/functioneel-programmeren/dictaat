@@ -1,23 +1,61 @@
 Dictaat ITI functioneel programmeren
 ====================================
 
-Algemeen over FP talen en specifiek over OCaml.
+Hoewel het boek van Jason Hickey goed in elkaar
+zit is het veel te veel om in twee weken te leren
+en toe te passen.
 
-Functies
-Pattern matching
-Strict/lazy
-Currying
-Side-effects
-Lambda Calculus
-Type system
-Toepassingen
+Ik zou zelf liever iets meer theoretische aspecten
+over FP behandelen met daarbij wat opdrachten die
+dit illustreren.
+
+Aan de andere kant; als er iets nieuws geschreven
+wordt, is dat net zo moeilijk om kort te houden.
+
+  Steeds algemeen over FP talen en daarna meer
+  specifiek over ML en OCaml.
+
+  Functies
+  Pattern matching
+  Strict/lazy
+  Currying
+  Side-effects
+  Recursie
+  Lambda Calculus
+  Type systeem
+  Toepassingen
+
+Terzijde: op sommige van deze punten heb ik nog
+geen goed idee hoe ML verschilt van Haskell:
+
+  Type systeem: in Haskel iets expressiever?
+  Type inference: gelijk?
+  Pattern matching: in Haskell meer mogelijk?
+  Side-effects: is Haskell 100% puur?
+
+Grootste verschil lijkt me dat Haskell lazy is
+en ML strict.
 
 
-Opgaven
-=======
+Mogelijke opgaven
+=================
 
-* Opgave 1
-Church Numerals.
+* Definieer Church Numerals
+  http://kjew.xs4all.nl/repository/hacks/ocaml/church.ml
 
-* Opgave 2
-Datatype.
+* Definieer datatype Naturals (Peano algebra)
+  http://kjew.xs4all.nl/repository/hacks/ocaml/naturals.ml
+
+* Definieer een boom datatype
+
+* Definieer een datatype Lambda Calculus termen
+  Misschien te lastig? Wel veel leuke operaties
+  op te doen.
+
+
+Hoe testen we opgaven? Moet er code bijgeleverd
+worden die laat zien dat er gedaan is wat gevraagd
+werd?
+
+We kunnen niet het module systeem van OCaml gaan
+behandelen lijkt me.
