@@ -75,7 +75,33 @@ de opgave) en bovendien \verb|x| ook gebruikt wordt in het axioma \verb|[3]|
 Todo.
 
 \item % afleiding voor mul(succ(0), add(0, succ(0))) = succ(0)
-Todo.\\[2em]
+We geven een afleiding in de specificatie \verb|Naturals| voor de vergelijking
+\begin{verbatim}
+mul(succ(0), add(0, succ(0))) = succ(0)
+\end{verbatim}
+
+\begin{equation*}
+\begin{fitch}
+\verb|add(x, succ(y)) = succ(add(x, y))|              & [N2]           \\ % 1
+\verb|add(0, succ(0)) = succ(add(0, 0))|              & subs, 1        \\ % 2
+\verb|add(x, 0) = x|                                  & [N1]           \\ % 3
+\verb|add(0, 0) = 0|                                  & subs, 3        \\ % 4
+\verb|succ(add(0, 0)) = succ(0)|                      & congr, 4       \\ % 5
+\verb|add(0, succ(0)) = succ(0)|                      & trans, 2, 5    \\ % 6
+\verb|succ(0) = succ(0)|                              & refl           \\ % 7
+\verb|mul(succ(0), add(0, succ(0))) = mul(succ(0), succ(0))|  & congr, 6, 7 \\ % 8
+\verb|mul(x, succ(y)) = add(mul(x, y), x)|            & [N2]           \\ % 9
+\verb|mul(succ(0), succ(0)) = add(mul(succ(0), 0), succ(0))| & subs, 9 \\ % 10
+\verb|mul(x, 0) = 0|                                  & [N1]           \\ % 11
+\verb|mul(succ(0), 0) = 0|                            & subs, 11       \\ % 12
+\verb|add(mul(succ(0), 0), succ(0)) = add(0, succ(0))| & congr, 11, 7  \\ % 13
+\verb|add(mul(succ(0), 0), succ(0)) = succ(0)|        & trans, 13, 6   \\ % 14
+\verb|mul(succ(0), succ(0)) = succ(0)|                & trans, 10, 14  \\ % 15
+\verb|mul(succ(0), add(0, succ(0))) = succ(0)|        & trans, 8, 15      % 16
+\end{fitch}
+\end{equation*}
+Misschien kan ik deze afleiding nog een beetje omvormen, zodat de strategie
+wat duidelijker wordt...\\[2em]
 
 \end{enumerate}
 
@@ -114,8 +140,8 @@ structuur van de term $t$:
     $succ^{m}(0)$. Volgens congruentie is $t$ dan afleidbaar gelijk aan een
     term van de vorm $add(succ^{n}(0), succ^{m}(0))$.
 
-    Als $m = 0$ dan is $t$ afleidbaar gelijk aan een term van de vorm
-    $succ^{n}(0)$ (volgens $[N1]$) en zijn we klaar. Als $m > 0$, dan is $t$
+    Als $m=0$ dan is $t$ afleidbaar gelijk aan een term van de vorm
+    $succ^{n}(0)$ (volgens $[N1]$) en zijn we klaar. Als $m>0$, dan is $t$
     afleidbaar gelijk aan een term van de vorm $succ(add(succ^{n}(0),
     succ^{m-1}(0)))$ (volgens $[N2]$). (Kunnen we terminatie hiervan
     intu\"itief laten zien, of moet dat nog formeel?)
@@ -127,7 +153,7 @@ structuur van de term $t$:
     $succ^{m}(0)$. Wegens congruentie is $t$ dan afleidbaar gelijk aan een
     term van de vorm $mul(succ^{n}(0), succ^{m}(0))$.
 
-    Weer $m = 0$ of $m > 0$ en dan $[N1]$ of $[N2]$.
+    Weer $m=0$ of $m>0$ en dan $[N1]$ of $[N2]$.
 
   \end{description}
 
@@ -137,9 +163,32 @@ Hiermee hebben we bewezen dat de bewering klopt. We hoeven geen rekening te
 houden met variabelen, omdat deze niet voor komen in een gesloten term.\\[2em]
 
 
-{\bf Opgave 3.4}
+{\bf Opgave 3.4} % laat zien dat ~ een eq relatie is
 
-Todo.
+Om te laten zien dat $\sim$ een equivalentierelatie is, laten we zien dat $\sim$
+transitief, symmetrisch en reflexief is.
+
+\begin{description}
+
+\item{Transitiviteit}
+
+  Stel $t \sim u$ en $u \sim v$, dan is volgens de definitie $E \vdash t = u$ en
+  $E \vdash u = v$. Wegens de regel \emph{transitiviteit} van de
+  afleidbaarheid, is dan ook $E \vdash t = v$. Met de definitie zien we dan
+  weer dat ook $t \sim v$ waar is en dus is $\sim$ transitief.
+
+\item{Symmetrie}
+
+  Todo.
+
+\item{Reflexiviteit}
+
+  Todo.
+
+\end{description}
+
+Omdat $\sim$ transitief, symmetrisch en reflexief is, is $\sim$ een
+equivalentierelatie.
 
 
 \end{document}
