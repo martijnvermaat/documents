@@ -1,5 +1,5 @@
-Dictaat ITI functioneel programmeren
-====================================
+ITI functioneel programmeren
+============================
 
 Hoewel het boek van Jason Hickey goed in elkaar
 zit is het veel te veel om in twee weken te leren
@@ -11,6 +11,9 @@ dit illustreren.
 
 Aan de andere kant; als er iets nieuws geschreven
 wordt, is dat net zo moeilijk om kort te houden.
+
+Een opzetje voor een inleidend dictaatje bij de
+opgaven:
 
   Steeds algemeen over FP talen en daarna meer
   specifiek over ML en OCaml.
@@ -33,8 +36,8 @@ geen goed idee hoe ML verschilt van Haskell:
   Pattern matching: in Haskell meer mogelijk?
   Side-effects: is Haskell 100% puur?
 
-Grootste verschil lijkt me dat Haskell lazy is
-en ML strict.
+Grootste verschil is dat Haskell lazy is en ML
+strict.
 
 
 Mogelijke opgaven
@@ -72,4 +75,18 @@ worden die laat zien dat er gedaan is wat
 gevraagd werd?
 
 We kunnen niet het module systeem van OCaml gaan
-behandelen lijkt me.
+behandelen lijkt me, hoewel type signaturen wel
+aardig aansluiten op het equationele logica deel.
+
+
+Opmerkingen bij de tekst van Jason Hickey
+=========================================
+
+De uitleg van Red-black trees vond ik niet echt
+duidelijk. Op Wikipedia bijvoorbeeld vind ik een
+duidelijker uitleg:
+http://en.wikipedia.org/wiki/Red-black_tree
+
+Alles vanaf hoofdstuk 7 moeten we voor deze twee
+weken maar vergeten (exceptions, arrays, records,
+i/o, modules, OO).
