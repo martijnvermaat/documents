@@ -26,7 +26,48 @@ Deel 1: Equationele Logica -- Initi\"ele modellen}\\[2em]
 
 {\bf Opgave 6.1}
 
-Todo.
+\begin{enumerate}
+
+\item % model voor Booleans met junk zonder confusion
+
+We hebben bij opgave 5.1 gezien dat iedere verzamelingsalgebra
+$\mathfrak{P}(V)$ over een verzameling $V$ (als in voorbeeld 4.3) een model is
+voor de specificatie $\texttt{Booleans}$. Nu beschouwen we de algebra
+$\mathfrak{P}(F)$ over de verzameling $F=\{1,2,3,4,5,6\}$ met als drager
+$\mathcal{P}(F)$.
+
+\paragraph{Wel junk}
+
+Iedere gesloten term uit $\texttt{Booleans}$ wordt in $\mathfrak{P}(F)$
+ge\"interpreteerd als \`ofwel heel F, \`ofwel de lege verzameling $\{\}$. Het
+bewijs hiervan verloopt via inductie naar de structuur van de term en laten we
+hier achterwege.
+
+Laten we nu het element $\{2,4,5\}$ uit $\mathfrak{P}(F)$ bekijken. Dit is
+niet $F$, ook niet $\{\}$ en dus niet de interpretatie van een gesloten
+term. Hieruit volgt dat $\mathfrak{P}(F)$ junk bevat.
+
+\paragraph{Geen confusion}
+
+Voor iedere gesloten term $t$ uit $\texttt{Booleans}$ geldt dat
+\begin{align*}
+\vdash t = \texttt{true} \quad \text{of} \quad \vdash t = \texttt{false}. &&\text{(volgens voorbeeld 6.3)}
+\end{align*}
+Laat nu $s$ en $t$ gesloten termen zijn met $\not \vdash t = s$. Dan moet
+\`ofwel $\vdash s = \texttt{true}$ en $\vdash t = \texttt{false}$, \`ofwel
+$\vdash s = \texttt{false}$ en $\vdash t = \texttt{true}$. In beide gevallen
+worden $s$ en $t$ als verschillende elementen van $\mathfrak{P}(F)$
+ge\"interpreteerd en dus bevat $\mathfrak{P}(F)$ geen confusion.\\[2em]
+
+\item % model voor Booleans zonder junk met confusion
+
+Todo.\\[2em]
+
+\item % model voor Booleans met junk met confusion
+
+Todo.\\[2em]
+
+\end{enumerate}
 
 
 \end{document}
