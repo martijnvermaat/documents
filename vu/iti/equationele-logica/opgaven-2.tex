@@ -4,17 +4,114 @@
 \usepackage{a4}
 \usepackage{latexsym}
 
+% niet te gewichtig willen doen met veel ruimte
+\setlength{\textwidth}{16cm}
+\setlength{\textheight}{23.0cm}
+\setlength{\topmargin}{0cm}
+\setlength{\oddsidemargin}{0.2mm}
+\setlength{\evensidemargin}{0.2mm}
+\setlength{\parindent}{0cm}
 
-\section*{Uitwerkingen opgaven bij Inleiding Theoretische Informatica\\
-Deel 1: Equationele Logica -- Abstracte specificaties}
+% standaard enumerate met abc
+\renewcommand\theenumi{\alph{enumi}}
 
 
-\begin{displaymath}
-L = \{a^{n}b^{m}a^{n} \, | \, n,m \geq 0\}
-\end{displaymath}
+\begin{document}
 
 
-hoi
+{\bf Uitwerkingen bij Inleiding Theoretische Informatica\\
+Deel 1: Equationele Logica -- Abstracte specificaties}\\[2em]
+
+
+{\bf Opgave 2.1}
+
+\begin{enumerate}
+
+\item % eindige signatuur voor gehele getallen
+Signatuur $(S, \Sigma)$ met
+\begin{eqnarray*}
+S & = & \{int\}                                     \\
+\Sigma_{\rightarrow int} & = & \{0\}               \\
+\Sigma_{int \rightarrow int} & = & \{succ, pred\}.
+\end{eqnarray*}
+
+Of in ASF notatie.
+
+\item % stelsel vergelijkingen bij signatuur
+\begin{verbatim}
+[E1] succ(pred(x)) = x
+[E2] pred(succ(x)) = x
+\end{verbatim}
+
+\item Optioneel ook \verb|add| en \verb|mul| toevoegen, bijvoorbeeld zo:
+
+\begin{verbatim}
+functions
+  add: int # int -> int
+  mul: int # int -> int
+
+equations
+  [A1] : add(x, 0) = x
+  [A2] : add(x, succ(y)) = succ(add(x, y))
+  [A3] : add(x, pred(y)) = pred(add(x, y))
+  [S1] : sub(x, 0) = x
+  [S2] : sub(x, succ(y)) = pred(sub(x, y))
+  [S3] : sub(x, pred(y)) = succ(sub(x, y))
+  [M1] : mul(x, 0) = 0
+  [M2] : mul(x, succ(y)) = add(mul(x, y), x)
+  [M3] : mul(x, pred(y)) = sub(mul(x, y), x)
+\end{verbatim}
+
+Klopt dit allemaal?
+
+\end{enumerate}
+
+
+{\bf Opgave 2.2}
+
+Specificatie voor een FIFO queue:
+
+\begin{verbatim}
+module FIFO
+
+  sorts
+    data, queue
+
+  functions
+    head    : queue        -> data
+    dequeue : queue        -> queue
+    enqueue : queue # data -> queue
+    empty   :              -> queue
+    error   :              -> data
+
+  equations
+    [H1] head(empty) = error
+    [H2] head(put(q, d)) = d
+    [D1] dequeue(empty) = empty
+    [D2] dequeue(put(q, d)) = q
+
+end FIFO
+\end{verbatim}
+
+
+{\bf Opgave 2.3}
+
+We breiden \verb|NatBool| uit met de functie \verb|d|:
+
+\begin{verbatim}
+functions
+  d : Nat # Nat -> Bool
+
+equations
+  [D1] d(x, x) = true
+  [D2] d(succ(x), 0) = true
+  [D3] d(0, succ(x)) = false
+  [D4] d(x, add(x, y)) = d(x, y)
+  [D5] d(add(succ(x), y), y) = false
+\end{verbatim}
+
+De \verb|succ(x)| ipv \verb|x| in \verb|[D5]| is nodig, omdat \verb|x| ook
+\verb|0| zou kunnen zijn (dat zou bovendien conflicteren met \verb|[D1]| of \verb|[D2]|).
 
 
 \end{document}
