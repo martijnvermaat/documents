@@ -112,4 +112,130 @@ een tegenmodel) en dus bevat $\mathfrak{B}_{3}$ confusion.\\[2em]
 \end{enumerate}
 
 
+{\bf Opgave 6.2}
+
+\begin{enumerate}
+
+\item % construeer het termmodel voor Booleans
+
+We construeren het termmodel $\mathfrak{Ter}_{\Sigma}/\sim$ voor de
+specificatie $\texttt{Booleans}$ met behulp van de equivalentierelatie $\sim$
+op termen uit $Ter_{\Sigma}$:
+\begin{displaymath}
+s \sim t \, \Longleftrightarrow \, E \vdash s = t
+\end{displaymath}
+waarbij E de verzameling vergelijkingen in $\texttt{Booleans}$ is.
+
+Als drager van het termmodel nemen we nu de equivalentieklassen van de
+gesloten termen onder $\sim$. We hebben eerder gezien dat iedere gesloten term
+in $\texttt{Booleans}$ afleidbaar gelijk is aan \`ofwel $\texttt{true}$
+\`ofwel $\texttt{false}$, dus hebben we als drager genoeg aan de twee
+equivalentieklassen $[\texttt{true}]$ en $[\texttt{false}]$ van de termen
+$\texttt{true}$ en $\texttt{false}$.
+
+De interpretaties van de constanten en functiesymbolen kiezen we in het
+termmodel als volgt:
+\begin{align*}
+\texttt{true}_{\mathfrak{Ter}_{\Sigma}/\sim}         &= [\texttt{true}] \\
+\texttt{false}_{\mathfrak{Ter}_{\Sigma}/\sim}        &= [\texttt{false}] \\
+\texttt{and}_{\mathfrak{Ter}_{\Sigma}/\sim}([t],[s]) &= [\texttt{and(t,s)}] \\
+\texttt{or}_{\mathfrak{Ter}_{\Sigma}/\sim}([t],[s])  &= [\texttt{or(t,s)}] \\
+\texttt{not}_{\mathfrak{Ter}_{\Sigma}/\sim}([t])     &= [\texttt{not(t)}] \\
+\end{align*}
+
+\item % laat zien dat het termmodel isomorf is met B2
+
+We bekijken nu de functie $\phi : Ter_{\Sigma}/\negmedspace\sim \,\,
+\rightarrow \, A$ die equivalentieklassen afbeelt op de drager $A$ van
+$\mathfrak{B}_{2}$ en gedefini\"eerd is als
+\begin{align*}
+\phi([\texttt{true}])  &= T, \\
+\phi([\texttt{false}]) &= F.
+\end{align*}
+Nu laten we zien dat $\phi$ een isomorfisme is van
+$\mathfrak{Ter}_{\Sigma}/\sim$ naar $\mathfrak{B}_{2}$.
+
+\paragraph{Homomorfisme}
+
+Eerst bekijken we of $\phi$ een homomorfisme is. Voor de constante
+$\texttt{true}$ hebben we:
+\begin{align*}
+\phi(\texttt{true}_{\mathfrak{Ter}_{\Sigma}/\sim}) &= \phi([\texttt{true}]) \\
+                                                   &= T \\
+                                                   &= \texttt{true}_{\mathfrak{B}_{2}}
+\end{align*}
+Voor de constante $\texttt{false}$ gaat dit op gelijke wijze. We bekijken nu
+het functiesymbool $\texttt{not}$ toegepast op het element $x$. Voor de waarde
+van $x$ zijn er twee mogelijkheden, we beperken ons hier tot
+$[\texttt{true}]$:
+\begin{align*}
+\phi(\texttt{not}_{\mathfrak{Ter}_{\Sigma}/\sim}(x)) &= \phi(\texttt{not}_{\mathfrak{Ter}_{\Sigma}/\sim}([\texttt{true}])) \\
+                                                     &= \phi([\texttt{not(true)}]) \\
+                                                     &= \phi([\texttt{false}]) \\
+                                                     &= F
+\end{align*}
+\begin{align*}
+\texttt{not}_{\mathfrak{B}_{2}}(\phi(x)) &= \texttt{not}_{\mathfrak{B}_{2}}(\phi([\texttt{true}])) \\
+                                         &= \texttt{not}_{\mathfrak{B}_{2}}(T) \\
+                                         &= F
+\end{align*}
+Vervolgens bekijken we het functiesymbool $\texttt{and}$ toegepast op de
+elementen $x$ en $y$. Ook hier zijn er voor $x$ en $y$ beiden twee mogelijke
+waarden, we behandelen alleen het geval dat $x = [\texttt{true}]$ en $y =
+[\texttt{false}]$:
+\begin{align*}
+\phi(\texttt{and}_{\mathfrak{Ter}_{\Sigma}/\sim}(x,y)) &= \phi(\texttt{and}_{\mathfrak{Ter}_{\Sigma}/\sim}([\texttt{true}],[\texttt{false}])) \\
+                                                       &= \phi([\texttt{and}(\texttt{true},\texttt{false})]) \\
+                                                       &= \phi([\texttt{false}]) \\
+                                                       &= F
+\end{align*}
+\begin{align*}
+\texttt{and}_{\mathfrak{B}_{2}}(\phi(x),\phi(y)) &= \texttt{and}_{\mathfrak{B}_{2}}(\phi([\texttt{true}]),\phi([\texttt{false}])) \\
+                                                 &= \texttt{and}_{\mathfrak{B}_{2}}(T,F) \\
+                                                 &= F
+\end{align*}
+Hetzelfde verhaal voor het functiesymbool $\texttt{or}$ zullen we achterwege
+laten. Hiermee hebben we laten zien dat $\phi$ een homomorfisme is van
+$\mathfrak{Ter}_{\Sigma}/\sim$ naar $\mathfrak{B}_{2}$.
+
+\paragraph{Surjectief}
+
+De drager van $\mathfrak{B}_{2}$ bestaat uit de elementen $T$ en $F$. In onze
+definitie van $\phi$ zien we duidelijk dat beiden het beeld zijn van een
+element uit $\mathfrak{Ter}_{\Sigma}/\sim$ en dus is $\phi$ surjectief.
+
+\paragraph{Injectief}
+
+Evenzo is gemakkelijk te zien dat de twee verschillende elementen
+$[\texttt{true}]$ en $[\texttt{false}]$ met $\phi$ ook twee verschillende
+beelden hebben, namelijk $T$ respectievelijk $F$. En dus is $\phi$ injectief.
+
+Nu we hebben laten zien dat er een isomorfisme bestaat van
+$\mathfrak{Ter}_{\Sigma}/\sim$ naar $\mathfrak{B}_{2}$ ($\phi$ is een
+injectief en surjectief homomorfisme) weten we dus ook dat deze twee algebra's
+isomorf zijn.\\[2em]
+
+\end{enumerate}
+
+
+{\bf Opgave 6.3}
+
+\begin{enumerate}
+
+\item % construeer het termmodel voor Naturals
+
+Todo.
+
+\item % laat zien dat het termmodel isomorf is met N
+
+Todo.\\[2em]
+
+\end{enumerate}
+
+
+{\bf Opgave 6.4}
+
+Zie uitwerking van Roel de Vrijer.\\[2em]
+
+
 \end{document}
