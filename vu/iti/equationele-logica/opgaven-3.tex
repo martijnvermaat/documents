@@ -36,20 +36,110 @@ pop(pop(pop(empty))) = empty
 
 \begin{equation*}
 \begin{fitch}
-pop(empty) = empty                             & [1]       \\
-\neg K \neg K p \to K p                        & PROP, 1   \\
-K(p \to q) \to (K p \to K q)                   & DB        \\
-K(p \to (p \vee q)) \to (K p \to K (p \vee q)) & SUB, 3    \\
-p \to (p \vee q)                               & CT        \\
-K(p \to (p \vee q))                            & UG, 5     \\
-K p \to K (p \vee q)                           & MP, 4,6   \\
-\neg K \neg K p \to K (p \vee q)               & \dag, 2,7
+\verb|pop(empty) = empty|                        & [1]           \\ % 1
+\verb|pop(pop(empty)) = pop(empty)|              & congr, 1      \\ % 2
+\verb|pop(pop(pop(empty))) = pop(pop(empty))|    & congr, 2      \\ % 3
+\verb|pop(pop(empty))) = empty|                  & trans, 1, 2   \\ % 4
+\verb|pop(pop(pop(empty))) = empty|              & trans, 3, 4      % 5
 \end{fitch}
 \end{equation*}
 
 \item % afleiding voor pop(push(x, pop(push(x, empty)))) = empty
+Een afleiding in de specificatie \verb|Stack-Of-Data| van de vergelijking
+\begin{verbatim}
+pop(push(x, pop(push(x, empty)))) = empty
+\end{verbatim}
+
+\begin{equation*}
+\begin{fitch}
+\verb|pop(push(x, s)) = s|                       & [3]           \\ % 1
+\verb|pop(push(x, empty)) = empty|               & subs, 1       \\ % 2
+\verb|pop(push(x, pop(push(x, empty)))) = pop(push(x, empty))| & subs, 1 \\ % 3
+\verb|pop(push(x, pop(push(x, empty)))) = empty| & trans, 3, 2      % 4
+\end{fitch}
+\end{equation*}
+
+Wellicht is het een beetje verwarrend dat in de af te leiden vergelijking twee
+keer dezelfde variabele \verb|x| voor komt (terwijl dat niet belangrijk is in
+de opgave) en bovendien \verb|x| ook gebruikt wordt in het axioma \verb|[3]|
+(bij elkaar een wat ongelukkig toeval).
 
 \end{enumerate}
+
+
+{\bf Opgave 3.2}
+
+\begin{enumerate}
+
+\item % afleiding voor and(not(x), not(y)) = not(or(x, y))
+Todo.
+
+\item % afleiding voor mul(succ(0), add(0, succ(0))) = succ(0)
+Todo.
+
+\end{enumerate}
+
+
+{\bf Opgave 3.3}
+
+We bewijzen voor iedere gesloten term $t$ dat deze afleidbaar gelijk is aan
+een term van de vorm $succ^{n}(0)$. Dit doen we volgens inductie naar de
+structuur van de term $t$:
+
+\begin{description}
+
+\item{Basisgeval:}
+  Het basisgeval is wanneer $t$ een constante is, in dit geval is de enige
+  mogelijkheid de constante $0$. En omdat $succ^0(0) = 0$ zien we dat de
+  bewering waar is in het basisgeval. (Om precies te zijn: $t$ is afleidbaar
+  gelijk aan zichzelf wegens reflexiviteit.)
+
+\item{Inductiestap:}
+  We onderscheiden drie mogelijkheden voor de structuur van $t$ in onze
+  inductiestap:
+
+  \begin{description}
+
+  \item{$t$ is van de vorm $succ(u)$}
+
+    We mogen volgens inductie aannemen dat $u$ afleidbaar gelijk is aan een
+    term van de vorm $succ^{n}(0)$. Wegens congruentie is dan $t$ afleidbaar
+    gelijk aan een term van de vorm $succ(succ^{n}(0))$ en dat is natuurlijk
+    $succ^{n+1}(0)$.
+
+  \item{$t$ is van de vorm $add(u, v)$}
+
+    De aannamen zijn dat $u$ en $v$ afleidbaar gelijk zijn aan respectievelijk
+    een term van de vorm $succ^{n}(0)$ en een term van de vorm
+    $succ^{m}(0)$. Volgens congruentie is $t$ dan afleidbaar gelijk aan een
+    term van de vorm $add(succ^{n}(0), succ^{m}(0))$.
+
+    Als $m = 0$ dan is $t$ afleidbaar gelijk aan een term van de vorm
+    $succ^{n}(0)$ (volgens $[N1]$) en zijn we klaar. Als $m > 0$, dan is $t$
+    afleidbaar gelijk aan een term van de vorm $succ(add(succ^{n}(0),
+    succ^{m-1}(0)))$ (volgens $[N2]$). (Kunnen we terminatie hiervan
+    intu\"itief laten zien, of moet dat nog formeel?)
+
+  \item{$t$ is van de vorm $mul(u, v)$}
+
+    Wederom mogen we aannemen dat $u$ en $v$ afleidbaar gelijk zijn aan
+    respectievelijk een term van de vorm $succ^{n}(0)$ en een term van de vorm
+    $succ^{m}(0)$. Wegens congruentie is $t$ dan afleidbaar gelijk aan een
+    term van de vorm $mul(succ^{n}(0), succ^{m}(0))$.
+
+    Weer $m = 0$ of $m > 0$ en dan $[N1]$ of $[N2]$.
+
+  \end{description}
+
+\end{description}
+
+Hiermee hebben we bewezen dat de bewering klopt. We hoeven geen rekening te
+houden met variabelen, omdat deze niet voor komen in een gesloten term.\\[1em]
+
+
+{\bf Opgave 3.4}
+
+Todo.
 
 
 \end{document}
