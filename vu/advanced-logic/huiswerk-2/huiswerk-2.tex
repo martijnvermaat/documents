@@ -1,0 +1,49 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{listings}
+\usepackage[dutch]{babel}
+\usepackage{a4}
+\usepackage{color, rotating}
+\usepackage{latexsym}
+\usepackage[
+    colorlinks,
+    pdftitle={Uitwerkingen tweede huiswerkopdracht},
+    pdfsubject={Voortgezette Logica},
+    pdfauthor={Martijn Vermaat}
+]{hyperref}
+
+% Couldn't find a symbol for bisimulation in standard LaTeX.
+% Then I found the following workaround by Rob van Glabbeek.
+% http://kilby.stanford.edu/~rvg/
+
+\newcommand{\bis}[1]{ \;% bisimulation
+  \raisebox{.3ex}{$\underline{\makebox[.7em]{$\leftrightarrow$}}$}
+                  \,_{#1}\,}
+\newcommand{\nobis}[1]{\mbox{$\,\not\hspace{-2.5pt}% no bisimulation
+    \raisebox{.3ex}{$\underline{\makebox[.7em]{$\leftrightarrow$}}$}
+                  \,_{#1}\,$}}
+
+\title{Uitwerkingen eerste huiswerkopdracht\\Voortgezette Logica}
+\author{
+    Martijn Vermaat\\
+    mvermaat@cs.vu.nl
+}
+\date{21 november 2004}
+
+\begin{document}
+\maketitle
+
+
+\section*{Opgave 1}
+
+Gezocht wordt een model met 3 kenners waar in een bepaalde wereld
+$t$ de volgende formules waar zijn:
+
+\begin{eqnarray*}
+\mathcal{M},t & \Vdash & K_{1} p
+\mathcal{M},t & \Vdash & K_{2} p
+\mathcal{M},t & \Vdash & K_{3} K_{1} p
+\mathcal{M},t & \nVdash & K_{3} K_{2} p
+\end{eqnarray*}
+
+
+\end{document}
