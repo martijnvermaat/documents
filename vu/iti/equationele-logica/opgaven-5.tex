@@ -1,0 +1,116 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{amsfonts}
+\usepackage{a4}
+\usepackage{latexsym}
+\usepackage{fitch} % http://folk.uio.no/johanw/FitchSty.html
+
+% niet te gewichtig willen doen met veel ruimte
+\setlength{\textwidth}{16cm}
+\setlength{\textheight}{23.0cm}
+\setlength{\topmargin}{0cm}
+\setlength{\oddsidemargin}{0.2mm}
+\setlength{\evensidemargin}{0.2mm}
+\setlength{\parindent}{0cm}
+
+% standaard enumerate met abc
+\renewcommand\theenumi{\alph{enumi}}
+
+
+\begin{document}
+
+
+{\bf Uitwerkingen bij Inleiding Theoretische Informatica\\
+Deel 1: Equationele Logica -- Syntax en semantiek}\\[2em]
+
+
+{\bf Opgave 5.1}
+
+De algebra $\mathfrak{P}(V)$ (met $V$ een verzameling) heeft als drager de
+machtsverzameling van $V$. De functies worden ge\"interpreteerd als
+
+\begin{eqnarray*}
+\texttt{true}_{\mathfrak{P}(V)}     & = & V , \\
+\texttt{false}_{\mathfrak{P}(V)}    & = & \{\} , \\
+\texttt{not}_{\mathfrak{P}(V)}(X)   & = & V - X , \\
+\texttt{and}_{\mathfrak{P}(V)}(X,Y) & = & X \cap Y , \\
+\texttt{or}_{\mathfrak{P}(V)}(X,Y)  & = & X \cup Y .
+\end{eqnarray*}
+
+We constateren eerst dat $\mathfrak{P}(V)$ een algebra voor
+$\texttt{Booleans}$ is omdat de functietypes kloppen. Vervolgens laten we zien
+dat $\mathfrak{P}(V)$ zelfs een model is voor $\texttt{Booleans}$ door te
+laten zien dat alle vergelijkingen ($\texttt{[B1]} \ldots \texttt{[B5]}$) waar
+zijn in $\mathfrak{P}(V)$.
+
+\paragraph{}
+
+We doen dit (nog) niet helemaal volgens de formele methode uit het dictaat
+(met een assignment, een homomorphisme van de termalgebra naar
+$\mathfrak{P}(V)$), omdat dit nog niet op het college behandeld is. We leiden
+de vergelijkingen af voor willekeurige $x$ en $y$ uit $\mathcal{P}(V)$:
+
+\begin{itemize}
+
+\item{Vergelijking $\texttt{[B1]}$:}
+\begin{eqnarray*}
+\texttt{and}_{\mathfrak{P}(V)}(\texttt{true}_{\mathfrak{P}(V)},x) & = & \texttt{and}_{\mathfrak{P}(V)}(V,x) \\
+                                                                  & = & V \cap x \\
+                                                                  & = & x
+\end{eqnarray*}
+
+\item{Vergelijking $\texttt{[B2]}$:}
+\begin{eqnarray*}
+\texttt{and}_{\mathfrak{P}(V)}(\texttt{false}_{\mathfrak{P}(V)},x) & = & \texttt{and}_{\mathfrak{P}(V)}(\{\},x) \\
+                                                                   & = & \{\} \cap x \\
+                                                                   & = & \{\} \\
+                                                                   & = & \texttt{false}_{\mathfrak{P}(V)}
+\end{eqnarray*}
+
+\item{Vergelijking $\texttt{[B3]}$:}
+\begin{eqnarray*}
+\texttt{not}_{\mathfrak{P}(V)}(\texttt{true}_{\mathfrak{P}(V)}) & = & \texttt{not}_{\mathfrak{P}(V)}(V) \\
+                                                                & = & V - V \\
+                                                                & = & \{\} \\
+                                                                & = & \texttt{false}_{\mathfrak{P}(V)}
+\end{eqnarray*}
+
+\item{Vergelijking $\texttt{[B4]}$:}
+\begin{eqnarray*}
+\texttt{not}_{\mathfrak{P}(V)}(\texttt{false}_{\mathfrak{P}(V)}) & = & \texttt{not}_{\mathfrak{P}(V)}(\{\}) \\
+                                                                 & = & V - \{\} \\
+                                                                 & = & V \\
+                                                                 & = & \texttt{true}_{\mathfrak{P}(V)}
+\end{eqnarray*}
+
+\item{Vergelijking $\texttt{[B5]}$:}
+\begin{eqnarray*}
+\texttt{or}_{\mathfrak{P}(V)}(x,y) & = & x \cup y \\
+                                   & = & V - ((V - x) \cap (V - y)) \\
+                                   & = & \texttt{not}_{\mathfrak{P}(V)}((V - x) \cap (V - y)) \\
+                                   & = & \texttt{not}_{\mathfrak{P}(V)}(\texttt{and}_{\mathfrak{P}(V)}(V - x, V - y)) \\
+                                   & = & \texttt{not}_{\mathfrak{P}(V)}(\texttt{and}_{\mathfrak{P}(V)}(\texttt{not}_{\mathfrak{P}(V)}(x),\texttt{not}_{\mathfrak{P}(V)}(y)))
+\end{eqnarray*}
+
+\end{itemize}
+
+Hierbij is het wat intu\"itiever om $\texttt[B5]$ van achter naar voor te lezen.\\[2em]
+
+
+{\bf Opgave 5.2}
+
+\begin{enumerate}
+
+\item % laat zien dat B een model is voor Naturals
+We doen dit weer op dezelfde manier als bij opgave 5.1, dus niet met behulp
+van een assignment functie.
+
+
+
+\item % Is B een homomorf beeld van N?
+Todo.
+
+\end{enumerate}
+
+
+\end{document}
