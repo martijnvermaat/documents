@@ -229,7 +229,10 @@ en
 \end{eqnarray*}
 
 Hieruit volgt dat $\phi$ een homomorphisme van $\mathfrak{A}$ naar
-$\mathfrak{B}$ is en dus bestaat een dergelijk homomorphisme.\\[2em]
+$\mathfrak{B}$ is en dus bestaat een dergelijk homomorphisme.
+
+(De vergelijkingen bij $\texttt{pop}$ zijn niet helemaal correct, het geval
+van $max(|s|-1, 0)$ moet eigenlijk wat anders behandeld worden.)\\[2em]
 
 
 {\bf Opgave 4.5} % beschrijf termalgebra's van Naturals, Booleans en NatBool
@@ -268,6 +271,16 @@ met daar aan toegevoegd de volgende interpretaties:
   \texttt{even}_{\mathfrak{Ter}_{\texttt{NatBool}}}(t)   & = & \texttt{even}(t) \\
   \texttt{odd}_{\mathfrak{Ter}_{\texttt{NatBool}}}(t)   & = & \texttt{odd}(t)
 \end{eqnarray*}
+
+Om het idee van een termalgebra helder te krijgen helpt het wellicht
+bijvoorbeeld de laatste interpretatie in `Java-syntax' als volgt te zien:
+
+\begin{eqnarray*}
+  \texttt{odd}_{\mathfrak{Ter}_{\texttt{NatBool}}}(t)   & = & \verb|"odd(" + | t \verb| + ")"|
+\end{eqnarray*}
+
+De ge\"interpreteerde functie krijgt een string $t$ als argument en
+construeert hiervan met wat concatenaties een nieuwe string.\\[2em]
 
 
 {\bf Opgave 4.6}
