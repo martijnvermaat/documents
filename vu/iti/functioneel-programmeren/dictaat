@@ -1,0 +1,21 @@
+Dictaat ITI functioneel programmeren
+====================================
+
+Algemeen over FP talen en specifiek over OCaml.
+
+Pattern matching
+Strict/lazy
+Currying
+Side-effects
+Lambda Calculus
+Type system
+
+
+Opgaven
+=======
+
+* Opgave 1
+Church Numerals.
+
+* Opgave 2
+Datatype.
