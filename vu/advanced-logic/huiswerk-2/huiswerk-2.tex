@@ -23,7 +23,7 @@
     \raisebox{.3ex}{$\underline{\makebox[.7em]{$\leftrightarrow$}}$}
                   \,_{#1}\,$}}
 
-\title{Uitwerkingen eerste huiswerkopdracht\\Voortgezette Logica}
+\title{Uitwerkingen tweede huiswerkopdracht\\Voortgezette Logica}
 \author{
     Martijn Vermaat\\
     mvermaat@cs.vu.nl
@@ -68,7 +68,7 @@ Nu voldoet het model $\mathcal{M}$ aan bovengenoemde eisen:
 
 En voor wie $\mathcal{M}$ in een plaatje wil zien:\\[1em]
 
-\input{huiswerk-2-opg1.pdftex_t}
+\input{huiswerk-2-opg1.pdftex_t}\\[1em]
 
 Dit is een tegenmodel voor de bewering dat wanneer twee kenners iets
 weten, ze dit ook van elkaar weten. We kunnen dus zeggen dat deze
@@ -194,9 +194,51 @@ voor ieder epistemisch model $\mathcal{M}$.
 
 \section*{Opgave 4}
 
-Het frame ziet er in een plaatje als volgt uit:
+Het frame ziet er in een plaatje als volgt uit:\\[1em]
 
-%\input{huiswerk-2-opg4-1.pdftex_t}
+\input{huiswerk-2-opg4-1.pdftex_t}\\[1em]
+
+Hierbij vormen de pijlen met $s$ te toegankelijkheidsrelatie $R_{s}$ voor
+kennisoperator $K_{s}$ van kenner $s$. Evenzo voor kenner $t$. De vereniging
+$R_{s} \bigcup R_{t}$ van beiden geeft volgens definitie de
+toegankelijkheidsrelatie $R_{E}$ voor $E$.
+
+We bekijken nu de toegankelijkheidsrelatie $R_{EE}$ behorende bij het
+toepassen van $E$ na $E$. Deze bevat die paren $(x,y)$ waarvoor geldt $xEz$ en
+$zEy$ voor een willekeurige wereld $z$:\\[1em]
+
+\input{huiswerk-2-opg4-2.pdftex_t}\\[1em]
+
+Volgens definitie van $E$ en onze constructie van $R_{EE}$ geldt inderdaad
+voor ieder model $\mathcal{M}$:
+
+\begin{displaymath}
+\mathcal{M},s \Vdash EE \varphi \quad \Longleftrightarrow \quad
+\mathcal{M},t \Vdash \varphi \mbox{, voor alle punten $t$ z\'o dat $sR_{EE}t$.}
+\end{displaymath}
+
+Ook herinneren we ons de de definitie van de $C$ operator:
+
+\begin{displaymath}
+\mathcal{M},s \Vdash C \varphi \quad \Longleftrightarrow \quad
+\mathcal{M},t \Vdash \varphi \mbox{, voor alle punten $t$ z\'o dat $sR_{C}t$.}
+\end{displaymath}
+
+Nu is $R_{C}$ gedefini\"eerd als de transitieve afsluiting van $R_{E}$, maar
+als we die bekijken in ons frame zien we dat die precies gelijk is aan de
+afgebeelde $R_{EE}$.
+
+\paragraph{}
+
+Volgens bovenstaande hebben we nu
+
+\begin{displaymath}
+\mathcal{M},s \Vdash EE \varphi \quad \Longleftrightarrow \quad
+\mathcal{M},s \Vdash C \varphi
+\end{displaymath}
+
+hetgeen triviaal zorgt voor de waarheid van $C_{P} \leftrightarrow EE_{p}$
+(in ieder model op ons frame).
 
 
 \end{document}
