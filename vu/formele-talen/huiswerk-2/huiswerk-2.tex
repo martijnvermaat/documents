@@ -1,5 +1,6 @@
 \documentclass[a4paper,11pt]{article}
 \usepackage[dutch]{babel}
+\usepackage{amsfonts}
 \usepackage{a4}
 \usepackage{color, rotating}
 \usepackage{latexsym}
@@ -24,17 +25,139 @@
 \section*{Opgave 1}
 
 
+\begin{displaymath}
+L = \{a^{n}b^{m}a^{n} \, | \, n,m \geq 0\}
+\end{displaymath}
+
+
 \begin{description}
 
 
 \item[a)]
 
+We gebruiken de pompstelling voor reguliere talen om te bewijzen dat $L$ niet
+regulier is.
+
+Stel dat $L$ wel regulier is. Volgens de pompstelling bestaat er nu een
+positief getal $m$ zo dat iedere $w \in L$ met $|w| \geq m$ als volgt
+opgedeeld kan worden in $x$, $y$ en $z$:
+
+\begin{eqnarray*}
+& w = xyz \mbox{,} & \\
+\mbox{met} & & \\
+& |xy| \leq m \quad \mbox{en} \quad |y| \geq 1 \mbox{,} & \\
+\mbox{zo dat} & & \\
+& xy^{i}z \in L \quad \mbox{voor alle $i \in \mathbb{N}$.} &
+\end{eqnarray*}
+
+Laten we bij deze $m$ de string $w = a^{m}ba^{m}$ bekijken. Dan kan $w$
+geschreven worden als $xyz$ met:
+
+\begin{eqnarray*}
+x & = & a^{|x|} \mbox{,} \\
+y & = & a^{|y|} \mbox{,} \\
+z & = & a^{m-|x|-|y|}ba^{m} \mbox{.}
+\end{eqnarray*}
+
+Nu moet ook de volgende string in $L$ zitten:
+
+\begin{eqnarray*}
+xy^{2}z & = & a^{|x|}a^{2|y|}a^{m-|x|-|y|}ba^{m} \\
+ & = & a^{m+|y|}ba^{m} \mbox{.}
+\end{eqnarray*}
+
+Maar omdat $|y| \geq 1$ volgt $m+|y| \not = m$ en dus zit $xy^{2}z$ niet
+in $L$. Dit is in tegenspraak met onze eerdere veronderstelling, dus moet
+onze aanname onjuist geweest zijn en is $L$ niet regulier.
+
+\hfill\rule{2.1mm}{2.mm}
+
 
 \item[b)]
 
-%Een dfa die $L$ accepteerd:\\[1em]
+Een contextvrije grammatica die $L$ genereert:
 
-%\input{huiswerk-1-opg1b.pdftex_t}
+\begin{eqnarray*}
+S & \rightarrow & a S a \quad | \quad B \\
+B & \rightarrow & bB \quad | \quad \lambda
+\end{eqnarray*}
+
+
+\item[c)]
+
+Een nondeterministische pushdown automaat die $L$ accepteert:\\[1em]
+
+\input{huiswerk-1-opg1c.pdftex_t}
+
+
+\end{description}
+
+
+\section*{Opgave 2}
+
+
+\begin{description}
+
+
+\item[a)]
+
+\begin{enumerate}
+
+\item
+
+Na eliminatie van $\lambda$-producties:
+
+\begin{eqnarray*}
+S & \rightarrow & SAa \, | \, Sa \, | \, BBb \, | \, Bb \, | \, b \\
+A & \rightarrow & CC \, | \, C \, | \, a \\
+B & \rightarrow & C \, | \, Sb \\
+C & \rightarrow & SDE \, | \, SE \\
+D & \rightarrow & A \, | \, ab
+\end{eqnarray*}
+
+\item
+
+Na eliminatie van unit-producties:
+
+\begin{eqnarray*}
+S & \rightarrow & SAa \, | \, Sa \, | \, BBb \, | \, Bb \, | \, b \\
+A & \rightarrow & CC \, | \, a \, | \, SDE \, | \, SE \\
+B & \rightarrow & Sb \, | \, SDE \, | \, SE \\
+C & \rightarrow & SDE \, | \, SE \\
+D & \rightarrow & ab \, | \, CC \, | \, a \, | \, SDE \, | \, SE
+\end{eqnarray*}
+
+\item
+
+Na verwijderen van nutteloze producties:
+
+\begin{eqnarray*}
+S & \rightarrow & SAa \, | \, Sa \, | \, BBb \, | \, Bb \, | \, b \\
+A & \rightarrow & a \\
+B & \rightarrow & Sb
+\end{eqnarray*}
+
+\end{enumerate}
+
+
+\item[b)]
+
+Dezelfde grammatica in Chomsky normaalvorm:
+
+\begin{eqnarray*}
+S & \rightarrow & SY_{1} \, | \, SX_{a} \, | \, BY_{2} \, | \, BX_{b} \, | \, b \\
+A & \rightarrow & a \\
+B & \rightarrow & SX_{b} \\
+X_{a} & \rightarrow & a \\
+X_{b} & \rightarrow & b \\
+Y_{1} & \rightarrow & AX_{a} \\
+Y_{2} & \rightarrow & BX_{b}
+\end{eqnarray*}
+
+
+\item[c)]
+
+Dezelfde grammatica in Greibach normaalvorm:
 
 
 \end{description}
