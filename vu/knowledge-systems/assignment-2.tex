@@ -71,7 +71,6 @@ the component model. The weight is in Kilograms, the dimensions in centimeters.
 \item Cooking construction: Weight 4,5; Dim=25,20,35
 \item Socks: Weight=0,03; Dim=2,6,15
 \item ...
-\item ...
 \end{itemize}
 
 
@@ -103,7 +102,8 @@ Provided by a phone and by a PDA.
 Sleeping in a tent is prefered over sleeping in a hotel
 when one goes on a `camping' holiday. But eating healthy
 food by using a cooking pan is prefered over using the
-barbeque every day.
+barbeque every day. An expensive PDA is likely to be stolen
+on a camping. therefore we prefer to take our phone.
 
 This evaluation gives rise to the following evaluation
 relationships:
@@ -111,7 +111,11 @@ relationships:
 \begin{itemize}
 \item Tent $>$ Hotel guide
 \item Cooking construction $>$ Barbeque
+\item Phone $>$ PDA
 \end{itemize}
+
+For other alternatives, we take the smallest one and after
+that the one with less weight.
 
 
 \subsection*{Component Relations}
@@ -168,7 +172,8 @@ MCF1 technique.
 \paragraph{Functional Requirements}
 
 To go on a camping holiday, we need to arrange for the following
-in our backpack: something to prepare food, a place to sleep.
+in our backpack: something to prepare food, a place to sleep, and
+a means of communication.
 
 \paragraph{Key Components}
 
@@ -182,19 +187,25 @@ For the second requirement, a place to sleep, we can choose between
 a tent and a hotel guide. Of course, we prefer sleeping in a tent,
 so we take the tent.
 
+As for the third requirement, our evaluation function says we prefer
+to take our phone rather than our PDA. As these are exactly the two
+components that provide a means of communication, we take our phone.
+
 \paragraph{Required Components}
 
 The cooking construction we choose requires a cooking pan to go
 with it. So we add the cooking pan to our configuration. The tent
 requires something to sleep on, which can be either an aerobed or
-a sleeping carpet. (kies op basis van gewicht ofzo)
+a sleeping carpet, but we prefer the aerobed because it takes less
+space (and it sleeps much better too!).
 
 \paragraph{Arranging Components}
 
 Now we have satisfied all functional requirements and dependencies,
-we try to arrange the choosen components to form a configuration.
-
-(kijk of gewicht goed is en of alles in de backpack past)
+we try to arrange the choosen components to form a configuration. We
+check if the configuration meets the arrangement requirements, such
+as total weight and dimensions. If not, we go back, change some
+alternatives, and try again.
 
 
 \end{document}
