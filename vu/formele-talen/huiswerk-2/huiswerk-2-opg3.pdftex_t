@@ -20,10 +20,6 @@
 }}}}
 \put(1801,569){\makebox(0,0)[b]{\smash{{\SetFigFont{10}{12.0}{\familydefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$a$}%
 }}}}
-\put(1261,-151){\makebox(0,0)[b]{\smash{{\SetFigFont{10}{12.0}{\familydefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$\{A\}_{12}$}%
-}}}}
-\put(2251,-151){\makebox(0,0)[b]{\smash{{\SetFigFont{10}{12.0}{\familydefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$\{\}_{23}$}%
-}}}}
 \put(3151,-151){\makebox(0,0)[b]{\smash{{\SetFigFont{10}{12.0}{\familydefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$\{S,C\}_{34}$}%
 }}}}
 \put(4051,-151){\makebox(0,0)[b]{\smash{{\SetFigFont{10}{12.0}{\familydefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$\{S,A\}_{45}$}%
@@ -48,6 +44,10 @@
 }}}}
 \put(3151,-871){\makebox(0,0)[b]{\smash{{\SetFigFont{10}{12.0}{\familydefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$\{S,A\}_{25}$}%
 }}}}
-\put(2701,-1231){\makebox(0,0)[b]{\smash{{\SetFigFont{10}{12.0}{\familydefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$\{A,S,C\}_{15}$}%
+\put(2251,-151){\makebox(0,0)[b]{\smash{{\SetFigFont{10}{12.0}{\familydefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$\{B\}_{23}$}%
+}}}}
+\put(1261,-151){\makebox(0,0)[b]{\smash{{\SetFigFont{10}{12.0}{\familydefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$\{S,A\}_{12}$}%
+}}}}
+\put(2701,-1231){\makebox(0,0)[b]{\smash{{\SetFigFont{10}{12.0}{\familydefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$\{S,A,C\}_{15}$}%
 }}}}
 \end{picture}%

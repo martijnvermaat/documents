@@ -184,8 +184,19 @@ grammatica wordt gegenereerd.
 
 \section*{Opgave 4}
 
+De volgende contextvrije grammatica genereert precies $L(M)$ voor de gegeven
+npda $M$:
 
+\begin{eqnarray*}
+(q_{0}yq_{1}) & \rightarrow & \lambda \\
+(q_{1}yq_{1}) & \rightarrow & \lambda \\
+(q_{1}zq_{1}) & \rightarrow & 1 \\
+(q_{0}zr) & \rightarrow & 0(qyr')(r'zr) \\
+(q_{0}yr) & \rightarrow & 0(q_{0}yr')(r'yr) \quad | \quad 1(q_{0}yr) \\
+(q_{1}yr) & \rightarrow & 1(q_{1}yr')(r'yr)
+\end{eqnarray*}
 
+met $S = (q_{0}zq_{1})$ en $r,r' \in \{q_{0},q_{1}\}$.
 
 
 \end{document}
