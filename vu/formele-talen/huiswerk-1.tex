@@ -97,7 +97,7 @@ We bewijzen dat de taal
 niet regulier is door met behulp van de pompstelling te bewijzen dat het
 complement van deze taal niet regulier is.
 
-\paragraph{Bewijs}
+\paragraph{Bewijs.}
 
 We nemen aan dat de taal
 
@@ -158,6 +158,81 @@ van $L$ niet regulier. Dit wilden we bewijzen.
 
 \section*{Opgave 4}
 
+
+Omdat $L_{1}$ een reguliere taal over $\{a,b\}$ is, bestaat er een reguliere
+expressie $r_{1}$ die precies $L_{1}$ beschrijft.
+
+De reguliere expressie $r_{2}$ defini\"eren we door herschrijfregels op
+$r_{1}$ toe te passen:
+
+\begin{eqnarray}
+r_{2} & \mapsto & r_{1}' \label{regel:regex} \\
+(\psi \omega)' & \mapsto & \psi' \omega + \psi \omega' \label{regel:con} \\
+(\psi + \omega)' & \mapsto & \psi' + \omega' \label{regel:keuze} \\
+(\psi^{*})' & \mapsto & \psi^{*} \psi' \psi^{*} \label{regel:herh} \\
+\alpha' & \mapsto & \lambda \label{regel:atom} \\
+\lambda' & \mapsto & \emptyset \label{regel:lambda} \\
+\emptyset' & \mapsto & \emptyset \label{regel:empty}
+\end{eqnarray}
+
+Waarbij $\psi$ en $\omega$ reguliere expressies zijn en $\alpha$ een
+element uit $\{a,b\}$. De taal die door $r_{2}$ beschreven wordt
+is regulier.
+
+We zullen nu bewijzen dat de reguliere expressie $r_{2}$ precies $L_{2}$
+beschrijft.
+
+\paragraph{Bewijs.}
+
+We bewijzen met inductie naar de structuur van $r_{1}$. Als basisstap
+nemen we $r_{1}$ gelijk aan een element uit $\{a,b,\lambda,\emptyset\}$.
+Volgens de definitie van $L_{2}$ (uit de opgave) is $L_{2} = \{\lambda\}$
+indien $r_{1} \in \{a,b\}$ en $L_{2} = \emptyset$ als $r_{2} \in
+\{\lambda,\emptyset\}$.
+
+Regel \ref{regel:atom} uit onze herschrijfregels zegt dat $r_{2}$ geschreven
+kan worden als $\lambda$ wanneer $r_{1} \in \{a,b\}$. Regels
+\ref{regel:lambda} en \ref{regel:empty} zeggen dat $r_{2}$ geschreven kan
+worden als $\emptyset$ wanneer $r_{1} \in \{\lambda,\emptyset\}$. Deze twee
+beschrijven precies de taal $\{\lambda\}$ respectievelijk $\emptyset$ en
+dus hebben we hiermee ons basisgeval bewezen.
+
+\paragraph{}
+
+Onze inductiestap bestaat uit het bewijzen dat we met onze herschrijfregels
+voor iedere reguliere expressie $r_{1}$ een reguliere expressie $r_{2}$
+kunnen maken die precies $L_{2}$ beschrijft waarbij we aan mogen nemen dat
+dit al bewezen is voor iedere subexpressie van $r_{1}$. We behandelen alle
+gevallen van de structuur van $r_{1}$ apart (met uitzondering van de gevallen
+waarin deze precies $a$, $b$, $\lambda$, of $\emptyset$ is, want dat hebben
+we in de basisstap gedaan).
+
+\paragraph{}
+
+\begin{description}
+
+\item[Concatenatie]
+
+Wanneer $r_{1}$ van de vorm $\psi \omega$ is (met $\psi$ en $\omega$ reguliere
+expressies), dan zien we aan de definitie van $L_{2}$ dat we $L_{2}$ krijgen
+door in de strings van $L_{1}$ een letter weg te laten uit \emph{ofwel} het
+deel dat beschreven wordt door $\psi$ \emph{ofwel} het deel dat beschreven
+wordt door $\omega$. Het is niet moeilijk in te zien dat dat precies is wat
+regel \ref{regel:con} beschrijft.
+
+\item[Keuze]
+
+Evenzo, als $r_{1}$ van de vorm $\psi + \omega$ is, zegt de definitie van
+$L_{2}$ dat we deze die strings bevat die beschreven worden door \emph{ofwel}
+$\psi$ met daaruit een letter weggelaten, \emph{ofwel} $\omega$ met daaruit
+een letter weggelaten. Regel \ref{regel:keuze} beschrijft precies dit.
+
+\item[herh]
+
+
+
+
+\end{description}
 
 
 \end{document}
