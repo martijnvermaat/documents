@@ -103,14 +103,56 @@ Hierbij is het wat intu\"itiever om $\texttt[B5]$ van achter naar voor te lezen.
 
 \item % laat zien dat B een model is voor Naturals
 We doen dit weer op dezelfde manier als bij opgave 5.1, dus niet met behulp
-van een assignment functie.
+van een assignment functie. De vergelijkingen maken we waar met voor $x$ en
+$y$ willekeurige elementen uit $\{T,F\}$.
 
+\begin{itemize}
 
+\item{De vergelijking $\texttt{[A1]}$:}
+\begin{eqnarray*}
+\texttt{add}_{\mathfrak{B}}(x, \texttt{0}_{\mathfrak{B}}) & = & \texttt{add}_{\mathfrak{B}}(x, T) \\
+                                                          & = & x
+\end{eqnarray*}
+
+\item{De vergelijking $\texttt{[A2]}$:}
+\begin{eqnarray*}
+\texttt{add}_{\mathfrak{B}}(x, \texttt{succ}_{\mathfrak{B}}(y)) & = & \texttt{add}_{\mathfrak{B}}(x, \neg y) \\
+                                                                & = & xor(x, \neg y) \\
+                                                                & = & not(xor(x,y)) \\
+                                                                & = & \texttt{succ}_{\mathfrak{B}}(xor(x,y)) \\
+                                                                & = & \texttt{succ}_{\mathfrak{B}}(\texttt{add}_{\mathfrak{B}}(x, y))
+\end{eqnarray*}
+
+\item{De vergelijking $\texttt{[M1]}$:}
+\begin{eqnarray*}
+\texttt{mul}_{\mathfrak{B}}(x, \texttt{0}_{\mathfrak{B}}) & = & \texttt{mul}_{\mathfrak{B}}(x, T) \\
+                                                          & = & T \\
+                                                          & = & \texttt{0}_{\mathfrak{B}}
+\end{eqnarray*}
+
+\item{De vergelijking $\texttt{[M2]}$:}
+\begin{eqnarray*}
+\texttt{mul}_{\mathfrak{B}}(x, \texttt{succ}_{\mathfrak{B}}(y)) & = & \texttt{mul}_{\mathfrak{B}}(x, \neg y) \\
+                                                                & = & x \vee \neg y \\
+                                                                & = & xor(x \vee y, x) \\
+                                                                & = & \texttt{add}_{\mathfrak{B}}(x \vee y),x) \\
+                                                                & = & \texttt{add}_{\mathfrak{B}}(\texttt{mul}_{\mathfrak{B}}(x, y),x)
+\end{eqnarray*}
+
+(Geloof maar gewoon dat inderdaad $x \vee \neg y = xor(x \vee y, x)$, of maak
+de waarheidstafels als je het zeker wilt weten.)
+
+\end{itemize}
 
 \item % Is B een homomorf beeld van N?
-Todo.
+Todo.\\[2em]
 
 \end{enumerate}
+
+
+{\bf Opgave 5.3}
+
+Todo.
 
 
 \end{document}
