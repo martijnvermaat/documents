@@ -3,6 +3,7 @@
 \usepackage{amsfonts}
 \usepackage{a4}
 \usepackage{latexsym}
+\usepackage{fitch} % http://folk.uio.no/johanw/FitchSty.html
 
 % niet te gewichtig willen doen met veel ruimte
 \setlength{\textwidth}{16cm}
@@ -147,50 +148,176 @@ specificatie $\texttt{Booleans}$.\\[2em]
 \begin{enumerate}
 
 \item % laat zien dat B een model is voor Naturals
-We doen dit weer op dezelfde manier als bij opgave 5.1, dus niet met behulp
-van een assignment functie. De vergelijkingen maken we waar met voor $x$ en
-$y$ willekeurige elementen uit $\{T,F\}$.
+Laat $\theta$ een assignment van elementen uit $\{T,F\}$ voor variabelen $x$
+en $y$ zijn en neem aan dat $\theta(x) = B$ en $\theta(y) = C$.
+We laten zien dat voor alle vergelijkingen $t_{l} = t_{r}$ in de specificatie
+$\texttt{Naturals}$ de interpretaties $\bar \theta(t_{l})$ en $\bar
+\theta(t_{r})$ gelijk zijn.
 
 \begin{itemize}
 
-\item{De vergelijking $\texttt{[A1]}$:}
+\item{$\texttt{[A1] add(x,0) = x}$}
 \begin{eqnarray*}
-\texttt{add}_{\mathfrak{B}}(x, \texttt{0}_{\mathfrak{B}}) & = & \texttt{add}_{\mathfrak{B}}(x, T) \\
-                                                          & = & x
+\bar \theta(\texttt{add}(x, \texttt{0})) & = & \texttt{add}_{\mathfrak{B}}(\bar \theta(x), \bar \theta(\texttt{0})) \\
+                                         & = & \texttt{add}_{\mathfrak{B}}(\theta(x), \texttt{0}_{\mathfrak{B}}) \\
+                                         & = & \texttt{add}_{\mathfrak{B}}(B, T) \\
+                                         & = & \underline{xor}(B, T) \\
+                                         & = & B
 \end{eqnarray*}
 
-\item{De vergelijking $\texttt{[A2]}$:}
 \begin{eqnarray*}
-\texttt{add}_{\mathfrak{B}}(x, \texttt{succ}_{\mathfrak{B}}(y)) & = & \texttt{add}_{\mathfrak{B}}(x, \neg y) \\
-                                                                & = & xor(x, \neg y) \\
-                                                                & = & not(xor(x,y)) \\
-                                                                & = & \texttt{succ}_{\mathfrak{B}}(xor(x,y)) \\
-                                                                & = & \texttt{succ}_{\mathfrak{B}}(\texttt{add}_{\mathfrak{B}}(x, y))
+\bar \theta(x) & = & \theta(x) \\
+               & = & B
 \end{eqnarray*}
 
-\item{De vergelijking $\texttt{[M1]}$:}
+\item{$\texttt{[A2] add(x,succ(y)) = succ(add(x,y))}$}
 \begin{eqnarray*}
-\texttt{mul}_{\mathfrak{B}}(x, \texttt{0}_{\mathfrak{B}}) & = & \texttt{mul}_{\mathfrak{B}}(x, T) \\
-                                                          & = & T \\
-                                                          & = & \texttt{0}_{\mathfrak{B}}
+\bar \theta(\texttt{add}(x, \texttt{succ}(y))) & = & \texttt{add}_{\mathfrak{B}}(\bar \theta(x), \bar \theta(\texttt{succ}(y))) \\
+                                               & = & \texttt{add}_{\mathfrak{B}}(\theta(x), \texttt{succ}_{\mathfrak{B}}(\bar \theta(y))) \\
+                                               & = & \texttt{add}_{\mathfrak{B}}(A, \texttt{succ}_{\mathfrak{B}}(\theta(y))) \\
+                                               & = & \texttt{add}_{\mathfrak{B}}(A, \texttt{succ}_{\mathfrak{B}}(B)) \\
+                                               & = & \texttt{add}_{\mathfrak{B}}(A, \neg B) \\
+                                               & = & \underline{xor}(A, \neg B) \\
+                                               & = & \neg \underline{xor}(A, B)
 \end{eqnarray*}
 
-\item{De vergelijking $\texttt{[M2]}$:}
 \begin{eqnarray*}
-\texttt{mul}_{\mathfrak{B}}(x, \texttt{succ}_{\mathfrak{B}}(y)) & = & \texttt{mul}_{\mathfrak{B}}(x, \neg y) \\
-                                                                & = & x \vee \neg y \\
-                                                                & = & xor(x \vee y, x) \\
-                                                                & = & \texttt{add}_{\mathfrak{B}}(x \vee y),x) \\
-                                                                & = & \texttt{add}_{\mathfrak{B}}(\texttt{mul}_{\mathfrak{B}}(x, y),x)
+\bar \theta(\texttt{succ}(\texttt{add}(x,y))) & = & \texttt{succ}_{\mathfrak{B}}(\bar \theta(\texttt{add}(x, y))) \\
+                                              & = & \texttt{succ}_{\mathfrak{B}}(\texttt{add}_{\mathfrak{B}}(\bar \theta(x), \bar \theta(y))) \\
+                                              & = & \texttt{succ}_{\mathfrak{B}}(\texttt{add}_{\mathfrak{B}}(\theta(x), \theta(y))) \\
+                                              & = & \texttt{succ}_{\mathfrak{B}}(\texttt{add}_{\mathfrak{B}}(A, B)) \\
+                                              & = & \texttt{succ}_{\mathfrak{B}}(\underline{xor}(A, B)) \\
+                                              & = & \neg \underline{xor}(A, B)
 \end{eqnarray*}
 
-(Geloof maar gewoon dat inderdaad $x \vee \neg y = xor(x \vee y, x)$, of maak
-de waarheidstafels als je het zeker wilt weten.)
+\item{$\texttt{[M1] mul(x,0) = 0}$}
+\begin{eqnarray*}
+\bar \theta(\texttt{mul}(x, \texttt{0})) & = & \texttt{mul}_{\mathfrak{B}}(\bar \theta(x), \bar \theta(\texttt{0})) \\
+                                         & = & \texttt{mul}_{\mathfrak{B}}(\theta(x), \texttt{0}_{\mathfrak{B}}) \\
+                                         & = & \texttt{mul}_{\mathfrak{B}}(B, T) \\
+                                         & = & B \vee T \\
+                                         & = & T
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\bar \theta(\texttt{0}) & = & \texttt{0}_{\mathfrak{B}} \\
+                        & = & T
+\end{eqnarray*}
+
+\item{$\texttt{[M2] mul(x,succ(y)) = add(mul(x,y),x)}$}
+\begin{eqnarray*}
+\bar \theta(\texttt{mul}(x, \texttt{succ}(y))) & = & \texttt{mul}_{\mathfrak{B}}(\bar \theta(x), \bar \theta(\texttt{succ}(y))) \\
+                                               & = & \texttt{mul}_{\mathfrak{B}}(\theta(x), \texttt{succ}_{\mathfrak{B}}(\bar \theta(y))) \\
+                                               & = & \texttt{mul}_{\mathfrak{B}}(A, \texttt{succ}_{\mathfrak{B}}(\theta(y))) \\
+                                               & = & \texttt{mul}_{\mathfrak{B}}(A, \texttt{succ}_{\mathfrak{B}}(B)) \\
+                                               & = & \texttt{mul}_{\mathfrak{B}}(A, \neg B) \\
+                                               & = & A \vee \neg B
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) & = & \texttt{add}_{\mathfrak{B}}(\bar \theta(\texttt{mul}(x, y)), \bar \theta(x)) \\
+                                               & = & \texttt{add}_{\mathfrak{B}}(\texttt{mul}_{\mathfrak{B}}(\bar \theta(x), \bar \theta(y)), \bar \theta(x)) \\
+                                               & = & \texttt{add}_{\mathfrak{B}}(\texttt{mul}_{\mathfrak{B}}(\theta(x), \theta(y)), \theta(x)) \\
+                                               & = & \texttt{add}_{\mathfrak{B}}(\texttt{mul}_{\mathfrak{B}}(A, B), A) \\
+                                               & = & \texttt{add}_{\mathfrak{B}}((A \vee B), A) \\
+                                               & = & \underline{xor}(A \vee B, A) \\
+                                               & = & A \vee \neg B
+\end{eqnarray*}
+
+(Geloof maar gewoon dat inderdaad $A \vee \neg B = \underline{xor}(A \vee B,
+A)$, of maak de waarheidstafels als je het zeker wilt weten.)
 
 \end{itemize}
 
 \item % Is B een homomorf beeld van N?
-Todo.\\[2em]
+Inderdaad is $\mathfrak{B}$ een homomorf beeld van de structuur van de
+natuurlijke getallen. Neem bijvoorbeeld de functie $\phi : \mathbb{N}
+\rightarrow \{T,F\}$ gedefini\"eerd als
+
+\begin{displaymath}
+\phi(x) = \begin{cases}
+  T & \text{als $x$ even is;} \\
+  F & \text{als $x$ oneven is.}
+\end{cases}
+\end{displaymath}
+
+We laten zien dat $\phi$ een homomorphisme is van de structuur van de
+natuurlijke getallen (we noemen deze algebra $\mathfrak{N}) $naar de algebra
+$\mathfrak{B}$. Hiertoe bekijken we hoe $\phi$ zich gedraagt over de
+ge\"interpreteerde constante $\texttt{0}$ en functies $\texttt{succ}$,
+$\texttt{add}$ en $\texttt{mul}$. Voor alle $x,y \in \mathbb{N}$ hebben we:
+
+\begin{itemize}
+
+\item
+\begin{eqnarray*}
+\phi(\texttt{0}_{\mathfrak{N}}) & = & \phi(0) \\
+                                & = & T \\
+                                & = & \texttt{0}_{\mathfrak{B}}
+\end{eqnarray*}
+
+\item
+Als $x$ even is:
+\begin{eqnarray*}
+\phi(\texttt{succ}_{\mathfrak{N}}(x)) & = & \phi(x+1) \\
+                                      & = & F \\
+                                      & = & \neg T \\
+                                      & = & \texttt{succ}_{\mathfrak{B}}(T) \\
+                                      & = & \texttt{succ}_{\mathfrak{B}}(\phi(x))
+\end{eqnarray*}
+
+En als $x$ oneven is:
+\begin{eqnarray*}
+\phi(\texttt{succ}_{\mathfrak{N}}(x)) & = & \phi(x+1) \\
+                                      & = & T \\
+                                      & = & \neg F \\
+                                      & = & \texttt{succ}_{\mathfrak{B}}(F) \\
+                                      & = & \texttt{succ}_{\mathfrak{B}}(\phi(x))
+\end{eqnarray*}
+
+\item
+Als $x$ even is en $y$ oneven is of omgekeerd:
+\begin{eqnarray*}
+\phi(\texttt{add}_{\mathfrak{N}}(x,y) & = & \phi(x+y) \\
+                                      & = & F \\
+                                      & = & \underline{xor}(T, F) = \underline{xor}(F, T) \\
+                                      & = & \underline{xor}(\phi(x), \phi(y)) \\
+                                      & = & \texttt{add}_{\mathfrak{B}}(\phi(x),\phi(y))
+\end{eqnarray*}
+
+Als $x$ en $y$ beiden even of beiden oneven zijn:
+\begin{eqnarray*}
+\phi(\texttt{add}_{\mathfrak{N}}(x,y) & = & \phi(x+y) \\
+                                      & = & T \\
+                                      & = & \underline{xor}(T, T) = \underline{xor}(F, F) \\
+                                      & = & \underline{xor}(\phi(x), \phi(y)) \\
+                                      & = & \texttt{add}_{\mathfrak{B}}(\phi(x),\phi(y))
+\end{eqnarray*}
+
+\item
+Als $x$ en $y$ beiden oneven zijn:
+\begin{eqnarray*}
+\phi(\texttt{mul}_{\mathfrak{N}}(x,y) & = & \phi(x*y) \\
+                                      & = & F \\
+                                      & = & F \vee F \\
+                                      & = & \phi(x) \vee \phi(y) \\
+                                      & = & \texttt{mul}_{\mathfrak{B}}(\phi(x),\phi(y))
+\end{eqnarray*}
+
+Als tenminste $x$ of $y$ even is:
+\begin{eqnarray*}
+\phi(\texttt{mul}_{\mathfrak{N}}(x,y) & = & \phi(x*y) \\
+                                      & = & T \\
+                                      & = & (T \vee T) = (T \vee F) = (F \vee T) \\
+                                      & = & \phi(x) \vee \phi(y) \\
+                                      & = & \texttt{mul}_{\mathfrak{B}}(\phi(x),\phi(y))
+\end{eqnarray*}
+
+\end{itemize}
+
+Bovendien zijn $T$ en $F$ beiden het beeld van meerdere natuurlijke getallen,
+dus is $\phi$ surjectief. Hieruit volgt dat $\mathfrak{B}$ een homomorf beeld
+is van $\mathfrak{N}$, de structuur van de natuurlijke getallen.\\[2em]
 
 \end{enumerate}
 
