@@ -1,0 +1,244 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amssymb}
+\usepackage{fitch}
+\usepackage[dutch]{babel}
+\usepackage{a4}
+\usepackage{color, rotating}
+\usepackage{latexsym}
+\usepackage[
+    colorlinks,
+    pdftitle={Uitwerkingen tweede huiswerkopdracht},
+    pdfsubject={Voortgezette Logica},
+    pdfauthor={Martijn Vermaat}
+]{hyperref}
+
+% Couldn't find a symbol for bisimulation in standard LaTeX.
+% Then I found the following workaround by Rob van Glabbeek.
+% http://kilby.stanford.edu/~rvg/
+
+\newcommand{\bis}[1]{ \;% bisimulation
+  \raisebox{.3ex}{$\underline{\makebox[.7em]{$\leftrightarrow$}}$}
+                  \,_{#1}\,}
+\newcommand{\nobis}[1]{\mbox{$\,\not\hspace{-2.5pt}% no bisimulation
+    \raisebox{.3ex}{$\underline{\makebox[.7em]{$\leftrightarrow$}}$}
+                  \,_{#1}\,$}}
+
+\title{Uitwerkingen tweede huiswerkopdracht\\Voortgezette Logica}
+\author{
+    Martijn Vermaat\\
+    mvermaat@cs.vu.nl
+}
+\date{21 november 2004}
+
+\begin{document}
+\maketitle
+
+
+\section*{Opgave 1}
+
+Gezocht wordt een model met 3 kenners waar in een bepaalde wereld
+$t$ de volgende formules waar zijn:
+
+\begin{eqnarray*}
+\mathcal{M},t & \Vdash & K_{1} p        \\
+\mathcal{M},t & \Vdash & K_{2} p        \\
+\mathcal{M},t & \Vdash & K_{3} K_{1} p  \\
+\mathcal{M},t & \nVdash & K_{3} K_{2} p
+\end{eqnarray*}
+
+We defini\"eren het frame $\mathcal{F}$ als volgt:
+
+\begin{eqnarray*}
+\mathcal{F} & = & (\{t,u,v\}, R_{1}, R_{2}, R_{3}) \\
+& & \mbox{waarbij}                                 \\
+& & R_{1} = \{(t,t), (u,u), (v,v)\}                \\
+& & R_{2} = \{(t,t), (u,u), (v,v), (u,v), (v,u)\}  \\
+& & R_{3} = \{(t,t), (u,u), (v,v), (t,u), (u,t)\}
+\end{eqnarray*}
+
+Nu voldoet het model $\mathcal{M}$ aan bovengenoemde eisen:
+
+\begin{eqnarray*}
+\mathcal{M} & = & (\mathcal{F}, \pi) \\
+& & \mbox{met}                       \\
+& & \pi(t)(p) = 1                    \\
+& & \pi(u)(p) = 1                    \\
+& & \pi(v)(p) = 0
+\end{eqnarray*}
+
+En voor wie $\mathcal{M}$ in een plaatje wil zien:\\[1em]
+
+\input{huiswerk-2-opg1.pdftex_t}\\[1em]
+
+Dit is een tegenmodel voor de bewering dat wanneer twee kenners iets
+weten, ze dit ook van elkaar weten. We kunnen dus zeggen dat deze
+bewering niet in het algemeen geldt:
+
+\begin{eqnarray*}
+K_{i} p \, \wedge \, K_{j} p & \nvDash & K_{i} K_{j} p
+\end{eqnarray*}
+
+waarbij $i$ en $j$ twee kenners zijn.
+
+
+\section*{Opgave 2}
+
+Een afleiding in $S5$ voor $\neg K \neg K p \to K ( p \vee q )$:
+
+\begin{equation*}
+\begin{fitch}
+\neg K p \to K \neg K p                        & A3        \\
+\neg K \neg K p \to K p                        & PROP, 1   \\
+K(p \to q) \to (K p \to K q)                   & DB        \\
+K(p \to (p \vee q)) \to (K p \to K (p \vee q)) & SUB, 3    \\
+p \to (p \vee q)                               & CT        \\
+K(p \to (p \vee q))                            & UG, 5     \\
+K p \to K (p \vee q)                           & MP, 4,6   \\
+\neg K \neg K p \to K (p \vee q)               & \dag, 2,7
+\end{fitch}
+\end{equation*}
+
+
+\section*{Opgave 3}
+
+In een willekeurig epistemisch model $\mathcal{M}$ bekijken we de
+toegankelijkheidsrelatie die hoort bij de operator $E$ (waarbij $n$ het aantal
+kenners is):
+
+\begin{displaymath}
+R_{E} = \bigcup_{i=1}^{n} \, R_{i}
+\end{displaymath}
+
+Volgens de semantiek van de kennis operator $K$ betekent $(p \to E p)$ nu dat er
+voor iedere wereld $s$ die $p$ waar maakt geldt: $p$ is waar in alle werelden
+$t$ met $R_{E} st$.
+
+Evenzo betekent $(p \to E E p)$ nu dat er voor iedere wereld $s$ die $p$ waar
+maakt geldt: $p$ is waar in alle werelden $u$ met $R_{E} st$ en $R_{E} tu$ en
+voor $t$ willekeurige werelden.
+
+\paragraph{}
+
+We zien dat, gegeven $\mathcal{M} \Vdash (p \to E p)$, in deze interpretatie
+van $(p \to E E p)$ de werelden $t$ allemaal $p$ waar maken. Eenvoudig is te
+zien dat nogmaals toepassen van het gegevene op alle werelden $t$ geeft dat
+alle werelden $u$ ook $p$ waar maken. En dat is precies wat nodig was om $(p
+\to E E p)$ waar te maken.
+
+Aangezien het model $\mathcal{M}$ willekeurig gekozen was, is onze conclusie
+
+\begin{displaymath}
+\mbox{als} \quad \mathcal{M} \Vdash (p \to E p) \quad \mbox{dan ook} \quad \mathcal{M} \Vdash(p \to E E p)
+\end{displaymath}
+
+voor ieder epistemisch model $\mathcal{M}$.
+
+%\paragraph{Vraag:}
+
+%Ik ben er niet zeker van dat ik met deze laatste notatie het mooist aangeef
+%wat er gevraagd werd. Eerder had ik een alternatieve uitwerking van deze
+%opgave (deze heb ik hier onder bijgevoegd), maar daarmee kom ik ten eerste tot
+%een \emph{andere} conclusie (en volgens mij niet gelijk aan die gevraagd werd)
+%en bovendien tot een \emph{verkeerde} conclusie (maw, ik denk niet dat de
+%afleiding klopt).
+
+%Als alternatief voor de alternatieve uitwerking (snapt u het nog?) bedacht ik
+%later om $p \to E p$ als extra axioma aan te nemen en van daaruit de conclusie
+%af te leiden, maar ik denk dat dat ook niet juist is (het gaat namelijk niet
+%om geldigheid, maar om waarheid).
+
+%Is dit `bewijs' \"uberhaupt op een aardige manier mogelijk in een Hilbert
+%systeem? Zit ik op het juiste spoor als ik zeg dat het gevraagde niet direct
+%uit te drukken is (hetzij mbv Kripke semantiek, hetzij mbv een Hilber systeem)
+%zonder enige `meta-opmerkingen' (`als \ldots dan ook \ldots' in mijn
+%conclusie)?
+
+
+%\section*{Opgave 3 - alternatieve uitwerking}
+
+%In het axiomatisch systeem $(K^{n})^{+}$ hebben we voor alle $i,j,k \in \{1,\ldots,n\}$
+%de volgende afleiding:
+
+%\begin{equation*}
+%\begin{fitch}
+%K_{i}(p \to q) \to (K_{i} p \to K_{i} q)                        & DB        \\
+%K_{i}(p \to K_{j} p) \to (K_{i} p \to K_{i} K_{j} p)            & SUB, 1    \\
+%(p \to K_{i} p) \to ((p \to K_{j} p) \to K_{i}(p \to K_{j} p))  & PROP      \\
+%(p \to K_{i} p) \to (p \to K_{j} K_{k} p)                       & PROP
+%\end{fitch}
+%\end{equation*}
+
+%We kunnen hier volgens $PROP$ ook volstaan met alleen het axioma $DB$ direct
+%gevolgd door de conclusie middels een enkele $PROP$, maar het is nu al
+%ingewikkeld genoeg.
+
+%We kunnen dit resultaat met het axioma $AE$ omschrijven naar:
+
+%\begin{displaymath}
+%\vdash_{(K^{n})^{+}} \, (p \to E p) \to (p \to E E p)
+%\end{displaymath}
+
+%En gelukkig hebben we volledigheid van $(K^{n})^{+}$ voor de klasse van alle
+%epistemische frames, dus kunnen we ook zeggen:
+
+%\begin{displaymath}
+%\vDash \, (p \to E p) \to (p \to E E p)
+%\end{displaymath}
+
+%Dit is wat gevraagd werd te bewijzen.
+
+%\paragraph{Noot:}
+
+%Ik ben mij er van bewust dat deze uitwerking niet juist is.
+
+
+\section*{Opgave 4}
+
+Het frame ziet er in een plaatje als volgt uit:\\[1em]
+
+\input{huiswerk-2-opg4-1.pdftex_t}\\[1em]
+
+Hierbij vormen de pijlen met $s$ te toegankelijkheidsrelatie $R_{s}$ voor
+kennisoperator $K_{s}$ van kenner $s$. Evenzo voor kenner $t$. De vereniging
+$R_{s} \bigcup R_{t}$ van beiden geeft volgens definitie de
+toegankelijkheidsrelatie $R_{E}$ voor $E$.
+
+We bekijken nu de toegankelijkheidsrelatie $R_{EE}$ behorende bij het
+toepassen van $E$ na $E$. Deze bevat die paren $(x,y)$ waarvoor geldt $xEz$ en
+$zEy$ voor een willekeurige wereld $z$:\\[1em]
+
+\input{huiswerk-2-opg4-2.pdftex_t}\\[1em]
+
+Volgens definitie van $E$ en onze constructie van $R_{EE}$ geldt inderdaad
+voor ieder model $\mathcal{M}$:
+
+\begin{displaymath}
+\mathcal{M},s \Vdash EE \varphi \quad \Longleftrightarrow \quad
+\mathcal{M},t \Vdash \varphi \mbox{, voor alle punten $t$ z\'o dat $sR_{EE}t$.}
+\end{displaymath}
+
+Ook herinneren we ons de de definitie van de $C$ operator:
+
+\begin{displaymath}
+\mathcal{M},s \Vdash C \varphi \quad \Longleftrightarrow \quad
+\mathcal{M},t \Vdash \varphi \mbox{, voor alle punten $t$ z\'o dat $sR_{C}t$.}
+\end{displaymath}
+
+Nu is $R_{C}$ gedefini\"eerd als de transitieve afsluiting van $R_{E}$, maar
+als we die bekijken in ons frame zien we dat die precies gelijk is aan de
+afgebeelde $R_{EE}$.
+
+\paragraph{}
+
+Volgens bovenstaande hebben we nu
+
+\begin{displaymath}
+\mathcal{M},s \Vdash EE \varphi \quad \Longleftrightarrow \quad
+\mathcal{M},s \Vdash C \varphi
+\end{displaymath}
+
+hetgeen triviaal zorgt voor de waarheid van $C_{P} \leftrightarrow EE_{p}$
+(in ieder model op ons frame).
+
+
+\end{document}
