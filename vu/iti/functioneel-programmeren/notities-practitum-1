@@ -1,0 +1,143 @@
+Notities bij ITI practicum 1.
+
+
+Het lijkt me verstandig niet bij iedere opgave een
+antwoord in te laten leveren. Dan kunnen we er lekker
+veel kleine opgaven in zetten waarvan een klein aantal
+geschikt is om een duidelijk antwoord op te geven en
+in te leveren.
+Bijvoorbeeld 'kijk of dit doet wat je verwacht' lijkt
+me niet nuttig om in te leveren.
+
+Ik denk ook dat het goed is er soms een 'vraag' bij te
+zetten ipv een 'opgave'. Het moet nog wel even duidelijk
+gemaakt worden in welke vorm en hoe alles ingeleverd
+moet worden (email, sourcefile met comments, uitdraai
+van ocaml interpreter, etc).
+
+
+(ook de C in OCaml is een hoofdletter, 'tyefout' komt
+een aantal keer voor.)
+
+
+Type unit: vergelijk 'void' in Java (type van 'niets').
+
+Reference variabelen misschien maar weglaten?
+
+Functies: vergelijk fun-> notatie met lambda abstractie.
+
+Functies: vergelijk functietoepassing (juxtapositie) met
+veel imperatieve talen (haakjes syntax). in ocaml nooit
+haakjes om de argumenten heen zetten, tenzij je echt EEN
+argument wilt geven (bijvoorbeeld een tupel, of de waarde
+van een uitgebreidere expressie).
+
+Partiele applicatie: wanneer functies met meerdere
+argumenten eigenlijk functies zijn met 1 argument waarop
+partiele applicatie mogelijk is noemen we dat currying.
+(het verschil is subtiel, volgens mij is currying sterker
+dan partiele applicatie, maar ik bedoel eigenlijk gewoon
+dat het woord currying misschien wel genoemd moet worden).
+
+Evaluatie van functies: misschien leuk om ze even zelf uit
+te laten vinden wat het betekent om call by value of call
+by name te doen. bijvoorbeeld:
+
+  start de haskell interpreter 'hugs'. we gebruiken een
+  recursieve functie die een lijst maakt van alle opvolgers
+  van een gegeven getal (dus met 0 als argument alle
+  naturals geeft). van deze lijst nemen we het eerste
+  element:
+
+  Prelude> head (f 0) where f n = n:(f (n+1))
+  0
+
+  (resultaat er niet bij geven natuurlijk)
+  (in haskell is : de lijstconstructor en head een functie
+  die het eerste element van een lijst geeft.)
+
+  probeer nu hetzelfde in de OCaml interpreter:
+
+  # let rec f n = n::(f (n+1)) in List.hd (f 1);;
+  Stack overflow during evaluation (looping recursion?).
+
+  bekijk in haskell de eerste 10 elementen van de
+  gemaakte lijst:
+
+  Prelude> take 10 (f 0) where f n = n:(f (n+1))
+  [0,1,2,3,4,5,6,7,8,9]
+
+  of laat de hele (oneindige) lijst maar zien!
+
+  Prelude> f 0 where f n = n:(f (n+1))
+  [0,1,2,3,4,5,6,7,8,9,10,11,12,...
+
+  (type ctrl-c om te onderbreken)
+
+  welke strategie gebruikt haskell blijkbaar om de
+  waarde van 'head (f 0)' te berekenen?
+  welke strategie gebruikt ocaml blijkbaar om de waarde
+  van 'List.hd (f 1)' te berekenen?
+
+Recursieve functies: misschien even een voorbeeldje erbij
+wat er gebeurt als je 'rec' vergeet:
+
+  # let f i = 2;;
+  val f : 'a -> int = <fun>
+  # let f i = if i = 0 then 0 else 1 + (f (i-1));;
+  val f : int -> int = <fun>
+  # f 5;;
+  - : int = 3
+
+  (Bij de tweede regel ben ik 'rec' vergeten, nu wordt
+  er in de functie body geen recursieve aanroep gemaakt,
+  maar een aanroep naar de oude 'f i=2' functie.
+  Dit is dus ook gewoon correct, maar niet bedoeld.)
+
+Factulteits functie: haakjes om x-1.
+
+Pattern matching: dient dus twee doelen: gevalsonderscheid
+(als bij 'case' in C of if statements) en decompositie
+van datastructuren (via constructoren).
+
+Hogere-orde functies: misschien de standaard maar:
+
+  # let rec quicksort lte = function
+        []    -> []
+      | x::xs -> let left,right = List.partition (fun e -> lte e x) xs in
+                   (quicksort lte left) @ x::(quicksort lte right);;
+  val quicksort : ('a -> 'a -> bool) -> 'a list -> 'a list = <fun>
+
+  (@ is infix voor List.append en met lte bedoel ik
+  uiteraard 'less than or equal to'. List.partition is
+  hetzelfde als filter, maar geeft beide delen terug.)
+
+  # quicksort (<=) [3;45;2;3;2;6;78;5];;
+  - : int list = [2; 2; 3; 3; 5; 6; 45; 78]
+  # quicksort (>=) [3;45;2;3;2;6;78;5];;
+  - : int list = [78; 45; 6; 5; 3; 3; 2; 2]
+
+Wellicht ziet quicksort er op dit moment nog wat te
+ingewikkeld uit. Dan kunnen we ook een stom voorbeeld
+nemen als zoiets (niet getest!):
+
+  let met_twee f x = f 2 x;;
+
+  let keer x y = x * y;;
+  let plus x y = x + y;;
+  let min x y = x - y;;
+
+  met_twee keer 5;;
+  met_twee plus 5;;
+  met_twee min 5;;
+
+  met_twee keer;;
+
+Datatypen: (is het typen of types?) Het wordt nu
+duidelijk dat ook tupels even behandeld hadden
+moeten worden. De tupel constructor is (_,_,..) en
+het type van een tupel wordt geschreven met _*_*..
+
+Opgave 6.1b: polymorfisme wordt pas na deze opgave
+behandeld. is deze opgave bewust hier gezet? zoja,
+leuk idee :)
