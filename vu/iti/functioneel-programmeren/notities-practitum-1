@@ -141,3 +141,13 @@ het type van een tupel wordt geschreven met _*_*..
 Opgave 6.1b: polymorfisme wordt pas na deze opgave
 behandeld. is deze opgave bewust hier gezet? zoja,
 leuk idee :)
+
+
+-- toegevoeging 1 --
+
+
+Noemen van (* commentaar *) en dat je dit kunt nesten,
+voordeel is natuurlijk dat je stukken coden tussen
+commentaar tekens kunt zetten ook al zit daar ook
+commentaar in.
+
