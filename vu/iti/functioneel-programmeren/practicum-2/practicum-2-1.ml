@@ -1,4 +1,5 @@
 (* Oplossingen opdrachten practicum 2 *)
+(* Eerste deel *)
 
 
 (* Opdracht 1 *)
