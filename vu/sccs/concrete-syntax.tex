@@ -3,15 +3,16 @@
 \usepackage{a4}
 %\usepackage{a4,fullpage}
 %\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{fancyhdr}
 
 % Use sans serif font for body text
-\renewcommand{\familydefault}{\sfdefault}
+%\renewcommand{\familydefault}{\sfdefault}
 
 
 \title{Concrete Syntax for Meta-Programming}
 
 \author{Martijn Vermaat\\
-$\texttt{mvermaat@cs.vu.nl}$}
+\texttt{mvermaat@cs.vu.nl}}
 \date{8th May 2005}
 
 \makeindex
@@ -30,6 +31,48 @@ syntax. Todo.
 
 \section{Introduction}
 
+Meta-programming is concerned with analysis, generation, and transformation
+of object programs. In this setting, the meta-language provides constructs
+to manipulate code fragments of the object language. Meta-languages employ
+standard data structures for the representation of object programs. Typically,
+these data structures are used to represent abstract syntax trees rather
+than textual (concrete) syntax.
+
+The use of abstract syntax allows high-level data manipulation techniques
+to be employed in the meta-language in order to manipulate the object program.
+For example, object-oriented languages such as Java provide methods to store
+abstract syntax trees as object hierarchies and techniques to compose and
+decompose these hierarchies, while functional programming languages support
+algebraic datastructures in combination with pattern matching (e.g. Haskell,
+and the ML family of languages).
+
+Compared to using strings of object code fragments and string concatenation
+for the composition of these fragments, abstract syntax representations allow
+guaranties about the well-formedness of generated object programs in addition
+to the much more powerfull techniques for further manipulation of these
+programs.
+
+\paragraph{}
+
+However, there are many domains of meta-programming where the conceptual gap
+between the concrete syntax representation of object programs and the constructs
+to manipulate the abstract syntax representation of these programs is greater
+than one should desire.
+
+
+Todo.
+
+
+\section{Abstract Syntax vs Concrete Syntax}
+
+Problem description, existing solutions.
+Introduction of examples.
+Todo.
+
+
+\section{Realizing Concrete Syntax}
+
+Combining syntax definitions, assimilation to the host language.
 Todo.
 
 
@@ -38,6 +81,8 @@ Todo.
 
 \subsection{Background}
 
+Modularity, Scannerless parsing.
+SDF, ASF+SDF, StrategoXT.
 Todo.
 
 
@@ -49,6 +94,19 @@ Todo.
 \subsection{Future Work}
 
 Todo.
+
+
+\subsection{Conclusions}
+
+Todo.
+
+
+\begin{thebibliography}{99}
+
+\bibitem{Visser97}E. Visser. Scannerless generalized-LR parsing.
+Technical Report P9707, Programming Research Group, University of Amsterdam, July 1997.
+
+\end{thebibliography}
 
 
 \end{document}
