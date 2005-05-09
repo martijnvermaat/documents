@@ -13,11 +13,12 @@
 \pagestyle{headings}
 
 
-\title{Concrete Syntax for Meta-Programming}
+\title{Concrete Syntax for Object Languages}
+%\title{Concrete Syntax for Meta-Programming}
 
 \author{Martijn Vermaat\\
 \texttt{mvermaat@cs.vu.nl}}
-\date{8th May 2005}
+\date{\today}
 
 \makeindex
 
@@ -41,8 +42,11 @@
 
 
 \begin{abstract}
-Discussed is a general method for meta-programming with concrete object
-syntax. Todo.
+Discussed is a general method for embedding concrete object syntax in
+meta-programming (and library interfacing).
+
+Todo: discuss concrete syntax in meta-programming only, or the more
+general case of concrete syntax for objects? (the former)
 \end{abstract}
 
 
@@ -75,19 +79,15 @@ However, there are many domains of meta-programming where the conceptual gap
 between the concrete syntax representation of object programs and the constructs
 to manipulate the abstract syntax representation of these programs is greater
 than one should desire. As an example, consider the following arithmetic
-expression in an imaginary object language:
-
+expression in an imaginary object language.
 \begin{lstlisting}[title=Example expression in concrete syntax]
 (1 + 7) * i - 1
 \end{lstlisting}
-
 A typical abstract syntax representation of this fragment in a meta-language
-with algebraic data types can look like the following:
-
+with algebraic data types can look like the following.
 \begin{lstlisting}[title=Example expression in abstract syntax]
 Sub(Mul(Add(IConst(1), IConst(7)), Id('i')), IConst(1))
 \end{lstlisting}
-
 It is clear that in this example the concrete syntax representation of the
 object code is much easier to read than the abstract syntax representation in
 the meta-language. Although it should be noted that in some cases the abstract
@@ -95,9 +95,11 @@ syntax representation can be more concise, in general it tends to become more
 painful to manage abstract syntax as the size of object code fragments grows.
 
 
-\section{Abstract Syntax vs Concrete Syntax}
+\section{Concrete Syntax for Object Languages}
 
-Problem description, existing solutions.
+Or: Abstract Syntax vs Concrete Syntax.
+
+(Problem description,) existing solutions.
 Introduction of examples.
 Todo.
 
@@ -105,6 +107,7 @@ Todo.
 \section{Realizing Concrete Syntax}
 
 Combining syntax definitions, assimilation to the host language.
+All the technical details.
 Todo.
 
 
@@ -120,6 +123,7 @@ Todo.
 
 \subsection{Related Work}
 
+Extensible syntax, syntax macros, embedding XML applications.
 Todo.
 
 
