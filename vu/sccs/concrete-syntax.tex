@@ -13,8 +13,8 @@
 \pagestyle{headings}
 
 
-\title{Concrete Syntax for Object Languages}
-%\title{Concrete Syntax for Meta-Programming}
+%\title{Concrete Syntax for Object Languages}
+\title{Concrete Syntax for Meta-Programming}
 
 \author{Martijn Vermaat\\
 \texttt{mvermaat@cs.vu.nl}}
@@ -50,7 +50,7 @@ general case of concrete syntax for objects? (the former)
 \end{abstract}
 
 
-\section{Introduction}
+\section{Introduction}\label{sec:introduction}
 
 Meta-programming is concerned with analysis, generation, and transformation
 of object programs. In this setting, the meta-language provides constructs
@@ -59,27 +59,69 @@ standard data structures for the representation of object programs. Typically,
 these data structures are used to represent abstract syntax trees rather
 than textual (concrete) syntax.
 
-The use of abstract syntax allows high-level data manipulation techniques
-to be employed in the meta-language in order to manipulate the object program.
-For example, object-oriented languages such as Java provide methods to store
-abstract syntax trees as object hierarchies and techniques to compose and
-decompose these hierarchies, while functional programming languages support
-algebraic data types in combination with pattern matching (e.g. Haskell, and
-the ML family of languages).
-
-Compared to using strings of object code fragments and string concatenation
-for the composition of these fragments, abstract syntax representations allow
-guaranties about the well-formedness of generated object programs in addition
-to the much more powerfull techniques for further manipulation of these
-programs.
-
-\paragraph{}
+The use of abstract syntax enables meta-programming environments to make
+guaranties about well-formedness and type-correctness of generated programs.
+Furthermore, abstract syntax representations allow for high-level techniques
+to be employed in analysis and composition of code fragments.
 
 However, there are many domains of meta-programming where the conceptual gap
 between the concrete syntax representation of object programs and the constructs
 to manipulate the abstract syntax representation of these programs is greater
-than one should desire. As an example, consider the following arithmetic
-expression in an imaginary object language.
+than one should desire.
+
+The techniques we present allow meta-programming systems to use abstract
+syntax representations of object code, while giving the meta-programmer the
+possibility of specifying the same object code using the concrete syntax of
+the object language. This entails a more natural way of meta-programming with
+higher readability of meta-programs, while still having all the bennefits of
+abstract syntax representations of object programs.
+
+\paragraph{}
+
+We proceed as follows. In section \ref{sec:motivation} we introduce and explain
+the problem domain. In section \ref{sec:related} we give a brief overview of
+previous and related work. We conclude in section x.
+
+
+\section{Motivation}\label{sec:motivation}
+
+Verhaaltje over meta-programming zelf. analyse, generating and transformation.
+
+\paragraph{}
+
+Systems for meta-programming use data structures for the representation of
+object code fragments. One possible approach is to use the string type of the
+meta-language for storing fragments of the object program in concrete syntax.
+Composition of fragments is simply done by string concatenation, whereas
+analysis and deconstruction of fragments is much harder.
+
+A short characterization of the approach is the following. Specifying object
+fragments is done in a natural way, using concrete syntax. Reading
+meta-programs is easy because of this concrete syntax. Manipulating object
+code can be much harder, because no structure is preserved. No guarantees
+whatsoever can be made about the correctness of the generated code (i.e.
+well-formedness, type-correctness).
+
+\paragraph{}
+
+Another approach is to use a datatype to store an abstract syntax representation
+of the object program. The use of abstract syntax allows high-level data
+manipulation techniques to be employed in the meta-language in order to
+manipulate the object program. For example, object-oriented languages such
+as Java provide methods to store abstract syntax trees as object hierarchies
+and techniques to compose and decompose these hierarchies, while functional
+programming languages support algebraic data types in combination with pattern
+matching (e.g. Haskell, and the ML family of languages).
+
+Compared to using strings of object code fragments, abstract syntax
+representations allow the meta-programming system to make guaranties about the
+well-formedness of generated object programs in addition to providing much more
+powerfull techniques for further manipulation of these programs.
+
+A negative aspect of this approach is that the meta-programmer has no natural
+way of specifying object code. This has a negative effect on both the
+construction and the readability of meta-programs. As an example, consider the
+following arithmetic expression in an imaginary object language.
 \begin{lstlisting}[title=Example expression in concrete syntax]
 (1 + 7) * i - 1
 \end{lstlisting}
@@ -95,13 +137,12 @@ syntax representation can be more concise, in general it tends to become more
 painful to manage abstract syntax as the size of object code fragments grows.
 
 
-\section{Concrete Syntax for Object Languages}
 
-Or: Abstract Syntax vs Concrete Syntax.
 
-(Problem description,) existing solutions.
-Introduction of examples.
-Todo.
+\section{Related Work}\label{sec:related}
+
+
+
 
 
 \section{Realizing Concrete Syntax}
@@ -146,6 +187,9 @@ Technical Report P9707, Programming Research Group, University of Amsterdam, Jul
 
 
 \end{document}
+
+
+
 
 
 % Meta-Programming with Concrete Object Syntax
