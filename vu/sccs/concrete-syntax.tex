@@ -139,18 +139,36 @@ painful to manage abstract syntax as the size of object code fragments grows.
 \paragraph{}
 
 In this paper we present a method for the embedding of concrete syntax of
-object languages in the syntax of meta-languages and the assimilation of this
-embedded concrete syntax into the meta-language. The embedding of an object
-language in a meta-language is done by combining their syntax definitions.
-Assimilation of the embedded concrete object code fragments is done by program
-transformation. Concrete object syntax is transformed to the standard
-meta-language constructs for constructing and manipulating abstract object
-syntax resulting in a pure meta-program that can be compiled in the normal
-way.
+object languages in the syntax of meta-languages (thus thereby extending the
+meta-language) and the assimilation of this embedded concrete syntax into the
+meta-language. The embedding of an object language in a meta-language is done
+by combining their syntax definitions. Assimilation of the embedded concrete
+object code fragments is done by program transformation. Concrete object
+syntax is transformed to the standard meta-language constructs for
+constructing and manipulating abstract object syntax resulting in a pure
+meta-program that can be compiled in the normal way.
 
 
 \section{Related Work}\label{sec:related}
 
+\subsection{User-definable Syntax}
+
+User-definable syntax provides a way for the programmer to define certain
+syntactical constructs in the language. A simple example of this are
+user-definable infix operators as present in languages like Prolog and
+Haskell. However, although sometimes very useful, this extending of syntax
+is limited in its applications. More powerfull is the definition of syntax
+in the algebraic specification formalism ASF+SDF in which the programmer
+defines all syntactical constructs itself.
+
+Experiments have been done with dynamically extending the syntax of a
+language at parse-time by including declarations of syntax extensions in
+the program itself. It is our opinion the this complicates the parsing
+process too much while the bennefits of dynamic syntax extending within
+a program file are not clear in meta-programming.
+
+
+User-definable infix operators is sometimes seen as an example of this, but
 
 
 
