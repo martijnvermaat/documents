@@ -13,11 +13,9 @@
 \pagestyle{headings}
 
 
-%\title{Concrete Syntax for Object Languages}
 \title{Concrete Syntax for Meta-Programming}
 
-\author{Martijn Vermaat\\
-\texttt{mvermaat@cs.vu.nl}}
+\author{Martijn Vermaat\footnote{E-mail: \texttt{mvermaat@cs.vu.nl}, homepage: \texttt{http://www.cs.vu.nl/\~{}mvermaat/}}}
 \date{\today}
 
 \makeindex
@@ -42,10 +40,19 @@
 
 
 \begin{abstract}
-Discussed is a general method for embedding concrete object syntax in
-meta-programming (and library interfacing).
+In meta-programming, object programs are analysed, transformed, and
+generated. In order to allow guaranties about the syntactical correctness to be
+made and powerfull techniques to be employed in the manipulation of
+object code, meta-programming systems use abstract syntax representations
+of object languages.
 
-todo: abstract
+However, the notations provided for manipulating abstract syntax are
+too verbose and difficult to read for many applications. We present
+a method for the embedding of concrete syntax for object languages in
+the meta-language to eliminate the conceptual distance between the
+notations for manipulating abstract syntax and the traditional concrete
+syntax of object languages. This method is generic and can thus be
+applied to arbitrary meta-languages and object languages.
 \end{abstract}
 
 
@@ -77,18 +84,20 @@ abstract syntax representations of object programs.
 
 \paragraph{}
 
-We proceed as follows. In section \ref{sec:motivation} we introduce and explain
-the problem domain. In section \ref{sec:related} we give a brief overview of
-previous and related work. We conclude in section x.
-
-todo: name all chapters
+We proceed as follows. In section~\ref{sec:motivation} we introduce and explain
+the problem domain. In section~\ref{sec:related} we give a brief overview of
+previous and related work. The actual implementation of our solution is
+discussed in section~\ref{sec:realization}. We conclude in section~\ref{sec:discussion}.
 
 
 \section{Motivation}\label{sec:motivation}
 
-Verhaaltje over meta-programming zelf. analyse, generating and transformation.
-
-todo: verhaaltje over meta-programming
+Systems for meta-programming are in widespread use. They are being used for
+the analysis of existing application code (e.g. to find bugs, to prove
+correctness). Meta-programming is also concerned with transforming existing
+code (e.g. optimization, translation). Furthermore, automatically generating
+program code is an important application of meta-programming (e.g. compilers,
+relational database interfacing).
 
 \paragraph{}
 
@@ -161,11 +170,11 @@ syntactical constructs in the language. A simple example of this are
 user-definable infix operators as present in languages like Prolog and
 Haskell. However, although sometimes very useful, this extending of syntax
 is limited in its applications. More powerfull is the definition of syntax
-in the algebraic specification formalism ASF+SDF in which the programmer
+in the algebraic specification formalism ASF+SDF \cite{Berg89, Deur96} in which the programmer
 defines all syntactical constructs itself.
 
 Experiments have been done with dynamically extending the syntax of a
-language at parse-time by including declarations of syntax extensions in
+language at parse-time \cite{Weis93, Card94, Brab02} by including declarations of syntax extensions in
 the program itself. It is our opinion that this complicates the parsing
 process too much while the bennefits of dynamically extending syntax within
 a program file are not clear in the application of meta-programming.
@@ -173,7 +182,7 @@ a program file are not clear in the application of meta-programming.
 
 \subsection{Syntax Macros}
 
-Syntax macros are a technique to define syntactic abstractions over code
+Syntax macros \cite{Leav66} are a technique to define syntactic abstractions over code
 fragments. A typical syntax macro consists of a syntax definition that
 accepts structured code fragments as arguments on invocation. The result
 after invocation is a new code fragment constructed by the syntax macro.
@@ -185,20 +194,13 @@ of the language which our method does.
 
 The rewriting (assimilation) of syntax macro invocations to the host
 language in different syntax macro systems differs in expressivity, but
-even the most expressive systems require non-terminals in the user-defined
+even the most expressive systems \cite{Weis93, Sha96} require non-terminals in the user-defined
 syntax to map on a fixed non-terminal in the host language. The method
 we present does not have this restriction as it completely seperates syntax
 definition and assimilation.
 
 
-\subsection{Metafront}
-
-(misschien)
-
-todo: metafront?
-
-
-\section{Realizing Concrete Syntax}
+\section{Realizing Concrete Syntax}\label{sec:realization}
 
 In this section we will present our method for the embedding of concrete
 syntax and assimilation to the meta-language. To illustrate the techniques,
@@ -226,18 +228,20 @@ of the object code.
 
 \subsubsection*{SDF and SGLR}
 
-For syntax definition, we use the Syntax Definition Formalism SDF which combines
+For syntax definition, we use the Syntax Definition Formalism SDF \cite{Brand02, Visser97b} which combines
 lexical and context-free syntax in a declarative and modular system. SDF definitions
 are declarative in that it that they are not operational implementations of a
 specific parser or parsing algorithm. Furthermore, SDF provides constructs to
-combine syntax definitions and this is essential for our application. Because
+combine syntax definitions and this is essential for our application. For this SDF
+provides automatic renaming and importing of external syntax definitions, thereby
+eliminating the need to write combined definitions entirely by hand. Because
 there is no proper subclass of context-free grammars that is closed under union
 SDF allows the full class of context-free grammars to be defined. Describing
 both lexical and context-free syntax in a single definition is important as it
 allows combining languages with completely different lexical syntax.
 
 We employ the scannerless generalized LR parsing algorithm as implemented in
-SGLR. The algorithm is scannerless because it does not include a separate lexical
+SGLR \cite{Visser97}. The algorithm is scannerless because it does not include a separate lexical
 scanner (which is important for reasons stated above). Generalized LR parsing is
 an adaptation of LR parsing that results in a parse forrest rather than a single
 parse tree. Multiple LR parsing states will be maintaned in parallel when multiple
@@ -252,7 +256,7 @@ We use the Stratego language for the assimilation of embedded object code fragme
 in concrete syntax into the meta-language by transformation. Stratego is a
 transformation language that itself supports meta-programming with concrete object
 syntax implemented using the method described here. Abstract syntax of object code
-in Stratego is stored in the ATerm format, a generic format for describing
+in Stratego is stored in the ATerm format \cite{Brand00}, a generic format for describing
 structured data comparable to but more concise than the XML format.
 
 Assimilation of embedded fragments can be done by a generic transformation to the
@@ -266,8 +270,6 @@ Another approach is defining a custom transformation for assimilation, rather th
 generating one automatically from the syntax definition. This allows one to exploit
 the domain-specific characteristics of the embedding and thus to rewrite the
 concrete syntax to more direct or efficient representations in the meta-language.
-
-todo: nog meer kletsen over assimilation?
 
 
 \subsection{Meta-Variables}
@@ -284,27 +286,96 @@ as meta-variables by the parser.
 todo: voorbeeldje van meta-variables ('as you see, this makes it even more concise')
 
 
-\section{Discussion}
+\section{Discussion}\label{sec:discussion}
 
-todo: discussion
+\subsection{Evaluation}
+
+The method we presented allows for meta-programming with concrete object syntax.
+This means a more natural way to write meta-programs while still having all the
+bennefits of traditional meta-programming with abstract object syntax.
+
+Compared to syntax macros, our method is more flexible in that it allows for the
+embedding of arbitrary syntax, including lexical syntax, whereas syntax macros
+typically only provide limited user-definable syntax and are always restricted
+to the lexical syntax of the host language.
+
+We think user-definable syntax in the sence of ASF+SDF is an interesting
+technique. Indeed, Stratego grew out of experience with ASF+SDF. Systems for
+dynamically extensible syntax complicate the parsing process considerably and
+provide more freedom in extending syntax within program files than is needed
+for meta-programming in our view. Our method separates embedded syntax
+definitions from the actual program code, providing syntax definition on a
+per-file basis.
 
 
-\subsection{Future Work}
+\subsection{Conclusions and Future Work}
 
-todo: future work
+In this paper we presented a generic method for embedding an arbitrary object
+language in an arbitrary meta-language. Needed for this are syntax definitions
+for both languages, a combined syntax definition and a rewriting of object code
+fragments to meta-language constructs. The techniques discussed are all 
+available today and proven in practice by active use.
 
+The embedding and assimilation of object languages are clearly separated from
+the actual meta-programming and thus allow for a strict separation of roles.
+The language engineer can define the embedding and assimilation, while the
+meta-programmer does not need to have any knowledge of this process. For
+meta-language compilers that accept abstract syntax as input, the pretty-printing
+phase after assimilation can be discarded. For an even more integrated environment,
+assimilation of the object language could be integrated in the meta-language
+compiler. 
 
-\subsection{Conclusions}
+\paragraph{}
 
-todo: conclusions
+For future work, the methods discussed can be applied to syntactically extending
+host languages in general rather than the use of concrete syntax in
+meta-programming. Interesting applications include providing domain specific
+syntax for library interfaces, embedding of concrete syntax for regular epressions
+in mainstream programming languages to allow syntax checking at parse-time, and
+generation of XML using the concrete syntax of XML, among others.
 
 
 \begin{thebibliography}{99}
 
+\bibitem{Berg89}J. A. Bergstra, J. Heering, and P.Klint, editors. \emph{Algebraic
+Specification}. ACM Press Frontier Series. The ACM Press in co-operation with Addison-Wesley,
+1989.
+
+\bibitem{Brab02}C. Brabrand and M. I. Schwartzbach. Growing languages with metamorphix
+syntax macros. In \emph{PEPM'02}, 2002.
+
+\bibitem{Brand00}M. G. J. van den Brand, H. de Jong, P. Klint, and P. Olivier. Efficient
+annotated terms. \emph{Software, Practice \& Experience}, 30(3):259-291, 2000.
+
+\bibitem{Brand02}M. G. J. van den Brand, J. Scheerder, J. Vinju, and E. Visser.
+Disambiguation filters for scannerless generalized LR parsers. In N. Horspool, editor,
+\emph{Compiler Construction (CC'02)}, volume 2304 of \emph{Lecture Notes in Computer
+Science}, pages 143-158, Grenoble, France, April 2002. Springer-Verlag.
+
+\bibitem{Card94}L. Cardelli, F. Matthes, and M. Abadi. Extensible syntax with lexical
+scoping. SRC Research Report 121, Digital Systems Research Center, Palo Alto,
+California, Februari 1994.
+
+\bibitem{Deur96}A. van Deursen, J. Heering, and P. Klint, editors. \emph{Language Prototyping.
+An Algebraic Specification Approach}, volume 5 of \emph{AMAST Series in Computing} World
+Scientific, Singapore, September 1996.
+
+\bibitem{Leav66}B. M. Leavenworth. Syntax macros and extended translation. \emph{Communications
+of the ACM}, 9(11):790-793, November 1966.
+
+\bibitem{Sha96}A. Shalit. \emph{The Dylan reference manual: the definitive guide
+to the new object-oriented dynamic language}. Addison Wesley Longman Publishing
+Co., Inc., 1996.
+
 \bibitem{Visser97}E. Visser. Scannerless generalized-LR parsing.
 Technical Report P9707, Programming Research Group, University of Amsterdam, July 1997.
 
-todo: bibliography
+\bibitem{Visser97b}E.Visser. \emph{Syntax Definition for Language Prototyping.} PhD
+thesis, University of Amsterdam, September 1997.
+
+\bibitem{Weis93}D. Weise and R. F. Crew. Programmable syntax macros. In \emph{Proceedings
+of the ACM SIGPLAN '93 Conference on Programming Language Design and Implementation
+(PLDI'93)}, Albuquerque, New Mexico, June 1993.
 
 \end{thebibliography}
 
