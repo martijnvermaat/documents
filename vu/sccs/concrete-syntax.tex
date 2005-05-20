@@ -45,8 +45,7 @@
 Discussed is a general method for embedding concrete object syntax in
 meta-programming (and library interfacing).
 
-Todo: discuss concrete syntax in meta-programming only, or the more
-general case of concrete syntax for objects? (the former)
+todo: abstract
 \end{abstract}
 
 
@@ -82,10 +81,14 @@ We proceed as follows. In section \ref{sec:motivation} we introduce and explain
 the problem domain. In section \ref{sec:related} we give a brief overview of
 previous and related work. We conclude in section x.
 
+todo: name all chapters
+
 
 \section{Motivation}\label{sec:motivation}
 
 Verhaaltje over meta-programming zelf. analyse, generating and transformation.
+
+todo: verhaaltje over meta-programming
 
 \paragraph{}
 
@@ -100,7 +103,7 @@ fragments is done in a natural way, using concrete syntax. Reading
 meta-programs is easy because of this concrete syntax. Manipulating object
 code can be much harder, because no structure is preserved. No guarantees
 whatsoever can be made about the correctness of the generated code (i.e.
-well-formedness, type-correctness).
+syntactical correctness, type-correctness).
 
 \paragraph{}
 
@@ -163,53 +166,145 @@ defines all syntactical constructs itself.
 
 Experiments have been done with dynamically extending the syntax of a
 language at parse-time by including declarations of syntax extensions in
-the program itself. It is our opinion the this complicates the parsing
-process too much while the bennefits of dynamic syntax extending within
-a program file are not clear in meta-programming.
+the program itself. It is our opinion that this complicates the parsing
+process too much while the bennefits of dynamically extending syntax within
+a program file are not clear in the application of meta-programming.
 
 
-User-definable infix operators is sometimes seen as an example of this, but
+\subsection{Syntax Macros}
+
+Syntax macros are a technique to define syntactic abstractions over code
+fragments. A typical syntax macro consists of a syntax definition that
+accepts structured code fragments as arguments on invocation. The result
+after invocation is a new code fragment constructed by the syntax macro.
+
+Although syntax macros can provide useful abstractions, the syntax for
+invocations is always fixed and usually starts with a macro delimiter or
+identifier. Also, syntax macros do not abstract over the lexical syntax
+of the language which our method does.
+
+The rewriting (assimilation) of syntax macro invocations to the host
+language in different syntax macro systems differs in expressivity, but
+even the most expressive systems require non-terminals in the user-defined
+syntax to map on a fixed non-terminal in the host language. The method
+we present does not have this restriction as it completely seperates syntax
+definition and assimilation.
 
 
+\subsection{Metafront}
+
+(misschien)
+
+todo: metafront?
 
 
 \section{Realizing Concrete Syntax}
 
-Combining syntax definitions, assimilation to the host language.
-All the technical details.
-Todo.
+In this section we will present our method for the embedding of concrete
+syntax and assimilation to the meta-language. To illustrate the techniques,
+x will be used as a running example.
+
+todo: example toevoegen of zinnetje weghalen
+
+
+\subsection{Syntax Definition}
+
+Traditional systems for meta-programming need at least a syntax definition
+of the object language combined with a parser and a pretty printer. In this
+setting, object programs can be parsed to an abstract syntax representation
+in the meta-language and this representation can be pretty-printed to
+concrete object language code, usually after modifications by the meta-program.
+
+Our proposed method consists of the following. The syntax definitions of the
+meta-language and the object language are combined to form a syntax definition
+of the meta-language extended with the embedding of the object language.
+Meta-programs can be written in this syntax (and thus using concrete syntax
+for object code) and are transformed to programs in the traditional syntax of
+the meta-language. The transformation rewrites fragments of concrete object
+code to constructs in the meta-language working on an abstract syntax representation
+of the object code.
+
+\subsubsection*{SDF and SGLR}
+
+For syntax definition, we use the Syntax Definition Formalism SDF which combines
+lexical and context-free syntax in a declarative and modular system. SDF definitions
+are declarative in that it that they are not operational implementations of a
+specific parser or parsing algorithm. Furthermore, SDF provides constructs to
+combine syntax definitions and this is essential for our application. Because
+there is no proper subclass of context-free grammars that is closed under union
+SDF allows the full class of context-free grammars to be defined. Describing
+both lexical and context-free syntax in a single definition is important as it
+allows combining languages with completely different lexical syntax.
+
+We employ the scannerless generalized LR parsing algorithm as implemented in
+SGLR. The algorithm is scannerless because it does not include a separate lexical
+scanner (which is important for reasons stated above). Generalized LR parsing is
+an adaptation of LR parsing that results in a parse forrest rather than a single
+parse tree. Multiple LR parsing states will be maintaned in parallel when multiple
+productions can be choosen. Generalized LR and Early parsing are the only existing
+algorithms that allow the full class of context-free grammars as is dictated by
+the use of SDF.
+
+
+\subsection{Assimilation}
+
+We use the Stratego language for the assimilation of embedded object code fragments
+in concrete syntax into the meta-language by transformation. Stratego is a
+transformation language that itself supports meta-programming with concrete object
+syntax implemented using the method described here. Abstract syntax of object code
+in Stratego is stored in the ATerm format, a generic format for describing
+structured data comparable to but more concise than the XML format.
+
+Assimilation of embedded fragments can be done by a generic transformation to the
+abstract syntax representation of the meta-language. This transormation can be
+automatically generated from the combined syntax definition of the meta-language
+and the object language. Indeed, the Stratego language uses this technique to
+assimilate arbitrary object languages into the core Stratego language by rewriting
+embedded concrete code fragments to the corresponding ATerm constructs.
+
+Another approach is defining a custom transformation for assimilation, rather than
+generating one automatically from the syntax definition. This allows one to exploit
+the domain-specific characteristics of the embedding and thus to rewrite the
+concrete syntax to more direct or efficient representations in the meta-language.
+
+todo: nog meer kletsen over assimilation?
+
+
+\subsection{Meta-Variables}
+
+Concrete object code fragments embedded in the meta-program may need to refer to
+meta-language variables (typically having as value another object code fragment).
+This is called escaping and can be done by using a fixed syntactical construct
+for meta-language variables inside object code.
+However, it would be preferable if we could just write the name of a meta-variable
+in concrete syntax fragments. This can be achieved by using SDF variable
+declarations where we define (patterns for) identifiers that should be interpreted
+as meta-variables by the parser.
+
+todo: voorbeeldje van meta-variables ('as you see, this makes it even more concise')
 
 
 \section{Discussion}
 
-
-\subsection{Background}
-
-Modularity, Scannerless parsing.
-SDF, ASF+SDF, StrategoXT.
-Todo.
-
-
-\subsection{Related Work}
-
-Extensible syntax, syntax macros, embedding XML applications.
-Todo.
+todo: discussion
 
 
 \subsection{Future Work}
 
-Todo.
+todo: future work
 
 
 \subsection{Conclusions}
 
-Todo.
+todo: conclusions
 
 
 \begin{thebibliography}{99}
 
 \bibitem{Visser97}E. Visser. Scannerless generalized-LR parsing.
 Technical Report P9707, Programming Research Group, University of Amsterdam, July 1997.
+
+todo: bibliography
 
 \end{thebibliography}
 
