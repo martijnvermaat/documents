@@ -204,9 +204,8 @@ definition and assimilation.
 
 In this section we will present our method for the embedding of concrete
 syntax and assimilation to the meta-language. To illustrate the techniques,
-x will be used as a running example.
-
-todo: example toevoegen of zinnetje weghalen
+the embedding of the Tiger language in the Stratego language will be used
+as a running example.
 
 
 \subsection{Syntax Definition}
@@ -249,6 +248,30 @@ productions can be choosen. Generalized LR and Early parsing are the only existi
 algorithms that allow the full class of context-free grammars as is dictated by
 the use of SDF.
 
+\subsubsection*{Tiger in Stratego}
+
+The following code fragment is a condensed version of the syntax definition of
+Tiger embedded in Stratego. The definition uses existing syntax definitions
+for Tiger (\texttt{Tiger}) and Stratego (\texttt{Stratego}). Non-terminals
+present in both languages are renamed in the imported Stratego syntax
+definition and selected non-terminals of the Tiger syntax together with delimiter
+syntax are used to produce ATerm sorts. If the lexical syntax of the two
+languages is sufficiently different, explicit delimiters can be eliminated
+entirely.
+
+\begin{lstlisting}[title=Combination of syntax definitions of Stratego and Tiger]
+module StrategoTiger
+imports Tiger
+imports Stratego [ID      => StrategoID
+                  Var     => StrategoVar
+                  StrChar => StrategoStrChar]
+exports
+  context-free syntax
+    '[[' Dec    ']]'  -> Term  {cons('ToTerm')}
+    '[[' FunDec ']]'  -> Term  {cons('ToTerm')}
+    '[[' Exp    ']]'  -> Term  {cons('ToTerm')}
+\end{lstlisting}
+
 
 \subsection{Assimilation}
 
@@ -271,6 +294,23 @@ generating one automatically from the syntax definition. This allows one to expl
 the domain-specific characteristics of the embedding and thus to rewrite the
 concrete syntax to more direct or efficient representations in the meta-language.
 
+\subsubsection*{Assimilation of Tiger in Stratego}
+
+Using the embedding of Tiger in Stratego as defined in a simplified form in the
+previous subsection, we can write the following Stratego rule.
+\begin{lstlisting}[title=Program fragment of Tiger in Stratego]
+[[ x:= let ds in ~* es end ]] -> [[ let ds in x := (~* es) end ]]
+\end{lstlisting}
+By applying a generic transformation on the concrete syntax fragments to Stratego
+code with ATerm constructs, this results in the folloing abstract syntax tree.
+\begin{lstlisting}[title=Translated program fragment of tiger in Stratego]
+Rule(ToTerm(Assign(Var(meta-var('x')),
+                   Let(meta-var('ds'),FromTerm(Var('es'))))),
+     ToTerm(Let(meta-var('ds'),
+                [Assign(Var(meta-var('x')),
+                        Seq(FromTerm(Var('es'))))])))
+\end{lstlisting}
+
 
 \subsection{Meta-Variables}
 
@@ -283,7 +323,13 @@ in concrete syntax fragments. This can be achieved by using SDF variable
 declarations where we define (patterns for) identifiers that should be interpreted
 as meta-variables by the parser.
 
-todo: voorbeeldje van meta-variables ('as you see, this makes it even more concise')
+Using SDF variable declarations, the identifiers \texttt{f}, \texttt{xs}, and \texttt{e}
+in the following term in Stratego extended with concrete syntax for Tiger are not
+Tiger variables, but meta-variables (i.e. denoting Tiger terms at the Stratego
+level).
+\begin{lstlisting}[title=Implicit meta-variables]
+[[ function f(xs) = e ]]
+\end{lstlisting}
 
 
 \section{Discussion}\label{sec:discussion}
