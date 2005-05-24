@@ -1,13 +1,48 @@
 \documentclass{beamer}
 
 \usepackage[english]{babel}
+\usepackage{listings}
 \usepackage{beamerthemesplit}
+\setbeamertemplate{background canvas}[vertical shading][bottom=red!10,top=blue!10]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\usetheme{Warsaw}
+\useinnertheme{rectangles}
+
+\colorlet{darkred}{red!80!black}
+\colorlet{darkblue}{blue!80!black}
+\colorlet{darkgreen}{green!80!black}
+
+% By Arthur van Dam
+\lstdefinelanguage{SDF}%
+{otherkeywords={->,>,\{,\},;},%
+  morekeywords=[1]{bla,sorts,definition,module,context,free,syntax,lexical,prefer,reject,avoid,%
+    priorities,exports,imports,cons,right,left,assoc,bracket,variables,restrictions,bla}%
+    sensitive,%
+    morecomment=[l]{\%\%},%
+    morestring=[b]"%
+}[keywords,comments,strings]%
+
+\lstset{
+  numbers=none,
+  basicstyle=\footnotesize\ttfamily,
+  frame=tb,
+  language=Java,
+  captionpos=b,
+  xleftmargin=1em,
+  xrightmargin=1em,
+  aboveskip=1em,
+  belowskip=1em
+}
 
 
-\title{Concrete Syntax for Object Languages}
+\title{Concrete Syntax for Meta-Programming}
 
 \author{Martijn Vermaat}
-\date{\today}
+\institute{mvermaat@cs.vu.nl\\
+http://www.cs.vu.nl/\~{}mvermaat/}
+\date{Scientific Communication in Computer Science\\
+May 25, 2005}
 
 
 \begin{document}
@@ -15,21 +50,388 @@
 
 \frame{\titlepage}
 
-\section[Outline]{}
-\frame{\tableofcontents}
+
+\frame{
+
+  \frametitle{Concrete Syntax for Meta-Programming}
+
+  \tableofcontents
+
+}
+
 
 \section{Introduction}
-\subsection{Overview of the Beamer Class}
-\frame
-{
-  \frametitle{Features of the Beamer Class}
+
+\frame{
+
+  \frametitle{Meta-Programming}
+
+  Meta-program:
+  \begin{quote}
+    ``Program that manipulates other programs''
+  \end{quote}
+
+  \uncover<2->{
+
+    \begin{block}{Meta-programming is about}
+      \begin{itemize}
+        \item Source code analysis.
+        \item Code generation.
+        \item Program transformation.
+      \end{itemize}
+    \end{block}
+
+  }
+
+}
+
+
+\begin{frame}
+
+  \frametitle{Concrete syntax for manipulated language}
+
+  \begin{block}{Manipulating code fragments}
+    \begin{itemize}
+      \item String literals are bad.
+      \item Abstract syntax trees are good.
+      \item ASTs are too verbose.
+    \end{itemize}
+    Conclusion: {\bf concrete syntax}
+  \end{block}
+
+\end{frame}
+
+
+\section{Motivation}
+
+\frame{
+
+  \frametitle{Concrete Syntax for Meta-Programming}
+
+  \tableofcontents[currentsection]
+
+}
+
+
+\begin{frame}
+
+  \frametitle{Meta-Language and Object Language}
+
+  \begin{block}{Meta-language}
+    \begin{itemize}
+      \item Language of the meta-program.
+      \item Example: {\bf Javascript}
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Object language}
+    \begin{itemize}
+      \item Language of the manipulated code.
+      \item Example: {\bf XML}
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+  \frametitle{Example: Generating XML in Javascript}
+
+  Generate this XML fragment in Javascript:
+
+  \begin{lstlisting}[language=XML]
+<ul>
+  <li>een</li>
+  <li>twee</li>
+</ul>
+  \end{lstlisting}
+
+\end{frame}
+
+
+\subsection{Existing Methods}
+
+\begin{frame}[fragile]
+
+  \frametitle{Generating String Literals}
+
+  \begin{block}{Using string literals}
+    \begin{lstlisting}[language=Java]
+var menu =
+   "<ul>"
+ + "<li>een</li>"
+ + "<li>twee</li>"
+ + "</ul>";
+    \end{lstlisting}
+  \end{block}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+  \frametitle{Manipulating Abstract Syntax Trees}
+
+  \begin{block}{Using abstract syntax}
+    \begin{lstlisting}[language=Java]
+var menu, item;
+menu = document.createElement("ul");
+
+item = document.createElement("li");
+item.appendChild(document.createTextNode("een"));
+menu.appendChild(item);
+
+item = document.createElement("li");
+item.appendChild(document.createTextNode("twee"));
+menu.appendChild(item);
+    \end{lstlisting}
+  \end{block}
+
+\end{frame}
+
+
+\begin{frame}
+
+  \frametitle{Comparing String Literals and Astract Syntax}
+
+  \begin{block}{Generating String Literals}
+    \begin{description}
+      \item{\color{darkgreen}$\Rightarrow$} Easy to read/write
+      \item{\color{darkgreen}$\Rightarrow$} Easy to implement
+      \item{\color{darkred}$\Rightarrow$} No syntactic checks
+      \item{\color{darkred}$\Rightarrow$} Further manipulation will be hard
+    \end{description}
+    Conclusion: {\bf bad}
+  \end{block}
+
+  \begin{block}{Manipulating Abstract Syntax Trees}
+    \begin{description}
+      \item{\color{darkgreen}$\Rightarrow$} No syntactically incorrect code
+      \item{\color{darkgreen}$\Rightarrow$} Further manipulation possible
+      \item{\color{darkgreen}$\Rightarrow$} Matching on structure possible
+      \item{\color{darkred}$\Rightarrow$} Knowledge of abstract syntax necessary
+      \item{\color{darkred}$\Rightarrow$} Does not scale
+    \end{description}
+    Conclusion: {\bf `less bad'}
+  \end{block}
+
+\end{frame}
+
+
+\subsection{Concrete Object Syntax}
+
+\begin{frame}
+
+  \frametitle{Concrete Syntax for Meta-Programming}
+
+  \begin{block}{Solution}
+    \begin{itemize}
+      \item Use concrete syntax of the object language...
+      \item ... but transform to abstract syntax manipulation.
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Concrete object syntax}
+    \begin{description}
+      \item{\color{darkgreen}$\Rightarrow$} Easy to read/write
+      \item{\color{darkgreen}$\Rightarrow$} No syntactically incorrect code
+      \item{\color{darkgreen}$\Rightarrow$} Further manipulation possible
+      \item{\color{darkgreen}$\Rightarrow$} Matching on structure possible
+    \end{description}
+    Conclusion: {\bf best of both worlds}
+  \end{block}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+  \frametitle{Example: Generating XML in Javascript}
+
+  \begin{block}{Using concrete syntax}
+    \begin{lstlisting}[language=Java]
+var menu = <ul>
+             <li>een</li>
+             <li>twee</li>
+           </ul>;
+    \end{lstlisting}
+  \end{block}
+
+\end{frame}
+
+
+\section{Implementation}
+
+\frame{
+
+  \frametitle{Concrete Syntax for Meta-Programming}
+
+  \tableofcontents[currentsection]
+
+}
+
+
+\begin{frame}
+
+  \frametitle{Implementation}
+
+  \begin{block}{Syntax Definition}
+    \begin{itemize}
+      \item Embed object language in meta-language.
+      \item Define one combined syntax.
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Assimilation}
+    \begin{itemize}
+      \item Rewrite concrete object syntax to meta-language constructs.
+      \item By program transformation.
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
+
+\subsection{Syntax Definition}
+
+\begin{frame}
+
+  \frametitle{Syntax Definition Formalism}
+
+  \begin{block}{SDF2...}
+    \begin{itemize}
+      \item is declarative.
+      \item is modular.
+      \item combines lexical and context-free syntax.
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Parsing}
+    SGLR is a parser generator for SDF2 syntax definitions.
+    \begin{itemize}
+      \item Scannerless.
+      \item Accepts full class of context-free grammars.
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+  \frametitle{Example: Embedding XML in Javascript}
 
   \begin{itemize}
-  \item<1-> Normal LaTeX class.
-  \item<2-> Easy overlays.
-  \item<3-> No external programs needed.      
+    \item Syntax definition for Javascript (\texttt{Javascript})
+    \item Syntax definition for XML (\texttt{Xml})
   \end{itemize}
+
+  \begin{block}{Combined Syntax Definition}
+    \begin{lstlisting}[language=SDF]
+module JavascriptXml
+imports Xml
+imports Javascript
+
+exports
+  context-free syntax
+    Element  ->  Expr {cons("ToExpr")}
+    \end{lstlisting}
+  \end{block}
+
+\end{frame}
+
+
+\subsection{Assimilation}
+
+\begin{frame}
+
+  \frametitle{Stratego}
+
+  \begin{block}{Stratego language}
+    \begin{itemize}
+      \item Transformation language
+      \item Rewrite object fragments to meta-language constructs
+      \item Supports concrete object syntax itself
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+  \frametitle{Example: Assimilation of XML into Javascript}
+
+  \begin{itemize}
+    \item Look for fragments of concrete XML code
+    \item Transform into AST manipulating Javascript code
+  \end{itemize}
+
+  \begin{lstlisting}
+var t = <p>test</p>;
+  \end{lstlisting}
+
+$\Rightarrow$
+
+  \begin{lstlisting}
+var t;
+{
+  var _t = document.createElement('p');
+  var _c = document.createTextNode('test');
+  _t.appendChild(_c);
+  t = _t
 }
+  \end{lstlisting}
+
+\end{frame}
+
+
+\section{Outro}
+
+\frame{
+
+  \frametitle{Concrete Syntax for Meta-Programming}
+
+  \tableofcontents[currentsection]
+
+}
+
+
+\begin{frame}
+
+  \frametitle{Conclusions}
+
+  \begin{block}{Concrete object syntax}
+    \begin{description}
+      \item{\color{darkgreen}$\Rightarrow$} Much easier to write and read
+      \item{\color{darkgreen}$\Rightarrow$} Usual strengths of AST manipulation
+      \item{\color{darkred}$\Rightarrow$} Complicates programming environment
+    \end{description}
+  \end{block}
+
+  \begin{block}{Future work}
+    \begin{itemize}
+      \item Integrate assimilation in meta-language compiler
+      \item Apply method to library interfacing
+      \item ...
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
+
+\begin{frame}
+
+  \frametitle{Questions and Further Reading}
+
+  Any questions?\\[4em]
+
+  \begin{block}{Further Reading}
+    \texttt{http://metaborg.org}
+  \end{block}
+
+\end{frame}
 
 
 \end{document}
