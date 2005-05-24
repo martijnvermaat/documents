@@ -96,7 +96,9 @@ May 25, 2005}
       \item Abstract syntax trees are good.
       \item ASTs are too verbose.
     \end{itemize}
-    Conclusion: {\bf concrete syntax}
+    \uncover<2->{
+      Conclusion: {\bf concrete syntax}
+    }
   \end{block}
 
 \end{frame}
@@ -118,17 +120,21 @@ May 25, 2005}
   \frametitle{Meta-Language and Object Language}
 
   \begin{block}{Meta-language}
-    \begin{itemize}
-      \item Language of the meta-program.
-      \item Example: {\bf Javascript}
-    \end{itemize}
+    \uncover<2->{
+      \begin{itemize}
+        \item Language of the meta-program.
+        \item<4-> Example: {\bf Javascript}
+      \end{itemize}
+    }
   \end{block}
 
   \begin{block}{Object language}
-    \begin{itemize}
-      \item Language of the manipulated code.
-      \item Example: {\bf XML}
-    \end{itemize}
+    \uncover<3->{
+      \begin{itemize}
+        \item Language of the manipulated code.
+        \item<4-> Example: {\bf XML}
+      \end{itemize}
+    }
   \end{block}
 
 \end{frame}
@@ -202,7 +208,9 @@ menu.appendChild(item);
       \item{\color{darkred}$\Rightarrow$} No syntactic checks
       \item{\color{darkred}$\Rightarrow$} Further manipulation will be hard
     \end{description}
-    Conclusion: {\bf bad}
+    \uncover<2->{
+      Conclusion: {\bf bad}
+    }
   \end{block}
 
   \begin{block}{Manipulating Abstract Syntax Trees}
@@ -213,7 +221,9 @@ menu.appendChild(item);
       \item{\color{darkred}$\Rightarrow$} Knowledge of abstract syntax necessary
       \item{\color{darkred}$\Rightarrow$} Does not scale
     \end{description}
-    Conclusion: {\bf `less bad'}
+    \uncover<3->{
+      Conclusion: {\bf `less bad'}
+    }
   \end{block}
 
 \end{frame}
@@ -239,7 +249,9 @@ menu.appendChild(item);
       \item{\color{darkgreen}$\Rightarrow$} Further manipulation possible
       \item{\color{darkgreen}$\Rightarrow$} Matching on structure possible
     \end{description}
-    Conclusion: {\bf best of both worlds}
+    \uncover<2->{
+      Conclusion: {\bf best of both worlds}
+    }
   \end{block}
 
 \end{frame}
@@ -277,17 +289,21 @@ var menu = <ul>
   \frametitle{Implementation}
 
   \begin{block}{Syntax Definition}
-    \begin{itemize}
-      \item Embed object language in meta-language.
-      \item Define one combined syntax.
-    \end{itemize}
+    \uncover<2->{
+      \begin{itemize}
+        \item Embed object language in meta-language.
+        \item Define one combined syntax.
+      \end{itemize}
+    }
   \end{block}
 
   \begin{block}{Assimilation}
-    \begin{itemize}
-      \item Rewrite concrete object syntax to meta-language constructs.
-      \item By program transformation.
-    \end{itemize}
+    \uncover<3->{
+      \begin{itemize}
+        \item Rewrite concrete object syntax to meta-language constructs.
+        \item By program transformation.
+      \end{itemize}
+    }
   \end{block}
 
 \end{frame}
@@ -307,13 +323,15 @@ var menu = <ul>
     \end{itemize}
   \end{block}
 
-  \begin{block}{Parsing}
-    SGLR is a parser generator for SDF2 syntax definitions.
-    \begin{itemize}
-      \item Scannerless.
-      \item Accepts full class of context-free grammars.
-    \end{itemize}
-  \end{block}
+  \uncover<2->{
+    \begin{block}{Parsing}
+      SGLR is a parser generator for SDF2 syntax definitions.
+      \begin{itemize}
+        \item Scannerless.
+        \item Accepts full class of context-free grammars.
+      \end{itemize}
+    \end{block}
+  }
 
 \end{frame}
 
@@ -323,12 +341,12 @@ var menu = <ul>
   \frametitle{Example: Embedding XML in Javascript}
 
   \begin{itemize}
-    \item Syntax definition for Javascript (\texttt{Javascript})
-    \item Syntax definition for XML (\texttt{Xml})
+    \item Syntax definition of Javascript (\texttt{Javascript})
+    \item Syntax definition of XML (\texttt{Xml})
   \end{itemize}
 
-  \begin{block}{Combined Syntax Definition}
-    \begin{lstlisting}[language=SDF]
+    \begin{block}{Combined Syntax Definition}
+      \begin{lstlisting}[language=SDF]
 module JavascriptXml
 imports Xml
 imports Javascript
@@ -336,8 +354,8 @@ imports Javascript
 exports
   context-free syntax
     Element  ->  Expr {cons("ToExpr")}
-    \end{lstlisting}
-  \end{block}
+      \end{lstlisting}
+    \end{block}
 
 \end{frame}
 
@@ -346,7 +364,7 @@ exports
 
 \begin{frame}
 
-  \frametitle{Stratego}
+  \frametitle{Stratego for Assimilation}
 
   \begin{block}{Stratego language}
     \begin{itemize}
@@ -372,7 +390,9 @@ exports
 var t = <p>test</p>;
   \end{lstlisting}
 
-$\Rightarrow$
+\uncover<1,3,5,7,9,11,13,15>{
+  $\Rightarrow$
+}
 
   \begin{lstlisting}
 var t;
@@ -403,19 +423,23 @@ var t;
   \frametitle{Conclusions}
 
   \begin{block}{Concrete object syntax}
-    \begin{description}
-      \item{\color{darkgreen}$\Rightarrow$} Much easier to write and read
-      \item{\color{darkgreen}$\Rightarrow$} Usual strengths of AST manipulation
-      \item{\color{darkred}$\Rightarrow$} Complicates programming environment
-    \end{description}
+    \uncover<2->{
+      \begin{description}
+        \item{\color{darkgreen}$\Rightarrow$} Much easier to write and read
+        \item{\color{darkgreen}$\Rightarrow$} Usual strengths of AST manipulation
+        \item{\color{darkred}$\Rightarrow$} Complicates programming environment
+      \end{description}
+    }
   \end{block}
 
   \begin{block}{Future work}
-    \begin{itemize}
-      \item Integrate assimilation in meta-language compiler
-      \item Apply method to library interfacing
-      \item ...
-    \end{itemize}
+    \uncover<3->{
+      \begin{itemize}
+        \item Integrate assimilation in meta-language compiler
+        \item Apply method to library interfacing
+        \item ...
+      \end{itemize}
+    }
   \end{block}
 
 \end{frame}
