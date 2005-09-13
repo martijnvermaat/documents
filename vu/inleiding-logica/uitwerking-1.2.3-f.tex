@@ -1,0 +1,58 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{fitch}
+
+%\renewcommand{\familydefault}{\sfdefault}
+
+
+\title{Uitwerking van opgave 3f\\
+\normalsize{uit paragraaf 1.2 van Huth\&Ryan}}
+%\date{Martijn Vermaat, 13 september 2005}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+We bewijzen $p \rightarrow q \vdash \neg p \vee q$ volgens natuurlijke deductie zonder de regel LEM:
+
+\begin{equation*}
+\begin{fitch}
+p \rightarrow q                        & premisse                      \\ % 1
+\fh \neg ( \neg p \vee q )             & assumptie                     \\ % 2
+\fa \fh p                              & assumptie                     \\ % 3
+\fa \fa q                              & $\rightarrow_{\text{e}}$ 1, 3 \\ % 4
+\fa \fa \neg p \vee q                  & $\vee_{\text{i$_{2}$}}$ 4     \\ % 5
+\fa \fa \bot                           & $\neg_{\text{e}}$ 2, 5        \\ % 6
+\fa \neg p                             & $\neg_{\text{i}}$ 3-6         \\ % 7
+\fa \neg p \vee q                      & $\vee_{\text{i$_{1}$}}$ 7     \\ % 8
+\fa \bot                               & $\neg_{\text{e}}$ 2, 8        \\ % 9
+\neg p \vee q                          & PBC (r.a.a.) 2-9              \\ % 10
+\end{fitch}
+\end{equation*}
+Deze afleiding komt in structuur voor een groot deel overeen met de afleiding voor de regel LEM zoals
+die gegeven is in het boek op pagina 25. Dat is natuurlijk geen toeval!
+
+\paragraph{}
+
+Met de regel LEM is een afleiding makkelijker:
+
+\begin{equation*}
+\begin{fitch}
+p \rightarrow q                        & premisse                      \\ % 1
+p \vee \neg p                          & LEM                           \\ % 2
+\fh p                                  & assumptie                     \\ % 3
+\fa q                                  & $\rightarrow_{\text{e}}$ 1, 3 \\ % 4
+\fa \neg p \vee q                      & $\vee_{\text{i$_{2}$}}$ 4     \\ % 5
+\fh \neg p                             & assumptie                     \\ % 6
+\fa \neg p \vee q                      & $\vee_{\text{i$_{1}$}}$ 6     \\ % 7
+\neg p \vee q                          & $\vee_{\text{e}}$ 2, 3-5, 6-7 \\ % 8
+\end{fitch}
+\end{equation*}
+
+
+\end{document}
