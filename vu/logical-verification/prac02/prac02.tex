@@ -1,0 +1,62 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bussproofs} % http://math.ucsd.edu/%7Esbuss/ResearchWeb/bussproofs/
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\def\extraVskip{4pt} % Space above and below lines in proof trees
+
+
+\title{Practical Work Week 2\\
+\normalsize{Logical Verification}}
+\author{
+    Martijn Vermaat\\
+    mvermaat@cs.vu.nl
+}
+\date{September 14, 2005}
+
+
+\begin{document}
+
+\maketitle
+
+
+The following derivation of $(A \rightarrow B) \rightarrow (B \rightarrow C) \rightarrow A \rightarrow C$
+using natural deduction shows that this formula is a tautology of propositional logic.
+
+\begin{prooftree}
+\AxiomC{$[(B \rightarrow C)^{y}]$}
+  \AxiomC{$[(A \rightarrow B)^{x}]$}
+  \AxiomC{$[A^{z}]$}
+  \RightLabel{$E\rightarrow$}
+\BinaryInfC{$B$}
+\RightLabel{$E\rightarrow$}
+\BinaryInfC{$C$}
+\RightLabel{$I[z]\rightarrow$}
+\UnaryInfC{$A \rightarrow C$}
+\RightLabel{$I[y]\rightarrow$}
+\UnaryInfC{$(B \rightarrow C) \rightarrow A \rightarrow C$}
+\RightLabel{$I[x]\rightarrow$}
+\UnaryInfC{$(A \rightarrow B) \rightarrow (B \rightarrow C) \rightarrow A \rightarrow C$}
+\end{prooftree}
+
+In the type derivation below, we use $\Gamma$ for the set $x:A \rightarrow B, y:B \rightarrow C, z:A$.
+
+\begin{prooftree}
+\AxiomC{$\Gamma \vdash y \: : \: B \rightarrow C$}
+  \AxiomC{$\Gamma \vdash x \: : \: A \rightarrow B$}
+  \AxiomC{$\Gamma \vdash z \: : \: A$}
+  \BinaryInfC{$\Gamma \vdash x \, z \: : \: B$}
+\BinaryInfC{$\Gamma \vdash y (x \, z) \: : \: C$}
+\UnaryInfC{$x:A \rightarrow B, y:B \rightarrow C \vdash \lambda z:A \, . \, y (x \, z) \: : \:
+  A \rightarrow C$}
+\UnaryInfC{$x:A \rightarrow B \vdash \lambda (y:B \rightarrow C) (z:A) \, . \, y (x \, z) \: : \:
+  (B \rightarrow C) \rightarrow A \rightarrow C$}
+\UnaryInfC{$\vdash \lambda (x:A \rightarrow B) (y:B \rightarrow C) (z:A) \, . \, y (x \, z) \: : \:
+  (A \rightarrow B) \rightarrow (B \rightarrow C) \rightarrow A \rightarrow C$}
+\end{prooftree}
+
+
+\end{document}
