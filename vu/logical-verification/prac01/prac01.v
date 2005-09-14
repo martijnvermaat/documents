@@ -1,4 +1,10 @@
-(* logical verification 04-05 practical work week 1 *)
+(* logical verification 05-06 practical work week 1 *)
+
+(*
+  Martijn Vermaat
+  mvermaat
+  1362917
+*)
 
 Parameter A B C : Prop.
 
