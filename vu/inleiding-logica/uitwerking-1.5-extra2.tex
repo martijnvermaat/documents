@@ -1,0 +1,74 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{fitch} % http://folk.uio.no/johanw/FitchSty.html
+
+%\renewcommand{\familydefault}{\sfdefault}
+
+
+\title{Uitwerking van extra opgave 2\\
+\normalsize{bij paragraaf 1.5 van Huth\&Ryan}}
+%\date{Martijn Vermaat, 20 september 2005}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+Vergelijk $A$ en $B$:
+
+\begin{description}
+
+\item{\bf A:}
+$\models \phi \rightarrow \psi$
+
+\item{\bf B:}
+Als $\models \phi$ dan $\models \psi$
+
+\end{description}
+
+Geldt \textbf{A} $\Rightarrow$ \textbf{B}? En \textbf{B} $\Rightarrow$ \textbf{A}?
+
+\paragraph{}
+
+We proberen een waarheidstafel voor $\phi \rightarrow \psi$ te maken:
+
+\paragraph{}
+
+\begin{tabular}{c|c|c}
+$\phi$   & $\psi$   & $\phi \rightarrow \psi$ \\
+\hline
+\tt T    & \tt T    & \tt T \\
+\tt F    & \tt T    & \tt T \\
+\tt T    & \tt F    & \tt F \\
+\tt F    & \tt F    & \tt T
+\end{tabular}
+
+\paragraph{}
+
+Wanneer we nu \textbf{A} aannemen weten we dat $\phi \rightarrow \psi$
+een tautologie is en de waarheidstafel dus geen regels bevat
+die \texttt{F} geven. Regel drie uit bovenstaande tafel komt hierin
+dus niet voor (er is blijkbaar geen waardentoekenning mogelijk die
+$\phi$ waar maakt en $\psi$ niet waar).
+
+Stel nu dat $\models \phi$. Dan vervallen ook regels twee en vier
+uit de waarheidstafel en blijft regel \'e\'en over. Maar dan zien
+we dat ook $\psi$ een tautologie is en dus hebben we $\models \psi$.
+
+Hiermee hebben we laten zien dat \textbf{A} $\Rightarrow$ \textbf{B} geldt.
+
+\paragraph{}
+
+Maar \textbf{B} $\Rightarrow$ \textbf{A} geldt niet. We geven een tegenvoorbeeld.
+Neem als instanties $\phi := p \vee q$ en $\psi := p$.
+
+Nu is stelling \textbf{B} waar, omdat $\phi$ geen tautologie is. Maar \textbf{A}
+is niet waar want $p \vee q \rightarrow p$ is geen tautologie. Dus geldt
+niet \textbf{B} $\Rightarrow$ \textbf{A}.
+
+
+\end{document}

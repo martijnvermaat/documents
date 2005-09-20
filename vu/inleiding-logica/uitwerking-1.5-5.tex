@@ -1,0 +1,58 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{fitch} % http://folk.uio.no/johanw/FitchSty.html
+
+%\renewcommand{\familydefault}{\sfdefault}
+
+
+\title{Uitwerking van opgave 5\\
+\normalsize{bij paragraaf 1.5 van Huth\&Ryan}}
+%\date{Martijn Vermaat, 20 september 2005}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+Te bewijzen is dat de relatie $\equiv$ (semantische equivalentie) een
+equivalentierelatie is. Dat wil zeggen, dat $\equiv$ reflexief, symmetrisch
+en transitief is. Er is gedefini\"eerd dat:
+
+\begin{eqnarray*}
+\phi \equiv \psi & \Longleftrightarrow & \phi \models \psi \\
+                 &                     & \mbox{\`en} \\
+                 &                     & \psi \models \phi
+\end{eqnarray*}
+
+
+\begin{description}
+
+\item{\bf (a) Reflexiviteit}
+We willen laten zien dat voor iedere $\phi$ geldt: $\phi \models \phi$ (en andersom, wat
+in dit geval niet uit maakt). Dit is zo, wanneer voor iedere waardetoekenning waarbij
+$\phi$ waar is ook $\phi$ waar is en dat is natuurlijk het geval.
+
+\item{\bf (b) Symmetrie}
+De relatie $\equiv$ is symmetrisch als $\phi \equiv \psi \, \Rightarrow \, \psi \equiv \phi$.
+
+We nemen aan dat $\phi \equiv \psi$ en dus weten we dat $\phi \models \psi$ en
+$\psi \models \phi$. Maar dan weten we ook dat $\psi \equiv \phi$.
+
+\item{\bf (c) Transitiviteit}
+Ten slotte is $\equiv$ transitief wanneer gegeven $\phi \equiv \psi$ en $\psi \equiv \eta$ ook
+$\phi \equiv \eta$ waar is.
+
+We weten dat voor iedere waardetoekenning waarbij $\phi$ waar is ook $\psi$ waar is (want
+$\phi \models \psi$). Maar voor iedere waardetoekenning waarbij $\psi$ waar is, is ook $\eta$
+waar (want $\psi \models \eta$). Dus is bij iedere waardetoekenning die $\phi$ waar maakt ook
+$\eta$ waar en hebben we $\phi \models \eta$. Op dezelfde manier kunnen we beredeneren dat
+$\eta \models \phi$ en dus is $\phi \equiv \eta$ waar.
+
+\end{description}
+
+
+\end{document}
