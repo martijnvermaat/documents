@@ -1,0 +1,85 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{fitch} % http://folk.uio.no/johanw/FitchSty.html
+
+%\renewcommand{\familydefault}{\sfdefault}
+
+
+\title{Uitwerking van opgave 2\\
+\normalsize{bij paragraaf 1.5 van Huth\&Ryan}}
+%\date{Martijn Vermaat, 20 september 2005}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+Om te bepalen welke van de gegeven formules \textbf{(a)-(d)} semantisch equivalent
+zijn aan de formule $p \rightarrow (q \vee r)$ maken we eerst de waarheidstafel voor
+$p \rightarrow (q \vee r)$:
+
+\paragraph{}
+
+\begin{tabular}{c|c|c|c|c}
+$p$   & $q$   & $r$   & $q \vee r$ & $p \rightarrow (q \vee r)$ \\
+\hline
+\tt T & \tt T & \tt T & \tt T      & \tt T \\
+\tt F & \tt T & \tt T & \tt T      & \tt T \\
+\tt T & \tt F & \tt T & \tt T      & \tt T \\
+\tt F & \tt F & \tt T & \tt T      & \tt T \\
+\tt T & \tt T & \tt F & \tt T      & \tt T \\
+\tt F & \tt T & \tt F & \tt T      & \tt T \\
+\tt T & \tt F & \tt F & \tt F      & \tt F \\
+\tt F & \tt F & \tt F & \tt F      & \tt T
+\end{tabular}
+
+\paragraph{}
+
+\begin{description}
+
+\item{\bf (a)}
+De waarheidstafel voor $q \vee (\neg p \vee r)$ ziet er als volgt uit:
+
+\paragraph{}
+
+\begin{tabular}{c|c|c|c|c}
+$p$   & $q$   & $r$   & $\neg p \vee r$ & $q \vee (\neg p \vee r)$ \\
+\hline
+\tt T & \tt T & \tt T & \tt T           & \tt T \\
+\tt F & \tt T & \tt T & \tt T           & \tt T \\
+\tt T & \tt F & \tt T & \tt T           & \tt T \\
+\tt F & \tt F & \tt T & \tt T           & \tt T \\
+\tt T & \tt T & \tt F & \tt F           & \tt T \\
+\tt F & \tt T & \tt F & \tt T           & \tt T \\
+\tt T & \tt F & \tt F & \tt F           & \tt F \\
+\tt F & \tt F & \tt F & \tt T           & \tt T
+\end{tabular}
+
+\paragraph{}
+
+We zien dat dit dezelfde waarheidstafel is, dus concluderen we dat \textbf{(a)}
+inderdaad semantisch equivalent is aan de gegeven formule.
+
+\item{\bf (b)}
+Bekijk de volgende waardetoekenning: $p$ := \texttt{F}, $q$ := \texttt{T}, $r$ := \texttt{F}.
+
+De bijbehorende regel in de waarheidstafel wijkt af van die voor de gegeven formule, dus
+concluderen we direct dat \textbf{(b)} niet semantisch equivalent is.
+
+\begin{tabular}{c|c|c|c|c|c}
+$p$   & $q$   & $r$   & $\neg r$ & $q \wedge \neg r$ & $q \wedge \neg r \rightarrow p$ \\
+\hline
+\tt F & \tt T & \tt F & \tt T    & \tt T             & \tt F
+\end{tabular}
+
+\item{\bf (c)}
+
+
+\end{description}
+
+
+\end{document}

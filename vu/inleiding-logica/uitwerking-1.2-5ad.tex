@@ -1,0 +1,65 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{fitch} % http://folk.uio.no/johanw/FitchSty.html
+
+%\renewcommand{\familydefault}{\sfdefault}
+
+
+\title{Uitwerkingen van opgaven 5 a en d\\
+\normalsize{bij paragraaf 1.2 van Huth\&Ryan}}
+%\date{Martijn Vermaat, 20 september 2005}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{description}
+
+\item{\bf (a)}
+We zoeken een afleiding voor $\vdash ((p \rightarrow q) \rightarrow q) \rightarrow ((q \rightarrow p) \rightarrow p)$,
+dus een afleiding met de gegeven formule als conclusie, zonder premissen.
+\begin{equation*}
+\begin{fitch}
+\fh (p \rightarrow q) \rightarrow q           & assumptie                     \\ % 1
+\fa \fh q \rightarrow p                       & assumptie                     \\ % 2
+\fa \fa \fh \neg p                            & assumptie                     \\ % 3
+\fa \fa \fa \neg q                            & MT 2, 3                       \\ % 4
+\fa \fa \fa \neg (p \rightarrow q)            & MT 1, 4                       \\ % 5
+\fa \fa \fa \fh p                             & assumptie                     \\ % 6
+\fa \fa \fa \fa \bot                          & $\neg_{\text{e}}$ 3, 6        \\ % 7
+\fa \fa \fa \fa q                             & $\bot_{\text{e}}$ 7           \\ % 8
+\fa \fa \fa p \rightarrow q                   & $\rightarrow_{\text{i}}$ 6-8  \\ % 9
+\fa \fa \fa \bot                              & $\neg_{\text{e}}$ 5, 9        \\ % 10
+\fa \fa p                                     & PBC (r.a.a.) 3-10             \\ % 11
+\fa (q \rightarrow p) \rightarrow p           & $\rightarrow_{\text{i}}$ 2-11 \\ % 12
+((p \rightarrow q) \rightarrow q)  \rightarrow ((q \rightarrow p) \rightarrow p) & $\rightarrow_{\text{i}}$ 1-12 \\ % 13
+\end{fitch}
+\end{equation*}
+
+\item{\bf (d)}
+Ook $(p \rightarrow q) \rightarrow ((\neg p \rightarrow q) \rightarrow q)$ heeft een afleiding
+zonder premissen.
+\begin{equation*}
+\begin{fitch}
+\fh p \rightarrow q                           & assumptie                     \\ % 1
+\fa \fh \neg p \rightarrow q                  & assumptie                     \\ % 2
+\fa \fa p \vee \neg p                         & LEM                           \\ % 3
+\fa \fa \fh p                                 & assumptie                     \\ % 4
+\fa \fa \fa q                                 & $\rightarrow_{\text{e}}$ 1, 4 \\ % 5
+\fa \fa \fh \neg p                            & assumptie                     \\ % 6
+\fa \fa \fa q                                 & $\rightarrow_{\text{e}}$ 2, 6 \\ % 7
+\fa \fa q                                     & $\vee_{\text{e}}$ 3, 4-5, 6-7 \\ % 8
+\fa (\neg p \rightarrow q) \rightarrow q      & $\rightarrow_{\text{i}}$ 2-8  \\ % 9
+(p \rightarrow q) \rightarrow ((\neg p \rightarrow q) \rightarrow q) & $\rightarrow_{\text{i}}$ 1-9 \\ % 10
+\end{fitch}
+\end{equation*}
+
+\end{description}
+
+
+\end{document}
