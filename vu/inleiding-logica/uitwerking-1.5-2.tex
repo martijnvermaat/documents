@@ -41,7 +41,8 @@ $p$   & $q$   & $r$   & $q \vee r$ & $p \rightarrow (q \vee r)$ \\
 
 \begin{description}
 
-\item{\bf (a)}
+\item{\bf (a)} $q \vee (\neg p \vee r)$
+
 De waarheidstafel voor $q \vee (\neg p \vee r)$ ziet er als volgt uit:
 
 \paragraph{}
@@ -64,7 +65,8 @@ $p$   & $q$   & $r$   & $\neg p \vee r$ & $q \vee (\neg p \vee r)$ \\
 We zien dat dit dezelfde waarheidstafel is, dus concluderen we dat \textbf{(a)}
 inderdaad semantisch equivalent is aan de gegeven formule.
 
-\item{\bf (b)}
+\item{\bf (b)} $q \wedge \neg r \rightarrow p$
+
 Bekijk de volgende waardetoekenning: $p$ := \texttt{F}, $q$ := \texttt{T}, $r$ := \texttt{F}.
 
 De bijbehorende regel in de waarheidstafel wijkt af van die voor de gegeven formule, dus
@@ -76,8 +78,49 @@ $p$   & $q$   & $r$   & $\neg r$ & $q \wedge \neg r$ & $q \wedge \neg r \rightar
 \tt F & \tt T & \tt F & \tt T    & \tt T             & \tt F
 \end{tabular}
 
-\item{\bf (c)}
+\item{\bf (c)} $p \wedge \neg r \rightarrow q$
 
+We maken de waarheidstafel voor $p \wedge \neg r \rightarrow q$:
+
+\paragraph{}
+
+\begin{tabular}{c|c|c|c|c|c}
+$p$   & $q$   & $r$   & $\neg r$ & $p \wedge \neg r$ & $p \wedge \neg r \rightarrow q$\\
+\hline
+\tt T & \tt T & \tt T & \tt F    & \tt F             & \tt T \\
+\tt F & \tt T & \tt T & \tt F    & \tt F             & \tt T \\
+\tt T & \tt F & \tt T & \tt F    & \tt F             & \tt T \\
+\tt F & \tt F & \tt T & \tt F    & \tt F             & \tt T \\
+\tt T & \tt T & \tt F & \tt T    & \tt T             & \tt T \\
+\tt F & \tt T & \tt F & \tt T    & \tt F             & \tt T \\
+\tt T & \tt F & \tt F & \tt T    & \tt T             & \tt F \\
+\tt F & \tt F & \tt F & \tt T    & \tt F             & \tt T
+\end{tabular}
+
+\paragraph{}
+
+Deze waarheidstafel is gelijk aan die van de gegeven formule, dus is \textbf{(c)}
+semantisch equivalent.
+
+\item{\bf (d)} $\neg q \wedge \neg r \rightarrow \neg p$
+
+Formule \textbf{(d)} is semantisch equivalent aan de gegeven formule. We bekijken hiervoor
+weer de waarheidstafel:
+
+\paragraph{}
+
+\begin{tabular}{c|c|c|c|c|c|c|c}
+$p$   & $q$   & $r$   & $\neg p$ & $\neg q$ & $\neg r$ & $\neg q \wedge \neg r$ & $\neg q \wedge \neg r \rightarrow \neg p$\\
+\hline
+\tt T & \tt T & \tt T & \tt F    & \tt F    & \tt F    & \tt F                  & \tt T \\
+\tt F & \tt T & \tt T & \tt T    & \tt F    & \tt F    & \tt F                  & \tt T \\
+\tt T & \tt F & \tt T & \tt F    & \tt T    & \tt F    & \tt F                  & \tt T \\
+\tt F & \tt F & \tt T & \tt T    & \tt T    & \tt F    & \tt F                  & \tt T \\
+\tt T & \tt T & \tt F & \tt F    & \tt F    & \tt T    & \tt F                  & \tt T \\
+\tt F & \tt T & \tt F & \tt T    & \tt F    & \tt T    & \tt F                  & \tt T \\
+\tt T & \tt F & \tt F & \tt F    & \tt T    & \tt T    & \tt T                  & \tt F \\
+\tt F & \tt F & \tt F & \tt T    & \tt T    & \tt T    & \tt T                  & \tt T
+\end{tabular}
 
 \end{description}
 
