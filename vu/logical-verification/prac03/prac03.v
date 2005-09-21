@@ -162,11 +162,6 @@ Check (classic A).
 Check (classic (~ A)).
 
 Lemma double_negation : forall A : Prop, ~ ~ A -> A.  
-(* in fact this lemma is in second-order propositional logic *)
-(*
-  use elim (classic P) if you want to do elimination
-  of P \/ ~P
-*)
 intro D.
 unfold not.
 intro x.
@@ -181,12 +176,30 @@ exact z.
 Qed.
 
 Lemma peirce : ((A -> B) -> A) -> A.
-
-
-
-(*
-  use the lemma double_negation
-*)
+apply double_negation.
+unfold not.
+intro x.
+apply x.
+intro y.
+apply y.
+intro z.
+elimtype False.
+apply x.
+intro u.
+exact z.
+Qed.
 
 Lemma everything_related : (A -> B) \/ (B -> A).
-
+elim (classic A).
+intro x.
+right.
+intro y.
+exact x.
+unfold not.
+intro u.
+left.
+intro v.
+elimtype False.
+apply u.
+exact v.
+Qed.
