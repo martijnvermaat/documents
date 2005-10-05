@@ -190,6 +190,8 @@ Eval compute in (append (cons 3 (cons 2 empty)) (cons 7 empty)).
 Lemma length_append :
  forall k l : natlist, length (append k l) = plus (length k) (length l).
 
+(*
+
 intro k.
 intro l.
 induction k.
@@ -202,3 +204,18 @@ reflexivity.
 simpl.
 rewrite -> IHk.
 (* hmmm kom hier niet uit, zal wel iets missen ... *)
+
+(*
+Femke says: je hebt een beetje
+pech met je definitie van length.
+Als je had gedaan 
+  1 + length tail
+of
+  S (lenghth tail)
+dan was het heel makkelijk geweest. Nu heb 
+je iets nodig als
+  plus (plus a b) c = plus (plus a c) b
+oid en dat is gedoe ...
+*)
+
+*)
