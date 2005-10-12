@@ -247,6 +247,21 @@ Lemma Sorted_Lowerbound :
 
 (* use le_trans with with *)
 
+Proof.
+
+induction l.
+
+intro.
+intro.
+constructor.
+
+intro.
+constructor.
+inversion_clear H.
+exact H0.
+
+(* here we are *)
+
 
 Lemma Inserted_Lowerbound :
   forall (l l' : natlist) (n m : nat),
