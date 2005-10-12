@@ -46,19 +46,14 @@ Theorem successor:
   forall n:nat, {m:nat | m = S n} .
 
 Proof.
-induction n.
-
-(* base case *)
-exists 1.
-reflexivity.
-
-(* S(n) case *)
-exists (S (S n)).
+intro.
+exists (S n).
 reflexivity.
 Qed.
 
 Extraction successor.
 Extraction "successor" successor.
+
 
 (*
   type "ocaml" to activate the ocaml toplevel compiler
@@ -78,7 +73,21 @@ Extraction "successor" successor.
 (* exercise 2: predecessor *)
 
 Theorem predecessor :
-  forall n:nat, ~(n=O) -> {m:nat | S m = n} .
+  forall n:nat, ~(n=O) -> {m:nat | S m = n}. 
+
+Proof.
+intro.
+intro.
+induction n.
+
+elimtype False.
+apply H.
+reflexivity.
+
+exists n.
+reflexivity.
+
+Qed.
 
 Extraction predecessor.
 Extraction "predecessor" predecessor.
@@ -90,6 +99,21 @@ Extraction "predecessor" predecessor.
 *)
 
 Theorem Mirror : forall t : bintree, {t' : bintree | Mirrored t t'}.
+
+induction t.
+
+exists (leaf n).
+constructor.
+
+inversion_clear IHt1.
+inversion_clear IHt2.
+exists (node x0 x).
+constructor.
+
+exact H.
+exact H0.
+
+Qed.
 
 Extraction Mirror.
 Extraction "mirror" Mirror. 
@@ -130,6 +154,19 @@ Inductive Permutation : natlist -> natlist -> Prop :=
 Lemma Permutation_neg: 
   ~(Permutation (cons 1 (cons 2 nil)) (cons 2 (cons 3 nil))).
 
+Proof.
+
+unfold not.
+intro.
+inversion_clear H.
+inversion_clear H0.
+inversion_clear H.
+inversion_clear H1.
+inversion_clear H.
+inversion_clear H0.
+
+Qed.
+
 (* Hint for proving the following lemmas: Suppose we have a goal with
 the form (Permutation (cons n l) l'').  If we apply Permutation_cons
 we get an error because it is unknown what l' should be.  In this case
@@ -143,11 +180,31 @@ Lemma Permutation_123:
 
 Proof.
 apply Permutation_cons with (cons 3 (cons 2 nil)).
+apply Permutation_cons with (cons 3 nil).
+apply Permutation_cons with (nil).
+constructor.
+constructor.
+constructor.
+constructor.
+constructor.
+constructor.
+constructor.
+Qed.
+
 
 (* exercise 6: The following lemma is essential for the extractable proof *)
 (* remember the apply Permutation_cons may need "with ...".*)
 
 Lemma Permutation_refl : forall (l : natlist), Permutation l l.
+
+Proof.
+induction l.
+constructor.
+apply Permutation_cons with l.
+exact IHl.
+constructor.
+Qed.
+
 
 (* auxiliary notion + some lemmas about it *)
 
@@ -166,13 +223,30 @@ Lemma Lowerbound_Sorted :
   forall (l : natlist) (n : nat),
     Lowerbound n l -> Sorted l -> Sorted (cons n l).
 
+induction l.
+intro n.
+constructor.
+
+constructor.
+inversion_clear H.
+exact H1.
+
+exact H0.
+Qed.
+
+
 (* exercise 8: Prove the following lemma using le_trans 
    proceed by induction on l; use also inversion_clear *)
 
 Check le_trans.
 
+
+
 Lemma Sorted_Lowerbound :
   forall (l : natlist) (n : nat), Sorted (cons n l) -> Lowerbound n l.
+
+(* use le_trans with with *)
+
 
 Lemma Inserted_Lowerbound :
   forall (l l' : natlist) (n m : nat),
