@@ -1,0 +1,86 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+
+%\renewcommand{\familydefault}{\sfdefault}
+
+
+\title{Uitwerking van opgave 7\\
+\normalsize{bij paragraaf 5.3 van Huth\&Ryan}}
+%\date{Martijn Vermaat, 18 oktober 2005}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+We bewijzen stelling 5.14 voor geval B (symmetrie), dat wil zeggen:
+
+\begin{quote}
+  Het schema $\phi \rightarrow \Box \Diamond \phi$ is geldig in een frame
+  $\mathcal{F} = (W, R)$ \\
+  $\Longleftrightarrow$ \\
+  $R$ is symmetrisch
+\end{quote}
+
+
+\begin{description}
+
+\item{\bf (a)}
+We bewijzen eerst dat het schema $\phi \rightarrow \Box \Diamond \phi$ geldig
+is in een frame als de relatie van het frame symmetrisch is.
+
+We nemen aan dat $R$ symmetrisch is. Neem nu een valuatie functie $L$ en een
+verzameling werelden $W$ zodat $\mathcal{M} = (W, R, L)$ een model is. We
+laten zien dat $\mathcal{M} \Vdash \phi \rightarrow \Box \Diamond \phi$.
+
+Kies een willekeurige $x$ uit $W$ en neem aan dat $x \Vdash \phi$. We zien nu
+dat $y \Vdash \Diamond \phi$ voor iedere $y$ met $R(x, y)$:
+\begin{quote}
+  Omdat $R$ symmetrisch is, hebben we ook $R(y, x)$. En omdat $x \Vdash \phi$
+  (onze aanname) volgt hieruit dat $y \Vdash \Diamond \phi$.
+\end{quote}
+Hieruit volt $x \Vdash \phi \rightarrow \Box \Diamond \phi$ en omdat $x$
+willekeurig is ook $\mathcal{M} \Vdash \phi \rightarrow \Box \Diamond \phi$.
+
+Merk op dat we niets aangenomen hebben over $\mathcal{M}$, behalve dat $R$
+symmetrisch is. Dus is $\phi \rightarrow \Box \Diamond \phi$ waar in ieder
+model op ieder frame met een symmetrische relatie en dus geldig in al deze
+frames.
+
+\item{\bf (b)}
+We bewijzen vervolgens dat het schema $\phi \rightarrow \Box \Diamond \phi$
+niet geldig is in een frame als de relatie van het frame niet symmetrisch is.
+
+Neem een willekeurig frame $\mathcal{F} = (W, R)$ dat niet symmetrisch is. Dan
+zijn er dus twee werelden $x$ en $y$ in $W$ zodat $R(x, y)$ en niet $R(y, x)$.
+
+We laten nu zien dat $\phi \rightarrow \Box \Diamond \phi$ niet geldig is in
+$\mathcal{F}$. Daartoe kiezen we een valuatie functie $L$ zodat
+$\mathcal{M} = (W, R, L)$ een model is met:
+\begin{quote}
+$p$ is waar in wereld $x$ (en nergens anders)
+\end{quote}
+
+Nu hebben we $x \Vdash p$, maar ook $y \not \Vdash \Diamond p$. Want stel dat
+$y \Vdash \Diamond p$, dan moet er een wereld $z$ zijn met $R(y, z)$ en
+$z \Vdash p$. Dit kan echter niet, want de enige wereld waar $p$ waar is is
+wereld $x$ en we weten dat niet $R(y, x)$.
+
+Hieruit volgt dat we niet voor alle werelden $u$ met $R(x, u)$
+$u \Vdash \Diamond p$ hebben en dus $x \not \Vdash \Box \Diamond p$. Samen met
+$x \Vdash p$ betekent dit dat $x \not \Vdash p \rightarrow \Box \Diamond p$.
+Dit is een instantie van het schema en dus weten we ook dat
+$x \not \Vdash \phi \rightarrow \Box \Diamond \phi$.
+
+Hiermee hebben we laten zien dat er een wereld in een model op $\mathcal{F}$
+is waar $\phi \rightarrow \Box \Diamond \phi$ niet waar is dus dat
+$\phi \rightarrow \Box \Diamond \phi$ niet geldig is in $\mathcal{F}$.
+
+\end{description}
+
+
+\end{document}
