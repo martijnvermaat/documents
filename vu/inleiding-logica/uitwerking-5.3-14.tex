@@ -1,0 +1,52 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+
+%\renewcommand{\familydefault}{\sfdefault}
+
+
+\title{Uitwerking van opgave 14\\
+\normalsize{bij paragraaf 5.3 van Huth\&Ryan}}
+%\date{Martijn Vermaat, 18 oktober 2005}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+Een voorbeeld van een frame met een reflexieve, transitieve, maar niet
+symmetrische toegankelijkheidsrelatie is het het frame $\mathcal{F} = (W, R)$
+met
+\begin{align*}
+W &= \{x, y\} \\
+R &= \{(x, x), (x, y), (y, y)\}
+\end{align*}
+(Teken het frame en controleer de eigenschappen van $R$!)
+
+\paragraph{}
+
+We laten zien dat $p \rightarrow \Box \Diamond p$ niet geldig is in
+$\mathcal{F}$ \footnote{We weten dat dit zo moet zijn omdat $R$ niet reflexief
+is (zie opgave 7 van \S5.3).}.
+
+Daartoe kiezen we een labeling $L$ met $L(x) = \{p\}$ en $L(y) = \{\}$ en
+bekijken we of $x \Vdash p \rightarrow \Box \Diamond p$. We zien dat
+$x \Vdash p$, maar $x \not \Vdash \Box \Diamond p$. Er is namelijk een wereld
+$y$ bereikbaar vanuit $x$ met $y \not \Vdash \Diamond p$ (de enige wereld
+bereikbaar vanuit $y$ maakt $p$ niet waar). Hieruit volgt dat
+$p \rightarrow \Box \Diamond p$ niet waar is in $x$ en dus niet geldig in
+$\mathcal{F}$.
+
+\paragraph{}
+
+Gevraagd wordt nu of we een labeling op $\mathcal{F}$ en een wereld in $W$
+kunnen vinden zodat deze wereld $p \rightarrow \Box \Diamond p$ waar maakt. We
+gebruiken dezelfde labeling $L$ als voorheen en bekijken wereld $y$. Hierin
+is $p$ niet waar en dus hebben we gemakkelijk
+$y \Vdash p \rightarrow \Box \Diamond$.
+
+
+\end{document}
