@@ -1,0 +1,61 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bussproofs} % http://math.ucsd.edu/%7Esbuss/ResearchWeb/bussproofs/
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\def\extraVskip{4pt} % Space above and below lines in proof trees
+
+
+\title{Practical Work Week 7\\
+\normalsize{Logical Verification}}
+\author{
+    Martijn Vermaat\\
+    mvermaat@cs.vu.nl
+}
+\date{October 25, 2005}
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{description}
+
+\item{\bf 1.}
+The following derivation of $((A \rightarrow B \rightarrow A) \rightarrow B) \rightarrow B$
+using natural deduction shows that this formula is a tautology of propositional logic.
+
+\begin{prooftree}
+\AxiomC{$[((A \rightarrow B \rightarrow A) \rightarrow B)^{x}]$}
+  \AxiomC{$[A^{y}]$}
+  \RightLabel{$I[\_]\rightarrow$}
+  \UnaryInfC{$B \rightarrow A$}
+  \RightLabel{$I[y]\rightarrow$}
+\UnaryInfC{$A \rightarrow B \rightarrow A$}
+\RightLabel{$E\rightarrow$}
+\BinaryInfC{$B$}
+\RightLabel{$I[x]\rightarrow$}
+\UnaryInfC{$((A \rightarrow B \rightarrow A) \rightarrow B) \rightarrow B$}
+\end{prooftree}
+
+\item{\bf 2.}
+In the type derivation below, we use $\Gamma$ for the singleton $\{x:(A \rightarrow B \rightarrow A) \rightarrow B\}$.
+
+\begin{prooftree}
+\AxiomC{$\Gamma \vdash x \: : \: (A \rightarrow B \rightarrow A) \rightarrow B$}
+  \AxiomC{$\Gamma, y:A, z:B \vdash y \: : \: A$}
+  \UnaryInfC{$\Gamma, y:A \vdash \lambda (z:B) \, . \, y \: : \: B \rightarrow A$}
+\UnaryInfC{$\Gamma \vdash \lambda (y:A) (z:B) \, . \, y \: : \: A \rightarrow B \rightarrow A$}
+\BinaryInfC{$\Gamma \vdash x \, \lambda (y:A) (z:B) \, . \, y \: : \: B$}
+\UnaryInfC{$\vdash \lambda (x:(A \rightarrow B \rightarrow A) \rightarrow B) \, . \, x \, \lambda (y:A) (z:B) \, . \, y
+  \: : \: ((A \rightarrow B \rightarrow A) \rightarrow B) \rightarrow B$}
+\end{prooftree}
+
+\end{description}
+
+
+\end{document}
