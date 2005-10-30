@@ -55,6 +55,22 @@ In the type derivation below, we use $\Gamma$ for the singleton $\{x:(A \rightar
   \: : \: ((A \rightarrow B \rightarrow A) \rightarrow B) \rightarrow B$}
 \end{prooftree}
 
+\item{\bf 4.}
+A natural deduction derivation of $(\forall x . P(x)) \rightarrow \neg \exists y . \neg P(y)$.
+
+\begin{prooftree}
+\
+\BinaryInfC{$P(y) \rightarrow \bottom$}
+  %
+\UnaryInfC{$P(y)$}
+\RightLabel{$E\rightarrow$}
+\BinaryInfC{$\bottom$}
+\RightLabel{$I[y]\rightarrow$}             % \exists y . \neg P(y)
+\UnaryInfC{$\neg \exists y . \neg P(y)$}
+\RightLabel{$I[x]\rightarrow$}             % \forall x . P(x)
+\UnaryInfC{$(\forall x . P(x)) \rightarrow \neg \exists y . \neg P(y)$}
+\end{prooftree}
+
 \end{description}
 
 
