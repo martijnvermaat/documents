@@ -59,15 +59,22 @@ In the type derivation below, we use $\Gamma$ for the singleton $\{x:(A \rightar
 A natural deduction derivation of $(\forall x . P(x)) \rightarrow \neg \exists y . \neg P(y)$.
 
 \begin{prooftree}
-\
-\BinaryInfC{$P(y) \rightarrow \bottom$}
-  %
+\AxiomC{$[\neg P(y)^{u}]$}
+  \AxiomC{$[\forall x . P(x)^{s}]$}
+  \RightLabel{$E\forall$}
 \UnaryInfC{$P(y)$}
 \RightLabel{$E\rightarrow$}
-\BinaryInfC{$\bottom$}
-\RightLabel{$I[y]\rightarrow$}             % \exists y . \neg P(y)
+\BinaryInfC{$\bot$}
+\RightLabel{$I[u]\rightarrow$}             % \neg P(y)
+\UnaryInfC{$\neg \neg P(y)$}
+\RightLabel{$I\forall$}
+\UnaryInfC{$\forall y . \neg \neg P(y)$}
+\AxiomC{$[\exists y . \neg P(y)^{t}]$}
+\RightLabel{$E\exists$}
+\BinaryInfC{$\bot$}
+\RightLabel{$I[t]\rightarrow$}             % \exists y . \neg P(y)
 \UnaryInfC{$\neg \exists y . \neg P(y)$}
-\RightLabel{$I[x]\rightarrow$}             % \forall x . P(x)
+\RightLabel{$I[s]\rightarrow$}             % \forall x . P(x)
 \UnaryInfC{$(\forall x . P(x)) \rightarrow \neg \exists y . \neg P(y)$}
 \end{prooftree}
 
