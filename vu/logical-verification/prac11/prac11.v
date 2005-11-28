@@ -10,6 +10,7 @@ Section examples.
 
 (* exercise 1: examples from the course *)
 
+(*
 Lemma example1: forall a:Prop, (forall b:Prop, b) -> a.
 
 Lemma example2: forall a:Prop, a -> (forall b:Prop, ((a -> b) -> b)).
@@ -22,6 +23,7 @@ Hypothesis classical: forall a:Prop, a \/ ~a.
 Lemma example5: forall a b:Prop, ((a -> b) \/ (b -> a)). 
 
 Abort All.
+*)
 
 End examples.
 
@@ -205,15 +207,13 @@ Definition f (a : Set) (x y : a) := y.
    for negation on new_bool
    and test it on two different inputs *)
 
-(*
 Definition new_not (b: new_bool) :=
-  fun (a:Set) (n m: a) =>
-*)
+  fun (a: Set) (x y: a) => b a y x.
 
-(*
-Definition new_not (b : forall a: Set, a -> a -> a) :=
-  b    f t.
-*)
+Check new_not.
+Print t.
+Eval compute in (new_not f).
+Eval compute in (new_not t).
 
 (* natural numbers *)
 
@@ -232,3 +232,11 @@ Check new_nat.
    give a definition of successor : new_nat -> new_nat
    and check it on two different inputs *)
 
+Definition new_suc (n: new_nat) :=
+  fun (a: Set) (z: a) (s: a->a) => n a (s z) s.
+
+Check new_suc.
+Print one.
+Eval compute in (new_suc zero).
+Print two.
+Eval compute in (new_suc one).
