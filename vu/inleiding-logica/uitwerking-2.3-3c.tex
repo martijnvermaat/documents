@@ -1,0 +1,79 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsthm}
+
+%\renewcommand{\familydefault}{\sfdefault}
+
+
+\title{Uitwerking van opgave 3 c\\
+\normalsize{bij paragraaf 2.3 van Huth\&Ryan}}
+%\date{Martijn Vermaat, 30 november 2005}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{quote}
+  Bewijs dat er geen predikatenlogische formule $\phi$ bestaat zo dat geldt:
+  \begin{equation*}
+    \mathcal{M} \models \phi
+    \quad \Leftrightarrow \quad
+    \text{het domein van $\mathcal{M}$ is eindig}
+  \end{equation*}
+\end{quote}
+
+\begin{proof}
+Stel dat dergelijke $\phi$ wel bestaat. Voor iedere $n \in \mathbb{N}$
+($\geq 1$) is er een model voor $\phi$ met $n$ elementen in het domein. Volgens
+de Skolem-L\"owenheim stelling heeft $\phi$ een model $\mathcal{M}$ met een
+oneindig groot domein. Tegenspraak (de definitie van $\phi$ zegt dat het domein
+van $\mathcal{M}$ eindig is).
+
+Er bestaat dus geen formule $\phi$ volgens bovenstaande definitie.
+\end{proof}
+
+
+\begin{quote}
+  Bewijs dat er ook geen verzameling predikatenlogische formules $\Sigma$
+  bestaat zo dat geldt:
+  \begin{equation*}
+    \mathcal{M} \models \Sigma
+    \quad \Leftrightarrow \quad
+    \text{het domein van $\mathcal{M}$ is eindig}
+  \end{equation*}
+\end{quote}
+
+De Skolem-L\"owenheim stelling wordt in Huth\&Ryan niet gegeven voor het
+algemenere geval van een verzameling formules. Na bestudering van het bewijs bij
+deze stelling kunnen we concluderen dat de stelling net zo goed op gaat voor het
+algemenere geval en eenzelfde bewijs geven als bij de vorige opgave.
+
+Instructiever is wellicht het volgende bewijs met de compactheidsstelling (dat
+overigens ook een bewijs is voor de vorige opgave).
+
+\begin{proof}
+Stel dat dergelijke verzameling $\Sigma$ wel bestaat. De formule
+$\lambda_{n} \overset{\text{\tiny{def}}}{=} \exists x_{1} \ldots \exists x_{n} \bigwedge_{i \ne j} x_{i} \ne x_{j}$
+zegt dat er ten minste $n$ elementen in een model zijn ($n > 1$). Laat
+$\Gamma = \Sigma \cup \{\lambda_{n} | n>1\}$.
+
+We bekijken een willekeurige eindige deelverzameling $\Delta$ van $\Gamma$. Er
+bestaat een $m$ groter dan alle $n$ met $\lambda_{n}$ in $\Delta$ ($\Delta$ is
+immers eindig). Ieder model met ten minste $m$ elementen is nu een model voor
+$\Delta$ (het is immers een model voor $\Sigma$ en voor alle $\lambda_{n}$ in
+$\Delta$).
+
+De compactheidsstelling zegt dat $\Gamma$ een model $\mathcal{M}$ heeft.
+Volgens de formules $\lambda_{n}$ is het domein van $\mathcal{M}$ oneindig
+groot. Maar omdat $\mathcal{M}$ ook een model voor $\Sigma$ is, heeft dit domein
+per definitie van $\Sigma$ eindig veel elementen. Dit is een tegenspraak, dus
+kan de verzameling $\Sigma$ niet bestaan.
+\end{proof}
+
+
+\end{document}
