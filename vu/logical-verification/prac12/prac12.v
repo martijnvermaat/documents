@@ -101,39 +101,49 @@ Parameter classic : forall a : prop, T (not (not a)) -> T a.
 
 (* exercise 4 *)
 
-(*
+
 Lemma pierce : forall a b : prop, T (((a => b) => a) => a).
 
 Proof.
-intro a.
-intro b.
+intros a b.
 apply imp_introduction.
 intro H.
-apply imp_elimination with (a=>b).
+apply classic.
+unfold not.
+apply imp_introduction.
+intro H'.
+apply imp_elimination with a.
+exact H'.
+apply imp_elimination with (a => b).
 exact H.
 apply imp_introduction.
-intro Ha.
-apply imp_elimination with (not a).
-unfold not.
-apply imp_introduction.
-intro Hna.
+intro H''.
 apply botE.
 apply imp_elimination with a.
-exact Hna.
-exact Ha.
-unfold not.
-
-
-apply imp_elimination with a.
-apply imp_introduction.
-intro.
-*)
-
+exact H'.
+exact H''.
+Qed.
 
 (* exercise 5 *)
-(*
+
 Lemma exd : forall a b : prop, T (a => b) -> T (a => not b) -> T (not a).
-*)
+
+Proof.
+intros a b.
+intro H.
+intro H'.
+unfold not.
+apply imp_introduction.
+intro H''.
+apply imp_elimination with b.
+apply imp_elimination with a.
+exact H'.
+exact H''.
+apply imp_elimination with a.
+exact H.
+exact H''.
+Qed.
+
 
 (* exercise 6 *)
 (* complete the following lambda terms *)
