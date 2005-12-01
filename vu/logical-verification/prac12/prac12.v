@@ -124,6 +124,8 @@ exact H'.
 exact H''.
 Qed.
 
+(* I confess I first did the deduction top-down on paper *)
+
 (* exercise 5 *)
 
 Lemma exd : forall a b : prop, T (a => b) -> T (a => not b) -> T (not a).
@@ -215,6 +217,19 @@ Qed.
    you may wish to use 7 *)
 Lemma com : forall n m : nat, plus n m = plus m n.
 
+Proof.
+intros n m.
+induction n.
+
+rewrite <- plus_n_O.
+simpl.
+reflexivity.
+
+rewrite <- plus_n_S.
+simpl.
+rewrite <- IHn.
+reflexivity.
+Qed.
 
 End addition.
 
@@ -240,22 +255,73 @@ Fixpoint length (l : natlist) : nat :=
 Lemma length_append :
  forall k l : natlist, length (append k l) = plus (length k) (length l).
 
+Proof.
+intros k l.
+induction k.
+
+simpl.
+reflexivity.
+
+simpl.
+rewrite <- IHk.
+reflexivity.
+Qed.
 
 (* exercise 10 *)
 (* give a definition of reverse on natlist *)
 
+Fixpoint reverse (l : natlist) : natlist :=
+  match l with
+  | nil => nil
+  | cons h t => append (reverse t) (cons h nil)
+  end.
 
 (* exercise 11 *)
 Lemma append_nil : forall l : natlist, append l nil = l.
 
+Proof.
+intro l.
+induction l.
+
+simpl.
+reflexivity.
+
+simpl.
+rewrite -> IHl.
+reflexivity.
+Qed.
 
 Lemma asso_append :
  forall k l m : natlist, append (append k l) m = append k (append l m).
 
+Proof.
+intros k l m.
+induction k.
+
+simpl.
+reflexivity.
+
+simpl.
+rewrite -> IHk.
+reflexivity.
+Qed.
 
 Lemma rev :
- forall k l : natlist, reverse (append k l) = append (reverse l) (reverse k). 
+ forall k l : natlist, reverse (append k l) = append (reverse l) (reverse k).
 
+Proof.
+intros k l.
+induction k.
+
+simpl.
+rewrite -> append_nil.
+reflexivity.
+
+simpl.
+rewrite -> IHk.
+rewrite -> asso_append.
+reflexivity.
+Qed.
 
 End natlists.
 
@@ -264,5 +330,90 @@ Section polylists.
 (* exercise 12 *) 
 (* do the polymorphic variant of the list development *)
 
+Inductive plist (a:Set) : Set :=
+  | pnil : plist a
+  | pcons : a -> (plist a) -> (plist a). 
+
+Fixpoint pappend (a:Set) (l k : plist a) {struct l} : plist a :=
+  match l with
+  | pnil => k
+  | pcons h t => pcons a h (pappend a t k)
+  end.
+
+Fixpoint plength (a:Set) (l : plist a) {struct l} : nat :=
+  match l with
+  | pnil => 0
+  | pcons n k => S (plength a k)
+  end. 
+
+(* exercise 9 *)
+Lemma plength_pappend :
+ forall (a:Set) (k l : plist a), plength a (pappend a k l) = plus (plength a k) (plength a l).
+
+Proof.
+intros a k l.
+induction k.
+
+simpl.
+reflexivity.
+
+simpl.
+rewrite <- IHk.
+reflexivity.
+Qed.
+
+(* give a definition of preverse on plist *)
+
+Fixpoint preverse (a:Set) (l : plist a) {struct l} : plist a :=
+  match l with
+  | pnil => pnil a
+  | pcons h t => pappend a (preverse a t) (pcons a h (pnil a))
+  end.
+
+Lemma pappend_pnil : forall (a:Set) (l : plist a), pappend a l (pnil a) = l.
+
+Proof.
+intros a l.
+induction l.
+
+simpl.
+reflexivity.
+
+simpl.
+rewrite -> IHl.
+reflexivity.
+Qed.
+
+Lemma asso_pappend :
+ forall (a:Set) (k l m : plist a), pappend a (pappend a k l) m = pappend a k (pappend a l m).
+
+Proof.
+intros a k l m.
+induction k.
+
+simpl.
+reflexivity.
+
+simpl.
+rewrite -> IHk.
+reflexivity.
+Qed.
+
+Lemma prev :
+ forall (a:Set) (k l : plist a), preverse a (pappend a k l) = pappend a (preverse a l) (preverse a k).
+
+Proof.
+intros a k l.
+induction k.
+
+simpl.
+rewrite -> pappend_pnil.
+reflexivity.
+
+simpl.
+rewrite -> IHk.
+rewrite -> asso_pappend.
+reflexivity.
+Qed.
 
 End polylists.
