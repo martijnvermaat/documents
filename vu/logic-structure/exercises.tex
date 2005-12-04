@@ -1,16 +1,31 @@
 \documentclass[a4paper,11pt]{article}
-\usepackage[dutch]{babel}
+\usepackage[english]{babel}
 \usepackage{a4,fullpage}
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{amsthm}
+
+% Some configuration for listings
+\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\newcounter{firstcounter}
+\newcommand{\labelfirst}{(\roman{firstcounter})}
+%\newcommand{\spacingfirst}{\usecounter{firstcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingfirst}{\usecounter{firstcounter}}
+
+\newcounter{secondcounter}
+\newcommand{\labelsecond}{(\arabic{secondcounter})}
+%\newcommand{\spacingsecond}{\usecounter{secondcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingsecond}{\usecounter{secondcounter}}
 
 %\renewcommand{\familydefault}{\sfdefault}
 
 
 \title{Logic and Structure\\
-\normalsize{Solutions to Selected Exercises}}
-%\date{Martijn Vermaat, 30 november 2005}
-\date{}
+\normalsize{Solutions to Selected Exercises (from Fourth Edition)}}
+
+\author{Martijn Vermaat (mvermaat@cs.vu.nl)}
+\date{Updated 5th December 2005}
 
 
 \begin{document}
@@ -24,9 +39,9 @@
 \subsection{Propositions and Connectives}
 
 
-\begin{description}
+\begin{enumerate}
 
-\item{1.}
+\item % 1
 $p_{1}, p_{2}, p_{3}, \neg p_{2}, \neg p_{3}, p_{1} \leftrightarrow p_{2}, p_{3} \vee (p_{1} \leftrightarrow p_{2}),
 \neg p_{2} \rightarrow (p_{3} \vee (p_{1} \leftrightarrow p_{2})),\\
 (\neg p_{2} \rightarrow (p_{3} \vee (p_{1} \leftrightarrow p_{2}))) \wedge \neg p_{3}$.
@@ -39,51 +54,51 @@ $p_{1}, p_{2}, p_{1} \rightarrow p_{2}, (p_{1} \rightarrow p_{2}) \rightarrow p_
 ((p_{1} \rightarrow p_{2}) \rightarrow p_{1}) \rightarrow p_{2},
 (((p_{1} \rightarrow p_{2}) \rightarrow p_{1}) \rightarrow p_{2}) \rightarrow p_{1}$.
 
-\item{2.}
+\item % 2
 Suppose $((\neg \in X$ and $X$ satisfies (i), (ii), and (iii) of Definition
 1.1.2. Now $Y = X - \{((\neg\}$ is smaller than $X$ while still satisfying
 those rules making $X$ not the smallest set satisfying them, hence $((\neg$
 cannot be in $PROP$. (By the same reasoning as in the example on page 8.)
 
-\item{3.}
+\item % 3
 Let $\varphi, \psi$ be formulas. We use induction on $\chi$ to show
 $\varphi \in Sub(\psi) \And \psi \in Sub(\chi) \Rightarrow \varphi \in Sub(\chi)$
 for all $\chi$.
 ($Sub$ as in Definition 1.1.7.)
-\begin{description}
-\item{(i)} $\chi$ is atomic, therefore $Sub(\chi) = \{\chi\}$. Suppose
+\begin{list}{\labelfirst}{\spacingfirst}
+\item $\chi$ is atomic, therefore $Sub(\chi) = \{\chi\}$. Suppose
 $\varphi \in Sub(\psi)$ and $\psi \in \{\chi\}$. Now $\psi = \chi$ and
 $Sub(\psi) = \{\chi\}$. So we also have $\varphi = \chi$ and thus
 $\varphi \in Sub(\chi)$.
 
-\item{(ii)} $\chi = \chi_{1} \square \chi_{2}$. By definition,
+\item $\chi = \chi_{1} \square \chi_{2}$. By definition,
 $Sub(\chi) = Sub(\chi_{1}) \cup Sub(\chi_{2}) \cup \{\chi_{1} \square \chi_{2}\}$.
 Suppose $\varphi \in Sub(\psi)$ and $\psi \in Sub(\chi)$. Now we have three
 cases:
-  \begin{description}
-    \item{(1)} $\psi \in Sub(\chi_{1})$. By induction we may assume
+  \begin{list}{\labelsecond}{\spacingsecond}
+    \item $\psi \in Sub(\chi_{1})$. By induction we may assume
       $\varphi \in Sub(\chi_{1})$. Hence $\varphi \in Sub(\chi)$.
-    \item{(2)} $\psi \in Sub(\chi_{2})$. Like (1).
-    \item{(3)} $\psi = \chi_{1} \square \chi_{2}$. Now $\psi = \chi$
+    \item $\psi \in Sub(\chi_{2})$. Like (1).
+    \item $\psi = \chi_{1} \square \chi_{2}$. Now $\psi = \chi$
       and trivially $\varphi \in Sub(\chi)$.
-  \end{description}
+  \end{list}
 
-\item{(iii)} $\chi = \neg \chi_{1}$. Again by definition,
+\item $\chi = \neg \chi_{1}$. Again by definition,
 $Sub(\chi) = Sub(\chi_{1}) \cup \{\neg \chi_{1}\}$. Suppose $\varphi \in Sub(\psi)$
 and $\psi \in Sub(\chi)$. We have two cases:
-  \begin{description}
-    \item{(1)} $\psi \in Sub(\chi_{1})$. Same as (1) in (ii).
-    \item{(2)} $\psi = \neg \chi_{1}$. Because $\psi = \chi$, also
+  \begin{list}{\labelsecond}{\spacingsecond}
+    \item $\psi \in Sub(\chi_{1})$. Same as (1) in (ii).
+    \item $\psi = \neg \chi_{1}$. Because $\psi = \chi$, also
       $\varphi \in Sub(\chi)$.
-  \end{description}
+  \end{list}
 
-\end{description}
+\end{list}
 
 By the Induction Principle we now have
 $\varphi \in Sub(\psi) \And \psi \in Sub(\chi) \Rightarrow \varphi \in Sub(\chi)$
 for all formulas $\chi$.
 
-\item{4.}
+\item % 4
 Let $\varphi \in Sub(\psi)$ and suppose $\psi_{0}, \ldots, \psi_{n}$ is a
 formation sequence with $\psi_{n} = \psi$. We show
 $\varphi \in \{\psi_{0}, \ldots, \psi_{n}\}$ by induction on $n$:
@@ -92,61 +107,118 @@ $\varphi \in \{\psi_{0}, \ldots, \psi_{n}\}$ by induction on $n$:
 means $\varphi = \psi$ and thus $\varphi \in \{\psi_{0}, \ldots, \psi_{n}\}$.
 
 \item{$n > 0$:} We consider possible structures for $\psi_{n}$:
-  \begin{description}
-    \item{(i)} $\psi_{n}$ is atomic. Same as $n = 0$ case above.
-    \item{(ii)} $\psi = \psi_{a} \square \psi_{b}$. Note that $\psi_{a}$ and
+  \begin{list}{\labelfirst}{\spacingfirst}
+    \item $\psi_{n}$ is atomic. Same as $n = 0$ case above.
+    \item $\psi = \psi_{a} \square \psi_{b}$. Note that $\psi_{a}$ and
       $\psi_{b}$ are in $\{\psi_{0}, \ldots, \psi_{n-1}\}$ (by Definition 1.1.4).
       Let $n_{a}, n_{b}$ be such that $\psi_{n_{a}} = \psi_{a}$ and
       $\psi_{n_{b}} = \psi_{b}$. Also,
       $Sub(\psi) = Sub(\psi_{a}) \cup Sub(\psi_{b}) \cup \{\psi_{a} \square \psi_{b}\}$
       which leaves three cases for $\varphi$:
-        \begin{description}
-          \item{(1)} $\varphi \in Sub(\psi_{a})$. By induction,
+        \begin{list}{\labelsecond}{\spacingsecond}
+          \item $\varphi \in Sub(\psi_{a})$. By induction,
             $\varphi \in \{\psi_{0}, \ldots, \psi_{n_{a}}\}$ and thus
             $\varphi \in \{\psi_{0}, \ldots, \psi_{n}\}$.
-          \item{(2)} $\varphi \in Sub(\psi_{a})$. Same as (1).
-          \item{(3)} $\varphi = \psi_{a} \square \psi_{b}$. Now $\varphi = \psi$,
+          \item $\varphi \in Sub(\psi_{a})$. Same as (1).
+          \item $\varphi = \psi_{a} \square \psi_{b}$. Now $\varphi = \psi$,
             so $\varphi \in \{\psi_{0}, \ldots, \psi_{n}\}$.
-        \end{description}
-    \item{(iii)} $\psi = \neg \psi_{a}$. Analogous to (ii).
-  \end{description}
+        \end{list}
+    \item $\psi = \neg \psi_{a}$. Analogous to (ii).
+  \end{list}
 \end{description}
 
-\item{5.} By induction on $\psi$ we show that $\varphi \in Sub(\psi)$ if $\varphi$ is in a shortest
-  formation sequence of $\varphi$.
-\begin{description}
-\item{(i)} Atomic $\psi$ has a shortest formation sequence $\psi$. If $\varphi$ is
+\item % 5
+By induction on $\psi$ we show that $\varphi \in Sub(\psi)$ if $\varphi$ is in a shortest
+formation sequence of $\varphi$.
+\begin{list}{\labelfirst}{\spacingfirst}
+\item Atomic $\psi$ has a shortest formation sequence $\psi$. If $\varphi$ is
   in this sequence, $\varphi = \psi$ and $\varphi \in Sub(\psi)$ (for
   $Sub(\psi) = \{\psi\}$).
-\item{(ii)} Suppose $\varphi$ is in a shortest formation sequence of $\psi_{0} \square \psi_{1}$, then
+\item Suppose $\varphi$ is in a shortest formation sequence of $\psi_{0} \square \psi_{1}$, then
   clearly $\varphi$ is in a shortest formation sequence of either $\psi_{0}$ or $\psi_{1}$, or
   $\varphi = \psi_{0} \square \psi_{1}$. We consider all three cases:
-  \begin{description}
-    \item{(1)} By induction $\varphi \in Sub(\psi_{0})$. Now,
+  \begin{list}{\labelsecond}{\spacingsecond}
+    \item By induction $\varphi \in Sub(\psi_{0})$. Now,
       $Sub(\psi_{0} \square \psi_{1} = Sub(\psi_{0}) \cup Sub(\psi_{1}) \cup \{\psi_{0} \square \psi_{1}\}$
       and thus $\varphi \in Sub(\psi_{0} \square \psi_{1})$.
-    \item{(2)} Same as case (1).
-    \item{(3)} A formula is always a subformula of itself.
-  \end{description}
-\item{(iii)} Suppose $\varphi$ is in a shortest formation sequence of $\neg \psi$, then $\varphi$ is in
+    \item Same as case (1).
+    \item A formula is always a subformula of itself.
+  \end{list}
+\item Suppose $\varphi$ is in a shortest formation sequence of $\neg \psi$, then $\varphi$ is in
   a shortest formation sequence of $\psi$ or $\varphi = \neg \psi$. The two cases are handled like we did
   in (ii).
-\end{description}
+\end{list}
 
-\item{6.}
+\item % 6
+\begin{enumerate}
+\item % 6a
+We show that $r(\varphi) \leq$ number of occurrences of connectives of $\varphi$ ($c(\varphi)$) by
+induction on $\varphi$:
+  \begin{list}{\labelfirst}{\spacingfirst}
+    \item For atomic $\varphi$, $r(\varphi) = c(\varphi) = 0$.
+    \item Let $r(\varphi_{0}) \leq c(\varphi_{0})$ and $r(\varphi_{1}) \leq c(\varphi_{1})$. Now
+      $r(\varphi_{0} \square \varphi_{1}) = max(r(\varphi_{0}), r(\varphi_{1}) + 1)$ and
+      $c(\varphi_{0} \square \varphi_{1}) = c(\varphi_{0}) + c(\varphi_{1}) + 1)$, so clearly
+      $r(\varphi_{0} \square \varphi_{1}) \leq c(\varphi_{0} \square \varphi_{1})$.
+    \item Like (ii).
+  \end{list}
+\item % 6b
+  $r(\bot) = c(\bot) = 0$, $r(\neg p_{3} \wedge \neg p_{1}) < c(\neg p_{3} \wedge \neg p_{1})$.
+\item % 6c
+  $r((\neg p_{2} \rightarrow (p_{3} \vee (p_{1} \leftrightarrow p_{2}))) \wedge \neg p_{3}) = 4$,\\
+  $r((p_{7} \rightarrow \neg \bot) \leftrightarrow ((p_{4} \leftrightarrow \neg p_{2}) \rightarrow p_{1})) = 4$,\\
+  $r((((p_{1} \rightarrow p_{2}) \rightarrow p_{1}) \rightarrow p_{2}) \rightarrow p_{1}) = 4$.
+\item % 6d
+We use induction on $\psi$ to show $r(\varphi) < r(\psi)$ if $\varphi$ is a proper subformula of $\psi$:
+\begin{list}{\labelfirst}{\spacingfirst}
+\item For atomic $\psi$ there is no proper subformula $\varphi$.
+\item Let $r(\varphi) < r(\psi_{0})$ if $\varphi$ is a proper subformula of $\psi_{0}$,
+  $r(\varphi) < r(\psi_{1})$ if $\varphi$ is a proper subformula of $\psi_{1}$. Now suppose
+  $\varphi$ is a proper subformula of $\psi_{0} \square \psi_{1}$. Then $\varphi$ is a
+  subformula of $\psi_{0}$ or a subformula of $\psi_{1}$. We consider both cases:
+  \begin{list}{\labelsecond}{\spacingsecond}
+    \item $\varphi = \psi_{0}$ or $\varphi$ is a proper subformula of $\psi_{0}$. If the
+      former, $r(\varphi) < r(\psi)$. If the latter, $r(\varphi) < r(\psi_{0})$ by our
+      induction hypothesis, hence again $r(\varphi) < r(\psi)$.
+    \item Analogous to (1).
+  \end{list}
+\item Like (ii).
+\end{list}
+\end{enumerate}
 
-\item{7.}
+\item % 7
+\begin{enumerate}
+\item % 7a
+No energy for trees.
+\item % 7b
+$\neg \neg \neg \bot$,\\
+$(p_{0} \rightarrow \bot) \rightarrow ((p_{0} \leftrightarrow p_{1}) \wedge p_{5})$,\\
+$\neg (\neg p_{1} \rightarrow \neg p_{1})$.
+\end{enumerate}
 
-\item{8.}
+\item % 8
+\begin{enumerate}
+\item % 8a
+\item % 8b
+\item % 8c
+\item % 8d
+\end{enumerate}
 
-\item{9.}
+\item % 9
 
-\item{10.}
+\item % 10
 
-\item{11.}
+\item % 11
 
+\item % 12
+\begin{enumerate}
+\item % 12a
+\item % 12b
+\item % 12c
+\item % 12d
+\end{enumerate}
 
-\end{description}
+\end{enumerate}
 
 
 \subsection{Semantics}
