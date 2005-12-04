@@ -1,0 +1,155 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsthm}
+
+%\renewcommand{\familydefault}{\sfdefault}
+
+
+\title{Logic and Structure\\
+\normalsize{Solutions to Selected Exercises}}
+%\date{Martijn Vermaat, 30 november 2005}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+\section{Propositional Logic}
+
+
+\subsection{Propositions and Connectives}
+
+
+\begin{description}
+
+\item{1.}
+$p_{1}, p_{2}, p_{3}, \neg p_{2}, \neg p_{3}, p_{1} \leftrightarrow p_{2}, p_{3} \vee (p_{1} \leftrightarrow p_{2}),
+\neg p_{2} \rightarrow (p_{3} \vee (p_{1} \leftrightarrow p_{2})),\\
+(\neg p_{2} \rightarrow (p_{3} \vee (p_{1} \leftrightarrow p_{2}))) \wedge \neg p_{3}$.
+
+$p_{1}, p_{2}, p_{4}, p_{7}, \bot, \neg \bot, p_{7} \rightarrow \neg \bot, \neg p_{2}, p_{4} \leftrightarrow \neg p_{2},
+(p_{4} \leftrightarrow \neg p_{2}) \rightarrow p_{1},\\
+(p_{7} \rightarrow \neg \bot) \leftrightarrow ((p_{4} \leftrightarrow \neg p_{2}) \rightarrow p_{1})$.
+
+$p_{1}, p_{2}, p_{1} \rightarrow p_{2}, (p_{1} \rightarrow p_{2}) \rightarrow p_{1},
+((p_{1} \rightarrow p_{2}) \rightarrow p_{1}) \rightarrow p_{2},
+(((p_{1} \rightarrow p_{2}) \rightarrow p_{1}) \rightarrow p_{2}) \rightarrow p_{1}$.
+
+\item{2.}
+Suppose $((\neg \in X$ and $X$ satisfies (i), (ii), and (iii) of Definition
+1.1.2. Now $Y = X - \{((\neg\}$ is smaller than $X$ while still satisfying
+those rules making $X$ not the smallest set satisfying them, hence $((\neg$
+cannot be in $PROP$. (By the same reasoning as in the example on page 8.)
+
+\item{3.}
+Let $\varphi, \psi$ be formulas. We use induction on $\chi$ to show
+$\varphi \in Sub(\psi) \And \psi \in Sub(\chi) \Rightarrow \varphi \in Sub(\chi)$
+for all $\chi$.
+($Sub$ as in Definition 1.1.7.)
+\begin{description}
+\item{(i)} $\chi$ is atomic, therefore $Sub(\chi) = \{\chi\}$. Suppose
+$\varphi \in Sub(\psi)$ and $\psi \in \{\chi\}$. Now $\psi = \chi$ and
+$Sub(\psi) = \{\chi\}$. So we also have $\varphi = \chi$ and thus
+$\varphi \in Sub(\chi)$.
+
+\item{(ii)} $\chi = \chi_{1} \square \chi_{2}$. By definition,
+$Sub(\chi) = Sub(\chi_{1}) \cup Sub(\chi_{2}) \cup \{\chi_{1} \square \chi_{2}\}$.
+Suppose $\varphi \in Sub(\psi)$ and $\psi \in Sub(\chi)$. Now we have three
+cases:
+  \begin{description}
+    \item{(1)} $\psi \in Sub(\chi_{1})$. By induction we may assume
+      $\varphi \in Sub(\chi_{1})$. Hence $\varphi \in Sub(\chi)$.
+    \item{(2)} $\psi \in Sub(\chi_{2})$. Like (1).
+    \item{(3)} $\psi = \chi_{1} \square \chi_{2}$. Now $\psi = \chi$
+      and trivially $\varphi \in Sub(\chi)$.
+  \end{description}
+
+\item{(iii)} $\chi = \neg \chi_{1}$. Again by definition,
+$Sub(\chi) = Sub(\chi_{1}) \cup \{\neg \chi_{1}\}$. Suppose $\varphi \in Sub(\psi)$
+and $\psi \in Sub(\chi)$. We have two cases:
+  \begin{description}
+    \item{(1)} $\psi \in Sub(\chi_{1})$. Same as (1) in (ii).
+    \item{(2)} $\psi = \neg \chi_{1}$. Because $\psi = \chi$, also
+      $\varphi \in Sub(\chi)$.
+  \end{description}
+
+\end{description}
+
+By the Induction Principle we now have
+$\varphi \in Sub(\psi) \And \psi \in Sub(\chi) \Rightarrow \varphi \in Sub(\chi)$
+for all formulas $\chi$.
+
+\item{4.}
+Let $\varphi \in Sub(\psi)$ and suppose $\psi_{0}, \ldots, \psi_{n}$ is a
+formation sequence with $\psi_{n} = \psi$. We show
+$\varphi \in \{\psi_{0}, \ldots, \psi_{n}\}$ by induction on $n$:
+\begin{description}
+\item{$n = 0$:} $\psi$ must be atomic, so $Sub(\psi) = \{\psi\}$. This
+means $\varphi = \psi$ and thus $\varphi \in \{\psi_{0}, \ldots, \psi_{n}\}$.
+
+\item{$n > 0$:} We consider possible structures for $\psi_{n}$:
+  \begin{description}
+    \item{(i)} $\psi_{n}$ is atomic. Same as $n = 0$ case above.
+    \item{(ii)} $\psi = \psi_{a} \square \psi_{b}$. Note that $\psi_{a}$ and
+      $\psi_{b}$ are in $\{\psi_{0}, \ldots, \psi_{n-1}\}$ (by Definition 1.1.4).
+      Let $n_{a}, n_{b}$ be such that $\psi_{n_{a}} = \psi_{a}$ and
+      $\psi_{n_{b}} = \psi_{b}$. Also,
+      $Sub(\psi) = Sub(\psi_{a}) \cup Sub(\psi_{b}) \cup \{\psi_{a} \square \psi_{b}\}$
+      which leaves three cases for $\varphi$:
+        \begin{description}
+          \item{(1)} $\varphi \in Sub(\psi_{a})$. By induction,
+            $\varphi \in \{\psi_{0}, \ldots, \psi_{n_{a}}\}$ and thus
+            $\varphi \in \{\psi_{0}, \ldots, \psi_{n}\}$.
+          \item{(2)} $\varphi \in Sub(\psi_{a})$. Same as (1).
+          \item{(3)} $\varphi = \psi_{a} \square \psi_{b}$. Now $\varphi = \psi$,
+            so $\varphi \in \{\psi_{0}, \ldots, \psi_{n}\}$.
+        \end{description}
+    \item{(iii)} $\psi = \neg \psi_{a}$. Analogous to (ii).
+  \end{description}
+\end{description}
+
+\item{5.} By induction on $\psi$ we show that $\varphi \in Sub(\psi)$ if $\varphi$ is in a shortest
+  formation sequence of $\varphi$.
+\begin{description}
+\item{(i)} Atomic $\psi$ has a shortest formation sequence $\psi$. If $\varphi$ is
+  in this sequence, $\varphi = \psi$ and $\varphi \in Sub(\psi)$ (for
+  $Sub(\psi) = \{\psi\}$).
+\item{(ii)} Suppose $\varphi$ is in a shortest formation sequence of $\psi_{0} \square \psi_{1}$, then
+  clearly $\varphi$ is in a shortest formation sequence of either $\psi_{0}$ or $\psi_{1}$, or
+  $\varphi = \psi_{0} \square \psi_{1}$. We consider all three cases:
+  \begin{description}
+    \item{(1)} By induction $\varphi \in Sub(\psi_{0})$. Now,
+      $Sub(\psi_{0} \square \psi_{1} = Sub(\psi_{0}) \cup Sub(\psi_{1}) \cup \{\psi_{0} \square \psi_{1}\}$
+      and thus $\varphi \in Sub(\psi_{0} \square \psi_{1})$.
+    \item{(2)} Same as case (1).
+    \item{(3)} A formula is always a subformula of itself.
+  \end{description}
+\item{(iii)} Suppose $\varphi$ is in a shortest formation sequence of $\neg \psi$, then $\varphi$ is in
+  a shortest formation sequence of $\psi$ or $\varphi = \neg \psi$. The two cases are handled like we did
+  in (ii).
+\end{description}
+
+\item{6.}
+
+\item{7.}
+
+\item{8.}
+
+\item{9.}
+
+\item{10.}
+
+\item{11.}
+
+
+\end{description}
+
+
+\subsection{Semantics}
+
+
+\end{document}
