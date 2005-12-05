@@ -3,6 +3,13 @@
 \usepackage{a4,fullpage}
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{amsthm}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % Latin modern font family
+\usepackage[specials]{synttree} % http://www.matijs.net/software/synttree/
+
+% Sans-serif fonts
+%\usepackage[T1experimental,lm]{sfmath} % http://dtrx.de/od/tex/sfmath.html
+%\renewcommand{\familydefault}{\sfdefault}
 
 % Some configuration for listings
 \renewcommand{\labelenumi}{\arabic{enumi}.}
@@ -17,8 +24,6 @@
 \newcommand{\labelsecond}{(\arabic{secondcounter})}
 %\newcommand{\spacingsecond}{\usecounter{secondcounter}\setlength{\rightmargin}{\leftmargin}}
 \newcommand{\spacingsecond}{\usecounter{secondcounter}}
-
-%\renewcommand{\familydefault}{\sfdefault}
 
 
 \title{Logic and Structure\\
@@ -155,7 +160,7 @@ formation sequence of $\varphi$.
 We show that $r(\varphi) \leq$ number of occurrences of connectives of $\varphi$ ($c(\varphi)$) by
 induction on $\varphi$:
   \begin{list}{\labelfirst}{\spacingfirst}
-    \item For atomic $\varphi$, $r(\varphi) = c(\varphi) = 0$.
+    \item For atomic $\varphi$, $r(\varphi) = 0$, $c(\varphi) \in \{0,1\}$.
     \item Let $r(\varphi_{0}) \leq c(\varphi_{0})$ and $r(\varphi_{1}) \leq c(\varphi_{1})$. Now
       $r(\varphi_{0} \square \varphi_{1}) = max(r(\varphi_{0}), r(\varphi_{1}) + 1)$ and
       $c(\varphi_{0} \square \varphi_{1}) = c(\varphi_{0}) + c(\varphi_{1}) + 1)$, so clearly
@@ -163,7 +168,7 @@ induction on $\varphi$:
     \item Like (ii).
   \end{list}
 \item % 6b
-  $r(\bot) = c(\bot) = 0$, $r(\neg p_{3} \wedge \neg p_{1}) < c(\neg p_{3} \wedge \neg p_{1})$.
+  $r(\neg p_{6}) = c(\neg p_{6}) = 1$, $r(\neg p_{3} \wedge \neg p_{1}) < c(\neg p_{3} \wedge \neg p_{1})$.
 \item % 6c
   $r((\neg p_{2} \rightarrow (p_{3} \vee (p_{1} \leftrightarrow p_{2}))) \wedge \neg p_{3}) = 4$,\\
   $r((p_{7} \rightarrow \neg \bot) \leftrightarrow ((p_{4} \leftrightarrow \neg p_{2}) \rightarrow p_{1})) = 4$,\\
@@ -188,8 +193,47 @@ We use induction on $\psi$ to show $r(\varphi) < r(\psi)$ if $\varphi$ is a prop
 
 \item % 7
 \begin{enumerate}
-\item % 7a
-No energy for trees.
+\item The trees for the three propositions in exercise 1:\\ % 7a
+\parbox[t]{1.8in}{
+\synttree[$\wedge$
+  [$\rightarrow$
+    [$\neg$[$p_{2}$]]
+    [$\vee$
+      [$p_{3}$]
+      [$\leftrightarrow$[$p_{1}$][$p_{2}$]]
+    ]
+  ]
+  [$\neg$[$p_{3}$]]
+]}
+\parbox[t]{1.8in}{
+\synttree[$\leftrightarrow$
+  [$\rightarrow$
+    [$p_{7}$]
+    [$\neg$[$\bot$]]
+  ]
+  [$\rightarrow$
+    [$\wedge$
+      [$p_{4}$]
+      [$\neg$[$p_{2}$]]
+    ]
+    [$p_{1}$]
+  ]
+]}
+\parbox[t]{1.5in}{
+\synttree[$\rightarrow$
+  [$\rightarrow$
+    [$\rightarrow$
+      [$\rightarrow$
+        [$p_{1}$]
+        [$p_{2}$]
+      ]
+      [$p_{1}$]
+    ]
+    [$p_{2}$]
+  ]
+  [$p_{1}$]
+]}
+
 \item % 7b
 $\neg \neg \neg \bot$,\\
 $(p_{0} \rightarrow \bot) \rightarrow ((p_{0} \leftrightarrow p_{1}) \wedge p_{5})$,\\
@@ -199,6 +243,22 @@ $\neg (\neg p_{1} \rightarrow \neg p_{1})$.
 \item % 8
 \begin{enumerate}
 \item % 8a
+We use induction on $\varphi$ to show that $c(\varphi) + a(\varphi) \leq \#(T(\varphi))$
+($c$ as in exercise 6a, $a(\varphi)$ gives the number of atoms of $\varphi$) given that
+$\varphi$ does not contain $\bot$:
+\begin{list}{\labelfirst}{\spacingfirst}
+\item If $\varphi$ is atomic, $c(\varphi) + a(\varphi) = \#(T(\varphi)) = 1$.
+\item Let $c(\varphi_{0}) + a(\varphi_{0}) \leq \#(T(\varphi_{0}))$ and
+  $c(\varphi_{1}) + a(\varphi_{1}) \leq \#(T(\varphi_{1}))$. Now,
+  $c(\varphi_{0} \square \varphi_{1}) + a(\varphi_{0} \square \varphi_{1}) =
+  c(\varphi_{0}) + c(\varphi_{1}) + 1 + a(\varphi_{0}) + a(\varphi_{1}) - n$ and
+  $\#(T(\varphi_{0} \square \varphi_{1})) = \#(T(\varphi_{0})) + \#(T(\varphi_{1})) + 1$
+  where $n \leq 0$ is the number of atoms occuring in both $\varphi_{0}$ and $\varphi{1}$.
+  This shows
+  $c(\varphi_{0} \square \varphi_{1}) + a(\varphi_{0} \square \varphi_{1}) \leq \#(T(\varphi_{0} \square \varphi_{1}))$.
+\item Like (ii).
+\end{list}
+
 \item % 8b
 \item % 8c
 \item % 8d
