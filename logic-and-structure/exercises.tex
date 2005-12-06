@@ -260,8 +260,34 @@ $\varphi$ does not contain $\bot$:
 \end{list}
 
 \item % 8b
+$\#(Sub(\varphi)) \leq \#(T(\varphi))$ by induction on $\varphi$:
+\begin{list}{\labelfirst}{\spacingfirst}
+\item If $\varphi$ is atomic, $\#(Sub(\varphi)) = \#(T(\varphi)) = 1$.
+\item Let $\#(Sub(\varphi_{0})) \leq \#(T(\varphi_{0}))$ and
+  $\#(Sub(\varphi_{1})) \leq \#(T(\varphi_{1}))$. Now,
+  $\#(Sub(\varphi_{0} \square \varphi_{1})) \leq \#(Sub(\varphi_{0})) + \#(Sub(\varphi_{1})) + 1$
+  and
+  $\#(T(\varphi_{0} \square \varphi_{1})) = \#(T(\varphi_{0})) + \#(T(\varphi_{1})) + 1$.
+  So clearly, $\#(Sub(\varphi_{0} \square \varphi_{1})) \leq \#(T(\varphi_{0} \square \varphi_{1}))$.
+\item $\#(Sub(\varphi)) \leq \#(T(\varphi)) \Rightarrow \#(Sub(\neg \varphi)) \leq \#(T(\neg \varphi))$,
+  since $\#(Sub(\neg \varphi)) = \#(Sub(\varphi)) + 1$ and $\#(T(\neg \varphi)) = \#(T(\varphi)) + 1$.
+\end{list}
+
 \item % 8c
+Notation: $depth(\varphi)$ is the length of a longest branch in $T(\varphi)$. We show $r(\varphi) = depth(\varphi)$
+by induction on the rank of $\varphi$. Let $r(\psi) = depth(\psi)$ for all $\psi$ with $r(\psi) < r(\varphi)$. We
+consider three cases for the structure of $\varphi$:
+\begin{list}{\labelfirst}{\spacingfirst}
+\item $\varphi$ is atomic. $r(\varphi) = depth(\varphi) = 0$.
+\item $\varphi = \varphi_{0} \square \varphi_{1}$ with $r(\varphi_{0}), r(\varphi_{1}) < r(\varphi)$ (from
+  exercise 6d). Now $depth(\varphi) = max(depth(\varphi_{0}), depth(\varphi_{1})) + 1$ and by definition
+  $r(\varphi) = max(r(\varphi_{0}), r(\varphi_{1})) + 1$. This shows $r(\varphi) = depth(\varphi)$.
+\item Like (ii).
+\end{list}
+By the Induction on rank-Principle we have $r(\varphi) = depth(\varphi)$ (for all $\varphi$).
+
 \item % 8d
+
 \end{enumerate}
 
 \item % 9
