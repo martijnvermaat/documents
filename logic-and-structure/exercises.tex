@@ -287,6 +287,18 @@ consider three cases for the structure of $\varphi$:
 By the Induction on rank-Principle we have $r(\varphi) = depth(\varphi)$ (for all $\varphi$).
 
 \item % 8d
+We show $\#(T(\varphi)) \leq 2^{r(\varphi)+1}-1$ by induction on $\varphi$ (no restriction on occurrences of $\bot$):
+\begin{list}{\labelfirst}{\spacingfirst}
+\item If $\varphi$ is atomic, $\#(T(\varphi)) = 1$ and $2^{r(\varphi)+1}-1 = 2^{1}-1 = 1$.
+\item Let $\#(T(\varphi)) \leq 2^{r(\varphi)+1}-1$ and $\#(T(\psi)) \leq 2^{r(\psi)+1}-1$. By definition,
+  $\#(T(\varphi \square \psi)) = \#(T(\varphi)) + \#(T(\psi)) + 1$, so
+  $\#(T(\varphi \square \psi)) \leq  2^{r(\varphi)+1} + 2^{r(\psi)+1} - 2$ and thus
+  $\#(T(\varphi \square \psi)) \leq  2^{max(r(\varphi)+1,r(\psi)+1)+1} - 2$ (by $2^{x} + 2^{y} \leq 2^{max(x,y)+1}$).
+  Now, $2^{r(\varphi \square \psi)+1}-1 = 2^{max(r(\varphi),r(\psi))+2}-1$. Clearly,
+  $\#(T(\varphi \square \psi)) \leq  2^{max(r(\varphi),r(\psi))+2} - 1$.
+\item Like (ii).
+\end{list}
+TODO: Finish with conclusion (using 8a).
 
 \end{enumerate}
 
