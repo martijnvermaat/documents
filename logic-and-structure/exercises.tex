@@ -67,9 +67,10 @@ cannot be in $PROP$. (By the same reasoning as in the example on page 8.)
 
 \item % 3
 Let $\varphi, \psi$ be formulas. We use induction on $\chi$ to show
-$\varphi \in Sub(\psi) \And \psi \in Sub(\chi) \Rightarrow \varphi \in Sub(\chi)$
-for all $\chi$.
-($Sub$ as in Definition 1.1.7.)
+\begin{align*}
+  \varphi \in Sub(\psi) \And \psi \in Sub(\chi) &\Rightarrow \varphi \in Sub(\chi)
+\end{align*}
+for all $\chi$. ($Sub$ as in Definition 1.1.7.)
 \begin{list}{\labelfirst}{\spacingfirst}
 \item $\chi$ is atomic, therefore $Sub(\chi) = \{\chi\}$. Suppose
 $\varphi \in Sub(\psi)$ and $\psi \in \{\chi\}$. Now $\psi = \chi$ and
@@ -109,7 +110,7 @@ formation sequence with $\psi_{n} = \psi$. We show
 $\varphi \in \{\psi_{0}, \ldots, \psi_{n}\}$ by induction on $n$:
 \begin{description}
 \item{$n = 0$:} $\psi$ must be atomic, so $Sub(\psi) = \{\psi\}$. This
-means $\varphi = \psi$ and thus $\varphi \in \{\psi_{0}, \ldots, \psi_{n}\}$.
+means $\varphi = \psi$ and hence we have $\varphi \in \{\psi_{0}, \ldots, \psi_{n}\}$.
 
 \item{$n > 0$:} We consider possible structures for $\psi_{n}$:
   \begin{list}{\labelfirst}{\spacingfirst}
@@ -117,8 +118,10 @@ means $\varphi = \psi$ and thus $\varphi \in \{\psi_{0}, \ldots, \psi_{n}\}$.
     \item $\psi = \psi_{a} \square \psi_{b}$. Note that $\psi_{a}$ and
       $\psi_{b}$ are in $\{\psi_{0}, \ldots, \psi_{n-1}\}$ (by Definition 1.1.4).
       Let $n_{a}, n_{b}$ be such that $\psi_{n_{a}} = \psi_{a}$ and
-      $\psi_{n_{b}} = \psi_{b}$. Also,
-      $Sub(\psi) = Sub(\psi_{a}) \cup Sub(\psi_{b}) \cup \{\psi_{a} \square \psi_{b}\}$
+      $\psi_{n_{b}} = \psi_{b}$. Now,
+      \begin{align*}
+        Sub(\psi) &= Sub(\psi_{a}) \cup Sub(\psi_{b}) \cup \{\psi_{a} \square \psi_{b}\}
+      \end{align*}
       which leaves three cases for $\varphi$:
         \begin{list}{\labelsecond}{\spacingsecond}
           \item $\varphi \in Sub(\psi_{a})$. By induction,
@@ -162,7 +165,7 @@ induction on $\varphi$:
   \begin{list}{\labelfirst}{\spacingfirst}
     \item For atomic $\varphi$, $r(\varphi) = 0$, $c(\varphi) \in \{0,1\}$.
     \item Let $r(\varphi_{0}) \leq c(\varphi_{0})$ and $r(\varphi_{1}) \leq c(\varphi_{1})$. Now
-      $r(\varphi_{0} \square \varphi_{1}) = max(r(\varphi_{0}), r(\varphi_{1}) + 1)$ and
+      $r(\varphi_{0} \square \varphi_{1}) = \text{max}(r(\varphi_{0}), r(\varphi_{1}) + 1)$ and
       $c(\varphi_{0} \square \varphi_{1}) = c(\varphi_{0}) + c(\varphi_{1}) + 1)$, so clearly
       $r(\varphi_{0} \square \varphi_{1}) \leq c(\varphi_{0} \square \varphi_{1})$.
     \item Like (ii).
@@ -194,7 +197,7 @@ We use induction on $\psi$ to show $r(\varphi) < r(\psi)$ if $\varphi$ is a prop
 \item % 7
 \begin{enumerate}
 \item The trees for the three propositions in exercise 1:\\ % 7a
-\parbox[t]{1.8in}{
+\parbox[t]{1.7in}{
 \synttree[$\wedge$
   [$\rightarrow$
     [$\neg$[$p_{2}$]]
@@ -205,7 +208,7 @@ We use induction on $\psi$ to show $r(\varphi) < r(\psi)$ if $\varphi$ is a prop
   ]
   [$\neg$[$p_{3}$]]
 ]}
-\parbox[t]{1.8in}{
+\parbox[t]{1.75in}{
 \synttree[$\leftrightarrow$
   [$\rightarrow$
     [$p_{7}$]
@@ -219,7 +222,7 @@ We use induction on $\psi$ to show $r(\varphi) < r(\psi)$ if $\varphi$ is a prop
     [$p_{1}$]
   ]
 ]}
-\parbox[t]{1.5in}{
+\parbox[t]{1.6in}{
 \synttree[$\rightarrow$
   [$\rightarrow$
     [$\rightarrow$
@@ -250,12 +253,16 @@ $\varphi$ does not contain $\bot$:
 \item If $\varphi$ is atomic, $c(\varphi) + a(\varphi) = \#(T(\varphi)) = 1$.
 \item Let $c(\varphi_{0}) + a(\varphi_{0}) \leq \#(T(\varphi_{0}))$ and
   $c(\varphi_{1}) + a(\varphi_{1}) \leq \#(T(\varphi_{1}))$. Now,
-  $c(\varphi_{0} \square \varphi_{1}) + a(\varphi_{0} \square \varphi_{1}) =
-  c(\varphi_{0}) + c(\varphi_{1}) + 1 + a(\varphi_{0}) + a(\varphi_{1}) - n$ and
-  $\#(T(\varphi_{0} \square \varphi_{1})) = \#(T(\varphi_{0})) + \#(T(\varphi_{1})) + 1$
+  \begin{align*}
+    c(\varphi_{0} \square \varphi_{1}) + a(\varphi_{0} \square \varphi_{1}) &=
+    c(\varphi_{0}) + c(\varphi_{1}) + 1 + a(\varphi_{0}) + a(\varphi_{1}) - n \quad \text{and}\\
+    \#(T(\varphi_{0} \square \varphi_{1})) &= \#(T(\varphi_{0})) + \#(T(\varphi_{1})) + 1,
+  \end{align*}
   where $n \leq 0$ is the number of atoms occuring in both $\varphi_{0}$ and $\varphi{1}$.
   This shows
-  $c(\varphi_{0} \square \varphi_{1}) + a(\varphi_{0} \square \varphi_{1}) \leq \#(T(\varphi_{0} \square \varphi_{1}))$.
+  \begin{align*}
+    c(\varphi_{0} \square \varphi_{1}) + a(\varphi_{0} \square \varphi_{1}) &\leq \#(T(\varphi_{0} \square \varphi_{1})).
+  \end{align*}
 \item Like (ii).
 \end{list}
 
@@ -265,23 +272,36 @@ $\#(Sub(\varphi)) \leq \#(T(\varphi))$ by induction on $\varphi$:
 \item If $\varphi$ is atomic, $\#(Sub(\varphi)) = \#(T(\varphi)) = 1$.
 \item Let $\#(Sub(\varphi_{0})) \leq \#(T(\varphi_{0}))$ and
   $\#(Sub(\varphi_{1})) \leq \#(T(\varphi_{1}))$. Now,
-  $\#(Sub(\varphi_{0} \square \varphi_{1})) \leq \#(Sub(\varphi_{0})) + \#(Sub(\varphi_{1})) + 1$
-  and
-  $\#(T(\varphi_{0} \square \varphi_{1})) = \#(T(\varphi_{0})) + \#(T(\varphi_{1})) + 1$.
-  So clearly, $\#(Sub(\varphi_{0} \square \varphi_{1})) \leq \#(T(\varphi_{0} \square \varphi_{1}))$.
-\item $\#(Sub(\varphi)) \leq \#(T(\varphi)) \Rightarrow \#(Sub(\neg \varphi)) \leq \#(T(\neg \varphi))$,
-  since $\#(Sub(\neg \varphi)) = \#(Sub(\varphi)) + 1$ and $\#(T(\neg \varphi)) = \#(T(\varphi)) + 1$.
+  \begin{align*}
+    \#(Sub(\varphi_{0} \square \varphi_{1})) &\leq \#(Sub(\varphi_{0})) + \#(Sub(\varphi_{1})) + 1 \quad \text{and}\\
+    \#(T(\varphi_{0} \square \varphi_{1})) &= \#(T(\varphi_{0})) + \#(T(\varphi_{1})) + 1.
+  \end{align*}
+  So clearly $\#(Sub(\varphi_{0} \square \varphi_{1})) \leq \#(T(\varphi_{0} \square \varphi_{1}))$.
+\item $\#(Sub(\neg \varphi)) = \#(Sub(\varphi)) + 1$ and $\#(T(\neg \varphi)) = \#(T(\varphi)) + 1$, so
+  \begin{align*}
+    \#(Sub(\varphi)) \leq \#(T(\varphi)) &\Rightarrow \#(Sub(\neg \varphi)) \leq \#(T(\neg \varphi)).
+  \end{align*}
 \end{list}
 
 \item % 8c
-Notation: $depth(\varphi)$ is the length of a longest branch in $T(\varphi)$. We show $r(\varphi) = depth(\varphi)$
+Notation: $depth(\varphi)$ is the length of a longest branch in $T(\varphi)$. We show
+\begin{align*}
+  r(\varphi) &= depth(\varphi)
+\end{align*}
 by induction on the rank of $\varphi$. Let $r(\psi) = depth(\psi)$ for all $\psi$ with $r(\psi) < r(\varphi)$. We
 consider three cases for the structure of $\varphi$:
 \begin{list}{\labelfirst}{\spacingfirst}
 \item $\varphi$ is atomic. $r(\varphi) = depth(\varphi) = 0$.
 \item $\varphi = \varphi_{0} \square \varphi_{1}$ with $r(\varphi_{0}), r(\varphi_{1}) < r(\varphi)$ (from
-  exercise 6d). Now $depth(\varphi) = max(depth(\varphi_{0}), depth(\varphi_{1})) + 1$ and by definition
-  $r(\varphi) = max(r(\varphi_{0}), r(\varphi_{1})) + 1$. This shows $r(\varphi) = depth(\varphi)$.
+  exercise 6d). Now
+  \begin{align*}
+    depth(\varphi) &= \text{max}(depth(\varphi_{0}), depth(\varphi_{1})) + 1
+  \end{align*}
+  and by definition
+  \begin{align*}
+    r(\varphi) &= \text{max}(r(\varphi_{0}), r(\varphi_{1})) + 1.
+  \end{align*}
+  This shows $r(\varphi) = depth(\varphi)$.
 \item Like (ii).
 \end{list}
 By the Induction on rank-Principle we have $r(\varphi) = depth(\varphi)$ (for all $\varphi$).
@@ -291,15 +311,25 @@ We show $\#(T(\varphi)) \leq 2^{r(\varphi)+1}-1$ by induction on $\varphi$ (no r
 \begin{list}{\labelfirst}{\spacingfirst}
 \item If $\varphi$ is atomic, $\#(T(\varphi)) = 1$ and $2^{r(\varphi)+1}-1 = 2^{1}-1 = 1$.
 \item Let $\#(T(\varphi)) \leq 2^{r(\varphi)+1}-1$ and $\#(T(\psi)) \leq 2^{r(\psi)+1}-1$. By definition,
-  $\#(T(\varphi \square \psi)) = \#(T(\varphi)) + \#(T(\psi)) + 1$, so
-  $\#(T(\varphi \square \psi)) \leq  2^{r(\varphi)+1} + 2^{r(\psi)+1} - 2$ and thus
-  $\#(T(\varphi \square \psi)) \leq  2^{max(r(\varphi)+1,r(\psi)+1)+1} - 2$ (by $2^{x} + 2^{y} \leq 2^{max(x,y)+1}$).
-  Now, $2^{r(\varphi \square \psi)+1}-1 = 2^{max(r(\varphi),r(\psi))+2}-1$. Clearly,
-  $\#(T(\varphi \square \psi)) \leq  2^{max(r(\varphi),r(\psi))+2} - 1$.
+  \begin{align*}
+    \#(T(\varphi \square \psi)) &= \#(T(\varphi)) + \#(T(\psi)) + 1.
+    \end{align*}
+  Therefore
+  \begin{align*}
+    \#(T(\varphi \square \psi)) &\leq  2^{r(\varphi)+1} + 2^{r(\psi)+1} - 2
+    \end{align*}
+  and thus, by $2^{x} + 2^{y} \leq 2^{\text{max}(x,y)+1}$,
+  \begin{align*}
+    \#(T(\varphi \square \psi)) &\leq  2^{\text{max}(r(\varphi)+1,r(\psi)+1)+1} - 2.
+  \end{align*}
+  Now,
+  \begin{align*}
+    2^{r(\varphi \square \psi)+1}-1 &= 2^{\text{max}(r(\varphi),r(\psi))+2}-1.
+  \end{align*}
+  Clearly, $\#(T(\varphi \square \psi)) \leq  2^{r(\varphi \square \psi)+1}-1$.
 \item Like (ii).
 \end{list}
-TODO: Finish with conclusion (using 8a).
-
+Using the result from 8c we have $c(\varphi) + a(\varphi) \leq 2^{r(\varphi)+1}-1$ for $\varphi$ not containing $\bot$.
 \end{enumerate}
 
 \item % 9
