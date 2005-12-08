@@ -333,17 +333,51 @@ Using the result from 8c we have $c(\varphi) + a(\varphi) \leq 2^{r(\varphi)+1}-
 \end{enumerate}
 
 \item % 9
+We show $\#(Sub(\varphi)) \leq 2 c(\varphi) + 1$ ($c$ as in exercise 6a) by induction on the rank of $\varphi$.
+Assume $\#(Sub(\psi)) \leq 2 c(\psi) + 1$ for all $\psi$ with $r(\psi) < r(\varphi)$. We consider the structure
+of $\varphi$ by case:
+\begin{list}{\labelfirst}{\spacingfirst}
+\item $\varphi$ is atomic. $\#(Sub(\varphi)) = 1$ and $2 c(\varphi) + 1 \geq 1$.
+\item $\varphi = \varphi_{0} \square \varphi_{1}$. Now,
+  \begin{align*}
+    \#(Sub(\varphi)) &\leq \#(Sub(\varphi_{0})) + \#(Sub(\varphi_{1})) + 1 \quad \text{and}\\
+    c(\varphi) &= c(\varphi_{0}) + c(\varphi_{1}) + 1.
+  \end{align*}
+  So, by our assumption,
+  \begin{align*}
+    \#(Sub(\varphi)) &\leq 2 c(\varphi_{0}) + 1 + 2 c(\varphi_{1}) + 1 + 1\\
+                     &\leq 2 (c(\varphi_{0}) + c(\varphi_{1}) + 1) + 1\\
+                     &\leq 2 c(\varphi) + 1.
+  \end{align*}
+\item Like (ii).
+\end{list}
+By the Induction on rank-Principle $\#(Sub(\varphi)) \leq 2 c(\varphi) + 1$ holds.
 
 \item % 10
+We have to show
+\begin{align*}
+  \sigma \in PROP \quad &\Longrightarrow \quad \sigma = \varphi \square \psi \quad \text{or} \quad \sigma = \neg \varphi
+  \quad \text{(and not both), for $\varphi, \psi \in PROP$.}
+\end{align*}
+\begin{list}{\labelfirst}{\spacingfirst}
+\item
+Assume there is a set $X$ conforming to (i)-(iii) of Definition 1.1.2 with $\sigma \in X$ and
+$\sigma \not = \varphi \square \psi$ and $\sigma \not = \neg \varphi$ for any $\varphi, \psi \in PROP$.
+Conjecture: the set $X' = X - \{\sigma\}$ is smaller than $X$ while still conforming to the
+same rules (i)-(iii).
+TODO: work this out.
+\item
+Consider a proposition $\sigma \in PROP$. From Definition 1.1.2 it follows directly that
+$\sigma = \varphi \square \psi = \neg \chi$ cannot be true (think about the brackets we
+ommit by convention but are acutally still there).
+\end{list}
 
 \item % 11
-
-\item % 12
 \begin{enumerate}
-\item % 12a
-\item % 12b
-\item % 12c
-\item % 12d
+\item % 11a
+\item % 11b
+\item % 11c
+\item % 11d
 \end{enumerate}
 
 \end{enumerate}
