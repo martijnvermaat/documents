@@ -28,4 +28,9 @@ Some ideas for future projects when I am bored:
 
 * Subversion client integration in Nautilus
 
+* Think better about licensing of my projects... I now use new BSD License
+  (equivalent to MIT/X11), but isn't it actually required to include the
+  entire license text with the project instead of only refering to an
+  online copy?
+
 * Still time left...
