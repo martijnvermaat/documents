@@ -1,0 +1,117 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4}
+\usepackage{latexsym}
+\usepackage[
+    colorlinks,
+    pdftitle={Design Document Assembler Assignment 3},
+    pdfsubject={Assembler Programmeren Practicum},
+    pdfauthor={Martijn Vermaat}
+]{hyperref}
+
+\title{Design Document Assembler Assignment 3}
+\author{
+    Martijn Vermaat (Partner: Laurens Bronwasser)
+}
+\date{2nd February 2004}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The third and last assignment for the Assembler Programmeren Practicum was the implementation of a memory pagina system. A small core memory has to act as a cache for a much larger virtual memory, which ultimately is stored in the file system. In this document I describe in some detail the working of the original program, and the changes we made to satisfy the assignment objectives.
+\end{abstract}
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+
+Some code was given for this assignment, such as code to read and write a page from the virtual memory file in the file system. The aim of the assignment is to implement a full memory paging system.
+
+The virtual memory space consists of 256 pages, each 256 bytes. The small core memory can contain 16 pages and the file in the filesystem of course has to contain all 256 pages. In order to implement the paging system, code has to be written to check if a given page is in the core memory, to load a page in the core memory, and to store a page in the virtual memory file.
+
+The memory system can be operated by a sequence of read and write commands. Both have to include an address in the virtual memory space to read from or write to, and in addition a write command contains a byte to write. So some code has to be written to read and execute these commands.
+
+
+\section{Code structure}
+
+\subsection{Main operation}
+
+The total of 256 pages are ultimately stored in a file named \emph{mempager.mem}. For the core memory, a space of 4096 bytes is reserved and labeled \verb|cormem|.
+
+On a read action, it has to be checked if the requested byte is in core memory. If it is, we have to know at what page in order to read it. If it isn't, we should read the byte--and in fact the entire page--from the filesystem and store it in the core memory. Storing in the core memory can mean we have to remove another page from it (we use a \emph{first in first out} algorithm to determine what page has to be removed next).
+
+A lot of this also holds for write actions--the page has to be in core memory, or it should be loaded in core memory. On a write, we only change te value of the requested byte in core memory, not in the virtual memory file (so it is not a \emph{write through} system). This, of course, makes write operations faster and easier, but the changed byte has to be written to disk eventually. So on every removal of a page from core memory, we have to check if the page has been changed (it is then called \emph{dirty}), and if it is, we have to write it back to the memory file. Also, before terminating the entire program, all dirty pages still in core memory have to be written back to disk.
+
+\subsection{Bookkeeping}
+
+There's no other way of being able to check what pages are in core memory and where than to maintain some tables with information on the various pages. In fact, it is easiest to have two tables. The first table, labeled \verb|filtab|, contains a byte for each virtual memory page (that's 256 entries) containing information on whether or not the page is in core memory, at what page it is in core memory, if it is dirty, and if it has ever been used at all.
+
+The second table is labeled \verb|cortab| and contains a byte for each page in core memory (that's 16 entries). Each byte has the virtual page number that's stored at that location in core memory.
+
+So given these two tables and some bookkeeping to make sure they always reflect the current status of the core memory, we can reason in two ways. First, given a virtual page number we know if it is in core memory and where. Second, given a core memory page number we know what virtual page is stored there. With this, we have all ingredients for a simple memory paging system.
+
+
+\section{Changes we made}
+
+\subsection{Reading the input}
+
+All read and write operations to execute are given on standard input. To know what to do with what location in memory, we have to analyse every line of input. We added a procedure labeled \verb|rd_line|. The virtual memory address is stored at label \verb|octal_buf| (in octal, as it was in the input), a `r' or `w' character is stored at label \verb|current_op| to indicate a write or a read operation, and in case of a write operation, the definition of the byte to write is stored at label \verb|write_buf|.
+
+After the entire input line has been read, the next step is to transform the virtual address which is now stored in octal format at \verb|octal_buf|. The procedure \verb|convert_octal_address| does this by using the \verb|sscanf| system call.
+
+\subsection{Read operations}
+
+When a read operation has been analysed, the \verb|execute_read| procedure is called. We read \verb|filtab| to check if the page we need is in core memory. If it isn't, we call \verb|load_page| after which the page should be loaded in core memory. Now we fetch the requested byte from the core memory and print it. Actually, before printing, we check if the character for this \emph{ASCII} code is printable and replace it by a `.' if it isn't.
+
+\subsection{Write operations}
+
+Write operations are not much harder. First we read \verb|filtab| to check if the page we have to write is in core memory. If it isn't, we make sure it will be by calling \verb|load_page|, just as we do for a read operation. Then, we can store the byte in the core memory. We do have te be sure to also set the dirty flag for this virtual page in \verb|filtab|. This is all there is for a write.
+
+Well, almost. Just before executing the write operation, we make sure the input byte is converted if it was entered on the input line as an octal \emph{ASCII} code or as a character shorthand. This is not the most interresting part of the assignment, so I will not discuss this in further detail.
+
+\subsection{Loading pages from disk}
+
+I will now describe the above mentioned \verb|load_page| procedure. When a page has to be loaded into the core memory, some other page may have to be removed. A variable labeled \verb|current_loser| contains the number of the next page to be removed from core memory. So \verb|current_loser| loops from 0 to 15 and starts looping from 0 again (implementing the \emph{first in first out} algorithm). So the entry in core memory pointed to by \verb|current_loser| gets replaced by the page we want to load in memory. After that, \verb|filtab| will be updated to reflect these changes. But before, the dirty flag of the `to-be-replaced' entry is checked, and if it is set, the \verb|write_back_page| procedure is called to make sure every change in this page is done also in the virtual memory file.
+
+\subsection{Writing pages back to disk}
+
+The \verb|write_back_page| procedure reads \verb|cortab| to find the virtual page number of the core memory page number in \verb|current_loser|. With this virtual page number, the core memory page can be written to the correct location in the virtual memory file.
+
+\subsection{Statistics}
+
+In the end, the program has to come up with some statistics. The procedure \verb|print_stats| prints all virtual page addresses that were ever used and in addition if they were in core memory just before the program stopped and at what core memory page they were last loaded. All this can be found in the \verb|filtab| table.
+
+After this, the number of read and write operations executed are printed. Then the number of pages that went dirty and finally the number pages loaded in core memory are printed. For these four numbers, seperate counters are maintained in memory.
+
+
+\section{Design decisions}
+
+\subsection{A two-way bookkeeping system}
+
+All information on the current status of the core memory can be stored in one table, in this case \verb|filtab|. The decision to use a second table, \verb|cortab|, is purely one for convenience reasons. It would be somewhat slower and a lot more work to find the virtual page number for a given core page number without using the second table. Also, the assignment introduction advocates the use of the \verb|cortab| table, so this wasn't really a hard decision to take.
+
+\subsection{Write-through}
+
+We could have used a write-through approach on writing to memory. In that case, on every read operation the virtual memory file would have to be changed. This would of course be a lot slower. Also, the assignment text suggested updating the virtual memory file only at the latest possible moment, so we choose to do that instead.
+
+The downside of the approach taken, is the extra bookkeeping that is required. We have to keep track of what pages are dirty. Another thing is that when a page is dirty and has to be replaced, we also have to write it back to the virtual memory file. This also has to be done at before termination of the program.
+
+
+\section{Problems we encountered}
+
+The tracer gave us some problems to worry about. It turned out no labels longer than 8 characters could be used without problems in the tracer, but it took some time before we found what it was that went wrong. We changed the names of some labels a number of times, after which it sometimes worked, but sometimes didn't.
+
+A second problem was caused by Windows style end of lines. All programming was done on UNIX, but as we later found out, the given memory file and input file had Windows style end of lines. For the input file this wasn't a real problem, it was obvious in a few seconds. But for the memory file, we didn't expect this, and it meant an extra 4 characters were put in every page (effectively shifting all content up 4 bytes from every page). Eventually, we tracked down the source of the problem.
+
+
+\section{Errors tested for}
+
+Testing the problem has of course been done by running the example input commands through it. We compared the program's output with the output we saw from some of our classmates. This was a great help.
+
+For tracking down errors in the virtual memory file, the UNIX \verb|diff| program was of much use.
+
+
+\end{document}
