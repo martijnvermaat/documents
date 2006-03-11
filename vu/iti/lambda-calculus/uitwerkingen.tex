@@ -28,7 +28,7 @@
 \title{Inleiding Theoretische Informatica -- Lambda Calculus\\
 \normalsize{Uitwerkingen van geselecteerde opgaven}}
 \author{Martijn Vermaat (mvermaat@cs.vu.nl)}
-\date{10 maart 2006}
+\date{11 maart 2006}
 
 
 \begin{document}
@@ -43,11 +43,12 @@
 
 
 \item[2.]
-$\lambda x. \lambda y. \texttt{0}$ of $\lambda xy. \texttt{0}$
+Een functie die twee inputs neemt en ze afbeelt op de constante $\textsf{0}$ is
+$\lambda x. \lambda y. \textsf{0}$ of $\lambda xy. \textsf{0}$.
 
 
 \item[3.]
-
+Met alle haakjes en alle $\lambda$'s.
 \begin{enumerate}
 
 \item
@@ -57,7 +58,7 @@ $( \, (\lambda x. (\lambda y. (x \, (y \, z)))) \quad (\lambda x. ((y \, x) \, x
 
 
 \item[4.]
-
+Met zo min mogelijk haakjes.
 \begin{enumerate}
 
 \item[(b)]
@@ -67,7 +68,7 @@ $(\lambda x. x) \quad (\lambda x. \lambda y. x \, y \, y) \quad \lambda x. \lamb
 
 
 \item[7.]
-
+Zijn de termen $\alpha$-convertibel?
 \begin{enumerate}
 
 \item[(a)] Nee.
@@ -79,7 +80,7 @@ $(\lambda x. x) \quad (\lambda x. \lambda y. x \, y \, y) \quad \lambda x. \lamb
 
 
 \item[8.]
-
+Termen na uitvoeren van de substituties.
 \begin{enumerate}
 
 \item[(b)] $(\lambda x. \textsf{mul} \, x \, y)$
@@ -92,7 +93,8 @@ $(\lambda x. x) \quad (\lambda x. \lambda y. x \, y \, y) \quad \lambda x. \lamb
 
 
 \item[10.]
-
+De termen worden gereduceerd naar normaalvorm en $\beta$-redexen zijn steeds
+onderstreept.
 \begin{enumerate}
 
 \item[(a)]
@@ -145,8 +147,9 @@ $\underline{(\lambda y. \textsf{mul} \, 3 \, y) \; 7}
 \item[2.]
 
 \begin{enumerate}
-
 \item[(a)]
+Een reductierij volgens de leftmost-innermost strategie. Er is steeds maar \'e\'en redex,
+dus is er geen verschil met het toepassen van bijvoorbeeld de leftmost-outermost strategie.
 \begin{align*}
   (\lambda x. x \, x \, x) \quad \lambda x. x \, x \, x
   & \quad \rightarrow_{\beta} \quad
@@ -180,6 +183,7 @@ We vinden in dit geval geen normaalvorm, dus heeft deze term geen normaalvorm.
 \begin{enumerate}
 
 \item
+Een specificatie voor de operatie \emph{exclusive or}.
 \begin{align*}
   \textsf{xor} \, \textsf{true} \, \textsf{true} \quad & =_{\beta} \quad \textsf{false}\\
   \textsf{xor} \, \textsf{true} \, \textsf{false} \quad & =_{\beta} \quad \textsf{true}\\
@@ -188,9 +192,14 @@ We vinden in dit geval geen normaalvorm, dus heeft deze term geen normaalvorm.
 \end{align*}
 
 \item
+Een mogelijke definitie voor de \emph{exclusive or} operatie als $\lambda$-term.
+Volg de tip bij de vraag op voor een idee hoe te beginnen aan deze definitie.\\
 $\textsf{xor} \, := \, \lambda a b. b \, (a \, \textsf{false} \, \textsf{true}) \, (a \, \textsf{true} \, \textsf{false})$
 
 \item
+Een afleiding voor de tweede regel van de specificatie bij (a). We vullen de definities
+van $\textsf{xor}$, $\textsf{true}$ en $\textsf{false}$ in en laten zien dat de term
+reduceert naar $\textsf{true}$.
 \begin{align*}
   \textsf{xor} \, \textsf{true} \, \textsf{false}
   & \quad = \quad
