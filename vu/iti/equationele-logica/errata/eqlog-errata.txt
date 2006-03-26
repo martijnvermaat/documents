@@ -1,0 +1,97 @@
+Errata voor het dictaat ITI - Deel 1: Equationele logica
+
+6 maart 2005
+
+Helaas kan ik het alleen over paragrafen en bladzijdenummers
+hebben in de PDF versie en niet over regelnummers in de brontekst.
+
+
+Algemene notities:
+
+Woorden worden af en toe verkeerd afgebroken aan het eind van een
+regel. Waarschijnlijk gebruikt LaTeX geen Nederlandse definities
+voor het afbreken. Zelf gebruik ik hiervoor het package babel met
+als parameter dutch: \usepackage[dutch]{babel}.
+
+Is het 'constanten' of 'constantes'? Beiden worden gebruikt, maar
+meestal de laatste.
+
+
+Notities bij de tekst:
+
+Voorbeeld 2.10: Vergelijkingen hebben dezelfde naam (ook 2.11).
+Voorbeeld 2.10: In ASF wordt geen : gebruikt in de declaratie van
+                vergelijkingen (ook 2.11).
+Voorbeeld 2.10: In de tweede vergelijking staat 'plus' ipv 'add'.
+Voorbeeld 2.12: Geen : bij declaratie van vergelijkingen.
+Voorbeeld 2.12: Sluitingshaakje te weinig bij [B5].
+Voorbeeld 2.12: Suggestie: voeg not(not(x))=x toe (en dan ook in
+                specificatie NatBool.
+Voorbeeld 2.13: Aankondigende zin mist 'we': "in deze paragraaf
+                geven WE de volgende specificatie".
+Definitie 3.1: In het terzijde blokje: 'substituti' ipv
+               'substitutie' en bij de voorbeeld substitutie
+               wordt twee keer een sluitingshaakje vergeten.
+Voorbeeldafleiding: De af te leiden vergelijking mist een
+                    sluitingshaakje. Ook in de zin "Daartoe ..."
+                    mist de vergelijking een sluitingshaakje.
+Definitie 4.1: In de sigma algebra wordt 'sigma' gebruikt ipv A
+               als drager.
+Voorbeeld 4.3: Eerste zin: 'Boolean' moet zijn 'Booleans'.
+Voorbeeld 4.4: Ongeveer middenin: 'stack' en 'data' wordt een
+               keer verkeerd om gebruikt, in de zin: "de functie
+               die bij een term van soort DATA (..) en een term
+               van soort STACK (..)".
+Voorbeeld 4.5: Laatste zin: sluitingshaakje vergeten bij de
+               algebra definitie.
+Definitie 4.7: Waarom wordt clausule 1 uit de definitie niet
+               weggelaten? In wezen is er toch geen verschil
+               tussen constanten en functiesymbolen.
+Inleiding hfst 6: 'bestaan' moet weggelaten worden uit: "... van
+                  die modellen voor de specificatie (BESTAAN) die
+                  onze voorkeur hebben."
+Voorbeeld 6.3: Derde zin: een keer 'geldt' te veel: "... voor elke
+               gesloten term (GELDT) t geldt".
+Voorbeeld 6.4: Specificatie: Bij de equations wordt geen ':'
+               gebruikt in ASF.
+Voorbeeld 6.4: Specificatie: Sluitingshaakje vergeten in [T2].
+Voorbeeld 6.4: Plaatje van equivalentieklassen: twee keer een
+               sluitingshaakje vergeten (in de tweede en derde
+               klassen).
+Voorbeeld 7.3: Drie zinnen eerder: 'de' ontbreekt in: "... idee te
+               krijgen van DE structuur van de initiele ...".
+Voorbeeld 7.3: Bij interpretatie van succ is een sluitingshaakje
+               kwijtgeraakt dat op wonderbaarlijke wijze weer te
+               voorschijn komt aan de andere kant van de =.
+
+
+Notities bij opgaven:
+
+Opgave 3.2a: Kan niet zonder toevoeging van een vergelijking aan
+             de specificatie (bijv not(not(x))=x).
+Opgave 4.1b en c: N en Z zouden hier net als bij a even in een
+                  ander lettertype moeten (mathfrak).
+Opgave 4.6c: Even een \ voor Iso zetten.
+Opgave 4.7a: Drager D heeft elementen de en do (in plaats van d1
+             en d2). Drager E heeft element a (ipv e).
+Opgave 4.7b: Drager B heeft elementen de en do (ip d1 en d2).
+Opgave 5.1: Tweede zin: moet B(V) zijn ipv B(X).
+Opgave 5.2: De interpretatie van add is not(xor). Dit wordt
+            aangegeven met een streepje onder xor. Is dit niet
+            onduidelijk? Een streepje erboven lijkt me beter, of
+            gewoon not(xor) gebruiken. Het streepje onder de
+            functienaam wordt ook gebruikt in opgave 7.2 waar het
+            natuurlijk geen extra betekenis heeft.
+Opgave 6.5: Functie f in specificatie moet functie h zijn.
+Opgave 7.2: Ook een constante 0 toevoegen, anders zijn er geen
+            gesloten termen.
+Opgave 7.2b: 'Breidt' moet zijn 'Breid' (hoewel met de gebiedende
+             wijs soms ook niets mis is ;)).
+Opgave 7.5: Specificatie: We hadden het type van e al eerder
+            aangepast naar V, maar ook de functie in moet type V
+            geven in plaats van I.
+Opgave 7.5a: De twee delen van de drager zijn hier niet altijd
+             disjunct, terwijl dat in hfst 1 wel beloofd wordt.
+             Maar eigenlijk is dat ook niet echt belangrijk.
+Opgave 7.5c: Hier staat 'Get', maar dat moet 'Abc' zijn.
+Opgave 7.5e: 'je' terwijl verder overal 'u' gebruikt wordt.
