@@ -1,0 +1,565 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{fitch}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+
+\title{Inleiding Theoretische Informatica -- Equationele Specificaties\\
+\normalsize{Uitwerkingen bij opgaven 3.1, 3.4, 5.1, 5.5, 6.1}}
+\author{Martijn Vermaat (mvermaat@cs.vu.nl)}
+\date{5 april 2006}
+
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Opgave 3.1}
+
+\begin{description}
+
+\item{\bf (a)}
+Een afleiding in de specificate $\texttt{Stack-Of-Data}$ van de vergelijking
+\begin{quote}
+\begin{verbatim}
+pop(pop(pop(empty))) = empty
+\end{verbatim}
+\end{quote}
+\begin{equation*}
+\begin{fitch}
+\texttt{pop(empty) = empty}                        & \texttt{[1]}  \\ % 1
+\texttt{pop(pop(empty)) = pop(empty)}              & congr, 1      \\ % 2
+\texttt{pop(pop(pop(empty))) = pop(pop(empty))}    & congr, 2      \\ % 3
+\texttt{pop(pop(empty))) = empty}                  & trans, 1, 2   \\ % 4
+\texttt{pop(pop(pop(empty))) = empty}              & trans, 3, 4      % 5
+\end{fitch}
+\end{equation*}
+
+\item{\bf (b)}
+Een afleiding in de specificatie \texttt{Stack-Of-Data} van de vergelijking
+\begin{quote}
+\begin{verbatim}
+pop(push(x, pop(push(x, empty)))) = empty
+\end{verbatim}
+\end{quote}
+\begin{equation*}
+\begin{fitch}
+\texttt{pop(push(x, s)) = s}                                     & \texttt{[3]}  \\ % 1
+\texttt{pop(push(x, empty)) = empty}                             & subs, 1       \\ % 2
+\texttt{pop(push(x, pop(push(x, empty)))) = pop(push(x, empty))} & subs, 1       \\ % 3
+\texttt{pop(push(x, pop(push(x, empty)))) = empty}               & trans, 3, 2      % 4
+\end{fitch}
+\end{equation*}
+
+\end{description}
+
+
+\section*{Opgave 3.4}
+
+Om te laten zien dat $\sim$ een equivalentierelatie is, laten we zien dat $\sim$
+transitief, symmetrisch en reflexief is.
+
+\begin{description}
+
+\item{Transitiviteit}
+
+  Stel $t \sim u$ en $u \sim v$, dan is volgens de definitie $E \vdash t = u$ en
+  $E \vdash u = v$. Wegens de regel \emph{transitiviteit} van de
+  afleidbaarheid, is dan ook $E \vdash t = v$. Met de definitie zien we dan
+  weer dat ook $t \sim v$ waar is en dus is $\sim$ transitief.
+
+\item{Symmetrie}
+
+  Stel $t \sim u$, dan is volgens de definitie $E \vdash t = u$. De
+  afleidingsregel \emph{symmetrie} zegt dat dan ook $E \vdash u = t$ en
+  volgens de definitie zien we dan weer dat ook $u \sim t$. En dus is $\sim$
+  symmetrisch.
+
+\item{Reflexiviteit}
+
+  Voor iedere term $t$ geldt volgens de afleidingsregel \emph{reflexiviteit}
+  dat $E \vdash t = t$. Onze definitie zegt dan dat ook $t \sim t$ en dus is
+  $\sim$ reflexief.
+
+\end{description}
+
+Omdat $\sim$ transitief, symmetrisch en reflexief is, is $\sim$ een
+equivalentierelatie.
+
+
+\section*{Opgave 5.1}
+
+De algebra $\mathfrak{P}(V)$ (met $V$ een verzameling) heeft als drager de
+machtsverzameling van $V$. De functies worden ge\"interpreteerd als
+\begin{align*}
+\texttt{true}_{\mathfrak{P}(V)}     &= V , \\
+\texttt{false}_{\mathfrak{P}(V)}    &= \{\} , \\
+\texttt{not}_{\mathfrak{P}(V)}(X)   &= V - X , \\
+\texttt{and}_{\mathfrak{P}(V)}(X,Y) &= X \cap Y , \\
+\texttt{or}_{\mathfrak{P}(V)}(X,Y)  &= X \cup Y .
+\end{align*}
+
+We constateren eerst dat $\mathfrak{P}(V)$ een algebra voor
+$\texttt{Booleans}$ is omdat de functietypes kloppen. Vervolgens laten we zien
+dat $\mathfrak{P}(V)$ zelfs een model is voor $\texttt{Booleans}$ door te
+laten zien dat alle vergelijkingen ($\texttt{[B1]} \ldots \texttt{[B5]}$) waar
+zijn in $\mathfrak{P}(V)$.
+
+\paragraph{}
+
+Laat $\theta$ een assignment zijn van elementen uit $\mathcal{P}(V)$ aan
+de variabelen $x$ en $y$, volgens
+\begin{align*}
+\theta    &: \{x,y\} \rightarrow \mathcal{P}(V), \\
+\theta(x) &= X, \\
+\theta(y) &= Y.
+\end{align*}
+
+We laten nu zien dat voor iedere vergelijking uit $\texttt{Booleans}$ de
+rechter kant identiek is aan de linker kant onder $\bar \theta$.
+
+\begin{itemize}
+
+\item{$\texttt{[B1] and(true,x) = x}$}
+\begin{align*}
+\bar \theta(\texttt{and}(\texttt{true}, x)) &= \texttt{and}_{\mathfrak{P}(V)}(\bar \theta(\texttt{true}), \bar \theta(x)) \\
+                                            &= \texttt{and}_{\mathfrak{P}(V)}(\texttt{true}_{\mathfrak{P}(V)}, \theta(x)) \\
+                                            &= \texttt{and}_{\mathfrak{P}(V)}(V,X) \\
+                                            &= V \cap X \\
+                                            &= X
+\end{align*}
+
+\begin{align*}
+\bar \theta(x) &= \theta(x) \\
+               &= X
+\end{align*}
+
+\item{$\texttt{[B2] and(false,x) = false}$}
+\begin{align*}
+\bar \theta(\texttt{and}(\texttt{false}, x)) &= \texttt{and}_{\mathfrak{P}(V)}(\bar \theta(\texttt{false}), \bar \theta(x)) \\
+                                             &= \texttt{and}_{\mathfrak{P}(V)}(\texttt{false}_{\mathfrak{P}(V)}, \theta(x)) \\
+                                             &= \texttt{and}_{\mathfrak{P}(V)}(\{\},X) \\
+                                             &= \{\} \cap X \\
+                                             &= \{\}
+\end{align*}
+
+\begin{align*}
+\bar \theta(\texttt{false}) &= \texttt{false}_{\mathfrak{P}(V)} \\
+                            &= \{\}
+\end{align*}
+
+\item{$\texttt{[B3] not(true) = false}$}
+\begin{align*}
+\bar \theta(\texttt{not(true)}) &= \texttt{not}_{\mathfrak{P}(V)}(\bar \theta(\texttt{true})) \\
+                                &= \texttt{not}_{\mathfrak{P}(V)}(\texttt{true}_{\mathfrak{P}(V)}) \\
+                                &= \texttt{not}_{\mathfrak{P}(V)}(V) \\
+                                &= V - V \\
+                                &= \{\}
+\end{align*}
+
+\begin{align*}
+\bar \theta(\texttt{false}) &= \texttt{false}_{\mathfrak{P}(V)} \\
+                            &= \{\}
+\end{align*}
+
+\item{$\texttt{[B4] not(false) = true}$}
+\begin{align*}
+\bar \theta(\texttt{not(false)}) &= \texttt{not}_{\mathfrak{P}(V)}(\bar \theta(\texttt{false})) \\
+                                 &= \texttt{not}_{\mathfrak{P}(V)}(\texttt{false}_{\mathfrak{P}(V)}) \\
+                                 &= \texttt{not}_{\mathfrak{P}(V)}(\{\}) \\
+                                 &= V - \{\} \\
+                                 &= V
+\end{align*}
+
+\begin{align*}
+\bar \theta(\texttt{true}) &= \texttt{true}_{\mathfrak{P}(V)} \\
+                           &= V
+\end{align*}
+
+\item{$\texttt{[B5] or(x,y) = not(and(not(x),not(y)))}$}
+\begin{align*}
+\bar \theta(\texttt{or}(x,y)) &= \texttt{or}_{\mathfrak{P}(V)}(\bar \theta(x), \bar \theta(y)) \\
+                              &= \texttt{or}_{\mathfrak{P}(V)}(\theta(x), \theta(y)) \\
+                              &= \texttt{or}_{\mathfrak{P}(V)}(X,Y) \\
+                              &= X \cup Y
+\end{align*}
+
+\begin{align*}
+\bar \theta(\texttt{not}(\texttt{and}(\texttt{not}(x), \texttt{not}(y))))
+      &= \texttt{not}_{\mathfrak{P}(V)}(\bar \theta(\texttt{and}(\texttt{not}(x), \texttt{not}(y)))) \\
+      &= \texttt{not}_{\mathfrak{P}(V)}(\texttt{and}_{\mathfrak{P}(V)}(\bar \theta(\texttt{not}(x)), \bar \theta(\texttt{not}(y)))) \\
+      &= \texttt{not}_{\mathfrak{P}(V)}(\texttt{and}_{\mathfrak{P}(V)}(\texttt{not}_{\mathfrak{P}(V)}(\bar \theta(x)), \texttt{not}_{\mathfrak{P}(V)}(\bar \theta(y)))) \\
+      &= \texttt{not}_{\mathfrak{P}(V)}(\texttt{and}_{\mathfrak{P}(V)}(\texttt{not}_{\mathfrak{P}(V)}(\theta(x)), \texttt{not}_{\mathfrak{P}(V)}(\theta(y)))) \\
+      &= \texttt{not}_{\mathfrak{P}(V)}(\texttt{and}_{\mathfrak{P}(V)}(\texttt{not}_{\mathfrak{P}(V)}(X), \texttt{not}_{\mathfrak{P}(V)}(Y))) \\
+      &= \texttt{not}_{\mathfrak{P}(V)}(\texttt{and}_{\mathfrak{P}(V)}(V - X, V - Y)) \\
+      &= \texttt{not}_{\mathfrak{P}(V)}((V - X) \cap (V - Y)) \\
+      &= V - ((V - X) \cap (V - Y)) \\
+      &= X \cup Y
+\end{align*}
+
+\end{itemize}
+
+Hiermee hebben we laten zien dat iedere vergelijking in $\texttt{Booleans}$
+waar is in $\mathfrak{P}(V)$ en dus dat $\mathfrak{P}(V)$ een model is voor de
+specificatie $\texttt{Booleans}$.
+
+
+\section*{Opgave 5.5}
+
+Om te laten zien dat een bepaalde vergelijking niet afleidbaar is uit een
+specificatie kunnen we een tegenmodel construeren. Dit is een model voor de
+specificatie waarin de gegeven vergelijking niet waar is. Volgens de
+correctheidsstelling is deze vergelijking dan ook niet afleidbaar uit de
+specificatie.
+
+We volgen de hint op die bij de opgave gegeven wordt. We beschouwen de algebra
+$\mathfrak{M}$ voor de specificatie $\texttt{NatBool}$ met drager $A$ en
+interpretaties als we gewend zijn, behalve voor interpretaties hier onder
+gedefini\"eerd.
+
+\begin{align*}
+A_{\texttt{nat}} &= \{ \omega, 0, 1, 2, 3, \ldots \} \\
+A_{\texttt{bool}} &= \{T, F\}
+\end{align*}
+
+Voor alle $m,n \in \mathbb{N}$ defini\"eren we interpretaties als volgt.
+
+\begin{align*}
+\texttt{0}_{\mathfrak{M}}                  &= 0 \\
+\texttt{succ}_{\mathfrak{M}}(n)            &= n+1 \\
+\texttt{succ}_{\mathfrak{M}}(\omega)       &= \omega \\
+\texttt{add}_{\mathfrak{M}}(m,n)           &= m+n \\
+\texttt{add}_{\mathfrak{M}}(\omega,n)      &= \omega \\
+\texttt{add}_{\mathfrak{M}}(n,\omega)      &= \omega \\
+\texttt{add}_{\mathfrak{M}}(\omega,\omega) &= \omega \\
+\texttt{mul}_{\mathfrak{M}}(m,n)           &= m*n \\
+\texttt{mul}_{\mathfrak{M}}(\omega,0)      &= 0 \\
+\texttt{mul}_{\mathfrak{M}}(\omega,n+1)    &= \omega \\
+\texttt{mul}_{\mathfrak{M}}(n,\omega)      &= \omega \\
+\texttt{mul}_{\mathfrak{M}}(\omega,\omega) &= \omega \\
+\texttt{even}_{\mathfrak{M}}(n)            &= \begin{cases}
+  T & \text{als $n$ even is} \\
+  F & \text{als $n$ oneven is}
+\end{cases} \\
+\texttt{even}_{\mathfrak{M}}(\omega)       &= T \\
+\texttt{odd}_{\mathfrak{M}}(n)             &= \begin{cases}
+  F & \text{als $n$ even is} \\
+  T & \text{als $n$ oneven is}
+\end{cases} \\
+\texttt{odd}_{\mathfrak{M}}(\omega)        &= T
+\end{align*}
+
+We hebben dus een algebra geconstrueerd waarin we een extra element toegevoegd
+hebben dat `zowel even als oneven' is. Om alle vergelijkingen nog waar te
+maken was er wat puzzelwerk nodig (je kunt $\omega$ opvatten als nuldeler voor
+zowel optelling als vermeningvuldiging als je er iets in wilt zien).
+
+Nu moeten we laten zien dat $\mathfrak{M}$ een model is voor de specificatie
+$\texttt{NatBool}$. We laten de vergelijkingen $\texttt{[B1] \ldots [B5]}$
+voor wat ze zijn; onze toevoeging van $\omega$ heeft hier geen invloed
+op. Van de overige vergelijkingen uit $\texttt{NatBool}$ laten we voor
+$\texttt{[A1]}$, $\texttt{[M2]}$ en $\texttt{[E2]}$ zien dat ze waar zijn in
+$\mathfrak{M}$, de rest gaat op vergelijkbare wijze.
+
+\paragraph{}
+
+Laat nu $\theta$ een assignment zijn van elementen uit $A$ aan de variabelen
+$x$ en $y$. We stellen dat $\theta(x) = a$ en $\theta(y) = b$.
+
+\begin{itemize}
+
+\item{$\texttt{[A1] add(x,0) = x}$}
+\begin{align*}
+\bar \theta(\texttt{add}(x,\texttt{0})) &= \texttt{add}_{\mathfrak{M}}(\bar \theta(x), \bar \theta(\texttt{0})) \\
+                                        &= \texttt{add}_{\mathfrak{M}}(\theta(x), 0_{\mathfrak{M}}) \\
+                                        &= \texttt{add}_{\mathfrak{M}}(a, 0) \\
+                                        &= a
+\end{align*}
+
+\begin{align*}
+\bar \theta(x) &= \theta(x) \\
+               &= a
+\end{align*}
+
+\item{$\texttt{[M2] mul(x,succ(y)) = add(mul(x,y),x)}$}
+
+We schrijven eerst de linkerkant uit.
+\begin{align*}
+\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(\bar \theta(x), \bar \theta(\texttt{succ}(y))) \\
+                                              &= \texttt{mul}_{\mathfrak{M}}(\theta(x), \texttt{succ}_{\mathfrak{M}}(\bar \theta(y))) \\
+                                              &= \texttt{mul}_{\mathfrak{M}}(a, \texttt{succ}_{\mathfrak{M}}(\theta(y))) \\
+                                              &= \texttt{mul}_{\mathfrak{M}}(a, \texttt{succ}_{\mathfrak{M}}(b))
+\end{align*}
+
+We onderscheiden nu verschillende gevallen voor $a$ en $b$.
+
+\begin{itemize}
+
+\item
+Wanneer $a = b = \omega$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(\omega, \texttt{succ}_{\mathfrak{M}}(\omega)) \\
+                                              &= \texttt{mul}_{\mathfrak{M}}(\omega, \omega) \\
+                                              &= \omega
+\end{align*}
+
+\item
+Wanneer $a,b \in \mathbb{N}$ hebben we:
+
+\begin{align*}
+\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(a, b+1) \\
+                                              &= a*(b+1)
+\end{align*}
+
+\item
+Wanneer $a = \omega$ en $b \in \mathbb{N}$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(\omega, b+1) \\
+                                              &= \omega
+\end{align*}
+
+\item
+Wanneer $a \in \mathbb{N}$ en $b = \omega$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(a, \texttt{succ}_{\mathfrak{M}}(\omega)) \\
+                                              &= \texttt{mul}_{\mathfrak{M}}(a, \omega) \\
+                                              &= \omega
+\end{align*}
+
+\end{itemize}
+
+En vervolgens schrijven we de rechterkant uit.
+\begin{align*}
+\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\bar \theta(\texttt{mul}(x,y),x)) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\bar \theta(x),\bar \theta(y)),\bar \theta(x)) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\theta(x),\theta(y)),\theta(x)) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(a,b),a)
+\end{align*}
+
+We onderscheiden nu weer dezelfde gevallen voor $a$ en $b$.
+
+\begin{itemize}
+
+\item
+Wanneer $a = b = \omega$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\omega,\omega),\omega) \\
+                                               &= \omega
+\end{align*}
+
+\item
+Wanneer $a,b \in \mathbb{N}$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(a,b),a) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(a*b,a) \\
+                                               &= (a*b)+a \\
+                                               &= a*(b+1)
+\end{align*}
+
+\item
+Wanneer $a = \omega$ en $b \in \mathbb{N}$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\omega,b),\omega) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(\ldots,\omega) \\
+                                               &= \omega
+\end{align*}
+
+\item
+Wanneer $a \in \mathbb{N}$ en $b = \omega$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(a,\omega),a) \\
+                                               &= \texttt{add}_{\mathfrak{M}}(\omega,a) \\
+                                               &= \omega
+\end{align*}
+
+\end{itemize}
+
+\item{$\texttt{[E2] even(succ(x)) = odd(x)}$}
+
+We schrijven weer eerst de linkerkant uit.
+\begin{align*}
+\bar \theta(\texttt{even}(\texttt{succ}(x))) &= \texttt{even}_{\mathfrak{M}}(\bar \theta(\texttt{succ}(x))) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(\bar \theta(x)))) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(\theta(x)))) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(a))
+\end{align*}
+
+We onderscheiden twee gevallen voor $a$.
+
+\begin{itemize}
+
+\item
+Wanneer $a \in \mathbb{N}$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{even}(\texttt{succ}(x))) &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(a)) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(a+1) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(a+1) \\
+                                             &= \begin{cases}
+  F & \text{als $a$ even is} \\
+  T & \text{als $a$ oneven is}
+\end{cases}
+\end{align*}
+
+\item
+Wanneer $a = \omega$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{even}(\texttt{succ}(x))) &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(\omega)) \\
+                                             &= \texttt{even}_{\mathfrak{M}}(\omega) \\
+                                             &= T
+\end{align*}
+
+\end{itemize}
+
+En vervolgens schrijven we de rechterkant uit.
+\begin{align*}
+\bar \theta(\texttt{odd}(x)) &= \texttt{odd}_{\mathfrak{M}}(\bar \theta(x)) \\
+                             &= \texttt{odd}_{\mathfrak{M}}(\theta(x)) \\
+                             &= \texttt{odd}_{\mathfrak{M}}(a)
+\end{align*}
+
+We onderscheiden weer twee gevallen voor $a$.
+
+\begin{itemize}
+
+\item
+Wanneer $a \in \mathbb{N}$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{odd}(x)) &= \texttt{odd}_{\mathfrak{M}}(a) \\
+                             &= \begin{cases}
+  F & \text{als $a$ even is} \\
+  T & \text{als $a$ oneven is}
+\end{cases}
+\end{align*}
+
+\item
+Wanneer $a = \omega$ hebben we:
+\begin{align*}
+\bar \theta(\texttt{odd}(x)) &= \texttt{odd}_{\mathfrak{M}}(a) \\
+                             &= \texttt{odd}_{\mathfrak{M}}(\omega) \\
+                             &= T
+\end{align*}
+
+\end{itemize}
+
+\end{itemize}
+
+\paragraph{}
+
+We hebben nu laten zien dat $\mathfrak{M}$ inderdaad een model is voor de
+specificatie $\texttt{NatBool}$. Nu bekijken we de vergelijking
+\begin{displaymath}
+\texttt{even(x) = not(odd(x))}
+\end{displaymath}
+en zien dat deze niet waar is in $\mathfrak{M}$. Beschouw bijvoorbeeld de
+assignment $\theta$ met $\theta(x) = \omega$. We hebben dan
+\begin{align*}
+\bar \theta(\texttt{even}(x)) &= \texttt{even}_{\mathfrak{M}}(\bar \theta(x)) \\
+                              &= \texttt{even}_{\mathfrak{M}}(\theta(x)) \\
+                              &= \texttt{even}_{\mathfrak{M}}(\omega) \\
+                              &= T
+\end{align*}
+en
+\begin{align*}
+\bar \theta(\texttt{not}(\texttt{odd}(x))) &= \texttt{not}_{\mathfrak{M}}(\bar \theta(\texttt{odd}(x))) \\
+                                           &= \texttt{not}_{\mathfrak{M}}(\texttt{odd}_{\mathfrak{M}}(\bar \theta(x))) \\
+                                           &= \texttt{not}_{\mathfrak{M}}(\texttt{odd}_{\mathfrak{M}}(\theta(x))) \\
+                                           &= \texttt{not}_{\mathfrak{M}}(\texttt{odd}_{\mathfrak{M}}(\omega)) \\
+                                           &= \texttt{not}_{\mathfrak{M}}(T) \\
+                                           &= F.
+\end{align*}
+
+Uit alle vergelijkingen van $\texttt{NatBool}$ volgt deze vergelijking dus
+niet semantisch. Volgens de correctheid van afleidbaarheid, is deze
+vergelijking dan ook niet afleidbaar in de specificatie $\texttt{NatBool}$.
+
+
+\section*{Opgave 6.1}
+
+\begin{description}
+
+\item{\bf (a)} % model voor Booleans met junk zonder confusion
+We hebben bij opgave 5.1 gezien dat iedere verzamelingsalgebra
+$\mathfrak{P}(V)$ over een verzameling $V$ (als in voorbeeld 4.3) een model is
+voor de specificatie $\texttt{Booleans}$. Nu beschouwen we de algebra
+$\mathfrak{P}(F)$ over de verzameling $F=\{1,2,3,4,5,6\}$ met als drager
+$\mathcal{P}(F)$.
+
+\paragraph{Wel junk}
+
+Iedere gesloten term uit $\texttt{Booleans}$ wordt in $\mathfrak{P}(F)$
+ge\"interpreteerd als \`ofwel heel F, \`ofwel de lege verzameling $\{\}$. Het
+bewijs hiervan verloopt via inductie naar de structuur van de term en laten we
+hier achterwege.
+
+Laten we nu het element $\{2,4,5\}$ uit $\mathfrak{P}(F)$ bekijken. Dit is
+niet $F$, ook niet $\{\}$ en dus niet de interpretatie van een gesloten
+term. Hieruit volgt dat $\mathfrak{P}(F)$ junk bevat.
+
+\paragraph{Geen confusion}
+
+Voor iedere gesloten term $t$ uit $\texttt{Booleans}$ geldt dat
+\begin{align*}
+\vdash t = \texttt{true} \quad \text{of} \quad \vdash t = \texttt{false}. &&\text{(volgens voorbeeld 6.3)}
+\end{align*}
+Laat nu $s$ en $t$ gesloten termen zijn met $\not \vdash t = s$. Dan moet
+\`ofwel $\vdash s = \texttt{true}$ en $\vdash t = \texttt{false}$, \`ofwel
+$\vdash s = \texttt{false}$ en $\vdash t = \texttt{true}$. In beide gevallen
+worden $s$ en $t$ als verschillende elementen van $\mathfrak{P}(F)$
+ge\"interpreteerd en dus bevat $\mathfrak{P}(F)$ geen confusion.
+
+\item{\bf (b)} % model voor Booleans zonder junk met confusion
+Laten we nu analoog aan onderdeel {\bf (a)} de verzamelingsalgebra
+$\mathfrak{P}(\{\})$ over de lege verzameling bekijken met in de drager als
+enige element $\{\}$.
+
+\paragraph{Geen junk}
+
+Volgens de definitie van de verzamelingsalgebra interpreteren we nu
+$\texttt{true}$ als $\{\}$. Hieruit volgt direct dat $\mathfrak{P}(\{\})$ geen
+junk bevat, want het enige element uit de drager is de interpretatie van een
+gesloten term.
+
+\paragraph{Wel confusion}
+
+In de algebra $\mathfrak{P}(\{\})$ worden de interpretaties van de termen
+$\texttt{true}$ en $\texttt{false}$ ge\"identificeerd. Toch is de vergelijking
+$\texttt{true} = \texttt{false}$ niet afleidbaar uit de specificatie
+$\texttt{Booleans}$ (bovenstaande algebra $\mathfrak{P}(F)$ is bijvoorbeeld
+een tegenmodel) en dus bevat $\mathfrak{P}(\{\})$ confusion.
+
+\item{\bf (c)} % model voor Booleans met junk met confusion
+We bekijken de algebra $\mathfrak{B}_{3}$ voor de specificatie
+$\texttt{Booleans}$ met als drager $\{A,B,C\}$ en interpretaties
+\begin{align*}
+\texttt{true}_{\mathfrak{B}_{3}}     &= B, \\
+\texttt{false}_{\mathfrak{B}_{3}}    &= B, \\
+\texttt{and}_{\mathfrak{B}_{3}}(x,y) &= B, \\
+\texttt{or}_{\mathfrak{B}_{3}}(x,y)  &= B, \\
+\texttt{not}_{\mathfrak{B}_{3}}(x)   &= B.
+\end{align*}
+Dat $\mathfrak{B}_{3}$ een model is voor $\texttt{Booleans}$ mag duidelijk
+zijn (iedere term evalueert naar $B$ en dus is iedere vergelijking waar).
+
+\paragraph{Wel junk}
+
+Het is niet moeilijk in te zien dat iedere gesloten term uit
+$\texttt{Booleans}$ wordt in $\mathfrak{B}_{3}$ ge\"interpreteerd als $B$. Dit
+betekent dat de elementen $A$ en $C$ niet de interpretatie van een gesloten
+term zijn en dus dat $\mathfrak{B}_{3}$ junk bevat.
+
+\paragraph{Wel confusion}
+
+In de algebra $\mathfrak{B}_{3}$ worden de interpretaties van de termen
+$\texttt{true}$ en $\texttt{false}$ ge\"identificeerd. Toch is de vergelijking
+$\texttt{true} = \texttt{false}$ niet afleidbaar uit de specificatie
+$\texttt{Booleans}$ (bovenstaande algebra $\mathfrak{P}(F)$ is bijvoorbeeld
+een tegenmodel) en dus bevat $\mathfrak{B}_{3}$ confusion.
+
+\end{description}
+
+
+\end{document}
