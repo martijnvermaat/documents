@@ -1,0 +1,38 @@
+Ideeen voor ITI 2006-2007
+
+-- Martijn Vermaat, 23 mei 2006
+
+
+* Mailing list
+  Vooral voor practicum deel. Makkelijk aankondigen
+  van laatste wijzigingen. Online hulp voor iedereen
+  tegelijk (ook voor lc en algebra delen). Idee is
+  ook dat er meer contact is tussen iti team en
+  studenten onderling.
+
+* Practicum submit tool
+  Automatisch verwerken van practicum inzendingen zou
+  erg helpen. Real-time overzicht van wie wat gemaakt
+  heeft, geen sorteerwerk meer.
+
+  Implementatie idee:
+    Commando's iti-signup, iti-submit en iti-status
+    versturen mails naar iti adres waar ze naar een
+    ander commando gepiped worden. Dat programma doet
+    wat met de inhoud en stuurt eventueel een mail
+    terug.
+
+  Als we identificatie op basis van een e-mail adres
+  doen kan iti-signup het adres gelijk toevoegen aan
+  de mailing list.
+
+* Duidelijker practicum opdrachten. Misschien begin
+  niet meer om na te kijken (of anders sneller doen,
+  achteraf is niet nuttig). In dat geval grotere
+  eindopdracht met meer vrijheid die nagekeken wordt.
+
+* Inhoud van algebra deel aanpassen (Roel).
+
+* Nadenken over verweven van practicum in de lc en
+  algebra delen. Bijvoorbeeld zoals mCRL in PV wordt
+  gebruikt.
