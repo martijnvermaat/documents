@@ -36,3 +36,8 @@ Ideeen voor ITI 2006-2007
 * Nadenken over verweven van practicum in de lc en
   algebra delen. Bijvoorbeeld zoals mCRL in PV wordt
   gebruikt.
+
+* Voor de Life opdracht een set datatype laten maken
+  en dat in Life gebruiken. Op basis van gewone
+  lijsten (makkelijk) of ingewikkelder als een
+  gebalanceerde boom met ordering (snel).
