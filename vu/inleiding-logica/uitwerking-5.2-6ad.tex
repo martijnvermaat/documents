@@ -1,0 +1,64 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+
+%\renewcommand{\familydefault}{\sfdefault}
+
+
+\title{Uitwerkingen van opgaven 6 a en d\\
+\normalsize{bij paragraaf 5.2 van Huth\&Ryan}}
+%\date{Martijn Vermaat, 19 oktober 2006}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{description}
+
+
+\item{\bf (a)}
+We moeten laten zien dat $\models \Box(\phi \wedge \psi) \leftrightarrow (\Box \phi \wedge \Box \psi)$ geldt. Dat
+wil zeggen, dat deze formule waar is in iedere wereld in ieder model. We bekijken daarvoor een willekeurige wereld
+$x$ in een willekeurig model $\mathcal{M} = (W, R, L)$.
+
+Volgens definitie 5.4 geldt $\mathcal{M}, x \Vdash \Box(\phi \wedge \psi) \leftrightarrow (\Box \phi \wedge \Box \psi)$
+dan en slechts dan als $\mathcal{M}, x \Vdash \Box(\phi \wedge \psi) \Leftrightarrow \mathcal{M}, x \Vdash (\Box \phi \wedge \Box \psi)$.
+We beschouwen beide richtingen:
+
+\begin{description}
+
+\item{\bf $\Rightarrow$}
+Wegens $\mathcal{M}, x \Vdash \Box(\phi \wedge \psi)$ geldt $\mathcal{M}, y \Vdash \phi \wedge \psi$ voor alle
+werelden $y \in W$ met $R(x,y)$ (naar de betekenis van $\Box$, zie steeds definitie 5.4). De betekenis van
+conjunctie zegt ons dat dan ook $\mathcal{M}, y \Vdash \phi$
+voor alle $y \in W$ met $R(x,y)$ en $\mathcal{M}, y \Vdash \psi$ voor alle $y \in W$ met $R(x,y)$. Dit geeft
+samen $\mathcal{M}, x \Vdash \Box \phi$ en $\mathcal{M}, x \Vdash \Box \psi$ en dus
+$\mathcal{M}, x \Vdash (\Box \phi \wedge \Box \psi)$.
+
+\item{\bf $\Leftarrow$}
+Gegeven is nu dat $\mathcal{M}, x \Vdash (\Box \phi \wedge \Box \psi)$ en dus hebben we
+$\mathcal{M}, x \Vdash \Box \phi$ en $\mathcal{M}, x \Vdash \Box \psi$ volgens de betekenis van conjunctie.
+Maar dan geldt ook dat $\mathcal{M}, y \Vdash \phi$ voor alle werelden $y \in W$ met $R(x,y)$ en
+$\mathcal{M}, y \Vdash \psi$ voor alle werelden $y \in W$ met $R(x,y)$. Samen geeft dat $\mathcal{M}, y \Vdash \phi \wedge \psi$
+voor alle $y \in W$ met $R(x,y)$ en dat maakt precies dat $\mathcal{M}, x \Vdash \Box(\phi \wedge \psi)$.
+
+\end{description}
+
+
+\item{\bf (b)}
+We moeten laten zien dat $\Diamond \perp \leftrightarrow \perp$ geldig is, dus dat dezelfde werelden
+$\Diamond \perp$ en $\perp$ waar maken. Op de eerste plaats is er geen enkele wereld die $\perp$ waar
+maakt (zie wederom steeds definitie 5.4). Kijken we naar $\Diamond \perp$, dan zien we dat deze formule
+waar gemaakt wordt door precies de werelden van waaruit een wereld toegankelijk is die $\perp$ waar maakt.
+Zoals al opgemerkt bestaat een dergelijke wereld niet, dus is er ook geen enkele wereld die $\Diamond \perp$
+waar maakt. Hieruit volgt dat $\Diamond \perp \leftrightarrow \perp$ geldig is.
+
+
+\end{description}
+
+
+\end{document}
