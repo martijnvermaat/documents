@@ -87,11 +87,11 @@ module FIFO
 
   equations
     [P1] peek(empty)                        = error
-    [P2] peek(enqueue(x, empty)             = x
-    [P3] peek(enqueue(x, enqueue(y, z)))    = peek(enqueue(y, z))
+    [P2] peek(enqueue(d, empty)             = x
+    [P3] peek(enqueue(d, enqueue(e, q)))    = peek(enqueue(e, q))
     [D1] dequeue(empty)                     = empty
-    [D2] dequeue(enqueue(x, empty))         = x
-    [D3] dequeue(enqueue(x, enqueue(y, z))) = enqueue(x, dequeue(enqueue(y, z)))
+    [D2] dequeue(enqueue(d, empty))         = empty
+    [D3] dequeue(enqueue(d, enqueue(e, q))) = enqueue(d, dequeue(enqueue(e, q)))
 
 end FIFO
 \end{verbatim}
@@ -102,7 +102,7 @@ end FIFO
 We breiden \verb|NatBool| uit met de functie \verb|d|, de intentie is:
 
 \begin{displaymath}
-\verb|d(m, n)| \quad \Longleftrightarrow \quad \mbox{m is een deler van n}
+\verb|d(m, n)| \quad \Longleftrightarrow \quad \mbox{$m$ is een deler van $n$} \quad \Longleftrightarrow \quad \mbox{$m \neq 0$ en er is een $k$ zo dat $m k = n$}
 \end{displaymath}
 
 \begin{verbatim}
@@ -110,13 +110,13 @@ functions
   d : Nat # Nat -> Bool
 
 equations
-  [D1] d(0, x)               = false
-  [D2] d(x, add(x, y))       = d(x, y)
-  [D3] d(succ(x), succ(x))   = true
-  [D4] d(add(y, succ(x)), y) = false
+  [D1] d(0, x)                           = false
+  [D2] d(x, add(x, y))                   = d(x, y)
+  [D3] d(succ(x), 0)                     = true
+  [D4] d(add(succ(y), succ(x)), succ(y)) = false
 \end{verbatim}
 
-Het algoritme wat hier gebruikt wordt om de uitkomst van \verb|d(m,n)| te
+Het algoritme dat hier gebruikt wordt om de uitkomst van \verb|d(m,n)| te
 bepalen is als volgt:
 
 \begin{description}
@@ -125,8 +125,8 @@ bepalen is als volgt:
 Delen door nul kan niet, uitkomst is dus \verb|false|.
 
 \item{\verb|m>0|:}
-Trek \verb|m| net zo lang van \verb|n| af tot ze even groot zijn (uitkomst is
-\verb|true|), of m groter is (uitkomst is \verb|false|).
+Trek \verb|m| net zo lang van \verb|n| af tot \verb|n| gelijk is aan \verb|0| (uitkomst is
+\verb|true|), of \verb|m| groter is dan \verb|n| (uitkomst is \verb|false|).
 
 \end{description}
 
