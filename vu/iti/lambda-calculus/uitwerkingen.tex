@@ -28,7 +28,7 @@
 \title{Inleiding Theoretische Informatica -- Lambda Calculus\\
 \normalsize{Uitwerkingen van geselecteerde opgaven}}
 \author{Martijn Vermaat (mvermaat@cs.vu.nl)}
-\date{11 maart 2006}
+\date{8 maart 2007}
 
 
 \begin{document}
@@ -163,7 +163,7 @@ dus is er geen verschil met het toepassen van bijvoorbeeld de leftmost-outermost
 \end{align*}
 
 \item[(c)]
-De leftmost-innermost strategie vindt altijd een normaalvorm als deze bestaat.
+De leftmost-outermost strategie vindt altijd een normaalvorm als deze bestaat.
 We vinden in dit geval geen normaalvorm, dus heeft deze term geen normaalvorm. 
 
 \end{enumerate}
@@ -194,7 +194,7 @@ Een specificatie voor de operatie \emph{exclusive or}.
 \item
 Een mogelijke definitie voor de \emph{exclusive or} operatie als $\lambda$-term.
 Volg de tip bij de vraag op voor een idee hoe te beginnen aan deze definitie.\\
-$\textsf{xor} \, := \, \lambda a b. b \, (a \, \textsf{false} \, \textsf{true}) \, (a \, \textsf{true} \, \textsf{false})$
+$\textsf{xor} \, := \, \lambda a b. b \, (a \, \textsf{false} \, \textsf{true}) \, a$
 
 \item
 Een afleiding voor de tweede regel van de specificatie bij (a). We vullen de definities
@@ -203,18 +203,16 @@ reduceert naar $\textsf{true}$.
 \begin{align*}
   \textsf{xor} \, \textsf{true} \, \textsf{false}
   & \quad = \quad
-  (\lambda a b. b \, (a \, \textsf{false} \, \textsf{true}) \, (a \, \textsf{true} \, \textsf{false})) \, (\lambda x y. x) \, \lambda x y. y\\
+  (\lambda a b. b \, (a \, \textsf{false} \, \textsf{true}) \, a) \, (\lambda x y. x) \, \lambda x y. y\\
   & \quad \rightarrow_{\beta} \quad
-  (\lambda b. b \, ((\lambda x y. x) \, \textsf{false} \, \textsf{true}) \, ((\lambda x y. x) \, \textsf{true} \, \textsf{false})) \, \lambda x y. y\\
+  (\lambda b. b \, ((\lambda x y. x) \, \textsf{false} \, \textsf{true}) \, (\lambda x y. x)) \, \lambda x y. y\\
   & \quad \rightarrow_{\beta} \quad
-  (\lambda x y. y) \, ((\lambda x y. x) \, \textsf{false} \, \textsf{true}) \, ((\lambda x y. x) \, \textsf{true} \, \textsf{false})\\
+  (\lambda x y. y) \, ((\lambda x y. x) \, \textsf{false} \, \textsf{true}) \, \lambda x y. x\\
   & \quad \rightarrow_{\beta} \quad
-  (\lambda y. y) \, ((\lambda x y. x) \, \textsf{true} \, \textsf{false})\\
+  (\lambda y. y) \, \lambda x y. x\\
   & \quad \rightarrow_{\beta} \quad
-  (\lambda x y. x) \, \textsf{true} \, \textsf{false}\\
-  & \quad \rightarrow_{\beta} \quad
-  (\lambda y. \textsf{true}) \, \textsf{false}\\
-  & \quad \rightarrow_{\beta} \quad
+  \lambda x y. x\\
+  & \quad = \quad
   \textsf{true}
 \end{align*}
 
