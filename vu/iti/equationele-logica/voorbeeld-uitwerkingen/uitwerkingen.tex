@@ -155,7 +155,7 @@ zijn in $\mathfrak{P}(V)$.
 Laat $\theta$ een assignment zijn van elementen uit $\mathcal{P}(V)$ aan
 de variabelen $x$ en $y$, volgens
 \begin{align*}
-\theta    &: \{x,y\} \rightarrow \mathcal{P}(V), \\
+\theta    : \{x,y\} &\rightarrow \mathcal{P}(V), \\
 \theta(x) &= X, \\
 \theta(y) &= Y.
 \end{align*}
@@ -249,273 +249,7 @@ waar is in $\mathfrak{P}(V)$ en dus dat $\mathfrak{P}(V)$ een model is voor de
 specificatie $\texttt{Booleans}$.
 
 
-\section*{Opgave 5.5}
-
-Om te laten zien dat een bepaalde vergelijking niet afleidbaar is uit een
-specificatie kunnen we een tegenmodel construeren. Dit is een model voor de
-specificatie waarin de gegeven vergelijking niet waar is. Volgens de
-correctheidsstelling is deze vergelijking dan ook niet afleidbaar uit de
-specificatie.
-
-We volgen de hint op die bij de opgave gegeven wordt. We beschouwen de algebra
-$\mathfrak{M}$ voor de specificatie $\texttt{NatBool}$ met drager $A$ en
-interpretaties als we gewend zijn, behalve voor interpretaties hier onder
-gedefini\"eerd.
-
-\begin{align*}
-A_{\texttt{nat}} &= \{ \omega, 0, 1, 2, 3, \ldots \} \\
-A_{\texttt{bool}} &= \{T, F\}
-\end{align*}
-
-Voor alle $m,n \in \mathbb{N}$ defini\"eren we interpretaties als volgt.
-
-\begin{align*}
-\texttt{0}_{\mathfrak{M}}                  &= 0 \\
-\texttt{succ}_{\mathfrak{M}}(n)            &= n+1 \\
-\texttt{succ}_{\mathfrak{M}}(\omega)       &= \omega \\
-\texttt{add}_{\mathfrak{M}}(m,n)           &= m+n \\
-\texttt{add}_{\mathfrak{M}}(\omega,n)      &= \omega \\
-\texttt{add}_{\mathfrak{M}}(n,\omega)      &= \omega \\
-\texttt{add}_{\mathfrak{M}}(\omega,\omega) &= \omega \\
-\texttt{mul}_{\mathfrak{M}}(m,n)           &= m*n \\
-\texttt{mul}_{\mathfrak{M}}(\omega,0)      &= 0 \\
-\texttt{mul}_{\mathfrak{M}}(\omega,n+1)    &= \omega \\
-\texttt{mul}_{\mathfrak{M}}(n,\omega)      &= \omega \\
-\texttt{mul}_{\mathfrak{M}}(\omega,\omega) &= \omega \\
-\texttt{even}_{\mathfrak{M}}(n)            &= \begin{cases}
-  T & \text{als $n$ even is} \\
-  F & \text{als $n$ oneven is}
-\end{cases} \\
-\texttt{even}_{\mathfrak{M}}(\omega)       &= T \\
-\texttt{odd}_{\mathfrak{M}}(n)             &= \begin{cases}
-  F & \text{als $n$ even is} \\
-  T & \text{als $n$ oneven is}
-\end{cases} \\
-\texttt{odd}_{\mathfrak{M}}(\omega)        &= T
-\end{align*}
-
-We hebben dus een algebra geconstrueerd waarin we een extra element toegevoegd
-hebben dat `zowel even als oneven' is. Om alle vergelijkingen nog waar te
-maken was er wat puzzelwerk nodig (je kunt $\omega$ opvatten als nuldeler voor
-zowel optelling als vermeningvuldiging als je er iets in wilt zien).
-
-Nu moeten we laten zien dat $\mathfrak{M}$ een model is voor de specificatie
-$\texttt{NatBool}$. We laten de vergelijkingen $\texttt{[B1] \ldots [B5]}$
-voor wat ze zijn; onze toevoeging van $\omega$ heeft hier geen invloed
-op. Van de overige vergelijkingen uit $\texttt{NatBool}$ laten we voor
-$\texttt{[A1]}$, $\texttt{[M2]}$ en $\texttt{[E2]}$ zien dat ze waar zijn in
-$\mathfrak{M}$, de rest gaat op vergelijkbare wijze.
-
-\paragraph{}
-
-Laat nu $\theta$ een assignment zijn van elementen uit $A$ aan de variabelen
-$x$ en $y$. We stellen dat $\theta(x) = a$ en $\theta(y) = b$.
-
-\begin{itemize}
-
-\item{$\texttt{[A1] add(x,0) = x}$}
-\begin{align*}
-\bar \theta(\texttt{add}(x,\texttt{0})) &= \texttt{add}_{\mathfrak{M}}(\bar \theta(x), \bar \theta(\texttt{0})) \\
-                                        &= \texttt{add}_{\mathfrak{M}}(\theta(x), 0_{\mathfrak{M}}) \\
-                                        &= \texttt{add}_{\mathfrak{M}}(a, 0) \\
-                                        &= a
-\end{align*}
-
-\begin{align*}
-\bar \theta(x) &= \theta(x) \\
-               &= a
-\end{align*}
-
-\item{$\texttt{[M2] mul(x,succ(y)) = add(mul(x,y),x)}$}
-
-We schrijven eerst de linkerkant uit.
-\begin{align*}
-\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(\bar \theta(x), \bar \theta(\texttt{succ}(y))) \\
-                                              &= \texttt{mul}_{\mathfrak{M}}(\theta(x), \texttt{succ}_{\mathfrak{M}}(\bar \theta(y))) \\
-                                              &= \texttt{mul}_{\mathfrak{M}}(a, \texttt{succ}_{\mathfrak{M}}(\theta(y))) \\
-                                              &= \texttt{mul}_{\mathfrak{M}}(a, \texttt{succ}_{\mathfrak{M}}(b))
-\end{align*}
-
-We onderscheiden nu verschillende gevallen voor $a$ en $b$.
-
-\begin{itemize}
-
-\item
-Wanneer $a = b = \omega$ hebben we:
-\begin{align*}
-\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(\omega, \texttt{succ}_{\mathfrak{M}}(\omega)) \\
-                                              &= \texttt{mul}_{\mathfrak{M}}(\omega, \omega) \\
-                                              &= \omega
-\end{align*}
-
-\item
-Wanneer $a,b \in \mathbb{N}$ hebben we:
-
-\begin{align*}
-\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(a, b+1) \\
-                                              &= a*(b+1)
-\end{align*}
-
-\item
-Wanneer $a = \omega$ en $b \in \mathbb{N}$ hebben we:
-\begin{align*}
-\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(\omega, b+1) \\
-                                              &= \omega
-\end{align*}
-
-\item
-Wanneer $a \in \mathbb{N}$ en $b = \omega$ hebben we:
-\begin{align*}
-\bar \theta(\texttt{mul}(x,\texttt{succ}(y))) &= \texttt{mul}_{\mathfrak{M}}(a, \texttt{succ}_{\mathfrak{M}}(\omega)) \\
-                                              &= \texttt{mul}_{\mathfrak{M}}(a, \omega) \\
-                                              &= \omega
-\end{align*}
-
-\end{itemize}
-
-En vervolgens schrijven we de rechterkant uit.
-\begin{align*}
-\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\bar \theta(\texttt{mul}(x,y),x)) \\
-                                               &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\bar \theta(x),\bar \theta(y)),\bar \theta(x)) \\
-                                               &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\theta(x),\theta(y)),\theta(x)) \\
-                                               &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(a,b),a)
-\end{align*}
-
-We onderscheiden nu weer dezelfde gevallen voor $a$ en $b$.
-
-\begin{itemize}
-
-\item
-Wanneer $a = b = \omega$ hebben we:
-\begin{align*}
-\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\omega,\omega),\omega) \\
-                                               &= \omega
-\end{align*}
-
-\item
-Wanneer $a,b \in \mathbb{N}$ hebben we:
-\begin{align*}
-\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(a,b),a) \\
-                                               &= \texttt{add}_{\mathfrak{M}}(a*b,a) \\
-                                               &= (a*b)+a \\
-                                               &= a*(b+1)
-\end{align*}
-
-\item
-Wanneer $a = \omega$ en $b \in \mathbb{N}$ hebben we:
-\begin{align*}
-\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(\omega,b),\omega) \\
-                                               &= \texttt{add}_{\mathfrak{M}}(\ldots,\omega) \\
-                                               &= \omega
-\end{align*}
-
-\item
-Wanneer $a \in \mathbb{N}$ en $b = \omega$ hebben we:
-\begin{align*}
-\bar \theta(\texttt{add}(\texttt{mul}(x,y),x)) &= \texttt{add}_{\mathfrak{M}}(\texttt{mul}_{\mathfrak{M}}(a,\omega),a) \\
-                                               &= \texttt{add}_{\mathfrak{M}}(\omega,a) \\
-                                               &= \omega
-\end{align*}
-
-\end{itemize}
-
-\item{$\texttt{[E2] even(succ(x)) = odd(x)}$}
-
-We schrijven weer eerst de linkerkant uit.
-\begin{align*}
-\bar \theta(\texttt{even}(\texttt{succ}(x))) &= \texttt{even}_{\mathfrak{M}}(\bar \theta(\texttt{succ}(x))) \\
-                                             &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(\bar \theta(x)))) \\
-                                             &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(\theta(x)))) \\
-                                             &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(a))
-\end{align*}
-
-We onderscheiden twee gevallen voor $a$.
-
-\begin{itemize}
-
-\item
-Wanneer $a \in \mathbb{N}$ hebben we:
-\begin{align*}
-\bar \theta(\texttt{even}(\texttt{succ}(x))) &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(a)) \\
-                                             &= \texttt{even}_{\mathfrak{M}}(a+1) \\
-                                             &= \texttt{even}_{\mathfrak{M}}(a+1) \\
-                                             &= \begin{cases}
-  F & \text{als $a$ even is} \\
-  T & \text{als $a$ oneven is}
-\end{cases}
-\end{align*}
-
-\item
-Wanneer $a = \omega$ hebben we:
-\begin{align*}
-\bar \theta(\texttt{even}(\texttt{succ}(x))) &= \texttt{even}_{\mathfrak{M}}(\texttt{succ}_{\mathfrak{M}}(\omega)) \\
-                                             &= \texttt{even}_{\mathfrak{M}}(\omega) \\
-                                             &= T
-\end{align*}
-
-\end{itemize}
-
-En vervolgens schrijven we de rechterkant uit.
-\begin{align*}
-\bar \theta(\texttt{odd}(x)) &= \texttt{odd}_{\mathfrak{M}}(\bar \theta(x)) \\
-                             &= \texttt{odd}_{\mathfrak{M}}(\theta(x)) \\
-                             &= \texttt{odd}_{\mathfrak{M}}(a)
-\end{align*}
-
-We onderscheiden weer twee gevallen voor $a$.
-
-\begin{itemize}
-
-\item
-Wanneer $a \in \mathbb{N}$ hebben we:
-\begin{align*}
-\bar \theta(\texttt{odd}(x)) &= \texttt{odd}_{\mathfrak{M}}(a) \\
-                             &= \begin{cases}
-  F & \text{als $a$ even is} \\
-  T & \text{als $a$ oneven is}
-\end{cases}
-\end{align*}
-
-\item
-Wanneer $a = \omega$ hebben we:
-\begin{align*}
-\bar \theta(\texttt{odd}(x)) &= \texttt{odd}_{\mathfrak{M}}(a) \\
-                             &= \texttt{odd}_{\mathfrak{M}}(\omega) \\
-                             &= T
-\end{align*}
-
-\end{itemize}
-
-\end{itemize}
-
-\paragraph{}
-
-We hebben nu laten zien dat $\mathfrak{M}$ inderdaad een model is voor de
-specificatie $\texttt{NatBool}$. Nu bekijken we de vergelijking
-\begin{displaymath}
-\texttt{even(x) = not(odd(x))}
-\end{displaymath}
-en zien dat deze niet waar is in $\mathfrak{M}$. Beschouw bijvoorbeeld de
-assignment $\theta$ met $\theta(x) = \omega$. We hebben dan
-\begin{align*}
-\bar \theta(\texttt{even}(x)) &= \texttt{even}_{\mathfrak{M}}(\bar \theta(x)) \\
-                              &= \texttt{even}_{\mathfrak{M}}(\theta(x)) \\
-                              &= \texttt{even}_{\mathfrak{M}}(\omega) \\
-                              &= T
-\end{align*}
-en
-\begin{align*}
-\bar \theta(\texttt{not}(\texttt{odd}(x))) &= \texttt{not}_{\mathfrak{M}}(\bar \theta(\texttt{odd}(x))) \\
-                                           &= \texttt{not}_{\mathfrak{M}}(\texttt{odd}_{\mathfrak{M}}(\bar \theta(x))) \\
-                                           &= \texttt{not}_{\mathfrak{M}}(\texttt{odd}_{\mathfrak{M}}(\theta(x))) \\
-                                           &= \texttt{not}_{\mathfrak{M}}(\texttt{odd}_{\mathfrak{M}}(\omega)) \\
-                                           &= \texttt{not}_{\mathfrak{M}}(T) \\
-                                           &= F.
-\end{align*}
-
-Uit alle vergelijkingen van $\texttt{NatBool}$ volgt deze vergelijking dus
-niet semantisch. Volgens de correctheid van afleidbaarheid, is deze
-vergelijking dan ook niet afleidbaar in de specificatie $\texttt{NatBool}$.
+% TODO: opgave 5.3?
 
 
 \section*{Opgave 6.1}
@@ -532,12 +266,12 @@ $\mathcal{P}(F)$.
 \paragraph{Wel junk}
 
 Iedere gesloten term uit $\texttt{Booleans}$ wordt in $\mathfrak{P}(F)$
-ge\"interpreteerd als \`ofwel heel F, \`ofwel de lege verzameling $\{\}$. Het
-bewijs hiervan verloopt via inductie naar de structuur van de term en laten we
-hier achterwege.
+ge\"interpreteerd als \`ofwel heel F, \`ofwel de lege verzameling ($\{\}$ of
+$\emptyset$). Het bewijs hiervan verloopt via inductie naar de structuur van
+de term en laten we hier achterwege.
 
 Laten we nu het element $\{2,4,5\}$ uit $\mathfrak{P}(F)$ bekijken. Dit is
-niet $F$, ook niet $\{\}$ en dus niet de interpretatie van een gesloten
+niet $F$, ook niet $\emptyset$ en dus niet de interpretatie van een gesloten
 term. Hieruit volgt dat $\mathfrak{P}(F)$ junk bevat.
 
 \paragraph{Geen confusion}
@@ -554,23 +288,23 @@ ge\"interpreteerd en dus bevat $\mathfrak{P}(F)$ geen confusion.
 
 \item{\bf (b)} % model voor Booleans zonder junk met confusion
 Laten we nu analoog aan onderdeel {\bf (a)} de verzamelingsalgebra
-$\mathfrak{P}(\{\})$ over de lege verzameling bekijken met in de drager als
-enige element $\{\}$.
+$\mathfrak{P}(\emptyset)$ over de lege verzameling bekijken met in de drager
+als enige element de lege verzameling $\emptyset$.
 
 \paragraph{Geen junk}
 
 Volgens de definitie van de verzamelingsalgebra interpreteren we nu
-$\texttt{true}$ als $\{\}$. Hieruit volgt direct dat $\mathfrak{P}(\{\})$ geen
+$\texttt{true}$ als $\emptyset$. Hieruit volgt direct dat $\mathfrak{P}(\emptyset)$ geen
 junk bevat, want het enige element uit de drager is de interpretatie van een
 gesloten term.
 
 \paragraph{Wel confusion}
 
-In de algebra $\mathfrak{P}(\{\})$ worden de interpretaties van de termen
+In de algebra $\mathfrak{P}(\emptyset)$ worden de interpretaties van de termen
 $\texttt{true}$ en $\texttt{false}$ ge\"identificeerd. Toch is de vergelijking
 $\texttt{true} = \texttt{false}$ niet afleidbaar uit de specificatie
 $\texttt{Booleans}$ (bovenstaande algebra $\mathfrak{P}(F)$ is bijvoorbeeld
-een tegenmodel) en dus bevat $\mathfrak{P}(\{\})$ confusion.
+een tegenmodel) en dus bevat $\mathfrak{P}(\emptyset)$ confusion.
 
 \item{\bf (c)} % model voor Booleans met junk met confusion
 We bekijken de algebra $\mathfrak{B}_{3}$ voor de specificatie
@@ -601,6 +335,349 @@ $\texttt{Booleans}$ (bovenstaande algebra $\mathfrak{P}(F)$ is bijvoorbeeld
 een tegenmodel) en dus bevat $\mathfrak{B}_{3}$ confusion.
 
 \end{description}
+
+
+% TODO: opgave 6.3 of 6.4
+
+
+\section*{Opgave 7.1}
+
+\begin{description}
+
+\item{\bf (a)}
+Hiertoe moeten we laten zien dat $\phi$ over alle functies voldoet aan de
+voorwaarden van een homomorphisme:
+
+\begin{itemize}
+
+\item{de constante $\texttt{0}_{\mathfrak{N}}$}
+  \begin{align*}
+    \phi(\texttt{0}_{\mathfrak{N}}) &= \phi(0) \\
+                                    &= 0 \\
+                                    &= \texttt{0}_{\mathfrak{Z}}
+  \end{align*}
+
+\item{de functie $\texttt{succ}_{\mathfrak{N}}$}
+
+  Voor willekeurige $x \in \mathbb{N}$ hebben we:
+  \begin{align*}
+    \phi(\texttt{succ}_{\mathfrak{N}}(x)) &= \phi(x+1) \\
+                                          &= x+1 \\
+                                          &= \texttt{succ}_{\mathfrak{Z}}(x) \\
+                                          &= \texttt{succ}_{\mathfrak{Z}}(\phi(x))
+  \end{align*}
+
+\item{de functie $\texttt{add}_{\mathfrak{N}}$}
+
+  Voor willekeurige $x,y \in \mathbb{N}$ hebben we:
+  \begin{align*}
+    \phi(\texttt{add}_{\mathfrak{N}}(x,y)) &= \phi(x+y) \\
+                                           &= x+y \\
+                                           &= \texttt{add}_{\mathfrak{Z}}(x,y) \\
+                                           &= \texttt{add}_{\mathfrak{Z}}(\phi(x),\phi(y))
+  \end{align*}
+
+\item{de functie $\texttt{mul}_{\mathfrak{N}}$}
+
+  Voor willekeurige $x,y \in \mathbb{N}$ hebben we:
+  \begin{align*}
+    \phi(\texttt{mul}_{\mathfrak{N}}(x,y)) &= \phi(x*y) \\
+                                           &= x*y \\
+                                           &= \texttt{mul}_{\mathfrak{Z}}(x,y) \\
+                                           &= \texttt{mul}_{\mathfrak{Z}}(\phi(x),\phi(y))
+  \end{align*}
+
+\end{itemize}
+
+Hiermee hebben we laten zien dat $\phi$ aan alle voorwaarden van een
+homomorphisme voldoet.
+
+\item{\bf (b)} % bestaan er meer homomorphismes van N naar Z?
+Nee, de interpretatie van $\texttt{0}$ in $\mathfrak{N}$ moet op de
+interpretatie van $\texttt{0}$ in $\mathfrak{Z}$ afgebeeld worden. Met de
+voorwaarden van een homomorfisme over de successor functie ligt daarmee heel
+de afbeelding vast.
+
+\item{\bf (c)} % laat zien dat er geen homomorphismes bestaan van Z naar N
+Stel, er is een homomorphisme $\phi$ van $\mathfrak{Z}$ naar
+$\mathfrak{N}$. We bekijken $\phi(-1)=n$ en weten dat $n \in \mathbb{N}$ ($n
+\ge 0$). Nu hebben we
+\begin{displaymath}
+\phi(\texttt{succ}_{\mathfrak{Z}}(-1)) \, = \, \phi(0) \, = \, 0
+\end{displaymath}
+omdat $\phi(\texttt{0}_{\mathfrak{Z}}=0)$ gelijk moet zijn aan
+$\texttt{0}_{\mathfrak{N}} = 0$.
+
+Vervolgens zien we dat
+\begin{displaymath}
+\texttt{succ}_{\mathfrak{N}}(\phi(-1)) = \texttt{succ}_{\mathfrak{N}}(n) = n+1 \ne 0
+\end{displaymath}
+en dus voldoet $\phi$ niet aan de voorwaarden van een homomorphisme. Dit is in
+tegenspraak met de aanname dat $\phi$ een homomorphisme is, dus kan $\phi$ niet
+bestaan.
+
+\end{description}
+
+
+% TODO: opgave 7.3?
+
+
+\section*{Opgave 7.7}
+
+\begin{description}
+
+\item{\bf (a)} % laat zien dat de eigenschap homomorphisme gesloten is onder compositie
+Gegeven een homomorphisme van $\mathfrak{A}$ naar $\mathfrak{B}$
+\begin{align*}
+\psi &: A \rightarrow B
+\end{align*}
+en een homomorphisme van $\mathfrak{B}$ naar $\mathfrak{C}$
+\begin{align*}
+\omega &: B \rightarrow C
+\end{align*}
+krijgen we met de compositie
+\begin{align*}
+\phi &: A \rightarrow C \\
+\phi &= \omega \circ \psi
+\end{align*}
+een homomorphisme van $\mathfrak{A}$ naar $\mathfrak{C}$.
+
+We hebben namelijk voor alle constanten $c$
+\begin{align*}
+\phi(c_{\mathfrak{A}}) &= \omega(\psi(c_{\mathfrak{A}})) \\
+                       &= \omega(c_{\mathfrak{B}}) \\
+                       &= c_{\mathfrak{C}}
+\end{align*}
+en voor alle functiesymbolen $f$ (waarbij $n$ het aantal argumenten van $f$
+is)
+\begin{align*}
+\phi(f_{\mathfrak{A}}(a_{1}, \ldots, a_{n})) &=
+                                             \omega(\psi(f_{\mathfrak{A}}(a_{1},
+                                             \ldots, a_{n}))) \\
+                                             &=
+                                             \omega(f_{\mathfrak{B}}(\psi(a_{1}),
+                                             \ldots, \psi(a_{n}))) \\
+                                             &=
+                                             f_{\mathfrak{C}}(\omega(\psi(a_{1})),
+                                             \ldots, \omega(\psi(a_{n}))) \\
+                                             &=
+                                             f_{\mathfrak{C}}(\phi(a_{1}),
+                                             \ldots, \phi(a_{n})).
+\end{align*}
+
+\item{\bf (b)} % laat zien dat de eigenschap isomorfisme gesloten is onder conversie
+Gegeven een isomorfisme van $\mathfrak{A}$ naar $\mathfrak{B}$
+\begin{align*}
+\psi &: A \rightarrow B
+\end{align*}
+construeren we een isomorfisme van $\mathfrak{B}$ naar $\mathfrak{A}$ als
+\begin{align*}
+\phi &: B \rightarrow A \\
+\phi &= \psi^{-1}.
+\end{align*}
+
+De inverse van $\psi$ bestaat omdat $\psi$ een bijectie is. Bovendien is de
+inverse van een bijectie ook weer een bijectie, dus is $\phi$ een bijectie.
+
+We laten nu zien dat $\phi$ een homomorphisme is van $\mathfrak{B}$ naar
+$\mathfrak{A}$. Voor alle constanten $c$ hebben we
+\begin{align*}
+\phi(c_{\mathfrak{B}}) &= \psi^{-1}(c_{\mathfrak{B}}) \\
+                       &= c_{\mathfrak{A}}
+\end{align*}
+en voor alle functiesymbolen $f$ hebben we
+\begin{align*}
+\phi(f_{\mathfrak{B}}(a_{1}, \ldots, a_{n})) &= \psi^{-1}(f_{\mathfrak{B}}(a_{1}, \ldots, a_{n})) \\
+                                             &=
+                                             f_{\mathfrak{A}}(\phi(a_{1}),
+                                             \ldots, \phi(a_{n})).
+\end{align*}
+\begin{quote}
+Ter verduidelijking: deze laatste gelijkheid volgt uit het feit dat $\psi$ een
+homomorphisme is, want daarmee is
+\begin{align*}
+\psi(f_{\mathfrak{A}}(\phi(a_{1}), \ldots, \phi(a_{n}))) &= f_{\mathfrak{B}}(\psi(\phi(a_{1})), \ldots, \psi(\phi(a_{n}))) \\
+                                                         &= f_{\mathfrak{B}}(a_{1}, \ldots, a_{n}).
+\end{align*}
+\end{quote}
+
+We hebben nu laten zien dat $\phi$ een bijectief homomorphisme is en dus een isomorphisme.
+
+\item{\bf (c)} % laat zien dat isomorphie een equivalentierelatie is
+Een relatie is een equivalentierelatie als deze reflexief, symmetrisch en
+transitief is.
+
+\paragraph{Reflexiviteit}
+
+Gegeven een algebra $\mathfrak{A}$ bekijken we het isomorphisme
+\begin{align*}
+\phi(x) &= x.
+\end{align*}
+
+Dat $\phi$ bijectief is moge duidelijk zijn. We laten kort zien dat $\phi$ een
+homomorphisme is en daarmee dus ook een isomorphisme. Voor constanten $c$ en
+functiesymbolen $f$ hebben we
+\begin{align*}
+\phi(c_{\mathfrak{A}})                       &= c_{\mathfrak{A}} \\
+\phi(f_{\mathfrak{A}}(a_{1}, \ldots, a_{n})) &= f_{\mathfrak{A}}(a_{1}, \ldots, a_{n}) \\
+                                             &= f_{\mathfrak{A}}(\phi(a_{1}), \ldots, \phi(a_{n})).
+\end{align*}
+
+Hiermee is $\phi$ een isomorphisme van $\mathfrak{A}$ naar $\mathfrak{A}$ en
+hebben we dus
+\begin{align*}
+\mathfrak{A} &\cong \mathfrak{A}.
+\end{align*}
+
+\paragraph{Symmetrie}
+
+Gegeven twee algebra's $\mathfrak{A}$ en $\mathfrak{B}$ met
+\begin{align*}
+\mathfrak{A} &\cong \mathfrak{B}.
+\end{align*}
+
+Er bestaat dus een isomorphisme van $\mathfrak{A}$ naar $\mathfrak{B}$. We
+hebben bij {\bf (b)} gezien dat de inverse van dit isomorphisme een
+isomorphisme is van $\mathfrak{B}$ naar $\mathfrak{A}$ en dus hebben we ook
+\begin{align*}
+\mathfrak{B} &\cong \mathfrak{A}.
+\end{align*}
+
+\paragraph{Transitiviteit}
+
+Gegeven drie algebra's $\mathfrak{A}$, $\mathfrak{B}$ en $\mathfrak{C}$ met
+\begin{align*}
+\mathfrak{A} &\cong \mathfrak{B} \\
+\mathfrak{B} &\cong \mathfrak{C}.
+\end{align*}
+
+Er bestaan dus isomorphismes $\phi$ van $\mathfrak{A}$ naar $\mathfrak{B}$ en
+$\psi$ van $\mathfrak{B}$ naar $\mathfrak{C}$. We construeren nu
+\begin{align*}
+\omega &= \psi \circ \phi
+\end{align*}
+welke een homomorphisme van $\mathfrak{A}$ naar $\mathfrak{C}$ is. De
+compositie van twee bijecties geeft weer een bijectie en dus is $\omega$ een
+isomorphisme van $\mathfrak{A}$ naar $\mathfrak{C}$ en hebben we
+\begin{align*}
+\mathfrak{A} &\cong \mathfrak{C}.
+\end{align*}
+
+Hiermee hebben we laten zien dat $\cong$ een equivalentierelatie is.\\[2em]
+
+\end{description}
+
+
+\section*{Opgave 8.1}
+
+\begin{description}
+
+\item{\bf (a)} % construeer het termmodel voor Booleans
+We construeren het termmodel $\mathfrak{Ter}_{\Sigma}/\negmedspace\sim$ voor de
+specificatie $\texttt{Booleans}$ met behulp van de equivalentierelatie $\sim$
+op termen uit $Ter_{\Sigma}$:
+\begin{displaymath}
+s \sim t \, \Longleftrightarrow \, E \vdash s = t
+\end{displaymath}
+waarbij $E$ de verzameling vergelijkingen in $\texttt{Booleans}$ is.
+
+Als drager van het termmodel nemen we nu de equivalentieklassen van de
+gesloten termen onder $\sim$. We hebben eerder gezien dat iedere gesloten term
+in $\texttt{Booleans}$ afleidbaar gelijk is aan \`ofwel $\texttt{true}$
+\`ofwel $\texttt{false}$, dus hebben we als drager genoeg aan de twee
+equivalentieklassen $[\texttt{true}]$ en $[\texttt{false}]$ van de termen
+$\texttt{true}$ en $\texttt{false}$.
+
+De interpretaties van de constanten en functiesymbolen kiezen we in het
+termmodel als volgt:
+\begin{align*}
+\texttt{true}_{\mathfrak{Ter}_{\Sigma}/\sim}         &= [\texttt{true}] \\
+\texttt{false}_{\mathfrak{Ter}_{\Sigma}/\sim}        &= [\texttt{false}] \\
+\texttt{and}_{\mathfrak{Ter}_{\Sigma}/\sim}([t],[s]) &= [\texttt{and}(t,s)] \\
+\texttt{or}_{\mathfrak{Ter}_{\Sigma}/\sim}([t],[s])  &= [\texttt{or}(t,s)] \\
+\texttt{not}_{\mathfrak{Ter}_{\Sigma}/\sim}([t])     &= [\texttt{not}(t)] \\
+\end{align*}
+
+\item{\bf (b)} % laat zien dat het termmodel isomorf is met B2
+We bekijken nu de functie $\phi : Ter_{\Sigma}/\negmedspace\sim \,\,
+\rightarrow \, A$ die equivalentieklassen afbeelt op de drager $A$ van
+$\mathfrak{B}_{2}$ en gedefini\"eerd is als
+\begin{align*}
+\phi([\texttt{true}])  &= T, \\
+\phi([\texttt{false}]) &= F.
+\end{align*}
+
+Nu laten we zien dat $\phi$ een isomorfisme is van
+$\mathfrak{Ter}_{\Sigma}/\negmedspace\sim$ naar $\mathfrak{B}_{2}$.
+
+\paragraph{Homomorfisme}
+
+Eerst bekijken we of $\phi$ een homomorfisme is. Voor de constante
+$\texttt{true}$ hebben we:
+\begin{align*}
+\phi(\texttt{true}_{\mathfrak{Ter}_{\Sigma}/\sim}) &= \phi([\texttt{true}]) \\
+                                                   &= T \\
+                                                   &= \texttt{true}_{\mathfrak{B}_{2}}
+\end{align*}
+Voor de constante $\texttt{false}$ gaat dit op gelijke wijze. We bekijken nu
+het functiesymbool $\texttt{not}$ toegepast op het element $x$. Voor de waarde
+van $x$ zijn er twee mogelijkheden, we beperken ons hier tot
+$[\texttt{true}]$:
+\begin{align*}
+\phi(\texttt{not}_{\mathfrak{Ter}_{\Sigma}/\sim}(x)) &= \phi(\texttt{not}_{\mathfrak{Ter}_{\Sigma}/\sim}([\texttt{true}])) \\
+                                                     &= \phi([\texttt{not(true)}]) \\
+                                                     &= \phi([\texttt{false}]) \\
+                                                     &= F
+\end{align*}
+\begin{align*}
+\texttt{not}_{\mathfrak{B}_{2}}(\phi(x)) &= \texttt{not}_{\mathfrak{B}_{2}}(\phi([\texttt{true}])) \\
+                                         &= \texttt{not}_{\mathfrak{B}_{2}}(T) \\
+                                         &= F
+\end{align*}
+Vervolgens bekijken we het functiesymbool $\texttt{and}$ toegepast op de
+elementen $x$ en $y$. Ook hier zijn er voor $x$ en $y$ beiden twee mogelijke
+waarden, we behandelen alleen het geval dat $x = [\texttt{true}]$ en $y =
+[\texttt{false}]$:
+\begin{align*}
+\phi(\texttt{and}_{\mathfrak{Ter}_{\Sigma}/\sim}(x,y)) &= \phi(\texttt{and}_{\mathfrak{Ter}_{\Sigma}/\sim}([\texttt{true}],[\texttt{false}])) \\
+                                                       &= \phi([\texttt{and}(\texttt{true},\texttt{false})]) \\
+                                                       &= \phi([\texttt{false}]) \\
+                                                       &= F
+\end{align*}
+\begin{align*}
+\texttt{and}_{\mathfrak{B}_{2}}(\phi(x),\phi(y)) &= \texttt{and}_{\mathfrak{B}_{2}}(\phi([\texttt{true}]),\phi([\texttt{false}])) \\
+                                                 &= \texttt{and}_{\mathfrak{B}_{2}}(T,F) \\
+                                                 &= F
+\end{align*}
+Hetzelfde verhaal voor het functiesymbool $\texttt{or}$ zullen we achterwege
+laten. Hiermee hebben we laten zien dat $\phi$ een homomorfisme is van
+$\mathfrak{Ter}_{\Sigma}/\negmedspace\sim$ naar $\mathfrak{B}_{2}$.
+
+\paragraph{Surjectief}
+
+De drager van $\mathfrak{B}_{2}$ bestaat uit de elementen $T$ en $F$. In onze
+definitie van $\phi$ zien we duidelijk dat beiden het beeld zijn van een
+element uit $\mathfrak{Ter}_{\Sigma}/\negmedspace\sim$ en dus is $\phi$ surjectief.
+
+\paragraph{Injectief}
+
+Evenzo is gemakkelijk te zien dat de twee verschillende elementen
+$[\texttt{true}]$ en $[\texttt{false}]$ met $\phi$ ook twee verschillende
+beelden hebben, namelijk $T$ respectievelijk $F$. En dus is $\phi$ injectief.
+
+\paragraph{}
+
+Nu we hebben laten zien dat er een isomorfisme bestaat van
+$\mathfrak{Ter}_{\Sigma}/\negmedspace\sim$ naar $\mathfrak{B}_{2}$ ($\phi$ is een
+injectief en surjectief homomorfisme) weten we dus ook dat deze twee algebra's
+isomorf zijn.
+
+\end{description}
+
+
+% TODO: nog iets met term algebra? nog iets van tentamensommen (initieel correcte
+%       specificatie, initieel model)
+% TODO: index van sommen in titel bijwerken
 
 
 \end{document}
