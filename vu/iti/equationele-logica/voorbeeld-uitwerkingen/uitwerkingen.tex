@@ -2,15 +2,15 @@
 \usepackage[dutch]{babel}
 \usepackage{a4,fullpage}
 \usepackage{amsmath,amsfonts,amssymb}
-\usepackage{fitch}
+\usepackage{fitch} % http://folk.uio.no/johanw/FitchSty.html
 
 %\renewcommand{\familydefault}{\sfdefault}
 
 
 \title{Inleiding Theoretische Informatica -- Equationele Logica\\
-\normalsize{Uitwerkingen bij opgaven 2.3, 3.1, 3.4, 5.1, 5.5, 6.1}}
+\normalsize{Uitwerkingen bij opgaven 2.3, 3.1, 3.3, 3.4, 5.1, 6.1, 6.4, 7.1, 7.3, 7.7, 8.1}}
 \author{Martijn Vermaat (mvermaat@cs.vu.nl)}
-\date{16 maart 2007}
+\date{22 maart 2007}
 
 
 \begin{document}
@@ -93,7 +93,72 @@ pop(push(x, pop(push(x, empty)))) = empty
 \end{description}
 
 
-% TODO: opgave 3.3?
+\section*{Opgave 3.3}
+
+We bewijzen voor iedere gesloten term $t$ dat deze afleidbaar gelijk is aan
+een term van de vorm $succ^{n}(0)$. Dit doen we volgens inductie naar de
+structuur van de term $t$:
+
+\begin{description}
+
+\item{Basisgeval:}
+  Het basisgeval is wanneer $t$ een constante is, in dit geval is de enige
+  mogelijkheid de constante $0$. En omdat $succ^0(0) = 0$ zien we dat de
+  bewering waar is in het basisgeval. (Om precies te zijn: $t$ is afleidbaar
+  gelijk aan zichzelf wegens reflexiviteit.)
+
+\item{Inductiestap:}
+  We onderscheiden drie mogelijkheden voor de structuur van $t$ in onze
+  inductiestap:
+
+  \begin{description}
+
+  \item{$t$ is van de vorm $succ(u)$}
+
+    We mogen volgens inductie aannemen dat $u$ afleidbaar gelijk is aan een
+    term van de vorm $succ^{n}(0)$. Wegens congruentie is dan $t$ afleidbaar
+    gelijk aan een term van de vorm $succ(succ^{n}(0))$ en dat is natuurlijk
+    $succ^{n+1}(0)$.
+
+  \item{$t$ is van de vorm $add(u, v)$}
+
+    De aannamen zijn dat $u$ en $v$ afleidbaar gelijk zijn aan respectievelijk
+    een term van de vorm $succ^{n}(0)$ en een term van de vorm
+    $succ^{m}(0)$. Volgens congruentie is $t$ dan afleidbaar gelijk aan een
+    term van de vorm $add(succ^{n}(0), succ^{m}(0))$.
+
+    Als $m=0$ dan is $t$ afleidbaar gelijk aan een term van de vorm
+    $succ^{n}(0)$ (volgens $[N1]$) en zijn we klaar. Als $m>0$, dan is $t$
+    afleidbaar gelijk aan een term van de vorm $succ(add(succ^{n}(0),                                                        
+    succ^{m-1}(0)))$ (volgens $[N2]$). Volgens de inductiehypothese is
+    $add(succ^{n}(0), succ^{m-1}(0))$ afleidbaar gelijk aan een term van de
+    vorm $succ^{p}(0)$ en dus het geheel (en volgens transitiviteit ook $t$)
+    aan $succ^{p+1}(0)$.
+
+  \item{$t$ is van de vorm $mul(u, v)$}
+
+    Wederom mogen we aannemen dat $u$ en $v$ afleidbaar gelijk zijn aan
+    respectievelijk een term van de vorm $succ^{n}(0)$ en een term van de vorm
+    $succ^{m}(0)$. Wegens congruentie is $t$ dan afleidbaar gelijk aan een
+    term van de vorm $mul(succ^{n}(0), succ^{m}(0))$.
+
+    In het geval van $m=0$ is $t$ afleidbaar gelijk aan een term van de vorm
+    $succ^{n}(0)$ (volgens $[N1]$).
+
+    Het geval voor $m>0$ is iets moeilijker. Dan is $t$ namelijk afleidbaar
+    gelijk aan een term van de vorm $add(mul(succ^{n}(0), succ^{m-1}(0)),                                                    
+    succ^{n}(0))$. Volgens de inductiehypothese weten we dat de $mul$
+    afleidbaar gelijk is aan $succ^{p}(0)$. We gebruiken dezelfde redenering
+    als bij het vorige punt ($add(u, v)$) om te laten zien dat het geheel nu
+    afleidbaar gelijk is aan $succ^{q}(0)$. (Dit is niet precies, maar hier
+    laten we het voor dit moment bij.)
+
+  \end{description}
+
+\end{description}
+
+Hiermee hebben we bewezen dat de bewering klopt. We hoeven geen rekening te
+houden met variabelen, omdat deze niet voor komen in een gesloten term.
 
 
 \section*{Opgave 3.4}
@@ -249,9 +314,6 @@ waar is in $\mathfrak{P}(V)$ en dus dat $\mathfrak{P}(V)$ een model is voor de
 specificatie $\texttt{Booleans}$.
 
 
-% TODO: opgave 5.3?
-
-
 \section*{Opgave 6.1}
 
 \begin{description}
@@ -337,7 +399,64 @@ een tegenmodel) en dus bevat $\mathfrak{B}_{3}$ confusion.
 \end{description}
 
 
-% TODO: opgave 6.3 of 6.4
+\section*{Opgave 6.4}
+
+\begin{description}
+
+\item{\bf (a)}
+\begin{equation*}
+\begin{fitch}
+\texttt{s(h(x)) = s(x)}                 & \texttt{[E2]}  \\ % 1                                                              
+\texttt{s(s(h(x))) = s(s(x))}           & congr, 1       \\ % 2                                                              
+\texttt{s(s(h(a))) = s(s(a))}           & subst, 2       \\ % 3                                                              
+\texttt{s(h(s(a))) = s(s(a))}           & subst, 1       \\ % 4                                                              
+\texttt{s(s(a)) = s(h(s(a)))}           & symm, 4        \\ % 5                                                              
+\texttt{s(s(h(a))) = s(h(s(a)))}        & trans, 3, 5       % 6                                                              
+\end{fitch}
+\end{equation*}
+
+\item{\bf (b)}
+De algebra $\mathfrak{K}$ is geen model voor de specificatie $\texttt{Spec}$
+omdat de vergelijking $\texttt{[E1]}$ hierin niet waar is. Kies bijvoorbeeld
+de assignment $\theta$ met $\theta(x) = 3$. We zien dan dat
+\begin{align*}
+\bar \theta(\texttt{h(h(x))}) &= 3+2 \\
+                              &= 5
+\end{align*}
+terwijl
+\begin{align*}
+\bar \theta(\texttt{x}) &= 3.
+\end{align*}
+
+\item{\bf (c)}
+We bekijken voor de overige algebra's of ze initiele modellen zijn voor $\texttt{Spec}$.
+
+\paragraph{De algebra $\mathfrak{L}$}
+
+Deze algebra is geen initieel model voor $\texttt{Spec}$, omdat er junk
+is. Voor alle getallen ongelijk aan 0 geldt namelijk dat ze niet de
+interpretatie zijn van een gesloten term.
+
+Bovendien bevat deze algebra confusion, omdat iedere gesloten term
+ge\"interpreteerd wordt als het getal 0. Dit betekent dat iedere vergelijking
+van gesloten termen waar is in $\mathfrak{L}$, terwijl bijvoorbeeld
+$\texttt{s(x) = x}$ niet afleidbaar is in $\texttt{Spec}$.
+
+\paragraph{De algebra $\mathfrak{M}$}
+
+Deze algebra is geen initieel model voor $\texttt{Spec}$, omdat er confusion
+aanwezig is. De termen $\texttt{a}$ en $\texttt{h(a)}$ worden namelijk gelijk
+ge\"interpreteerd, terwijl ze niet als gelijk kunnen worden afgeleid in de
+specificatie $\texttt{Spec}$.
+
+\paragraph{De algebra $\mathfrak{N}$}
+
+Deze algebra is geen initieel model voor $\texttt{Spec}$, omdat er
+confusion aanwezig is. Bijvoorbeeld de termen $\texttt{x}$ en $\texttt{h(x)}$
+worden ge\"identificeerd, terwijl deze gelijkheid niet afleidbaar is in
+$\texttt{Spec}$.
+
+\end{description}
 
 
 \section*{Opgave 7.1}
@@ -419,7 +538,43 @@ bestaan.
 \end{description}
 
 
-% TODO: opgave 7.3?
+\section*{Opgave 7.3}
+
+\begin{description}
+
+\item{\bf (a)} % is \n->n+3 een homomorphisme in N+                                                                                   
+  $\phi(n) = n+3$ is geen homomorphisme in $\mathcal{N}^{+}$, want we zien
+  bijvoorbeeld dat:
+
+  \begin{eqnarray*}
+    \phi(\texttt{add}_{\mathcal{N}^{+}}(2,5)) & = & \phi(7) \\
+                          & = & 10 \\
+                          & \ne & 13 \\
+                          & = & \texttt{add}_{\mathcal{N}^{+}}(5,8) \\
+                          & = & \texttt{add}_{\mathcal{N}^{+}}(\phi(2),\phi(5))
+  \end{eqnarray*}
+
+\item{\bf (b)} % is \n->2n een homomorphisme in N+                                                                                    
+  $\phi(n) = 2n$ is wel een homomorphisme in $\mathcal{N}^{+}$, want voor
+  willekeurige $x,y$ uit $\mathbb{N}$:
+
+  \begin{eqnarray*}
+    \phi(\texttt{0}_{\mathcal{N}^{+}}) & = & \phi(0) \\
+                                    & = & 0 \\
+                                    & = & \texttt{0}_{\mathcal{N}^{+}}
+  \end{eqnarray*}
+
+  \begin{eqnarray*}
+    \phi(\texttt{add}_{\mathcal{N}^{+}}(x,y)) & = & \phi(x+y) \\
+                          & = & 2(x+y) \\
+                          & = & 2x \, + \, 2y \\
+                          & = & \texttt{add}_{\mathcal{N}^{+}}(2x, 2y) \\
+                          & = & \texttt{add}_{\mathcal{N}^{+}}(\phi(x), \phi(y))
+  \end{eqnarray*}
+
+  Hiermee voldoet $\phi$ aan alle voorwaarden.\\[2em]
+
+\end{description}
 
 
 \section*{Opgave 7.7}
@@ -599,7 +754,7 @@ termmodel als volgt:
 \end{align*}
 
 \item{\bf (b)} % laat zien dat het termmodel isomorf is met B2
-We bekijken nu de functie $\phi : Ter_{\Sigma}/\negmedspace\sim \,\,
+We bekijken de functie $\phi : Ter_{\Sigma}/\negmedspace\sim \,\,
 \rightarrow \, A$ die equivalentieklassen afbeelt op de drager $A$ van
 $\mathfrak{B}_{2}$ en gedefini\"eerd is als
 \begin{align*}
@@ -673,11 +828,6 @@ injectief en surjectief homomorfisme) weten we dus ook dat deze twee algebra's
 isomorf zijn.
 
 \end{description}
-
-
-% TODO: nog iets met term algebra? nog iets van tentamensommen (initieel correcte
-%       specificatie, initieel model)
-% TODO: index van sommen in titel bijwerken
 
 
 \end{document}
