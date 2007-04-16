@@ -1,0 +1,280 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsthm}
+%\usepackage[T1]{fontenc}
+%\usepackage{lmodern} % Latin modern font family
+\usepackage{bussproofs} % http://math.ucsd.edu/%7Esbuss/ResearchWeb/bussproofs/
+
+% Sans-serif fonts
+%\usepackage[T1experimental,lm]{sfmath} % http://dtrx.de/od/tex/sfmath.html
+%\renewcommand{\familydefault}{\sfdefault}
+
+% Some configuration for listings
+\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\newcounter{firstcounter}
+\newcommand{\labelfirst}{(\roman{firstcounter})}
+%\newcommand{\spacingfirst}{\usecounter{firstcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingfirst}{\usecounter{firstcounter}}
+
+\newcounter{secondcounter}
+\newcommand{\labelsecond}{(\arabic{secondcounter})}
+%\newcommand{\spacingsecond}{\usecounter{secondcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingsecond}{\usecounter{secondcounter}}
+
+\title{Inleiding Theoretische Informatica -- Lambda Calculus\\
+\normalsize{Uitwerkingen van geselecteerde opgaven}}
+\author{Martijn Vermaat (mvermaat@cs.vu.nl)}
+\date{16 april 2007}
+
+
+\begin{document}
+
+\maketitle
+
+
+\section{Termen en reductie}
+
+
+\begin{enumerate}
+
+
+\item[2.]
+Een functie die twee inputs neemt en ze afbeelt op de constante $\textsf{0}$ is
+$\lambda x. \lambda y. \textsf{0}$ of $\lambda xy. \textsf{0}$.
+
+
+\item[3.]
+Met alle haakjes en alle $\lambda$'s.
+\begin{enumerate}
+
+\item
+$( \, (\lambda x. (\lambda y. (x \, (y \, z)))) \quad (\lambda x. ((y \, x) \, x)) \, )$
+
+\end{enumerate}
+
+
+\item[4.]
+Met zo min mogelijk haakjes.
+\begin{enumerate}
+
+\item[(b)]
+$(\lambda x. x) \quad (\lambda x. \lambda y. x \, y \, y) \quad \lambda x. \lambda y. x \, (x \, y)$
+
+\end{enumerate}
+
+
+\item[7.]
+Zijn de termen $\alpha$-convertibel?
+\begin{enumerate}
+
+\item[(a)] Nee.
+\item[(c)] Nee.
+\item[(e)] Nee.
+\item[(h)] Ja.
+
+\end{enumerate}
+
+
+\item[8.]
+Termen na uitvoeren van de substituties.
+\begin{enumerate}
+
+\item[(b)] $(\lambda x. \textsf{mul} \, x \, y)$
+
+\item[(c)] $(\lambda x. \textsf{mul} \, x \, 5)$
+
+\item[(h)] $(\lambda z. (\lambda y. \textsf{plus} \, x \, y) \, z)$
+
+\end{enumerate}
+
+
+\item[10.]
+De termen worden gereduceerd naar normaalvorm en $\beta$-redexen zijn steeds
+onderstreept.
+\begin{enumerate}
+
+\item[(a)]
+$\underline{(\lambda y. \textsf{mul} \, 3 \, y) \; 7}
+  \quad \rightarrow_{\beta} \quad
+  \textsf{mul} \, 3 \, 7
+  \quad \rightarrow_{\delta} \quad
+  21$
+
+\item[(d)]
+\begin{align*}
+  \underline{(\lambda f \, x. f \, x) \quad (\lambda y. \textsf{plus} \, x \, y)} \quad 3
+  & \quad \rightarrow_{\beta} \quad
+  \underline{(\lambda z. \underline{(\lambda y. \textsf{plus} \, x \, y) \, z}) \quad 3} \\
+  & \quad \rightarrow_{\beta} \quad
+  \underline{(\lambda z. \textsf{plus} \, x \, z) \quad 3} \\
+  & \quad \rightarrow_{\beta} \quad
+  \textsf{plus} \, x \, 3
+\end{align*}
+
+\item[(f)]
+\begin{align*}
+  \underline{(\lambda f \, x. f \, (f \, (x))) \; (\lambda x. \textsf{mul} \, x \, 7)} \; 3
+  & \quad \rightarrow_{\beta} \quad
+  \underline{(\lambda x. \underline{(\lambda x. \textsf{mul} \, x \, 7) \, (\underline{(\lambda x. \textsf{mul} \, x \, 7) \, (x)})}) \; 3} \\
+  & \quad \rightarrow_{\beta} \quad
+  \underline{(\lambda x. \underline{(\lambda x. \textsf{mul} \, x \, 7) \, (\textsf{mul} \, x \, 7)}) \; 3} \\
+  & \quad \rightarrow_{\beta} \quad
+  \underline{(\lambda x. \textsf{mul} \, (\textsf{mul} \, x \, 7) \, 7) \; 3} \\
+  & \quad \rightarrow_{\beta} \quad
+  \textsf{mul} \, (\textsf{mul} \, 3 \, 7) \, 7 \\
+  & \quad \rightarrow_{\delta} \quad
+  \textsf{mul} \, 21 \, 7 \\
+  & \quad \rightarrow_{\delta} \quad
+  147
+\end{align*}
+
+\end{enumerate}
+
+
+\end{enumerate}
+
+
+\section{Reductiestrategie\"en}
+
+
+\begin{enumerate}
+
+
+\item[2.]
+
+\begin{enumerate}
+\item[(a)]
+Een reductierij volgens de leftmost-innermost strategie. Er is steeds maar \'e\'en redex,
+dus is er geen verschil met het toepassen van bijvoorbeeld de leftmost-outermost strategie.
+\begin{align*}
+  (\lambda x. x \, x \, x) \quad \lambda x. x \, x \, x
+  & \quad \rightarrow_{\beta} \quad
+  (\lambda x. x \, x \, x) \quad (\lambda x. x \, x \, x) \quad \lambda x. x \, x \, x\\
+  & \quad \rightarrow_{\beta} \quad
+  (\lambda x. x \, x \, x) \quad (\lambda x. x \, x \, x) \quad (\lambda x. x \, x \, x) \quad \lambda x. x \, x \, x\\
+  & \quad \rightarrow_{\beta} \quad
+  (\lambda x. x \, x \, x) \quad (\lambda x. x \, x \, x) \quad (\lambda x. x \, x \, x) \quad (\lambda x. x \, x \, x) \quad \lambda x. x \, x \, x\\
+  & \quad \rightarrow_{\beta} \quad
+  \ldots \text{etc.}
+\end{align*}
+
+\item[(c)]
+De leftmost-outermost strategie vindt altijd een normaalvorm als deze bestaat.
+We vinden in dit geval geen normaalvorm, dus heeft deze term geen normaalvorm. 
+
+\end{enumerate}
+
+
+\end{enumerate}
+
+
+\section{Datatypes}
+
+
+\begin{enumerate}
+
+
+\item[9.]
+
+\begin{enumerate}
+
+\item
+Een specificatie voor de operatie \emph{exclusive or}.
+\begin{align*}
+  \textsf{xor} \, \textsf{true} \, \textsf{true} \quad & =_{\beta} \quad \textsf{false}\\
+  \textsf{xor} \, \textsf{true} \, \textsf{false} \quad & =_{\beta} \quad \textsf{true}\\
+  \textsf{xor} \, \textsf{false} \, \textsf{true} \quad & =_{\beta} \quad \textsf{true}\\
+  \textsf{xor} \, \textsf{false} \, \textsf{false} \quad & =_{\beta} \quad \textsf{false}
+\end{align*}
+
+\item
+Een mogelijke definitie voor de \emph{exclusive or} operatie als $\lambda$-term.
+Volg de tip bij de vraag op voor een idee hoe te beginnen aan deze definitie.\\
+$\textsf{xor} \, := \, \lambda a b. b \, (a \, \textsf{false} \, \textsf{true}) \, a$
+
+\item
+Een afleiding voor de tweede regel van de specificatie bij (a). We vullen de definities
+van $\textsf{xor}$, $\textsf{true}$ en $\textsf{false}$ in en laten zien dat de term
+reduceert naar $\textsf{true}$.
+\begin{align*}
+  \textsf{xor} \, \textsf{true} \, \textsf{false}
+  & \quad = \quad
+  (\lambda a b. b \, (a \, \textsf{false} \, \textsf{true}) \, a) \, (\lambda x y. x) \, \lambda x y. y\\
+  & \quad \rightarrow_{\beta} \quad
+  (\lambda b. b \, ((\lambda x y. x) \, \textsf{false} \, \textsf{true}) \, (\lambda x y. x)) \, \lambda x y. y\\
+  & \quad \rightarrow_{\beta} \quad
+  (\lambda x y. y) \, ((\lambda x y. x) \, \textsf{false} \, \textsf{true}) \, \lambda x y. x\\
+  & \quad \rightarrow_{\beta} \quad
+  (\lambda y. y) \, \lambda x y. x\\
+  & \quad \rightarrow_{\beta} \quad
+  \lambda x y. x\\
+  & \quad = \quad
+  \textsf{true}
+\end{align*}
+
+\end{enumerate}
+
+
+\end{enumerate}
+
+
+\section{Recursie}
+
+
+\begin{enumerate}
+
+
+\item[7.]
+We zijn op zoek naar een term $\textsf{map}$ die het volgende gedrag vertoont:
+\begin{equation*}
+\textsf{map} \, = \, \lambda f l. (\textsf{empty} \, l) \, \textsf{nil} \,
+(\textsf{cons} \, (f \, (\textsf{head} \, l)) \, (\textsf{map} \, f \, (\textsf{tail} \, l)))
+\end{equation*}
+Dit kunnen we ook schrijven als
+\begin{equation*}
+\textsf{map} \, = \, (\lambda m. \lambda f l. (\textsf{empty} \, l) \, \textsf{nil} \,
+(\textsf{cons} \, (f \, (\textsf{head} \, l)) \, (m \, f \, (\textsf{tail} \, l)))) \, \textsf{map}
+\end{equation*}
+Nu kunnen we de fixed-point combinator $\textsf{Y}$ gebruiken om de recursie op te lossen
+en een uiteindelijke definitie van $\textsf{map}$ te maken:
+\begin{equation*}
+\textsf{map} \, = \, \textsf{Y} \, \lambda m. \lambda f l. (\textsf{empty} \, l) \, \textsf{nil} \,
+(\textsf{cons} \, (f \, (\textsf{head} \, l)) \, (\textsf{map} \, f \, (\textsf{tail} \, l)))
+\end{equation*}
+
+
+\end{enumerate}
+
+
+\section{Getypeerde $\lambda$-calculus}
+
+
+\begin{enumerate}
+
+
+\item[1.]
+
+\begin{enumerate}
+
+\item[(c)]
+De term $\textsf{K} \, \textsf{I}$ is gelijk aan $(\lambda x y. x) \, \lambda x. x$.
+\begin{prooftree}
+\AxiomC{$x \: : \: C \vdash x \: : \: C$}
+\UnaryInfC{$\vdash \lambda x. x \: : \: C \rightarrow C$}
+\AxiomC{$x \: : \: C \rightarrow C , y \: : \: B \vdash x \: : \: C \rightarrow C$}
+\UnaryInfC{$x \: : \: C \rightarrow C \vdash \lambda y. x \: : \: B \rightarrow C \rightarrow C$}
+\UnaryInfC{$\vdash \lambda x y. x \: : \: (C \rightarrow C) \rightarrow B \rightarrow C \rightarrow C$}
+\BinaryInfC{$\vdash (\lambda x y. x) \, \lambda x. x \: : \: B \rightarrow C \rightarrow C$}
+\end{prooftree}
+
+\end{enumerate}
+
+
+\end{enumerate}
+
+
+\end{document}
