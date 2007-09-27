@@ -1,0 +1,44 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{fitch} % http://folk.uio.no/johanw/FitchSty.html
+
+%\renewcommand{\familydefault}{\sfdefault}
+
+
+\title{Uitwerking van opgave 3m\\
+\normalsize{bij paragraaf 1.2 van Huth\&Ryan}}
+%\date{Martijn Vermaat, 27 september 2007}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+We geven een afleiding in natuurlijke decuctie voor de sequent $p \wedge q \rightarrow r \vdash (p \rightarrow r) \vee (q \rightarrow r)$:
+
+\begin{equation*}
+\begin{fitch}
+p \wedge q \rightarrow r                      & premisse                        \\ % 1
+p \vee \neg p                                 & LEM                             \\ % 2
+\fh p                                         & assumptie                       \\ % 3
+\fa \fh q                                     & assumptie                       \\ % 4
+\fa \fa p \wedge q                            & $\wedge_{\text{i}}$ 3,4         \\ % 5
+\fa \fa r                                     & $\rightarrow_{\text{e}}$ 5,1    \\ % 6
+\fa q \rightarrow r                           & $\rightarrow_{\text{i}}$ 4-6    \\ % 7
+\fa (p \rightarrow r) \vee (q \rightarrow r)  & $\vee_{\text{i$_{2}$}}$ 7       \\ % 8
+\fh \neg p                                    & assumptie                       \\ % 9
+\fa \fh p                                     & assumptie                       \\ % 10
+\fa \fa \bot                                  & $\neg_{\text{e}}$ 10,9          \\ % 11
+\fa \fa r                                     & $\bot_{\text{e}}$ 11            \\ % 12
+\fa p \rightarrow r                           & $\rightarrow_{\text{i}}$ 10-12  \\ % 13
+\fa (p \rightarrow r) \vee (q \rightarrow r)  & $\vee_{\text{i$_{1}$}}$ 13      \\ % 14
+(p \rightarrow r) \vee (q \rightarrow r)      & $\vee_{\text{e}}$ 2,3-8,9-14    \\ % 15
+\end{fitch}
+\end{equation*}
+
+
+\end{document}
