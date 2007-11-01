@@ -54,6 +54,8 @@ By induction on the derivation of $M \Rightarrow v$.
   \Rightarrow v'$ assuming $P\{\Psi(\lambda^{n}.M')\}\{\} \Rightarrow
   v'$.
 
+  % TODO: actually, beta-reduction is contained in the semantics...
+
   This is trivial, because
   $(\lambda^{0}.\kappa_{0}(\Psi(\lambda^{n}.M'))) (\lambda^{0}.P)
   \twoheadrightarrow_{\beta} P\{\Psi(\lambda^{n}.M')\}\{\}$.
@@ -110,6 +112,9 @@ $P'\{v_{0}\} \Rightarrow v$ and the assumption $P\{\Psi(v)\}\{\}
 \item{Case $n = k + 1$}
 
 $[\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{k+1}]\!](\lambda^{0}.\Psi(\lambda^{k+1}.P')((\lambda^{0}.P), \kappa_{k+1}, \ldots, \kappa_{0})) \cdots )$
+
+What is our IH and how can we use it? Maybe we should've started out with induction on $n$ (knowing $M'(N_{0}, \ldots, N_{n-1}) \Rightarrow \lambda^{0}.Q$ where $Q\{N_{n}\} = v$ or something)?
+
 
 \end{itemize}
 
