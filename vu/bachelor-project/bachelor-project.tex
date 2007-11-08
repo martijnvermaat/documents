@@ -45,6 +45,9 @@ By induction on the derivation of $M \Rightarrow v$.
 
 % TODO: check all reductions and add relevant properties (k-closedness
 % of certain terms)
+% TODO: make distinction clear between evaluation in source and target
+% languages
+% TODO: do lifting of x variables
 
 \begin{itemize}
 \item{Base case $\lambda^{n}.M' \Rightarrow \lambda^{n}.M'$}
@@ -120,7 +123,41 @@ What is our IH and how can we use it? Maybe we should've started out with induct
 
 \item{Case $(\texttt{let} \: M' \: \texttt{in} \: N) \Rightarrow v$}
 
-Todo.
+Premises are $M' \Rightarrow v_{1}$ and $N\{v_{1}\} \Rightarrow v$.
+
+Assuming $P\{\Psi(v)\}\{\} \Rightarrow v'$ we need to show
+$[\![\texttt{let} \: M' \: \texttt{in} \: N]\!](\lambda^{0}.P) \Rightarrow v'$.
+
+\begin{eqnarray*}
+                                     &             & [\![\texttt{let} \: M' \: \texttt{in} \: N]\!](\lambda^{0}.P) \\
+                                     & =           & (\lambda^{0}.[\![M']\!](\lambda^{0}. \: \texttt{let} \: \kappa_{0} \: \texttt{in} \: [\![N]\!](\kappa_{1})))(\lambda^{0}.P) \\
+\mbox{(application evaluation rule)} & \Rightarrow & [\![M']\!](\lambda^{0}. \: \texttt{let} \: \kappa_{0} \: \texttt{in} \: [\![N]\!](\Uparrow_{x}^{1} \lambda^{0}.P))
+\end{eqnarray*}
+
+We apply the induction hypothesis to the first premise (knowing that $\lambda^{0}. \: \texttt{let} \: \kappa_{0} \: \texttt{in} \: [\![N]\!](\Uparrow_{x}^{1} \lambda^{0}.P)$
+is $\kappa$-closed) and the term evaluates as
+
+\begin{eqnarray*}
+\mbox{(IH on $M' \Rightarrow v_{1}$)}    & \Rightarrow & (\texttt{let} \: \kappa_{0} \: \texttt{in} \: [\![N]\!](\Uparrow_{x}^{1} \lambda^{0}.P))\{\Psi(v_{1})\}\{\} \\
+                                        & =           & \texttt{let} \: \Psi(v_{1}) \: \texttt{in} \: [\![N]\!](\Uparrow_{x}^{1} \lambda^{0}.P) \\
+\mbox{($\texttt{let}$-evaluation rule)} & \Rightarrow & ([\![N]\!](\Uparrow_{x}^{1} \lambda^{0}.P))\{\}\{\Psi(v_{1})\} \\
+                                        & =           & [\![N]\!]\{\}\{\Psi(v_{1})\}(\Uparrow_{x}^{1} \lambda^{0}.P) \\
+\mbox{(lemma 4)}                        & =           & [\![N\{v_{1}\}]\!](\Uparrow_{x}^{1} \lambda^{0}.P)
+\end{eqnarray*}
+
+Applying the induction hypothesis to the second premise (again, $\Uparrow_{x}^{1} \lambda^{0}.P$ is $\kappa$-closed)
+completes our development
+
+\begin{eqnarray*}
+\mbox{(IH on $N\{v_{1}\} \Rightarrow v$)} & \Rightarrow & (\Uparrow_{x}^{1}P)\{\Psi(v)\}\{\} \\
+\mbox{(assumption and \ldots)}           & \Rightarrow & v'
+\end{eqnarray*}
+
+% TODO: M => v if P => v might not imply M => P, but we write it this way in our developments (when using IH and let-evaluation rule)
+% TODO: according to leroy, the lifting of x-variables disappears after a while. it is still there after IH on the first premise, but
+%       no longer before applying lemma 4...
+%       i think our proof still stands, except for the dots in the last step (there we need some substitution and lifting properties)
+
 
 \end{itemize}
 
