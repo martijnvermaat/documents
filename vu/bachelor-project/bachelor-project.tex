@@ -7,7 +7,7 @@
 \newtheorem{lemma}{Lemma}
 
 
-\title{Vefifying a CPS Transformation (draft)}
+\title{Verifying a CPS Transformation (draft)}
 
 \author{Martijn Vermaat\footnote{E-mail: \texttt{mvermaat@cs.vu.nl},
     homepage: \texttt{http://www.cs.vu.nl/\~{}mvermaat/}}}
@@ -50,18 +50,19 @@ By induction on the derivation of $M \Rightarrow v$.
 % TODO: do lifting of x variables
 
 \begin{itemize}
-\item{Base case $\lambda^{n}.M' \Rightarrow \lambda^{n}.M'$}
+\item{Base case $\lambda^{n}.M_{1} \Rightarrow \lambda^{n}.M_{1}$}
 
-  We need to show $[\![\lambda^{n}.M']\!](K) =
-  (\lambda^{0}.\kappa_{0}(\Psi(\lambda^{n}.M'))) (\lambda^{0}.P)
-  \Rightarrow v'$ assuming $P\{\Psi(\lambda^{n}.M')\}\{\} \Rightarrow
+  We need to show $(\lambda^{0}.\kappa_{0}(\Psi(\lambda^{n}.M_{1}))) (K)
+  \Rightarrow v'$ under the assumtion that $P\{\Psi(\lambda^{n}.M_{1})\}\{\} \Rightarrow
   v'$.
 
-  % TODO: actually, beta-reduction is contained in the semantics...
-
-  This is trivial, because
-  $(\lambda^{0}.\kappa_{0}(\Psi(\lambda^{n}.M'))) (\lambda^{0}.P)
-  \twoheadrightarrow_{\beta} P\{\Psi(\lambda^{n}.M')\}\{\}$.
+  This is trivial, because according to the evaluation rule for
+  function application we have
+  \begin{eqnarray*}
+   &             & (\lambda^{0}.\kappa_{0}(\Psi(\lambda^{n}.M_{1}))) (K) \\
+   & \Rightarrow & K (\Psi(\lambda^{n}.M_{1})) \\
+   & \Rightarrow & P\{\Psi(\lambda^{n}.M_{1})\}\{\}
+  \end{eqnarray*}
 
 \item{Case $M'(N_{0}, \ldots, N_{n}) \Rightarrow v$}
 
@@ -121,36 +122,42 @@ What is our IH and how can we use it? Maybe we should've started out with induct
 
 \end{itemize}
 
-\item{Case $(\texttt{let} \: M' \: \texttt{in} \: N) \Rightarrow v$}
+\item{Case $(\texttt{let} \: M_{1} \: \texttt{in} \: M_{2}) \Rightarrow v$}
 
-Premises are $M' \Rightarrow v_{1}$ and $N\{v_{1}\} \Rightarrow v$.
+Premises are $M_{1} \Rightarrow v_{1}$ and $M_{2}\{v_{1}\} \Rightarrow v$.
 
 Assuming $P\{\Psi(v)\}\{\} \Rightarrow v'$ we need to show
-$[\![\texttt{let} \: M' \: \texttt{in} \: N]\!](\lambda^{0}.P) \Rightarrow v'$.
+$[\![\texttt{let} \: M_{1} \: \texttt{in} \: M_{2}]\!](\lambda^{0}.P) \Rightarrow v'$.
 
 \begin{eqnarray*}
-                                     &             & [\![\texttt{let} \: M' \: \texttt{in} \: N]\!](\lambda^{0}.P) \\
-                                     & =           & (\lambda^{0}.[\![M']\!](\lambda^{0}. \: \texttt{let} \: \kappa_{0} \: \texttt{in} \: [\![N]\!](\kappa_{1})))(\lambda^{0}.P) \\
-\mbox{(application evaluation rule)} & \Rightarrow & [\![M']\!](\lambda^{0}. \: \texttt{let} \: \kappa_{0} \: \texttt{in} \: [\![N]\!](\Uparrow_{x}^{1} \lambda^{0}.P))
+ &   & [\![\texttt{let} \: M_{1} \: \texttt{in} \: M_{2}]\!](\lambda^{0}.P) \\
+ & = & (\lambda^{0}.[\![M_{1}]\!](\lambda^{0}. \: \texttt{let} \: \kappa_{0} \: \texttt{in} \: [\![M_{2}]\!](\kappa_{1})))(\lambda^{0}.P)
 \end{eqnarray*}
 
-We apply the induction hypothesis to the first premise (knowing that $\lambda^{0}. \: \texttt{let} \: \kappa_{0} \: \texttt{in} \: [\![N]\!](\Uparrow_{x}^{1} \lambda^{0}.P)$
-is $\kappa$-closed) and the term evaluates as
+By the evaluation rule for function application, this term evaluates to the same value as
+\begin{displaymath}
+[\![M_{1}]\!](\lambda^{0}. \: \texttt{let} \: \kappa_{0} \: \texttt{in} \: [\![M_{2}]\!](\Uparrow_{x}^{1} \lambda^{0}.P))
+\end{displaymath}
 
+We apply the induction hypothesis to the first premise (knowing that $\lambda^{0}. \: \texttt{let} \: \kappa_{0} \: \texttt{in} \: [\![M_{2}]\!](\Uparrow_{x}^{1} \lambda^{0}.P)$
+is $\kappa$-closed) and the term evaluates to the same value as
 \begin{eqnarray*}
-\mbox{(IH on $M' \Rightarrow v_{1}$)}    & \Rightarrow & (\texttt{let} \: \kappa_{0} \: \texttt{in} \: [\![N]\!](\Uparrow_{x}^{1} \lambda^{0}.P))\{\Psi(v_{1})\}\{\} \\
-                                        & =           & \texttt{let} \: \Psi(v_{1}) \: \texttt{in} \: [\![N]\!](\Uparrow_{x}^{1} \lambda^{0}.P) \\
-\mbox{($\texttt{let}$-evaluation rule)} & \Rightarrow & ([\![N]\!](\Uparrow_{x}^{1} \lambda^{0}.P))\{\}\{\Psi(v_{1})\} \\
-                                        & =           & [\![N]\!]\{\}\{\Psi(v_{1})\}(\Uparrow_{x}^{1} \lambda^{0}.P) \\
-\mbox{(lemma 4)}                        & =           & [\![N\{v_{1}\}]\!](\Uparrow_{x}^{1} \lambda^{0}.P)
+ &   & (\texttt{let} \: \kappa_{0} \: \texttt{in} \: [\![M_{2}]\!](\Uparrow_{x}^{1} \lambda^{0}.P))\{\Psi(v_{1})\}\{\} \\
+ & = & \texttt{let} \: \Psi(v_{1}) \: \texttt{in} \: [\![M_{2}]\!](\Uparrow_{x}^{1} \lambda^{0}.P)
+\end{eqnarray*}
+
+By the $\texttt{let}$-evaluation rule, this term evaluates as
+\begin{eqnarray*}
+                 &   & ([\![M_{2}]\!](\Uparrow_{x}^{1} \lambda^{0}.P))\{\}\{\Psi(v_{1})\} \\
+                 & = & [\![M_{2}]\!]\{\}\{\Psi(v_{1})\}(\Uparrow_{x}^{1} \lambda^{0}.P) \\
+\mbox{(lemma 4)} & = & [\![M_{2}\{v_{1}\}]\!](\Uparrow_{x}^{1} \lambda^{0}.P)
 \end{eqnarray*}
 
 Applying the induction hypothesis to the second premise (again, $\Uparrow_{x}^{1} \lambda^{0}.P$ is $\kappa$-closed)
-completes our development
-
+completes our argument:
 \begin{eqnarray*}
-\mbox{(IH on $N\{v_{1}\} \Rightarrow v$)} & \Rightarrow & (\Uparrow_{x}^{1}P)\{\Psi(v)\}\{\} \\
-\mbox{(assumption and \ldots)}           & \Rightarrow & v'
+                               &             & (\Uparrow_{x}^{1}P)\{\Psi(v)\}\{\} \\
+\mbox{(assumption and \ldots)} & \Rightarrow & v'
 \end{eqnarray*}
 
 % TODO: M => v if P => v might not imply M => P, but we write it this way in our developments (when using IH and let-evaluation rule)
