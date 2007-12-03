@@ -25,7 +25,7 @@
   \begin{equation*}
     \{\phi_{1}, \ldots, \phi_{n}\} \text{ consistent}
     \quad \Leftrightarrow \quad
-    \{\phi_{1}, \ldots, \phi_{n}\} \not \vdash \bot
+    \phi_{1}, \ldots, \phi_{n} \not \vdash \bot
   \end{equation*}
 \end{quote}
 
@@ -36,17 +36,17 @@
 \item{$\Rightarrow$:} Laat $\mathcal{M}$ een model zijn voor
 $\{\phi_{1}, \ldots, \phi_{n}\}$. We weten dat $\mathcal{M} \not \models \bot$
 ($\bot$ is in geen enkel model waar) en dus dat
-$\{\phi_{1}, \ldots, \phi_{n}\} \not \models \bot$ ($\mathcal{M}$ is een
+$\phi_{1}, \ldots, \phi_{n} \not \models \bot$ ($\mathcal{M}$ is een
 tegenmodel).
 
 Hier uit volgt dat
-$\{\phi_{1}, \ldots, \phi_{n}\} \not \vdash \bot$ (correctheidsstelling).
+$\phi_{1}, \ldots, \phi_{n} \not \vdash \bot$ (correctheidsstelling).
 
 \item{$\Leftarrow$:} (Bewijs uit het ongerijmde.) Stel er is geen $\mathcal{M}$
 met $\mathcal{M} \models \{\phi_{1}, \ldots, \phi_{n}\}$. Dan
-\mbox{$\{\phi_{1}, \ldots, \phi_{n}\} \models \bot$} (een tegenmodel zou
+\mbox{$\phi_{1}, \ldots, \phi_{n} \models \bot$} (een tegenmodel zou
 $\{\phi_{1}, \ldots, \phi_{n}\}$ waar moeten maken) en dus
-$\{\phi_{1}, \ldots, \phi_{n}\} \vdash \bot$ (volledigheidsstelling).
+$\phi_{1}, \ldots, \phi_{n} \vdash \bot$ (volledigheidsstelling).
 Tegenspraak.
 
 We concluderen dat $\{\phi_{1}, \ldots, \phi_{n}\}$ wel een model heeft.
