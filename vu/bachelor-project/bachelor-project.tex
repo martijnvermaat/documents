@@ -41,7 +41,8 @@
 
 \paragraph{Proof}
 
-By induction on the derivation of $M \Rightarrow v$.
+We assume $M \Rightarrow v$ and proceed by induction on its derivation, also
+assuming $P\{\Psi(v)\}\{\} \Rightarrow v'$.
 
 % TODO: check all reductions and add relevant properties (k-closedness
 % of certain terms)
@@ -50,11 +51,12 @@ By induction on the derivation of $M \Rightarrow v$.
 % TODO: do lifting of x variables
 
 \begin{itemize}
-\item{Base case $\lambda^{n}.M_{1} \Rightarrow \lambda^{n}.M_{1}$}
+\item{Case $M = \lambda^{n}.M_{1}$}
+
+  This is the base case, where $v = \lambda^{n}.M_{1}$.
 
   We need to show $(\lambda^{0}.\kappa_{0}(\Psi(\lambda^{n}.M_{1}))) (K)
-  \Rightarrow v'$ under the assumtion that $P\{\Psi(\lambda^{n}.M_{1})\}\{\} \Rightarrow
-  v'$.
+  \Rightarrow v'$.
 
   This is trivial, because according to the evaluation rule for
   function application we have
@@ -64,71 +66,73 @@ By induction on the derivation of $M \Rightarrow v$.
    & \Rightarrow & P\{\Psi(\lambda^{n}.M_{1})\}\{\}
   \end{eqnarray*}
 
-\item{Case $M'(N_{0}, \ldots, N_{n}) \Rightarrow v$}
+\item{Case $M = M_{1}(N_{0}, \ldots, N_{n})$}
 
-Premises are $M' \Rightarrow \lambda^{n}.P'$, $N_{i} \Rightarrow
-v_{i}$, and $P'\{v_{n}, \ldots, v_{0}\} \Rightarrow v$.
+Premises of the evaluation rule for function application are
+$M_{1} \Rightarrow \lambda^{n}.Q$, $N_{i} \Rightarrow v_{i}$,
+and $Q\{v_{n}, \ldots, v_{0}\} \Rightarrow v$.
 
-Assuming $P\{\Psi(v)\}\{\} \Rightarrow v'$ we need to show
-$[\![M'(N_{0}, \ldots, N_{n})]\!](\lambda^{0}.P) \Rightarrow v'$.
+We need to show $[\![M_{1}(N_{0}, \ldots, N_{n})]\!](\lambda^{0}.P) \Rightarrow v'$.
 
-Working out the transformation $[\![\cdot]\!]$ and $\beta$-reduction,
+Working out the transformation $[\![\cdot]\!]$ and function application,
 we get
 \begin{eqnarray*}
-&   & [\![M'(N_{0}, \ldots, N_{n})]\!] (\lambda^{0}.P) \\
-& = & (\lambda^{0}.[\![M'.N_{0} \ldots N_{n} \: \texttt{then} \: \kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})]\!]) (\lambda^{0}.P) \\
-& = & (\lambda^{0}.[\![M']\!](\lambda^{0}.[\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})) \cdots ))) (\lambda^{0}.P) \\
-& \rightarrow_{\beta} & [\![M']\!](\lambda^{0}.[\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}((\lambda^{0}.P), \kappa_{n}, \ldots, \kappa_{0})) \cdots ))
+&   & [\![M_{1}(N_{0}, \ldots, N_{n})]\!] (\lambda^{0}.P) \\
+& = & (\lambda^{0}.[\![M_{1}.N_{0} \ldots N_{n} \: \texttt{then} \: \kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})]\!]) (\lambda^{0}.P) \\
+& = & (\lambda^{0}.[\![M_{1}]\!](\lambda^{0}.[\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})) \cdots ))) (\lambda^{0}.P) \\
+& \Rightarrow & [\![M_{1}]\!](\lambda^{0}.[\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}((\lambda^{0}.P), \kappa_{n}, \ldots, \kappa_{0})) \cdots ))
 \end{eqnarray*}
 
-Let $P'' = [\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}((\lambda^{0}.P), \kappa_{n}, \ldots, \kappa_{0})) \cdots )$ and $K' = \lambda^{0}.P''$. $K'$ is $\kappa$-closed ($[\![N_{i}]\!]$ is $\kappa$-closed by lemma 3).
+Let $P_{1} = [\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}((\lambda^{0}.P), \kappa_{n}, \ldots, \kappa_{0})) \cdots )$ and $K_{1} = \lambda^{0}.P_{1}$ which is $\kappa$-closed ($[\![N_{i}]\!]$ is $\kappa$-closed by lemma 3).
 
-Applying the induction hypothesis to our first premise, we know that $[\![M']\!](K') \Rightarrow v''$ assuming $P''\{\Psi(\lambda^{n}.P')\}\{\} \Rightarrow v''$.
+Applying the induction hypothesis to our first premise, we know that $[\![M_{1}]\!](K_{1}) \Rightarrow v'$ if $P_{1}\{\Psi(\lambda^{n}.Q)\}\{\} \Rightarrow v'$.
 
+We have
 \begin{eqnarray*}
-&   & P''\{\Psi(\lambda^{n}.P')\}\{\} \\
-& = & [\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\Psi(\lambda^{n}.P')((\lambda^{0}.P), \kappa_{n}, \ldots, \kappa_{0})) \cdots )
+&   & P_{1}\{\Psi(\lambda^{n}.Q)\}\{\} \\
+& = & [\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\Psi(\lambda^{n}.Q)((\lambda^{0}.P), \kappa_{n}, \ldots, \kappa_{0})) \cdots )
 \end{eqnarray*}
-
-Our goal is to show $v'' = v'$ and we proceed by induction on $n$.
+and proceed by induction on $n$.
 
 \begin{itemize}
-\item{Base case $n = 0$}
+\item{Case $n = 0$}
 
-$[\![N_{0}]\!](\lambda^{0}.\Psi(\lambda^{0}.P')((\lambda^{0}.P), \kappa_{0}))$
+We show $[\![N_{0}]\!](\lambda^{0}.\Psi(\lambda^{0}.Q)((\lambda^{0}.P), \kappa_{0})) \Rightarrow v'$.
 
-Let $K'' = \lambda^{0}.\Psi(\lambda^{0}.P')((\lambda^{0}.P), \kappa_{0})$ which is $\kappa$-closed by lemma 3. We apply the induction hypothesis to the premise $N_{0} \Rightarrow v_{0}$ yielding $[\![N_{0}]\!](K'') \Rightarrow v'''$ under assumption $\Psi(\lambda^{0}.P')((\lambda^{0}.P), \kappa_{0})\{\Psi(v_{0})\}\{\} \Rightarrow v'''$.
+Let $K_{2} = \lambda^{0}.\Psi(\lambda^{0}.Q)((\lambda^{0}.P), \kappa_{0})$ which is $\kappa$-closed by lemma 3. We apply the induction hypothesis to the premise $N_{0} \Rightarrow v_{0}$ yielding $[\![N_{0}]\!](K_{2}) \Rightarrow v'$ if $\Psi(\lambda^{0}.Q)((\lambda^{0}.P), \kappa_{0})\{\Psi(v_{0})\}\{\} \Rightarrow v'$.
 
+We have
 \begin{eqnarray*}
- &   & \Psi(\lambda^{0}.P')((\lambda^{0}.P), \kappa_{0})\{\Psi(v_{0})\}\{\} \\
- & = & \Psi(\lambda^{0}.P')((\lambda^{0}.P), \Psi(v_{0})) \\
- & = & (\lambda^{1}.[\![P']\!](\kappa_{0}))((\lambda^{0}.P), \Psi(v_{0})) \\
-\mbox{(lemma 4)} & \rightarrow_{\beta} & [\![P']\!]\{\}\{\Psi(v_{0})\} (\lambda^{0}.P) \\
-\mbox{(lemma 5)} & = & [\![P'\{v_{0}\}]\!] (\lambda^{0}.P)
+ &   & \Psi(\lambda^{0}.Q)((\lambda^{0}.P), \kappa_{0})\{\Psi(v_{0})\}\{\} \\
+ & = & \Psi(\lambda^{0}.Q)((\lambda^{0}.P), \Psi(v_{0})) \\
+ & = & (\lambda^{1}.[\![Q]\!](\kappa_{0}))((\lambda^{0}.P), \Psi(v_{0})) \\
+\mbox{(lemma 3)} & \Rightarrow & [\![Q]\!]\{\}\{\Psi(v_{0})\} (\lambda^{0}.P) \\
+\mbox{(lemma 4)} & = & [\![Q\{v_{0}\}]\!] (\lambda^{0}.P)
 \end{eqnarray*}
 
-The result $[\![P'\{v_{0}\}]\!] (\lambda^{0}.P) \Rightarrow v'$
+The result $[\![Q\{v_{0}\}]\!] (\lambda^{0}.P) \Rightarrow v'$
 follows from the induction hypothesis applied to the last premise
-$P'\{v_{0}\} \Rightarrow v$ and the assumption $P\{\Psi(v)\}\{\}
+$Q\{v_{0}\} \Rightarrow v$ and the assumption $P\{\Psi(v)\}\{\}
 \Rightarrow v'$.
 
 
 \item{Case $n = k + 1$}
 
-$[\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{k+1}]\!](\lambda^{0}.\Psi(\lambda^{k+1}.P')((\lambda^{0}.P), \kappa_{k+1}, \ldots, \kappa_{0})) \cdots )$
+We show $[\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{k+1}]\!](\lambda^{0}.\Psi(\lambda^{k+1}.Q)((\lambda^{0}.P), \kappa_{k+1}, \ldots, \kappa_{0})) \cdots ) \Rightarrow v'$.
 
-What is our IH and how can we use it? Maybe we should've started out with induction on $n$ (knowing $M'(N_{0}, \ldots, N_{n-1}) \Rightarrow \lambda^{0}.Q$ where $Q\{N_{n}\} = v$ or something)?
+What is our IH and how can we use it? Maybe we should've started out with induction on $n$ (knowing $M_{1}(N_{0}, \ldots, N_{n-1}) \Rightarrow \lambda^{0}.R$ where $R\{N_{n}\} = v$ or something)?
 
 
 \end{itemize}
 
-\item{Case $(\texttt{let} \: M_{1} \: \texttt{in} \: M_{2}) \Rightarrow v$}
+\item{Case $M = \texttt{let} \: M_{1} \: \texttt{in} \: M_{2}$}
 
-Premises are $M_{1} \Rightarrow v_{1}$ and $M_{2}\{v_{1}\} \Rightarrow v$.
+The evaluation rule for $\texttt{let}$ gives us premises $M_{1} \Rightarrow v_{1}$ and $M_{2}\{v_{1}\} \Rightarrow v$.
 
-Assuming $P\{\Psi(v)\}\{\} \Rightarrow v'$ we need to show
+We need to show
 $[\![\texttt{let} \: M_{1} \: \texttt{in} \: M_{2}]\!](\lambda^{0}.P) \Rightarrow v'$.
 
+We have
 \begin{eqnarray*}
  &   & [\![\texttt{let} \: M_{1} \: \texttt{in} \: M_{2}]\!](\lambda^{0}.P) \\
  & = & (\lambda^{0}.[\![M_{1}]\!](\lambda^{0}. \: \texttt{let} \: \kappa_{0} \: \texttt{in} \: [\![M_{2}]\!](\kappa_{1})))(\lambda^{0}.P)
