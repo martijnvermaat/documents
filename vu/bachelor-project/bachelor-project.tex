@@ -30,6 +30,31 @@
 \section{Related Work}\label{sec:related}
 
 
+\section{Languages}\label{sec:languages}
+
+Terms $M$ in the source language are defined by the BNF grammar
+\begin{eqnarray*}
+M & ::= & x_{n} \\
+  &   | & \lambda^{n}.M \\
+  &   | & M(M, \ldots, M) \\
+  &   | & \texttt{let} \: M \: \texttt{in} \: M
+\end{eqnarray*}
+where $n$ ranges over the natural numbers.
+We will use $M, M_{n}, N, N_{n}, Q$ for terms in the source language.
+
+
+Terms $M'$ in the target language are defined by the BNF grammar
+\begin{eqnarray*}
+M' & ::= & x_{n} \\
+   &   | & \kappa_{n} \\
+   &   | & \lambda^{n}.M' \\
+   &   | & M'(M', \ldots, M') \\
+   &   | & \texttt{let} \: M' \: \texttt{in} \: M'
+\end{eqnarray*}
+where $n$ ranges over the natural numbers.
+We will use $K, K_{n}, P, P_{n}$ for terms in the target language.
+
+
 \section{Proof}\label{sec:proof}
 
 \begin{lemma}
@@ -92,38 +117,14 @@ We have
 &   & P_{1}\{\Psi(\lambda^{n}.Q)\}\{\} \\
 & = & [\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\Psi(\lambda^{n}.Q)((\lambda^{0}.P), \kappa_{n}, \ldots, \kappa_{0})) \cdots )
 \end{eqnarray*}
-and proceed by induction on $n$.
+and repeatedly applying the induction hypothesis to the premises $N_{i} \Rightarrow v_{i}$ leaves us to show
+\begin{displaymath}
+[\![Q\{v_{n}, \ldots, v_{0}\}]\!] (\lambda^{0}.P) \Rightarrow v'
+\end{displaymath}
 
-\begin{itemize}
-\item{Case $n = 0$}
-
-We show $[\![N_{0}]\!](\lambda^{0}.\Psi(\lambda^{0}.Q)((\lambda^{0}.P), \kappa_{0})) \Rightarrow v'$.
-
-Let $K_{2} = \lambda^{0}.\Psi(\lambda^{0}.Q)((\lambda^{0}.P), \kappa_{0})$ which is $\kappa$-closed by lemma 3. We apply the induction hypothesis to the premise $N_{0} \Rightarrow v_{0}$ yielding $[\![N_{0}]\!](K_{2}) \Rightarrow v'$ if $\Psi(\lambda^{0}.Q)((\lambda^{0}.P), \kappa_{0})\{\Psi(v_{0})\}\{\} \Rightarrow v'$.
-
-We have
-\begin{eqnarray*}
- &   & \Psi(\lambda^{0}.Q)((\lambda^{0}.P), \kappa_{0})\{\Psi(v_{0})\}\{\} \\
- & = & \Psi(\lambda^{0}.Q)((\lambda^{0}.P), \Psi(v_{0})) \\
- & = & (\lambda^{1}.[\![Q]\!](\kappa_{0}))((\lambda^{0}.P), \Psi(v_{0})) \\
-\mbox{(lemma 3)} & \Rightarrow & [\![Q]\!]\{\}\{\Psi(v_{0})\} (\lambda^{0}.P) \\
-\mbox{(lemma 4)} & = & [\![Q\{v_{0}\}]\!] (\lambda^{0}.P)
-\end{eqnarray*}
-
-The result $[\![Q\{v_{0}\}]\!] (\lambda^{0}.P) \Rightarrow v'$
-follows from the induction hypothesis applied to the last premise
-$Q\{v_{0}\} \Rightarrow v$ and the assumption $P\{\Psi(v)\}\{\}
+This follows from the induction hypothesis applied to the last premise
+$Q\{v_{n}, \ldots, v_{0}\} \Rightarrow v$ and the assumption $P\{\Psi(v)\}\{\}
 \Rightarrow v'$.
-
-
-\item{Case $n = k + 1$}
-
-We show $[\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{k+1}]\!](\lambda^{0}.\Psi(\lambda^{k+1}.Q)((\lambda^{0}.P), \kappa_{k+1}, \ldots, \kappa_{0})) \cdots ) \Rightarrow v'$.
-
-What is our IH and how can we use it? Maybe we should've started out with induction on $n$ (knowing $M_{1}(N_{0}, \ldots, N_{n-1}) \Rightarrow \lambda^{0}.R$ where $R\{N_{n}\} = v$ or something)?
-
-
-\end{itemize}
 
 \item{Case $M = \texttt{let} \: M_{1} \: \texttt{in} \: M_{2}$}
 
