@@ -2,6 +2,7 @@
 \usepackage[english]{babel}
 \usepackage{a4}
 \usepackage{amssymb}
+\usepackage{semantic}
 
 
 \newtheorem{lemma}{Lemma}
@@ -53,6 +54,10 @@ M' & ::= & x_{n} \\
 \end{eqnarray*}
 where $n$ ranges over the natural numbers.
 We will use $K, K_{n}, P, P_{n}$ for terms in the target language.
+
+\inference[$\texttt{let}$]{M \Rightarrow v_{1} & N\{v_{1}\} \Rightarrow v}{(\texttt{let} \: M \: \texttt{in} \: N) \Rightarrow v}
+
+\inference[value]{}{\lambda^{n}.M \Rightarrow \lambda^{n}.M}
 
 
 \section{Proof}\label{sec:proof}
