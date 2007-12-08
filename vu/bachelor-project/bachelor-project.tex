@@ -49,18 +49,6 @@ M & ::= & x_{n} \\
 where $n$ ranges over the natural numbers.
 We will use $M, M_{n}, N, N_{n}, Q$ for terms in the source language.
 
-
-Terms $M'$ in the target language are defined by the BNF grammar
-\begin{eqnarray*}
-M' & ::= & x_{n} \\
-   &   | & \kappa_{n} \\
-   &   | & \lambda^{n}.M' \\
-   &   | & M'(M', \ldots, M') \\
-   &   | & \texttt{let} \: M' \: \texttt{in} \: M'
-\end{eqnarray*}
-where $n$ ranges over the natural numbers.
-We will use $K, K_{n}, P, P_{n}$ for terms in the target language.
-
 \paragraph{}
 
 Semantics of the source language:
@@ -79,6 +67,17 @@ Semantics of the source language:
 \end{tabular}
 
 \end{center}
+
+Terms $M'$ in the target language are defined by the BNF grammar
+\begin{eqnarray*}
+M' & ::= & x_{n} \\
+   &   | & \kappa_{n} \\
+   &   | & \lambda^{n}.M' \\
+   &   | & M'(M', \ldots, M') \\
+   &   | & \texttt{let} \: M' \: \texttt{in} \: M'
+\end{eqnarray*}
+where $n$ ranges over the natural numbers.
+We will use $K, K_{n}, P, P_{n}$ for terms in the target language.
 
 \paragraph{}
 
