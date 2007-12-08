@@ -1,11 +1,17 @@
 \documentclass[a4paper,11pt]{article}
 \usepackage[english]{babel}
 \usepackage{a4}
+\usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{semantic}
 
 
 \newtheorem{lemma}{Lemma}
+
+
+% TODO
+% Don't use eqnarray
+% Use mathpartir http://cristal.inria.fr/~remy/latex/
 
 
 \title{Verifying a CPS Transformation (draft)}
@@ -21,7 +27,7 @@
 
 
 \begin{abstract}
-  Abstract.
+  Definition of two languages and a transformation. Proving semantic preservation of the transformation.
 \end{abstract}
 
 
@@ -55,12 +61,66 @@ M' & ::= & x_{n} \\
 where $n$ ranges over the natural numbers.
 We will use $K, K_{n}, P, P_{n}$ for terms in the target language.
 
-\inference[$\texttt{let}$]{M \Rightarrow v_{1} & N\{v_{1}\} \Rightarrow v}{(\texttt{let} \: M \: \texttt{in} \: N) \Rightarrow v}
+\paragraph{}
 
-\inference[value]{}{\lambda^{n}.M \Rightarrow \lambda^{n}.M}
+Semantics of the source language:
+
+\begin{center}
+
+\begin{tabular}{cc}
+\inference[values]{}{\lambda^{n}.M \Rightarrow \lambda^{n}.M} &
+\inference[$\texttt{let}$]{M \Rightarrow v_{1} & N\{v_{1}\} \Rightarrow v}{(\texttt{let} \: M \: \texttt{in} \: N) \Rightarrow v} \\
+\end{tabular}
+
+\paragraph{}
+
+\begin{tabular}{c}
+\inference[function application]{M \Rightarrow \lambda^{n}.P & N_{i} \Rightarrow v_{i} & P\{v_{n}, \ldots, v_{0}\} \Rightarrow v}{M(N_{0}, \ldots, N_{n}) \Rightarrow v}
+\end{tabular}
+
+\end{center}
+
+\paragraph{}
+
+Semantics of the target language:
+
+\begin{center}
+
+\begin{tabular}{cc}
+\inference[values]{}{\lambda^{n}.M' \Rightarrow \lambda^{n}.M'} &
+\inference[$\texttt{let}$]{M' \Rightarrow v_{1} & N'\{\}\{v_{1}\} \Rightarrow v}{(\texttt{let} \: M' \: \texttt{in} \: N') \Rightarrow v} \\
+\end{tabular}
+
+\paragraph{}
+
+\begin{tabular}{c}
+\inference[function application]{M' \Rightarrow \lambda^{n}.P' & N'_{i} \Rightarrow v_{i} & P'\{v_{0}\}\{v_{n}, \ldots, v_{1}\} \Rightarrow v}{M'(N'_{0}, \ldots, N'_{n}) \Rightarrow v}
+\end{tabular}
+
+\end{center}
 
 
-\section{Proof}\label{sec:proof}
+\section{Transformation}\label{sec:transformation}
+
+\begin{align*}
+\Psi(x_{n}) &=
+  x_{n} \\
+\Psi(\lambda^{n}.M) &=
+  \lambda^{n+1}.[\![M]\!](\kappa_{0}) \\[1em]
+[\![A]\!] &=
+  \lambda^{0}.\kappa_{0} (\Psi(A)) \\
+[\![M(N_{1}, \ldots, N_{n})]\!] &=
+  \lambda^{0}.[\![M . N_{1} \ldots N_{n} \: \texttt{then} \:
+  \kappa_{n}(\kappa_{n+1}, \kappa_{n-1}, \ldots, \kappa_{0})]\!] \\
+[\![\texttt{let} \: M \: \texttt{in} \: N]\!] &=
+  \lambda^{0}.[\![M]\!] (\lambda^{0}.\texttt{let} \:
+  \kappa_{0} \: \texttt{in} \: [\![N]\!] (\kappa_{1})) \\
+[\![M_{1} \ldots M_{n} \: \texttt{then} \: N']\!] &=
+  [\![M_{1}]\!] (\lambda^{0} \ldots [\![M_{n}]\!] (\lambda^{0}.N') \ldots )
+\end{align*}
+
+
+\section{Semantic Preservation}\label{sec:semanticpreservation}
 
 \begin{lemma}
   Let $K = \lambda^{0}.P$ be a $\kappa$-closed, one-argument
@@ -188,52 +248,52 @@ completes our argument:
 Specification}. ACM Press Frontier Series. The ACM Press in co-operation with Addison-Wesley,
 1989.
 
-\bibitem{Brab02}C. Brabrand and M. I. Schwartzbach. Growing languages with metamorphix
-syntax macros. In \emph{PEPM'02}, 2002.
+%\bibitem{Brab02}C. Brabrand and M. I. Schwartzbach. Growing languages with metamorphix
+%syntax macros. In \emph{PEPM'02}, 2002.
 
-\bibitem{Brand00}M. G. J. van den Brand, H. de Jong, P. Klint, and P. Olivier. Efficient
-annotated terms. \emph{Software, Practice \& Experience}, 30(3):259-291, 2000.
+%\bibitem{Brand00}M. G. J. van den Brand, H. de Jong, P. Klint, and P. Olivier. Efficient
+%annotated terms. \emph{Software, Practice \& Experience}, 30(3):259-291, 2000.
 
-\bibitem{Brand02}M. G. J. van den Brand, J. Scheerder, J. Vinju, and E. Visser.
-Disambiguation filters for scannerless generalized LR parsers. In N. Horspool, editor,
-\emph{Compiler Construction (CC'02)}, volume 2304 of \emph{Lecture Notes in Computer
-Science}, pages 143-158, Grenoble, France, April 2002. Springer-Verlag.
+%\bibitem{Brand02}M. G. J. van den Brand, J. Scheerder, J. Vinju, and E. Visser.
+%Disambiguation filters for scannerless generalized LR parsers. In N. Horspool, editor,
+%\emph{Compiler Construction (CC'02)}, volume 2304 of \emph{Lecture Notes in Computer
+%Science}, pages 143-158, Grenoble, France, April 2002. Springer-Verlag.
 
-\bibitem{Brav04}M. Bravenboer, E. Visser. Concrete Syntax for Objects.
-Domain-Specific Language Embedding and Assimilation without Restrictions. In Douglas
-C. Schmidt (ed.) \emph{Proceedings of the 19th ACM SIGPLAN conference on
-Object-Oriented Programming, Systems, Languages, and Applications (OOPSLA'04).}
-Vancouver, Canada. October 2004.
+%\bibitem{Brav04}M. Bravenboer, E. Visser. Concrete Syntax for Objects.
+%Domain-Specific Language Embedding and Assimilation without Restrictions. In Douglas
+%C. Schmidt (ed.) \emph{Proceedings of the 19th ACM SIGPLAN conference on
+%Object-Oriented Programming, Systems, Languages, and Applications (OOPSLA'04).}
+%Vancouver, Canada. October 2004.
 
-\bibitem{Card94}L. Cardelli, F. Matthes, and M. Abadi. Extensible syntax with lexical
-scoping. SRC Research Report 121, Digital Systems Research Center, Palo Alto,
-California, Februari 1994.
+%\bibitem{Card94}L. Cardelli, F. Matthes, and M. Abadi. Extensible syntax with lexical
+%scoping. SRC Research Report 121, Digital Systems Research Center, Palo Alto,
+%California, Februari 1994.
 
-\bibitem{Deur96}A. van Deursen, J. Heering, and P. Klint, editors. \emph{Language Prototyping.
-An Algebraic Specification Approach}, volume 5 of \emph{AMAST Series in Computing} World
-Scientific, Singapore, September 1996.
+%\bibitem{Deur96}A. van Deursen, J. Heering, and P. Klint, editors. \emph{Language Prototyping.
+%An Algebraic Specification Approach}, volume 5 of \emph{AMAST Series in Computing} World
+%Scientific, Singapore, September 1996.
 
-\bibitem{Leav66}B. M. Leavenworth. Syntax macros and extended translation. \emph{Communications
-of the ACM}, 9(11):790-793, November 1966.
+%\bibitem{Leav66}B. M. Leavenworth. Syntax macros and extended translation. \emph{Communications
+%of the ACM}, 9(11):790-793, November 1966.
 
-\bibitem{Sha96}A. Shalit. \emph{The Dylan reference manual: the definitive guide
-to the new object-oriented dynamic language}. Addison Wesley Longman Publishing
-Co., Inc., 1996.
+%\bibitem{Sha96}A. Shalit. \emph{The Dylan reference manual: the definitive guide
+%to the new object-oriented dynamic language}. Addison Wesley Longman Publishing
+%Co., Inc., 1996.
 
-\bibitem{Visser97}E. Visser. Scannerless generalized-LR parsing.
-Technical Report P9707, Programming Research Group, University of Amsterdam, July 1997.
+%\bibitem{Visser97}E. Visser. Scannerless generalized-LR parsing.
+%Technical Report P9707, Programming Research Group, University of Amsterdam, July 1997.
 
-\bibitem{Visser97b}E. Visser. \emph{Syntax Definition for Language Prototyping.} PhD
-thesis, University of Amsterdam, September 1997.
+%\bibitem{Visser97b}E. Visser. \emph{Syntax Definition for Language Prototyping.} PhD
+%thesis, University of Amsterdam, September 1997.
 
-\bibitem{Vis02}E. Visser. Meta-programming with concrete object syntax. In D. Batory,
-C. Consel, and W. Taha, editors, \emph{Generative Programming and Component Engineering
-(GPCE'02)}, volume 2487 of \emph{Lecture Notes in Computer Science}, pages 299-315, Pittsburgh,
-PA, USA, October 2002. Springer-Verlag.
+%\bibitem{Vis02}E. Visser. Meta-programming with concrete object syntax. In D. Batory,
+%C. Consel, and W. Taha, editors, \emph{Generative Programming and Component Engineering
+%(GPCE'02)}, volume 2487 of \emph{Lecture Notes in Computer Science}, pages 299-315, Pittsburgh,
+%PA, USA, October 2002. Springer-Verlag.
 
-\bibitem{Weis93}D. Weise and R. F. Crew. Programmable syntax macros. In \emph{Proceedings
-of the ACM SIGPLAN '93 Conference on Programming Language Design and Implementation
-(PLDI'93)}, Albuquerque, New Mexico, June 1993.
+%\bibitem{Weis93}D. Weise and R. F. Crew. Programmable syntax macros. In \emph{Proceedings
+%of the ACM SIGPLAN '93 Conference on Programming Language Design and Implementation
+%(PLDI'93)}, Albuquerque, New Mexico, June 1993.
 
 \end{thebibliography}
 
