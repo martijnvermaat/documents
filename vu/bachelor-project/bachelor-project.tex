@@ -3,7 +3,8 @@
 \usepackage{a4}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{semantic}
+\usepackage{mathpartir} % http://cristal.inria.fr/~remy/latex/
+\usepackage{syntax}
 
 
 \newtheorem{lemma}{Lemma}
@@ -11,7 +12,6 @@
 
 % TODO
 % Don't use eqnarray
-% Use mathpartir http://cristal.inria.fr/~remy/latex/
 
 
 \title{Verifying a CPS Transformation (draft)}
@@ -39,64 +39,89 @@
 
 \section{Languages}\label{sec:languages}
 
-Terms $M$ in the source language are defined by the BNF grammar
-\begin{eqnarray*}
-M & ::= & x_{n} \\
-  &   | & \lambda^{n}.M \\
-  &   | & M(M, \ldots, M) \\
-  &   | & \texttt{let} \: M \: \texttt{in} \: M
-\end{eqnarray*}
+We will be considering two languages, refering to them as `source language' and `target language'. In this section
+the syntax and semantics for both languages are defined.
+
+\subsection{Source Language}
+
+Terms $M$ in the source language are defined by the following grammar:
+\begin{align*}
+M ::=             &\; x_{n}
+                  && \text{variable} \\
+\llap{\textbar\:} &\; \lambda^{n}.M
+                  && \text{abstraction} \\
+\llap{\textbar\:} &\; M(M, \ldots, M)
+                  && \text{function application} \\
+\llap{\textbar\:} &\; \texttt{let} \: M \: \texttt{in} \: M
+                  && \text{binding}
+\end{align*}
 where $n$ ranges over the natural numbers.
-We will use $M, M_{n}, N, N_{n}, Q$ for terms in the source language.
 
-\paragraph{}
+Variables are identified by using de Bruijn indices ($x_{i}$ has de Bruijn index $i$). An abstraction
+$\lambda^{n}.M$ binds $n+1$ variables $n_{n}, \ldots, n_{0}$ in $M$.
 
-Semantics of the source language:
 
-\begin{center}
+The big-step operational semantics of the source language consists of three evaluation rules and is given in
+figure 1.
 
-\begin{tabular}{cc}
-\inference[values]{}{\lambda^{n}.M \Rightarrow \lambda^{n}.M} &
-\inference[$\texttt{let}$]{M \Rightarrow v_{1} & N\{v_{1}\} \Rightarrow v}{(\texttt{let} \: M \: \texttt{in} \: N) \Rightarrow v} \\
-\end{tabular}
+\begin{figure}
+\begin{mathpar}
+\infer*[left=Values]
+       {\:}
+       {\lambda^{n}.M \Rightarrow \lambda^{n}.M}
+\and
+\infer*[left=$\texttt{let}$]
+       {M \Rightarrow v_{1}
+         \\ N\{v_{1}\} \Rightarrow v}
+       {(\texttt{let} \: M \: \texttt{in} \: N) \Rightarrow v}
+\and
+\infer*[left=Function Application]
+       {M \Rightarrow \lambda^{n}.P
+         \\ N_{i} \Rightarrow v_{i}
+         \\ P\{v_{n}, \ldots, v_{0}\} \Rightarrow v}
+       {M(N_{0}, \ldots, N_{n}) \Rightarrow v}
+\end{mathpar}
+\caption{Source language semantics}
+\end{figure}
 
-\paragraph{}
+\subsection{Target Language}
 
-\begin{tabular}{c}
-\inference[function application]{M \Rightarrow \lambda^{n}.P & N_{i} \Rightarrow v_{i} & P\{v_{n}, \ldots, v_{0}\} \Rightarrow v}{M(N_{0}, \ldots, N_{n}) \Rightarrow v}
-\end{tabular}
-
-\end{center}
-
-Terms $M'$ in the target language are defined by the BNF grammar
-\begin{eqnarray*}
-M' & ::= & x_{n} \\
-   &   | & \kappa_{n} \\
-   &   | & \lambda^{n}.M' \\
-   &   | & M'(M', \ldots, M') \\
-   &   | & \texttt{let} \: M' \: \texttt{in} \: M'
-\end{eqnarray*}
+Terms $M'$ in the target language are defined by the following grammar:
+\begin{align*}
+M' ::=            &\; x_{n}
+                  && \text{variable} \\
+\llap{\textbar\:} &\; \kappa_{n}
+                  && \text{continuation variable} \\
+\llap{\textbar\:} &\; \lambda^{n}.M'
+                  && \text{abstraction} \\
+\llap{\textbar\:} &\; M'(M', \ldots, M')
+                  && \text{function application} \\
+\llap{\textbar\:} &\; \texttt{let} \: M' \: \texttt{in} \: M'
+                  && \text{binding}
+\end{align*}
 where $n$ ranges over the natural numbers.
-We will use $K, K_{n}, P, P_{n}$ for terms in the target language.
 
-\paragraph{}
+The big-step operational semantics for the target language is given in figure 2.
 
-Semantics of the target language:
-
-\begin{center}
-
-\begin{tabular}{cc}
-\inference[values]{}{\lambda^{n}.M' \Rightarrow \lambda^{n}.M'} &
-\inference[$\texttt{let}$]{M' \Rightarrow v_{1} & N'\{\}\{v_{1}\} \Rightarrow v}{(\texttt{let} \: M' \: \texttt{in} \: N') \Rightarrow v} \\
-\end{tabular}
-
-\paragraph{}
-
-\begin{tabular}{c}
-\inference[function application]{M' \Rightarrow \lambda^{n}.P' & N'_{i} \Rightarrow v_{i} & P'\{v_{0}\}\{v_{n}, \ldots, v_{1}\} \Rightarrow v}{M'(N'_{0}, \ldots, N'_{n}) \Rightarrow v}
-\end{tabular}
-
-\end{center}
+\begin{figure}
+\begin{mathpar}
+\infer*[left=Values]
+       {\:}
+       {\lambda^{n}.M' \Rightarrow \lambda^{n}.M'}
+\and
+\infer*[left=$\texttt{let}$]
+       {M' \Rightarrow v_{1}
+         \\ N'\{\}\{v_{1}\} \Rightarrow v}
+       {(\texttt{let} \: M' \: \texttt{in} \: N') \Rightarrow v}
+\and
+\infer*[left=Function Application]
+       {M' \Rightarrow \lambda^{n}.P'
+         \\ N'_{i} \Rightarrow v_{i}
+         \\ P'\{v_{0}\}\{v_{n}, \ldots, v_{1}\} \Rightarrow v}
+       {M'(N'_{0}, \ldots, N'_{n}) \Rightarrow v}
+\end{mathpar}
+\caption{Target language semantics}
+\end{figure}
 
 
 \section{Transformation}\label{sec:transformation}
