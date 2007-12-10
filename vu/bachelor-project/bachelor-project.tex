@@ -4,8 +4,10 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathpartir} % http://cristal.inria.fr/~remy/latex/
-\usepackage{syntax}
 
+
+% Don't add chapter to figure numbering
+\renewcommand\thefigure{\arabic{figure}}
 
 \newtheorem{lemma}{Lemma}
 
@@ -27,7 +29,8 @@
 
 
 \begin{abstract}
-  Definition of two languages and a transformation. Proving semantic preservation of the transformation.
+  Definition of two languages and a transformation. Proving semantic
+  preservation of the transformation.
 \end{abstract}
 
 
@@ -39,8 +42,9 @@
 
 \section{Languages}\label{sec:languages}
 
-We will be considering two languages, refering to them as `source language' and `target language'. In this section
-the syntax and semantics for both languages are defined.
+We will be considering two languages, refering to them as `source language' and
+`target language'. In this section the syntax and semantics for both languages
+are defined.
 
 \subsection{Source Language}
 
@@ -49,7 +53,7 @@ Terms $M$ in the source language are defined by the following grammar:
 M ::=             &\; x_{n}
                   && \text{variable} \\
 \llap{\textbar\:} &\; \lambda^{n}.M
-                  && \text{abstraction} \\
+                  && \text{abstraction of arity $n+1$} \\
 \llap{\textbar\:} &\; M(M, \ldots, M)
                   && \text{function application} \\
 \llap{\textbar\:} &\; \texttt{let} \: M \: \texttt{in} \: M
@@ -57,12 +61,15 @@ M ::=             &\; x_{n}
 \end{align*}
 where $n$ ranges over the natural numbers.
 
-Variables are identified by using de Bruijn indices ($x_{i}$ has de Bruijn index $i$). An abstraction
-$\lambda^{n}.M$ binds $n+1$ variables $n_{n}, \ldots, n_{0}$ in $M$.
+Variables $x_{i}$ are identified by their de Bruijn indices $i$.
+An abstraction $\lambda^{n}.M$ binds variables $x_{n}, \ldots, x_{0}$ in $M$.
+Simultaneous substitution of terms $N_{0}, \ldots, N_{n}$ for
+$x_{0}, \ldots, x_{n}$ in $M$ is written $M\{N_{0}, \ldots, N_{n}\}$.
 
-
-The big-step operational semantics of the source language consists of three evaluation rules and is given in
-figure 1.
+The big-step operational semantics of the source language is given in
+figure~\ref{fig:sourcesemantics}. The three rules define the evaluation relation
+$M \Rightarrow v$ on terms $M$ and values $v$, reading ``$M$ evaluates to $v$''.
+A value is any term of the form $\lambda^{n}.M$.
 
 \begin{figure}
 \begin{mathpar}
@@ -82,18 +89,24 @@ figure 1.
        {M(N_{0}, \ldots, N_{n}) \Rightarrow v}
 \end{mathpar}
 \caption{Source language semantics}
+\label{fig:sourcesemantics}
 \end{figure}
 
 \subsection{Target Language}
 
+The target language is an adaptation of the source language, adding
+continuation variables $\kappa_{i}$ (we will refer to variables $x_{i}$
+as source-level variables). The two types of variables are numbered
+independently by their de Bruijn indices.
+
 Terms $M'$ in the target language are defined by the following grammar:
 \begin{align*}
 M' ::=            &\; x_{n}
-                  && \text{variable} \\
+                  && \text{source-level variable} \\
 \llap{\textbar\:} &\; \kappa_{n}
                   && \text{continuation variable} \\
 \llap{\textbar\:} &\; \lambda^{n}.M'
-                  && \text{abstraction} \\
+                  && \text{abstraction of arity $n+1$} \\
 \llap{\textbar\:} &\; M'(M', \ldots, M')
                   && \text{function application} \\
 \llap{\textbar\:} &\; \texttt{let} \: M' \: \texttt{in} \: M'
@@ -101,7 +114,15 @@ M' ::=            &\; x_{n}
 \end{align*}
 where $n$ ranges over the natural numbers.
 
-The big-step operational semantics for the target language is given in figure 2.
+An abstraction $\lambda^{n}.M'$ binds its first argument, the continuation,
+to $\kappa_{0}$, and its remaining arguments to $x_{n-1}, \ldots, x_{0}$ in
+$M'$.
+We write $M'\{N'_{0}, \ldots, N'_{n}\}\{P'_{0}, \ldots, P'_{m}\}$ for the
+double simultaneous substitution of $N'_{i}$ for $\kappa_{i}$
+($i = 0 \ldots n$) and $P'_{i}$ for $x_{i}$ ($i = 0 \ldots m$) in $M'$.
+
+The big-step operational semantics for the target language is given in
+figure~\ref{fig:targetsemantics}.
 
 \begin{figure}
 \begin{mathpar}
@@ -121,6 +142,7 @@ The big-step operational semantics for the target language is given in figure 2.
        {M'(N'_{0}, \ldots, N'_{n}) \Rightarrow v}
 \end{mathpar}
 \caption{Target language semantics}
+\label{fig:targetsemantics}
 \end{figure}
 
 
