@@ -1,0 +1,26 @@
+@INPROCEEDINGS{Dargaye-Leroy-07,
+  AUTHOR = {Zaynah Dargaye and Xavier Leroy},
+  TITLE = {Mechanized verification of {CPS} transformations},
+  BOOKTITLE = {14th Int. Conf. on Logic for Programming,
+                     Artificial Intelligence and Reasoning (LPAR 2007)},
+  YEAR = 2007,
+  SERIES = {Lecture Notes in Artificial Intelligence},
+  PUBLISHER = {Springer},
+  URL = {http://gallium.inria.fr/~xleroy/publi/cps-dargaye-leroy.pdf},
+  XTOPIC = {compcert},
+  ABSTRACT = {
+Transformation to continuation-passing style (CPS) is often performed
+by optimizing compilers for functional programming languages.  As part
+of the development and proof of correctness of a compiler for the
+mini-ML functional language, we have mechanically verified the
+correctness of two CPS transformations for a call-by-value
+$\lambda$-calculus with $n$-ary functions, recursive functions, data
+types and pattern-matching.  The transformations generalize Plotkin's
+original call-by-value transformation and Danvy and Nielsen's
+optimized transformation, respectively.  We used the Coq proof
+assistant to formalize the transformations and conduct and check the
+proofs.  Originalities of this work include the use of big-step
+operational semantics to avoid difficulties with administrative
+redexes, and of two-sorted de Bruijn indices to avoid difficulties
+with $\alpha$-conversion.}
+}
