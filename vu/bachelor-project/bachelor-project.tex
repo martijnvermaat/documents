@@ -1,8 +1,12 @@
 \documentclass[a4paper,11pt,draft]{article}
 \usepackage[english]{babel}
 \usepackage{a4}
+
+
 \usepackage[T1]{fontenc}
 \usepackage{ae,aecompl}
+
+
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
@@ -30,7 +34,11 @@
 
 % Section font
 \usepackage{sectsty}
-\allsectionsfont{\usefont{OT1}{phv}{bc}{n}\selectfont}
+%\allsectionsfont{\usefont{OT1}{phv}{bc}{n}\selectfont}
+\allsectionsfont{\sffamily}
+\usepackage{abstract}
+\renewcommand{\abstractnamefont}{\normalfont\small\bfseries\sffamily}
+\setlength{\abstitleskip}{-1.5em}
 
 
 % Keywords like let,in,then,match,with
@@ -38,17 +46,19 @@
 
 
 % Theorems
-\newtheorem{lemma}{Lemma}
-\newtheorem{theorem}{Theorem}
-
-
-\bibliographystyle{plain}
+\newtheorem{lemma}{\sffamily Lemma}
+\newtheorem{theorem}{\sffamily Theorem}
+\newtheorem*{mainlemma}{\sffamily Lemma 1}
 
 
 % Must be last in preamble
 \usepackage[
   pdftex,
   colorlinks,
+  citecolor=black,
+  filecolor=black,
+  linkcolor=black,
+  urlcolor=black,
   pdfauthor={Martijn Vermaat},
   pdftitle={Verifying a CPS Transformation} (draft),
   pdfkeywords={lambda calculus, continuation-passing style, verification,
@@ -62,9 +72,14 @@
 % Don't use eqnarray
 % Give appropriate references to Dargaye and Leroy
 % State original work (full proof of Lemma 1)
+% TODO: check all reductions and add relevant properties (k-closedness
+% of certain terms)
+% TODO: make distinction clear between evaluation in source and target
+% languages?
+% TODO: do proper lifting of variables
 
 
-\title{Verifying a CPS Transformation (draft)}
+\title{\sffamily Verifying a CPS Transformation (draft)}
 
 \author{
   Martijn Vermaat\\[0.3em]
@@ -250,11 +265,11 @@ We will sketch the outline of a proof, a more elaborate version can be found in
 appendix~\ref{sec:proof}. The proof is by induction on the evaluation derivation
 of $M \Rightarrow v$ and case analysis over the term $M$.
 \begin{description}
-\item[Case $\boldsymbol{M = \lambda^{n}.M_{1}}$]\quad
+\item[\sffamily Case $\boldsymbol{M = \lambda^{n}.M_{1}}$]\quad
   We need to show
   $(\lambda^{0}.\kappa_{0}(\Psi(\lambda^{n}.M_{1}))) (K) \Rightarrow v'$.
   This is trivial.
-\item[Case $\boldsymbol{M = M_{1}(N_{0}, \ldots, N_{n})}$]\quad
+\item[\sffamily Case $\boldsymbol{M = M_{1}(N_{0}, \ldots, N_{n})}$]\quad
   Premises are $M_{1} \Rightarrow \lambda^{n}.Q$, $N_{i} \Rightarrow v_{i}$,
   and $Q\{v_{n}, \ldots, v_{0}\} \Rightarrow v$. Our goal is to show
   \begin{equation*}
@@ -278,7 +293,7 @@ of $M \Rightarrow v$ and case analysis over the term $M$.
   \end{equation*}
   which follows from the induction hypothesis applied to the last premise and
   the assumption $P\{\Psi(v)\}\{\} \Rightarrow v'$.
-\item[Case $\boldsymbol{M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}}$]\quad
+\item[\sffamily Case $\boldsymbol{M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}}$]\quad
   Premises are $M_{1} \Rightarrow v_{1}$ and $M_{2}\{v_{1}\} \Rightarrow v$.
   We show
   \begin{equation*}
@@ -296,6 +311,8 @@ of $M \Rightarrow v$ and case analysis over the term $M$.
   applied to the second premise complete the proof.\qedhere
 \end{description}
 \end{proof}
+
+\paragraph{}
 
 Theorem~\ref{thm:maintheorem} is an instantiation of
 Lemma~\ref{lem:mainlemma}, so we can now prove it easily.
@@ -319,17 +336,22 @@ bewijzen? Hoe verhouden die zich tot elkaar?
 
 \section{Proof of Lemma~\ref{lem:mainlemma}}\label{sec:proof}
 
+\subsection*{Lemma 1}
+
+{\em
+  Let $K = \lambda^{0}.P$ be a $\kappa$-closed, one-argument
+  abstraction of the target language. If $M \Rightarrow v$ in the
+  source language, and $P\{\Psi(v)\}\{\} \Rightarrow v'$ in the target
+  language, then $[\![M]\!](K) \Rightarrow v'$ in the target language.
+}
+
+\subsection*{Proof}
+
 We assume $M \Rightarrow v$ and proceed by induction on its derivation, also
 assuming $P\{\Psi(v)\}\{\} \Rightarrow v'$.
 
-% TODO: check all reductions and add relevant properties (k-closedness
-% of certain terms)
-% TODO: make distinction clear between evaluation in source and target
-% languages
-% TODO: do lifting of x variables
-
-\begin{itemize}
-\item{Case $M = \lambda^{n}.M_{1}$}
+\begin{description}
+\item[Case $M = \lambda^{n}.M_{1}$]\hfill
 
   This is the base case, where $v = \lambda^{n}.M_{1}$.
 
@@ -345,7 +367,7 @@ assuming $P\{\Psi(v)\}\{\} \Rightarrow v'$.
    & \Rightarrow & P\{\Psi(\lambda^{n}.M_{1})\}\{\}
   \end{eqnarray*}
 
-\item{Case $M = M_{1}(N_{0}, \ldots, N_{n})$}
+\item[Case $M = M_{1}(N_{0}, \ldots, N_{n})$]\hfill
 
 Premises of the evaluation rule for function application are
 $M_{1} \Rightarrow \lambda^{n}.Q$, $N_{i} \Rightarrow v_{i}$,
@@ -380,7 +402,7 @@ This follows from the induction hypothesis applied to the last premise
 $Q\{v_{n}, \ldots, v_{0}\} \Rightarrow v$ and the assumption $P\{\Psi(v)\}\{\}
 \Rightarrow v'$.
 
-\item{Case $M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}$}
+\item[Case $M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}$]\hfill
 
 The evaluation rule for $\kw{let}$ gives us premises $M_{1} \Rightarrow v_{1}$ and $M_{2}\{v_{1}\} \Rightarrow v$.
 
@@ -425,18 +447,11 @@ completes our argument:
 %       i think our proof still stands, except for the dots in the last step (there we need some substitution and lifting properties)
 
 
-\end{itemize}
+\end{description}
 
 
+\bibliographystyle{plain}
 \bibliography{bachelor-project}
-
-%\begin{thebibliography}{99}
-
-%\bibitem{Berg89}J. A. Bergstra, J. Heering, and P. Klint, editors. \emph{Algebraic
-%Specification}. ACM Press Frontier Series. The ACM Press in co-operation with Addison-Wesley,
-%1989.
-
-%\end{thebibliography}
 
 
 \end{document}
