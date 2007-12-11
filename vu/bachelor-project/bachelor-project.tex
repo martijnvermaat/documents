@@ -32,15 +32,6 @@
 \renewcommand\thefigure{\arabic{figure}}
 
 
-% Section font
-\usepackage{sectsty}
-%\allsectionsfont{\usefont{OT1}{phv}{bc}{n}\selectfont}
-\allsectionsfont{\sffamily}
-\usepackage{abstract}
-\renewcommand{\abstractnamefont}{\normalfont\small\bfseries\sffamily}
-\setlength{\abstitleskip}{-1.5em}
-
-
 % Keywords like let,in,then,match,with
 \newcommand{\kw}[1]{\mathtt{#1}}
 
@@ -49,6 +40,21 @@
 \newtheorem{lemma}{\sffamily Lemma}
 \newtheorem{theorem}{\sffamily Theorem}
 \newtheorem*{mainlemma}{\sffamily Lemma 1}
+
+
+% One other fancy thing is sansserif headings, we go through some trouble to
+% get this in out document consistently...
+
+% Use sansserif fonts in section headings
+\usepackage{sectsty}
+\allsectionsfont{\sffamily}
+
+% Use a sansserif font in abstract heading
+\usepackage{abstract}
+\renewcommand{\abstractnamefont}{\normalfont\small\bfseries\sffamily}
+\setlength{\abstitleskip}{-1.5em}
+
+% Furthermore, we use \sffamily in theorem titles and description item titles
 
 
 % Must be last in preamble
@@ -351,7 +357,7 @@ We assume $M \Rightarrow v$ and proceed by induction on its derivation, also
 assuming $P\{\Psi(v)\}\{\} \Rightarrow v'$.
 
 \begin{description}
-\item[Case $M = \lambda^{n}.M_{1}$]\hfill
+\item[\sffamily Case $\boldsymbol{M = \lambda^{n}.M_{1}}$]\hfill
 
   This is the base case, where $v = \lambda^{n}.M_{1}$.
 
@@ -367,7 +373,7 @@ assuming $P\{\Psi(v)\}\{\} \Rightarrow v'$.
    & \Rightarrow & P\{\Psi(\lambda^{n}.M_{1})\}\{\}
   \end{eqnarray*}
 
-\item[Case $M = M_{1}(N_{0}, \ldots, N_{n})$]\hfill
+\item[\sffamily Case $\boldsymbol{M = M_{1}(N_{0}, \ldots, N_{n})}$]\hfill
 
 Premises of the evaluation rule for function application are
 $M_{1} \Rightarrow \lambda^{n}.Q$, $N_{i} \Rightarrow v_{i}$,
@@ -402,7 +408,7 @@ This follows from the induction hypothesis applied to the last premise
 $Q\{v_{n}, \ldots, v_{0}\} \Rightarrow v$ and the assumption $P\{\Psi(v)\}\{\}
 \Rightarrow v'$.
 
-\item[Case $M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}$]\hfill
+\item[\sffamily Case $\boldsymbol{M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}}$]\hfill
 
 The evaluation rule for $\kw{let}$ gives us premises $M_{1} \Rightarrow v_{1}$ and $M_{2}\{v_{1}\} \Rightarrow v$.
 
