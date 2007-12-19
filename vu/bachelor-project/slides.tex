@@ -1,10 +1,18 @@
 \documentclass{beamer}
 
 \usepackage[english]{babel}
+
 \usepackage{amsmath}
 \usepackage{amssymb}
+
+% Typesetting evaluation rules (http://cristal.inria.fr/~remy/latex/)
 \usepackage{mathpartir}
+
+\usepackage[T1]{fontenc}
+\usepackage{ae,aecompl}
+
 \usepackage{beamerthemesplit}
+
 \setbeamertemplate{background canvas}[vertical shading][bottom=red!10,top=blue!10]
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{headline}{}
@@ -239,9 +247,7 @@ December 20, 2007}
     \item No source code available (yet)
   \end{itemize}
 
-  \uncover<2->{
-    We will look at a simplified version of their setting.
-  }
+  We will look at a simplified version of their setting.
 
 }
 
@@ -261,11 +267,11 @@ December 20, 2007}
       && \text{binding}
   \end{align*}
 
-  Example term: $(\lambda^{0}. \, x_{0}) \, (x_{0})$
+  Example term: $(\lambda^{0}. \, x_{0}) \, (\lambda^{1}. \, x_{0})$
 
   \begin{itemize}
     \item de Bruijn indices
-    \item $n$-ary function application
+    \item $\lambda^{n}. \, M$ binds $x_{n}, \ldots, x_{0}$ in $M$
     \item $\kw{let} \: M \: \kw{in} \: N$ binds $x_{0}$ to $M$ in $N$
     \item Big-step operational semantics (next slide)
   \end{itemize}
@@ -278,16 +284,16 @@ December 20, 2007}
   \frametitle{Source Language Semantics}
 
   \begin{mathpar}
-    \infer*[left=Values]
+    \infer*
            {\:}
            {\lambda^{n}.M \Rightarrow \lambda^{n}.M}
     \and
-    \infer*[left=$\kw{let}$]
+    \infer*
            {M \Rightarrow v_{1}
              \\ N\{v_{1}\} \Rightarrow v}
            {(\kw{let} \: M \: \kw{in} \: N) \Rightarrow v}
     \and
-    \infer*[left=Application]
+    \infer*
            {M \Rightarrow \lambda^{n}.P
              \\ N_{i} \Rightarrow v_{i}
              \\ P\{v_{n}, \ldots, v_{0}\} \Rightarrow v}
@@ -295,9 +301,9 @@ December 20, 2007}
   \end{mathpar}
 
   Example evaluation:
-  \begin{align*}
-    (\lambda^{0}. \, x_{0}) \, (x_{0}) &\Rightarrow x_{0}
-  \end{align*}
+  \begin{equation*}
+    (\lambda^{0}. \, x_{0}) \, (\lambda^{1}. \, x_{0}) \: \Rightarrow \: (\lambda^{1}. \, x_{0})
+  \end{equation*}
 
 }
 
@@ -319,13 +325,118 @@ December 20, 2007}
       && \text{binding}
   \end{align*}
 
+  Example term: $\lambda^{0}. \, \kappa_{0} \, (\lambda^{1}. \, \kappa_{0} \, (x_{0}))$
+
+  Example term: $\lambda^{0}. \, \kappa_{0}$ (the initial continuation)
+
   \begin{itemize}
-    \item Two sorts of de Bruijn indices
-    \item First argument is bound to $\kappa_{0}$
-    \item Big-step operational semantics (next slide)
+    \item Two sorts of variables (indepenently numbered)
+    \item $\lambda^{n}. \, M$ binds $\kappa_{0}, x_{n-1}, \ldots, x_{0}$ in $M$
   \end{itemize}
 
 }
+
+
+\frame{
+
+  \frametitle{Target Language Semantics}
+
+  \begin{mathpar}
+    \infer*
+           {\:}
+           {\lambda^{n}.M' \Rightarrow \lambda^{n}.M'}
+    \and
+    \infer*
+           {M' \Rightarrow v_{1}
+             \\ N'\{\}\{v_{1}\} \Rightarrow v}
+           {(\kw{let} \: M' \: \kw{in} \: N') \Rightarrow v}
+    \and
+    \infer*
+           {M' \Rightarrow \lambda^{n}.P'
+             \\ N'_{i} \Rightarrow v_{i}
+             \\ P'\{v_{0}\}\{v_{n}, \ldots, v_{1}\} \Rightarrow v}
+           {M'(N'_{0}, \ldots, N'_{n}) \Rightarrow v}
+  \end{mathpar}
+
+  Example evaluation:
+  \begin{equation*}
+    \lambda^{0}. \, \kappa_{0} \, (\lambda^{1}. \, (\lambda^{0}. \, \kappa_{0} \, (x_{0})) \, (\kappa_{0}))
+    \: \Rightarrow \: \lambda^{0}. \, \kappa_{0} \, (\lambda^{1}. \, \kappa_{0} \, (x_{0}))
+  \end{equation*}
+
+}
+
+
+\frame{
+
+  \frametitle{CPS Transformation}
+
+  $[\![\cdot]\!]$ is an extension of Plotkin's original transformation:
+
+  \begin{align*}
+    \Psi(x_{n}) &=
+      x_{n} \\
+    \Psi(\lambda^{n}.M) &=
+      \lambda^{n+1}.[\![M]\!](\kappa_{0}) \\[1em]
+    [\![A]\!] &=
+      \lambda^{0}.\kappa_{0} (\Psi(A)) \\
+    [\![M(N_{1}, \ldots, N_{n})]\!] &=
+      \lambda^{0}.[\![M . N_{1} \ldots N_{n} \: \kw{then} \:
+      \kappa_{n}(\kappa_{n+1}, \kappa_{n-1}, \ldots, \kappa_{0})]\!] \\
+    [\![\kw{let} \: M \: \kw{in} \: N]\!] &=
+      \lambda^{0}.[\![M]\!] (\lambda^{0}.\kw{let} \:
+      \kappa_{0} \: \kw{in} \: [\![N]\!] (\kappa_{1})) \\
+    [\![M_{1} \ldots M_{n} \: \kw{then} \: N']\!] &=
+      [\![M_{1}]\!] (\lambda^{0} \ldots [\![M_{n}]\!] (\lambda^{0}.N') \ldots )
+  \end{align*}
+
+}
+
+
+\frame{
+
+  \frametitle{CPS Transformation Example}
+
+  On a slide like this, just $[\![(\lambda^{0}.x_{0})(\lambda^{1}.x_{0})]\!]$ is quite a term:
+  \begin{align*}
+    \lambda^{0}. \:& \bigl( \lambda^{0}.\kappa_{0}(\lambda^{1}. \: (\lambda^{0}.\kappa_{0}(x_{0})) \: (\kappa_{0}) \: ) \bigr)\\
+    & \bigl( \lambda^{0}. \: (\lambda^{0}.\kappa_{0}(\lambda^{2}.(\lambda^{0}.\kappa_{0}(x_{0}))(\kappa_{0}))) \: (\lambda^{0}.\kappa_{1}(\kappa_{2},\kappa_{0})) \: \bigr)
+  \end{align*}
+
+  \uncover<2->{
+    It evaluates to
+    \begin{equation*}
+      \lambda^{0}. \kappa_{0}(\lambda^{2}.\kappa_{0}(x_{0}))
+    \end{equation*}
+  }
+
+}
+
+
+\section{Proving Correctness of \texorpdfstring{$[\![\cdot]\!]$}{the Transformation}}
+
+
+\frame{
+
+  \frametitle{Verifying a CPS Transformation}
+
+  \tableofcontents[currentsection]
+
+}
+
+
+\frame{
+
+  \frametitle{Correctness of $[\![\cdot]\!]$}
+
+  What does it mean for $[\![\cdot]\!]$ to be correct?
+
+}
+
+
+
+
+
 
 
 \begin{frame}
