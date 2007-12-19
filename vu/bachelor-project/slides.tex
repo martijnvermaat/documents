@@ -1,0 +1,344 @@
+\documentclass{beamer}
+
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathpartir}
+\usepackage{beamerthemesplit}
+\setbeamertemplate{background canvas}[vertical shading][bottom=red!10,top=blue!10]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\usetheme{Warsaw}
+\useinnertheme{rectangles}
+
+\colorlet{darkred}{red!80!black}
+\colorlet{darkblue}{blue!80!black}
+\colorlet{darkgreen}{green!80!black}
+
+% Keywords like let,in,then,match,with
+\newcommand{\kw}[1]{\mathtt{#1}}
+
+
+\title{Verifying a CPS Transformation}
+
+%\subtitle{(Important notice on next page)}
+
+\author{Martijn Vermaat}
+\institute{mvermaat@cs.vu.nl\\
+http://www.cs.vu.nl/\~{}mvermaat/}
+\date{Bachelor Project\\
+December 20, 2007}
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+\frame{
+
+  \frametitle{Verifying a CPS Transformation}
+
+  \tableofcontents
+
+}
+
+
+\section{CPS Transformations}
+
+
+\frame{
+
+  \frametitle{Continuation-Passing Style}
+
+  \begin{block}{Direct style}
+    Function returns the result of its computation.
+
+    Example: $\lambda x . \, x - 2$
+  \end{block}
+
+  \uncover<2->{
+    \begin{block}{Continuation passing style}
+      Function passes result to a {\em continuation}.
+
+      Example: $\lambda x \, k . \, k \, (x - 2)$
+      \uncover<3->{
+        \begin{itemize}
+        \item Order of evaluation is fixed
+        \item Suitable for aggressive optimizations
+        \end{itemize}
+      }
+    \end{block}
+  }
+
+}
+
+
+\frame{
+
+  \frametitle{Transforming to CPS}
+
+  Programs in direct style can be mechanically transformed to equivalent
+  prorgrams in CPS.
+
+  \begin{itemize}
+    \item Plotkin, 1975
+    \item Danvy and Nielsen, 2003
+    \item \ldots and many more
+  \end{itemize}
+
+}
+
+
+\frame{
+
+  \frametitle{Plotkin's Original Transformation}
+
+  Plotkin, 1975:
+
+  \begin{align*}
+    [\![x]\!]               &= \lambda k. \, k \, x\\
+    [\![\lambda x. \, M]\!] &= \lambda k. \, k \, (\lambda x. \, [\![M]\!])\\
+    [\![M \, N]\!]          &= \lambda k. \, [\![M]\!] \, (\lambda m. \, [\![N]\!] \, (\lambda n. \, m \, n \, k))
+  \end{align*}
+
+  \uncover<2->{
+    Generates many administrative redexes:
+    \begin{align*}
+      [\![(\lambda x. \, x) \, y]\!] &= \lambda k. \, (\lambda k. \, k \, (\lambda x. \, (\lambda k. \, k \, x))) \, (\lambda m. \, (\lambda k. \, k \, y) \, (\lambda n. \, m \, n \, k))\\
+                                     &\rightarrow_{\beta} \lambda k. \, (\lambda m. \, (\lambda k. \, k \, y) \, (\lambda n. \, m \, n \, k)) \, (\lambda x. \, (\lambda k. \, k \, x))\\
+                                     &\rightarrow_{\beta} \lambda k. \, (\lambda k. \, k \, y) \, (\lambda n. \, (\lambda x. \, (\lambda k. \, k \, x)) \, n \, k)\\
+                                     &\rightarrow_{\beta} \lambda k. \, (\lambda n. \, (\lambda x. \, (\lambda k. \, k \, x)) \, n \, k) \, y\\
+                                     &\rightarrow_{\beta} \lambda k. \, (\lambda x. \, (\lambda k. \, k \, x)) \, y \, k\\
+    \end{align*}
+  }
+
+}
+
+
+\frame{
+
+  \frametitle{Plotkin Optimized}
+
+  Slightly optimized version of Plotkin's original:
+
+  \begin{align*}
+    [\![x]\!] \triangleright k               &= k \, x\\
+    [\![\lambda x. \, M]\!] \triangleright k &= k \, (\lambda x \, k. \, [\![M]\!] \triangleright k)\\
+    [\![M \, N]\!] \triangleright k          &= [\![M]\!] \triangleright \lambda m. \, [\![N]\!] \triangleright \lambda n. \, m \, n \, k
+  \end{align*}
+
+  \uncover<2->{
+    Generates fewer administrative redexes:
+    \begin{align*}
+      [\![(\lambda x. \, x) \, y]\!] \triangleright k &= (\lambda m. \, (\lambda n. \, m \, n \, k) \, y) \, (\lambda x \, k. \, k \, x)\\
+                                                      &\rightarrow_{\beta} (\lambda n. \, (\lambda x \, k. \, k \, x) \, n \, k) \, y\\
+                                                      &\rightarrow_{\beta} (\lambda x \, k. \, k \, x) \, y \, k
+    \end{align*}
+  }
+
+}
+
+
+\section{Correct Compilers}
+
+
+\frame{
+
+  \frametitle{Verifying a CPS Transformation}
+
+  \tableofcontents[currentsection]
+
+}
+
+
+\frame{
+
+  \frametitle{Program Compilation}
+
+  The general setting:
+
+  \begin{enumerate}
+    \item Source program is proved correct
+    \item Source program is compiled to binary code
+    \item The binary code is executed
+  \end{enumerate}
+
+  \uncover<2->{
+    {\bf Obervation:} No guarantees on correctness of executed program.
+  }
+
+}
+
+
+\frame{
+
+  \frametitle{Roads to Correct Compilers}
+
+  Gap between correct source code and correct binary code.
+  Ways to fill it:
+
+  \begin{itemize}
+    \item Prove correctness of the compiler  % correctness proof of compiler
+    \item Validate compilation result        % correctness proof of validator
+    \item Use proof-carrying code            % check proof
+  \end{itemize}
+
+  We focus on the first.
+
+}
+
+
+\frame{
+
+  \frametitle{Proving a Compiler Correct}
+
+  Compiler is a function $C \, : \, \text{Source code} \rightarrow \text{Target code}$
+
+  \begin{block}{Correctness of a compiler}
+    Amounts to:
+    \begin{itemize}
+      \item Semantics($S$) $=$ Semantics($C(S)$)
+      \item Observable behaviour($S$) $=$ Observable behaviour($C(S)$)
+      \item $P(S) \: \Rightarrow \: P(C(S))$
+      \item $P(S) \: \Rightarrow \: P'(C(S))$
+      \item \ldots
+    \end{itemize}
+  \end{block}
+
+  \uncover<2->{
+    $C$ is composed of many stages, one of which may be a CPS transformation.
+  }
+
+}
+
+
+\section{Our Setting}
+
+
+\frame{
+
+  \frametitle{Verifying a CPS Transformation}
+
+  \tableofcontents[currentsection]
+
+}
+
+
+\frame{
+
+  \frametitle{Mechanized Verification of CPS Transformations}
+
+  Zaynah Dargaye and Xavier Leroy: {\em Mechanized verification of CPS transformations} (LPAR 2007)
+
+  \begin{itemize}
+    \item Part of the Compcert project (INRIA)
+    \item Use Coq to implement and verify two CPS transformations
+    \item Relatively interesting source and target languages
+    \item No source code available (yet)
+  \end{itemize}
+
+  \uncover<2->{
+    We will look at a simplified version of their setting.
+  }
+
+}
+
+
+\frame{
+
+  \frametitle{Source Language}
+
+  \begin{align*}
+    M ::=             &\; x_{n}
+      && \text{variable} \\
+    \llap{\textbar\:} &\; \lambda^{n}.M
+      && \text{abstraction of arity $n+1$} \\
+    \llap{\textbar\:} &\; M(M, \ldots, M)
+      && \text{function application} \\
+    \llap{\textbar\:} &\; \kw{let} \: M \: \kw{in} \: M
+      && \text{binding}
+  \end{align*}
+
+  Example term: $(\lambda^{0}. \, x_{0}) \, (x_{0})$
+
+  \begin{itemize}
+    \item de Bruijn indices
+    \item $n$-ary function application
+    \item $\kw{let} \: M \: \kw{in} \: N$ binds $x_{0}$ to $M$ in $N$
+    \item Big-step operational semantics (next slide)
+  \end{itemize}
+
+}
+
+
+\frame{
+
+  \frametitle{Source Language Semantics}
+
+  \begin{mathpar}
+    \infer*[left=Values]
+           {\:}
+           {\lambda^{n}.M \Rightarrow \lambda^{n}.M}
+    \and
+    \infer*[left=$\kw{let}$]
+           {M \Rightarrow v_{1}
+             \\ N\{v_{1}\} \Rightarrow v}
+           {(\kw{let} \: M \: \kw{in} \: N) \Rightarrow v}
+    \and
+    \infer*[left=Application]
+           {M \Rightarrow \lambda^{n}.P
+             \\ N_{i} \Rightarrow v_{i}
+             \\ P\{v_{n}, \ldots, v_{0}\} \Rightarrow v}
+           {M(N_{0}, \ldots, N_{n}) \Rightarrow v}
+  \end{mathpar}
+
+  Example evaluation:
+  \begin{align*}
+    (\lambda^{0}. \, x_{0}) \, (x_{0}) &\Rightarrow x_{0}
+  \end{align*}
+
+}
+
+
+\frame{
+
+  \frametitle{Target Language}
+
+  \begin{align*}
+    M' ::=            &\; x_{n}
+      && \text{source-level variable} \\
+    \llap{\textbar\:} &\; \kappa_{n}
+      && \text{continuation variable} \\
+    \llap{\textbar\:} &\; \lambda^{n}.M'
+      && \text{abstraction of arity $n+1$} \\
+    \llap{\textbar\:} &\; M'(M', \ldots, M')
+      && \text{function application} \\
+    \llap{\textbar\:} &\; \kw{let} \: M' \: \kw{in} \: M'
+      && \text{binding}
+  \end{align*}
+
+  \begin{itemize}
+    \item Two sorts of de Bruijn indices
+    \item First argument is bound to $\kappa_{0}$
+    \item Big-step operational semantics (next slide)
+  \end{itemize}
+
+}
+
+
+\begin{frame}
+
+  \frametitle{Questions and Further Reading}
+
+  Any questions?\\[4em]
+
+  \begin{block}{Further Reading}
+    \texttt{http://metaborg.org}
+  \end{block}
+
+\end{frame}
+
+
+\end{document}
