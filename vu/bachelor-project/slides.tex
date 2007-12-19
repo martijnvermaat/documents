@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[notheorems]{beamer}
 
 \usepackage[english]{babel}
 
@@ -26,10 +26,12 @@
 % Keywords like let,in,then,match,with
 \newcommand{\kw}[1]{\mathtt{#1}}
 
+% Theorems
+\newtheorem{lemma}{\sffamily Lemma 1}
+\newtheorem{maintheorem}{\sffamily Correcness Theorem}
+
 
 \title{Verifying a CPS Transformation}
-
-%\subtitle{(Important notice on next page)}
 
 \author{Martijn Vermaat}
 \institute{mvermaat@cs.vu.nl\\
@@ -88,7 +90,7 @@ December 20, 2007}
   \frametitle{Transforming to CPS}
 
   Programs in direct style can be mechanically transformed to equivalent
-  prorgrams in CPS.
+  prorgrams in CPS:
 
   \begin{itemize}
     \item Plotkin, 1975
@@ -104,7 +106,6 @@ December 20, 2007}
   \frametitle{Plotkin's Original Transformation}
 
   Plotkin, 1975:
-
   \begin{align*}
     [\![x]\!]               &= \lambda k. \, k \, x\\
     [\![\lambda x. \, M]\!] &= \lambda k. \, k \, (\lambda x. \, [\![M]\!])\\
@@ -165,16 +166,16 @@ December 20, 2007}
 
   \frametitle{Program Compilation}
 
-  The general setting:
+  Traditionally:
 
   \begin{enumerate}
-    \item Source program is proved correct
+    \item Source program is proven correct
     \item Source program is compiled to binary code
-    \item The binary code is executed
+    \item Binary code is executed
   \end{enumerate}
 
   \uncover<2->{
-    {\bf Obervation:} No guarantees on correctness of executed program.
+    {\bf Observation:} No guarantees on correctness of executed program.
   }
 
 }
@@ -193,7 +194,7 @@ December 20, 2007}
     \item Use proof-carrying code            % check proof
   \end{itemize}
 
-  We focus on the first.
+  We will focus on the first.
 
 }
 
@@ -325,9 +326,9 @@ December 20, 2007}
       && \text{binding}
   \end{align*}
 
-  Example term: $\lambda^{0}. \, \kappa_{0} \, (\lambda^{1}. \, \kappa_{0} \, (x_{0}))$
-
   Example term: $\lambda^{0}. \, \kappa_{0}$ (the initial continuation)
+
+  Example term: $\lambda^{0}. \, (\lambda^{1}. \, \kappa_{0} \, (x_{0})) \, (\kappa_{0}, (\lambda^{2}. \, \kappa_{0} \, (x_{0})))$
 
   \begin{itemize}
     \item Two sorts of variables (indepenently numbered)
@@ -360,8 +361,8 @@ December 20, 2007}
 
   Example evaluation:
   \begin{equation*}
-    \lambda^{0}. \, \kappa_{0} \, (\lambda^{1}. \, (\lambda^{0}. \, \kappa_{0} \, (x_{0})) \, (\kappa_{0}))
-    \: \Rightarrow \: \lambda^{0}. \, \kappa_{0} \, (\lambda^{1}. \, \kappa_{0} \, (x_{0}))
+    \lambda^{0}. \, (\lambda^{1}. \, \kappa_{0} \, (x_{0})) \, (\kappa_{0}, (\lambda^{2}. \, \kappa_{0} \, (x_{0})))
+    \: \Rightarrow \: \lambda^{0}. \, \kappa_{0} \, (\lambda^{2}. \, \kappa_{0} \, (x_{0}))
   \end{equation*}
 
 }
@@ -431,8 +432,119 @@ December 20, 2007}
 
   What does it mean for $[\![\cdot]\!]$ to be correct?
 
+  \uncover<2->{
+    \begin{itemize}
+      \item $[\![\cdot]\!]$ preserves semantics
+      \item \uncover<3->{
+        How do we express this?
+
+        (This will not work: $[\![M]\!] \Rightarrow v$ whenever $M \Rightarrow v$)
+      }
+    \end{itemize}
+  }
+
+  \uncover<4->{
+    \begin{maintheorem}
+      If $M \Rightarrow v$ in the source language, then
+      $[\![M]\!] (\lambda^{0}.\kappa_{0}) \Rightarrow \Psi(v)$ in the target language.
+    \end{maintheorem}
+  }
+
 }
 
+
+\frame{
+
+  \frametitle{Proof of Correctness Theorem}
+
+  \begin{maintheorem}
+    If $M \Rightarrow v$ in the source language, then
+    $[\![M]\!] (\lambda^{0}.\kappa_{0}) \Rightarrow \Psi(v)$ in the target language.
+  \end{maintheorem}
+
+  More general result needed for proof by induction:
+
+  \begin{lemma}
+    Let $K = \lambda^{0}.P$ be a $\kappa$-closed, one-argument
+    abstraction of the target language. If $M \Rightarrow v$ in the
+    source language, and $P\{\Psi(v)\}\{\} \Rightarrow v'$ in the target
+    language, then $[\![M]\!](K) \Rightarrow v'$ in the target language.
+  \end{lemma}
+
+}
+
+
+\frame{
+
+  \frametitle{Proof of Lemma 1}
+
+  \begin{lemma}
+    Let $K = \lambda^{0}.P$ be a $\kappa$-closed, one-argument
+    abstraction of the target language. If $M \Rightarrow v$ in the
+    source language, and $P\{\Psi(v)\}\{\} \Rightarrow v'$ in the target
+    language, then $[\![M]\!](K) \Rightarrow v'$ in the target language.
+  \end{lemma}
+
+  \begin{proof}
+    By induction on the evaluation derivation of $M \Rightarrow v$ and
+    case analysis over the term $M$:
+    \begin{description}
+    \item[Base case $M = \lambda^{n}.M_{1}$]
+    \item[Inductive case $M = M_{1}(N_{0}, \ldots, N_{n})$]\hfill
+
+      Premises: $M_{1} \Rightarrow \lambda^{n}.Q$, $N_{i} \Rightarrow v_{i}$,
+      $Q\{v_{n}, \ldots, v_{0}\} \Rightarrow v$
+    \item[Inductive case $M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}$]\hfill
+
+      Premises: $M_{1} \Rightarrow v_{1}$, $M_{2}\{v_{1}\} \Rightarrow v$\qedhere
+    \end{description}
+  \end{proof}
+
+}
+
+
+\frame{
+
+  \frametitle{Coq Development}
+
+  Zaynah Dargaye and Xavier Leroy: {\em Mechanized verification of CPS transformations} (LPAR 2007)
+
+  \begin{itemize}
+    \item Mechanization of proof in Coq
+    \item Extraction of executable Caml code
+    \item Also: recursive functions, pattern matching, optimized transformation
+    \item $\approx$ 9000 lines of Coq
+    \item Goal: verified mini-ML to Cminor compiler (part of Compcert)
+  \end{itemize}
+
+}
+
+
+\section{Discussion and Related Work}
+
+
+\frame{
+
+  \frametitle{Verifying a CPS Transformation}
+
+  \tableofcontents[currentsection]
+
+}
+
+
+\frame{
+
+  \frametitle{Design Choices}
+
+  \begin{itemize}
+    \item de Bruijn indices
+    \item Two-sorted de Bruijn indices
+    \item Big-step operational semantics
+    \item Coq
+    \item \ldots
+  \end{itemize}
+
+}
 
 
 
