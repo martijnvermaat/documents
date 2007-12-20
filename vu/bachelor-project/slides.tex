@@ -536,29 +536,82 @@ December 20, 2007}
 
   \frametitle{Design Choices}
 
+  (Two-sorted) de Bruijn indices:
   \begin{itemize}
-    \item de Bruijn indices
-    \item Two-sorted de Bruijn indices
-    \item Big-step operational semantics
+    \item Binding and $\alpha$-conversion (POPLmark challenge)
+    \item Lifting
+  \end{itemize}
+
+  \uncover<2->{
+    Big-step operational semantics:
+    \begin{itemize}
+      \item Administrative redexes
+      \item No diverging source programs
+    \end{itemize}
+  }
+
+  \uncover<3->{
+    Coq:
+    \begin{itemize}
+      \item Code extraction
+      \item Preference
+    \end{itemize}
+  }
+
+}
+
+
+\frame{
+
+  \frametitle{Related Work}
+
+  Minamide and Okuma, 2003: {\em Verifying CPS Transformations in Isabelle/HOL}
+  \begin{itemize}
+    \item Named variables, no $\alpha$-conversion or explicit renaming
+    \item Small-step operational semantics
+  \end{itemize}
+
+  Tian, 2006: {\em Mechanically Verifying Correctness of CPS Compilation}
+  \begin{itemize}
+    \item Twelf
+    \item Higher-order abstract syntax
+    \item Combination of big-step and small-step operational semantics
+  \end{itemize}
+
+  Chlipala, 2007: {\em A Certified Type-Preserving Compiler from Lambda Calculus to Assembly Language}
+  \begin{itemize}
     \item Coq
-    \item \ldots
+    \item de Bruijn indices
+    \item Denotational semantics
+    \item Dependent types with focus on automated proofs
   \end{itemize}
 
 }
 
 
+\frame{
 
+  \frametitle{Conclusion}
 
+  Geen! :-D
+
+}
 
 
 \begin{frame}
 
   \frametitle{Questions and Further Reading}
 
-  Any questions?\\[4em]
+  Questions?\\[4em]
 
   \begin{block}{Further Reading}
-    \texttt{http://metaborg.org}
+    \begin{itemize}
+      \item Plotkin, 1975: {\em Call-by-name, Call-by-value and the lambda-calculus}
+      \item Danvy and Filinski, 1992: {\em Representing control: a study of the CPS transformation}
+      \item Appel, 1992: {\em Compiling with Continuations}
+      \item Compcert: \texttt{http://pauillac.inria.fr/\~{}xleroy/compcert/}
+      \item Lambda Tamer: \texttt{http://ltamer.sourceforge.net/}
+    \end{itemize}
   \end{block}
 
 \end{frame}
