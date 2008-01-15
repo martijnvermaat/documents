@@ -6,7 +6,8 @@
 # Martijn Vermaat, martijn@vermaat.name
 
 # Configuration
-TARGET = bachelor-project
+ARTICLE = bachelor-project
+SLIDES = slides
 PDFLATEX = /usr/bin/pdflatex
 PDFLATEXFLAGS = -halt-on-error -interaction errorstopmode
 BIBTEX = /usr/bin/bibtex
@@ -16,14 +17,14 @@ PDFVIEW = /usr/bin/evince
 all: pdf
 
 # Create PDF and have a look at it
-preview: $(TARGET).pdf
+preview: $(ARTICLE).pdf
 	$(PDFVIEW) $< &
 
 # Compile BibTeX source file (run this when citations or .bib file change)
-bibtex: $(TARGET).bbl
+bibtex: $(ARTICLE).bbl
 
 # Create the files
-pdf: $(TARGET).pdf
+pdf: $(ARTICLE).pdf $(SLIDES).pdf
 
 # For the PDF, we need a .tex LaTeX source. Actually, we also need a .bbl
 # BibTeX database, but we don't want to regenerate that on every .tex change.
@@ -40,4 +41,4 @@ pdf: $(TARGET).pdf
 
 # Please make sure we don't kill any sources...
 clean:
-	rm -f *.aux *.pdf *.log *.toc *.out *.bbl *.blg
+	rm -f *.aux *.pdf *.log *.toc *.out *.bbl *.blg *.nav *.snm *.vrb
