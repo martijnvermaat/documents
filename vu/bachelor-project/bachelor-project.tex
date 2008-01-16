@@ -123,22 +123,23 @@ received as an extra argument.
 
 A main property of programs written in CPS is that their evaluation is independent
 of the evaluation strategy. Evaluating a CPS program with a call-by-value strategy
-yields the same evaluation steps as evaluating it with a call-by-need strategy. This
-makes CPS programs attractive as a semantical target.
+yields the same evaluation steps as evaluating it with a call-by-need strategy
+\cite{Plotkin-75}. This makes CPS programs attractive as a semantical target.
 
 In the field of compiler construction, CPS is often used as an intermediate language
-in compiling functional languages. Many optimizing transformations, such as inlining
-and memoization, are easier to perform on CPS programs than on direct-style programs.
+in compiling functional languages \cite{Appel-92,Orbit-86}. Many optimizing
+transformations, such as inlining and memoization, are easier to perform on CPS
+programs than on direct-style programs.
 
 Programs written in direct style can be mechanically transformed to equivalent
-programs in CPS. Many of such transformations are known, the earliest of which is
-due to Plotkin. A major disadvantage of Plotkin's original transformation is
-that it generates a lot of administrative redexes. While theoretically harmless, in
-practice these redexes must be removed in a later pass of an optimizig compiler and
-make proving certain properties of the transformation less straightforward. Therefore,
-a large number of alternative transformations to CPS have been proposed, some of them
-yielding no administrative redexes at all. We will see two examples of a CPS
-transformation in the next section.
+programs in CPS \cite{Danvy-Filinski-92}. Many of such transformations are known,
+the earliest of which is due to Plotkin \cite{Plotkin-75}. A major disadvantage of
+Plotkin's original transformation is that it generates a lot of administrative redexes.
+While theoretically harmless, in practice these redexes must be removed in a later
+pass of an optimizig compiler and make proving certain properties of the transformation
+less straightforward. Therefore, a number of alternative transformations to CPS have
+been proposed, some of them yielding no administrative redexes at all. We will see two
+examples of a CPS transformation in section~\ref{sec:transformations}.
 
 \paragraph{}
 
@@ -152,14 +153,15 @@ reasons being that the compiler could have altered the meaning of the program.
 There are a number of ways to remedy this situation. The most obvious, and the one we
 will focus on, being to verify the correctness of the compiler before compiling the
 source code of the program. Other ways are verifying the result of the compilation
-(translation validation) and using proof-carrying code. While these alternatives do
-not require proving correctness of the compiler, this requirement is shifted to the
-validator and the proof-checker, respectively.
+(translation validation) \cite{Translation-Validation-98,Necula-00} and using
+proof-carrying code. While these alternatives do not require proving correctness of
+the compiler, this requirement is shifted to the validator and the proof-checker,
+respectively.
 
 \paragraph{}
 
 Dargaye and Leroy \cite{Dargaye-Leroy-07} have implemented and verified two CPS
-transformations using the Coq proof assistant. Their work is part of the larger
+transformations using the Coq proof assistant \cite{Coq-89,CoqArt-04}. Their work is part of the larger
 project to implement a verified compiler for the mini-ML language, a restricted part
 of the ML functional language rich enough to be used as a target language for
 automatic extraction of programs from Coq specifications.
@@ -228,8 +230,8 @@ generate $2$ administrative redexes less:
 
 These are just two of many known CPS transformations. For example, a
 transformation that avoids generating any administrative redexes at all is
-described by Danvy and Nielsen. In this text, we will consider an extension of
-the original transformation by Plotkin.
+described by Danvy and Nielsen \cite{Danvy-Nielsen-03}. In this text, we
+will consider an extension of the original transformation by Plotkin.
 
 
 \section{Languages}\label{sec:languages}
