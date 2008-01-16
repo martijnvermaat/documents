@@ -43,7 +43,7 @@
 
 
 % One other fancy thing is sansserif headings, we go through some trouble to
-% get this in out document consistently...
+% get this in our document consistently...
 
 % Use sansserif fonts in section headings
 \usepackage{sectsty}
@@ -92,7 +92,7 @@
   Martijn Vermaat\\[0.3em]
   \href{mailto:mvermaat@cs.vu.nl}{\texttt{mvermaat@cs.vu.nl}}
 }
-\date{\today}
+\date{Bachelor Project, January 16, 2008}
 
 
 \begin{document}
@@ -158,10 +158,78 @@ validator and the proof-checker, respectively.
 
 \paragraph{}
 
+Dargaye and Leroy \cite{Dargaye-Leroy-07} have implemented and verified two CPS
+transformations using the Coq proof assistant. Their work is part of the larger
+project to implement a verified compiler for the mini-ML language, a restricted part
+of the ML functional language rich enough to be used as a target language for
+automatic extraction of programs from Coq specifications.
 
-Dargaye and Leroy
-\cite{Dargaye-Leroy-07} have \ldots. We do a case study on their setting, but
-simplified.
+We do a case study on the setting of Dargaye and Leroy, but simplified. Where their
+transformations work on a realistic functional source language featuring $n$-ary
+functions, recursive functions, abstract data types and pattern-matching, we restrict
+this list to $n$-ary functions only. Furthermore, we focus on their first
+transformation, a straight-forward extension of Plotkin's original transformation,
+ignoring their verification of an optimizing transformation. Finally, the
+mechanization of the transformation and its verification will not be discussed.
+
+Contributions of this text include a more detailed description of the correctness
+proof of Plotkin's extended transformation and, hopefully, a simpler and more
+approachable presentation of the matter at hand.
+
+
+\section{CPS Transformations}\label{sec:transformations}
+
+Let us now look at two transformations from programs in direct style to programs in
+continuation-passing style. Plotkin's original transformation on terms in the
+untyped $\lambda$-calculus is defined as follows:
+\begin{align*}
+  [\![x]\!]               &= \lambda k. \, k \, x\\
+  [\![\lambda x. \, M]\!] &= \lambda k. \, k \, (\lambda x. \, [\![M]\!])\\
+  [\![M \, N]\!]          &= \lambda k. \, [\![M]\!] \, (\lambda m. \, [\![N]\!] \, (\lambda n. \, m \, n \, k))
+\end{align*}
+
+This transformation is conceptually easy, but unfortunately yields a lot of
+administrative redexes. An administrative redex is a redex introduced by the CPS
+transformation, thus not present in the original source term. Consider for example
+the transformation of $(\lambda x. \, x) \, y$:
+\begin{align*}
+  [\![(\lambda x. \, x) \, y]\!] &= \lambda k. \, (\lambda k. \, k \, (\lambda x. \, (\lambda k. \, k \, x))) \, (\lambda m. \, (\lambda k. \, k \, y) \,
+ (\lambda n. \, m \, n \, k))\\
+                                 &\rightarrow_{\beta} \lambda k. \, (\lambda m. \, (\lambda k. \, k \, y) \, (\lambda n. \, m \, n \, k)) \, (\lambda x.
+\, (\lambda k. \, k \, x))\\
+                                 &\rightarrow_{\beta} \lambda k. \, (\lambda k. \, k \, y) \, (\lambda n. \, (\lambda x. \, (\lambda k. \, k \, x)) \, n
+\, k)\\
+                                 &\rightarrow_{\beta} \lambda k. \, (\lambda n. \, (\lambda x. \, (\lambda k. \, k \, x)) \, n \, k) \, y\\
+                                 &\rightarrow_{\beta} \lambda k. \, (\lambda x. \, (\lambda k. \, k \, x)) \, y \, k
+\end{align*}
+Note that the term concluding the above development still contains a redex, but
+this redex was already present in the source term.
+
+The following variation on Plotkin's transformation generates fewer
+administrative redexes. Instead of abstracting over the continuation function,
+the continuation is turned into an additional argument of the transformation which
+is thus defined as a binary function $[\![M]\!] \triangleright k$ on a source term
+$M$ and a continuation term $k$:
+\begin{align*}
+  [\![x]\!] \triangleright k               &= k \, x\\
+  [\![\lambda x. \, M]\!] \triangleright k &= k \, (\lambda x \, k. \, [\![M]\!] \triangleright k)\\
+  [\![M \, N]\!] \triangleright k          &= [\![M]\!] \triangleright \lambda m. \, [\![N]\!] \triangleright \lambda n. \, m \, n \, k
+\end{align*}
+
+Considering the term $(\lambda x. \, x) \, y$ again, transforming it will now
+generate $2$ administrative redexes less:
+\begin{align*}
+  [\![(\lambda x. \, x) \, y]\!] \triangleright k &= (\lambda m. \, (\lambda n. \, m \, n \, k) \, y) \, (\lambda x \, k. \, k \, x)\\
+                                                  &\rightarrow_{\beta} (\lambda n. \, (\lambda x \, k. \, k \, x) \, n \, k) \, y\\
+                                                  &\rightarrow_{\beta} (\lambda x \, k. \, k \, x) \, y \, k
+\end{align*}
+
+\paragraph{}
+
+These are just two of many known CPS transformations. For example, a
+transformation that avoids generating any administrative redexes at all is
+described by Danvy and Nielsen. In this text, we will consider an extension of
+the original transformation by Plotkin.
 
 
 \section{Languages}\label{sec:languages}
