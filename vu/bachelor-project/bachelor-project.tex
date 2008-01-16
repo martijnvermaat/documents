@@ -110,7 +110,56 @@
 
 \section{Introduction}\label{sec:introduction}
 
-Continuation-passing style is a \ldots. Dargaye and Leroy
+
+Continuation-passing style (CPS) is a functional programming style in which control is
+passed explicitely to every function in the form of a continuation. Functions
+written in continuation-passing style, as opposed to functions written in direct
+style, never return the result of their computation but instead pass it to a
+continuation function. For example, the unary function that returns its argument
+substracted by $2$ is written $\lambda x. \, x - 2$ in direct style
+$\lambda$-calculus. Written in continuation-passing style, this function becomes
+$\lambda x. \, \lambda k. \, k \, (x - 2)$ where $k$ is the continuation function
+received as an extra argument.
+
+A main property of programs written in CPS is that their evaluation is independent
+of the evaluation strategy. Evaluating a CPS program with a call-by-value strategy
+yields the same evaluation steps as evaluating it with a call-by-need strategy. This
+makes CPS programs attractive as a semantical target.
+
+In the field of compiler construction, CPS is often used as an intermediate language
+in compiling functional languages. Many optimizing transformations, such as inlining
+and memoization, are easier to perform on CPS programs than on direct-style programs.
+
+Programs written in direct style can be mechanically transformed to equivalent
+programs in CPS. Many of such transformations are known, the earliest of which is
+due to Plotkin. A major disadvantage of Plotkin's original transformation is
+that it generates a lot of administrative redexes. While theoretically harmless, in
+practice these redexes must be removed in a later pass of an optimizig compiler and
+make proving certain properties of the transformation less straightforward. Therefore,
+a large number of alternative transformations to CPS have been proposed, some of them
+yielding no administrative redexes at all. We will see two examples of a CPS
+transformation in the next section.
+
+\paragraph{}
+
+Formal verification of programs is used to prove that a program does not have certain
+defects or does have certain properties. Traditionally, program verification is done
+by proving the source code of the program correct. Afterwards, the source code is
+compiled to binary code which is then executed. It should be clear that this scheme
+does not provide any guarantees on the correctness of the executed code, one of the
+reasons being that the compiler could have altered the meaning of the program.
+
+There are a number of ways to remedy this situation. The most obvious, and the one we
+will focus on, being to verify the correctness of the compiler before compiling the
+source code of the program. Other ways are verifying the result of the compilation
+(translation validation) and using proof-carrying code. While these alternatives do
+not require proving correctness of the compiler, this requirement is shifted to the
+validator and the proof-checker, respectively.
+
+\paragraph{}
+
+
+Dargaye and Leroy
 \cite{Dargaye-Leroy-07} have \ldots. We do a case study on their setting, but
 simplified.
 
