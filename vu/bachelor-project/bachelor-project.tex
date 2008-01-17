@@ -77,6 +77,7 @@
 % TODO
 % Don't use eqnarray
 % Give appropriate references to Dargaye and Leroy
+% Cite only works really read?
 % State original work (full proof of Lemma 1)
 % TODO: check all reductions and add relevant properties (k-closedness
 % of certain terms)
@@ -84,6 +85,7 @@
 % languages?
 % TODO: do proper lifting of variables
 % TODO: investigate error in theorem one (see example.txt)
+% Check how this compares to Plotkin's proof
 
 
 \title{\sffamily Verifying a CPS Transformation (draft)}
@@ -92,7 +94,7 @@
   Martijn Vermaat\\[0.3em]
   \href{mailto:mvermaat@cs.vu.nl}{\texttt{mvermaat@cs.vu.nl}}
 }
-\date{Bachelor Project, January 16, 2008}
+\date{Bachelor Project, January 31, 2008}
 
 
 \begin{document}
@@ -161,14 +163,15 @@ respectively.
 \paragraph{}
 
 Dargaye and Leroy \cite{Dargaye-Leroy-07} have implemented and verified two CPS
-transformations using the Coq proof assistant \cite{Coq-89,CoqArt-04}. Their work is part of the larger
-project to implement a verified compiler for the mini-ML language, a restricted part
-of the ML functional language rich enough to be used as a target language for
-automatic extraction of programs from Coq specifications.
+transformations using the Coq proof assistant \cite{Coq-89,CoqArt-04}. Their work is
+part of the larger project to implement a verified compiler for the mini-ML language,
+a restricted part of the ML functional language rich enough to be used as a target
+language for automatic extraction of programs from Coq specifications
+\cite{Letouzey-02}.
 
 We do a case study on the setting of Dargaye and Leroy, but simplified. Where their
 transformations work on a realistic functional source language featuring $n$-ary
-functions, recursive functions, abstract data types and pattern-matching, we restrict
+functions, recursive functions, algebraic data types and pattern-matching, we restrict
 this list to $n$-ary functions only. Furthermore, we focus on their first
 transformation, a straight-forward extension of Plotkin's original transformation,
 ignoring their verification of an optimizing transformation. Finally, the
@@ -182,8 +185,8 @@ approachable presentation of the matter at hand.
 \section{CPS Transformations}\label{sec:transformations}
 
 Let us now look at two transformations from programs in direct style to programs in
-continuation-passing style. Plotkin's original transformation on terms in the
-untyped $\lambda$-calculus is defined as follows:
+continuation-passing style. Plotkin's original call-by-value transformation on terms
+in the untyped $\lambda$-calculus is defined as follows:
 \begin{align*}
   [\![x]\!]               &= \lambda k. \, k \, x\\
   [\![\lambda x. \, M]\!] &= \lambda k. \, k \, (\lambda x. \, [\![M]\!])\\
@@ -236,9 +239,17 @@ will consider an extension of the original transformation by Plotkin.
 
 \section{Languages}\label{sec:languages}
 
-We will be considering two languages, refering to them as `source language' and
-`target language'. In this section the syntax and semantics for both languages
-are defined.
+We will now describe the syntax and semantics of two languages acting as the
+source and target languages of the transformation, respectively. They are
+direct simplifications of the languages used in \cite{Dargaye-Leroy-07}, not
+containing recursive functions, algebraic datatypes, and pattern matching.
+The result is two simple extensions of untyped $\lambda$-calculus with $n$-ary
+functions and $\kw{let}$-bindings.
+
+The source and target languages differ only in that the target language
+features two kinds of variables as opposed to one in the source language.
+The extra kind in the target language is used for continuations and
+intermediate evaluation results.
 
 \subsection{Source Language}
 
@@ -288,7 +299,7 @@ A value is any term of the form $\lambda^{n}.M$.
 
 \subsection{Target Language}
 
-The target language is an adaptation of the source language, adding
+The target language is a direct adaptation of the source language, adding
 continuation variables $\kappa_{i}$ (we will refer to variables $x_{i}$
 as source-level variables). The two types of variables are numbered
 independently by their de Bruijn indices.
@@ -342,6 +353,13 @@ Figure~\ref{fig:targetsemantics}.
 
 \section{Transformation}\label{sec:transformation}
 
+The transformation we will prove correct is a straight-forward extension of
+Plotkin's transformation, defined below by two mutually recursive functions
+$\Psi$ on atoms and $[\![\cdot]\!]$ on terms. An atom is a variable $x_{n}$ or
+a term of the form $\lambda^{n}.M$.
+
+Note that $[\![\cdot]\!]$ really works on source language terms extended with
+a $\kw{then}$ construct used in the transformation of function applications.
 \begin{align*}
 \Psi(x_{n}) &=
   x_{n} \\
@@ -358,6 +376,31 @@ Figure~\ref{fig:targetsemantics}.
 [\![M_{1} \ldots M_{n} \: \kw{then} \: N']\!] &=
   [\![M_{1}]\!] (\lambda^{0} \ldots [\![M_{n}]\!] (\lambda^{0}.N') \ldots )
 \end{align*}
+The transformation $[\![M]\!]$ of any source term $M$ is a one-argument
+abstraction in the target language that will receive the current continuation
+and bind it to the continuation variable $\kappa_{0}$. A function of arity $n$
+in the source language is transformed to a function of arity $n+1$ in the
+target language expecting a continuation as its first argument (bound
+to $\kappa_{0}$) and $n$ regular arguments thereafter
+(bound to $x_{n-1}, \ldots, x_{0}$).
+
+The transformation of $M_{1} \ldots M_{n} \: \kw{then} \: N'$ first evaluates
+$[\![M_{1}]\!], \ldots, [\![M_{n}]\!]$ and binds them to
+$\kappa_{n-1}, \ldots, \kappa_{0}$ before evaluating $N'$. So in the
+transformation of the function application
+$M(N_{1}, \ldots, N_{n})$, we have $\kappa_{n}$ bound to $[\![M]\!]$,
+$\kappa_{n-1}, \ldots, \kappa_{0}$ bound to $[\![N_{1}]\!], \ldots [\![N_{n}]\!]$,
+and $\kappa_{n+1}$ bound to the outer continuation, after which
+$\kappa_{n}(\kappa_{n+1}, \kappa_{n-1}, \ldots, \kappa_{0})$ is evaluated.
+
+As an example, consider the transformation
+$[\![(\lambda^{0}.x_{0})(\lambda^{1}.x_{0})]\!]$, yielding
+\begin{align*}
+  \lambda^{0}. \:& \bigl( \lambda^{0}.\kappa_{0}(\lambda^{1}. \: (\lambda^{0}.\kappa_{0}(x_{0})) \: (\kappa_{0}) \: ) \bigr)\\
+  & \bigl( \lambda^{0}. \: (\lambda^{0}.\kappa_{0}(\lambda^{2}.(\lambda^{0}.\kappa_{0}(x_{0}))(\kappa_{0}))) \: (\lambda^{0}.\kappa_{1}(\kappa_{2},\kappa_{
+    0})) \: \bigr) \text{ ,}
+\end{align*}
+which evaluates to $\lambda^{0}. \kappa_{0}(\lambda^{2}.\kappa_{0}(x_{0}))$.
 
 
 \section{Semantics Preservation}\label{sec:semanticpreservation}
@@ -415,7 +458,7 @@ of $M \Rightarrow v$ and case analysis over the term $M$.
   Repeatedly applying the induction hypothesis to premises
   $N_{i} \Rightarrow v_{i}$ (starting with $i=0$) leaves us to show
   \begin{equation*}
-    [\![Q\{v_{n}, \ldots, v_{0}\}]\!] (\lambda^{0}.P) \Rightarrow v'
+    [\![Q\{v_{n}, \ldots, v_{0}\}]\!] (\lambda^{0}.P) \Rightarrow v' \text{ ,}
   \end{equation*}
   which follows from the induction hypothesis applied to the last premise and
   the assumption $P\{\Psi(v)\}\{\} \Rightarrow v'$.
@@ -477,7 +520,7 @@ We assume $M \Rightarrow v$ and proceed by induction on its derivation, also
 assuming $P\{\Psi(v)\}\{\} \Rightarrow v'$.
 
 \begin{description}
-\item[\sffamily Case $\boldsymbol{M = \lambda^{n}.M_{1}}$]\hfill
+\item[\sffamily Base case $\boldsymbol{M = \lambda^{n}.M_{1}}$]\hfill
 
   This is the base case, where $v = \lambda^{n}.M_{1}$.
 
@@ -493,7 +536,7 @@ assuming $P\{\Psi(v)\}\{\} \Rightarrow v'$.
    & \Rightarrow & P\{\Psi(\lambda^{n}.M_{1})\}\{\}
   \end{eqnarray*}
 
-\item[\sffamily Case $\boldsymbol{M = M_{1}(N_{0}, \ldots, N_{n})}$]\hfill
+\item[\sffamily Inductive case $\boldsymbol{M = M_{1}(N_{0}, \ldots, N_{n})}$]\hfill
 
 Premises of the evaluation rule for function application are
 $M_{1} \Rightarrow \lambda^{n}.Q$, $N_{i} \Rightarrow v_{i}$,
@@ -528,7 +571,7 @@ This follows from the induction hypothesis applied to the last premise
 $Q\{v_{n}, \ldots, v_{0}\} \Rightarrow v$ and the assumption $P\{\Psi(v)\}\{\}
 \Rightarrow v'$.
 
-\item[\sffamily Case $\boldsymbol{M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}}$]\hfill
+\item[\sffamily Inductive case $\boldsymbol{M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}}$]\hfill
 
 The evaluation rule for $\kw{let}$ gives us premises $M_{1} \Rightarrow v_{1}$ and $M_{2}\{v_{1}\} \Rightarrow v$.
 
