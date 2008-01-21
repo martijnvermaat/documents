@@ -39,7 +39,7 @@
 % Theorems
 \newtheorem{lemma}{\sffamily Lemma}
 \newtheorem{theorem}{\sffamily Theorem}
-\newtheorem*{mainlemma}{\sffamily Lemma 1}
+\newtheorem*{mainlemma}{\sffamily Lemma 3}
 
 
 % One other fancy thing is sansserif headings, we go through some trouble to
@@ -247,9 +247,8 @@ The result is two simple extensions of untyped $\lambda$-calculus with $n$-ary
 functions and $\kw{let}$-bindings.
 
 The source and target languages differ only in that the target language
-features two kinds of variables as opposed to one in the source language.
-The extra kind in the target language is used for continuations and
-intermediate evaluation results.
+features two kinds of variables, the extra kind being used for continuations
+and intermediate evaluation results.
 
 \subsection{Source Language}
 
@@ -274,7 +273,7 @@ $x_{0}, \ldots, x_{n}$ in $M$ is written $M\{N_{0}, \ldots, N_{n}\}$.
 The big-step operational semantics of the source language is given in
 Figure~\ref{fig:sourcesemantics}. The three rules define the evaluation relation
 $M \Rightarrow v$ on terms $M$ and values $v$, reading ``$M$ evaluates to $v$''.
-A value is any term of the form $\lambda^{n}.M$.
+A value $v$ is any term of the form $\lambda^{n}.M$.
 
 \begin{figure}
 \begin{mathpar}
@@ -322,9 +321,10 @@ where $n$ ranges over the natural numbers.
 An abstraction $\lambda^{n}.M'$ binds its first argument, the continuation,
 to $\kappa_{0}$, and its remaining arguments to $x_{n-1}, \ldots, x_{0}$ in
 $M'$.
-We write $M'\{N'_{0}, \ldots, N'_{n}\}\{P'_{0}, \ldots, P'_{m}\}$ for the
-double simultaneous substitution of $N'_{i}$ for $\kappa_{i}$
-($i = 0 \ldots n$) and $P'_{i}$ for $x_{i}$ ($i = 0 \ldots m$) in $M'$.
+The double simultaneous substitution of $N'_{0}, \ldots, N'_{n}$ for
+$\kappa_{0}, \ldots, \kappa_{n}$ and $P'_{0}, \ldots, P'_{m}$ for
+$x_{0}, \ldots, x_{m}$ in $M'$ is written
+$M'\{N'_{0}, \ldots, N'_{n}\}\{P'_{0}, \ldots, P'_{m}\}$.
 
 The big-step operational semantics for the target language is given in
 Figure~\ref{fig:targetsemantics}.
@@ -353,10 +353,14 @@ Figure~\ref{fig:targetsemantics}.
 
 \section{Transformation}\label{sec:transformation}
 
-The transformation we will prove correct is a straight-forward extension of
+Again, we follow the presentation of \cite{Dargaye-Leroy-07}. The transformation
+we will prove correct is a straight-forward extension of
 Plotkin's transformation, defined below by two mutually recursive functions
-$\Psi$ on atoms and $[\![\cdot]\!]$ on terms. An atom is a variable $x_{n}$ or
-a term of the form $\lambda^{n}.M$.
+$\Psi$ on atoms and $[\![\cdot]\!]$ on terms. An atom $A$ is a variable or an
+abstraction:
+\begin{equation*}
+A ::= \; x_{n} \: \text{\textbar} \: \lambda^{n}.M
+\end{equation*}
 
 Note that $[\![\cdot]\!]$ really works on source language terms extended with
 a $\kw{then}$ construct used in the transformation of function applications.
@@ -384,7 +388,8 @@ target language expecting a continuation as its first argument (bound
 to $\kappa_{0}$) and $n$ regular arguments thereafter
 (bound to $x_{n-1}, \ldots, x_{0}$).
 
-The transformation of $M_{1} \ldots M_{n} \: \kw{then} \: N'$ first evaluates
+The transformation of the term $M_{1} \ldots M_{n} \: \kw{then} \: N'$ first
+evaluates the terms
 $[\![M_{1}]\!], \ldots, [\![M_{n}]\!]$ and binds them to
 $\kappa_{n-1}, \ldots, \kappa_{0}$ before evaluating $N'$. So in the
 transformation of the function application
@@ -404,7 +409,57 @@ which evaluates to $\lambda^{0}. \kappa_{0}(\lambda^{2}.\kappa_{0}(x_{0}))$.
 
 \paragraph{}
 
-Some properties of the transformation (lemma 3 and 4).
+We say that a target language term is $\kappa$-closed if it does not contain
+any free continuation variables $\kappa_{i}$. The following lemmas state some
+important properties of the transformation.
+
+\begin{lemma}\label{lem:kappaclosed}
+  $[\![M]\!]$ and $\Psi(A)$ are $\kappa$-closed. As a corollary, transformed
+  terms are invariant by substitution of $\kappa$-variables:
+  \begin{equation*}
+    [\![M]\!]\{\vec{N}\}\{\vec{P}\} = [\![M]\!]\{\}\{\vec{P}\}
+  \end{equation*}
+\end{lemma}
+\begin{proof}
+By structural induction over $M$ and case analysis over $A$:
+\begin{description}
+\item[\sffamily Base case $\boldsymbol{M = x_{i}}$]\hfill
+
+  $[\![M]\!] = \lambda^{0}.\kappa_{0}(x_{i})$, which is obviously $\kappa$-closed.
+
+\item[\sffamily Inductive case $\boldsymbol{M = \lambda^{n}.M_{1}}$]\hfill
+
+  By the induction hypothesis, $[\![M_{1}]\!]$ is $\kappa$-closed. Therefore, also
+  $[\![M]\!] = \lambda^{0}.\kappa_{0}(\lambda^{n+1}.[\![M_{1}]\!](\kappa_{0}))$ is
+  $\kappa$-closed.
+
+\item[\sffamily Inductive case $\boldsymbol{M = M_{1}(N_{0}, \ldots, N_{n})}$]\hfill
+  \begin{align*}
+    [\![M]\!] &= \lambda^{0}.[\![M_{1}.N_{0} \ldots N_{n} \: \kw{then} \: \kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})]\!] \\
+              &= \lambda^{0}.[\![M_{1}]\!](\lambda^{0}.[\![N_{0}]\!](\lambda^{0}. \ldots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})) \cdots ))
+  \end{align*}
+  By the induction hypothesis, $[\![M_{1}]\!]$, $[\![N_{0}]\!], \ldots, [\![N_{n}]\!]$ are $\kappa$-closed.
+  There are $n+3$ abstractions surrounding the $\kappa_{n+2}$, so $[\![M]\!]$ is $\kappa$-closed.
+
+\item[\sffamily Inductive case $\boldsymbol{M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}}$]\hfill
+
+  $[\![M]\!] = \lambda^{0}.[\![M_{1}]\!](\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!](\kappa_{1}))$
+  is $\kappa$-free because $[\![M_{1}]\!]$ and $[\![M_{2}]\!]$ are (by the induction hypothesis).
+\end{description}
+Now, $\kappa$-freeness of $\Psi(A)$ and the corollary follow trivially.
+\end{proof}
+
+\begin{lemma}\label{lem:commuting}
+  The transformation commutes with substitution of atoms for source-level variables:
+  \begin{align*}
+    [\![M\{A_{1}, \ldots, A_{n}\}]\!] &= [\![M]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    \Psi(A\{A_{1}, \ldots, A_{n}\})   &= \Psi(A)\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\}
+  \end{align*}
+\end{lemma}
+\begin{proof}
+By structural induction over $M$ and case analysis over $A$:
+
+\end{proof}
 
 
 \section{Semantics Preservation}\label{sec:semanticpreservation}
@@ -422,7 +477,7 @@ $[\![M]\!] (\lambda^{0}.\kappa_{0}) \Rightarrow \Psi(v)$ in the target language.
 \end{theorem}
 
 For a proof by induction to go through we need to generalize this result. The
-result we will prove is given as Lemma~\ref{lem:mainlemma} and generalizes the
+result we will prove is given as lemma~\ref{lem:mainlemma} and generalizes the
 use of the initial continuation to any $\kappa$-closed, one-argument
 abstraction.
 
@@ -488,10 +543,10 @@ of $M \Rightarrow v$ and case analysis over the term $M$.
 \paragraph{}
 
 Theorem~\ref{thm:maintheorem} is an instantiation of
-Lemma~\ref{lem:mainlemma}, so we can now prove it easily.
+lemma~\ref{lem:mainlemma}, so we can now prove it easily.
 
 \begin{proof}[Proof of Theorem~\ref{thm:maintheorem}]
-We take for $K$ in Lemma~\ref{lem:mainlemma} the initial continuation
+We take for $K$ in lemma~\ref{lem:mainlemma} the initial continuation
 $\lambda^{0}.\kappa_{0}$, yielding
 $[\![M]\!] (\lambda^{0}.\kappa_{0}) \Rightarrow \Psi(v)$.
 \end{proof}
@@ -509,7 +564,8 @@ bewijzen? Hoe verhouden die zich tot elkaar?
 
 \section{Semantics Preservation Proof}\label{sec:proof}
 
-\subsection*{Lemma 1}
+
+\subsection*{Lemma 3}
 
 {\em
   Let $K = \lambda^{0}.P$ be a $\kappa$-closed, one-argument
@@ -557,7 +613,7 @@ we get
 & \Rightarrow & [\![M_{1}]\!](\lambda^{0}.[\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}((\lambda^{0}.P), \kappa_{n}, \ldots, \kappa_{0})) \cdots ))
 \end{eqnarray*}
 
-Let $P_{1} = [\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}((\lambda^{0}.P), \kappa_{n}, \ldots, \kappa_{0})) \cdots )$ and $K_{1} = \lambda^{0}.P_{1}$ which is $\kappa$-closed ($[\![N_{i}]\!]$ is $\kappa$-closed by lemma 3).
+Let $P_{1} = [\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}((\lambda^{0}.P), \kappa_{n}, \ldots, \kappa_{0})) \cdots )$ and $K_{1} = \lambda^{0}.P_{1}$ which is $\kappa$-closed ($[\![N_{i}]\!]$ is $\kappa$-closed by lemma\ref{lem:kappaclosed}).
 
 Applying the induction hypothesis to our first premise, we know that $[\![M_{1}]\!](K_{1}) \Rightarrow v'$ if $P_{1}\{\Psi(\lambda^{n}.Q)\}\{\} \Rightarrow v'$.
 
