@@ -61,20 +61,16 @@
 \usepackage[figure]{hypcap}
 
 
-% TODO
-% Don't use eqnarray
-% Explain lifting
-% Check for \lambda_{0} instead of \lambda^{0}
-% Give appropriate references to Dargaye and Leroy
-% Cite only works really read?
-% State original work (full proof of Lemma 1)
-% TODO: check all reductions and add relevant properties (k-closedness
+% TODO: Don't use eqnarray
+% TODO: Check for \lambda_{0} instead of \lambda^{0}
+% TODO: Cite only works really read?
+% TODO: Check all reductions and add relevant properties (k-closedness
 % of certain terms)
-% TODO: make distinction clear between evaluation in source and target
+% TODO: Do proper lifting of variables
+% TODO: Make distinction clear between evaluation in source and target
 % languages?
-% TODO: do proper lifting of variables
-% TODO: investigate error in theorem one (see example.txt)
-% Check how this compares to Plotkin's proof
+% TODO: Investigate error in theorem one (see example.txt)
+% TODO: Check how this compares to Plotkin's proof
 
 
 \title{\sffamily Verifying a CPS Transformation (draft)}
@@ -258,6 +254,8 @@ Variables $x_{i}$ are identified by their de Bruijn indices $i$.
 An abstraction $\lambda^{n}.M$ binds variables $x_{n}, \ldots, x_{0}$ in $M$.
 Simultaneous substitution of terms $N_{0}, \ldots, N_{n}$ for
 $x_{0}, \ldots, x_{n}$ in $M$ is written $M\{N_{0}, \ldots, N_{n}\}$.
+Lifting of free variables is denoted by the lifting operator: $\Uparrow^{n} M$
+replaces all free $x_{i}$ in $M$ by $x_{i+n}$.
 
 The big-step operational semantics of the source language is given in
 Figure~\ref{fig:sourcesemantics}. The three rules define the evaluation relation
@@ -314,6 +312,10 @@ The double simultaneous substitution of $N'_{0}, \ldots, N'_{n}$ for
 $\kappa_{0}, \ldots, \kappa_{n}$ and $P'_{0}, \ldots, P'_{m}$ for
 $x_{0}, \ldots, x_{m}$ in $M'$ is written
 $M'\{N'_{0}, \ldots, N'_{n}\}\{P'_{0}, \ldots, P'_{m}\}$.
+We use the following notation to distinguish between lifting of
+source-level variables and lifting of continuation variables:
+$\Uparrow_{x}^{n} M$ lifts free $x_{i}$ by $n$ in $M$ and
+$\Uparrow_{\kappa}^{n} M$ lifts free $\kappa_{i}$ by $n$ in $M$.
 
 The big-step operational semantics for the target language is given in
 Figure~\ref{fig:targetsemantics}.
@@ -582,7 +584,7 @@ Now, $\kappa$-freeness of $\Psi(A)$ and the corollary follow trivially.
 
 \begin{proof}
 We omit lifting of continuation variables when there are none (implicitely applying
-lemma~\ref{lem:kappaclosed}). Also, we use the fact $\Uparrow_{x}^{n} \Psi(A) = \Psi(\Uparrow_{x}^{n} A)$
+lemma~\ref{lem:kappaclosed}). Also, we use the fact $\Uparrow_{x}^{n} \Psi(A) = \Psi(\Uparrow^{n} A)$
 several times. The first statement is proved by a structural induction argument over $M$.
 
 \begin{description}
@@ -609,8 +611,8 @@ several times. The first statement is proved by a structural induction argument 
   We use the induction hypothesis in the third step below:
   \begin{eqnarray*} % TODO: figure out how to do this without eqnarray
     &   & [\![(\lambda^{m}.M_{1})\{A_{1}, \ldots, A_{n}\}]\!] \\
-    & = & [\![\lambda^{m}.M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow_{x}^{m+1}A_{1}, \ldots, \Uparrow_{x}^{m+1}A_{n}\}]\!] \\
-    & = & \lambda^{0}.\kappa_{0}(\lambda^{m+1}.[\![M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow_{x}^{m+1}A_{1}, \ldots, \Uparrow_{x}^{m+1}A_{n}\}]\!](\kappa_{0})) \\
+    & = & [\![\lambda^{m}.M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow^{m+1}A_{1}, \ldots, \Uparrow^{m+1}A_{n}\}]\!] \\
+    & = & \lambda^{0}.\kappa_{0}(\lambda^{m+1}.[\![M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow^{m+1}A_{1}, \ldots, \Uparrow^{m+1}A_{n}\}]\!](\kappa_{0})) \\
     & = & \lambda^{0}.\kappa_{0}(\lambda^{m+1}.[\![M_{1}]\!] \\
     &   & \qquad \{\}\{x_{0}, \ldots, x_{m}, \Uparrow_{x}^{m+1}\Psi(A_{1}), \ldots, \Uparrow_{x}^{m+1}\Psi(A_{n})\}(\kappa_{0})) \\
 %    & = & \lambda^{0}.\kappa_{0}(\lambda^{m+1}.[\![M_{1}]\!]\{\}\{x_{0}, \ldots, x_{m}, \Uparrow_{\kappa}^{2} \Uparrow_{x}^{m+1}\Psi(A_{1}), \ldots, \Uparrow_{\kappa}^{2} \Uparrow_{x}^{m+1}\Psi(A_{n})\}(\kappa_{0})) \\ % \ref{lem:kappaclosed}
@@ -627,7 +629,7 @@ several times. The first statement is proved by a structural induction argument 
     & = & \lambda^{0}.[\![M_{1}\{A_{1}, \ldots, A_{n}\}.N_{0}\{A_{1}, \ldots, A_{n}\} \ldots N_{m}\{A_{1}, \ldots, A_{n}\} \: \\
     &   & \qquad \kw{then} \: \kappa_{m+1}(\kappa_{m+2}, \kappa_{m}, \ldots, \kappa_{0})]\!] \\
     & = & \lambda^{0}.[\![M_{1}\{A_{1}, \ldots, A_{n}\}]\!](\lambda^{0}.[\![N_{0}\{A_{1}, \ldots, A_{n}\}]\!] \\
-    &   & \qquad (\lambda_{0}. \ldots [\![N_{m}\{A_{1}, \ldots, A_{n}\}]\!](\lambda^{0}.\kappa_{m+1}(\kappa_{m+2}, \kappa_{m}, \ldots, \kappa_{0})) \cdots )) \\
+    &   & \qquad (\lambda^{0}. \ldots [\![N_{m}\{A_{1}, \ldots, A_{n}\}]\!](\lambda^{0}.\kappa_{m+1}(\kappa_{m+2}, \kappa_{m}, \ldots, \kappa_{0})) \cdots )) \\
     & = & \lambda^{0}.[\![M_{1}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\}(\lambda^{0}.[\![N_{0}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
     &   & \qquad (\lambda^{0}. \ldots [\![N_{m}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
     &   & \qquad \qquad (\lambda^{0}.\kappa_{m+1}(\kappa_{m+2}, \kappa_{m}, \ldots, \kappa_{0})) \cdots )) \\ % IH
@@ -643,9 +645,9 @@ several times. The first statement is proved by a structural induction argument 
   Here the induction hypothesis is used in the third step:
   \begin{eqnarray*} % TODO: figure out how to do this without eqnarray
     &   & [\![(\kw{let} \: M_{1} \: \kw{in} \: M_{2})\{A_{1}, \ldots, A_{n}\}]\!] \\
-    & = & [\![\kw{let} \: M_{1}\{A_{1}, \ldots, A_{n}\} \: \kw{in} \: M_{2}\{x_{0}, \Uparrow_{x}^{1} A_{1}, \ldots, \Uparrow_{x}^{1} A_{n}\}]\!] \\
+    & = & [\![\kw{let} \: M_{1}\{A_{1}, \ldots, A_{n}\} \: \kw{in} \: M_{2}\{x_{0}, \Uparrow^{1} A_{1}, \ldots, \Uparrow^{1} A_{n}\}]\!] \\
     & = & \lambda^{0}.[\![M_{1}\{A_{1}, \ldots, A_{n}\}]\!] \\
-    &   & \qquad (\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}\{x_{0}, \Uparrow_{x}^{1} A_{1}, \ldots, \Uparrow_{x}^{1} A_{n}\}]\!](\kappa_{1})) \\
+    &   & \qquad (\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}\{x_{0}, \Uparrow^{1} A_{1}, \ldots, \Uparrow^{1} A_{n}\}]\!](\kappa_{1})) \\
     & = & \lambda^{0}.[\![M_{1}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
     &   & \qquad (\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!]\{\}\{x_{0}, \Uparrow_{x}^{1} \Psi(A_{1}), \ldots, \Uparrow_{x}^{1} \Psi(A_{n})\}(\kappa_{1})) \\
     & = & \lambda^{0}.[\![M_{1}]\!](\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!](\kappa_{1}))\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
@@ -675,9 +677,9 @@ A case analysis on $A$ proves the second statement.
 \item[\sffamily Inductive case $A = \lambda^{m}.M_{1}$]\hfill
   \begin{eqnarray*}
     &   & \Psi((\lambda^{m}.M_{1})\{A_{1}, \ldots, A_{n}\}) \\
-    & = & \Psi(\lambda^{m}.M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow_{x}^{m+1} A_{1}, \ldots, \Uparrow_{x}^{m+1} A_{n}\}) \\
-    & = & \lambda^{m+1}.[\![M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow_{x}^{m+1} A_{1}, \ldots, \Uparrow_{x}^{m+1} A_{n}\}]\!](\kappa_{0}) \\
-    & = & \lambda^{m+1}.[\![M_{1}]\!]\{\}\{\Uparrow_{x}^{m+1+} \Psi(A_{1}), \ldots, \Uparrow_{x}^{m+1} \Psi(A_{n})\}(\kappa_{0}) \\
+    & = & \Psi(\lambda^{m}.M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow^{m+1} A_{1}, \ldots, \Uparrow^{m+1} A_{n}\}) \\
+    & = & \lambda^{m+1}.[\![M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow^{m+1} A_{1}, \ldots, \Uparrow^{m+1} A_{n}\}]\!](\kappa_{0}) \\
+    & = & \lambda^{m+1}.[\![M_{1}]\!]\{\}\{\Uparrow_{x}^{m+1} \Psi(A_{1}), \ldots, \Uparrow_{x}^{m+1} \Psi(A_{n})\}(\kappa_{0}) \\
     & = & (\lambda^{m+1}.[\![M_{1}]\!](\kappa_{0}))\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
     & = & \Psi(\lambda^{m}.M_{1})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
   \end{eqnarray*}
