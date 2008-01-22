@@ -53,7 +53,8 @@
   linkcolor=black,
   urlcolor=black,
   pdfauthor={Martijn Vermaat},
-  pdftitle={Verifying a CPS Transformation} (draft),
+  pdftitle={Verifying a CPS Transformation (draft)},
+  pdfsubject={Verification of a transformation to continuation-passing style},
   pdfkeywords={lambda calculus, continuation-passing style, verification,
     functional programming},
   draft=false
@@ -70,7 +71,10 @@
 % TODO: Make distinction clear between evaluation in source and target
 % languages?
 % TODO: Investigate error in theorem one (see example.txt)
+%       => No error! abstractions evaluate to themselves! (check in text)
 % TODO: Check how this compares to Plotkin's proof
+% TODO: Discussion and conclusion
+% TODO: Finish proof of lemma 3
 
 
 \title{\sffamily Verifying a CPS Transformation (draft)}
@@ -397,6 +401,8 @@ $[\![(\lambda^{0}.x_{0})(\lambda^{1}.x_{0})]\!]$, yielding
     0})) \: \bigr) \text{ ,}
 \end{align*}
 which evaluates to $\lambda^{0}. \kappa_{0}(\lambda^{2}.\kappa_{0}(x_{0}))$.
+% TODO: No this abstraction just evaluates to itself!
+%       (This error is also on the slides)
 
 \paragraph{}
 
@@ -717,6 +723,7 @@ assuming $P\{\Psi(v)\}\{\} \Rightarrow v'$.
    & \Rightarrow & K (\Psi(\lambda^{n}.M_{1})) \\
    & \Rightarrow & P\{\Psi(\lambda^{n}.M_{1})\}\{\}
   \end{eqnarray*}
+  % TODO: evaluations are always in one step!
 
 \item[\sffamily Inductive case $M = M_{1}(N_{0}, \ldots, N_{n})$]\hfill
 
@@ -734,8 +741,9 @@ we get
 & = & (\lambda^{0}.[\![M_{1}]\!](\lambda^{0}.[\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})) \cdots ))) (\lambda^{0}.P) \\
 & \Rightarrow & [\![M_{1}]\!](\lambda^{0}.[\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}((\lambda^{0}.P), \kappa_{n}, \ldots, \kappa_{0})) \cdots ))
 \end{eqnarray*}
+% TODO: evaluations are always in one step
 
-Let $P_{1} = [\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}((\lambda^{0}.P), \kappa_{n}, \ldots, \kappa_{0})) \cdots )$ and $K_{1} = \lambda^{0}.P_{1}$ which is $\kappa$-closed ($[\![N_{i}]\!]$ is $\kappa$-closed by lemma\ref{lem:kappaclosed}).
+Let $P_{1} = [\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}((\lambda^{0}.P), \kappa_{n}, \ldots, \kappa_{0})) \cdots )$ and $K_{1} = \lambda^{0}.P_{1}$ which is $\kappa$-closed ($[\![N_{i}]\!]$ is $\kappa$-closed by lemma~\ref{lem:kappaclosed}).
 
 Applying the induction hypothesis to our first premise, we know that $[\![M_{1}]\!](K_{1}) \Rightarrow v'$ if $P_{1}\{\Psi(\lambda^{n}.Q)\}\{\} \Rightarrow v'$.
 
