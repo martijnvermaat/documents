@@ -39,7 +39,6 @@
 % Theorems
 \newtheorem{lemma}{\sffamily Lemma}
 \newtheorem{theorem}{\sffamily Theorem}
-\newtheorem*{mainlemma}{\sffamily Lemma 3}
 
 
 % One other fancy thing is sansserif headings, we go through some trouble to
@@ -413,7 +412,8 @@ which evaluates to $\lambda^{0}. \kappa_{0}(\lambda^{2}.\kappa_{0}(x_{0}))$.
 
 We say that a target language term is $\kappa$-closed if it does not contain
 any free continuation variables $\kappa_{i}$. The following lemmas state some
-important properties of the transformation.
+important properties of the transformation. They are proved in
+appendix~\ref{sec:proofs}.
 
 \begin{lemma}\label{lem:kappaclosed}
   $[\![M]\!]$ and $\Psi(A)$ are $\kappa$-closed. As a corollary, transformed
@@ -422,34 +422,6 @@ important properties of the transformation.
     [\![M]\!]\{\vec{N}\}\{\vec{P}\} = [\![M]\!]\{\}\{\vec{P}\}
   \end{equation*}
 \end{lemma}
-\begin{proof}
-By structural induction over $M$ and case analysis over $A$:
-\begin{description}
-\item[\sffamily Base case $M = x_{i}$]\hfill
-
-  $[\![M]\!] = \lambda^{0}.\kappa_{0}(x_{i})$, which is obviously $\kappa$-closed.
-
-\item[\sffamily Inductive case $M = \lambda^{n}.M_{1}$]\hfill
-
-  By the induction hypothesis, $[\![M_{1}]\!]$ is $\kappa$-closed. Therefore, also
-  $[\![M]\!] = \lambda^{0}.\kappa_{0}(\lambda^{n+1}.[\![M_{1}]\!](\kappa_{0}))$ is
-  $\kappa$-closed.
-
-\item[\sffamily Inductive case $M = M_{1}(N_{0}, \ldots, N_{n})$]\hfill
-  \begin{align*}
-    [\![M]\!] &= \lambda^{0}.[\![M_{1}.N_{0} \ldots N_{n} \: \kw{then} \: \kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})]\!] \\
-              &= \lambda^{0}.[\![M_{1}]\!](\lambda^{0}.[\![N_{0}]\!](\lambda^{0}. \ldots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})) \cdots ))
-  \end{align*}
-  By the induction hypothesis, $[\![M_{1}]\!]$, $[\![N_{0}]\!], \ldots, [\![N_{n}]\!]$ are $\kappa$-closed.
-  There are $n+3$ abstractions surrounding the $\kappa_{n+2}$, so $[\![M]\!]$ is $\kappa$-closed.
-
-\item[\sffamily Inductive case $M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}$]\hfill
-
-  $[\![M]\!] = \lambda^{0}.[\![M_{1}]\!](\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!](\kappa_{1}))$
-  is $\kappa$-free because $[\![M_{1}]\!]$ and $[\![M_{2}]\!]$ are (by the induction hypothesis).
-\end{description}
-Now, $\kappa$-freeness of $\Psi(A)$ and the corollary follow trivially.
-\end{proof}
 
 \begin{lemma}\label{lem:commuting}
   The transformation commutes with substitution of atoms for source-level variables:
@@ -458,100 +430,6 @@ Now, $\kappa$-freeness of $\Psi(A)$ and the corollary follow trivially.
     \Psi(A\{A_{1}, \ldots, A_{n}\})   &= \Psi(A)\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\}
   \end{align*}
 \end{lemma}
-\begin{proof}
-We omit lifting of continuation variables when there are none (implicitely applying
-lemma~\ref{lem:kappaclosed}). Also, we use the fact $\Uparrow_{x}^{n} \Psi(A) = \Psi(\Uparrow_{x}^{n} A)$
-several times. First, a structural induction argument over $M$:
-\begin{description}
-\item[\sffamily Base case $M = x_{i}$]\hfill
-
-  If $i < n$, we have
-  \begin{align*}
-    [\![x_{i}\{A_{1}, \ldots, A_{n}\}]\!] &= [\![x_{i}]\!] \\
-                                        &= \lambda^{0}.\kappa_{0}(x_{i}) \\
-                                        &= \lambda^{0}.\kappa_{0}(x_{i})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
-                                        &= [\![x_{i}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
-  \end{align*}
-  Otherwise,
-  \begin{align*}
-    [\![x_{i}\{A_{1}, \ldots, A_{n}\}]\!] &= [\![A_{i+1}]\!] \\
-                                        &= \lambda^{0}.\kappa_{0}(\Psi(A_{i+1})) \\
-%                                        &= \lambda^{0}.\kappa_{0}(\Uparrow_{\kappa}^{1}\Psi(A_{i+1})) && \text{by lemma~\ref{lem:kappaclosed}} \\
-                                        &= \lambda^{0}.\kappa_{0}(x_{i})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
-                                        &= [\![x_{i}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
-  \end{align*}
-
-\item[\sffamily Inductive case $M = \lambda^{m}.M_{1}$]\hfill
-
-  We use the induction hypothesis in the third step below:
-  \begin{eqnarray*} % TODO: figure out how to do this without eqnarray
-    &   & [\![(\lambda^{m}.M_{1})\{A_{1}, \ldots, A_{n}\}]\!] \\
-    & = & [\![\lambda^{m}.M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow_{x}^{m+1}A_{1}, \ldots, \Uparrow_{x}^{m+1}A_{n}\}]\!] \\
-    & = & \lambda^{0}.\kappa_{0}(\lambda^{m+1}.[\![M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow_{x}^{m+1}A_{1}, \ldots, \Uparrow_{x}^{m+1}A_{n}\}]\!](\kappa_{0})) \\
-    & = & \lambda^{0}.\kappa_{0}(\lambda^{m+1}.[\![M_{1}]\!]\{\}\{x_{0}, \ldots, x_{m}, \Uparrow_{x}^{m+1}\Psi(A_{1}), \ldots, \Uparrow_{x}^{m+1}\Psi(A_{n})\}(\kappa_{0})) \\
-%    & = & \lambda^{0}.\kappa_{0}(\lambda^{m+1}.[\![M_{1}]\!]\{\}\{x_{0}, \ldots, x_{m}, \Uparrow_{\kappa}^{2} \Uparrow_{x}^{m+1}\Psi(A_{1}), \ldots, \Uparrow_{\kappa}^{2} \Uparrow_{x}^{m+1}\Psi(A_{n})\}(\kappa_{0})) \\ % \ref{lem:kappaclosed}
-    & = & (\lambda^{0}.\kappa_{0}(\lambda^{m+1}.[\![M_{1}]\!](\kappa_{0})))\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
-    & = & [\![\lambda^{m}.M_{1}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
-  \end{eqnarray*}
-
-\item[\sffamily Inductive case $M = M_{1}(N_{0}, \ldots, N_{m})$]\hfill
-
-  Omitted for brevity.
-%  \begin{eqnarray*} % TODO: use m instead of n
-%    &   & [\![M_{1}(N_{0}, \ldots, N_{n})\{A_{1}, \ldots, A_{n}\}]\!] \\
-%    & = & [\![M_{1}\{A_{1}, \ldots, A_{n}\}(N_{0}\{A_{1}, \ldots, A_{n}\}, \ldots, N_{n}\{A_{1}, \ldots, A_{n}\})]\!] \\
-%    & = & \lambda^{0}.[\![M_{1}\{A_{1}, \ldots, A_{n}\}.N_{0}\{A_{1}, \ldots, A_{n}\} \ldots N_{n}\{A_{1}, \ldots, A_{n}\} \: \kw{then} \: \kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})]\!] \\
-%    & = & \lambda^{0}.[\![M_{1}\{A_{1}, \ldots, A_{n}\}]\!](\lambda^{0}.[\![N_{0}\{A_{1}, \ldots, A_{n}\}]\!](\lambda_{0}. \ldots [\![N_{n}\{A_{1}, \ldots, A_{n}\}]\!](\lambda^{0}.\kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})) \cdots )) \\
-%    & = & \lambda^{0}.[\![M_{1}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\}(\lambda^{0}.[\![N_{n}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\}(\lambda^{0}. \ldots [\![N_{0}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\}(\lambda^{0}.\kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})) \cdots )) \\ % IH
-%    & = & (\lambda^{0}.[\![M_{1}]\!](\lambda^{0}.[\![N_{n}]\!](\lambda^{0}. \ldots [\![N_{0}]\!](\lambda^{0}.\kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})) \cdots )))\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
-%    & = & (\lambda^{0}.[\![M_{1}.N_{0} \ldots N_{n} \: \kw{then} \: \kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})]\!])\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
-%    & = & [\![M_{1}(N_{0}, \ldots, N_{n})]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\}
-%  \end{eqnarray*}
-
-\item[\sffamily Inductive case $M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}$]\hfill
-
-  Again, the induction hypothesis is used in the third step:
-  \begin{eqnarray*} % TODO: figure out how to do this without eqnarray
-    &   & [\![(\kw{let} \: M_{1} \: \kw{in} \: M_{2})\{A_{1}, \ldots, A_{n}\}]\!] \\
-    & = & [\![\kw{let} \: M_{1}\{A_{1}, \ldots, A_{n}\} \: \kw{in} \: M_{2}\{x_{0}, \Uparrow_{x}^{1} A_{1}, \ldots, \Uparrow_{x}^{1} A_{n}\}]\!] \\
-    & = & \lambda^{0}.[\![M_{1}\{A_{1}, \ldots, A_{n}\}]\!] \\
-    &   & \qquad (\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}\{x_{0}, \Uparrow_{x}^{1} A_{1}, \ldots, \Uparrow_{x}^{1} A_{n}\}]\!](\kappa_{1})) \\
-    & = & \lambda^{0}.[\![M_{1}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
-    &   & \qquad (\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!]\{\}\{x_{0}, \Uparrow_{x}^{1} \Psi(A_{1}), \ldots, \Uparrow_{x}^{1} \Psi(A_{n})\}(\kappa_{1})) \\
-    & = & \lambda^{0}.[\![M_{1}]\!](\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!](\kappa_{1}))\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
-    & = & [\![\kw{let} \: M_{1} \: \kw{in} \: M_{2}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
-  \end{eqnarray*}
-\end{description}
-Likewise for the second statement:
-\begin{description}
-\item[\sffamily Base case $A = x_{i}$]\hfill
-
-  If $i < n$, we have
-  \begin{align*}
-    \Psi(x_{i}\{A_{1}, \ldots, A_{n}\}) &= \Psi(x_{i}) \\
-                                      &= x_{i} \\
-                                      &= x_{i}\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
-                                      &= \Psi(x_{i})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
-  \end{align*}
-  Otherwise,
-  \begin{align*}
-    \Psi(x_{i}\{A_{1}, \ldots, A_{n}\}) &= \Psi(A_{i+1}) \\
-                                      &= x_{i}\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
-                                      &= \Psi(x_{i})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
-  \end{align*}
-
-\item[\sffamily Inductive case $A = \lambda^{m}.M_{1}$]\hfill
-  \begin{eqnarray*}
-    &   & \Psi((\lambda^{m}.M_{1})\{A_{1}, \ldots, A_{n}\}) \\
-    & = & \Psi(\lambda^{m}.M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow_{x}^{m+1} A_{1}, \ldots, \Uparrow_{x}^{m+1} A_{n}\}) \\
-    & = & \lambda^{m+1}.[\![M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow_{x}^{m+1} A_{1}, \ldots, \Uparrow_{x}^{m+1} A_{n}\}]\!](\kappa_{0}) \\
-    & = & \lambda^{m+1}.[\![M_{1}]\!]\{\}\{\Uparrow_{x}^{m+1+} \Psi(A_{1}), \ldots, \Uparrow_{x}^{m+1} \Psi(A_{n})\}(\kappa_{0}) \\
-    & = & (\lambda^{m+1}.[\![M_{1}]\!](\kappa_{0}))\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
-    & = & \Psi(\lambda^{m}.M_{1})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
-  \end{eqnarray*}
-  Here we used the first statement of this lemma, which we already proved above. \qedhere
-\end{description}
-\end{proof}
 
 
 \section{Semantics Preservation}\label{sec:semanticpreservation}
@@ -582,7 +460,7 @@ abstraction.
 
 \begin{proof}
 We will sketch the outline of a proof, a more elaborate version can be found in
-appendix~\ref{sec:proof}. The proof is by induction on the evaluation derivation
+appendix~\ref{sec:proofs}. The proof is by induction on the evaluation derivation
 of $M \Rightarrow v$ and case analysis over the term $M$.
 \begin{description}
 \item[\sffamily Base case $M = \lambda^{n}.M_{1}$]\hfill
@@ -659,20 +537,177 @@ bewijzen? Hoe verhouden die zich tot elkaar?
 \appendix
 
 
-\section{Semantics Preservation Proof}\label{sec:proof}
+\section{Proofs}\label{sec:proofs}
 
 
-\subsection*{Lemma 3}
+\subsection{Lemma~\ref{lem:kappaclosed}}
 
-{\em
+\begin{quote}
+  $[\![M]\!]$ and $\Psi(A)$ are $\kappa$-closed. As a corollary, transformed
+  terms are invariant by substitution of continuation variables:
+  \begin{equation*}
+    [\![M]\!]\{\vec{N}\}\{\vec{P}\} = [\![M]\!]\{\}\{\vec{P}\}
+  \end{equation*}
+\end{quote}
+
+\begin{proof}
+The proof is by structural induction over $M$ and case analysis on $A$.
+
+\begin{description}
+\item[\sffamily Base case $M = x_{i}$]\hfill
+
+  $[\![M]\!] = \lambda^{0}.\kappa_{0}(x_{i})$, which is obviously $\kappa$-closed.
+
+\item[\sffamily Inductive case $M = \lambda^{n}.M_{1}$]\hfill
+
+  By the induction hypothesis, $[\![M_{1}]\!]$ is $\kappa$-closed. Therefore, also
+  $[\![M]\!] = \lambda^{0}.\kappa_{0}(\lambda^{n+1}.[\![M_{1}]\!](\kappa_{0}))$ is
+  $\kappa$-closed.
+
+\item[\sffamily Inductive case $M = M_{1}(N_{0}, \ldots, N_{n})$]\hfill
+  \begin{align*}
+    [\![M]\!] &= \lambda^{0}.[\![M_{1}.N_{0} \ldots N_{n} \: \kw{then} \: \kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})]\!] \\
+              &= \lambda^{0}.[\![M_{1}]\!](\lambda^{0}.[\![N_{0}]\!](\lambda^{0}. \ldots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})) \cdots ))
+  \end{align*}
+  By the induction hypothesis, $[\![M_{1}]\!]$, $[\![N_{0}]\!], \ldots, [\![N_{n}]\!]$ are $\kappa$-closed.
+  There are $n+3$ abstractions surrounding the $\kappa_{n+2}$, so $[\![M]\!]$ is $\kappa$-closed.
+
+\item[\sffamily Inductive case $M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}$]\hfill
+
+  $[\![M]\!] = \lambda^{0}.[\![M_{1}]\!](\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!](\kappa_{1}))$
+  is $\kappa$-free because $[\![M_{1}]\!]$ and $[\![M_{2}]\!]$ are (by the induction hypothesis).
+\end{description}
+
+Now, $\kappa$-freeness of $\Psi(A)$ and the corollary follow trivially.
+\end{proof}
+
+
+\subsection{Lemma~\ref{lem:commuting}}
+
+\begin{quote}
+  The transformation commutes with substitution of atoms for source-level variables:
+  \begin{align*}
+    [\![M\{A_{1}, \ldots, A_{n}\}]\!] &= [\![M]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    \Psi(A\{A_{1}, \ldots, A_{n}\})   &= \Psi(A)\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\}
+  \end{align*}
+\end{quote}
+
+\begin{proof}
+We omit lifting of continuation variables when there are none (implicitely applying
+lemma~\ref{lem:kappaclosed}). Also, we use the fact $\Uparrow_{x}^{n} \Psi(A) = \Psi(\Uparrow_{x}^{n} A)$
+several times. The first statement is proved by a structural induction argument over $M$.
+
+\begin{description}
+\item[\sffamily Base case $M = x_{i}$]\hfill
+
+  If $i < n$, we have
+  \begin{align*}
+    [\![x_{i}\{A_{1}, \ldots, A_{n}\}]\!] &= [\![x_{i}]\!] \\
+                                        &= \lambda^{0}.\kappa_{0}(x_{i}) \\
+                                        &= \lambda^{0}.\kappa_{0}(x_{i})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+                                        &= [\![x_{i}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
+  \end{align*}
+  Otherwise,
+  \begin{align*}
+    [\![x_{i}\{A_{1}, \ldots, A_{n}\}]\!] &= [\![A_{i+1}]\!] \\
+                                        &= \lambda^{0}.\kappa_{0}(\Psi(A_{i+1})) \\
+%                                        &= \lambda^{0}.\kappa_{0}(\Uparrow_{\kappa}^{1}\Psi(A_{i+1})) && \text{by lemma~\ref{lem:kappaclosed}} \\
+                                        &= \lambda^{0}.\kappa_{0}(x_{i})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+                                        &= [\![x_{i}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
+  \end{align*}
+
+\item[\sffamily Inductive case $M = \lambda^{m}.M_{1}$]\hfill
+
+  We use the induction hypothesis in the third step below:
+  \begin{eqnarray*} % TODO: figure out how to do this without eqnarray
+    &   & [\![(\lambda^{m}.M_{1})\{A_{1}, \ldots, A_{n}\}]\!] \\
+    & = & [\![\lambda^{m}.M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow_{x}^{m+1}A_{1}, \ldots, \Uparrow_{x}^{m+1}A_{n}\}]\!] \\
+    & = & \lambda^{0}.\kappa_{0}(\lambda^{m+1}.[\![M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow_{x}^{m+1}A_{1}, \ldots, \Uparrow_{x}^{m+1}A_{n}\}]\!](\kappa_{0})) \\
+    & = & \lambda^{0}.\kappa_{0}(\lambda^{m+1}.[\![M_{1}]\!] \\
+    &   & \qquad \{\}\{x_{0}, \ldots, x_{m}, \Uparrow_{x}^{m+1}\Psi(A_{1}), \ldots, \Uparrow_{x}^{m+1}\Psi(A_{n})\}(\kappa_{0})) \\
+%    & = & \lambda^{0}.\kappa_{0}(\lambda^{m+1}.[\![M_{1}]\!]\{\}\{x_{0}, \ldots, x_{m}, \Uparrow_{\kappa}^{2} \Uparrow_{x}^{m+1}\Psi(A_{1}), \ldots, \Uparrow_{\kappa}^{2} \Uparrow_{x}^{m+1}\Psi(A_{n})\}(\kappa_{0})) \\ % \ref{lem:kappaclosed}
+    & = & (\lambda^{0}.\kappa_{0}(\lambda^{m+1}.[\![M_{1}]\!](\kappa_{0})))\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    & = & [\![\lambda^{m}.M_{1}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
+  \end{eqnarray*}
+
+\item[\sffamily Inductive case $M = M_{1}(N_{0}, \ldots, N_{m})$]\hfill
+
+  In the fourth step below we use the induction hypothesis:
+  \begin{eqnarray*} % TODO: use m instead of n
+    &   & [\![M_{1}(N_{0}, \ldots, N_{m})\{A_{1}, \ldots, A_{n}\}]\!] \\
+    & = & [\![M_{1}\{A_{1}, \ldots, A_{n}\}(N_{0}\{A_{1}, \ldots, A_{n}\}, \ldots, N_{m}\{A_{1}, \ldots, A_{n}\})]\!] \\
+    & = & \lambda^{0}.[\![M_{1}\{A_{1}, \ldots, A_{n}\}.N_{0}\{A_{1}, \ldots, A_{n}\} \ldots N_{m}\{A_{1}, \ldots, A_{n}\} \: \\
+    &   & \qquad \kw{then} \: \kappa_{m+1}(\kappa_{m+2}, \kappa_{m}, \ldots, \kappa_{0})]\!] \\
+    & = & \lambda^{0}.[\![M_{1}\{A_{1}, \ldots, A_{n}\}]\!](\lambda^{0}.[\![N_{0}\{A_{1}, \ldots, A_{n}\}]\!] \\
+    &   & \qquad (\lambda_{0}. \ldots [\![N_{m}\{A_{1}, \ldots, A_{n}\}]\!](\lambda^{0}.\kappa_{m+1}(\kappa_{m+2}, \kappa_{m}, \ldots, \kappa_{0})) \cdots )) \\
+    & = & \lambda^{0}.[\![M_{1}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\}(\lambda^{0}.[\![N_{0}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    &   & \qquad (\lambda^{0}. \ldots [\![N_{m}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    &   & \qquad \qquad (\lambda^{0}.\kappa_{m+1}(\kappa_{m+2}, \kappa_{m}, \ldots, \kappa_{0})) \cdots )) \\ % IH
+    & = & (\lambda^{0}.[\![M_{1}]\!](\lambda^{0}.[\![N_{0}]\!](\lambda^{0}. \ldots [\![N_{m}]\!](\lambda^{0}.\kappa_{m+1}(\kappa_{m+2}, \kappa_{m}, \ldots, \kappa_{0})) \cdots ))) \\
+    &   & \qquad \{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    & = & (\lambda^{0}.[\![M_{1}.N_{0} \ldots N_{m} \: \kw{then} \: \kappa_{m+1}(\kappa_{m+2}, \kappa_{m}, \ldots, \kappa_{0})]\!]) \\
+    &   & \qquad \{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    & = & [\![M_{1}(N_{0}, \ldots, N_{m})]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
+  \end{eqnarray*}
+
+\item[\sffamily Inductive case $M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}$]\hfill
+
+  Here the induction hypothesis is used in the third step:
+  \begin{eqnarray*} % TODO: figure out how to do this without eqnarray
+    &   & [\![(\kw{let} \: M_{1} \: \kw{in} \: M_{2})\{A_{1}, \ldots, A_{n}\}]\!] \\
+    & = & [\![\kw{let} \: M_{1}\{A_{1}, \ldots, A_{n}\} \: \kw{in} \: M_{2}\{x_{0}, \Uparrow_{x}^{1} A_{1}, \ldots, \Uparrow_{x}^{1} A_{n}\}]\!] \\
+    & = & \lambda^{0}.[\![M_{1}\{A_{1}, \ldots, A_{n}\}]\!] \\
+    &   & \qquad (\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}\{x_{0}, \Uparrow_{x}^{1} A_{1}, \ldots, \Uparrow_{x}^{1} A_{n}\}]\!](\kappa_{1})) \\
+    & = & \lambda^{0}.[\![M_{1}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    &   & \qquad (\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!]\{\}\{x_{0}, \Uparrow_{x}^{1} \Psi(A_{1}), \ldots, \Uparrow_{x}^{1} \Psi(A_{n})\}(\kappa_{1})) \\
+    & = & \lambda^{0}.[\![M_{1}]\!](\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!](\kappa_{1}))\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    & = & [\![\kw{let} \: M_{1} \: \kw{in} \: M_{2}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
+  \end{eqnarray*}
+\end{description}
+
+A case analysis on $A$ proves the second statement.
+
+\begin{description}
+\item[\sffamily Base case $A = x_{i}$]\hfill
+
+  If $i < n$, we have
+  \begin{align*}
+    \Psi(x_{i}\{A_{1}, \ldots, A_{n}\}) &= \Psi(x_{i}) \\
+                                      &= x_{i} \\
+                                      &= x_{i}\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+                                      &= \Psi(x_{i})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
+  \end{align*}
+  Otherwise,
+  \begin{align*}
+    \Psi(x_{i}\{A_{1}, \ldots, A_{n}\}) &= \Psi(A_{i+1}) \\
+                                      &= x_{i}\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+                                      &= \Psi(x_{i})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
+  \end{align*}
+
+\item[\sffamily Inductive case $A = \lambda^{m}.M_{1}$]\hfill
+  \begin{eqnarray*}
+    &   & \Psi((\lambda^{m}.M_{1})\{A_{1}, \ldots, A_{n}\}) \\
+    & = & \Psi(\lambda^{m}.M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow_{x}^{m+1} A_{1}, \ldots, \Uparrow_{x}^{m+1} A_{n}\}) \\
+    & = & \lambda^{m+1}.[\![M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow_{x}^{m+1} A_{1}, \ldots, \Uparrow_{x}^{m+1} A_{n}\}]\!](\kappa_{0}) \\
+    & = & \lambda^{m+1}.[\![M_{1}]\!]\{\}\{\Uparrow_{x}^{m+1+} \Psi(A_{1}), \ldots, \Uparrow_{x}^{m+1} \Psi(A_{n})\}(\kappa_{0}) \\
+    & = & (\lambda^{m+1}.[\![M_{1}]\!](\kappa_{0}))\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    & = & \Psi(\lambda^{m}.M_{1})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
+  \end{eqnarray*}
+  Here we used the first statement of this lemma, which we already proved above.\qedhere
+\end{description}
+\end{proof}
+
+
+\subsection{Lemma~\ref{lem:mainlemma}}
+
+\begin{quote}
   Let $K = \lambda^{0}.P$ be a $\kappa$-closed, one-argument
   abstraction of the target language. If $M \Rightarrow v$ in the
   source language, and $P\{\Psi(v)\}\{\} \Rightarrow v'$ in the target
   language, then $[\![M]\!](K) \Rightarrow v'$ in the target language.
-}
+\end{quote}
 
-\subsection*{Proof}
-
+\begin{proof}
 We assume $M \Rightarrow v$ and proceed by induction on its derivation, also
 assuming $P\{\Psi(v)\}\{\} \Rightarrow v'$.
 
@@ -774,6 +809,7 @@ completes our argument:
 
 
 \end{description}
+\end{proof}
 
 
 \bibliographystyle{plain}
