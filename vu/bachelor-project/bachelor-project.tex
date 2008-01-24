@@ -802,42 +802,14 @@ $\Psi(v_{1})$ evaluates to itself, which it does, and
 $([\![M_{2}]\!](\Uparrow_{x}^{1} K))\{\}\{\Psi(v_{1})\} \Rightarrow v'$, which is
 equivalent to (\ref{eq:letsecondprem}).
 
-
-% TODO: continue
-
-
-By the evaluation rule for function application, this term evaluates to the same value as
-\begin{displaymath}
-[\![M_{1}]\!](\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!](\Uparrow_{x}^{1} \lambda^{0}.P))
-\end{displaymath}
-
-We apply the induction hypothesis to the first premise (knowing that $\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!](\Uparrow_{x}^{1} \lambda^{0}.P)$
-is $\kappa$-closed) and the term evaluates to the same value as
-\begin{eqnarray*}
- &   & (\kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!](\Uparrow_{x}^{1} \lambda^{0}.P))\{\Psi(v_{1})\}\{\} \\
- & = & \kw{let} \: \Psi(v_{1}) \: \kw{in} \: [\![M_{2}]\!](\Uparrow_{x}^{1} \lambda^{0}.P)
-\end{eqnarray*}
-
-By the $\kw{let}$-evaluation rule, this term evaluates as
-\begin{eqnarray*}
-                 &   & ([\![M_{2}]\!](\Uparrow_{x}^{1} \lambda^{0}.P))\{\}\{\Psi(v_{1})\} \\
-                 & = & [\![M_{2}]\!]\{\}\{\Psi(v_{1})\}(\Uparrow_{x}^{1} \lambda^{0}.P) \\
-\mbox{(lemma 4)} & = & [\![M_{2}\{v_{1}\}]\!](\Uparrow_{x}^{1} \lambda^{0}.P)
-\end{eqnarray*}
-
-Applying the induction hypothesis to the second premise (again, $\Uparrow_{x}^{1} \lambda^{0}.P$ is $\kappa$-closed)
-completes our argument:
-\begin{eqnarray*}
-                               &             & (\Uparrow_{x}^{1}P)\{\Psi(v)\}\{\} \\
-\mbox{(assumption and \ldots)} & \Rightarrow & v'
-\end{eqnarray*}
-
-% TODO: M => v if P => v might not imply M => P, but we write it this way in our developments (when using IH and let-evaluation rule)
-% TODO: according to leroy, the lifting of x-variables disappears after a while. it is still there after IH on the first premise, but
-%       no longer before applying lemma 4...
-%       i think our proof still stands, except for the dots in the last step (there we need some substitution and lifting properties)
-
-
+By (\ref{eq:letp1}), the induction hypothesis applied to the first premise and
+continuation $\lambda^{0}.P_{1}$ ($\kappa$-closed by lemma~\ref{lem:kappaclosed})
+results in
+\begin{equation*}
+  [\![M_{1}]\!](\lambda^{0}.P_{1}) \Rightarrow v' \text{ .}
+\end{equation*}
+From this, the expected result (\ref{eq:letresult}) follows via the evaluation rule for
+function application.\qedhere
 \end{description}
 \end{proof}
 
