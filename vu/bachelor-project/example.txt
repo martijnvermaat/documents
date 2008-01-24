@@ -63,3 +63,4 @@ this evaluates as
 \2. k0(x0)
 
 WARNING, THEOREM 1 DOES NOT SEEM TO HOLD (strictly)! (because we need the last evaluation step for Psi(v)
+-> but wait it does: \2. (\0.k0(x0)) (k0) evaluates to \2. (\0.k0(x0)) (k0)

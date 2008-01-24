@@ -66,12 +66,13 @@
 % TODO: Check for \lambda_{0} instead of \lambda^{0}
 % TODO: Cite only works really read?
 % TODO: Check all reductions and add relevant properties (k-closedness
-% of certain terms)
+%       of certain terms)
 % TODO: Do proper lifting of variables
 % TODO: Make distinction clear between evaluation in source and target
 % languages?
 % TODO: Investigate error in theorem one (see example.txt)
 %       => No error! abstractions evaluate to themselves! (check in text)
+%                    (investigate why => is defined this way)
 % TODO: Check how this compares to Plotkin's proof
 % TODO: Discussion and conclusion
 % TODO: Finish proof of lemma 3
@@ -260,6 +261,8 @@ Simultaneous substitution of terms $N_{0}, \ldots, N_{n}$ for
 $x_{0}, \ldots, x_{n}$ in $M$ is written $M\{N_{0}, \ldots, N_{n}\}$.
 Lifting of free variables is denoted by the lifting operator: $\Uparrow^{n} M$
 replaces all free $x_{i}$ in $M$ by $x_{i+n}$.
+
+% TODO: explain let binding, also in target language
 
 The big-step operational semantics of the source language is given in
 Figure~\ref{fig:sourcesemantics}. The three rules define the evaluation relation
@@ -765,14 +768,43 @@ $Q\{v_{n}, \ldots, v_{0}\} \Rightarrow v$ and the assumption $P\{\Psi(v)\}\{\}
 
 The evaluation rule for $\kw{let}$ gives us premises $M_{1} \Rightarrow v_{1}$ and $M_{2}\{v_{1}\} \Rightarrow v$.
 
-We need to show
-$[\![\kw{let} \: M_{1} \: \kw{in} \: M_{2}]\!](\lambda^{0}.P) \Rightarrow v'$.
+By definition of $[\![\cdot]\!]$, we have
+\begin{equation*}
+  [\![\kw{let} \: M_{1} \: \kw{in} \: M_{2}]\!]
+  = \lambda^{0}.[\![M_{1}]\!](\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!](\kappa_{1}))
+\end{equation*}
+and thus need to show
+\begin{equation}\label{eq:letresult}
+  (\lambda^{0}.[\![M_{1}]\!](\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!](\kappa_{1})))(K)
+  \Rightarrow v' \text{ .}
+\end{equation}
 
-We have
-\begin{eqnarray*}
- &   & [\![\kw{let} \: M_{1} \: \kw{in} \: M_{2}]\!](\lambda^{0}.P) \\
- & = & (\lambda^{0}.[\![M_{1}]\!](\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!](\kappa_{1})))(\lambda^{0}.P)
-\end{eqnarray*}
+Applying the induction hypothesis to the second premise and continuation $K$ gives us
+$[\![M_{2}\{v_{1}\}]\!](K) \Rightarrow v'$, which is equivalent to
+\begin{equation}\label{eq:letsecondprem}
+  [\![M_{2}]\!]\{\}\{\Psi(v_{1})\}(K) \Rightarrow v'
+\end{equation}
+by lemma~\ref{lem:commuting} and the fact that $v_{1}$ is an atom.
+
+Now consider the term $P_{1} = \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!](\Uparrow_{x}^{1} K)$. We
+will show
+\begin{equation}\label{eq:letp1}
+  P_{1}\{\Psi(v_{1})\}\{\} \Rightarrow v' \text{ .}
+\end{equation}
+
+By lemma~\ref{lem:kappaclosed} there are no free continuation variables in
+$[\![M_{2}]\!](\Uparrow_{x}^{1} K)$, so
+\begin{equation*}
+  P_{1}\{\Psi(v_{1})\}\{\} = \: \kw{let} \: \Psi(v_{1}) \: \kw{in} \: [\![M_{2}]\!](\Uparrow_{x}^{1} K) \text{ .}
+\end{equation*}
+The $\kw{let}$-evaluation rule states that (\ref{eq:letp1}) can now be concluded if
+$\Psi(v_{1})$ evaluates to itself, which it does, and
+$([\![M_{2}]\!](\Uparrow_{x}^{1} K))\{\}\{\Psi(v_{1})\} \Rightarrow v'$, which is
+equivalent to (\ref{eq:letsecondprem}).
+
+
+% TODO: continue
+
 
 By the evaluation rule for function application, this term evaluates to the same value as
 \begin{displaymath}
