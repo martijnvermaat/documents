@@ -69,13 +69,13 @@
 %       of certain terms)
 % TODO: Do proper lifting of variables
 % TODO: Make distinction clear between evaluation in source and target
-% languages?
+%       languages?
 % TODO: Investigate error in theorem one (see example.txt)
 %       => No error! abstractions evaluate to themselves! (check in text)
 %                    (investigate why => is defined this way)
 % TODO: Check how this compares to Plotkin's proof
 % TODO: Discussion and conclusion
-% TODO: Finish proof of lemma 3
+% TODO: Update sketch of lemma 3 proof
 
 
 \title{\sffamily Verifying a CPS Transformation (draft)}
@@ -715,18 +715,19 @@ assuming $P\{\Psi(v)\}\{\} \Rightarrow v'$.
 
   This is the base case, where $v = \lambda^{n}.M_{1}$.
 
-  We need to show $[\![\lambda^{n}.M_{1}]\!] (K) \Rightarrow v'$. That is, after
-  working out $[\![\cdot]\!]$,
-  $(\lambda^{0}.\kappa_{0}(\Psi(\lambda^{n}.M_{1}))) (K) \Rightarrow v'$.
+  Because $[\![\lambda^{n}.M_{1}]\!] = \lambda^{0}.\kappa_{0}(\Psi(\lambda^{n}.M_{1}))$,
+  we need to show
+  \begin{equation}\label{eq:base}
+    (\lambda^{0}.\kappa_{0}(\Psi(\lambda^{n}.M_{1}))) \: (K) \Rightarrow v' \text{ .}
+  \end{equation}
 
   This is trivial, because according to the evaluation rule for
   function application we have
-  \begin{eqnarray*}
-   &             & (\lambda^{0}.\kappa_{0}(\Psi(\lambda^{n}.M_{1}))) (K) \\
-   & \Rightarrow & K (\Psi(\lambda^{n}.M_{1})) \\
-   & \Rightarrow & P\{\Psi(\lambda^{n}.M_{1})\}\{\}
-  \end{eqnarray*}
-  % TODO: evaluations are always in one step!
+  \begin{equation*}
+    K \: (\Psi(\lambda^{n}.M_{1})) \Rightarrow P\{\Psi(\lambda^{n}.M_{1})\}\{\} \text{ .}
+  \end{equation*}
+  Using the same evaluation rule and lemma~\ref{lem:kappaclosed}, we conclude
+  \eqref{eq:base}.
 
 \item[\sffamily Inductive case $M = M_{1}(N_{0}, \ldots, N_{n})$]\hfill
 
@@ -762,7 +763,7 @@ the evaluation rule for function application gives us
 \begin{equation}\label{eq:psiq}
   \Psi(\lambda^{n}.Q) \: (K, \Psi(v_{0}), \ldots, \Psi(v_{n})) \Rightarrow v'
 \end{equation}
-by (\ref{eq:thirdpremise}) via lemma~\ref{lem:kappaclosed}.
+by \eqref{eq:thirdpremise} via lemma~\ref{lem:kappaclosed}.
 
 
 Let $P_{1} = [\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}(K, \kappa_{n}, \ldots, \kappa_{0})) \cdots )$.
@@ -770,7 +771,7 @@ We have
 \begin{equation}\label{eq:p1}
   P_{1}\{\Psi(\lambda^{n}.Q)\}\{\} \Rightarrow v'
 \end{equation}
-by (\ref{eq:psiq}) and repeatedly (for $i = 0 \ldots n$) applying the
+by \eqref{eq:psiq} and repeatedly (for $i = 0 \ldots n$) applying the
 induction hypothesis to premises $N_{i} \Rightarrow v_{i}$ and continuations
 \begin{equation*}
   \lambda^{0}. [\![N_{i+1}]\!] (\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}(K, \kappa_{n}, \ldots, \kappa_{0})) \cdots ) \text{ .}
@@ -783,10 +784,12 @@ $\lambda^{0}.P_{1}$ ($\kappa$-closed by lemma~\ref{lem:kappaclosed}), we get
 [\![M_{1}]\!](\lambda^{0}.P_{1}) \Rightarrow v' \text{ .}
 \end{equation*}
 
-Now, (\ref{eq:faresult}) is proved using the evaluation rule for
+Now, \eqref{eq:faresult} is proved using the evaluation rule for
 function application.
 
 \item[\sffamily Inductive case $M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}$]\hfill
+
+% TODO: renumber equations from 1?
 
 The evaluation rule for $\kw{let}$ gives us premises $M_{1} \Rightarrow v_{1}$ and $M_{2}\{v_{1}\} \Rightarrow v$.
 
@@ -803,7 +806,7 @@ and thus need to show
 
 Applying the induction hypothesis to the second premise and continuation $K$ gives us
 $[\![M_{2}\{v_{1}\}]\!](K) \Rightarrow v'$, which is equivalent to
-\begin{equation}\label{eq:letsecondprem} % TODO: renumber equations from 1
+\begin{equation}\label{eq:letsecondprem}
   [\![M_{2}]\!]\{\}\{\Psi(v_{1})\}(K) \Rightarrow v'
 \end{equation}
 by lemma~\ref{lem:commuting} and the fact that $v_{1}$ is an atom.
@@ -819,18 +822,18 @@ $[\![M_{2}]\!](\Uparrow_{x}^{1} K)$, so
 \begin{equation*}
   P_{1}\{\Psi(v_{1})\}\{\} = \: \kw{let} \: \Psi(v_{1}) \: \kw{in} \: [\![M_{2}]\!](\Uparrow_{x}^{1} K) \text{ .}
 \end{equation*}
-The $\kw{let}$-evaluation rule states that (\ref{eq:letp1}) can now be concluded if
+The $\kw{let}$-evaluation rule states that \eqref{eq:letp1} can now be concluded if
 $\Psi(v_{1})$ evaluates to itself, which it does, and
 $([\![M_{2}]\!](\Uparrow_{x}^{1} K))\{\}\{\Psi(v_{1})\} \Rightarrow v'$, which is
-equivalent to (\ref{eq:letsecondprem}).
+equivalent to \eqref{eq:letsecondprem}.
 
-By (\ref{eq:letp1}), the induction hypothesis applied to the first premise and
+By \eqref{eq:letp1}, the induction hypothesis applied to the first premise and
 continuation $\lambda^{0}.P_{1}$ ($\kappa$-closed by lemma~\ref{lem:kappaclosed})
 results in
 \begin{equation*}
   [\![M_{1}]\!](\lambda^{0}.P_{1}) \Rightarrow v' \text{ .}
 \end{equation*}
-From this, the expected result (\ref{eq:letresult}) follows via the evaluation rule for
+From this, the expected result \eqref{eq:letresult} follows via the evaluation rule for
 function application.\qedhere
 \end{description}
 \end{proof}
