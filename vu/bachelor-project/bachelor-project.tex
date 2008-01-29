@@ -32,14 +32,29 @@
 % One other fancy thing is sansserif headings, we go through some trouble to
 % get this in our document consistently...
 
-% Use sansserif fonts in section headings
+% Use sansserif font in section headings
 \usepackage{sectsty}
 \allsectionsfont{\sffamily}
 
-% Use a sansserif font in abstract heading
+% Use sansserif font in abstract heading
 \usepackage{abstract}
 \renewcommand{\abstractnamefont}{\normalfont\small\bfseries\sffamily}
 \setlength{\abstitleskip}{-1.5em}
+
+% Use sansserif font in captions
+% http://dcwww.camd.dtu.dk/~schiotz/comp/LatexTips/LatexTips.html#captfont
+\newcommand{\captionfonts}{\sffamily \small}
+\makeatletter
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip
+  \sbox\@tempboxa{{\captionfonts #1: #2}}%
+  \ifdim \wd\@tempboxa >\hsize
+    {\captionfonts #1: #2\par}
+  \else
+    \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip}
+\makeatother
 
 % Furthermore, we use \sffamily in theorem titles and description item titles
 
@@ -62,8 +77,12 @@
 \usepackage[figure]{hypcap}
 
 
+% TODO: Heading titles
+% TODO: Spacing in terms
+% TODO: Abstract
 % TODO: Don't use eqnarray
 % TODO: Check for \lambda_{0} instead of \lambda^{0}
+% TODO: Explain let binding, in both languages
 % TODO: Cite only works really read?
 % TODO: Investigate error in theorem one (see example.txt)
 %       => No error! abstractions evaluate to themselves! (check in text)
@@ -101,12 +120,12 @@
 Continuation-passing style (CPS) is a functional programming style in which control is
 passed explicitely to every function in the form of a continuation. Functions
 written in continuation-passing style, as opposed to functions written in direct
-style, never return the result of their computation but instead pass it to a
-continuation function. For example, the unary function that returns its argument
+style, never return the result of their computation directly but instead pass it to a
+continuation function. This continuation function is received as an extra argument.
+For example, the unary function that returns its argument
 substracted by $2$ is written $\lambda x. \, x - 2$ in direct style
 $\lambda$-calculus. Written in continuation-passing style, this function becomes
-$\lambda x. \, \lambda k. \, k \, (x - 2)$ where $k$ is the continuation function
-received as an extra argument.
+$\lambda x. \, \lambda k. \, k \, (x - 2)$ where $k$ is the continuation function.
 
 A main property of programs written in CPS is that their evaluation is independent
 of the evaluation strategy. Evaluating a CPS program with a call-by-value strategy
@@ -177,11 +196,15 @@ in the untyped $\lambda$-calculus is defined as follows:
   [\![\lambda x. \, M]\!] &= \lambda k. \, k \, (\lambda x. \, [\![M]\!])\\
   [\![M \, N]\!]          &= \lambda k. \, [\![M]\!] \, (\lambda m. \, [\![N]\!] \, (\lambda n. \, m \, n \, k))
 \end{align*}
+An entire program $M$ is now translated, using the initial continuation
+$\lambda x. \, x$ (simply returning its argument), as
+$[\![M]\!] \, (\lambda x. \, x)$.
 
 This transformation is conceptually easy, but unfortunately yields a lot of
 administrative redexes. An administrative redex is a redex introduced by the CPS
 transformation, thus not present in the original source term. Consider for example
-the transformation of $(\lambda x. \, x) \, y$:
+the transformation of $(\lambda x. \, x) \, y$ and subsequent $\beta$-reduction
+of several administrative redexes:
 \begin{align*}
   [\![(\lambda x. \, x) \, y]\!] &= \lambda k. \, (\lambda k. \, k \, (\lambda x. \, (\lambda k. \, k \, x))) \, (\lambda m. \, (\lambda k. \, k \, y) \,
  (\lambda n. \, m \, n \, k))\\
@@ -205,6 +228,8 @@ $M$ and a continuation term $k$:
   [\![\lambda x. \, M]\!] \triangleright k &= k \, (\lambda x \, k. \, [\![M]\!] \triangleright k)\\
   [\![M \, N]\!] \triangleright k          &= [\![M]\!] \triangleright \lambda m. \, [\![N]\!] \triangleright \lambda n. \, m \, n \, k
 \end{align*}
+where the complete translation of a program $M$ becomes
+$[\![M]\!] \triangleright (\lambda x. \, x)$.
 
 Considering the term $(\lambda x. \, x) \, y$ again, transforming it will now
 generate $2$ administrative redexes less:
@@ -251,18 +276,24 @@ M ::=             &\; x_{n}
 where $n$ ranges over the natural numbers.
 
 Variables $x_{i}$ are identified by their de Bruijn indices $i$.
-An abstraction $\lambda^{n}.M$ binds variables $x_{n}, \ldots, x_{0}$ in $M$.
+An abstraction $\lambda^{n}.M$ binds variables $x_{n}, \ldots, x_{0}$ in $M$. The
+$\kw{let}$-binding $\kw{let} \: M \: \kw{in} \: N$ binds $x_{0}$ to $M$ in $N$.
+
+An example term is $\lambda^{1}. \, x_{0} \: (x_{1}, (\lambda^{0}. \, x_{0}))$, a
+function expecting two arguments and returning the first argument applied to the
+second argument and the identity function.
+
+\paragraph{}
+
 Simultaneous substitution of terms $N_{0}, \ldots, N_{n}$ for
 $x_{0}, \ldots, x_{n}$ in $M$ is written $M\{N_{0}, \ldots, N_{n}\}$.
 Lifting of free variables is denoted by the lifting operator: $\Uparrow^{n} M$
-replaces all free $x_{i}$ in $M$ by $x_{i+n}$.
-
-% TODO: explain let binding, also in target language
+replaces all free $x_{i}$ in $M$ by $x_{i+n}$. A value $v$ is any term of the
+form $\lambda^{n}.M$.
 
 The big-step operational semantics of the source language is given in
 Figure~\ref{fig:sourcesemantics}. The three rules define the evaluation relation
 $M \Rightarrow v$ on terms $M$ and values $v$, reading ``$M$ evaluates to $v$''.
-A value $v$ is any term of the form $\lambda^{n}.M$.
 
 \begin{figure}
 \begin{mathpar}
