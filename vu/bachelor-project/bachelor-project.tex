@@ -385,7 +385,6 @@ abstraction:
 \begin{equation*}
 A ::= \; x_{n} \: \text{\textbar} \: \lambda^{n}.M
 \end{equation*}
-
 Note that $[\![\cdot]\!]$ really works on source language terms extended with
 a $\kw{then}$ construct used in the transformation of function applications.
 \begin{align*}
@@ -404,6 +403,7 @@ a $\kw{then}$ construct used in the transformation of function applications.
 [\![M_{1} \ldots M_{n} \: \kw{then} \: N']\!] &=
   [\![M_{1}]\!] (\lambda^{0} \ldots [\![M_{n}]\!] (\lambda^{0}.N') \ldots )
 \end{align*}
+
 The transformation $[\![M]\!]$ of any source term $M$ is a one-argument
 abstraction in the target language that will receive the current continuation
 and bind it to the continuation variable $\kappa_{0}$. A function of arity $n$
