@@ -78,6 +78,8 @@
 
 
 % TODO: Heading titles
+% TODO: Intro to de Bruijn notation
+% TODO: Remove draft everywhere
 % TODO: Spacing in terms
 % TODO: Abstract
 % TODO: Don't use eqnarray
@@ -85,15 +87,16 @@
 % TODO: Explain let binding, in both languages
 % TODO: Citations
 % TODO: Discussion and conclusion
+% TODO: Use necessitate
 
 
 \title{\sffamily Verifying a CPS Transformation (draft)}
 
-\author{
+\author{\sffamily
   Martijn Vermaat\\[0.3em]
   \href{mailto:mvermaat@cs.vu.nl}{\texttt{mvermaat@cs.vu.nl}}
 }
-\date{Bachelor Project, January 31, 2008}
+\date{\sffamily Bachelor Project, February 2008}
 
 
 \begin{document}
@@ -573,21 +576,35 @@ below.
 
 \paragraph{}
 
-The transformation described in section~\ref{sec:transformation} has been
-implemented and verified by Dargaye and Leroy using
-the Coq proof assistent \cite{Dargaye-Leroy-07}.
+The transformation described in section~\ref{sec:transformation} and an
+optimized transformation by Danvy and Nielsen \cite{Danvy-Nielsen-03} have
+been implemented and verified by Dargaye and Leroy \cite{Dargaye-Leroy-07}
+using the Coq proof assistent.
+The languages of these transformations are realistic functional languages,
+much like the ones introduced in section~\ref{sec:languages}, but extended
+with recursive functions, algebraic datatypes, and pattern matching.
+This is particularly original in that earlier work only considers pure
+$\lambda$-calculus.
 
+Binding of variables is represented using de Bruijn notation, hereby omitting
+the issue of $\alpha$-equivalence between terms.
+Unfortunately, another complexity is introduced by the required lifting of
+indices in substitutions.
+A large part of the Coq code deals with the properties of lifting and
+substitution.
+Also, terms in de Bruijn notation are arguably harder to deal with for humans
+than terms with named variables.
 
-Dargaye and Leroy implemented and verified above transformation in Coq using
-OCaml code extraction. (extended language)
+To avoid much of the problems with lifting, two sorts of de Bruijn indices are
+used -- one for source-level variables and one for continuation variables.
+Lifting of source-level variables is therefore no longer necessitated by the
+introduction of continuation variables.
 
-Design choices:
-- De Bruijn indices (poplmark challenge)
-- Two sorted de Bruijn indices
-- Big-step operational semantics
-- Coq
+Big-step operational semantics. Bla!
 
-Also, optimized transformation, about 9000 lines of Coq. Part of greater project.
+Coq. Bla! 9000 lines.
+
+\paragraph{}
 
 Minamide and Okuma, 2003: {\em Verifying CPS Transformations in Isabelle/HOL}
 \begin{itemize}
