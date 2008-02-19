@@ -1,0 +1,15 @@
+To generate PDF files from the sources, run
+
+  make bibtex
+  make
+
+Required LaTeX packages:
+
+  beamer (requiring pgf and xcolor)
+  mathpartir
+  amsmath
+  amssymb
+  amsthm
+  sectsty
+  hyperref
+  hypcap

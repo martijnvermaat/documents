@@ -544,10 +544,39 @@ $[\![M]\!] (\lambda^{0}.\kappa_{0}) \Rightarrow \Psi(v)$.
 \end{proof}
 
 
-\section{Automated Verification of CPS Transformations}\label{sec:automated}
+\section{Mechanized Verification of CPS Transformations}\label{sec:mechanized}
 
-One of the main problems in mechanically working with programs is binding
-of variables. Different approaches exist.
+Results such as that of the previous section can be mechanized using formal
+tools (e.g. a proof assistent).
+Reasons for doing so are several.
+First, a mechanically checked proof is often more precise and convincing than
+a proof on paper.
+Second, mechanical proofs as are often easier to be reused in many ways, e.g.
+for composition, modification, and extension.
+Most importantly, the ultimate goal in the verification of these program
+transformations is of course obtaining correctness proofs of actual
+implementations (which are used directly in an application) and not just of
+transformations merely defined on paper.
+
+However, compared to the traditional way of proving things, mechanical proofs
+come with a price.
+On paper, typically a lot of handwaving is done, leaving out a lot of the
+trivial details.
+Compare this to a formal system where one has to be precise, giving us
+confidence in the correctness of proofs on the one hand, but often making them
+tedious to write and hard to read on the other.
+In addition to this, reasoning mechanically about programs brings technical
+problems, such as formalizing the binding of variables, described in the
+POPLmark challenge \cite{poplmark-challenge-05}.
+Several approaches to these problems exist and we will discuss some of them
+below.
+
+\paragraph{}
+
+The transformation described in section~\ref{sec:transformation} has been
+implemented and verified by Dargaye and Leroy using
+the Coq proof assistent \cite{Dargaye-Leroy-07}.
+
 
 Dargaye and Leroy implemented and verified above transformation in Coq using
 OCaml code extraction. (extended language)
