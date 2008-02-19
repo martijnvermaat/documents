@@ -551,6 +551,38 @@ $[\![M]\!] (\lambda^{0}.\kappa_{0}) \Rightarrow \Psi(v)$.
 
 \section{Automated Verification of CPS Transformations}\label{sec:automated}
 
+Dargaye and Leroy implemented and verified above transformation in Coq using
+OCaml code extraction. (extended language)
+
+Design choices:
+- De Bruijn indices (poplmark challenge)
+- Two sorted de Bruijn indices
+- Big-step operational semantics
+- Coq
+
+Also, optimized transformation, about 9000 lines of Coq. Part of greater project.
+
+Minamide and Okuma, 2003: {\em Verifying CPS Transformations in Isabelle/HOL}
+\begin{itemize}
+\item Named variables, no $\alpha$-conversion or explicit renaming
+\item Small-step operational semantics
+\end{itemize}
+
+Tian, 2006: {\em Mechanically Verifying Correctness of CPS Compilation}
+\begin{itemize}
+\item Twelf
+\item Higher-order abstract syntax
+\item Combination of big-step and small-step operational semantics
+\end{itemize}
+
+Chlipala, 2007: {\em A Certified Type-Preserving Compiler from Lambda Calculus to Assembly Language}
+\begin{itemize}
+\item Coq
+\item de Bruijn indices
+\item Denotational semantics
+\item Dependent types with focus on automated proofs
+\end{itemize}
+
 Discussie over het correct bewijzen van dergelijke transformaties met een
 computer. Wat zijn de verschillende manieren om alles te representeren en te
 bewijzen? Hoe verhouden die zich tot elkaar?
