@@ -83,13 +83,8 @@
 % TODO: Don't use eqnarray
 % TODO: Check for \lambda_{0} instead of \lambda^{0}
 % TODO: Explain let binding, in both languages
-% TODO: Cite only works really read?
-% TODO: Investigate error in theorem one (see example.txt)
-%       => No error! abstractions evaluate to themselves! (check in text)
-%                    (investigate why => is defined this way)
-% TODO: Check how this compares to Plotkin's proof
+% TODO: Citations
 % TODO: Discussion and conclusion
-% TODO: Fix error in slides (abstractions evaluate to themselves)
 
 
 \title{\sffamily Verifying a CPS Transformation (draft)}
@@ -550,6 +545,9 @@ $[\![M]\!] (\lambda^{0}.\kappa_{0}) \Rightarrow \Psi(v)$.
 
 
 \section{Automated Verification of CPS Transformations}\label{sec:automated}
+
+One of the main problems in mechanically working with programs is binding
+of variables. Different approaches exist.
 
 Dargaye and Leroy implemented and verified above transformation in Coq using
 OCaml code extraction. (extended language)
