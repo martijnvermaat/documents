@@ -81,6 +81,7 @@
 % TODO: Intro to de Bruijn notation
 % TODO: Remove draft everywhere
 % TODO: Spacing in terms
+% TODO: Placing of floating figures
 % TODO: Abstract
 % TODO: Don't use eqnarray
 % TODO: Check for \lambda_{0} instead of \lambda^{0}
@@ -194,7 +195,7 @@ in the untyped $\lambda$-calculus is defined as follows:
   [\![M \, N]\!]          &= \lambda k. \, [\![M]\!] \, (\lambda m. \, [\![N]\!] \, (\lambda n. \, m \, n \, k))
 \end{align*}
 An entire program $M$ is now translated, using the initial continuation
-$\lambda x. \, x$ (simply returning its argument), as
+$\lambda x. \, x$ (the identity function), as
 $[\![M]\!] \, (\lambda x. \, x)$.
 
 This transformation is conceptually easy, but unfortunately yields a lot of
@@ -229,7 +230,7 @@ where the complete translation of a program $M$ becomes
 $[\![M]\!] \triangleright (\lambda x. \, x)$.
 
 Considering the term $(\lambda x. \, x) \, y$ again, transforming it will now
-generate $2$ administrative redexes less:
+generate fewer administrative redexes:
 \begin{align*}
   [\![(\lambda x. \, x) \, y]\!] \triangleright k &= (\lambda m. \, (\lambda n. \, m \, n \, k) \, y) \, (\lambda x \, k. \, k \, x)\\
                                                   &\rightarrow_{\beta} (\lambda n. \, (\lambda x \, k. \, k \, x) \, n \, k) \, y\\
@@ -247,15 +248,29 @@ will consider an extension of the original transformation by Plotkin.
 \section{Languages}\label{sec:languages}
 
 We will now describe the syntax and semantics of two languages acting as the
-source and target languages of the transformation, respectively. They are
-direct simplifications of the languages used in \cite{Dargaye-Leroy-07}, not
-containing recursive functions, algebraic datatypes, and pattern matching.
+source and target languages of the transformation, respectively.
+They are direct simplifications of the languages used in
+\cite{Dargaye-Leroy-07}, not containing recursive functions, algebraic
+datatypes, and pattern matching.
 The result is two simple extensions of untyped $\lambda$-calculus with $n$-ary
 functions and $\kw{let}$-bindings.
 
+In order to avoid difficulties with $\alpha$-conversion, de Bruijn indices
+are used instead of named variables.
+In this notation, variables are indexed by a natural number denoting the
+number of abstractions in scope between the variable and its binding
+abstraction.
+$\alpha$-equality of terms now simply corresponds to syntactic equality.
+As an example, consider the term
+$\lambda x. \lambda y. \lambda z. x \, z \, (y \, z)$ in the
+$\lambda$-calculus with named variables.
+The same term written with de Bruijn indexed variables becomes
+$\lambda \, \lambda \, \lambda \, x_{2} \, x_{0} \, (x_{1} \, x_{0})$.
+
 The source and target languages differ only in that the target language
-features two kinds of variables, the extra kind being used for continuations
-and intermediate evaluation results.
+features two kinds of variables (independently indexed), the extra kind being
+used for continuations and intermediate evaluation results introduced by the
+CPS transformation.
 
 \subsection{Source Language}
 
@@ -585,21 +600,29 @@ with recursive functions, algebraic datatypes, and pattern matching.
 This is particularly original in that earlier work only considers pure
 $\lambda$-calculus.
 
-Binding of variables is represented using de Bruijn notation, hereby omitting
+Binding of variables is represented using de Bruijn indices, hereby omitting
 the issue of $\alpha$-equivalence between terms.
 Unfortunately, another complexity is introduced by the required lifting of
 indices in substitutions.
 A large part of the Coq code deals with the properties of lifting and
 substitution.
-Also, terms in de Bruijn notation are arguably harder to deal with for humans
-than terms with named variables.
+Also, terms with de Bruijn variables are arguably harder to deal with for
+humans than terms with named variables.
 
 To avoid much of the problems with lifting, two sorts of de Bruijn indices are
 used -- one for source-level variables and one for continuation variables.
 Lifting of source-level variables is therefore no longer necessitated by the
 introduction of continuation variable bindings.
 
-Big-step operational semantics. \ldots
+The transformations are verified using big-step operational semantics.
+While small-step semantics are more expressive (they can describe
+non-terminating computations), they tend to make program transformations
+significantly harder to prove correct.
+In this case, difficulties caused by administrative redexes are avoided by
+using big-step semantics.
+Also, the intended use of the transformation is in a compiler for
+automatically extracted programs from Coq specifications, which are strongly
+normalizing.
 
 Coq, 9000 lines. \ldots
 
@@ -625,6 +648,8 @@ Chlipala, 2007: {\em A Certified Type-Preserving Compiler from Lambda Calculus t
 \item Denotational semantics
 \item Dependent types with focus on automated proofs
 \end{itemize}
+
+% alternatives to de bruijn: equivalence classes of pitt's nominal logic and higher order abstract syntax
 
 
 \appendix
