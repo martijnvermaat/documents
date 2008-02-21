@@ -592,7 +592,7 @@ confidence in the correctness of proofs on the one hand, but often making them
 tedious to write and hard to read on the other.
 In addition to this, reasoning mechanically about programs brings technical
 problems, such as formalizing the binding of variables, described in the
-POPLmark challenge \cite{poplmark-challenge-05}.
+POPLmark challenge \cite{Poplmark-Challenge-05}.
 Several approaches to these problems exist and we will discuss some of them
 below.
 
@@ -602,10 +602,13 @@ The transformation described in section~\ref{sec:transformation} and an
 optimized transformation by Danvy and Nielsen \cite{Danvy-Nielsen-03} have
 been implemented and verified by Dargaye and Leroy \cite{Dargaye-Leroy-07}
 using the Coq proof assistent.
-The languages of these transformations are realistic functional languages,
+The complete Coq development consists of 9000 lines of code.
+An implementation of the transformations in Caml is automatically extracted
+from the Coq specifications.
+The source and target languages are realistic functional languages,
 much like the ones introduced in section~\ref{sec:languages}, but extended
 with recursive functions, algebraic datatypes, and pattern matching.
-This is particularly original in that earlier work only considers the pure
+This is particularly original in that earlier work mostly considers the pure
 $\lambda$-calculus.
 
 Binding of variables is represented using de Bruijn indices, hereby omitting
@@ -632,17 +635,31 @@ Also, the intended use of the transformation is in a compiler for
 automatically extracted programs from Coq specifications, which are strongly
 normalizing.
 
-Coq, 9000 lines. \ldots
+\paragraph{}
+
+Minamide and Okuma \cite{Minamide-Okuma-03} verified several CPS
+transformations for $\lambda$-calculus in Isabelle/HOL.
+Terms are represented using first-order abstract syntax and named variables.
+This representation is choosen because it is both close to what is used on
+paper and, so they argue, to intermediate languages used in compilers.
+
+As noted above, a number of difficulties arise from the use of named
+variables, one of them being that of $\alpha$-convertibility.
+This is tackled by reformulating $\alpha$-equivalence as a syntax-directed
+deductive system. Other problems require that variables introduced by the
+transformation are fresh and that $\kw{let}$-bound variables are unique.
+
+Minamide and Okuma use a call-by-value operational semantics in traditional
+small-step style.
 
 \paragraph{}
 
-Minamide and Okuma, 2003: {\em Verifying CPS Transformations in Isabelle/HOL}
-\begin{itemize}
-\item Named variables, no $\alpha$-conversion or explicit renaming
-\item Small-step operational semantics
-\end{itemize}
+In \cite{Tian-06}, Tian implements and verifies a CPS transformation in the
+logical framework Twelf.
 
-Tian, 2006: {\em Mechanically Verifying Correctness of CPS Compilation}
+
+
+: {\em Mechanically Verifying Correctness of CPS Compilation}
 \begin{itemize}
 \item Twelf
 \item Higher-order abstract syntax
