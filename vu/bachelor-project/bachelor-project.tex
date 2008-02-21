@@ -291,21 +291,25 @@ Variables $x_{i}$ are identified by their de Bruijn indices $i$.
 An abstraction $\lambda^{n}.M$ binds variables $x_{n}, \ldots, x_{0}$ in $M$. The
 $\kw{let}$-binding $\kw{let} \: M \: \kw{in} \: N$ binds $x_{0}$ to $M$ in $N$.
 
-An example term is $\lambda^{1}. \, x_{0} \: (x_{1}, (\lambda^{0}. \, x_{0}))$, a
-function expecting two arguments and returning the first argument applied to the
-second argument and the identity function.
-
-\paragraph{}
-
 Simultaneous substitution of terms $N_{0}, \ldots, N_{n}$ for
 $x_{0}, \ldots, x_{n}$ in $M$ is written $M\{N_{0}, \ldots, N_{n}\}$.
 Lifting of free variables is denoted by the lifting operator: $\Uparrow^{n} M$
 replaces all free $x_{i}$ in $M$ by $x_{i+n}$. A value $v$ is any term of the
 form $\lambda^{n}.M$.
 
+\paragraph{}
+
 The big-step operational semantics of the source language is given in
 Figure~\ref{fig:sourcesemantics}. The three rules define the evaluation relation
 $M \Rightarrow v$ on terms $M$ and values $v$, reading ``$M$ evaluates to $v$''.
+As can be seen from the $\kw{let}$-rule and the rule for function application,
+arguments are evaluated first, making this a call-by-value semantics.
+
+\paragraph{}
+
+An example term is $\lambda^{1}. \, x_{0} \: (x_{1}, (\lambda^{0}. \, x_{0}))$, a
+function expecting two arguments and returning the second argument applied to the
+first argument and the identity function.
 
 \begin{figure}
 \begin{mathpar}
@@ -362,6 +366,8 @@ source-level variables and lifting of continuation variables:
 $\Uparrow_{x}^{n} M$ lifts free $x_{i}$ by $n$ in $M$ and
 $\Uparrow_{\kappa}^{n} M$ lifts free $\kappa_{i}$ by $n$ in $M$.
 
+\paragraph{}
+
 The big-step operational semantics for the target language is given in
 Figure~\ref{fig:targetsemantics}.
 
@@ -389,11 +395,11 @@ Figure~\ref{fig:targetsemantics}.
 
 \section{Transformation}\label{sec:transformation}
 
-Again, we follow the presentation of \cite{Dargaye-Leroy-07}. The transformation
-we will prove correct is a straight-forward extension of
-Plotkin's transformation, defined below by two mutually recursive functions
-$\Psi$ on atoms and $[\![\cdot]\!]$ on terms. An atom $A$ is a variable or an
-abstraction:
+Again, we follow the presentation of \cite{Dargaye-Leroy-07}.
+The transformation we will prove correct is a straight-forward extension of
+Plotkin's call-by-value transformation, defined below by two mutually
+recursive functions $\Psi$ on atoms and $[\![\cdot]\!]$ on terms. An atom $A$
+is a variable or an abstraction:
 \begin{equation*}
 A ::= \; x_{n} \: \text{\textbar} \: \lambda^{n}.M
 \end{equation*}
@@ -433,6 +439,8 @@ $M(N_{1}, \ldots, N_{n})$, we have $\kappa_{n}$ bound to $[\![M]\!]$,
 $\kappa_{n-1}, \ldots, \kappa_{0}$ bound to $[\![N_{1}]\!], \ldots [\![N_{n}]\!]$,
 and $\kappa_{n+1}$ bound to the outer continuation, after which
 $\kappa_{n}(\kappa_{n+1}, \kappa_{n-1}, \ldots, \kappa_{0})$ is evaluated.
+
+\paragraph{}
 
 As an example, consider the transformation
 $[\![(\lambda^{0}.x_{0})(\lambda^{1}.x_{0})]\!]$, yielding
@@ -597,7 +605,7 @@ using the Coq proof assistent.
 The languages of these transformations are realistic functional languages,
 much like the ones introduced in section~\ref{sec:languages}, but extended
 with recursive functions, algebraic datatypes, and pattern matching.
-This is particularly original in that earlier work only considers pure
+This is particularly original in that earlier work only considers the pure
 $\lambda$-calculus.
 
 Binding of variables is represented using de Bruijn indices, hereby omitting
