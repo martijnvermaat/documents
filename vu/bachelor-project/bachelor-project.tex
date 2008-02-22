@@ -78,15 +78,12 @@
 
 
 % TODO: Heading titles
-% TODO: Intro to de Bruijn notation
 % TODO: Remove draft everywhere
 % TODO: Spacing in terms
 % TODO: Placing of floating figures
 % TODO: Abstract
 % TODO: Don't use eqnarray
-% TODO: Check for \lambda_{0} instead of \lambda^{0}
-% TODO: Explain let binding, in both languages
-% TODO: Citations
+% TODO: Explain let binding in target language
 % TODO: Discussion and conclusion
 
 
@@ -105,6 +102,7 @@
 
 
 \begin{abstract}
+  (TODO.)
   Explanation of continuation-passing style and some examples of CPS-transformed
   terms. Definition of two languages and a transformation to CPS. Proving
   semantics preservation of the transformation. Discussion about mechanized
@@ -215,6 +213,9 @@ of several administrative redexes:
 \end{align*}
 Note that the term concluding the above development still contains a redex, but
 this redex was already present in the source term.
+Administrative redexes are to be avoided, because they complicate formal
+reasoning about a transformation and add computation steps to a compilation
+process.
 
 The following variation on Plotkin's transformation generates fewer
 administrative redexes. Instead of abstracting over the continuation function,
@@ -654,8 +655,17 @@ small-step style.
 
 \paragraph{}
 
-In \cite{Tian-06}, Tian implements and verifies a CPS transformation in the
-logical framework Twelf.
+In \cite{Tian-06}, Tian implements and verifies a higher-order one-pass CPS
+transformation by Danvy and Nielsen in the logical framework Twelf.
+The source and target languages are formalized using higher-order abstract
+syntax and are accompanied by a big-step and small-step operational semantics,
+respectively.
+
+Because the transformation is higher-order, it avoids problems with
+administrative redexes. The issues of binding and substitution are addressed
+by using higher-order abstract syntax.
+
+TODO: finish.
 
 \begin{itemize}
 \item Twelf
@@ -673,7 +683,10 @@ Chlipala, 2007: {\em A Certified Type-Preserving Compiler from Lambda Calculus t
 \item Dependent types with focus on automated proofs
 \end{itemize}
 
-% alternatives to de bruijn: equivalence classes of pitt's nominal logic and higher order abstract syntax
+% alternatives to de bruijn:
+% equivalence classes of pitt's nominal logic
+% higher-order abstract syntax
+% combination of nominal logic and de bruijn (locally nameless)
 
 
 \appendix
