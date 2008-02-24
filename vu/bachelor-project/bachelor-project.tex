@@ -570,7 +570,7 @@ $[\![M]\!] (\lambda^{0}.\kappa_{0}) \Rightarrow \Psi(v)$.
 \end{proof}
 
 
-\section{Mechanized Verification of CPS Transformations}\label{sec:mechanized}
+\section{Mechanically Verified Proofs}\label{sec:mechanized}
 
 Results such as that of the previous section can be mechanized using formal
 tools (e.g. a proof assistent).
@@ -597,7 +597,7 @@ POPLmark challenge \cite{Poplmark-Challenge-05}.
 Several approaches to these problems exist and we will discuss some of them
 below.
 
-\paragraph{}
+\subsection{Mechanized Verification of CPS Transformations}
 
 The transformation described in section~\ref{sec:transformation} and an
 optimized transformation by Danvy and Nielsen \cite{Danvy-Nielsen-03} have
@@ -636,6 +636,29 @@ Also, the intended use of the transformation is in a compiler for
 automatically extracted programs from Coq specifications, which are strongly
 normalizing.
 
+\subsection{Related Work}
+
+Other verified mechanizations of transformations to CPS differ on several
+aspects, most notably the logical framework used to implement the
+verification, the way languages and semantics are represented, and the type
+of operational semantics used.
+
+An important decision for the representation of terms is how to formalize
+binding of variables.
+Named variables and $\alpha$-conversion as we are used to on paper bring many
+difficulties to mechanical reasoning.
+A well-known and often used alternative are de Bruijn indices, although they
+bring the complexity of lifting.
+Higher-order abstract syntax is another frequently used technique, in which
+variables do not refer to their binder by name (i.e. as in first-order
+abstract syntax), but refer directly to the binding site.
+The equivalence classes of Pitt's nominal logic provide us with yet another
+way to model $\alpha$-equivalence of terms on a syntactical level, but are
+unfortunately not yet well supported in logical frameworks.
+Finally, a combination of nominal logic and de Bruijn indices is called a
+locally nameless approach, where free variables are named and bound variables
+are represented by their de Bruijn index.
+
 \paragraph{}
 
 Minamide and Okuma \cite{Minamide-Okuma-03} verified several CPS
@@ -662,31 +685,23 @@ syntax and are accompanied by a big-step and small-step operational semantics,
 respectively.
 
 Because the transformation is higher-order, it avoids problems with
-administrative redexes. The issues of binding and substitution are addressed
-by using higher-order abstract syntax.
-
-TODO: finish.
-
-\begin{itemize}
-\item Twelf
-\item Higher-order abstract syntax
-\item Combination of big-step and small-step operational semantics
-\end{itemize}
+administrative redexes.
+The issues of binding and substitution are addressed by using higher-order
+abstract syntax.
 
 \paragraph{}
 
-Chlipala, 2007: {\em A Certified Type-Preserving Compiler from Lambda Calculus to Assembly Language}
-\begin{itemize}
-\item Coq
-\item de Bruijn indices
-\item Denotational semantics
-\item Dependent types with focus on automated proofs
-\end{itemize}
+Chlipala \cite{Chlipala-07} used Coq to implement a certified compiler from
+simply typed $\lambda$-calculus to assembly language.
+The first two passes of the compiler implement a transformation to CPS.
 
-% alternatives to de bruijn:
-% equivalence classes of pitt's nominal logic
-% higher-order abstract syntax
-% combination of nominal logic and de bruijn (locally nameless)
+Chlipala aims for as much automation in the proofs as possible.
+De Bruijn indices are used to represent variables and terms are given
+dependent types.
+Preservation of types is trivially proved by the dependent types and enables
+type-directed proof search to automate large parts of the semantics
+preservation proofs. The languages are accompanied by a type-directed
+denotational semantics.
 
 
 \appendix
