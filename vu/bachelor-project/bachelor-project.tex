@@ -77,14 +77,12 @@
 \usepackage[figure]{hypcap}
 
 
-% TODO: Heading titles
 % TODO: Remove draft everywhere
 % TODO: Spacing in terms
 % TODO: Placing of floating figures
-% TODO: Abstract
 % TODO: Don't use eqnarray
 % TODO: Explain let binding in target language
-% TODO: Discussion and conclusion
+% TODO: Conclusion or future work?
 
 
 \title{\sffamily Verifying a CPS Transformation (draft)}
@@ -102,11 +100,15 @@
 
 
 \begin{abstract}
-  (TODO.)
-  Explanation of continuation-passing style and some examples of CPS-transformed
-  terms. Definition of two languages and a transformation to CPS. Proving
-  semantics preservation of the transformation. Discussion about mechanized
-  verification of CPS transformations.
+  This paper is a case study on the mechanical verification of a
+  transformation to continuation-passing style (CPS) by Dargaye and Leroy.
+  First, the concepts of CPS and transformation to CPS are introduced.
+  We then define source and target languages, and a CPS transformation between
+  them which is proved to preserve semantics.
+  We conclude with a small overview of the mechanization of CPS
+  transformations.
+  A detailed proof of the semantics preservation theorem is attached as an
+  appendix.
 \end{abstract}
 
 
@@ -358,8 +360,11 @@ where $n$ ranges over the natural numbers.
 An abstraction $\lambda^{n}.M'$ binds its first argument, the continuation,
 to $\kappa_{0}$, and its remaining arguments to $x_{n-1}, \ldots, x_{0}$ in
 $M'$.
-The double simultaneous substitution of $N'_{0}, \ldots, N'_{n}$ for
-$\kappa_{0}, \ldots, \kappa_{n}$ and $P'_{0}, \ldots, P'_{m}$ for
+$\kw{let}$-bindings behave analogous to the same construct in the source
+language.
+
+The double simultaneous substitution of terms $N'_{0}, \ldots, N'_{n}$ for
+$\kappa_{0}, \ldots, \kappa_{n}$ and terms $P'_{0}, \ldots, P'_{m}$ for
 $x_{0}, \ldots, x_{m}$ in $M'$ is written
 $M'\{N'_{0}, \ldots, N'_{n}\}\{P'_{0}, \ldots, P'_{m}\}$.
 We use the following notation to distinguish between lifting of
@@ -717,6 +722,9 @@ Preservation of types is trivially proved by the dependent types and enables
 type-directed proof search to automate large parts of the semantics
 preservation proofs. The languages are accompanied by a type-directed
 denotational semantics.
+
+
+\pagebreak
 
 
 \appendix
