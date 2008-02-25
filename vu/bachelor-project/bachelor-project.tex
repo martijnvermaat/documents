@@ -651,7 +651,7 @@ A well-known and often used alternative are de Bruijn indices, although they
 bring the complexity of lifting.
 Higher-order abstract syntax is another frequently used technique, in which
 variables do not refer to their binder by name (i.e. as in first-order
-abstract syntax), but refer directly to the binding site.
+abstract syntax), but point directly to the binding site.
 The equivalence classes of Pitt's nominal logic provide us with yet another
 way to model $\alpha$-equivalence of terms on a syntactical level, but are
 unfortunately not yet well supported in logical frameworks.
@@ -659,7 +659,20 @@ Finally, a combination of nominal logic and de Bruijn indices is called a
 ``locally nameless'' representation, where free variables are named and bound
 variables are represented by their de Bruijn index.
 
-TODO: semantics.
+A correctness proof of a transformation is based on some sort of semantics for
+the source and target languages.
+Usually, correctness is intepreted as preservation of semantics or observable
+behaviour.
+A denotational semantics translates terms to mathematical structures in a
+compositional way.
+These mathematical structures, called denotations, describe the behaviour of
+the language.
+An operational semantics gives meaning to a program by describing a
+computation.
+Two main styles of operational semantics exist.
+Traditional small-step semantics describe a series of computations formed by
+repeatedly applying one-step rules.
+Big-step semantics relate programs and their computational result directly.
 
 \paragraph{}
 
