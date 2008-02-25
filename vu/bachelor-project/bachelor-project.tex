@@ -3,6 +3,11 @@
 \usepackage{a4}
 
 
+% Use some subversion information
+\usepackage{svn-multi}
+\svnid{$Id$}
+
+
 \usepackage[T1]{fontenc}
 \usepackage{ae,aecompl}
 
@@ -91,7 +96,7 @@
   Martijn Vermaat\\[0.3em]
   \href{mailto:mvermaat@cs.vu.nl}{\texttt{mvermaat@cs.vu.nl}}
 }
-\date{\sffamily Bachelor Project, February 2008}
+\date{\sffamily Bachelor Project, February 2008 r\svnrev}
 
 
 \begin{document}
@@ -661,8 +666,8 @@ The equivalence classes of Pitt's nominal logic provide us with yet another
 way to model $\alpha$-equivalence of terms on a syntactical level, but are
 unfortunately not yet well supported in logical frameworks.
 Finally, a combination of nominal logic and de Bruijn indices is called a
-``locally nameless'' representation, where free variables are named and bound
-variables are represented by their de Bruijn index.
+``locally nameless'' representation \cite{Leroy-07}, where free variables are
+named and bound variables are represented by their de Bruijn index.
 
 A correctness proof of a transformation is based on some sort of semantics for
 the source and target languages.
