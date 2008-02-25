@@ -83,10 +83,6 @@
 
 
 % TODO: Remove draft everywhere
-% TODO: Spacing in terms
-% TODO: Placing of floating figures
-% TODO: Don't use eqnarray
-% TODO: Explain let binding in target language
 % TODO: Conclusion or future work?
 
 
@@ -96,7 +92,7 @@
   Martijn Vermaat\\[0.3em]
   \href{mailto:mvermaat@cs.vu.nl}{\texttt{mvermaat@cs.vu.nl}}
 }
-\date{\sffamily Bachelor Project, February 2008 r\svnrev}
+\date{\sffamily Bachelor Project, February 2008, r\svnrev}
 
 
 \begin{document}
@@ -817,7 +813,7 @@ several times. The first statement is proved by a structural induction argument 
 \item[\sffamily Inductive case $M = \lambda^{m}.M_{1}$]\hfill
 
   We use the induction hypothesis in the third step below:
-  \begin{eqnarray*} % TODO: figure out how to do this without eqnarray
+  \begin{eqnarray*} % eqnarray shouldn't be used
     &   & [\![(\lambda^{m}.M_{1})\{A_{1}, \ldots, A_{n}\}]\!] \\
     & = & [\![\lambda^{m}.M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow^{m+1}A_{1}, \ldots, \Uparrow^{m+1}A_{n}\}]\!] \\
     & = & \lambda^{0}.\kappa_{0}(\lambda^{m+1}.[\![M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow^{m+1}A_{1}, \ldots, \Uparrow^{m+1}A_{n}\}]\!](\kappa_{0})) \\
@@ -851,7 +847,7 @@ several times. The first statement is proved by a structural induction argument 
 \item[\sffamily Inductive case $M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}$]\hfill
 
   Here the induction hypothesis is used in the third step:
-  \begin{eqnarray*} % TODO: figure out how to do this without eqnarray
+  \begin{eqnarray*} % eqnarray shouldn't be used
     &   & [\![(\kw{let} \: M_{1} \: \kw{in} \: M_{2})\{A_{1}, \ldots, A_{n}\}]\!] \\
     & = & [\![\kw{let} \: M_{1}\{A_{1}, \ldots, A_{n}\} \: \kw{in} \: M_{2}\{x_{0}, \Uparrow^{1} A_{1}, \ldots, \Uparrow^{1} A_{n}\}]\!] \\
     & = & \lambda^{0}.[\![M_{1}\{A_{1}, \ldots, A_{n}\}]\!] \\
@@ -987,8 +983,6 @@ Now, \eqref{eq:faresult} is proved using the evaluation rule for
 function application.
 
 \item[\sffamily Inductive case $M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}$]\hfill
-
-% TODO: renumber equations from 1?
 
 The evaluation rule for $\kw{let}$ gives us premises $M_{1} \Rightarrow v_{1}$ and $M_{2}\{v_{1}\} \Rightarrow v$.
 
