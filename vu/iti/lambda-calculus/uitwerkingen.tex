@@ -28,7 +28,7 @@
 \title{Inleiding Theoretische Informatica -- Lambda Calculus\\
 \normalsize{Uitwerkingen van geselecteerde opgaven}}
 \author{Martijn Vermaat (mvermaat@cs.vu.nl)}
-\date{16 april 2007}
+\date{28 februari 2008}
 
 
 \begin{document}
@@ -164,7 +164,7 @@ dus is er geen verschil met het toepassen van bijvoorbeeld de leftmost-outermost
 
 \item[(c)]
 De leftmost-outermost strategie vindt altijd een normaalvorm als deze bestaat.
-We vinden in dit geval geen normaalvorm, dus heeft deze term geen normaalvorm. 
+We vinden in dit geval geen normaalvorm, dus heeft deze term geen normaalvorm.
 
 \end{enumerate}
 
@@ -231,12 +231,12 @@ reduceert naar $\textsf{true}$.
 \item[7.]
 We zijn op zoek naar een term $\textsf{map}$ die het volgende gedrag vertoont:
 \begin{equation*}
-\textsf{map} \, = \, \lambda f l. (\textsf{empty} \, l) \, \textsf{nil} \,
+\textsf{map} \, =_{\beta} \, \lambda f l. (\textsf{empty} \, l) \, \textsf{nil} \,
 (\textsf{cons} \, (f \, (\textsf{head} \, l)) \, (\textsf{map} \, f \, (\textsf{tail} \, l)))
 \end{equation*}
 Dit kunnen we ook schrijven als
 \begin{equation*}
-\textsf{map} \, = \, (\lambda m. \lambda f l. (\textsf{empty} \, l) \, \textsf{nil} \,
+\textsf{map} \, =_{\beta} \, (\lambda m. \lambda f l. (\textsf{empty} \, l) \, \textsf{nil} \,
 (\textsf{cons} \, (f \, (\textsf{head} \, l)) \, (m \, f \, (\textsf{tail} \, l)))) \, \textsf{map}
 \end{equation*}
 Nu kunnen we de fixed-point combinator $\textsf{Y}$ gebruiken om de recursie op te lossen
