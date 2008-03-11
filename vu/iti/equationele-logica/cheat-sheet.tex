@@ -1,0 +1,208 @@
+\documentclass[a4paper,twocolumn,10pt]{article}
+
+
+\usepackage[landscape,pdftex]{geometry}
+\usepackage[cm]{fullpage}
+\usepackage[dutch]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+
+\setlength{\columnsep}{.8in}
+
+
+\pagestyle{empty}
+
+
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {2.5ex plus -.5ex minus -.2ex}%
+                                {1.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+
+\setcounter{secnumdepth}{0}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+
+\begin{document}
+
+
+\footnotesize
+
+
+\begin{center}
+     \Large{\textbf{Equationele Logica beknopt}} \\
+\end{center}
+
+
+\section{Syntax}
+
+
+\subsection{Signatuur $(S, \Sigma)$}
+
+\begin{tabular}{@{}ll@{}}
+$S$       &  Verzameling soortnamen. \\
+$\Sigma$  &  Verzameling functiesymbolen met types over $S$.
+\end{tabular}
+
+
+\subsection{Termen $Ter_{\Sigma}(X)$ over $(S, \Sigma)$}
+
+\begin{tabular}{@{}ll@{}}
+$(S, \Sigma)$      &  Signatuur. \\
+$X$                &  Verzameling variabelen met types uit $S$.
+\end{tabular}
+
+De verzameling $Ter_{\Sigma}(X)$ van termen met vrije
+variabelen uit $X$ is inductief gedefinieerd als volgt waarbij
+steeds de types gerespecteerd worden:
+\begin{itemize}
+\item $f \in \Sigma$ en $t_{1}, \ldots, t_{n} \in Ter_{\Sigma}(X)$ $\Rightarrow$ $f(t_{1}, \ldots, t_{n}) \in Ter_{\Sigma}(X)$
+\item $x \in Ter_{\Sigma}(X)$ voor alle $x \in X$
+\end{itemize}
+
+
+\subsection{Specificatie $((S, \Sigma), E)$}
+
+\begin{tabular}{@{}ll@{}}
+$(S, \Sigma)$  &  Signatuur. \\
+$E$            &  Verzameling vergelijkingen $l_{i} = r_{i}$ met
+                  $l_{i}$ en $r_{i}$ termen uit $Ter_{\Sigma}(X)$.
+\end{tabular}
+
+
+\subsection{Substitutie $\bar{\theta} : Ter_{\Sigma}(X) \rightarrow Ter_{\Sigma}$}
+
+\begin{tabular}{@{}ll@{}}
+$\theta : X \rightarrow Ter_{\Sigma}(X)$                      &  Substitutie van termen voor variabelen. \\
+$\bar{\theta} : Ter_{\Sigma}(X) \rightarrow Ter_{\Sigma}(X)$  &  Uitbreiding op termen.
+\end{tabular}
+
+Gegeven een substitutie $\theta$ wordt de uitbreiding daarvan
+inductief gedefinieerd als:
+\begin{align*}
+  \bar{\theta}(x) &= \theta(x) \\
+  \bar{\theta}(f(t_{1}, \ldots, t_{n})) &= f(\bar{\theta}(t_{1}), \ldots, \bar{\theta}(t_{n}))
+\end{align*}
+
+
+\section{Equationele logica}
+
+
+\subsection{Afleidbaarheid $E \vdash t_{1} = t_{2}$}
+
+De verzameling vergelijkingen afleidbaar uit $E$ is inductief gedefinieerd:
+\begin{itemize}
+\item als $t_{1} = t_{2} \in E$ (het is een axioma), dan $E \vdash t_{1} = t_{2}$ ,
+\item $E \vdash t = t$ voor alle $t$ (reflexiviteit) ,
+\item als $E \vdash t_{1} = t_{2}$, dan $E \vdash t_{2} = t_{1}$ (symmetrie) ,
+\item als $E \vdash t_{1} = t_{2}$ en $E \vdash t_{2} = t_{3}$, dan $E \vdash t_{1} = t_{3}$ (transitiviteit) ,
+\item als $E \vdash t_{i} = u_{i}$ voor $i = 1 \ldots n$, dan $f(t_{i}, \ldots, t_{n}) = f(u_{1}, \ldots, u_{n})$ (congruentie) ,
+\item als $E \vdash t_{1} = t_{2}$, dan $E \vdash \bar{\theta}(t_{1}) = \bar{\theta}(t_{2})$ voor alle substituties $\theta$ .
+\end{itemize}
+
+
+\section{Semantiek}
+
+
+\subsection{$\Sigma$-algebra $\mathfrak{A} = (A, I)$}
+
+\begin{tabular}{@{}ll@{}}
+$(S, \Sigma)$  &  Signatuur. \\
+$A$            &  Drager, $S$-soortig. \\
+$I$            &  Interpretatie.
+\end{tabular}
+
+Voor iedere $f \in \Sigma$ geeft $I(f)$ een interpretatie $f_{\mathfrak{A}}$
+op de drager, waarbij steeds alle typen kloppen.
+
+
+\subsection{Assignment $\bar{\theta} : Ter_{\Sigma}(X) \rightarrow A$}
+
+\begin{tabular}{@{}ll@{}}
+$\mathfrak{A} = (A, I)$                         &  $\Sigma$-algebra. \\
+$\theta : X \rightarrow A$                      &  Assignment van $a \in A$ aan $x \in X$. \\
+$\bar{\theta} : Ter_{\Sigma}(X) \rightarrow A$  &  Uitbreiding op termen.
+\end{tabular}
+
+Gegeven een assignment $\theta$ wordt de uitbreiding daarvan
+inductief gedefinieerd als:
+\begin{align*}
+  \bar{\theta}(x) &= \theta(x) \\
+  \bar{\theta}(f(t_{1}, \ldots, t_{n})) &= f_\mathfrak{A}(\bar{\theta}(t_{1}), \ldots, \bar{\theta}(t_{n}))
+\end{align*}
+
+
+\subsection{Waarheid $\mathfrak{A} \models t_{1} = t_{2}$}
+
+$t_{1} = t_{2}$ is waar in $\mathfrak{A}$ wanneer $\bar{\theta}(t_{1}) = \bar{\theta}(t_{2})$
+voor iedere assignment $\theta$.
+Voor een verzameling vergelijkingen $E$ zeggen we dat $\mathfrak{A} \models E$ wanneer
+$\mathfrak{A} \models t_{1} = t_{2}$ voor alle $t_{1} = t_{2}$ in $E$.
+
+
+\subsection{Semantisch gevolg $E \models t_{1} = t_{2}$}
+
+$t_{1} = t_{2}$ volgt semantisch uit $E$ wanneer $\mathfrak{A} \models t_{1} = t_{2}$
+voor iedere algebra $\mathfrak{A}$ met $\mathfrak{A} \models E$.
+
+
+\section{Modellen}
+
+
+\subsection{Model $\mathfrak{A}$ voor $((S, \Sigma), E)$}
+
+Een $\Sigma$-algebra $\mathfrak{A}$ is een model voor de specificatie $((S, \Sigma), E)$
+wanneer iedere vergelijking uit $E$ waar is in $\mathfrak{A}$.
+
+
+\subsection{Initi\"ele modellen}
+
+\begin{tabular}{@{}ll@{}}
+$((S, \Sigma), E)$       &  Specificatie. \\
+$\mathfrak{A} = (A, I)$  &  Model voor $((S, \Sigma), E)$. \\
+\end{tabular}
+
+Een element $a \in A$ is junk wanneer het niet de interpretatie
+is van een gesloten term.
+
+Gesloten termen $t_{1}$ en $t_{2}$ vormen confusion wanneer
+$\mathfrak{A} \models t_{1} = t_{2}$ terwijl $E \not\models t_{1} = t_{2}$.
+
+Een model is initieel wanneer het geen junk en confusion bevat.
+
+
+\subsection{Termmodel}
+
+Gegeven een specificatie $((S, \Sigma), E)$ bestaat het termmodel
+$\mathfrak{Ter}_{\Sigma}/\negmedspace\sim$ uit
+\begin{itemize}
+\item drager $Ter_{\Sigma}/\negmedspace\sim$ van equivalentieklassen $[t]$ van termen $t \in Ter_{\Sigma}$ ,
+\item voor alle $f \in \Sigma$, een interpretatie $f_{\mathfrak{Ter}_{\Sigma}/\negmedspace\sim}([t_{1}], \ldots, [t_{n}]) \equiv [f(t_{1}, \ldots, t_{2})]$ .
+\end{itemize}
+
+Hierbij is de equivalentieklasse $[t]$ van $t$ gedefinieerd als $\{u \in Ter_{\Sigma} \mid E \vdash t = u\}$.
+
+% semantisch gevolg, correctheid, volledigheid
+
+
+\rule{0.3\linewidth}{0.25pt}
+\scriptsize
+
+Maart 2008, Martijn Vermaat
+
+
+\end{document}
