@@ -1,9 +1,11 @@
 \documentclass[a4paper,twocolumn,10pt]{article}
 
 
-\usepackage[landscape,pdftex]{geometry}
-\usepackage[cm]{fullpage}
+\usepackage[landscape,pdftex,top=.5in,right=.5in,left=.5in,bottom=.5in]{geometry}
+%\usepackage[cm]{fullpage}
 \usepackage[dutch]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{ae,aecompl}
 \usepackage{amsmath}
 \usepackage{amssymb}
 
@@ -37,6 +39,19 @@
 \setlength{\parskip}{0pt plus 0.5ex}
 
 
+\usepackage[
+  pdftex,
+  colorlinks,
+  citecolor=black,
+  filecolor=black,
+  linkcolor=black,
+  urlcolor=black,
+  pdfauthor={Martijn Vermaat},
+  pdftitle={Equationele Logica beknopt},
+  pdfsubject={Equationele Logica},
+]{hyperref}
+
+
 \begin{document}
 
 
@@ -51,7 +66,7 @@
 \section{Syntax}
 
 
-\subsection{Signatuur $(S, \Sigma)$}
+\subsection{Signatuur \texorpdfstring{$(S, \Sigma)$}{(S, Sigma)}}
 
 \begin{tabular}{@{}ll@{}}
 $S$       &  Verzameling soortnamen. \\
@@ -59,7 +74,7 @@ $\Sigma$  &  Verzameling functiesymbolen met types over $S$.
 \end{tabular}
 
 
-\subsection{Termen $Ter_{\Sigma}(X)$ over $(S, \Sigma)$}
+\subsection{Termen \texorpdfstring{$Ter_{\Sigma}(X)$}{TerSigma(X)} over \texorpdfstring{$(S, \Sigma)$}{(S, Sigma)}}
 
 \begin{tabular}{@{}ll@{}}
 $(S, \Sigma)$      &  Signatuur. \\
@@ -75,7 +90,7 @@ steeds de types gerespecteerd worden:
 \end{itemize}
 
 
-\subsection{Specificatie $((S, \Sigma), E)$}
+\subsection{Specificatie \texorpdfstring{$((S, \Sigma), E)$}{((S, Sigma), E)}}
 
 \begin{tabular}{@{}ll@{}}
 $(S, \Sigma)$  &  Signatuur. \\
@@ -84,10 +99,10 @@ $E$            &  Verzameling vergelijkingen $l_{i} = r_{i}$ met
 \end{tabular}
 
 
-\subsection{Substitutie $\bar{\theta} : Ter_{\Sigma}(X) \rightarrow Ter_{\Sigma}$}
+\subsection{Substitutie \texorpdfstring{$\bar{\theta} : Ter_{\Sigma}(X) \rightarrow Ter_{\Sigma}(X)$}{theta : TerSigma(X) -> TerSigma(X)}}
 
 \begin{tabular}{@{}ll@{}}
-$\theta : X \rightarrow Ter_{\Sigma}(X)$                      &  Substitutie van termen voor variabelen. \\
+$\theta : X \rightarrow Ter_{\Sigma}(X)$                    &  Substitutie van termen voor variabelen. \\
 $\bar{\theta} : Ter_{\Sigma}(X) \rightarrow Ter_{\Sigma}(X)$  &  Uitbreiding op termen.
 \end{tabular}
 
@@ -99,10 +114,55 @@ inductief gedefinieerd als:
 \end{align*}
 
 
+\section{Semantiek}
+
+
+\subsection{\texorpdfstring{$\Sigma$}{Sigma}-algebra \texorpdfstring{$\mathfrak{A} = (A, I)$}{A = (A, I)}}
+
+\begin{tabular}{@{}ll@{}}
+$(S, \Sigma)$  &  Signatuur. \\
+$A$            &  Drager, $S$-soortig. \\
+$I$            &  Interpretatie.
+\end{tabular}
+
+Voor iedere $f \in \Sigma$ geeft $I(f)$ een interpretatie $f_{\mathfrak{A}}$
+op de drager, waarbij steeds alle typen kloppen.
+
+
+\subsection{Assignment \texorpdfstring{$\bar{\theta} : Ter_{\Sigma}(X) \rightarrow A$}{theta : TerSigma(X) -> A}}
+
+\begin{tabular}{@{}ll@{}}
+$\mathfrak{A} = (A, I)$                       &  $\Sigma$-algebra. \\
+$\theta : X \rightarrow A$                    &  Assignment van $a \in A$ aan $x \in X$. \\
+$\bar{\theta} : Ter_{\Sigma}(X) \rightarrow A$  &  Uitbreiding op termen.
+\end{tabular}
+
+Gegeven een assignment $\theta$ wordt de uitbreiding daarvan
+inductief gedefinieerd als:
+\begin{align*}
+  \bar{\theta}(x) &= \theta(x) \\
+  \bar{\theta}(f(t_{1}, \ldots, t_{n})) &= f_\mathfrak{A}(\bar{\theta}(t_{1}), \ldots, \bar{\theta}(t_{n}))
+\end{align*}
+
+
+\subsection{Waarheid \texorpdfstring{$\mathfrak{A} \models t_{1} = t_{2}$}{A |= t1 = t2}}
+
+$t_{1} = t_{2}$ is waar in $\mathfrak{A}$ wanneer $\bar{\theta}(t_{1}) = \bar{\theta}(t_{2})$
+voor iedere assignment $\theta$.
+Voor een verzameling vergelijkingen $E$ zeggen we dat $\mathfrak{A} \models E$ wanneer
+$\mathfrak{A} \models t_{1} = t_{2}$ voor alle $t_{1} = t_{2}$ in $E$.
+
+
+\subsection{Semantisch gevolg \texorpdfstring{$E \models t_{1} = t_{2}$}{E |= t1 = t2}}
+
+$t_{1} = t_{2}$ volgt semantisch uit $E$ wanneer $\mathfrak{A} \models t_{1} = t_{2}$
+voor iedere algebra $\mathfrak{A}$ met $\mathfrak{A} \models E$.
+
+
 \section{Equationele logica}
 
 
-\subsection{Afleidbaarheid $E \vdash t_{1} = t_{2}$}
+\subsection{Afleidbaarheid \texorpdfstring{$E \vdash t_{1} = t_{2}$}{E |- t1 = t2}}
 
 De verzameling vergelijkingen afleidbaar uit $E$ is inductief gedefinieerd:
 \begin{itemize}
@@ -115,58 +175,22 @@ De verzameling vergelijkingen afleidbaar uit $E$ is inductief gedefinieerd:
 \end{itemize}
 
 
-\section{Semantiek}
-
-
-\subsection{$\Sigma$-algebra $\mathfrak{A} = (A, I)$}
+\subsection{Volledigheid van \texorpdfstring{$\vdash$}{|-}}
 
 \begin{tabular}{@{}ll@{}}
-$(S, \Sigma)$  &  Signatuur. \\
-$A$            &  Drager, $S$-soortig. \\
-$I$            &  Interpretatie.
+  Correctheid   &  $E \vdash t_{1} = t_{2} \quad \Longrightarrow \quad E \models t_{1} = t_{2}$. \\
+  Volledigheid  &  $E \models t_{1} = t_{2} \quad \Longrightarrow \quad E \vdash t_{1} = t_{2}$.
 \end{tabular}
 
-Voor iedere $f \in \Sigma$ geeft $I(f)$ een interpretatie $f_{\mathfrak{A}}$
-op de drager, waarbij steeds alle typen kloppen.
-
-
-\subsection{Assignment $\bar{\theta} : Ter_{\Sigma}(X) \rightarrow A$}
-
-\begin{tabular}{@{}ll@{}}
-$\mathfrak{A} = (A, I)$                         &  $\Sigma$-algebra. \\
-$\theta : X \rightarrow A$                      &  Assignment van $a \in A$ aan $x \in X$. \\
-$\bar{\theta} : Ter_{\Sigma}(X) \rightarrow A$  &  Uitbreiding op termen.
-\end{tabular}
-
-Gegeven een assignment $\theta$ wordt de uitbreiding daarvan
-inductief gedefinieerd als:
-\begin{align*}
-  \bar{\theta}(x) &= \theta(x) \\
-  \bar{\theta}(f(t_{1}, \ldots, t_{n})) &= f_\mathfrak{A}(\bar{\theta}(t_{1}), \ldots, \bar{\theta}(t_{n}))
-\end{align*}
-
-
-\subsection{Waarheid $\mathfrak{A} \models t_{1} = t_{2}$}
-
-$t_{1} = t_{2}$ is waar in $\mathfrak{A}$ wanneer $\bar{\theta}(t_{1}) = \bar{\theta}(t_{2})$
-voor iedere assignment $\theta$.
-Voor een verzameling vergelijkingen $E$ zeggen we dat $\mathfrak{A} \models E$ wanneer
-$\mathfrak{A} \models t_{1} = t_{2}$ voor alle $t_{1} = t_{2}$ in $E$.
-
-
-\subsection{Semantisch gevolg $E \models t_{1} = t_{2}$}
-
-$t_{1} = t_{2}$ volgt semantisch uit $E$ wanneer $\mathfrak{A} \models t_{1} = t_{2}$
-voor iedere algebra $\mathfrak{A}$ met $\mathfrak{A} \models E$.
 
 
 \section{Modellen}
 
 
-\subsection{Model $\mathfrak{A}$ voor $((S, \Sigma), E)$}
+\subsection{Model \texorpdfstring{$\mathfrak{A}$}{A} voor \texorpdfstring{$((S, \Sigma), E)$}{((S, Sigma), E)}}
 
 Een $\Sigma$-algebra $\mathfrak{A}$ is een model voor de specificatie $((S, \Sigma), E)$
-wanneer iedere vergelijking uit $E$ waar is in $\mathfrak{A}$.
+wanneer $\mathfrak{A} \models E$.
 
 
 \subsection{Initi\"ele modellen}
@@ -182,10 +206,10 @@ is van een gesloten term.
 Gesloten termen $t_{1}$ en $t_{2}$ vormen confusion wanneer
 $\mathfrak{A} \models t_{1} = t_{2}$ terwijl $E \not\models t_{1} = t_{2}$.
 
-Een model is initieel wanneer het geen junk en confusion bevat.
+Een model is initieel wanneer het geen junk en geen confusion bevat.
 
 
-\subsection{Termmodel}
+\subsection{Termmodel \texorpdfstring{$\mathfrak{Ter}_{\Sigma}/\negmedspace\sim$}{TerSigma/~}}
 
 Gegeven een specificatie $((S, \Sigma), E)$ bestaat het termmodel
 $\mathfrak{Ter}_{\Sigma}/\negmedspace\sim$ uit
@@ -196,13 +220,44 @@ $\mathfrak{Ter}_{\Sigma}/\negmedspace\sim$ uit
 
 Hierbij is de equivalentieklasse $[t]$ van $t$ gedefinieerd als $\{u \in Ter_{\Sigma} \mid E \vdash t = u\}$.
 
-% semantisch gevolg, correctheid, volledigheid
+Het termmodel $\mathfrak{Ter}_{\Sigma}/\negmedspace\sim$ is initieel voor $((S, \Sigma), E)$.
+
+
+\section{Isomorfie}
+
+
+\subsection{Homomorfisme \texorpdfstring{$\phi$}{phi} van \texorpdfstring{$\mathfrak{A}$}{A} naar \texorpdfstring{$\mathfrak{B}$}{B}}
+
+\begin{tabular}{@{}ll@{}}
+$\mathfrak{A} = (A, I_{\mathfrak{A}})$ en $\mathfrak{B} = (B, I_{\mathfrak{B}})$  &  $\Sigma$-algebra's. \\
+$\phi : A \rightarrow B$                                                   &  Afbeelding van $A$ naar $B$.
+\end{tabular}
+
+De afbeelding $\phi$ is een homomorfisme van $\mathfrak{A}$ naar $\mathfrak{B}$ wanneer
+\begin{equation*}
+  \phi(f_{\mathfrak{A}}(a_{1}, \ldots, a_{n})) \equiv f_{\mathfrak{B}}(\phi(a_{1}, \ldots, a_{n}))
+\end{equation*}
+voor alle $f \in \Sigma$ en alle $a_{i} \in A$ (types respecterend).
+
+
+\subsection{Isomorfie \texorpdfstring{$\cong$}{~=}}
+
+Een bijectief homomorfisme van $\mathfrak{A}$ naar $\mathfrak{B}$ is een isomorfisme.
+Als er een isomorfisme bestaat tussen twee algebra's $\mathfrak{A}$ en $\mathfrak{B}$
+noemen we ze isomorf ($\mathfrak{A} \cong \mathfrak{B}$).
+
+Alle initi\"ele modellen van een specificatie zijn isomorf.
+
+
+\paragraph{}
+\noindent
 
 
 \rule{0.3\linewidth}{0.25pt}
 \scriptsize
 
-Maart 2008, Martijn Vermaat
+Martijn Vermaat (\href{mailto:mvermaat@cs.vu.nl}{\texttt{mvermaat@cs.vu.nl}}), maart 2008. \\
+Gebaseerd op het dictaat \emph{Equationele specificatie van datatypen}.
 
 
 \end{document}
