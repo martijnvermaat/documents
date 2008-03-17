@@ -1,4 +1,4 @@
-\documentclass[a4paper,11pt,draft]{article}
+\documentclass[a4paper,11pt]{article}
 \usepackage[english]{babel}
 \usepackage{a4}
 
@@ -73,7 +73,7 @@
   linkcolor=black,
   urlcolor=black,
   pdfauthor={Martijn Vermaat},
-  pdftitle={Verifying a CPS Transformation (draft)},
+  pdftitle={Verifying a CPS Transformation},
   pdfsubject={Verification of a transformation to continuation-passing style},
   pdfkeywords={lambda calculus, continuation-passing style, verification,
     functional programming},
@@ -82,17 +82,13 @@
 \usepackage[figure]{hypcap}
 
 
-% TODO: Remove draft everywhere
-% TODO: Conclusion or future work?
-
-
-\title{\sffamily Verifying a CPS Transformation (draft)}
+\title{\sffamily Verifying a CPS Transformation}
 
 \author{\sffamily
   Martijn Vermaat\\[0.3em]
   \href{mailto:mvermaat@cs.vu.nl}{\texttt{mvermaat@cs.vu.nl}}
 }
-\date{\sffamily Bachelor Project, February 2008, r\svnrev}
+\date{\sffamily Bachelor Project, February 2008} % r\svnrev
 
 
 \begin{document}
@@ -144,12 +140,12 @@ While theoretically harmless, in practice these redexes must be removed in a lat
 pass of an optimizig compiler and make proving certain properties of the transformation
 less straightforward. Therefore, a number of alternative transformations to CPS have
 been proposed, some of them yielding no administrative redexes at all. We will see two
-examples of a CPS transformation in section~\ref{sec:transformations}.
+examples of CPS transformations in Section~\ref{sec:transformations}.
 
 \paragraph{}
 
 Formal verification of programs is used to prove that a program does not have certain
-defects or does have certain properties. Traditionally, program verification is done
+defects or has certain properties. Traditionally, program verification is done
 by proving the source code of the program correct. Afterwards, the source code is
 compiled to binary code which is then executed. It should be clear that this scheme
 does not provide any guarantees on the correctness of the executed code, one of the
@@ -172,11 +168,11 @@ a restricted part of the ML functional language rich enough to be used as a targ
 language for automatic extraction of programs from Coq specifications
 \cite{Letouzey-02}.
 
-We do a case study on the setting of Dargaye and Leroy, but simplified. Where their
+We will do a simplified case study on the setting of Dargaye and Leroy. Where their
 transformations work on a realistic functional source language featuring $n$-ary
 functions, recursive functions, algebraic data types and pattern-matching, we restrict
 this list to $n$-ary functions only. Furthermore, we focus on their first
-transformation, a straight-forward extension of Plotkin's original transformation,
+transformation, a straightforward extension of Plotkin's original transformation,
 ignoring their verification of an optimizing transformation. Finally, the
 mechanization of the transformation and its verification will not be discussed.
 
@@ -214,7 +210,7 @@ of several administrative redexes:
                                  &\rightarrow_{\beta} \lambda k. \, (\lambda n. \, (\lambda x. \, (\lambda k. \, k \, x)) \, n \, k) \, y\\
                                  &\rightarrow_{\beta} \lambda k. \, (\lambda x. \, (\lambda k. \, k \, x)) \, y \, k
 \end{align*}
-Note that the term concluding the above development still contains a redex, but
+Note that the term concluding the above reduction still contains a redex, but
 this redex was already present in the source term.
 Administrative redexes are to be avoided, because they complicate formal
 reasoning about a transformation and add computation steps to a compilation
@@ -252,7 +248,7 @@ will consider an extension of the original transformation by Plotkin.
 \section{Languages}\label{sec:languages}
 
 We will now describe the syntax and semantics of two languages acting as the
-source and target languages of the transformation, respectively.
+source and target languages of the transformation.
 They are direct simplifications of the languages used in
 \cite{Dargaye-Leroy-07}, not containing recursive functions, algebraic
 datatypes, and pattern matching.
@@ -260,11 +256,11 @@ The result is two simple extensions of untyped $\lambda$-calculus with $n$-ary
 functions and $\kw{let}$-bindings.
 
 In order to avoid difficulties with $\alpha$-conversion, de Bruijn indices
-are used instead of named variables.
+will be used instead of named variables.
 In this notation, variables are indexed by a natural number denoting the
 number of abstractions in scope between the variable and its binding
 abstraction.
-$\alpha$-equality of terms now simply corresponds to syntactic equality.
+Now $\alpha$-equivalence of terms simply corresponds to syntactic equality.
 As an example, consider the term
 $\lambda x. \lambda y. \lambda z. x \, z \, (y \, z)$ in the
 $\lambda$-calculus with named variables.
@@ -368,7 +364,7 @@ The double simultaneous substitution of terms $N'_{0}, \ldots, N'_{n}$ for
 $\kappa_{0}, \ldots, \kappa_{n}$ and terms $P'_{0}, \ldots, P'_{m}$ for
 $x_{0}, \ldots, x_{m}$ in $M'$ is written
 $M'\{N'_{0}, \ldots, N'_{n}\}\{P'_{0}, \ldots, P'_{m}\}$.
-We use the following notation to distinguish between lifting of
+We will use the following notation to distinguish between lifting of
 source-level variables and lifting of continuation variables:
 $\Uparrow_{x}^{n} M$ lifts free $x_{i}$ by $n$ in $M$ and
 $\Uparrow_{\kappa}^{n} M$ lifts free $\kappa_{i}$ by $n$ in $M$.
@@ -402,8 +398,8 @@ Figure~\ref{fig:targetsemantics}.
 
 \section{Transformation}\label{sec:transformation}
 
-Again, we follow the presentation of \cite{Dargaye-Leroy-07}.
-The transformation we will prove correct is a straight-forward extension of
+Again, we will follow the presentation of \cite{Dargaye-Leroy-07}.
+The transformation we will prove correct is a straightforward extension of
 Plotkin's call-by-value transformation, defined below by two mutually
 recursive functions $\Psi$ on atoms and $[\![\cdot]\!]$ on terms. An atom $A$
 is a variable or an abstraction:
@@ -459,10 +455,10 @@ $[\![(\lambda^{0}.x_{0})(\lambda^{1}.x_{0})]\!]$, yielding
 
 \paragraph{}
 
-We say that a target language term is $\kappa$-closed if it does not contain
-any free continuation variables $\kappa_{i}$. The following lemmas state some
-important properties of the transformation. They are proved in
-appendix~\ref{sec:proofs}.
+We will say that a target language term is $\kappa$-closed if it does not
+contain any free continuation variables $\kappa_{i}$.
+The following lemmas state some important properties of the transformation.
+They will be proved in appendix~\ref{sec:proofs}.
 
 \begin{lemma}\label{lem:kappaclosed}
   $[\![M]\!]$ and $\Psi(A)$ are $\kappa$-closed. As a corollary, transformed
@@ -496,7 +492,7 @@ $[\![M]\!] (\lambda^{0}.\kappa_{0}) \Rightarrow \Psi(v)$ in the target language.
 \end{theorem}
 
 For a proof by induction to go through we need to generalize this result. The
-result we will prove is given as lemma~\ref{lem:mainlemma} and generalizes the
+statement we will prove is given as Lemma~\ref{lem:mainlemma} and generalizes the
 use of the initial continuation to any $\kappa$-closed, one-argument
 abstraction.
 
@@ -567,10 +563,10 @@ of $M \Rightarrow v$ and case analysis over the term $M$.
 \paragraph{}
 
 Theorem~\ref{thm:maintheorem} is an instantiation of
-lemma~\ref{lem:mainlemma}, so we can now prove it easily.
+Lemma~\ref{lem:mainlemma}, so we can now prove it easily.
 
 \begin{proof}[Proof of Theorem~\ref{thm:maintheorem}]
-We take for $K$ in lemma~\ref{lem:mainlemma} the initial continuation
+We take for $K$ in Lemma~\ref{lem:mainlemma} the initial continuation
 $\lambda^{0}.\kappa_{0}$, yielding
 $[\![M]\!] (\lambda^{0}.\kappa_{0}) \Rightarrow \Psi(v)$.
 \end{proof}
@@ -579,11 +575,11 @@ $[\![M]\!] (\lambda^{0}.\kappa_{0}) \Rightarrow \Psi(v)$.
 \section{Mechanically Verified Proofs}\label{sec:mechanized}
 
 Results such as that of the previous section can be mechanized using formal
-tools (e.g. a proof assistent).
+tools (e.g. a proof assistant).
 Reasons for doing so are several.
-First, a mechanically checked proof is often more precise and convincing than
+Firstly, a mechanically checked proof is often more precise and convincing than
 a proof on paper.
-Second, mechanical proofs as are often easier to be reused in many ways, e.g.
+Secondly, mechanical proofs as are often easier to be reused in many ways, e.g.
 for composition, modification, and extension.
 Most importantly, the ultimate goal in the verification of these program
 transformations is of course obtaining correctness proofs of actual
@@ -605,15 +601,15 @@ below.
 
 \subsection{Mechanized Verification of CPS Transformations}
 
-The transformation described in section~\ref{sec:transformation} and an
+The transformation described in Section~\ref{sec:transformation} and an
 optimized transformation by Danvy and Nielsen \cite{Danvy-Nielsen-03} have
 been implemented and verified by Dargaye and Leroy \cite{Dargaye-Leroy-07}
-using the Coq proof assistent.
+using the Coq proof assistant.
 The complete Coq development consists of 9000 lines of code.
 An implementation of the transformations in Caml is automatically extracted
 from the Coq specifications.
 The source and target languages are realistic functional languages,
-much like the ones introduced in section~\ref{sec:languages}, but extended
+much like the ones introduced in Section~\ref{sec:languages}, but extended
 with recursive functions, algebraic datatypes, and pattern matching.
 This is particularly original in that earlier work mostly considers the pure
 $\lambda$-calculus.
@@ -624,7 +620,7 @@ Unfortunately, another complexity is introduced by the required lifting of
 indices in substitutions.
 A large part of the Coq code deals with the properties of lifting and
 substitution.
-Also, terms with de Bruijn variables are arguably harder to deal with for
+Furthermore, terms with de Bruijn variables are arguably harder to deal with for
 humans than terms with named variables.
 
 To avoid much of the problems with lifting, two sorts of de Bruijn indices are
@@ -638,7 +634,7 @@ non-terminating computations), they tend to make program transformations
 significantly harder to prove correct.
 In this case, difficulties caused by administrative redexes are avoided by
 using big-step semantics.
-Also, the intended use of the transformation is in a compiler for
+Furthermore, the intended use of the transformation is in a compiler for
 automatically extracted programs from Coq specifications, which are strongly
 normalizing.
 
@@ -656,7 +652,7 @@ difficulties to mechanical reasoning.
 A well-known and often used alternative are de Bruijn indices, although they
 bring the complexity of lifting.
 Higher-order abstract syntax is another frequently used technique, in which
-variables do not refer to their binder by name (i.e. as in first-order
+variables do not refer to their binder by name (i.e.\ as in first-order
 abstract syntax), but point directly to the binding site.
 The equivalence classes of Pitt's nominal logic provide us with yet another
 way to model $\alpha$-equivalence of terms on a syntactical level, but are
@@ -668,10 +664,10 @@ named and bound variables are represented by their de Bruijn index.
 A correctness proof of a transformation is based on some sort of semantics for
 the source and target languages.
 Usually, correctness is intepreted as preservation of semantics or observable
-behaviour.
+behavior.
 A denotational semantics translates terms to mathematical structures in a
 compositional way.
-These mathematical structures, called denotations, describe the behaviour of
+These mathematical structures, called denotations, describe the behavior of
 the language.
 An operational semantics gives meaning to a program by describing a
 computation.
@@ -723,6 +719,15 @@ Preservation of types is trivially proved by the dependent types and enables
 type-directed proof search to automate large parts of the semantics
 preservation proofs. The languages are accompanied by a type-directed
 denotational semantics.
+
+
+\section*{Acknowledgements}
+
+Many thanks are due to Femke van Raamsdonk and Roel de Vrijer for their
+supervision.
+Your patience seemed unbounded but must have been tested to the limit.
+Heiltje Winterink provided comments on my English writing, thanks for that.
+And finally, \emph{muchas gracias} Martina.
 
 
 \pagebreak
@@ -788,7 +793,7 @@ Now, $\kappa$-freeness of $\Psi(A)$ and the corollary follow trivially.
 
 \begin{proof}
 We omit lifting of continuation variables when there are none (implicitely applying
-lemma~\ref{lem:kappaclosed}). Also, we use the fact $\Uparrow_{x}^{n} \Psi(A) = \Psi(\Uparrow^{n} A)$
+Lemma~\ref{lem:kappaclosed}). Furthermore, we use the fact $\Uparrow_{x}^{n} \Psi(A) = \Psi(\Uparrow^{n} A)$
 several times. The first statement is proved by a structural induction argument over $M$.
 
 \begin{description}
@@ -796,16 +801,16 @@ several times. The first statement is proved by a structural induction argument 
 
   If $i < n$, we have
   \begin{align*}
-    [\![x_{i}\{A_{1}, \ldots, A_{n}\}]\!] &= [\![x_{i}]\!] \\
-                                        &= \lambda^{0}.\kappa_{0}(x_{i}) \\
+    [\![x_{i}\{A_{1}, \ldots, A_{n}\}]\!] &= [\![A_{i+1}]\!] \\
+                                        &= \lambda^{0}.\kappa_{0}(\Psi(A_{i+1})) \\
+%                                        &= \lambda^{0}.\kappa_{0}(\Uparrow_{\kappa}^{1}\Psi(A_{i+1})) && \text{by lemma~\ref{lem:kappaclosed}} \\
                                         &= \lambda^{0}.\kappa_{0}(x_{i})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
                                         &= [\![x_{i}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
   \end{align*}
   Otherwise,
   \begin{align*}
-    [\![x_{i}\{A_{1}, \ldots, A_{n}\}]\!] &= [\![A_{i+1}]\!] \\
-                                        &= \lambda^{0}.\kappa_{0}(\Psi(A_{i+1})) \\
-%                                        &= \lambda^{0}.\kappa_{0}(\Uparrow_{\kappa}^{1}\Psi(A_{i+1})) && \text{by lemma~\ref{lem:kappaclosed}} \\
+    [\![x_{i}\{A_{1}, \ldots, A_{n}\}]\!] &= [\![x_{i}]\!] \\
+                                        &= \lambda^{0}.\kappa_{0}(x_{i}) \\
                                         &= \lambda^{0}.\kappa_{0}(x_{i})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
                                         &= [\![x_{i}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
   \end{align*}
@@ -866,14 +871,14 @@ A case analysis over $A$ proves the second statement.
 
   If $i < n$, we have
   \begin{align*}
-    \Psi(x_{i}\{A_{1}, \ldots, A_{n}\}) &= \Psi(x_{i}) \\
-                                      &= x_{i} \\
+    \Psi(x_{i}\{A_{1}, \ldots, A_{n}\}) &= \Psi(A_{i+1}) \\
                                       &= x_{i}\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
                                       &= \Psi(x_{i})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
   \end{align*}
   Otherwise,
   \begin{align*}
-    \Psi(x_{i}\{A_{1}, \ldots, A_{n}\}) &= \Psi(A_{i+1}) \\
+    \Psi(x_{i}\{A_{1}, \ldots, A_{n}\}) &= \Psi(x_{i}) \\
+                                      &= x_{i} \\
                                       &= x_{i}\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
                                       &= \Psi(x_{i})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
   \end{align*}
@@ -921,7 +926,7 @@ assuming $P\{\Psi(v)\}\{\} \Rightarrow v'$.
   \begin{equation*}
     K \: (\Psi(\lambda^{n}.M_{1})) \Rightarrow P\{\Psi(\lambda^{n}.M_{1})\}\{\} \text{ .}
   \end{equation*}
-  Using the same evaluation rule and lemma~\ref{lem:kappaclosed}, we conclude
+  Using the same evaluation rule and Lemma~\ref{lem:kappaclosed}, we conclude
   \eqref{eq:base}.
 
 \item[\sffamily Inductive case $M = M_{1}(N_{0}, \ldots, N_{n})$]\hfill
@@ -948,7 +953,7 @@ and continuation $K$ we conclude
 \begin{equation*}
   [\![Q\{v_{n}, \ldots, v_{0}\}]\!] (K) \Rightarrow v' \text{ ,}
 \end{equation*}
-and also, by lemma~\ref{lem:commuting} ($v_{i}$ are atoms),
+and also, by Lemma~\ref{lem:commuting} ($v_{i}$ are atoms),
 \begin{equation}\label{eq:thirdpremise}
   [\![Q]\!]\{\}\{\Psi(v_{n}), \ldots, \Psi(v_{0})\} (K) \Rightarrow v' \text{ .}
 \end{equation}
@@ -958,7 +963,7 @@ the evaluation rule for function application gives us
 \begin{equation}\label{eq:psiq}
   \Psi(\lambda^{n}.Q) \: (K, \Psi(v_{0}), \ldots, \Psi(v_{n})) \Rightarrow v'
 \end{equation}
-by \eqref{eq:thirdpremise} via lemma~\ref{lem:kappaclosed}.
+by \eqref{eq:thirdpremise} via Lemma~\ref{lem:kappaclosed}.
 
 
 Let $P_{1} = [\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}(K, \kappa_{n}, \ldots, \kappa_{0})) \cdots )$.
@@ -974,7 +979,7 @@ induction hypothesis to premises $N_{i} \Rightarrow v_{i}$ and continuations
 
 Using this to apply the induction hypothesis to our first
 premise and continuation
-$\lambda^{0}.P_{1}$ ($\kappa$-closed by lemma~\ref{lem:kappaclosed}), we get
+$\lambda^{0}.P_{1}$ ($\kappa$-closed by Lemma~\ref{lem:kappaclosed}), we get
 \begin{equation*}
 [\![M_{1}]\!](\lambda^{0}.P_{1}) \Rightarrow v' \text{ .}
 \end{equation*}
@@ -1002,7 +1007,7 @@ $[\![M_{2}\{v_{1}\}]\!](K) \Rightarrow v'$, which is equivalent to
 \begin{equation}\label{eq:letsecondprem}
   [\![M_{2}]\!]\{\}\{\Psi(v_{1})\}(K) \Rightarrow v'
 \end{equation}
-by lemma~\ref{lem:commuting} and the fact that $v_{1}$ is an atom.
+by Lemma~\ref{lem:commuting} and the fact that $v_{1}$ is an atom.
 
 Now consider the term $P_{1} = \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!](\Uparrow_{x}^{1} K)$. We
 will show
@@ -1010,7 +1015,7 @@ will show
   P_{1}\{\Psi(v_{1})\}\{\} \Rightarrow v' \text{ .}
 \end{equation}
 
-By lemma~\ref{lem:kappaclosed} there are no free continuation variables in
+By Lemma~\ref{lem:kappaclosed} there are no free continuation variables in
 $[\![M_{2}]\!](\Uparrow_{x}^{1} K)$, so
 \begin{equation*}
   P_{1}\{\Psi(v_{1})\}\{\} = \: \kw{let} \: \Psi(v_{1}) \: \kw{in} \: [\![M_{2}]\!](\Uparrow_{x}^{1} K) \text{ .}
@@ -1021,7 +1026,7 @@ $([\![M_{2}]\!](\Uparrow_{x}^{1} K))\{\}\{\Psi(v_{1})\} \Rightarrow v'$, which i
 equivalent to \eqref{eq:letsecondprem}.
 
 By \eqref{eq:letp1}, the induction hypothesis applied to the first premise and
-continuation $\lambda^{0}.P_{1}$ ($\kappa$-closed by lemma~\ref{lem:kappaclosed})
+continuation $\lambda^{0}.P_{1}$ ($\kappa$-closed by Lemma~\ref{lem:kappaclosed})
 results in
 \begin{equation*}
   [\![M_{1}]\!](\lambda^{0}.P_{1}) \Rightarrow v' \text{ .}
