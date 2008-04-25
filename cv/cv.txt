@@ -1,0 +1,66 @@
+First draft, to be completed...
+
+
+EDUCATION
+
+2008 - heden
+Master Formal Methods and Software Verification, Vrije Universiteit Amsterdam
+
+2002 - 2008
+Bachelor Computer Science, Vrije Universiteit Amsterdam
+
+2001 - 2002
+Bachelor Applied Mathematics, Delft University of Technology (uncompleted)
+
+1994 - 2000
+Atheneum, RGO Middelharnis
+
+1986 - 1994
+Basisschool, Bosseschool Middelharnis
+
+
+WORKING EXPERIENCE
+
+2005, 2006, 2007, 2008
+Teaching Assistent Inleiding Theoretische Informatica, Vrije Universiteit Amsterdam
+
+2005, 2006, 2007
+Teaching Assistent Inleiding Logica, Vrije Universiteit Amsterdam
+
+- heden
+ZZP, Kjew Amsterdam
+
+2000 - 2001
+Programmer, Ideeweb Rotterdam (full-time)
+
+-
+Programmer, IT Center Middelharnis?
+
+-
+Alcoa
+
+-
+Gidsen
+
+-
+Folders
+
+
+KNOWLEDGE
+
+Subjects: Logic, Programming Languages, Linux, Web Technology
+Languages: Dutch, English, German, French, Arabic
+Programming: Java, PHP, C, OCaml, Python, Haskell, Prolog, Bash, Stratego/XT, Coq, LaTeX, XSLT
+
+
+HOBBIES
+
+Track and field athletics
+Photography
+Playing guitar
+Ubuntu Linux
+
+
+ATTACHMENTS
+
+List of courses and results
