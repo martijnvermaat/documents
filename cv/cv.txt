@@ -1,12 +1,10 @@
-First draft, to be completed...
+(Draft)
 
 
 EDUCATION
 
-2008 - heden
+2002 - heden
 Master Formal Methods and Software Verification, Vrije Universiteit Amsterdam
-
-2002 - 2008
 Bachelor Computer Science, Vrije Universiteit Amsterdam
 
 2001 - 2002
