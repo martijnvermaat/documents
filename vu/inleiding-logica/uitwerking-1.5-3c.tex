@@ -1,0 +1,76 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+
+%\renewcommand{\familydefault}{\sfdefault}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem*{theorem}{Stelling}
+
+
+\title{Uitwerking van opgave 3c\\
+\normalsize{bij paragraaf 1.5 van Huth\&Ryan}}
+%\date{Martijn Vermaat, 4 september 2008}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{theorem}\label{thm:incomplete}
+  De verzameling connectieven $\{\neg, \leftrightarrow\}$ is niet functioneel
+    volledig.
+\end{theorem}
+
+We bewijzen eerst het volgende lemma. Wanneer we in het vervolg
+schrijven dat een formule $\phi$ verandert, bedoelen we dat de waarde van
+$\phi$ onder een gegeven waardetoekenning verandert.
+
+\begin{lemma}\label{lem:linear}
+  Laat $\phi$ een formule zijn met uitsluitend connectieven uit
+  $\{\neg, \leftrightarrow\}$.
+  Voor iedere atomaire letter geldt dat bij een verandering van de
+  waardetoekenning aan deze letter \`ofwel $\phi$ altijd verandert,
+  \`ofwel $\phi$ nooit verandert.
+\end{lemma}
+
+\begin{proof}
+  Het bewijs verloopt via inductie naar de structuur van $\phi$.
+
+  \begin{description}
+  \item[Basisgeval $\phi = p$]\hfill
+
+    Triviaal.
+
+  \item[Inductiestap $\phi = \neg \psi$]\hfill
+
+    Direct via de inductiehypothese, $\phi$ verandert precies wanneer
+    $\neg \psi$ dat doet.
+
+  \item[Inductiestap $\phi = \psi \leftrightarrow \chi$]\hfill
+
+    Volgens de inductiehypothesen kunnen we de volgende gevallen
+    onderscheiden bij het veranderen van de waardetoekenning aan een atomaire
+    letter:
+    \begin{itemize}
+      \item $\psi$ en $\chi$ veranderen altijd, $\phi$ verandert nooit.
+      \item $\psi$ en $\chi$ veranderen nooit, $\phi$ verandert nooit.
+      \item $\psi$ verandert altijd en $\chi$ verandert nooit, $\phi$ verandert altijd.
+      \item $\psi$ verandert nooit en $\chi$ verandert altijd, $\phi$ verandert altijd.\qedhere
+    \end{itemize}
+\end{description}
+\end{proof}
+
+\begin{proof}[Bewijs van stelling]
+  Stel $\{\neg, \leftrightarrow\}$ is functioneel volledig.
+  Laat $\phi \equiv p \rightarrow q$ met alleen connectieven uit
+  $\{\neg, \leftrightarrow\}$ in $\phi$.
+  Verandering van de waardetoekenning aan $q$ geeft soms een verandering van
+  $\phi$ en soms niet. Contradictie met lemma~\ref{lem:linear}.
+\end{proof}
+
+
+\end{document}
