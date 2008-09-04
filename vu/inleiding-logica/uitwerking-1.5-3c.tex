@@ -25,51 +25,73 @@
     volledig.
 \end{theorem}
 
-We bewijzen eerst het volgende lemma. Wanneer we in het vervolg
-schrijven dat een formule $\phi$ verandert, bedoelen we dat de waarde van
-$\phi$ onder een gegeven waardetoekenning verandert.
+\paragraph{Notatie}
 
+Laat $v : \mathtt{atoms} \rightarrow \{\mathtt{T}, \mathtt{F}\}$ een
+waardetoekenning zijn.
+
+We schrijven $[\![ \phi ]\!]_{v}$ voor de waarde van $\phi$ onder $v$.
+Met $v \diamond p$ bedoelen we de waardetoekenning $v$ met alleen de waarde voor $p$
+veranderd:
+\begin{equation*}
+  v \diamond p(q) =
+  \begin{cases}
+    v(q)     & \mbox{als }q \neq p \\
+    v(q)^{-1} & \mbox{anders}
+  \end{cases}
+\end{equation*}
+
+\renewcommand{\labelitemi}{}
 \begin{lemma}\label{lem:linear}
-  Laat $\phi$ een formule zijn met uitsluitend connectieven uit
-  $\{\neg, \leftrightarrow\}$.
-  Voor iedere atomaire letter geldt dat bij een verandering van de
-  waardetoekenning aan deze letter \`ofwel $\phi$ altijd verandert,
-  \`ofwel $\phi$ nooit verandert.
+  Laat $\phi$ een welgevormde formule zijn over $\{\mathtt{atoms}, \neg, \leftrightarrow\}$.
+  Voor iedere $p \in \mathtt{atoms}$ geldt
+  \begin{itemize}
+    \item $[\![ \phi ]\!]_{v} \neq [\![ \phi ]\!]_{v \diamond p}$ voor iedere waardetoekenning $v$, \`of
+    \item $[\![ \phi ]\!]_{v} = [\![ \phi ]\!]_{v \diamond p}$ voor iedere waardetoekenning $v$.
+  \end{itemize}
 \end{lemma}
 
 \begin{proof}
-  Het bewijs verloopt via inductie naar de structuur van $\phi$.
+  Via inductie naar de structuur van $\phi$:
 
   \begin{description}
-  \item[Basisgeval $\phi = p$]\hfill
+  \item[Basisgeval $\phi = q$]\hfill
 
     Triviaal.
 
   \item[Inductiestap $\phi = \neg \psi$]\hfill
 
-    Direct via de inductiehypothese, $\phi$ verandert precies wanneer
-    $\neg \psi$ dat doet.
+    Direct via de inductiehypothese en $[\![ \phi ]\!]_{v} \neq [\![ \neg \psi ]\!]_{v}$
+    voor willekeurige $v$.
 
   \item[Inductiestap $\phi = \psi \leftrightarrow \chi$]\hfill
 
-    Volgens de inductiehypothesen kunnen we de volgende gevallen
-    onderscheiden bij het veranderen van de waardetoekenning aan een atomaire
-    letter:
-    \begin{itemize}
-      \item $\psi$ en $\chi$ veranderen altijd, $\phi$ verandert nooit.
-      \item $\psi$ en $\chi$ veranderen nooit, $\phi$ verandert nooit.
-      \item $\psi$ verandert altijd en $\chi$ verandert nooit, $\phi$ verandert altijd.
-      \item $\psi$ verandert nooit en $\chi$ verandert altijd, $\phi$ verandert altijd.\qedhere
-    \end{itemize}
+    Beschouw $p \in \mathtt{atoms}$. De inductiehypothesen geven vier gevallen:
+    \begin{enumerate}
+      \item $[\![ \psi ]\!]_{u} = [\![ \psi ]\!]_{u \diamond p}$ en $[\![ \chi ]\!]_{w} = [\![ \chi ]\!]_{w \diamond p}$ voor alle $u,w$
+        $\Rightarrow$
+        $[\![ \phi ]\!]_{v} = [\![ \phi ]\!]_{v \diamond p}$ voor alle $v$
+      \item $[\![ \psi ]\!]_{u} \neq [\![ \psi ]\!]_{u \diamond p}$ en $[\![ \chi ]\!]_{w} \neq [\![ \chi ]\!]_{w \diamond p}$ voor alle $u,w$
+        $\Rightarrow$
+        $[\![ \phi ]\!]_{v} = [\![ \phi ]\!]_{v \diamond p}$ voor alle $v$
+      \item $[\![ \psi ]\!]_{u} = [\![ \psi ]\!]_{u \diamond p}$ en $[\![ \chi ]\!]_{w} \neq [\![ \chi ]\!]_{w \diamond p}$ voor alle $u,w$
+        $\Rightarrow$
+        $[\![ \phi ]\!]_{v} \neq [\![ \phi ]\!]_{v \diamond p}$ voor alle $v$
+      \item $[\![ \psi ]\!]_{u} \neq [\![ \psi ]\!]_{u \diamond p}$ en $[\![ \chi ]\!]_{w} = [\![ \chi ]\!]_{w \diamond p}$ voor alle $u,w$
+        $\Rightarrow$
+        $[\![ \phi ]\!]_{v} \neq [\![ \phi ]\!]_{v \diamond p}$ voor alle $v$\qedhere
+    \end{enumerate}
 \end{description}
 \end{proof}
 
 \begin{proof}[Bewijs van stelling]
   Stel $\{\neg, \leftrightarrow\}$ is functioneel volledig.
-  Laat $\phi \equiv p \rightarrow q$ met alleen connectieven uit
-  $\{\neg, \leftrightarrow\}$ in $\phi$.
-  Verandering van de waardetoekenning aan $q$ geeft soms een verandering van
-  $\phi$ en soms niet. Contradictie met lemma~\ref{lem:linear}.
+  Laat $\phi$ een welgevormde formule zijn over $\{\mathtt{atoms}, \neg, \leftrightarrow\}$
+  met $\phi \equiv p \rightarrow q$. Dan $[\![ \phi ]\!]_{v} = [\![ \phi ]\!]_{v \diamond p}$
+  voor iedere $v$ met $v(q) = \mathtt{T}$ en
+  $[\![ \phi ]\!]_{v} \neq [\![ \phi ]\!]_{v \diamond p}$
+  voor iedere $v$ met $v(q) = \mathtt{F}$.
+  Dit is in tegenspraak met lemma~\ref{lem:linear}.
 \end{proof}
 
 
