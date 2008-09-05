@@ -1,0 +1,125 @@
+Stelling: {~,<->} is niet functioneel volledig
+
+
+-----------------------------------------------------------------------------
+BEWIJS 1 (G.J.Massey, 1977: "Negation, Material Equivalence, and Conditioned Nonconjunction: Completeness and Duality")
+-----------------------------------------------------------------------------
+
+lemma. phi bevat alleen ~ en <-> en phi' is phi met alle ~ verwijderd. phi == phi' of phi == ~phi'.
+
+bewijs via inductie naar phi:
+
+basisgeval: phi = p, triviaal
+
+inductie: phi = ~psi
+  ih: psi == psi' of psi == ~psi'
+  phi == ~psi' of phi == ~~psi' wat hetzelfde is als
+  phi == ~phi' of phi == phi'
+
+inductie: phi = psi <-> xi
+  ih: psi == psi' of psi == ~psi'
+  ih: xi == xi' of xi == ~xi'
+  gevallen:
+  * phi == psi' <-> xi'    => phi == phi'
+  * phi == ~psi' <-> xi'   => phi == ~phi'
+  * phi == psi' <-> ~xi'   => phi == ~phi'
+  * phi == ~psi' <-> ~xi'  => phi == phi'
+
+stelling. {~, <->} is niet functioneel compleet
+
+bewijs:
+
+v is een fixed-point voor phi <=> phi geeft v als alle atomen in phi v zijn
+
+T is een fixed-point voor alle phi met alleen <->.
+
+Stel ^ is te definieren in termen van {~, <->}. Neem phi == p^q met alleen ~
+en <->. Volgens lemma is p^q == phi' of p^q == ~phi'.
+T is een fixed-point voor p^q en voor phi', dus p^q =!= ~phi'.
+Dus p^q == phi' en p^~q == phi'[~q/q].
+Lemma zegt dat phi'[~q/q] == phi' of phi'[~q/q] == ~phi'.
+T is geen fixed-point voor p^~q en dus niet voor phi'[~q/q]. Maar wel voor phi',
+dus moet phi'[~q/q] == ~phi'.
+Negatie ervoor geeft ~(p^~q) == ~~phi' == p^q, contradictie.
+
+
+-----------------------------------------------------------------------------
+BEWIJS 2
+-----------------------------------------------------------------------------
+
+lemma. phi heeft alleen ~ en <->. Voor ieder atoom in phi geldt een van:
+        * verander de waarde en de waarde van phi verandert altijd
+        * verander de waarde en de waarde van phi verandert nooit
+
+bewijs via inductie naar phi:
+
+basisgeval: phi = p, triviaal
+
+inductie: phi = ~psi
+  direct via ih, verandering van ~psi <=> verandering van phi
+
+inductie: phi = psi <-> xi
+  bekijk atoom p, gevallen volgens ih:
+  * verandering van p verandert psi en xi altijd => verandert phi nooit
+  * verandering van p verandert psi en xi nooit => verandert phi nooit
+  * verandering van p verandert psi altijd en xi nooit => verandert phi altijd
+  * verandering van p verandert psi nooit en xi altijd => verandert phi altijd
+
+stelling. {~, <->} is niet functioneel compleet
+
+bewijs:
+
+laat phi == p->q met alleen ~ en <->. verandering van de waarde van q geeft soms
+een verandering van de waarde van phi (p is T) en soms niet (p is F). contradictie
+met lemma.
+
+
+-----------------------------------------------------------------------------
+BEWIJS 3 (uitgewerkt door roel)
+-----------------------------------------------------------------------------
+
+Bewering:  Alle formules met alleen p, q, ~ en <-> hebben
+            in hun (vierregelige) wh-tafel een even aantal
+            F's en T's.
+
+            Zo'n wh-tafel noem ik even, en ik noem phi even
+            als de wh-tafel van phi even is.
+
+Bewijs: inductie naar formuleopbouw
+
+Basis:  De wh-tafel van p (horizontaal geschreven) is TTFF
+         en die van q is TFTF, in beide gevallen even.
+
+Inductie:
+
+Geval ~:  Stel phi is even, dan ~phi triviaal ook, omdat alleen
+           de T's en F's worden verwisseld.
+
+Geval <->: Stel phi en psi zijn beide even.
+            1. Als phi = TTTT dan phi<->psi = psi, dus even.
+            2. Als phi = FFFF dan phi<->psi = ~psi, dus even.
+            3. Hetzelfde als psi = TTTT of FFFF
+            4. Het geval dat overblijft is dat phi en psi allebei
+               2 F's en 2 T's hebben. Nu is het casuistiek. Als je
+               afziet van de volgorde van de regels zijn er maar 3
+               gevallen:
+               A.  phi = TTFF,  psi = TTFF, phi<->psi = TTTT
+               B.  phi = TTFF,  psi = FFTT, phi<->psi = FFFF
+               C.  phi = TTFF,  psi = TFTF, phi<->psi = TFTF
+               Steeds even!
+               Je kunt de gevallen A, B, C ook in woorden beschrijven:
+               A. De 2  T's van phi en van  psi staan op dezelfde regels.
+               B. De 2 T's van phi staan tegenover de 2 F's van psi
+                  (en omgekeerd).
+               C. Het menggeval: tegenover de T's van phi staan een
+                  T en een F van psi, en idem tegenover de F's van phi.
+
+
+-----------------------------------------------------------------------------
+VERDER LEZEN
+-----------------------------------------------------------------------------
+
+G.J.Massey, 1977: Negation, Material Equivalence, and Conditioned Nonconjunction: Completeness and Duality
+F.J. Pelletier and W.D. Sharp, 1988: On Proving Functional Incompleteness in Symbolic Logic Classes
+F.J. Pelletier and N.M. Martin, 1990: Post's Functional Completeness Theorem
+E. Mendelson, 1970: Boolean Algebra and Switching Circuits
