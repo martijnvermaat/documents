@@ -1,0 +1,86 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsthm}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % Latin modern font family
+
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{theorem}{Stelling}
+
+% Sans-serif fonts
+%\usepackage[T1experimental,lm]{sfmath} % http://dtrx.de/od/tex/sfmath.html
+%\renewcommand{\familydefault}{\sfdefault}
+
+% Some configuration for listings
+\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\newcounter{firstcounter}
+\newcommand{\labelfirst}{(\roman{firstcounter})}
+%\newcommand{\spacingfirst}{\usecounter{firstcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingfirst}{\usecounter{firstcounter}}
+
+\newcounter{secondcounter}
+\newcommand{\labelsecond}{(\arabic{secondcounter})}
+%\newcommand{\spacingsecond}{\usecounter{secondcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingsecond}{\usecounter{secondcounter}}
+
+
+\title{Recursion Theory (UvA 2008-2009)\\
+\normalsize{Exercises Part 1}}
+
+\author{Martijn Vermaat (mvermaat@cs.vu.nl)}
+%\date{Updated 5th December 2005}
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{enumerate}
+
+
+\item % 1
+\begin{quotation}
+  $Sum$ defines a function: $Sum(z, x, y)$ and $Sum(z', x, y) \Rightarrow z = z'$.
+\end{quotation}
+
+\begin{proof}
+Informal, by induction on $y$:
+\begin{description}
+\item{$y = 0$:} Assumptions are $Sum(z, x, 0)$ and $Sum(z', x, 0)$.
+  $Sum(n, n', 0)$ can only be if $n = n'$, hence $z = x = z'$.
+\item{$y = Sn$:} Assumptions are $Sum(z, x, Sn)$ and $Sum(z', x, Sn)$.
+  IH gives that $Sum(p, m, n)$ and $Sum(p', m, n)$ imply $p = p'$.
+  From the assumptions it follows that $Sum(z, x, n)$ and $Sum(z', x, n)$,
+  so $z = z'$.\qedhere
+\end{description}
+\end{proof}
+
+
+\item % 2
+\begin{quotation}
+  $1 + 2 + \ldots + k = \frac{1}{2} k (k + 1)$.
+\end{quotation}
+
+\begin{proof}
+By induction on $k$:
+\begin{description}
+\item{$k = 0$:}
+
+  $0 = \frac{1}{2} 0 (0 + 1)$.
+\item{$k = i + 1$:}
+
+  IH is $1 + 2 + \ldots + i = \frac{1}{2} i (i + 1)$.
+  $1 + 2 + \ldots + i + (i + 1) = \frac{1}{2} i (i + 1) + (i + 1)$.
+\end{description}
+\end{proof}
+
+
+\end{enumerate}
+
+
+\end{document}
