@@ -30,7 +30,7 @@
 \newcommand{\spacingsecond}{\usecounter{secondcounter}}
 
 
-\title{Recursion Theory (UvA 2008-2009)\\
+\title{Recursion Theory (UvA autumn 2008)\\
 \normalsize{Exercises Part 2 -- Martijn Vermaat (mvermaat@cs.vu.nl)}}
 
 %\author{Martijn Vermaat (mvermaat@cs.vu.nl)}
@@ -96,20 +96,20 @@ informal way whenever it is obvious how they fit in the schemes (I)--(V), e.g.
 If two relations (of the same arity) $P$ and $Q$ are primitive recursive, then
 their conjunction is defined by the characteristic function
 \begin{equation*}
-  \lambda \bar{x} \, . \, \chi_{P}(\bar{x}) \cdot \chi_{Q}(\bar{x})
+  \chi^{\wedge}_{P,Q}(\bar{x}) = \chi_{P}(\bar{x}) \cdot \chi_{Q}(\bar{x})
 \end{equation*}
 and hence is primitive recursive.
 
 
 \item % 2
-$\bar{sg}(x) = 0 \lhd (x > 0) \rhd 1$ is primitive recursive:
+$\overline{sg}(x) = 0 \lhd (x > 0) \rhd 1$ is primitive recursive:
 \begin{equation*}
-  \bar{sg}(x) = 1 \dotmin x
+  \overline{sg}(x) = 1 \dotmin x
 \end{equation*}
 
 Now, if $P$ is primitive recursive, then its negation is characterized by
 \begin{equation*}
- \lambda \bar{x} \, . \, (\bar{sg} \circ \chi_P) (\bar{x}) \text{ .}
+  \chi^{\neg}_{P}(\bar{x}) = (\overline{sg} \circ \chi_P) (\bar{x}) \text{ .}
 \end{equation*}
 
 
