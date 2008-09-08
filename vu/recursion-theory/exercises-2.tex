@@ -9,6 +9,8 @@
 \newtheorem*{lemma}{Lemma}
 \newtheorem*{theorem}{Stelling}
 
+\newcommand{\dotmin}{\buildrel\textstyle.\over{\hbox{\vrule height3pt depth0pt width0pt}{\smash-}}}
+
 % Sans-serif fonts
 %\usepackage[T1experimental,lm]{sfmath} % http://dtrx.de/od/tex/sfmath.html
 %\renewcommand{\familydefault}{\sfdefault}
@@ -45,38 +47,104 @@
 
 
 \item % 1
-\begin{quotation}
-  $x \cdot y$ is primitive recursive.
-\end{quotation}
+\begin{enumerate}
+\item $x \cdot y$ is primitive recursive:
 \begin{equation*}
   \lambda (x, y). x \cdot y = P(\lambda x.0,
-                                (\lambda (x, y). x + y) (e^3_1, e^3_2))
+                                (\lambda (x, y). x + y) (e^3_2, e^3_3))
 \end{equation*}
+
+\item $x^y$ is primitive recursive:
+\begin{equation*}
+  \lambda (x, y). x^y = P(S \circ \lambda x.0,
+                          (\lambda (x, y). x \cdot y) (e^3_2, e^3_3)) (e^2_2, e^2_1)
+\end{equation*}
+
+\item $x!$ is primitive recursive:
+\begin{equation*}
+  \lambda x.x! = P(S \circ \lambda x.0,
+                   (\lambda (x, y). x \cdot y) (e^3_2, e^3_3)) (e^1_1, e^1_1)
+\end{equation*}
+
+\item The predecessor function $x \dotmin 1$ is primitive recursive:
+\begin{equation*}
+  \lambda x.x \dotmin 1 = P(\lambda x.0,
+                            e^3_1) (e^1_1, e^1_1)
+\end{equation*}
+
+\item The monus function
+\begin{equation*}
+  x \dotmin y =
+  \begin{cases}
+    x - y & \text{if $x > y$,}\\
+    0     & \text{otherwise}
+  \end{cases}
+\end{equation*}
+is primitive recursive:
+\begin{equation*}
+  \lambda (x, y).x \dotmin y = P(e^1_1, (\lambda x.x \dotmin 1) (e^3_2)) (e^2_2, e^2_1)
+\end{equation*}
+\end{enumerate}
+
+From now on, we might write down our primitive recursive definitions in a more
+informal way whenever it is obvious how they fit in the schemes (I)--(V), e.g.
+\begin{align*}
+  x \dotmin 0       &= x\\
+  x \dotmin (y + 1) &= (x \dotmin y) \dotmin 1
+\end{align*}
+
+If two relations (of the same arity) $P$ and $Q$ are primitive recursive, then
+their conjunction is defined by the characteristic function
+\begin{equation*}
+  \lambda \bar{x} \, . \, \chi_{P}(\bar{x}) \cdot \chi_{Q}(\bar{x})
+\end{equation*}
+and hence is primitive recursive.
 
 
 \item % 2
-\begin{quotation}
-  $x^y$ is primitive recursive.
-\end{quotation}
+$\bar{sg}(x) = 0 \lhd (x > 0) \rhd 1$ is primitive recursive:
 \begin{equation*}
-  \lambda (x, y). x^y = P(S \circ \lambda x.0,
-                          (\lambda (x, y). x \cdot y) (e^3_1, e^3_2)) (e^2_2, e^2_1)
+  \bar{sg}(x) = 1 \dotmin x
+\end{equation*}
+
+Now, if $P$ is primitive recursive, then its negation is characterized by
+\begin{equation*}
+ \lambda \bar{x} \, . \, (\bar{sg} \circ \chi_P) (\bar{x}) \text{ .}
 \end{equation*}
 
 
 \item % 3
-\begin{quotation}
-  $x!$ is primitive recursive.
-\end{quotation}
+Definition by cases is primitive recursive. Let $g_1, \ldots g_n$ be primitive
+recursive functions, and $R_1, \ldots R_n$ mutually exclusive primitive
+recursive relations, then
 \begin{equation*}
-  \lambda x.x! = P(S \circ \lambda x.0,
-                   (\lambda (x, y). x \cdot y) (e^3_1, e^3_2)) (e^1_1, e^1_1)
+  f(\bar{x}) = \sum^i_{1 \ldots n} \, \chi_{R_i} \, \cdot \, g_i(\bar{x})
 \end{equation*}
-From now on, we might write down our primitive recursive definitions in a more
-informal way whenever it is obvious how it fits in the schemes (I)-(V), e.g.
+is primitive recursive.
+
+
+\item % 4
+If $f$ is primitive recursive, then so are $\prod_{y < x} f(y, \bar{x})$:
 \begin{align*}
-  0!     &= S \circ \lambda x.0\\
-  (x+1)! &=
+  \textstyle{\prod_{y < 0}} f(y, \bar{x})     &= 1\\
+  \textstyle{\prod_{y < (x + 1)}} f(y, \bar{x}) &= \textstyle{\prod_{y < x}} f(y, \bar{x}) \, \cdot \, f(x, \bar{x})
+\end{align*}
+and $\sum_{y < x} f(y, \bar{x})$:
+\begin{align*}
+  \textstyle{\sum_{y < 0}} f(y, \bar{x})     &= 0\\
+  \textstyle{\sum_{y < (x + 1)}} f(y, \bar{x}) &= \textstyle{\sum_{y < x}} f(y, \bar{x}) \, + \, f(x, \bar{x})
+\end{align*}
+
+
+\item % 5
+If $R$ is primitive recursive, then so is $\forall y \! < \! z \, R(y, \bar{x})$, characterized by:
+\begin{equation*}
+  \chi^{\forall}_{R,z}(\bar{x}) = \textstyle{\prod_{y < z}} \, \chi_R(y, \bar{x}) \text{ .}
+\end{equation*}
+Likewise for $\exists y \! < \! z \, R(y, \bar{x})$, characterized by:
+\begin{equation*}
+  \chi^{\exists}_{R,z}(\bar{x}) = \textstyle{\exists_{y < z}} \, \chi_R(y, \bar{x}) \text{ .}
+\end{equation*}
 
 
 \end{enumerate}
