@@ -46,12 +46,37 @@
 
 \item % 1
 \begin{quotation}
-  $\lambda (x, y). x \cdot y$ is primitive recursive.
+  $x \cdot y$ is primitive recursive.
 \end{quotation}
+\begin{equation*}
+  \lambda (x, y). x \cdot y = P(\lambda x.0,
+                                (\lambda (x, y). x + y) (e^3_1, e^3_2))
+\end{equation*}
 
-\begin{proof}
-Take $\lambda (x, y). x \cdot y = P(\lambda x.0, (\lambda (x, y). x + y) (e^{3}_{1}, e^{3}_{2}))$.
-\end{proof}
+
+\item % 2
+\begin{quotation}
+  $x^y$ is primitive recursive.
+\end{quotation}
+\begin{equation*}
+  \lambda (x, y). x^y = P(S \circ \lambda x.0,
+                          (\lambda (x, y). x \cdot y) (e^3_1, e^3_2)) (e^2_2, e^2_1)
+\end{equation*}
+
+
+\item % 3
+\begin{quotation}
+  $x!$ is primitive recursive.
+\end{quotation}
+\begin{equation*}
+  \lambda x.x! = P(S \circ \lambda x.0,
+                   (\lambda (x, y). x \cdot y) (e^3_1, e^3_2)) (e^1_1, e^1_1)
+\end{equation*}
+From now on, we might write down our primitive recursive definitions in a more
+informal way whenever it is obvious how it fits in the schemes (I)-(V), e.g.
+\begin{align*}
+  0!     &= S \circ \lambda x.0\\
+  (x+1)! &=
 
 
 \end{enumerate}
