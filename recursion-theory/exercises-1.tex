@@ -45,27 +45,57 @@
 
 
 \item % 1
-\begin{quotation}
-  $Sum$ defines a function: $Sum(z, x, y)$ and $Sum(z', x, y) \Rightarrow z = z'$.
-\end{quotation}
+Using Peano's axioms, prove that the predicate $Sum$,
+\begin{equation*}
+  Sum(z, x, y) \leftrightarrow \forall R \, ( \forall x \, R(x, x, 0) \wedge \forall x y z \, (R(z, x, y) \rightarrow R(Sz, x, Sy)) ) \rightarrow R(z, x, y) ) \text{ ,}
+\end{equation*}
+defines a function: $Sum(z, x, y) \wedge Sum(z', x, y) \rightarrow z = z'$ .
 
 \begin{proof}
-Informal, by induction on $y$:
+By induction on $y$. Let
+\begin{equation*}
+  Y = \{ y \in \mathbb{N} \text{ : } \forall x z z' \: Sum(z, x, y) \wedge Sum(z', x, y) \rightarrow z = z' \} \text{ .}
+\end{equation*}
+
+We will prove that $Y$ contains exactly Peano's natural numbers. What is
+left to prove is thus $\mathbb{N} \subseteq Y$.
+
+Define
+\begin{equation*}
+  A = \{ R \subseteq \mathbb{N}^3 \text{ : } \forall x \, R(x, x, 0) \wedge \forall x y z \, (R(z, x, y) \rightarrow R(Sz, x, Sy)) \} \text{ .}
+\end{equation*}
+
 \begin{description}
-\item{$y = 0$:} Assumptions are $Sum(z, x, 0)$ and $Sum(z', x, 0)$.
-  $Sum(n, n', 0)$ can only be if $n = n'$, hence $z = x = z'$.
-\item{$y = Sn$:} Assumptions are $Sum(z, x, Sn)$ and $Sum(z', x, Sn)$.
-  IH gives that $Sum(p, m, n)$ and $Sum(p', m, n)$ imply $p = p'$.
-  From the assumptions it follows that $Sum(z, x, n)$ and $Sum(z', x, n)$,
-  so $z = z'$.\qedhere
+\item{$0 \in Y$:} Suppose $Sum(z, x, 0) \wedge Sum(z', x, 0)$.
+  Assuming $z \neq x$ (or $z' \neq x$ symmetrically) rises a contradition --
+  let $R = \mathbb{N}^3 \setminus \{ (z, x, 0) \}$, then $R \in A$ and
+  $Sum(z, x, 0)$ implies $R(z, x, 0)$.
+
+  Now $z = x = z'$ concludes the base case.
+
+\item{$y \in Y \Rightarrow Sy \in Y$:} Suppose $y \in Y$ and
+  $Sum(z, x, Sy) \wedge Sum(z', x, Sy)$.
+  Assuming $\neg \exists a \, z = Sa$ (likewise for $z'$) rises a
+  contradiction (consider $R = \mathbb{N}^3 \setminus \{ (z, x, Sy) \}$,
+  argue as in the base case above).
+
+  So there are $a, a'$ such that $z = Sa$ and $z' = Sa'$.
+  If $\neg Sum(a, x, y)$, then there exists an $R \in A$ with
+  $(a, x, y) \notin R$.
+  This shows a contradiction (consider $R \setminus \{ (z, x, Sy) \}$).
+  Analoguous for $a'$.
+
+  We conclude $Sum(a, x, y) \wedge Sum(a', x, y)$ and by the induction
+  hypothesis $y \in Y$ we get $a = a'$.
+  Hence $z = Sa = Sa' = z'$.
 \end{description}
+
+Now $\mathbb{N} \subseteq Y$ follows from Peano axiom (V).
 \end{proof}
 
 
 \item % 2
-\begin{quotation}
-  $1 + 2 + \ldots + k = \frac{1}{2} k (k + 1)$.
-\end{quotation}
+Show $1 + 2 + \ldots + k = \frac{1}{2} k (k + 1)$ .
 
 \begin{proof}
 By induction on $k$:
