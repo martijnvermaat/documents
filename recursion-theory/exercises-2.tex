@@ -107,10 +107,8 @@ $\overline{sg}(x) = 0 \lhd (x > 0) \rhd 1$ is primitive recursive:
   \overline{sg}(x) = 1 \dotmin x
 \end{equation*}
 
-Now, if $P$ is primitive recursive, then its negation is characterized by
-\begin{equation*}
-  \chi^{\neg}_{P}(\bar{x}) = (\overline{sg} \circ \chi_P) (\bar{x}) \text{ .}
-\end{equation*}
+Now, if $P$ is primitive recursive, then its negation is primitive recursive
+and characterized by $\overline{sg} \circ \chi_P$.
 
 
 \item % 3
@@ -118,7 +116,7 @@ Definition by cases is primitive recursive. Let $g_1, \ldots g_n$ be primitive
 recursive functions, and $R_1, \ldots R_n$ mutually exclusive primitive
 recursive relations, then
 \begin{equation*}
-  f(\bar{x}) = \sum^i_{1 \ldots n} \, \chi_{R_i} \, \cdot \, g_i(\bar{x})
+  f(\bar{x}) = \sum^n_{i = 1} \, \chi_{R_i} \, \cdot \, g_i(\bar{x})
 \end{equation*}
 is primitive recursive.
 
@@ -148,8 +146,8 @@ Likewise for $\exists y \! < \! z \, R(y, \bar{x})$, characterized by
 
 Furthermore, if $R$ is primitive recursive, then so is $\lambda \bar{x}. \mu y \! < \! z R(y, \bar{x})$:
 \begin{align*}
-  \lambda \bar{x}. \mu y \! < \! 0 R(y, \bar{x})             &= 0\\
-  \lambda \bar{x}. \mu y \! < \! (z \! + \! 1) R(y, \bar{x}) &=
+  \mu y \! < \! 0 R(y, \bar{x})             &= 0\\
+  \mu y \! < \! (z \! + \! 1) R(y, \bar{x}) &=
   \begin{cases}
     \mu y \! < \! z R(y, \bar{x}) & \text{if $\mu y \! < \! z R(y, \bar{x}) < z$ ,}\\
                                   & \text{otherwise:}\\
@@ -159,6 +157,39 @@ Furthermore, if $R$ is primitive recursive, then so is $\lambda \bar{x}. \mu y \
     \end{cases}
   \end{cases}
 \end{align*}
+
+An alternative approach: Let $\chi_{\overline{mon}R}$ be the characteristic function of the
+primitive recursive relation $\forall y \! \leq \! z \neg R(y, \bar{x})$.
+Effectively, this takes $\chi_R$, makes it monotone in its first argument,
+and inverses the result.
+
+Now we have
+\begin{equation*}
+  \mu y \! \leq \! z R(y, \bar{x}) = \sum^{z}_{y=0} \chi_{\overline{mon}R}(y, \bar{x}) \text{ ,}
+\end{equation*}
+which uses $\leq$ instead of $<$, but this can be cured with some fiddling.
+
+
+\item % 6
+The set of primes is primitive recursive:
+\begin{equation*}
+  Prime(x) \quad \Leftrightarrow \quad
+  x \text{ is prime } \quad \Leftrightarrow \quad
+  x \neq 0 \, \wedge \, \forall y z \! \leq \! x \: (y \! \cdot \! z = x \, \rightarrow \, y = 1 \vee z = 1) \text{ .}
+\end{equation*}
+
+Let $p_i$ be the $i^{\text{th}}$ prime number starting with $p_0 = 2$.
+This function is primitive recursive:
+\begin{align*}
+  p_0    &= 2 \\
+  p_{x+1} &= \mu p \! < \! 2 \! \cdot \! p_x \: (Prime(p) \wedge p > p_x) \text{ .}
+\end{align*}
+
+
+A sequence $(k_0, \ldots k_{m\!-\!1})$ is coded by the number $\prod_{i<m} p_i^{k_i+1}$.
+If $n$ is the code for a sequence (of at least length $i-1$), the projection
+$(n)_i$ gives us the $i^\text{th}$ number of the sequence.
+The projection function is primitive recursive:
 
 
 \end{enumerate}
