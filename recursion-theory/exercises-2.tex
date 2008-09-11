@@ -137,14 +137,28 @@ and $\sum_{y < x} f(y, \bar{x})$:
 
 
 \item % 5
-If $R$ is primitive recursive, then so is $\forall y \! < \! z \, R(y, \bar{x})$, characterized by:
+If $R$ is primitive recursive, then so is $\forall y \! < \! z \, R(y, \bar{x})$, characterized by
 \begin{equation*}
   \chi^{\forall}_{R,z}(\bar{x}) = \textstyle{\prod_{y < z}} \, \chi_R(y, \bar{x}) \text{ .}
 \end{equation*}
-Likewise for $\exists y \! < \! z \, R(y, \bar{x})$, characterized by:
+Likewise for $\exists y \! < \! z \, R(y, \bar{x})$, characterized by
 \begin{equation*}
   \chi^{\exists}_{R,z}(\bar{x}) = sg( \textstyle{\sum_{y < z}} \, \chi_R(y, \bar{x}) ) \text{ , where } sg = \overline{sg} \circ \overline{sg} \text{ .}
 \end{equation*}
+
+Furthermore, if $R$ is primitive recursive, then so is $\lambda \bar{x}. \mu y \! < \! z R(y, \bar{x})$:
+\begin{align*}
+  \lambda \bar{x}. \mu y \! < \! 0 R(y, \bar{x})             &= 0\\
+  \lambda \bar{x}. \mu y \! < \! (z \! + \! 1) R(y, \bar{x}) &=
+  \begin{cases}
+    \mu y \! < \! z R(y, \bar{x}) & \text{if $\mu y \! < \! z R(y, \bar{x}) < z$ ,}\\
+                                  & \text{otherwise:}\\
+    \begin{cases}
+       z     & \text{if $R(z, \bar{x})$ ,}\\
+       z + 1 & \text{otherwise.}
+    \end{cases}
+  \end{cases}
+\end{align*}
 
 
 \end{enumerate}
