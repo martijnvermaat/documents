@@ -1,0 +1,124 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsthm}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % Latin modern font family
+
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{theorem}{Stelling}
+
+\newcommand{\dotmin}{\buildrel\textstyle.\over{\hbox{\vrule height3pt depth0pt width0pt}{\smash-}}}
+
+% Sans-serif fonts
+%\usepackage[T1experimental,lm]{sfmath} % http://dtrx.de/od/tex/sfmath.html
+%\renewcommand{\familydefault}{\sfdefault}
+
+% Some configuration for listings
+\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\newcounter{firstcounter}
+\newcommand{\labelfirst}{(\roman{firstcounter})}
+%\newcommand{\spacingfirst}{\usecounter{firstcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingfirst}{\usecounter{firstcounter}}
+
+\newcounter{secondcounter}
+\newcommand{\labelsecond}{(\arabic{secondcounter})}
+%\newcommand{\spacingsecond}{\usecounter{secondcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingsecond}{\usecounter{secondcounter}}
+
+
+\title{Recursion Theory (UvA autumn 2008)\\
+\normalsize{Exercises Part 3 -- Martijn Vermaat (mvermaat@cs.vu.nl)}}
+
+%\author{Martijn Vermaat (mvermaat@cs.vu.nl)}
+%\date{Updated 5th December 2005}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{enumerate}
+
+
+\item % 1
+\begin{enumerate}
+\item Turing program computing $\lambda x.0$:
+
+\begin{quote}
+\begin{tabular}{ccccc}
+  $q_1$ & $1$ & $q_1$ & $B$ & $R$\\
+  $q_1$ & $B$ & $q_0$ & $B$ & $R$
+\end{tabular}
+\end{quote}
+
+Just erase the input number.
+
+\item Turing program computing $\lambda x.k$:
+
+\begin{quote}
+\begin{tabular}{ccccc}
+  $q_1$ & $1$ & $q_1$ & $B$ & $R$\\
+  $q_1$ & $B$ & $q_2$ & $1$ & $R$\\
+  \vdots & \vdots & \vdots & \vdots & \vdots\\
+  $q_i$ & $B$ & $q_{i+1}$ & $1$ & $R$\\
+  \vdots & \vdots & \vdots & \vdots & \vdots\\
+  $q_k$ & $B$ & $q_{k+1}$ & $1$ & $R$\\
+  $q_{k+1}$ & $B$ & $q_0$ & $B$ & $R$
+\end{tabular}
+\end{quote}
+
+Again, erase the input number and write $k$ times
+a $1$.
+
+\item Turing program computing $\lambda x.2x$:
+
+\begin{quote}
+\begin{tabular}{ccccc}
+  $q_1$ & $1$ & $q_2$ & $B$ & $R$\\ % begin van input, verander in B
+  $q_2$ & $B$ & $q_0$ & $B$ & $R$\\ % is dit einde input dan stoppen
+  $q_2$ & $1$ & $q_3$ & $1$ & $R$\\
+  $q_3$ & $B$ & $q_4$ & $B$ & $R$\\ % -> zoek einde input
+  $q_3$ & $1$ & $q_3$ & $1$ & $R$\\
+  $q_4$ & $B$ & $q_5$ & $1$ & $R$\\ % -> zoek einde output en zet er een 1 achter
+  $q_4$ & $1$ & $q_4$ & $1$ & $R$\\
+  $q_5$ & $B$ & $q_6$ & $1$ & $L$\\ % zet er nog een 1 achter
+  $q_6$ & $B$ & $q_7$ & $B$ & $L$\\ % <- zoek einde output
+  $q_6$ & $1$ & $q_6$ & $1$ & $L$\\
+  $q_7$ & $B$ & $q_1$ & $B$ & $R$\\ % <- zoek einde input
+  $q_7$ & $1$ & $q_7$ & $1$ & $L$
+\end{tabular}
+\end{quote}
+
+For every $1$ in the input, erase it and append $11$ to
+the output (which we place to the right of the input).
+
+\item Turing program computing $\lambda x y.x+y$:
+
+\begin{quote}
+\begin{tabular}{ccccc}
+  $q_1$ & $B$ & $q_2$ & $1$ & $R$\\ % zoek einde x en zet er een 1 achter
+  $q_1$ & $1$ & $q_1$ & $1$ & $R$\\
+  $q_2$ & $B$ & $q_3$ & $B$ & $L$\\ % zoek einde y
+  $q_2$ & $1$ & $q_2$ & $1$ & $R$\\
+  $q_3$ & $1$ & $q_4$ & $B$ & $L$\\ % <- haal een 1 weg
+  $q_4$ & $1$ & $q_5$ & $B$ & $L$\\ % <- haal een 1 weg
+  $q_5$ & $1$ & $q_0$ & $B$ & $L$   % <- haal een 1 weg
+\end{tabular}
+\end{quote}
+
+Write a $1$ over the $B$ in between inputs $x$ and $y$. Then, starting
+from the right of the second input, erase three $1$'s.
+\end{enumerate}
+
+
+\end{enumerate}
+
+
+\end{document}

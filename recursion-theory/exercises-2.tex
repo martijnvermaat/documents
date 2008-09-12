@@ -194,6 +194,12 @@ The projection function is primitive recursive:
   (n)_i \quad = \quad \mu x \! < \! n \; ( \exists y \! < \! n \; p_i^{x+1} \cdot y = n ) \wedge \neg ( \exists y \! < \! n \; p_i^{x+2} \cdot y = n )
 \end{equation*}
 
+Actually, Soare defines $(n)_i$ to return $k_i+1$ if $k_i$ is
+the $i^{\text{th}}$ number in the sequence coded by $n$. Substituting $x$ and
+$x+1$ for $x+1$ and $x+2$ respectively in the above definition makes it
+conforming to Soare's. However, in that case we only have unique
+sequence codes if we disallow zero's in sequences.
+
 
 \end{enumerate}
 
