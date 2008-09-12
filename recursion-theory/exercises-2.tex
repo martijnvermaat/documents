@@ -182,7 +182,7 @@ Let $p_i$ be the $i^{\text{th}}$ prime number starting with $p_0 = 2$.
 This function is primitive recursive:
 \begin{align*}
   p_0    &= 2 \\
-  p_{x+1} &= \mu p \! < \! 2 \! \cdot \! p_x \: (Prime(p) \wedge p > p_x) \text{ .}
+  p_{x+1} &= \mu p \! < \! 2 \! \cdot \! p_x \: (Prime(p) \wedge p > p_x)
 \end{align*}
 
 
@@ -190,6 +190,9 @@ A sequence $(k_0, \ldots k_{m\!-\!1})$ is coded by the number $\prod_{i<m} p_i^{
 If $n$ is the code for a sequence (of at least length $i-1$), the projection
 $(n)_i$ gives us the $i^\text{th}$ number of the sequence.
 The projection function is primitive recursive:
+\begin{equation*}
+  (n)_i \quad = \quad \mu x \! < \! n \; ( \exists y \! < \! n \; p_i^{x+1} \cdot y = n ) \wedge \neg ( \exists y \! < \! n \; p_i^{x+2} \cdot y = n )
+\end{equation*}
 
 
 \end{enumerate}
