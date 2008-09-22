@@ -148,6 +148,7 @@ Define
   argue as in the base case above).
 
   So there are $v, v'$ such that $z = v\!+\!x$ and $z' = v'\!+\!x$.
+  They are unique (proved seperately below).
   If $\neg Mul(v, x, y)$, then there exists an $R \in A$ with
   $(v, x, y) \notin R$.
   This shows a contradiction (consider $R \setminus \{ (z, x, Sy) \}$).
@@ -159,6 +160,40 @@ Define
 \end{description}
 
 Now $\mathbb{N} \subseteq Y$ follows from Peano axiom (V).
+\end{proof}
+
+
+\item % 4
+Prove that the predicate $Sum$ is functional in its second argument.
+
+\begin{proof}
+Similar to and easier than functionality in the first argument, but we
+will sketch it anyway. By induction on $y$. Let
+\begin{equation*}
+  Y = \{ y \in \mathbb{N} \text{ : } \forall x x' z \: Sum(z, x, y) \wedge Sum(z, x', y) \rightarrow x = x' \} \text{ .}
+\end{equation*}
+
+We prove $\mathbb{N} \subseteq Y$.
+
+\begin{description}
+\item{$0 \in Y$:} Suppose $Sum(z, x, 0) \wedge Sum(z, x', 0)$.
+  Assuming $z \neq x$ (or $z \neq x'$) rises a contradiction
+  (consider $\mathbb{N}^3 \setminus \{ (z, x, 0) \}$).
+  Hence $x = z = x'$.
+
+\item{$y \in Y \Rightarrow Sy \in Y$:} Suppose $y \in Y$ and
+  $Sum(z, x, Sy) \wedge Sum(z, x', Sy)$.
+  Assuming $\neg \exists a \, z = Sa$ rises a contradiction
+  (consider $R = \mathbb{N}^3 \setminus \{ (z, x, Sy) \}$).
+
+  So there is a, unique by axiom (III), $a$ such that $z = Sa$.
+  Now $\neg Sum(a, x, y)$ would lead to
+  a contradiction (consider some $R$ with $(a, x, y) \notin R$).
+
+  Therefore, from $Sum(a, x, y) \wedge Sum(a, x', y)$ and the IH,
+  we get $x = x'$.\qedhere
+\end{description}
+
 \end{proof}
 
 
