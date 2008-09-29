@@ -93,6 +93,30 @@ proof does not carry over to 1-reducibility.
 \item % 3
 Prove that $K_0$, $K_1$ and $K$ are 1-equivalent.
 
+\begin{proof}
+\begin{enumerate}
+\item We have $K \leq_1 K_0$ via $f(x) = \langle x,x \rangle$.
+\item Let
+  \begin{equation*}
+    \psi(x, y) = \begin{cases}
+      1        & \text{if $x \in K_0$ ,}\\
+      \uparrow & \text{otherwise}
+    \end{cases}
+  \end{equation*}
+  like in the proof of Soare's Theorem 1.5.10.
+  Take an $e$ with $\phi_e = \psi$.
+  By the $s$-$m$-$n$ Theorem, there exists a 1-1 computable function $s^1_1$ such that
+  $\phi_{s^1_1(e, x)} = \lambda y. \psi(x, y)$. Then, $f(x) = s^1_1(e, x)$ reduces $K_0$
+  to $K_1$ (and is 1-1):
+  \begin{align*}
+    x \in K_0 \quad \Rightarrow \quad \phi_{f(x)} = \lambda y.1 \quad \Rightarrow \quad W_{f(x)} \neq \emptyset \quad \Rightarrow \quad x \in K_1\\
+    x \notin K_0 \quad \Rightarrow \quad \phi_{f(x)} = \lambda y.\uparrow \quad \Rightarrow \quad W_{f(x)} = \emptyset \quad \Rightarrow \quad x \notin K_1
+  \end{align*}
+\item We have $K_1 \leq_1 K$ by almost the same argument.
+\end{enumerate}
+Now $K_0 \equiv K_1 \equiv K$ follows from transitivity of $\leq_1$.
+\end{proof}
+
 
 \end{enumerate}
 
