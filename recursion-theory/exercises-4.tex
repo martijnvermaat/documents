@@ -1,0 +1,100 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsthm}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % Latin modern font family
+
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{theorem}{Stelling}
+
+\newcommand{\dotmin}{\buildrel\textstyle.\over{\hbox{\vrule height3pt depth0pt width0pt}{\smash-}}}
+
+% Sans-serif fonts
+%\usepackage[T1experimental,lm]{sfmath} % http://dtrx.de/od/tex/sfmath.html
+%\renewcommand{\familydefault}{\sfdefault}
+
+% Some configuration for listings
+\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\newcounter{firstcounter}
+\newcommand{\labelfirst}{(\roman{firstcounter})}
+%\newcommand{\spacingfirst}{\usecounter{firstcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingfirst}{\usecounter{firstcounter}}
+
+\newcounter{secondcounter}
+\newcommand{\labelsecond}{(\arabic{secondcounter})}
+%\newcommand{\spacingsecond}{\usecounter{secondcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingsecond}{\usecounter{secondcounter}}
+
+
+\title{Recursion Theory (UvA autumn 2008)\\
+\normalsize{Exercises Part 4 -- Martijn Vermaat (mvermaat@cs.vu.nl)}}
+
+%\author{Martijn Vermaat (mvermaat@cs.vu.nl)}
+%\date{Updated 5th December 2005}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{enumerate}
+
+
+\item % 1
+Suppose $B = A \oplus \overline{A}$ for some set $A \subset \omega$. Prove $B \leq_1 \overline{B}$.
+
+\begin{proof}
+Note that $\overline{B} = \overline{A} \oplus A$. Then,
+\begin{equation*}
+  f(x) = \begin{cases}
+    x + 1 & \text{if $x$ is even,}\\
+    x - 1 & \text{if $x$ is odd}
+  \end{cases}
+\end{equation*}
+reduces $B$ to $\overline{B}$ (and is 1-1).
+\end{proof}
+
+
+\item % 2
+Prove that $deg_m(A \oplus B) = deg_m(A) \vee deg_m(B)$, thus that the $m$-degree of $A \oplus B$
+is the least upper bound of the $m$-degrees of $A$ and $B$.
+
+We must prove two things:
+
+\begin{enumerate}
+\item $A \leq_m A \oplus B$ and $B \leq_m A \oplus B$.
+\begin{proof}
+$f_A(x) = 2x$ and $f_B(x) = 2x + 1$ reduce $A$, respectively $B$, to $A \oplus B$.
+\end{proof}
+
+\item If $A \leq_m C$ and $B \leq_m C$ then $A \oplus B \leq_m C$.
+\begin{proof}
+Let $\phi_A$ reduce $A$ to $C$ and $\phi_B$ reduce $B$ to $C$. Then
+\begin{equation*}
+  \psi(x) = \begin{cases}
+    \phi_A(\frac{x}{2})   & \text{if $x$ is even,}\\
+    \phi_B(\frac{x-1}{2}) & \text{if $x$ is odd}
+  \end{cases}
+\end{equation*}
+reduces $A \oplus B$ to $C$.
+\end{proof}
+\end{enumerate}
+Note that in (a), the constructed $\psi$ is in general not injective, so the
+proof does not carry over to 1-reducibility.
+
+
+\item % 3
+Prove that $K_0$, $K_1$ and $K$ are 1-equivalent.
+
+
+\end{enumerate}
+
+
+\end{document}
