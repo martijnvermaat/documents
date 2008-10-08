@@ -1,0 +1,83 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsthm}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % Latin modern font family
+\usepackage{enumitem}
+\usepackage{fitch} % http://folk.uio.no/johanw/FitchSty.html
+
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{theorem}{Stelling}
+
+\newcommand{\dotmin}{\buildrel\textstyle.\over{\hbox{\vrule height3pt depth0pt width0pt}{\smash-}}}
+
+% Sans-serif fonts
+%\usepackage[T1experimental,lm]{sfmath} % http://dtrx.de/od/tex/sfmath.html
+%\renewcommand{\familydefault}{\sfdefault}
+
+% Some configuration for listings
+\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\newcounter{firstcounter}
+\newcommand{\labelfirst}{(\roman{firstcounter})}
+%\newcommand{\spacingfirst}{\usecounter{firstcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingfirst}{\usecounter{firstcounter}}
+
+\newcounter{secondcounter}
+\newcommand{\labelsecond}{(\arabic{secondcounter})}
+%\newcommand{\spacingsecond}{\usecounter{secondcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingsecond}{\usecounter{secondcounter}}
+
+
+\title{Recursion Theory (UvA autumn 2008)\\
+\normalsize{Exercises Part 6 -- Martijn Vermaat (mvermaat@cs.vu.nl)}}
+
+%\author{Martijn Vermaat (mvermaat@cs.vu.nl)}
+%\date{Updated 5th December 2005}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{enumerate}[leftmargin=*,label=\textbf{Exercise 26}]
+
+
+\item
+\begin{enumerate}[start=4,label=(\roman*)]
+
+\item
+Show that the term $x_1 \cdot x_2$ represents multiplication, thus
+\begin{align*}
+  n_1 \text{ times } n_2 \text{ equals } m \quad \Longrightarrow \quad N \vdash \underline{n_1} \cdot \underline{n_2} = \underline{m} \text{ .}
+\end{align*}
+
+By induction on $n_2$:
+\begin{description}[leftmargin=1cm,style=nextline]
+\item[Case $n_2 = 0$]
+  We must show $N \vdash \underline{n_1} \cdot \underline{0} = \underline{0}$.
+  Substitute $\underline{n_1}$ for $x$ in $\mathbf{N5}$.
+\item[Case $n_2 + 1$]
+  \begin{equation*}
+    \begin{fitch}
+      \underline{n_1} \cdot S\underline{n_2} = (\underline{n_1} \cdot \underline{n_2}) + \underline{n_1} & subs $\mathbf{N6}$ \\ % 1
+      \underline{n_1} \cdot \underline{n_2} = \underline{m - n_1}                                        & IH \\ % 2
+      \underline{n_1} \cdot S\underline{n_2} = \underline{m - n_1} + \underline{n_1}                     & subs 1, 2 \\ % 1
+      \underline{n_1} \cdot S\underline{n_2} = \underline{m}                                             & subs 3, \textbf{26}(iii) \\ % 1
+    \end{fitch}
+  \end{equation*}
+\end{description}
+
+\end{enumerate}
+
+
+\end{enumerate}
+
+
+\end{document}
