@@ -1,0 +1,105 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsthm}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % Latin modern font family
+\usepackage{enumitem}
+
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{theorem}{Stelling}
+
+\newcommand{\dotmin}{\buildrel\textstyle.\over{\hbox{\vrule height3pt depth0pt width0pt}{\smash-}}}
+
+% Sans-serif fonts
+%\usepackage[T1experimental,lm]{sfmath} % http://dtrx.de/od/tex/sfmath.html
+%\renewcommand{\familydefault}{\sfdefault}
+
+% Some configuration for listings
+\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\newcounter{firstcounter}
+\newcommand{\labelfirst}{(\roman{firstcounter})}
+%\newcommand{\spacingfirst}{\usecounter{firstcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingfirst}{\usecounter{firstcounter}}
+
+\newcounter{secondcounter}
+\newcommand{\labelsecond}{(\arabic{secondcounter})}
+%\newcommand{\spacingsecond}{\usecounter{secondcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingsecond}{\usecounter{secondcounter}}
+
+
+\title{Recursion Theory (UvA autumn 2008)\\
+\normalsize{Exercises Part 5 -- Martijn Vermaat (mvermaat@cs.vu.nl)}}
+
+%\author{Martijn Vermaat (mvermaat@cs.vu.nl)}
+%\date{Updated 5th December 2005}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{enumerate}[leftmargin=*,start=8,label=\textbf{Exercise 1.6.\arabic*}]
+
+
+\item
+\begin{enumerate}[label=(\alph*)]
+
+\item
+For $f_1(x)$, if $x$ is the index of a partial computable function, take
+$z$ such that $\varphi_z = \varphi_{f(x)}$
+and return it if it is not equal to $f_1(y)$ for all $y < x$.
+Repeat this if necessary.
+If $x$ is not such an index, return a number that is not equal to $f_1(y)$ for
+all $y < x$.
+
+The padding lemma says we can effectively find infinitely
+many such $z$'s and since there are only finitely many $y < x$ we will find
+a result. This makes $f_1$ (total) computable. It is also obviously injective.
+
+\item
+?
+
+\end{enumerate}
+
+
+\item
+\begin{enumerate}[label=\arabic*.]
+\item Take any $\varphi_e$.
+If $\varphi_e(0)\downarrow$, we have $\varphi_e = \psi_{\langle \varphi_e(0)+1, e \rangle}$.
+Otherwise, $\varphi_e = \psi_{\langle 0, e \rangle}$.
+This shows $\{\psi_n\}_{n \in \omega} = \mathcal{P}$.
+
+\item Suppose $\psi$ is acceptable.
+There is a computable function $g$, such that $\psi_{g(x)} = \varphi_x$.
+We show $K_0 \leq_1 A$ with $A = \{x \text{ : } \pi_1(g(x)) \neq 0 \}$.
+Let
+\begin{align*}
+  \gamma(x, y) = \begin{cases}
+    1        & \text{if $x \in K_0$ ,}\\
+    \uparrow & \text{otherwise}
+  \end{cases}
+\end{align*}
+like $\psi$ in the proof of Theorem 1.5.10.
+
+Take $f(x) = s^1_1(e, x)$ such that $\varphi_e = \gamma$.
+Then
+\begin{align*}
+  x \in K_0 \quad \Rightarrow \quad \varphi_{f(x)} = \lambda y.1 \quad \Rightarrow \quad \pi_1(g(f(x))) \neq 0 \quad \Rightarrow \quad f(x) \in A \text{ ,}\\
+  x \notin K_0 \quad \Rightarrow \quad \varphi_{f(x)} = \lambda y.\uparrow \quad \Rightarrow \quad \pi_1(g(f(x))) = 0 \quad \Rightarrow \quad f(x) \notin A \text{ .}
+\end{align*}
+But since $A$ is computable, $K_0$ is computable.
+This is in contradiction with Corollary 1.5.6 ($K_0$ is not computable), hence $\psi$ is not acceptable.
+\end{enumerate}
+
+
+\end{enumerate}
+
+
+\end{document}
