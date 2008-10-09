@@ -70,13 +70,22 @@ By induction on $n_2$:
       \underline{n_1} \cdot S\underline{n_2} = (\underline{n_1} \cdot \underline{n_2}) + \underline{n_1} & subs $\mathbf{N6}$ \\ % 1
       \underline{n_1} \cdot \underline{n_2} = \underline{m - n_1}                                        & IH \\ % 2
       \underline{n_1} \cdot S\underline{n_2} = \underline{m - n_1} + \underline{n_1}                     & subs 1, 2 \\ % 1
-      \underline{n_1} \cdot S\underline{n_2} = \underline{m}                                             & subs 3, \textbf{26}(iii) \\ % 1
+      \underline{n_1} \cdot S\underline{n_2} = \underline{m}                                             & subs 3, \textbf{26(iii)} \\ % 1
     \end{fitch}
   \end{equation*}
 \end{description}
 
 \item[(vi)]
 Show that if $n_1 < n_2$, then $N \vdash \underline{n_1} \neq x_0 + \underline{n_2}$.
+We ignore representability of $<$ and note that $n_2 = n_1 + n_3 + 1$ for some $n_3$.
+  \begin{equation*}
+    \begin{fitch}
+      \fh \underline{n_1} = x_0 + \underline{n_2}          & ass \\ % 1
+      \fa \underline{n_1} = x_0 + S\underline{n_1 + n_3}   & subs 1, \textbf{26(iii)} \\ % 2
+      \fa \underline{n_1} = S(x_0 + \underline{n_1 + n_3}) & $\mathbf{N4}$ \\ % 3 % TODO: right names for =e and subs, write =e out
+
+    \end{fitch}
+  \end{equation*}
 
 \end{description}
 
