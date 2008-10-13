@@ -59,18 +59,18 @@ Show that the term $x_1 \cdot x_2$ represents multiplication, thus
 \end{align*}
 
 By induction on $n_2$:
-\begin{description}[leftmargin=1cm,style=nextline]
-\item[Case $n_2 = 0$]
+\begin{description}
+\item[($n_2 = 0$)]
   We must show $N \vdash \underline{n_1} \cdot \underline{0} = \underline{0}$.
   Substitute $\underline{n_1}$ for $x$ in $\mathbf{N5}$.
-\item[Case $n_2 + 1$]
+\item[($n_2 + 1$)]
   We must show $N \vdash \underline{n_1} \cdot S\underline{n_2} = \underline{m}$.
   \begin{equation*}
     \begin{fitch}
-      \underline{n_1} \cdot S\underline{n_2} = (\underline{n_1} \cdot \underline{n_2}) + \underline{n_1} & subs $\mathbf{N6}$ \\ % 1
+      \underline{n_1} \cdot S\underline{n_2} = (\underline{n_1} \cdot \underline{n_2}) + \underline{n_1} & instance $\mathbf{N6}$ \\ % 1
       \underline{n_1} \cdot \underline{n_2} = \underline{m - n_1}                                        & IH \\ % 2
-      \underline{n_1} \cdot S\underline{n_2} = \underline{m - n_1} + \underline{n_1}                     & subs 1, 2 \\ % 1
-      \underline{n_1} \cdot S\underline{n_2} = \underline{m}                                             & subs 3, \textbf{26(iii)} \\ % 1
+      \underline{n_1} \cdot S\underline{n_2} = \underline{m - n_1} + \underline{n_1}                     & substitution 1, 2 \\ % 3
+      \underline{n_1} \cdot S\underline{n_2} = \underline{m}                                             & substitution 3, \textbf{26(iii)} \\ % 4
     \end{fitch}
   \end{equation*}
 \end{description}
@@ -78,14 +78,72 @@ By induction on $n_2$:
 \item[(vi)]
 Show that if $n_1 < n_2$, then $N \vdash \underline{n_1} \neq x_0 + \underline{n_2}$.
 We ignore representability of $<$ and note that $n_2 = n_1 + n_3 + 1$ for some $n_3$.
+\begin{equation*}
+  \begin{fitch}
+    \fh \underline{n_1} = x_0 + \underline{n_2}                      & assumption \\ % 1
+    \fa \underline{n_1} = x_0 + SS^{n_1}\underline{n_3}               & substitution 1, \textbf{26(iii)} \\ % 2
+    \fa \underline{n_1} = SS^{n_1}(x_0 + \underline{n_3})             & $n_1+1$ times substitution with instances of $\mathbf{N4}$ \\ % 3
+    \fa \underline{0} = S(x_0 + \underline{n_3})                     & $n_1$ times $\mathbf{MP}$ with instances of $\mathbf{N2}$ \\ % 4
+    \fa S(x_0 + \underline{n_3}) = \underline{0}                     & 4, symmetry of $=$ \\ % 5
+    \fa S(x_0 + \underline{n_3}) \neq \underline{0}                  & instance $\mathbf{N1}$ \\ % 6
+    \fa \bot                                                        & contradiction 5, 6 \\ % 7
+    \underline{n_1} \neq x_0 + \underline{n_2}                       & $\neg$ introduction 1-7 \\ % 8
+  \end{fitch}
+\end{equation*}
+
+\item[(vii)]
+Show that monus is represented by $(x_0 = \underline{0} \wedge x_1 < x_2) \vee x_1 = x_0 + x_2$.
+
+Suppose $n_1 \dotmin n_2 = m$. We consider two cases:
+\begin{description}
+\item[($n_1 < n_2$)]
+  We know $m$ is $0$ and deduce both directions.
   \begin{equation*}
     \begin{fitch}
-      \fh \underline{n_1} = x_0 + \underline{n_2}          & ass \\ % 1
-      \fa \underline{n_1} = x_0 + S\underline{n_1 + n_3}   & subs 1, \textbf{26(iii)} \\ % 2
-      \fa \underline{n_1} = S(x_0 + \underline{n_1 + n_3}) & $\mathbf{N4}$ \\ % 3 % TODO: right names for =e and subs, write =e out
-
+      \fh (x_0 = \underline{0} \wedge \underline{n_1} < \underline{n_2}) \vee \underline{n_1} = x_0 + \underline{n_2} & assumption \\ % 1
+      \fa \fh x_0 = \underline{0} \wedge \underline{n_1} < \underline{n_2} & assumption \\ % 2
+      \fa \fa x_0 = \underline{0} & $\wedge$ elimination 2 \\ % 3
+      \fa \fh \underline{n_1} = x_0 + \underline{n_2} & assumption \\ % 4
+      \fa \fa \underline{n_1} \neq x_0 + \underline{n_2} & \textbf{26(vi)} \\ % 5
+      \fa \fa \bot & contradiction 4, 5 \\ % 6
+      \fa \fa x_0 = \underline{0} & $\bot$ elimination 6 \\ % 7
+      \fa x_0 = \underline{0} & $\vee$ elimination 1, 2-3, 4-7 \\ % 8
+      (x_0 = \underline{0} \wedge \underline{n_1} < \underline{n_2}) \vee \underline{n_1} = x_0 + \underline{n_2} \rightarrow x_0 = \underline{0} & $\rightarrow$ introduction 1-8 \\ % 9
     \end{fitch}
   \end{equation*}
+  \begin{equation*}
+    \begin{fitch}
+      \fh x_0 = \underline{0} & assumption \\ % 1
+      \fa \underline{n_1} < \underline{n_2} & \textbf{26(v)} \\ % 2
+      \fa x_0 = \underline{0} \wedge \underline{n_1} < \underline{n_2} & $\wedge$ introduction 1, 2 \\ % 3
+      \fa (x_0 = \underline{0} \wedge \underline{n_1} < \underline{n_2}) \vee \underline{n_1} = x_0 + \underline{n_2} & $\vee$ introduction 3 \\ % 4
+      x_0 = \underline{0} \rightarrow (x_0 = \underline{0} \wedge \underline{n_1} < \underline{n_2}) \vee \underline{n_1} = x_0 + \underline{n_2} & $\rightarrow$ introduction 1-4 \\ % 5
+    \end{fitch}
+  \end{equation*}
+
+\item[($n_1 \not< n_2$)]
+  Now $n_1$ is $m + n_2$, and we give both deductions again.
+  \begin{equation*}
+    \begin{fitch}
+      \fh (x_0 = \underline{0} \wedge \underline{n_1} < \underline{n_2}) \vee \underline{n_1} = x_0 + \underline{n_2} & assumption \\ % 1
+      \fa \fh x_0 = \underline{0} \wedge \underline{n_1} < \underline{n_2} & assumption \\ % 2
+      \fa \fa \underline{n_1} < \underline{n_2} & $\wedge$ elimination 2 \\ % 3
+      \fa \fa \underline{n_1} \not< \underline{n_2} & \textbf{26(v)} \\ % 4
+      \fa \fa \bot  & contradiction 3, 4 \\ % 5
+      \fa \fa x_0 = \underline{m} & $\bot$ elimination 5 \\ % 6
+      \fa \fh \underline{n_1} = x_0 + \underline{n_2} & assumption \\ % 7
+      \fa \fa \underline{n_1} = \underline{m} + \underline{n_2} & \textbf{26(iii)} \\ % 8
+      \fa \fa x_0 + \underline{n_2} = \underline{m} + \underline{n_2} & substitution 7, 8 \\ % 9
+      \fa \fa x_0 + \underline{n_2} = S^{n_2}x_0 & $n_2$ times $\mathbf{N4}$, $\mathbf{N3}$ \\ % 10
+      \fa \fa \underline{m} + \underline{n_2} = S^{n_2}\underline{m} & $n_2$ times $\mathbf{N4}$, $\mathbf{N3}$ \\ % 11
+      \fa \fa S^{n_2}x_0 = S^{n_2}\underline{m} & two substitutions, using 9, 10, 11 \\ % 12
+      \fa \fa x_0 = \underline{m} & $n_2$ times $\mathbf{MP}$ with $\mathbf{N2}$ \\ % 13
+      \fa x_0 = \underline{m} & $\vee$ elimination 1, 2-6, 7-13 \\ % 14
+      (x_0 = \underline{0} \wedge \underline{n_1} < \underline{n_2}) \vee \underline{n_1} = x_0 + \underline{n_2} \rightarrow x_0 = \underline{m} & $\rightarrow$ introduction 1-14 \\ % 15
+    \end{fitch}
+  \end{equation*}
+  % TODO: last direction
+\end{description}
 
 \end{description}
 
