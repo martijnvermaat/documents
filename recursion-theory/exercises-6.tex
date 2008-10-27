@@ -6,7 +6,7 @@
 \usepackage{amsthm}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern} % Latin modern font family
-%\usepackage{enumitem}
+\usepackage{enumitem}
 \usepackage{fitch} % http://folk.uio.no/johanw/FitchSty.html
 
 \newtheorem*{lemma}{Lemma}
@@ -155,7 +155,59 @@ Suppose $n_1 \dotmin n_2 = m$. We consider two cases:
 
 \paragraph{Exercise 27:5}
 
-Prove that the representable relations are closed under the Boolean operations and bounded quantification.
+Prove that the representable relations are closed under (a) the Boolean operations and (b) bounded quantification.
+
+\begin{description}
+
+\item[(a)]
+Suppose $R_1, R_2 \subseteq \omega^k$ are representable, i.e. $R_1$ is represented
+by $\varphi_1(x_1, \ldots, x_k)$ and $R_2$ is represented by $\varphi_2(x_1, \ldots, x_k)$.
+Then,
+\begin{enumerate}[label=(\roman*)]
+  \item $\omega^k - R_1$ is represented by $\neg \varphi_1(x_1, \ldots, x_k)$,
+  \item $R_1 \cup R_2$ is represented by $\varphi_1(x_1, \ldots, x_k) \vee \varphi_2(x_1, \ldots, x_k)$,
+  \item $R_1 \cap R_2$ is represented by $\varphi_1(x_1, \ldots, x_k) \wedge \varphi_2(x_1, \ldots, x_k)$.
+\end{enumerate}
+
+\item[(b)]
+Suppose $R \subseteq \omega^{k+1}$ is representable and
+$R_i = \{(n_1, \ldots, n_k) \text{ : } (i, n_1, \ldots, n_k) \in R\}$.
+Let $\varphi(x_1, \ldots, x_{k+1})$ represent $R$, then $R_i$ is represented
+by $\varphi(\underline{i}, x_1, \ldots, x_k)$.
+
+We show $\cap_{i < m}R_i$ is represented by $\forall y (y\!<\!x_0 \rightarrow \varphi(y, x_1, \ldots, x_k))$,
+thus for all $m, n_1, \ldots, n_k \in \omega$,
+\begin{align*}
+  (n_1, \ldots, n_k) \in \cap_{i < m}R_i \quad &\Rightarrow \quad N \vdash \forall y (y\!<\!\underline{m} \rightarrow \varphi(y, \underline{n_1}, \ldots, \underline{n_k})) \text{ ,} \tag{i} \\
+  (n_1, \ldots, n_k) \notin \cap_{i < m}R_i \quad &\Rightarrow \quad N \vdash \neg \forall y (y\!<\!\underline{m} \rightarrow \varphi(y, \underline{n_1}, \ldots, \underline{n_k})) \text{ .} \tag{ii}
+\end{align*}
+\begin{enumerate}[label=(\roman*)]
+\item We have $N \vdash \varphi(\underline{i}, \underline{n_1}, \ldots, \underline{n_k})$ for all $i < m$
+  and thus $N \vdash y\!<\!\underline{m} \rightarrow \varphi(y, \underline{n_1}, \ldots, \underline{n_k})$.
+  Since $y$ is fresh, $N \vdash \forall y (y\!<\!\underline{m} \rightarrow \varphi(y, \underline{n_1}, \ldots, \underline{n_k})$ follows.
+\item There exists $i<m$ with $(n_1, \ldots, n_k) \notin R_i$ and thus
+  $N \vdash \neg \varphi(\underline{i}, \underline{n_1}, \ldots, \underline{n_k})$. Natural deduction
+  gives us $N \vdash \neg \forall y (y\!<\!\underline{m} \rightarrow \varphi(y, \underline{n_1}, \ldots, \underline{n_k}))$.
+\end{enumerate}
+
+We show $\cup_{i < m}R_i$ is represented by $\exists y (y\!<\!x_0 \rightarrow \varphi(y, x_1, \ldots, x_k))$,
+thus for all $m, n_1, \ldots, n_k \in \omega$,
+\begin{align*}
+  (n_1, \ldots, n_k) \in \cup_{i < m}R_i \quad &\Rightarrow \quad N \vdash \exists y (y\!<\!\underline{m} \wedge \varphi(y, \underline{n_1}, \ldots, \underline{n_k})) \text{ ,} \tag{iii} \\
+  (n_1, \ldots, n_k) \notin \cup_{i < m}R_i \quad &\Rightarrow \quad N \vdash \neg \exists y (y\!<\!\underline{m} \wedge \varphi(y, \underline{n_1}, \ldots, \underline{n_k})) \text{ .} \tag{iv}
+\end{align*}
+\begin{enumerate}[start=3,label=(\roman*)]
+\item We have $N \vdash \varphi(\underline{i}, \underline{n_1}, \ldots, \underline{n_k})$ for some $i < m$
+  and thus $N \vdash \underline{i}\!<\!\underline{m} \wedge \varphi(\underline{i}, \underline{n_1}, \ldots, \underline{n_k})$.
+  This gives us $N \vdash \exists y (y\!<\!\underline{m} \wedge \varphi(y, \underline{n_1}, \ldots, \underline{n_k})$.
+\item For all $i < m$, we have $(n_1, \ldots, n_k) \notin R_i$ and thus $N \vdash \neg \varphi(\underline{i}, \underline{n_1}, \ldots, \underline{n_k})$.
+  From this follows $N \vdash y\!<\!\underline{m} \rightarrow \neg \varphi(y, \underline{n_1}, \ldots, \underline{n_k})$
+  and $N \vdash \forall y (y\!<\!\underline{m} \rightarrow \neg \varphi(y, \underline{n_1}, \ldots, \underline{n_k}))$,
+  because there are no assumptions on $y$. Using natural deduction, we now have
+  $N \vdash \neg \exists y (y\!<\!\underline{m} \wedge \neg \varphi(y, \underline{n_1}, \ldots, \underline{n_k}))$.
+\end{enumerate}
+
+\end{description}
 
 
 \end{document}
