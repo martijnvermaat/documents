@@ -124,7 +124,7 @@ There is an axiomatized theory $T'$ with $Thm_T = Thm_{T'}$. Since the set of G\
 numbers of theorems of an axiomatized theory is computably enumerable, $Thm_T$ is
 computably enumerable.
 
-\item[($\Leftarrow$)] % TODO: we assume Thm_T nonempty
+\item[($\Leftarrow$)]
 By $Thm_T$ computably enumerable, there is a computable function $f(x)$ with $Thm_T$ as
 its range. Define
 \begin{equation*}
@@ -145,6 +145,19 @@ The theory with as axioms the theorems of $N$ is axiomatizable (it is equivalent
 $N$ and $N$ is axiomatized), but not axiomatized ($Thm_N$ is not computable).
 
 \end{enumerate}
+
+
+\paragraph{Exercise 34}
+
+Prove that $K$ is not an index set.
+
+\begin{proof}
+By Proposition 33.2, there exists an $n \in K$ such that $W_n = \{n\}$.
+By the Padding Lemma, there is an $m > n$ with $\varphi_m = \varphi_n$.
+If $K$ were an index set, $m$ would be in $K$.
+But this implies $m \in W_m$ while $W_m = W_n = \{n\}$.
+Contradiction.
+\end{proof}
 
 
 \end{document}
