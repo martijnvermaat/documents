@@ -1,4 +1,4 @@
-PDFLATEX = /usr/local/bin/pdflatex
+PDFLATEX = /usr/bin/pdflatex
 PDFLATEXFLAGS = --interaction errorstopmode
 
 all: pdf

@@ -124,16 +124,43 @@ Both are obviously computable and $|\frac{m}{n}| = \frac{f(x)}{g(x)}$ for all $x
 \end{proof}
 
 \item
-Show that $e$ and $\pi$ are computable.
+Show that (i) $e$ and (ii) $\pi$ are computable.
 
 \begin{proof}
 \begin{enumerate}[label=(\roman*)]
 \item Take $f(x) = \Sigma_{n=0}^x \frac{1}{n!}$ and $g(x) = 1$.
-Now we have $|\Sigma_{n=0}^\infty \frac{1}{n!}| - \frac{f(x)}{g(x)} = \Sigma_{n=x+1}^\infty$
-which is smaller than $\frac{1}{x}$ for $x > 0$.
+Now we have $|\Sigma_{n=0}^\infty \frac{1}{n!}| - \frac{f(x)}{g(x)} = \Sigma_{n=x+1}^\infty \frac{1}{n!}$
+which seems smaller than $\frac{1}{x}$ for $x > 0$.
+\item Sorry, no time left.\qedhere
+\end{enumerate}
+\end{proof}
+
+\item
+Show that if $a$ and $b$ are computable, so are $a + b$, $a - b$, and $a \cdot b$; and if $b \neq 0$,
+$\frac{a}{b}$ is computable.
+
+\begin{proof}
+There are computable $f_a$, $g_a$ for $a$ and $f_b$, $g_b$ for $b$ as in the definition of
+computability of a real number.
+
+\begin{enumerate}[label=(\roman*)]
+\item
+Take $f(x) = f_a(2x) \cdot g_b(2x) + f_b(2x) \cdot g_a(2x)$ and $g(x) = g_a(2x) \cdot g_b(2x)$.
+Both $f$ and $g$ are computable and $\left|\left|a+b\right| - \frac{f(n)}{g(n)}\right| < \frac{1}{n}$ for $n > 0$.
+
+(I'm hasty and not entirely sure this is correct, but it looks like we can get twice the inaccuracy
+of $\frac{1}{n}$ in the worst-case (for both $a$ and $b$). Computing the parts for twice the
+accuracy should correct this.)
+\item
+Likewise.
+\item
+Take $f(x) = f_a(x) \cdot f_b(x)$ and $g(x) = g_a(x) \cdot g_b(x)$, but this is not precise enough.
 \item \ldots \qedhere
 \end{enumerate}
 \end{proof}
+
+\item
+Sorry, no time left.
 
 \item
 Sorry, no time left.
