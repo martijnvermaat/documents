@@ -107,6 +107,40 @@ and we have a contradiction.
 \end{enumerate}
 
 
+\paragraph{Exercise 32:2}
+
+Note that a real number is computable if and only if its absolute value is
+computable. Therefore, we only have to consider positive real numbers.
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+Show that every rational number is computable.
+
+\begin{proof}
+Consider the rational number $\frac{m}{n}$ with $m, n \in \omega$ and $n \neq 0$.
+Take $f(x) = m$ and $g(x) = n$.
+Both are obviously computable and $|\frac{m}{n}| = \frac{f(x)}{g(x)}$ for all $x > 0$.
+\end{proof}
+
+\item
+Show that $e$ and $\pi$ are computable.
+
+\begin{proof}
+\begin{enumerate}[label=(\roman*)]
+\item Take $f(x) = \Sigma_{n=0}^x \frac{1}{n!}$ and $g(x) = 1$.
+Now we have $|\Sigma_{n=0}^\infty \frac{1}{n!}| - \frac{f(x)}{g(x)} = \Sigma_{n=x+1}^\infty$
+which is smaller than $\frac{1}{x}$ for $x > 0$.
+\item \ldots \qedhere
+\end{enumerate}
+\end{proof}
+
+\item
+Sorry, no time left.
+
+\end{enumerate}
+
+
 \paragraph{Exercise 32:3}
 
 \begin{enumerate}[label=(\alph*)]
@@ -128,7 +162,7 @@ computably enumerable.
 By $Thm_T$ computably enumerable, there is a computable function $f(x)$ with $Thm_T$ as
 its range. Define
 \begin{equation*}
-  A = \{ \bigwedge_{i=0}^n f(i) \text{ : } n \in \omega \}
+  A = \{ \bigwedge_{i=0}^n f(i) \text{ : } n \in \omega \} \text{ ,}
 \end{equation*}
 where we take $\bigwedge_{i=0}^n \varphi_i$ to be the G\"odel number of the conjunction
 of the formulas coded by $\varphi_0 \ldots \varphi_n$. $A$ is computable, since its
