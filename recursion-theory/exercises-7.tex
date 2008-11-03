@@ -1,0 +1,149 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsthm}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % Latin modern font family
+\usepackage{enumitem}
+\usepackage{fitch} % http://folk.uio.no/johanw/FitchSty.html
+
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{theorem}{Stelling}
+
+\newcommand{\dotmin}{\buildrel\textstyle.\over{\hbox{\vrule height3pt depth0pt width0pt}{\smash-}}}
+
+% Corner quotes (from http://www.phil.cam.ac.uk/teaching_staff/Smith/LaTeX/resources/godelquotes.txt)
+\newbox\gnBoxA
+\newdimen\gnCornerHgt
+\setbox\gnBoxA=\hbox{$\ulcorner$}
+\global\gnCornerHgt=\ht\gnBoxA
+\newdimen\gnArgHgt
+\def\Godelnum #1{%
+	\setbox\gnBoxA=\hbox{$#1$}%
+	\gnArgHgt=\ht\gnBoxA%
+	\ifnum \gnArgHgt<\gnCornerHgt
+		\gnArgHgt=0pt%
+	\else
+		\advance \gnArgHgt by -\gnCornerHgt%
+	\fi
+	\raise\gnArgHgt\hbox{$\ulcorner$} \box\gnBoxA %
+		\raise\gnArgHgt\hbox{$\urcorner$}}
+
+% Sans-serif fonts
+%\usepackage[T1experimental,lm]{sfmath} % http://dtrx.de/od/tex/sfmath.html
+%\renewcommand{\familydefault}{\sfdefault}
+
+% Some configuration for listings
+\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\newcounter{firstcounter}
+\newcommand{\labelfirst}{(\roman{firstcounter})}
+%\newcommand{\spacingfirst}{\usecounter{firstcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingfirst}{\usecounter{firstcounter}}
+
+\newcounter{secondcounter}
+\newcommand{\labelsecond}{(\arabic{secondcounter})}
+%\newcommand{\spacingsecond}{\usecounter{secondcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingsecond}{\usecounter{secondcounter}}
+
+
+\title{Recursion Theory (UvA autumn 2008)\\
+\normalsize{Exercises Part 7 -- Martijn Vermaat (mvermaat@cs.vu.nl)}}
+
+%\author{Martijn Vermaat (mvermaat@cs.vu.nl)}
+%\date{Updated 5th December 2005}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+\paragraph{Exercise 32:1}
+
+Suppose $\psi(x_1, x_2)$ represents `$x_2$ codes a proof of the formula
+with G\"odel number $Sub(x_1, x_1)$'. Let $n$ be the G\"odel number of
+$\forall x_2 \neg \psi(x_1, x_2)$.
+
+\begin{enumerate}[label=(\roman*)]
+
+\item
+Show that if $T$ is consistent, $T \not\vdash \forall x_2 \neg \psi(\underline{n}, x_2)$.
+
+\begin{proof}
+Suppose $T \vdash \forall x_2 \neg \psi(\underline{n}, x_2)$,
+i.e. there is a proof of $\forall x_2 \neg \psi(\underline{n}, x_2)$ in $T$.
+Let's say this proof has G\"odel number $p$.
+
+The G\"odel number of $\forall x_2 \neg \psi(\underline{n}, x_2)$ is $Sub(n, n)$,
+because $Sub(\Godelnum{\forall x_2 \neg \psi(x_2, x_2)}, n) = \Godelnum{\forall x_2 \neg \psi(\underline{n}, x_2)}$.
+
+Reformulating, $p$ codes a proof of the formula with G\"odel number $Sub(n, n)$.
+This is represented by $\psi(\underline{n}, \underline{p})$,
+so $T \vdash \psi(\underline{n}, \underline{p})$.
+This is in contradiction with $T$ being consistent.
+\end{proof}
+
+\item
+Prove that if $T$ is also $\omega$-consistent, $\neg \forall x_2 \neg \psi(\underline{n}, x_2)$
+is not a theorem of $T$ either.
+
+\begin{proof}
+Suppose $T \vdash \neg \forall x_2 \neg \psi(\underline{n}, x_2)$.
+
+We have $T \vdash \neg \psi(\underline{n}, \underline{p})$ for any $p$,
+because $\psi(\underline{n}, \underline{p})$ represents that $p$ codes
+a proof of the formula with G\"odel number $Sub(n, n)$ and there is no
+such proof by (i).
+
+By $T$ $\omega$-consistent, $T \not\vdash \neg \forall x_2 \neg \psi(\underline{n}, x_2)$,
+and we have a contradiction.
+\end{proof}
+
+\end{enumerate}
+
+
+\paragraph{Exercise 32:3}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+Show:
+\begin{equation*}
+  T \text{ is axiomatizable } \quad \Longleftrightarrow \quad Thm_T \text{ is computably enumerable}
+\end{equation*}
+
+\begin{proof}
+\begin{description}
+\item[($\Rightarrow$)]
+There is an axiomatized theory $T'$ with $Thm_T = Thm_{T'}$. Since the set of G\"odel
+numbers of theorems of an axiomatized theory is computably enumerable, $Thm_T$ is
+computably enumerable.
+
+\item[($\Leftarrow$)] % TODO: we assume Thm_T nonempty
+By $Thm_T$ computably enumerable, there is a computable function $f(x)$ with $Thm_T$ as
+its range. Define
+\begin{equation*}
+  A = \{ \bigwedge_{i=0}^n f(i) \text{ : } n \in \omega \}
+\end{equation*}
+where we take $\bigwedge_{i=0}^n \varphi_i$ to be the G\"odel number of the conjunction
+of the formulas coded by $\varphi_0 \ldots \varphi_n$. $A$ is computable, since its
+characteristic function can decide for any input if it is the G\"odel number of a
+conjunction of formulas $\varphi_0 \ldots \varphi_k$ such that $f(i) = \Godelnum{\varphi_i}$.
+
+Consider the first-order theory $T'$ with axioms $A$. It is axiomatized and $Thm_T = Thm_{T'}$.\qedhere
+
+\end{description}
+\end{proof}
+
+\item
+Ho
+
+\end{enumerate}
+
+
+\end{document}
