@@ -1,9 +1,9 @@
-PDFLATEX = /usr/bin/pdflatex
+PDFLATEX = /usr/local/bin/pdflatex
 PDFLATEXFLAGS = --interaction errorstopmode
 
 all: pdf
 
-pdf: exercises-1.pdf exercises-2.pdf exercises-3.pdf exercises-4.pdf exercises-5.pdf exercises-6.pdf
+pdf: exercises-1.pdf exercises-2.pdf exercises-3.pdf exercises-4.pdf exercises-5.pdf exercises-6.pdf exercises-7.pdf
 
 %.pdf: %.tex
 	$(PDFLATEX) $(PDFLATEXFLAGS) $< && $(PDFLATEX) $(PDFLATEXFLAGS) $<
