@@ -93,15 +93,12 @@ Prove that if $T$ is also $\omega$-consistent, $\neg \forall x_2 \neg \psi(\unde
 is not a theorem of $T$ either.
 
 \begin{proof}
-Suppose $T \vdash \neg \forall x_2 \neg \psi(\underline{n}, x_2)$.
-
 We have $T \vdash \neg \psi(\underline{n}, \underline{p})$ for any $p$,
 because $\psi(\underline{n}, \underline{p})$ represents that $p$ codes
 a proof of the formula with G\"odel number $Sub(n, n)$ and there is no
 such proof by (i).
 
-By $T$ $\omega$-consistent, $T \not\vdash \neg \forall x_2 \neg \psi(\underline{n}, x_2)$,
-and we have a contradiction.
+By $T$ $\omega$-consistent, $T \not\vdash \neg \forall x_2 \neg \psi(\underline{n}, x_2)$.
 \end{proof}
 
 \end{enumerate}
@@ -128,9 +125,9 @@ Show that (i) $e$ and (ii) $\pi$ are computable.
 
 \begin{proof}
 \begin{enumerate}[label=(\roman*)]
-\item Take $f(x) = \Sigma_{n=0}^x \frac{1}{n!}$ and $g(x) = 1$.
-Now we have $|\Sigma_{n=0}^\infty \frac{1}{n!}| - \frac{f(x)}{g(x)} = \Sigma_{n=x+1}^\infty \frac{1}{n!}$
-which seems smaller than $\frac{1}{x}$ for $x > 0$.
+\item Take $f(x) = \Sigma_{n=0}^{x+1} \frac{(x+1)!}{n!}$ and $g(x) = (x+1)!$.
+Now we have $|e - \frac{f(x)}{g(x)}| = \Sigma_{n=x+2}^\infty \frac{1}{n!}$
+which is smaller than $\Sigma_{n=1}^\infty \frac{1}{(x+1)^n} \leq \frac{1}{x}$ for $x > 0$.
 \item Sorry, no time left.\qedhere
 \end{enumerate}
 \end{proof}
@@ -151,6 +148,8 @@ Both $f$ and $g$ are computable and $\left|\left|a+b\right| - \frac{f(n)}{g(n)}\
 (I'm hasty and not entirely sure this is correct, but it looks like we can get twice the inaccuracy
 of $\frac{1}{n}$ in the worst-case (for both $a$ and $b$). Computing the parts for twice the
 accuracy should correct this.)
+
+There are some problems for $a$ or $b$ negative.
 \item
 Likewise.
 \item
