@@ -64,7 +64,21 @@ Contradiction.
 \begin{enumerate}[label=(\alph*)]
 
 \item
-$M$ is infinite.
+Prove that the set $M$ of minimal indices of partial computable functions
+is infinite but contains no infinite computably enumerable subset.
+
+\begin{proof}
+$M$ is infinite because it includes an index for every constant function.
+
+Suppose there is an $M' \subseteq M$ which is infinite and computably enumerable.
+Let $f$ be a computable function enumerating $M'$.
+Then from an index $e$ we can compute some minimal index greater than $e$, i.e.
+$g(e) = f( \; \mu i \, (f(i) > e) \; )$ is computable.
+
+By the Recursion Theorem, there is some $n$ with $\varphi_{g(n)} = \varphi_n$.
+However, since $g(n) > n$ and $g(n)$ is minimal, $\varphi_{g(n)} \neq \varphi_n$.
+Contradiction.
+\end{proof}
 
 \item
 
