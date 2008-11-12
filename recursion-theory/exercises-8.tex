@@ -86,8 +86,18 @@ where $h$ is computable and finite-one.
 $M_h$ is infinite but contains no infinite computably enumerable subset.
 
 \begin{proof}
-$M_h$ is infinite by (a).
+The argument follows that of (a), and we have directly that $M_h$ is infinite.
 
+Suppose there is an $M_h' \subseteq M_h$ which is infinite and computably enumerable.
+Let $f$ be a computable function enumerating $M_h'$.
+Then from an index $e$ we can compute some minimal index greater under $h$ than $e$, i.e.
+$g(x) = f( \; \mu y \, (h(f(y)) > h(x)) \; )$ is computable.
+Note that because $h$ is finite-one, we can always find such a minimal index, hence the
+computability of $g$.
+
+By the Recursion Theorem, there is some $n$ with $\varphi_{g(n)} = \varphi_n$.
+However, since $h(g(n)) > h(n)$ and $g(n)$ is minimal under $h$, $\varphi_{g(n)} \neq \varphi_n$.
+Contradiction.
 \end{proof}
 
 \end{enumerate}
