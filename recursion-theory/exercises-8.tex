@@ -10,7 +10,7 @@
 \usepackage{fitch} % http://folk.uio.no/johanw/FitchSty.html
 
 \newtheorem*{lemma}{Lemma}
-\newtheorem*{theorem}{Stelling}
+\newtheorem*{theorem}{Theorem}
 
 \newcommand{\dotmin}{\buildrel\textstyle.\over{\hbox{\vrule height3pt depth0pt width0pt}{\smash-}}}
 
@@ -104,6 +104,38 @@ Contradiction.
 
 
 \paragraph{Exercise 2.2.11}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+No index set $A$ can be self-dual.
+
+\begin{proof}
+Suppose $A$ is a self-dual index set.
+Let $f$ be computable with $x \in A \Leftrightarrow f(x) \in \overline{A}$.
+By the Recursion Theorem, there is some $n$ with $\varphi_{f(n)} = \varphi_n$.
+By $A$ being an index set, $n \in A \Leftrightarrow f(n) \in A$.
+Contradiction.
+\end{proof}
+
+\item
+\emph{(Rice's Theorem)} No non-trivial index set $A$ can be computable.
+
+\begin{proof}
+Suppose $A$ is a computable non-trivial index set. We show $A$ is self-dual, contradicting (a).
+
+Define
+\begin{equation*}
+f(x) = \begin{cases}
+  \mu y \, ( \chi_A(y) = 0 ) & \text{if $\chi_A(x) = 1$,}\\
+  \mu y \, ( \chi_A(y) = 1 ) & \text{if $\chi_A(x) = 0$}
+\end{cases}
+\end{equation*}
+which is computable by $\chi_A$ computable and $A$ non-trivial.
+Note that $f$ reduces $A$ to $\overline{A}$.
+\end{proof}
+
+\end{enumerate}
 
 
 \end{document}
