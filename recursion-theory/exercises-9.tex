@@ -1,0 +1,88 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsthm}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % Latin modern font family
+\usepackage{enumitem}
+\usepackage{fitch} % http://folk.uio.no/johanw/FitchSty.html
+
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\dotmin}{\buildrel\textstyle.\over{\hbox{\vrule height3pt depth0pt width0pt}{\smash-}}}
+
+% Sans-serif fonts
+%\usepackage[T1experimental,lm]{sfmath} % http://dtrx.de/od/tex/sfmath.html
+%\renewcommand{\familydefault}{\sfdefault}
+
+% Some configuration for listings
+\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\newcounter{firstcounter}
+\newcommand{\labelfirst}{(\roman{firstcounter})}
+%\newcommand{\spacingfirst}{\usecounter{firstcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingfirst}{\usecounter{firstcounter}}
+
+\newcounter{secondcounter}
+\newcommand{\labelsecond}{(\arabic{secondcounter})}
+%\newcommand{\spacingsecond}{\usecounter{secondcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingsecond}{\usecounter{secondcounter}}
+
+
+\title{Recursion Theory (UvA autumn 2008)\\
+\normalsize{Exercises Part 9 -- Martijn Vermaat (mvermaat@cs.vu.nl)}}
+
+%\author{Martijn Vermaat (mvermaat@cs.vu.nl)}
+%\date{Updated 5th December 2005}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+\paragraph{Exercise 37:2}
+
+If $A$ is computably enumerable and $\psi$ is partial computable, then $\psi[A]$ and $\psi^{-1}[A]$ are computably enumerable.
+
+\begin{proof}
+\begin{enumerate}[label=(\roman*)]
+  \item
+  \item \qedhere
+\end{enumerate}
+\end{proof}
+
+
+\paragraph{Exercise 37:3}
+
+Let $f$ be a total function. $f$ is a computable function iff it is a computable relation.
+
+\begin{proof}
+\end{proof}
+
+
+\paragraph{Exercise 2.3.12}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+\emph{(Double Recursion Theorem)} For any computable functions $f(x, y)$ and $g(x, y)$ there exist $a$ and $b$ such that $\varphi_a = \varphi_{f(a, b)}$ and $\varphi_b = \varphi_{g(a, b)}$.
+
+\begin{proof}
+\end{proof}
+
+\item
+\emph{(Double Recursion Theorem with Parameters)} For any computable functions $f(x, y, z)$ and $g(x, y, z)$ there exist computable functions $a(z)$ and $b(z)$ such that $\varphi_{a(z)} = \varphi_{f(a(z), b(z), z)}$ and $\varphi_{b(z)} = \varphi_{g(a(z), b(z), z)}$.
+
+\begin{proof}
+\end{proof}
+
+\end{enumerate}
+
+
+\end{document}
