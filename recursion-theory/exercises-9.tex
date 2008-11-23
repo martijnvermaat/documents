@@ -53,7 +53,16 @@ If $A$ is computably enumerable and $\psi$ is partial computable, then $\psi[A]$
 \begin{proof}
 \begin{enumerate}[label=(\roman*)]
   \item
-  \item \qedhere
+    %$A$ is the domain of some partial computable function $\varphi$. Define
+    %\begin{equation*}
+    %  \chi(x) = \mu y \, ( \psi(y) = x \, \wedge \, \varphi(y) \! \downarrow ) \text{ ,}
+    %\end{equation*}
+    %and note that $\chi(x)$ is partial computable. Now $\psi[A]$ is the domain of $\chi$.
+    % TODO: \varphi(y)\downarrow is not p.c.
+  \item
+    $A$ is the domain of some partial computable function $\varphi$.
+    Now $\psi^{-1}[A]$ is the domain of $\varphi \circ \psi$ which is partial computable.
+    \qedhere
 \end{enumerate}
 \end{proof}
 
@@ -63,26 +72,43 @@ If $A$ is computably enumerable and $\psi$ is partial computable, then $\psi[A]$
 Let $f$ be a total function. $f$ is a computable function iff it is a computable relation.
 
 \begin{proof}
+\begin{description}
+  \item{(If)}
+    Assume $f$ is a computable relation, i.e. $\chi_f(x, y)$ is computable.
+    We can define the function $f$ as $f(x) = \mu y \, (\chi_f(x, y) = 1)$.
+    This is a computable function because it is total and $\chi_f(x, y)$ is computable.
+  \item{(Only if)}
+    Assume $f$ is a computable function.
+    The characteristic function of the relation $f$ is
+    \begin{equation*}
+      \chi_f(x, y) = \begin{cases}
+        1 & \text{if $f(x) = y$ ,}\\
+        0 & \text{otherwise}
+      \end{cases}
+    \end{equation*}
+    which is computable.
+    \qedhere
+\end{description}
 \end{proof}
 
 
 \paragraph{Exercise 2.3.12}
 
-\begin{enumerate}[label=(\alph*)]
+%\begin{enumerate}[label=(\alph*)]
 
-\item
-\emph{(Double Recursion Theorem)} For any computable functions $f(x, y)$ and $g(x, y)$ there exist $a$ and $b$ such that $\varphi_a = \varphi_{f(a, b)}$ and $\varphi_b = \varphi_{g(a, b)}$.
+%\item
+%\emph{(Double Recursion Theorem)} For any computable functions $f(x, y)$ and $g(x, y)$ there exist $a$ and $b$ such that $\varphi_a = \varphi_{f(a, b)}$ and $\varphi_b = \varphi_{g(a, b)}$.
 
-\begin{proof}
-\end{proof}
+%\begin{proof}
+%\end{proof}
 
-\item
-\emph{(Double Recursion Theorem with Parameters)} For any computable functions $f(x, y, z)$ and $g(x, y, z)$ there exist computable functions $a(z)$ and $b(z)$ such that $\varphi_{a(z)} = \varphi_{f(a(z), b(z), z)}$ and $\varphi_{b(z)} = \varphi_{g(a(z), b(z), z)}$.
+%\item
+%\emph{(Double Recursion Theorem with Parameters)} For any computable functions $f(x, y, z)$ and $g(x, y, z)$ there exist computable functions $a(z)$ and $b(z)$ such that $\varphi_{a(z)} = \varphi_{f(a(z), b(z), z)}$ and $\varphi_{b(z)} = \varphi_{g(a(z), b(z), z)}$.
 
-\begin{proof}
-\end{proof}
+%\begin{proof}
+%\end{proof}
 
-\end{enumerate}
+%\end{enumerate}
 
 
 \end{document}
