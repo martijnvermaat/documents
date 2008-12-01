@@ -55,8 +55,9 @@ function $h$ such that for $D_y$ as in Definition 2.3.4 we have:
 \end{align*}
 
 \begin{proof}
+($\Rightarrow$)
 We code finite strings $\sigma$ over $\{0, 1\}$ as canonical indexes of
-finite sets as follows follows:
+finite sets as follows:
 \begin{align*}
   \sigma_y(x) = 1 \quad & \Longleftrightarrow \quad x \in D_y \text{ ,} \\
   \sigma_y(x) = 0 \quad & \Longleftrightarrow \quad x \notin D_y \quad \& \quad \exists v \! > \! x (v \in D_y) \text{ .}
@@ -75,16 +76,21 @@ Furthermore, $\sigma_y \prec \chi_{\overline{A}}$ implies $D_y \subseteq \overli
 However, not the other way around (a prefix of $\sigma_y$ may mis $1$'s), but this does not
 matter here because it still uses only information from $\overline{A}$. Combined, we get
 \begin{align*}
-  (\exists y) \; [ \; y \in W_{h(x)} \quad \& \quad D_y \subseteq \overline{A} \; ] \quad \Longleftrightarrow \quad (\exists y) \; [ \; \Phi^{\sigma_y}_e(x) = 0 \quad \& \quad \sigma_y \prec \chi_{\overline{A}} \; ] \text{ .}
+  (\exists y) \; [ \; \Phi^{\sigma_y}_e(x) = 0 \quad \& \quad \sigma_y \prec \chi_{\overline{A}} \; ] \quad \Longleftrightarrow \quad (\exists y) \; [ \; y \in W_{h(x)} \quad \& \quad D_y \subseteq \overline{A} \; ] \text{ .}
 \end{align*}
 
+($\Leftarrow$)
 \end{proof}
 
 
 \paragraph{Exercise 3.1.18}
 
+Consider $A = Fin$ and $R^A = \{ (x,y) | W_x is finite \}$ which is $A$-computable. Fin is not c.e.
+
 
 \paragraph{Exercise 3.1.19}
+
+
 
 
 \end{document}
