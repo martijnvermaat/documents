@@ -1,0 +1,219 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsthm}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % Latin modern font family
+\usepackage{enumitem}
+\usepackage{fitch} % http://folk.uio.no/johanw/FitchSty.html
+
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\dotmin}{\buildrel\textstyle.\over{\hbox{\vrule height3pt depth0pt width0pt}{\smash-}}}
+
+% Sans-serif fonts
+%\usepackage[T1experimental,lm]{sfmath} % http://dtrx.de/od/tex/sfmath.html
+%\renewcommand{\familydefault}{\sfdefault}
+
+% Some configuration for listings
+\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\newcounter{firstcounter}
+\newcommand{\labelfirst}{(\roman{firstcounter})}
+%\newcommand{\spacingfirst}{\usecounter{firstcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingfirst}{\usecounter{firstcounter}}
+
+\newcounter{secondcounter}
+\newcommand{\labelsecond}{(\arabic{secondcounter})}
+%\newcommand{\spacingsecond}{\usecounter{secondcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingsecond}{\usecounter{secondcounter}}
+
+
+\title{Recursion Theory (UvA autumn 2008)\\
+\normalsize{Exercises Part 12 -- Martijn Vermaat (mvermaat@cs.vu.nl)}}
+
+%\author{Martijn Vermaat (mvermaat@cs.vu.nl)}
+%\date{Updated 5th December 2005}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+\paragraph{Exercise 1.5.23}
+
+Let $A = \{x : \varphi_x(x) = 0 \}$, $B = \{x : \varphi_x(x) = 1\}$.
+
+\begin{enumerate}[label=(\alph*)]
+
+\item Consider $\varphi_x(x)$ and show that no $\varphi_x$ is the characteristic function of a separating set $C$.
+\begin{proof}
+Suppose there exists $e$ such that $\varphi_e = \chi_C$ with $A \subseteq C$ and $C \cap B = \emptyset$.
+If $e \notin C$ then $\varphi_e(e) = 0$, hence $e \in A$ contradicting $A \subseteq C$.
+So $e \in C$. Then $\varphi_e(e) = 1$, giving $e \in B$ contradicting $C \cap B = \emptyset$.
+\end{proof}
+
+\item Give an alternative proof that $\text{Ext} \neq \omega$.
+\begin{proof}
+Suppose $\text{Ext} = \omega$ and consider $y$ with $\varphi_y(x) = 1 \dotmin \varphi_x(x)$.
+$\varphi_y$ is extendible to $\varphi_z$ such that $W_z = \omega$ and $\varphi_y \subseteq \varphi_z$.
+Now $C$ with $\chi_C = \varphi_z$ computably separates $A$ from $B$:
+\begin{align*}
+  & x \in A \quad \Rightarrow \quad \varphi_x(x) = 0 \quad \Rightarrow \quad \varphi_z(x) = 1 \quad \Rightarrow \quad x \in C \text{ ,}\\
+  & x \in B \quad \Rightarrow \quad \varphi_x(x) = 1 \quad \Rightarrow \quad \varphi_z(x) = 0 \quad \Rightarrow \quad x \notin C \text{ .}
+\end{align*}
+(Note: to be precise we should restrict the range of $\varphi_z$ to $\{0, 1\}$.)
+\end{proof}
+
+\item Prove that $K \equiv_1 A$ and $K \equiv_1 B$.
+\begin{proof}
+We show $A \leq_1 B$, $B \leq_1 K$, and $K \leq_1 A$. Conclusion follows from transitivity of $\leq_1$.
+\begin{description}
+\item{($A \leq_1 B$)}
+Define
+\begin{align*}
+  \varphi_z(x, y) = \begin{cases}
+    1        & \text{if $\varphi_x(x) = 0$ ,}\\
+    \uparrow & \text{otherwise}
+  \end{cases}
+\end{align*}
+and by the $s$-$m$-$n$ Theorem let $f$ be a 1-1 computable function such that $\varphi_{f(x)}(y) = \varphi_z(x, y)$.
+\begin{align*}
+  x \in A \quad \Leftrightarrow \quad \varphi_x(x) = 0 \quad \Leftrightarrow \quad \varphi_{f(x)}(f(x)) = \varphi_z(x, f(x)) = 1 \quad \Leftrightarrow \quad f(x) \in B \text{ .}
+\end{align*}
+
+\item{($B \leq_1 K$)}
+Define
+\begin{align*}
+  \varphi_z(x, y) = \begin{cases}
+    1        & \text{if $\varphi_x(x) = 1$ ,}\\
+    \uparrow & \text{otherwise}
+  \end{cases}
+\end{align*}
+and by the $s$-$m$-$n$ Theorem let $f$ be a 1-1 computable function such that $\varphi_{f(x)}(y) = \varphi_z(x, y)$.
+\begin{align*}
+  & x \in B \quad \Rightarrow \quad \varphi_x(x) = 1 \quad \Rightarrow \quad \varphi_{f(x)}(f(x)) = \varphi_z(x, f(x)) = 1 \quad \Rightarrow \quad f(x) \in K \text{ ,} \\
+  & x \notin B \quad \Rightarrow \quad \varphi_x(x) = 0 \quad \Rightarrow \quad \varphi_{f(x)}(f(x)) = \varphi_z(x, f(x)) \uparrow  \quad \Rightarrow \quad f(x) \notin K \text{ .}
+\end{align*}
+
+\item{($K \leq_1 A$)}
+Define
+\begin{align*}
+  \varphi_z(x, y) = \begin{cases}
+    0        & \text{if $\varphi_x(x) \downarrow$ ,}\\
+    \uparrow & \text{otherwise}
+  \end{cases}
+\end{align*}
+and by the $s$-$m$-$n$ Theorem let $f$ be a 1-1 computable function such that $\varphi_{f(x)}(y) = \varphi_z(x, y)$.
+\begin{align*}
+  & x \in K \quad \Leftrightarrow \quad \varphi_x(x) \downarrow \quad \Leftrightarrow \quad \varphi_{f(x)}(f(x)) = \varphi_z(x, f(x)) = 0 \quad \Leftrightarrow \quad f(x) \in A \text{ .} \qedhere
+\end{align*}
+\end{description}
+\end{proof}
+\end{enumerate}
+
+
+\paragraph{Exercise 4.1.11}
+
+Prove that
+\begin{align*}
+  \text{CSep} = \{ \langle x, y \rangle : \text{$W_x$ and $W_y$ are computably separable}\} \quad \in \quad \Sigma_3 \text{ .}
+\end{align*}
+\begin{proof}
+We have by definition
+\begin{align*}
+  \langle x, y \rangle \in \text{CSep} \quad \Leftrightarrow \quad \exists z(z \in \text{Comp} \; \wedge \; W_x \subseteq W_z \; \wedge \; W_y \subseteq \overline{W_z}) \text{ .}
+\end{align*}
+By Corollary 4.1.8, $\text{Comp} \in \Sigma_3$ and by Proposition 4.1.6, $W_x \subseteq W_z$ is $\Pi_2$.
+Furthermore,
+\begin{align*}
+  W_y \subseteq \overline{W_z} \quad & \Leftrightarrow \quad \forall v(v \in W_y \rightarrow v \notin W_z)\\
+  & \Leftrightarrow \quad \forall v(v \notin W_y \vee v \notin W_z)\\
+  & \Leftrightarrow \quad \forall v(\neg \exists s,n \, \varphi_{y,s}(v) = n \; \vee \; \neg \exists s,n \, \varphi_{z,s}(v) = n)\\
+  & \Leftrightarrow \quad \forall \; ( \, \forall \; \vee \; \forall \, )\\
+  & \Leftrightarrow \quad \forall \; ( \ldots ) \text{ .}
+\end{align*}
+Now we have
+\begin{align*}
+  & \langle x, y \rangle \in \text{CSep} \quad \Leftrightarrow \quad \exists \; ( \, \exists \, \forall \, \exists \; \wedge \; \forall \, \exists \; \wedge \; \forall \, ) \quad \Leftrightarrow \quad \exists \; ( \, \exists \, \forall \, \exists \, ) \quad \Leftrightarrow \quad \exists \, \forall \, \exists \; (\ldots) \text{ .} \qedhere
+\end{align*}
+
+%Furthermore,
+%\begin{align*}
+%  W_x \subseteq W_z \quad \Leftrightarrow \quad \forall v(v \in W_x \rightarrow v \in W_z) \quad \Leftrightarrow \quad \forall v(\exists s,n \, \varphi_{x,s}(v) = n \; \rightarrow \; \exists s,n \, \varphi_{z,s}(v) = n) \text{ ,}
+%\end{align*}
+%and
+%\begin{align*}
+%  W_y \subseteq \overline{W_z} \quad \Leftrightarrow \quad \forall v(v \in W_y \rightarrow v \notin W_z) \quad \Leftrightarrow \quad \forall v(\exists s,n \, \varphi_{y,s}(v) = n \; \rightarrow \; \neg \exists s,n \, \varphi_{z,s}(v) = n) \text{ .}
+%\end{align*}
+%So, abbreviating,
+%\begin{align*}
+%  \langle x, y \rangle \in \text{CSep} \quad & \Leftrightarrow \quad \exists \; ( \; \exists \, \forall \, \exists \; \wedge \; \forall \, ( \, \exists \rightarrow \exists \, ) \; \wedge \; \forall \, ( \, \exists \rightarrow \neg \exists \, ))\\
+%  & \Leftrightarrow \quad \exists \; ( \; \exists \, \forall \, \exists \; \wedge \; \forall \, ( \, \exists \rightarrow \exists \, ) \; \wedge \; \forall \, ( \, \exists \rightarrow \neg \exists \, ))
+%\end{align*}
+
+\end{proof}
+
+
+\paragraph{Exercise 4.1.12}
+
+Prove that
+\begin{align*}
+  \{ \langle x, y \rangle : W_x \subseteq^* W_y \} \in \Sigma_3 \quad \& \quad \{ \langle x, y \rangle : W_x =^* W_y \} \in \Sigma_3 \text{ .}
+\end{align*}
+\begin{proof}
+\begin{align*}
+  W_x \subseteq^* Wy \quad & \Leftrightarrow \quad \text{$W_x - W_y$ is finite}\\
+  & \Leftrightarrow \quad \exists u \forall z(z \in W_x \; \wedge \; z \notin W_y \; \rightarrow \; z \! < \! u)\\
+  & \Leftrightarrow \quad \exists \, \forall \; ( \, \forall \; \vee \; \exists \, )\\
+  & \Leftrightarrow \quad \exists \, \forall \, \exists \; (\ldots) \qedhere
+\end{align*}
+\end{proof}
+
+
+\paragraph{Exercise 4.1.13}
+
+Show that $\{ x : W_x \text{ is creative}\} \in \Sigma_3$.
+\begin{proof}
+By Corollary 2.4.8, $W_x$ is creative iff $W_x$ is $m$-complete and thus iff $W_x \equiv_m K$.
+\begin{align*}
+  W_x \leq_m K \quad & \Leftrightarrow \quad \exists f(W_f = \omega \; \wedge \; \forall y(y \in W_x \; \leftrightarrow \; \varphi_f(y) \in K))\\
+  & \Leftrightarrow \quad \exists \; ( \, \forall \, \exists \; \wedge \; \forall \, ( \, \exists \; \leftrightarrow \; \exists \, ))\\
+  & \Leftrightarrow \quad \exists \; ( \, \forall \, \exists \; \wedge \; \forall \, \exists \, )\\
+  & \Leftrightarrow \quad \exists \, \forall \, \exists \; (\ldots)
+\end{align*}
+\begin{align*}
+  K \leq_m W_x \quad & \Leftrightarrow \quad \exists f(W_f = \omega \; \wedge \; \forall y(y \in K \; \leftrightarrow \; \varphi_f(y) \in W_x))\\
+  & \Leftrightarrow \quad \exists \; ( \, \forall \, \exists \; \wedge \; \forall \, ( \, \exists \; \leftrightarrow \; \exists \, ))\\
+  & \Leftrightarrow \quad \exists \, \forall \, \exists \; (\ldots)
+\end{align*}
+And thus we have $W_x$ is creative iff $\exists \, \forall \, \exists \, (\ldots) \; \wedge \; \exists \, \forall \, \exists \, (\ldots)$ iff $\exists \, \forall \, \exists \; (\ldots)$.
+\end{proof}
+
+%\begin{align*}
+%  \text{$W_x$ is creative} \quad & \Leftrightarrow \quad \text{$\overline{W_x}$ is productive}\\
+%  & \Leftrightarrow \quad \exists p \forall y(W_y \subseteq \overline{W_x} \; \rightarrow \; \varphi_p(y) \downarrow \; \wedge \; \varphi_p(y) \in \overline{W_x} - W_y) \text{ ,}
+%\end{align*}
+%where $W_y \subseteq \overline{W_x}$ is $\Pi_1$ by 4.1.11, $\varphi_p(y) \downarrow$ is obviously $\Sigma_1$, and
+%\begin{align*}
+%  \varphi_p(y) \in \overline{W_x} - W_y \quad & \Leftrightarrow \quad \exists s,n(\varphi_{p,s}(y) = n \; \wedge \; n \notin W_x \; \wedge \; n \notin W_y)\\
+%  & \Leftrightarrow \quad \exists \; ( \, \forall \; \wedge \; \forall \, )\\
+%  & \Leftrightarrow \quad \exists \, \forall \; (\ldots) \text{ .}
+%\end{align*}
+
+
+\paragraph{Exercise 4.2.7}
+
+If $B \leq_m A$ and $A = \emptyset^{(n)}$ for $n \geq 1$ then $B \leq_1 A$.
+\begin{proof}
+
+\end{proof}
+
+
+\end{document}
