@@ -10,7 +10,7 @@
 \title{Inleiding Theoretische Informatica -- Equationele Logica\\
 \normalsize{Uitwerkingen bij opgaven 2.3, 3.1, 3.3, 3.4, 5.1, 6.1, 6.4, 7.1, 7.3, 7.7, 8.1}}
 \author{Martijn Vermaat (mvermaat@cs.vu.nl)}
-\date{22 maart 2007}
+\date{9 december 2008}
 
 
 \begin{document}
@@ -129,7 +129,7 @@ structuur van de term $t$:
 
     Als $m=0$ dan is $t$ afleidbaar gelijk aan een term van de vorm
     $succ^{n}(0)$ (volgens $[N1]$) en zijn we klaar. Als $m>0$, dan is $t$
-    afleidbaar gelijk aan een term van de vorm $succ(add(succ^{n}(0),                                                        
+    afleidbaar gelijk aan een term van de vorm $succ(add(succ^{n}(0),
     succ^{m-1}(0)))$ (volgens $[N2]$). Volgens de inductiehypothese is
     $add(succ^{n}(0), succ^{m-1}(0))$ afleidbaar gelijk aan een term van de
     vorm $succ^{p}(0)$ en dus het geheel (en volgens transitiviteit ook $t$)
@@ -146,7 +146,7 @@ structuur van de term $t$:
     $succ^{n}(0)$ (volgens $[N1]$).
 
     Het geval voor $m>0$ is iets moeilijker. Dan is $t$ namelijk afleidbaar
-    gelijk aan een term van de vorm $add(mul(succ^{n}(0), succ^{m-1}(0)),                                                    
+    gelijk aan een term van de vorm $add(mul(succ^{n}(0), succ^{m-1}(0)),
     succ^{n}(0))$. Volgens de inductiehypothese weten we dat de $mul$
     afleidbaar gelijk is aan $succ^{p}(0)$. We gebruiken dezelfde redenering
     als bij het vorige punt ($add(u, v)$) om te laten zien dat het geheel nu
@@ -406,12 +406,12 @@ een tegenmodel) en dus bevat $\mathfrak{B}_{3}$ confusion.
 \item{\bf (a)}
 \begin{equation*}
 \begin{fitch}
-\texttt{s(h(x)) = s(x)}                 & \texttt{[E2]}  \\ % 1                                                              
-\texttt{s(s(h(x))) = s(s(x))}           & congr, 1       \\ % 2                                                              
-\texttt{s(s(h(a))) = s(s(a))}           & subst, 2       \\ % 3                                                              
-\texttt{s(h(s(a))) = s(s(a))}           & subst, 1       \\ % 4                                                              
-\texttt{s(s(a)) = s(h(s(a)))}           & symm, 4        \\ % 5                                                              
-\texttt{s(s(h(a))) = s(h(s(a)))}        & trans, 3, 5       % 6                                                              
+\texttt{s(h(x)) = s(x)}                 & \texttt{[E2]}  \\ % 1
+\texttt{s(s(h(x))) = s(s(x))}           & congr, 1       \\ % 2
+\texttt{s(s(h(a))) = s(s(a))}           & subst, 2       \\ % 3
+\texttt{s(h(s(a))) = s(s(a))}           & subst, 1       \\ % 4
+\texttt{s(s(a)) = s(h(s(a)))}           & symm, 4        \\ % 5
+\texttt{s(s(h(a))) = s(h(s(a)))}        & trans, 3, 5       % 6
 \end{fitch}
 \end{equation*}
 
@@ -452,7 +452,7 @@ specificatie $\texttt{Spec}$.
 \paragraph{De algebra $\mathfrak{N}$}
 
 Deze algebra is geen initieel model voor $\texttt{Spec}$, omdat er
-confusion aanwezig is. Bijvoorbeeld de termen $\texttt{x}$ en $\texttt{h(x)}$
+confusion aanwezig is. Bijvoorbeeld de termen $\texttt{a}$ en $\texttt{h(a)}$
 worden ge\"identificeerd, terwijl deze gelijkheid niet afleidbaar is in
 $\texttt{Spec}$.
 
@@ -542,7 +542,7 @@ bestaan.
 
 \begin{description}
 
-\item{\bf (a)} % is \n->n+3 een homomorphisme in N+                                                                                   
+\item{\bf (a)} % is \n->n+3 een homomorphisme in N+
   $\phi(n) = n+3$ is geen homomorphisme in $\mathcal{N}^{+}$, want we zien
   bijvoorbeeld dat:
 
@@ -554,7 +554,7 @@ bestaan.
                           & = & \texttt{add}_{\mathcal{N}^{+}}(\phi(2),\phi(5))
   \end{eqnarray*}
 
-\item{\bf (b)} % is \n->2n een homomorphisme in N+                                                                                    
+\item{\bf (b)} % is \n->2n een homomorphisme in N+
   $\phi(n) = 2n$ is wel een homomorphisme in $\mathcal{N}^{+}$, want voor
   willekeurige $x,y$ uit $\mathbb{N}$:
 
