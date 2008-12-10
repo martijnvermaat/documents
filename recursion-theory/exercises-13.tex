@@ -1,0 +1,80 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsthm}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % Latin modern font family
+\usepackage{enumitem}
+\usepackage{fitch} % http://folk.uio.no/johanw/FitchSty.html
+
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{theorem}{Theorem}
+
+\newcommand{\dotmin}{\buildrel\textstyle.\over{\hbox{\vrule height3pt depth0pt width0pt}{\smash-}}}
+
+% Sans-serif fonts
+%\usepackage[T1experimental,lm]{sfmath} % http://dtrx.de/od/tex/sfmath.html
+%\renewcommand{\familydefault}{\sfdefault}
+
+% Some configuration for listings
+\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\newcounter{firstcounter}
+\newcommand{\labelfirst}{(\roman{firstcounter})}
+%\newcommand{\spacingfirst}{\usecounter{firstcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingfirst}{\usecounter{firstcounter}}
+
+\newcounter{secondcounter}
+\newcommand{\labelsecond}{(\arabic{secondcounter})}
+%\newcommand{\spacingsecond}{\usecounter{secondcounter}\setlength{\rightmargin}{\leftmargin}}
+\newcommand{\spacingsecond}{\usecounter{secondcounter}}
+
+
+\title{Recursion Theory (UvA autumn 2008)\\
+\normalsize{Exercises Part 13 -- Martijn Vermaat (mvermaat@cs.vu.nl)}}
+
+%\author{Martijn Vermaat (mvermaat@cs.vu.nl)}
+%\date{Updated 5th December 2005}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+\paragraph{Exercise 2.5.6}
+
+Let $(X_s)_{s \in \omega}$ and $(Y_s)_{s \in \omega}$ be computable enumerations of c.e. sets $X$ and $Y$.
+
+\begin{enumerate}[label=(\alph*)]
+
+\item Both $X \setminus Y$ and $X \searrow Y$ are c.e sets.
+\begin{proof}
+  Since $z \in X_s - Y_s$ is computable, $X \setminus Y$ is $\Sigma_1$ (hence c.e.).
+  The c.e. sets are closed under intersection, so $X \searrow Y$ is c.e. as well.
+\end{proof}
+
+\item $X \setminus Y = (X - Y) \cup (X \searrow Y)$.
+\begin{proof}
+  By rewriting:
+  \begin{align*}
+    X \setminus Y & = (X \setminus Y) \cap (X \cup Y)         && \text{($X \setminus Y$ is restricted to $X$)}\\
+    & = (X \setminus Y) \cap ((X - Y) \cup Y)\\
+    & = ((X - Y) \cup (X \setminus Y)) \cap ((X - Y) \cup Y)  && \text{($X - Y$ is included in $X \setminus Y$)}\\
+    & = (X - Y) \cap ((X \setminus Y) \cap Y)\\
+    & = (X - Y) \cup (X \searrow Y)                           && \text{(by definition)}\qedhere
+  \end{align*}
+\end{proof}
+
+\item If $X - Y$ is not c.e. then $X \searrow Y$ is infinite and indeed noncomputable.
+
+\item
+
+\end{enumerate}
+
+
+\end{document}
