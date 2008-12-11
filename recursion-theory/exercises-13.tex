@@ -60,19 +60,49 @@ Let $(X_s)_{s \in \omega}$ and $(Y_s)_{s \in \omega}$ be computable enumerations
 
 \item $X \setminus Y = (X - Y) \cup (X \searrow Y)$.
 \begin{proof}
-  By rewriting:
+  By definition, we have
   \begin{align*}
-    X \setminus Y & = (X \setminus Y) \cap (X \cup Y)         && \text{($X \setminus Y$ is restricted to $X$)}\\
+    & \exists s(z \in X_s - Y_s) \quad\! \Rightarrow \quad\! \exists s(z \in X_s) &&
+    & \exists s(z \in X_s) \quad\! \& \quad\! \neg \exists s(z \in Y_s) \quad\! \Rightarrow \quad\! \exists s(z \in X_s - Y_s)
+  \end{align*}
+  which give use two useful facts:
+  \begin{align}
+    & X \setminus Y \subseteq X \label{fact:1}\\
+    & X - Y \subseteq X \setminus Y \label{fact:2}
+  \end{align}
+  \begin{align*}
+    X \setminus Y & = (X \setminus Y) \cap (X \cup Y)         && \text{by (\ref{fact:1})}\\
     & = (X \setminus Y) \cap ((X - Y) \cup Y)\\
-    & = ((X - Y) \cup (X \setminus Y)) \cap ((X - Y) \cup Y)  && \text{($X - Y$ is included in $X \setminus Y$)}\\
+    & = ((X - Y) \cup (X \setminus Y)) \cap ((X - Y) \cup Y)  && \text{by (\ref{fact:2})}\\
     & = (X - Y) \cap ((X \setminus Y) \cap Y)\\
-    & = (X - Y) \cup (X \searrow Y)                           && \text{(by definition)}\qedhere
+    & = (X - Y) \cup (X \searrow Y)                           && \text{by definition.}\qedhere
   \end{align*}
 \end{proof}
 
 \item If $X - Y$ is not c.e. then $X \searrow Y$ is infinite and indeed noncomputable.
+\begin{proof}
+  Assume $X - Y$ is not c.e. and suppose $X \searrow Y$ is computable. We have
+  \begin{align*}
+    X - Y = (X \setminus Y) \cap X \cap \overline{X \searrow Y}
+  \end{align*}
+  where all intersection operands are c.e. and thus $X - Y$ c.e. to a contradiction.
+\end{proof}
 
-\item
+\item (Reduction Principle for c.e. sets) Given any two c.e. sets $A$ and $B$,
+  there exist c.e. sets $A_1 \subseteq A$ and $B_1 \subseteq B$ such that
+  $A_1 \cap B_1 = \emptyset$ and $A_1 \cup B_1 = A \cup B$.
+\begin{proof}
+  Let $A = W_x$ and $B = W_y$, $A_1 = W_x \setminus W_y$ and $B_1 = W_y \setminus W_x$.
+
+  Both $A_1$ and $B_1$ are c.e. by (a).
+  By (\ref{fact:1}), $A_1 \subseteq A$ and $B_1 \subseteq B$.
+  Furthermore, there is no $z$ such that $\exists s(z \in W_{x,s} - W_{y,s}) \; \& \; \exists s(z \in W_{y,s} - W_{x,s})$, so $A_1 \cap B_1 = \emptyset$.
+  Finally, $A_1 \cup B_1 = A \cup B$ follows from
+  \begin{align*}
+    & \exists s(z \in W_{x,s} - W_{y,s}) \quad\! \text{or} \quad\! \exists s(z \in W_{y,s} - W_{x,s}) \quad\! \Longleftrightarrow \quad\! \exists s(z \in W_{x,s}) \quad\! \text{or} \quad\! \exists s(z \in W_{y,s}) \text{ .}
+  \end{align*}
+  Note that the ($\Leftarrow$) direction relies on fact (2.24), stating that in every stage, at most one element is enumerated in at most one set $W_e$.
+\end{proof}
 
 \end{enumerate}
 
