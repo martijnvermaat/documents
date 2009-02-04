@@ -1,110 +1,3 @@
-@INPROCEEDINGS{Dargaye-Leroy-07,
-  AUTHOR = {Z. Dargaye and X. Leroy},
-  TITLE = {Mechanized verification of {CPS} transformations},
-  BOOKTITLE = {14th International Conference on Logic for Programming,
-                     Artificial Intelligence and Reasoning (LPAR 2007)},
-  YEAR = 2007,
-  SERIES = {Lecture Notes in Artificial Intelligence},
-  PUBLISHER = {Springer},
-  URL = {http://gallium.inria.fr/~xleroy/publi/cps-dargaye-leroy.pdf},
-  XTOPIC = {compcert},
-  ABSTRACT = {
-Transformation to continuation-passing style (CPS) is often performed
-by optimizing compilers for functional programming languages.  As part
-of the development and proof of correctness of a compiler for the
-mini-ML functional language, we have mechanically verified the
-correctness of two CPS transformations for a call-by-value
-$\lambda$-calculus with $n$-ary functions, recursive functions, data
-types and pattern-matching.  The transformations generalize Plotkin's
-original call-by-value transformation and Danvy and Nielsen's
-optimized transformation, respectively.  We used the Coq proof
-assistant to formalize the transformations and conduct and check the
-proofs.  Originalities of this work include the use of big-step
-operational semantics to avoid difficulties with administrative
-redexes, and of two-sorted de Bruijn indices to avoid difficulties
-with $\alpha$-conversion.}
-}
-
-@article{Danvy-Nielsen-03,
- author = {O. Danvy and L. R. Nielsen},
- title = {A first-order one-pass {CPS} transformation},
- journal = {Theoretical Computer Science},
- volume = {308},
- number = {1-3},
- year = {2003},
- issn = {0304-3975},
- pages = {239--257},
- doi = {http://dx.doi.org/10.1016/S0304-3975(02)00733-8},
- publisher = {Elsevier Science Publishers Ltd.},
- address = {Essex, UK},
-}
-
-@article{Plotkin-75,
-  author    = {G. D. Plotkin},
-  title     = {Call-by-Name, Call-by-Value and the lambda-Calculus},
-  journal   = {Theoretical Computer Science},
-  volume    = {1},
-  number    = {2},
-  year      = {1975},
-  pages     = {125-159},
-  bibsource = {DBLP, http://dblp.uni-trier.de}
-}
-
-@book{Appel-92,
- author = {A. W. Appel},
- title = {Compiling with Continuations},
- publisher = {Cambridge University Press},
- year = 1992
-}
-
-@inproceedings{Orbit-86,
-  author    = {D. A. Kranz and
-               R. Kelsey and
-               J. Rees and
-               P. Hudak and
-               J. Philbin},
-  title     = {{ORBIT}: an optimizing compiler for {Scheme}},
-  booktitle = {SIGPLAN Symposium on Compiler Construction},
-  year      = {1986},
-  pages     = {219-233},
-  ee        = {http://doi.acm.org/10.1145/12276.13333},
-  bibsource = {DBLP, http://dblp.uni-trier.de}
-}
-
-
-@article{Danvy-Filinski-92,
-    author = "O. Danvy and A. Filinski",
-    title = "Representing Control: {A} study of the {CPS} transformation",
-    journal = "Mathematical Structures in Computer Science",
-    volume = "2",
-    number = "4",
-    pages = "361--391",
-    year = "1992",
-    url = "citeseer.ist.psu.edu/article/danvy92representing.html"
-}
-
-@inproceedings{Translation-Validation-98,
- author = {A. Pnueli and M. Siegel and E. Singerman},
- title = {Translation Validation},
- booktitle = {Proceedings of the 4th International Conference on Tools and Algorithms for Construction and Analysis of Systems},
- year = {1998},
- isbn = {3-540-64356-7},
- pages = {151--166},
- publisher = {Springer-Verlag},
- address = {London, UK},
-}
-
-@article{Necula-00,
-    author = "G. C. Necula",
-    title = "Translation validation for an optimizing compiler",
-    journal = "ACM SIG{\-}PLAN Notices",
-    volume = "35",
-    number = "5",
-    pages = "83--94",
-    year = "2000",
-    url = "citeseer.ist.psu.edu/necula00translation.html"
-}
-
 @misc{Coq-89,
   title =        {The {Coq} proof assistant},
   author =       {Coq development team},
@@ -123,17 +16,6 @@ with $\alpha$-conversion.}
   url          = "http://www.labri.fr/publications/l3a/2004/BC04"
 }
 
-@InProceedings{Letouzey-02,
-  author =       {P. Letouzey},
-  title =        {A New Extraction for {Coq}},
-  booktitle =    {{Types for Proofs and Programs, Workshop TYPES 2002}},
-  publisher =    {Springer-Verlag},
-  series =       {Lecture Notes in Computer Science},
-  volume =       2646,
-  year =         2003,
-  pages =        {200-219},
-}
-
 @inproceedings{Poplmark-Challenge-05,
 	author = {B. E. Aydemir and A. Bohannon and M. Fairbairn and N. J. Foster and B. C. Pierce and P. Sewell and D. Vytiniotis and G. Washburn and S. Weirich and S. Zdancewic},
 	booktitle = {International Conference on Theorem Proving in Higher Order Logics (TPHOLs)},
@@ -141,28 +23,6 @@ with $\alpha$-conversion.}
 	title = {Mechanized metatheory for the masses: {T}he {POPLmark} Challenge},
 	url = {http://www.cis.upenn.edu/~geoffw/research/papers/poplmark.pdf},
 	year = {2005}
-}
-
-@inproceedings{Minamide-Okuma-03,
-	author = {Y. Minamide and K. Okuma},
-	booktitle = {MERLIN '03: Proceedings of the 2003 workshop on Mechanized reasoning about languages with variable binding},
-	isbn = {1581138008},
-	pages = {1--8},
-	publisher = {ACM Press},
-	title = {Verifying {CPS} transformations in {Isabelle/HOL}},
-	url = {http://portal.acm.org/citation.cfm?id=976576},
-	year = {2003}
-}
-
-
-@inproceedings{Tian-06,
- author = {Y. H. Tian},
- title = {Mechanically verifying correctness of {CPS} compilation},
- booktitle = {CATS '06: Proceedings of the 12th Computing: The Australasian Theroy Symposium},
- year = {2006},
- isbn = {1-920682-33-3},
- pages = {41--51},
- publisher = {Australian Computer Society},
 }
 
 @inproceedings{Chlipala-07,
