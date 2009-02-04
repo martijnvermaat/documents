@@ -1,0 +1,1043 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[english]{babel}
+\usepackage{a4}
+
+
+% Use some subversion information
+\usepackage{svn-multi}
+\svnid{$Id: bachelor-project.tex 376 2008-03-17 22:04:19Z martijn $}
+
+
+\usepackage[T1]{fontenc}
+\usepackage{ae,aecompl}
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+
+% Typesetting evaluation rules (http://cristal.inria.fr/~remy/latex/)
+\usepackage{mathpartir}
+
+
+% Don't add chapter to figure numbering
+\renewcommand\thefigure{\arabic{figure}}
+
+
+% Keywords like let,in,then,match,with
+\newcommand{\kw}[1]{\mathtt{#1}}
+
+
+% Theorems
+\newtheorem{lemma}{\sffamily Lemma}
+\newtheorem{theorem}{\sffamily Theorem}
+
+
+% One other fancy thing is sansserif headings, we go through some trouble to
+% get this in our document consistently...
+
+% Use sansserif font in section headings
+\usepackage{sectsty}
+\allsectionsfont{\sffamily}
+
+% Use sansserif font in abstract heading
+\usepackage{abstract}
+\renewcommand{\abstractnamefont}{\normalfont\small\bfseries\sffamily}
+\setlength{\abstitleskip}{-1.5em}
+
+% Use sansserif font in captions
+% http://dcwww.camd.dtu.dk/~schiotz/comp/LatexTips/LatexTips.html#captfont
+\newcommand{\captionfonts}{\sffamily \small}
+\makeatletter
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip
+  \sbox\@tempboxa{{\captionfonts #1: #2}}%
+  \ifdim \wd\@tempboxa >\hsize
+    {\captionfonts #1: #2\par}
+  \else
+    \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip}
+\makeatother
+
+% Furthermore, we use \sffamily in theorem titles and description item titles
+
+
+% Must be last in preamble
+\usepackage[
+  pdftex,
+  colorlinks,
+  citecolor=black,
+  filecolor=black,
+  linkcolor=black,
+  urlcolor=black,
+  pdfauthor={Martijn Vermaat},
+  pdftitle={Mechanized Reasoning about Languages with Bindings},
+  pdfsubject={TODO},
+  pdfkeywords={lambda calculus, binding, types, program verification, poplmark},
+  draft=true
+]{hyperref}
+\usepackage[figure]{hypcap}
+
+
+\title{\sffamily Mechanized Reasoning about Languages with Bindings}
+
+\author{\sffamily
+  Martijn Vermaat\\[0.3em]
+  \href{mailto:mvermaat@cs.vu.nl}{\texttt{mvermaat@cs.vu.nl}}
+}
+\date{\sffamily Literature Study, 2009 r\svnrev}
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{abstract}
+  This paper is a case study on the mechanical verification of a
+  transformation to continuation-passing style (CPS) by Dargaye and Leroy.
+  First, the concepts of CPS and transformation to CPS are introduced.
+  We then define source and target languages, and a CPS transformation between
+  them which is proved to preserve semantics.
+  We conclude with a small overview of the mechanization of CPS
+  transformations.
+  A detailed proof of the semantics preservation theorem is attached as an
+  appendix.
+\end{abstract}
+
+
+\section{Introduction}\label{sec:introduction}
+
+
+Continuation-passing style (CPS) is a functional programming style in which control is
+passed explicitely to every function in the form of a continuation. Functions
+written in continuation-passing style, as opposed to functions written in direct
+style, never return the result of their computation directly but instead pass it to a
+continuation function. This continuation function is received as an extra argument.
+For example, the unary function that returns its argument
+substracted by $2$ is written $\lambda x. \, x - 2$ in direct style
+$\lambda$-calculus. Written in continuation-passing style, this function becomes
+$\lambda x. \, \lambda k. \, k \, (x - 2)$ where $k$ is the continuation function.
+
+A main property of programs written in CPS is that their evaluation is independent
+of the evaluation strategy. Evaluating a CPS program with a call-by-value strategy
+yields the same evaluation steps as evaluating it with a call-by-need strategy
+\cite{Plotkin-75}. This makes CPS programs attractive as a semantical target.
+
+In the field of compiler construction, CPS is often used as an intermediate language
+in compiling functional languages \cite{Appel-92,Orbit-86}. Many optimizing
+transformations, such as inlining and memoization, are easier to perform on CPS
+programs than on direct-style programs.
+
+Programs written in direct style can be mechanically transformed to equivalent
+programs in CPS \cite{Danvy-Filinski-92}. Many of such transformations are known,
+the earliest of which is due to Plotkin \cite{Plotkin-75}. A major disadvantage of
+Plotkin's original transformation is that it generates a lot of administrative redexes.
+While theoretically harmless, in practice these redexes must be removed in a later
+pass of an optimizig compiler and make proving certain properties of the transformation
+less straightforward. Therefore, a number of alternative transformations to CPS have
+been proposed, some of them yielding no administrative redexes at all. We will see two
+examples of CPS transformations in Section~\ref{sec:transformations}.
+
+\paragraph{}
+
+Formal verification of programs is used to prove that a program does not have certain
+defects or has certain properties. Traditionally, program verification is done
+by proving the source code of the program correct. Afterwards, the source code is
+compiled to binary code which is then executed. It should be clear that this scheme
+does not provide any guarantees on the correctness of the executed code, one of the
+reasons being that the compiler could have altered the meaning of the program.
+
+There are a number of ways to remedy this situation. The most obvious, and the one we
+will focus on, being to verify the correctness of the compiler before compiling the
+source code of the program. Other ways are verifying the result of the compilation
+(translation validation) \cite{Translation-Validation-98,Necula-00} and using
+proof-carrying code. While these alternatives do not require proving correctness of
+the compiler, this requirement is shifted to the validator and the proof-checker,
+respectively.
+
+\paragraph{}
+
+Dargaye and Leroy \cite{Dargaye-Leroy-07} have implemented and verified two CPS
+transformations using the Coq proof assistant \cite{Coq-89,CoqArt-04}. Their work is
+part of the larger project to implement a verified compiler for the mini-ML language,
+a restricted part of the ML functional language rich enough to be used as a target
+language for automatic extraction of programs from Coq specifications
+\cite{Letouzey-02}.
+
+We will do a simplified case study on the setting of Dargaye and Leroy. Where their
+transformations work on a realistic functional source language featuring $n$-ary
+functions, recursive functions, algebraic data types and pattern-matching, we restrict
+this list to $n$-ary functions only. Furthermore, we focus on their first
+transformation, a straightforward extension of Plotkin's original transformation,
+ignoring their verification of an optimizing transformation. Finally, the
+mechanization of the transformation and its verification will not be discussed.
+
+Contributions of this text include a more detailed description of the correctness
+proof of Plotkin's extended transformation and, hopefully, a simpler and more
+approachable presentation of the matter at hand.
+
+
+\section{CPS Transformations}\label{sec:transformations}
+
+Let us now look at two transformations from programs in direct style to programs in
+continuation-passing style. Plotkin's original call-by-value transformation on terms
+in the untyped $\lambda$-calculus is defined as follows:
+\begin{align*}
+  [\![x]\!]               &= \lambda k. \, k \, x\\
+  [\![\lambda x. \, M]\!] &= \lambda k. \, k \, (\lambda x. \, [\![M]\!])\\
+  [\![M \, N]\!]          &= \lambda k. \, [\![M]\!] \, (\lambda m. \, [\![N]\!] \, (\lambda n. \, m \, n \, k))
+\end{align*}
+An entire program $M$ is now translated, using the initial continuation
+$\lambda x. \, x$ (the identity function), as
+$[\![M]\!] \, (\lambda x. \, x)$.
+
+This transformation is conceptually easy, but unfortunately yields a lot of
+administrative redexes. An administrative redex is a redex introduced by the CPS
+transformation, thus not present in the original source term. Consider for example
+the transformation of $(\lambda x. \, x) \, y$ and subsequent $\beta$-reduction
+of several administrative redexes:
+\begin{align*}
+  [\![(\lambda x. \, x) \, y]\!] &= \lambda k. \, (\lambda k. \, k \, (\lambda x. \, (\lambda k. \, k \, x))) \, (\lambda m. \, (\lambda k. \, k \, y) \,
+ (\lambda n. \, m \, n \, k))\\
+                                 &\rightarrow_{\beta} \lambda k. \, (\lambda m. \, (\lambda k. \, k \, y) \, (\lambda n. \, m \, n \, k)) \, (\lambda x.
+\, (\lambda k. \, k \, x))\\
+                                 &\rightarrow_{\beta} \lambda k. \, (\lambda k. \, k \, y) \, (\lambda n. \, (\lambda x. \, (\lambda k. \, k \, x)) \, n
+\, k)\\
+                                 &\rightarrow_{\beta} \lambda k. \, (\lambda n. \, (\lambda x. \, (\lambda k. \, k \, x)) \, n \, k) \, y\\
+                                 &\rightarrow_{\beta} \lambda k. \, (\lambda x. \, (\lambda k. \, k \, x)) \, y \, k
+\end{align*}
+Note that the term concluding the above reduction still contains a redex, but
+this redex was already present in the source term.
+Administrative redexes are to be avoided, because they complicate formal
+reasoning about a transformation and add computation steps to a compilation
+process.
+
+The following variation on Plotkin's transformation generates fewer
+administrative redexes. Instead of abstracting over the continuation function,
+the continuation is turned into an additional argument of the transformation which
+is thus defined as a binary function $[\![M]\!] \triangleright k$ on a source term
+$M$ and a continuation term $k$:
+\begin{align*}
+  [\![x]\!] \triangleright k               &= k \, x\\
+  [\![\lambda x. \, M]\!] \triangleright k &= k \, (\lambda x \, k. \, [\![M]\!] \triangleright k)\\
+  [\![M \, N]\!] \triangleright k          &= [\![M]\!] \triangleright \lambda m. \, [\![N]\!] \triangleright \lambda n. \, m \, n \, k
+\end{align*}
+where the complete translation of a program $M$ becomes
+$[\![M]\!] \triangleright (\lambda x. \, x)$.
+
+Considering the term $(\lambda x. \, x) \, y$ again, transforming it will now
+generate fewer administrative redexes:
+\begin{align*}
+  [\![(\lambda x. \, x) \, y]\!] \triangleright k &= (\lambda m. \, (\lambda n. \, m \, n \, k) \, y) \, (\lambda x \, k. \, k \, x)\\
+                                                  &\rightarrow_{\beta} (\lambda n. \, (\lambda x \, k. \, k \, x) \, n \, k) \, y\\
+                                                  &\rightarrow_{\beta} (\lambda x \, k. \, k \, x) \, y \, k
+\end{align*}
+
+\paragraph{}
+
+These are just two of many known CPS transformations. For example, a
+transformation that avoids generating any administrative redexes at all is
+described by Danvy and Nielsen \cite{Danvy-Nielsen-03}. In this text, we
+will consider an extension of the original transformation by Plotkin.
+
+
+\section{Languages}\label{sec:languages}
+
+We will now describe the syntax and semantics of two languages acting as the
+source and target languages of the transformation.
+They are direct simplifications of the languages used in
+\cite{Dargaye-Leroy-07}, not containing recursive functions, algebraic
+datatypes, and pattern matching.
+The result is two simple extensions of untyped $\lambda$-calculus with $n$-ary
+functions and $\kw{let}$-bindings.
+
+In order to avoid difficulties with $\alpha$-conversion, de Bruijn indices
+will be used instead of named variables.
+In this notation, variables are indexed by a natural number denoting the
+number of abstractions in scope between the variable and its binding
+abstraction.
+Now $\alpha$-equivalence of terms simply corresponds to syntactic equality.
+As an example, consider the term
+$\lambda x. \lambda y. \lambda z. x \, z \, (y \, z)$ in the
+$\lambda$-calculus with named variables.
+The same term written with de Bruijn indexed variables becomes
+$\lambda \, \lambda \, \lambda \, x_{2} \, x_{0} \, (x_{1} \, x_{0})$.
+
+The source and target languages differ only in that the target language
+features two kinds of variables (independently indexed), the extra kind being
+used for continuations and intermediate evaluation results introduced by the
+CPS transformation.
+
+\subsection{Source Language}
+
+Terms $M$ in the source language are defined by the following grammar:
+\begin{align*}
+M ::=             &\; x_{n}
+                  && \text{variable} \\
+\llap{\textbar\:} &\; \lambda^{n}.M
+                  && \text{abstraction of arity $n+1$} \\
+\llap{\textbar\:} &\; M(M, \ldots, M)
+                  && \text{function application} \\
+\llap{\textbar\:} &\; \kw{let} \: M \: \kw{in} \: M
+                  && \text{binding}
+\end{align*}
+where $n$ ranges over the natural numbers.
+
+Variables $x_{i}$ are identified by their de Bruijn indices $i$.
+An abstraction $\lambda^{n}.M$ binds variables $x_{n}, \ldots, x_{0}$ in $M$. The
+$\kw{let}$-binding $\kw{let} \: M \: \kw{in} \: N$ binds $x_{0}$ to $M$ in $N$.
+
+Simultaneous substitution of terms $N_{0}, \ldots, N_{n}$ for
+$x_{0}, \ldots, x_{n}$ in $M$ is written $M\{N_{0}, \ldots, N_{n}\}$.
+Lifting of free variables is denoted by the lifting operator: $\Uparrow^{n} M$
+replaces all free $x_{i}$ in $M$ by $x_{i+n}$. A value $v$ is any term of the
+form $\lambda^{n}.M$.
+
+\paragraph{}
+
+The big-step operational semantics of the source language is given in
+Figure~\ref{fig:sourcesemantics}. The three rules define the evaluation relation
+$M \Rightarrow v$ on terms $M$ and values $v$, reading ``$M$ evaluates to $v$''.
+As can be seen from the $\kw{let}$-rule and the rule for function application,
+arguments are evaluated first, making this a call-by-value semantics.
+
+\paragraph{}
+
+An example term is $\lambda^{1}. \, x_{0} \: (x_{1}, (\lambda^{0}. \, x_{0}))$, a
+function expecting two arguments and returning the second argument applied to the
+first argument and the identity function.
+
+\begin{figure}
+\begin{mathpar}
+\infer*[left=Values]
+       {\:}
+       {\lambda^{n}.M \Rightarrow \lambda^{n}.M}
+\and
+\infer*[left=$\kw{let}$]
+       {M \Rightarrow v_{1}
+         \\ N\{v_{1}\} \Rightarrow v}
+       {(\kw{let} \: M \: \kw{in} \: N) \Rightarrow v}
+\and
+\infer*[left=Function Application]
+       {M \Rightarrow \lambda^{n}.P
+         \\ N_{i} \Rightarrow v_{i}
+         \\ P\{v_{n}, \ldots, v_{0}\} \Rightarrow v}
+       {M(N_{0}, \ldots, N_{n}) \Rightarrow v}
+\end{mathpar}
+\caption{Source language semantics}
+\label{fig:sourcesemantics}
+\end{figure}
+
+\subsection{Target Language}
+
+The target language is a direct adaptation of the source language, adding
+continuation variables $\kappa_{i}$ (we will refer to variables $x_{i}$
+as source-level variables). The two types of variables are numbered
+independently by their de Bruijn indices.
+
+Terms $M'$ in the target language are defined by the following grammar:
+\begin{align*}
+M' ::=            &\; x_{n}
+                  && \text{source-level variable} \\
+\llap{\textbar\:} &\; \kappa_{n}
+                  && \text{continuation variable} \\
+\llap{\textbar\:} &\; \lambda^{n}.M'
+                  && \text{abstraction of arity $n+1$} \\
+\llap{\textbar\:} &\; M'(M', \ldots, M')
+                  && \text{function application} \\
+\llap{\textbar\:} &\; \kw{let} \: M' \: \kw{in} \: M'
+                  && \text{binding}
+\end{align*}
+where $n$ ranges over the natural numbers.
+
+An abstraction $\lambda^{n}.M'$ binds its first argument, the continuation,
+to $\kappa_{0}$, and its remaining arguments to $x_{n-1}, \ldots, x_{0}$ in
+$M'$.
+$\kw{let}$-bindings behave analogous to the same construct in the source
+language.
+
+The double simultaneous substitution of terms $N'_{0}, \ldots, N'_{n}$ for
+$\kappa_{0}, \ldots, \kappa_{n}$ and terms $P'_{0}, \ldots, P'_{m}$ for
+$x_{0}, \ldots, x_{m}$ in $M'$ is written
+$M'\{N'_{0}, \ldots, N'_{n}\}\{P'_{0}, \ldots, P'_{m}\}$.
+We will use the following notation to distinguish between lifting of
+source-level variables and lifting of continuation variables:
+$\Uparrow_{x}^{n} M$ lifts free $x_{i}$ by $n$ in $M$ and
+$\Uparrow_{\kappa}^{n} M$ lifts free $\kappa_{i}$ by $n$ in $M$.
+
+\paragraph{}
+
+The big-step operational semantics for the target language is given in
+Figure~\ref{fig:targetsemantics}.
+
+\begin{figure}
+\begin{mathpar}
+\infer*[left=Values]
+       {\:}
+       {\lambda^{n}.M' \Rightarrow \lambda^{n}.M'}
+\and
+\infer*[left=$\kw{let}$]
+       {M' \Rightarrow v_{1}
+         \\ N'\{\}\{v_{1}\} \Rightarrow v}
+       {(\kw{let} \: M' \: \kw{in} \: N') \Rightarrow v}
+\and
+\infer*[left=Function Application]
+       {M' \Rightarrow \lambda^{n}.P'
+         \\ N'_{i} \Rightarrow v_{i}
+         \\ P'\{v_{0}\}\{v_{n}, \ldots, v_{1}\} \Rightarrow v}
+       {M'(N'_{0}, \ldots, N'_{n}) \Rightarrow v}
+\end{mathpar}
+\caption{Target language semantics}
+\label{fig:targetsemantics}
+\end{figure}
+
+
+\section{Transformation}\label{sec:transformation}
+
+Again, we will follow the presentation of \cite{Dargaye-Leroy-07}.
+The transformation we will prove correct is a straightforward extension of
+Plotkin's call-by-value transformation, defined below by two mutually
+recursive functions $\Psi$ on atoms and $[\![\cdot]\!]$ on terms. An atom $A$
+is a variable or an abstraction:
+\begin{equation*}
+A ::= \; x_{n} \: \text{\textbar} \: \lambda^{n}.M
+\end{equation*}
+Note that $[\![\cdot]\!]$ really works on source language terms extended with
+a $\kw{then}$ construct used in the transformation of function applications.
+\begin{align*}
+\Psi(x_{n}) &=
+  x_{n} \\
+\Psi(\lambda^{n}.M) &=
+  \lambda^{n+1}.[\![M]\!](\kappa_{0}) \\[1em]
+[\![A]\!] &=
+  \lambda^{0}.\kappa_{0} (\Psi(A)) \\
+[\![M(N_{1}, \ldots, N_{n})]\!] &=
+  \lambda^{0}.[\![M . N_{1} \ldots N_{n} \: \kw{then} \:
+  \kappa_{n}(\kappa_{n+1}, \kappa_{n-1}, \ldots, \kappa_{0})]\!] \\
+[\![\kw{let} \: M \: \kw{in} \: N]\!] &=
+  \lambda^{0}.[\![M]\!] (\lambda^{0}.\kw{let} \:
+  \kappa_{0} \: \kw{in} \: [\![N]\!] (\kappa_{1})) \\
+[\![M_{1} \ldots M_{n} \: \kw{then} \: N']\!] &=
+  [\![M_{1}]\!] (\lambda^{0} \ldots [\![M_{n}]\!] (\lambda^{0}.N') \ldots )
+\end{align*}
+
+The transformation $[\![M]\!]$ of any source term $M$ is a one-argument
+abstraction in the target language that will receive the current continuation
+and bind it to the continuation variable $\kappa_{0}$. A function of arity $n$
+in the source language is transformed to a function of arity $n+1$ in the
+target language expecting a continuation as its first argument (bound
+to $\kappa_{0}$) and $n$ regular arguments thereafter
+(bound to $x_{n-1}, \ldots, x_{0}$).
+
+The transformation of the term $M_{1} \ldots M_{n} \: \kw{then} \: N'$ first
+evaluates the terms
+$[\![M_{1}]\!], \ldots, [\![M_{n}]\!]$ and binds them to
+$\kappa_{n-1}, \ldots, \kappa_{0}$ before evaluating $N'$. So in the
+transformation of the function application
+$M(N_{1}, \ldots, N_{n})$, we have $\kappa_{n}$ bound to $[\![M]\!]$,
+$\kappa_{n-1}, \ldots, \kappa_{0}$ bound to $[\![N_{1}]\!], \ldots [\![N_{n}]\!]$,
+and $\kappa_{n+1}$ bound to the outer continuation, after which
+$\kappa_{n}(\kappa_{n+1}, \kappa_{n-1}, \ldots, \kappa_{0})$ is evaluated.
+
+\paragraph{}
+
+As an example, consider the transformation
+$[\![(\lambda^{0}.x_{0})(\lambda^{1}.x_{0})]\!]$, yielding
+\begin{align*}
+  \lambda^{0}. \:& \bigl( \lambda^{0}.\kappa_{0}(\lambda^{1}. \: (\lambda^{0}.\kappa_{0}(x_{0})) \: (\kappa_{0}) \: ) \bigr)\\
+  & \bigl( \lambda^{0}. \: (\lambda^{0}.\kappa_{0}(\lambda^{2}.(\lambda^{0}.\kappa_{0}(x_{0}))(\kappa_{0}))) \: (\lambda^{0}.\kappa_{1}(\kappa_{2},\kappa_{
+    0})) \: \bigr) \text{ .}
+\end{align*}
+
+\paragraph{}
+
+We will say that a target language term is $\kappa$-closed if it does not
+contain any free continuation variables $\kappa_{i}$.
+The following lemmas state some important properties of the transformation.
+They will be proved in appendix~\ref{sec:proofs}.
+
+\begin{lemma}\label{lem:kappaclosed}
+  $[\![M]\!]$ and $\Psi(A)$ are $\kappa$-closed. As a corollary, transformed
+  terms are invariant by substitution of $\kappa$-variables:
+  \begin{equation*}
+    [\![M]\!]\{\vec{N}\}\{\vec{P}\} = [\![M]\!]\{\}\{\vec{P}\}
+  \end{equation*}
+\end{lemma}
+
+\begin{lemma}\label{lem:commuting}
+  The transformation commutes with substitution of atoms for source-level variables:
+  \begin{align*}
+    [\![M\{A_{1}, \ldots, A_{n}\}]\!] &= [\![M]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    \Psi(A\{A_{1}, \ldots, A_{n}\})   &= \Psi(A)\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\}
+  \end{align*}
+\end{lemma}
+
+
+\section{Semantics Preservation}\label{sec:semanticpreservation}
+
+We will now show that the transformation $[\![\cdot]\!]$ from source language
+terms to target language terms preserves semantics. That is, if a term $M$ in
+the source language evaluates to a value $v$, the translation $[\![M]\!]$ of $M$
+applied to the initial continuation $\lambda^{0}.\kappa_{0}$, should evaluate to
+the target language representation $\Psi(v)$ of $v$. This property is stated in
+Theorem~\ref{thm:maintheorem}.
+
+\begin{theorem}\label{thm:maintheorem}
+If $M \Rightarrow v$ in the source language, then
+$[\![M]\!] (\lambda^{0}.\kappa_{0}) \Rightarrow \Psi(v)$ in the target language.
+\end{theorem}
+
+For a proof by induction to go through we need to generalize this result. The
+statement we will prove is given as Lemma~\ref{lem:mainlemma} and generalizes the
+use of the initial continuation to any $\kappa$-closed, one-argument
+abstraction.
+
+\begin{lemma}\label{lem:mainlemma}
+  Let $K = \lambda^{0}.P$ be a $\kappa$-closed, one-argument
+  abstraction of the target language. If $M \Rightarrow v$ in the
+  source language, and $P\{\Psi(v)\}\{\} \Rightarrow v'$ in the target
+  language, then $[\![M]\!](K) \Rightarrow v'$ in the target language.
+\end{lemma}
+
+\begin{proof}
+We will sketch the outline of a proof, a more elaborate version can be found in
+appendix~\ref{sec:proofs}. The proof is by induction on the evaluation derivation
+of $M \Rightarrow v$ and case analysis over the term $M$.
+\begin{description}
+\item[\sffamily Base case $M = \lambda^{n}.M_{1}$]\hfill
+
+  We need to show
+  $(\lambda^{0}.\kappa_{0}(\Psi(\lambda^{n}.M_{1}))) (K) \Rightarrow v'$.
+  This is trivial.
+
+\item[\sffamily Inductive case $M = M_{1}(N_{0}, \ldots, N_{n})$]\hfill
+
+  Premises are $M_{1} \Rightarrow \lambda^{n}.Q$, $N_{i} \Rightarrow v_{i}$,
+  and $Q\{v_{n}, \ldots, v_{0}\} \Rightarrow v$. Our goal is to show
+  \begin{equation*}
+    [\![M_{1}]\!]
+    (\lambda^{0}.[\![N_{0}]\!](\lambda^{0}. \cdots
+    [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}(K, \kappa_{n},
+    \ldots, \kappa_{0})) \cdots ))
+    \Rightarrow v' \text{ .}
+  \end{equation*}
+  We apply the induction hypothesis to the first premise and our new goal is
+  \begin{equation*}
+    [\![N_{0}]\!]
+    (\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\Psi(\lambda^{n}.Q)
+    (K, \kappa_{n}, \ldots, \kappa_{0})) \cdots )
+    \Rightarrow v' \text{ .}
+  \end{equation*}
+  Repeatedly applying the induction hypothesis to premises
+  $N_{i} \Rightarrow v_{i}$ (starting with $i=0$) leaves us to show
+  \begin{equation*}
+    [\![Q\{v_{n}, \ldots, v_{0}\}]\!] (K) \Rightarrow v' \text{ ,}
+  \end{equation*}
+  which follows from the induction hypothesis applied to the last premise and
+  the assumption $P\{\Psi(v)\}\{\} \Rightarrow v'$.
+
+\item[\sffamily Inductive case $M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}$]\hfill
+
+  Premises are $M_{1} \Rightarrow v_{1}$ and $M_{2}\{v_{1}\} \Rightarrow v$. The
+  induction hypothesis applied to the second premise gives us
+  \begin{equation*}
+    [\![M_{2}\{v_{1}\}]\!] (\Uparrow_{x}^{1} \lambda^{0}.P)
+    \Rightarrow v' \text{ .}
+  \end{equation*}
+  Via the $\kw{let}$-evaluation rule, we can now show
+  \begin{equation*}
+    [\![M_{1}]\!]
+    (\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!]
+    (\Uparrow_{x}^{1} \lambda^{0}.P)) \Rightarrow v'
+  \end{equation*}
+  by applying the induction hypothesis to the first premise.
+  The assumption $P\{\Psi(v)\}\{\} \Rightarrow v'$ and evaluation rule for
+  function application complete the proof.\qedhere
+\end{description}
+\end{proof}
+
+\paragraph{}
+
+Theorem~\ref{thm:maintheorem} is an instantiation of
+Lemma~\ref{lem:mainlemma}, so we can now prove it easily.
+
+\begin{proof}[Proof of Theorem~\ref{thm:maintheorem}]
+We take for $K$ in Lemma~\ref{lem:mainlemma} the initial continuation
+$\lambda^{0}.\kappa_{0}$, yielding
+$[\![M]\!] (\lambda^{0}.\kappa_{0}) \Rightarrow \Psi(v)$.
+\end{proof}
+
+
+\section{Mechanically Verified Proofs}\label{sec:mechanized}
+
+Results such as that of the previous section can be mechanized using formal
+tools (e.g. a proof assistant).
+Reasons for doing so are several.
+Firstly, a mechanically checked proof is often more precise and convincing than
+a proof on paper.
+Secondly, mechanical proofs as are often easier to be reused in many ways, e.g.
+for composition, modification, and extension.
+Most importantly, the ultimate goal in the verification of these program
+transformations is of course obtaining correctness proofs of actual
+implementations (which are used directly in an application) and not just of
+transformations merely defined on paper.
+
+However, compared to the traditional way of proving things, mechanical proofs
+come with a price.
+On paper, typically a lot of handwaving is done, leaving out a lot of the
+trivial details.
+Compare this to a formal system where one has to be precise, giving us
+confidence in the correctness of proofs on the one hand, but often making them
+tedious to write and hard to read on the other.
+In addition to this, reasoning mechanically about programs brings technical
+problems, such as formalizing the binding of variables, described in the
+POPLmark challenge \cite{Poplmark-Challenge-05}.
+Several approaches to these problems exist and we will discuss some of them
+below.
+
+\subsection{Mechanized Verification of CPS Transformations}
+
+The transformation described in Section~\ref{sec:transformation} and an
+optimized transformation by Danvy and Nielsen \cite{Danvy-Nielsen-03} have
+been implemented and verified by Dargaye and Leroy \cite{Dargaye-Leroy-07}
+using the Coq proof assistant.
+The complete Coq development consists of 9000 lines of code.
+An implementation of the transformations in Caml is automatically extracted
+from the Coq specifications.
+The source and target languages are realistic functional languages,
+much like the ones introduced in Section~\ref{sec:languages}, but extended
+with recursive functions, algebraic datatypes, and pattern matching.
+This is particularly original in that earlier work mostly considers the pure
+$\lambda$-calculus.
+
+Binding of variables is represented using de Bruijn indices, hereby omitting
+the issue of $\alpha$-equivalence between terms.
+Unfortunately, another complexity is introduced by the required lifting of
+indices in substitutions.
+A large part of the Coq code deals with the properties of lifting and
+substitution.
+Furthermore, terms with de Bruijn variables are arguably harder to deal with for
+humans than terms with named variables.
+
+To avoid much of the problems with lifting, two sorts of de Bruijn indices are
+used -- one for source-level variables and one for continuation variables.
+Lifting of source-level variables is therefore no longer necessitated by the
+introduction of continuation variable bindings.
+
+The transformations are verified using big-step operational semantics.
+While small-step semantics are more expressive (they can describe
+non-terminating computations), they tend to make program transformations
+significantly harder to prove correct.
+In this case, difficulties caused by administrative redexes are avoided by
+using big-step semantics.
+Furthermore, the intended use of the transformation is in a compiler for
+automatically extracted programs from Coq specifications, which are strongly
+normalizing.
+
+\subsection{Related Work}
+
+Other verified mechanizations of transformations to CPS differ on several
+aspects, most notably the logical framework used to implement the
+verification, the way languages and semantics are represented, and the type
+of operational semantics used.
+
+An important decision for the representation of terms is how to formalize
+binding of variables.
+Named variables and $\alpha$-conversion as we are used to on paper bring many
+difficulties to mechanical reasoning.
+A well-known and often used alternative are de Bruijn indices, although they
+bring the complexity of lifting.
+Higher-order abstract syntax is another frequently used technique, in which
+variables do not refer to their binder by name (i.e.\ as in first-order
+abstract syntax), but point directly to the binding site.
+The equivalence classes of Pitt's nominal logic provide us with yet another
+way to model $\alpha$-equivalence of terms on a syntactical level, but are
+unfortunately not yet well supported in logical frameworks.
+Finally, a combination of nominal logic and de Bruijn indices is called a
+``locally nameless'' representation \cite{Leroy-07}, where free variables are
+named and bound variables are represented by their de Bruijn index.
+
+A correctness proof of a transformation is based on some sort of semantics for
+the source and target languages.
+Usually, correctness is intepreted as preservation of semantics or observable
+behavior.
+A denotational semantics translates terms to mathematical structures in a
+compositional way.
+These mathematical structures, called denotations, describe the behavior of
+the language.
+An operational semantics gives meaning to a program by describing a
+computation.
+Two main styles of operational semantics exist.
+Traditional small-step semantics describe a series of computations formed by
+repeatedly applying one-step rules.
+Big-step semantics relate programs and their computational result directly.
+
+\paragraph{}
+
+Minamide and Okuma \cite{Minamide-Okuma-03} verified several CPS
+transformations for $\lambda$-calculus in Isabelle/HOL.
+Terms are represented using first-order abstract syntax and named variables.
+This representation is choosen because it is both close to what is used on
+paper and, so they argue, to intermediate languages used in compilers.
+
+As noted above, a number of difficulties arise from the use of named
+variables, one of them being that of $\alpha$-convertibility.
+This is tackled by reformulating $\alpha$-equivalence as a syntax-directed
+deductive system. Other problems require that variables introduced by the
+transformation are fresh and that $\kw{let}$-bound variables are unique.
+
+Minamide and Okuma use a call-by-value operational semantics in traditional
+small-step style.
+
+\paragraph{}
+
+In \cite{Tian-06}, Tian implements and verifies a higher-order one-pass CPS
+transformation by Danvy and Nielsen in the logical framework Twelf.
+The source and target languages are formalized using higher-order abstract
+syntax and are accompanied by a big-step and small-step operational semantics,
+respectively.
+
+Because the transformation is higher-order, it avoids problems with
+administrative redexes.
+The issues of binding and substitution are addressed by using higher-order
+abstract syntax.
+
+\paragraph{}
+
+Chlipala \cite{Chlipala-07} used Coq to implement a certified compiler from
+simply typed $\lambda$-calculus to assembly language.
+The first two passes of the compiler implement a transformation to CPS.
+
+Chlipala aims for as much automation in the proofs as possible.
+De Bruijn indices are used to represent variables and terms are given
+dependent types.
+Preservation of types is trivially proved by the dependent types and enables
+type-directed proof search to automate large parts of the semantics
+preservation proofs. The languages are accompanied by a type-directed
+denotational semantics.
+
+
+\section*{Acknowledgements}
+
+Many thanks are due to Femke van Raamsdonk and Roel de Vrijer for their
+supervision.
+Your patience seemed unbounded but must have been tested to the limit.
+Heiltje Winterink provided comments on my English writing, thanks for that.
+And finally, \emph{muchas gracias} Martina.
+
+
+\pagebreak
+
+
+\appendix
+
+
+\section{Proofs}\label{sec:proofs}
+
+
+\subsection{Lemma~\ref{lem:kappaclosed}}
+
+\begin{quote}
+  $[\![M]\!]$ and $\Psi(A)$ are $\kappa$-closed. As a corollary, transformed
+  terms are invariant by substitution of continuation variables:
+  \begin{equation*}
+    [\![M]\!]\{\vec{N}\}\{\vec{P}\} = [\![M]\!]\{\}\{\vec{P}\}
+  \end{equation*}
+\end{quote}
+
+\begin{proof}
+The proof is by structural induction over $M$ and case analysis over $A$.
+
+\begin{description}
+\item[\sffamily Base case $M = x_{i}$]\hfill
+
+  $[\![M]\!] = \lambda^{0}.\kappa_{0}(x_{i})$, which is obviously $\kappa$-closed.
+
+\item[\sffamily Inductive case $M = \lambda^{n}.M_{1}$]\hfill
+
+  By the induction hypothesis, $[\![M_{1}]\!]$ is $\kappa$-closed. Therefore, also
+  $[\![M]\!] = \lambda^{0}.\kappa_{0}(\lambda^{n+1}.[\![M_{1}]\!](\kappa_{0}))$ is
+  $\kappa$-closed.
+
+\item[\sffamily Inductive case $M = M_{1}(N_{0}, \ldots, N_{n})$]\hfill
+  \begin{align*}
+    [\![M]\!] &= \lambda^{0}.[\![M_{1}.N_{0} \ldots N_{n} \: \kw{then} \: \kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})]\!] \\
+              &= \lambda^{0}.[\![M_{1}]\!](\lambda^{0}.[\![N_{0}]\!](\lambda^{0}. \ldots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})) \cdots ))
+  \end{align*}
+  By the induction hypothesis, $[\![M_{1}]\!]$, $[\![N_{0}]\!], \ldots, [\![N_{n}]\!]$ are $\kappa$-closed.
+  There are $n+3$ abstractions surrounding the $\kappa_{n+2}$, so $[\![M]\!]$ is $\kappa$-closed.
+
+\item[\sffamily Inductive case $M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}$]\hfill
+
+  $[\![M]\!] = \lambda^{0}.[\![M_{1}]\!](\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!](\kappa_{1}))$
+  is $\kappa$-free because $[\![M_{1}]\!]$ and $[\![M_{2}]\!]$ are (by the induction hypothesis).
+\end{description}
+
+Now, $\kappa$-freeness of $\Psi(A)$ and the corollary follow trivially.
+\end{proof}
+
+
+\subsection{Lemma~\ref{lem:commuting}}
+
+\begin{quote}
+  The transformation commutes with substitution of atoms for source-level variables:
+  \begin{align*}
+    [\![M\{A_{1}, \ldots, A_{n}\}]\!] &= [\![M]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    \Psi(A\{A_{1}, \ldots, A_{n}\})   &= \Psi(A)\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\}
+  \end{align*}
+\end{quote}
+
+\begin{proof}
+We omit lifting of continuation variables when there are none (implicitely applying
+Lemma~\ref{lem:kappaclosed}). Furthermore, we use the fact $\Uparrow_{x}^{n} \Psi(A) = \Psi(\Uparrow^{n} A)$
+several times. The first statement is proved by a structural induction argument over $M$.
+
+\begin{description}
+\item[\sffamily Base case $M = x_{i}$]\hfill
+
+  If $i < n$, we have
+  \begin{align*}
+    [\![x_{i}\{A_{1}, \ldots, A_{n}\}]\!] &= [\![A_{i+1}]\!] \\
+                                        &= \lambda^{0}.\kappa_{0}(\Psi(A_{i+1})) \\
+%                                        &= \lambda^{0}.\kappa_{0}(\Uparrow_{\kappa}^{1}\Psi(A_{i+1})) && \text{by lemma~\ref{lem:kappaclosed}} \\
+                                        &= \lambda^{0}.\kappa_{0}(x_{i})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+                                        &= [\![x_{i}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
+  \end{align*}
+  Otherwise,
+  \begin{align*}
+    [\![x_{i}\{A_{1}, \ldots, A_{n}\}]\!] &= [\![x_{i}]\!] \\
+                                        &= \lambda^{0}.\kappa_{0}(x_{i}) \\
+                                        &= \lambda^{0}.\kappa_{0}(x_{i})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+                                        &= [\![x_{i}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
+  \end{align*}
+
+\item[\sffamily Inductive case $M = \lambda^{m}.M_{1}$]\hfill
+
+  We use the induction hypothesis in the third step below:
+  \begin{eqnarray*} % eqnarray shouldn't be used
+    &   & [\![(\lambda^{m}.M_{1})\{A_{1}, \ldots, A_{n}\}]\!] \\
+    & = & [\![\lambda^{m}.M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow^{m+1}A_{1}, \ldots, \Uparrow^{m+1}A_{n}\}]\!] \\
+    & = & \lambda^{0}.\kappa_{0}(\lambda^{m+1}.[\![M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow^{m+1}A_{1}, \ldots, \Uparrow^{m+1}A_{n}\}]\!](\kappa_{0})) \\
+    & = & \lambda^{0}.\kappa_{0}(\lambda^{m+1}.[\![M_{1}]\!] \\
+    &   & \qquad \{\}\{x_{0}, \ldots, x_{m}, \Uparrow_{x}^{m+1}\Psi(A_{1}), \ldots, \Uparrow_{x}^{m+1}\Psi(A_{n})\}(\kappa_{0})) \\
+%    & = & \lambda^{0}.\kappa_{0}(\lambda^{m+1}.[\![M_{1}]\!]\{\}\{x_{0}, \ldots, x_{m}, \Uparrow_{\kappa}^{2} \Uparrow_{x}^{m+1}\Psi(A_{1}), \ldots, \Uparrow_{\kappa}^{2} \Uparrow_{x}^{m+1}\Psi(A_{n})\}(\kappa_{0})) \\ % \ref{lem:kappaclosed}
+    & = & (\lambda^{0}.\kappa_{0}(\lambda^{m+1}.[\![M_{1}]\!](\kappa_{0})))\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    & = & [\![\lambda^{m}.M_{1}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
+  \end{eqnarray*}
+
+\item[\sffamily Inductive case $M = M_{1}(N_{0}, \ldots, N_{m})$]\hfill
+
+  In the fourth step below we use the induction hypothesis:
+  \begin{eqnarray*}
+    &   & [\![M_{1}(N_{0}, \ldots, N_{m})\{A_{1}, \ldots, A_{n}\}]\!] \\
+    & = & [\![M_{1}\{A_{1}, \ldots, A_{n}\}(N_{0}\{A_{1}, \ldots, A_{n}\}, \ldots, N_{m}\{A_{1}, \ldots, A_{n}\})]\!] \\
+    & = & \lambda^{0}.[\![M_{1}\{A_{1}, \ldots, A_{n}\}.N_{0}\{A_{1}, \ldots, A_{n}\} \ldots N_{m}\{A_{1}, \ldots, A_{n}\} \: \\
+    &   & \qquad \kw{then} \: \kappa_{m+1}(\kappa_{m+2}, \kappa_{m}, \ldots, \kappa_{0})]\!] \\
+    & = & \lambda^{0}.[\![M_{1}\{A_{1}, \ldots, A_{n}\}]\!](\lambda^{0}.[\![N_{0}\{A_{1}, \ldots, A_{n}\}]\!] \\
+    &   & \qquad (\lambda^{0}. \ldots [\![N_{m}\{A_{1}, \ldots, A_{n}\}]\!](\lambda^{0}.\kappa_{m+1}(\kappa_{m+2}, \kappa_{m}, \ldots, \kappa_{0})) \cdots )) \\
+    & = & \lambda^{0}.[\![M_{1}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\}(\lambda^{0}.[\![N_{0}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    &   & \qquad (\lambda^{0}. \ldots [\![N_{m}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    &   & \qquad \qquad (\lambda^{0}.\kappa_{m+1}(\kappa_{m+2}, \kappa_{m}, \ldots, \kappa_{0})) \cdots )) \\ % IH
+    & = & (\lambda^{0}.[\![M_{1}]\!](\lambda^{0}.[\![N_{0}]\!](\lambda^{0}. \ldots [\![N_{m}]\!](\lambda^{0}.\kappa_{m+1}(\kappa_{m+2}, \kappa_{m}, \ldots, \kappa_{0})) \cdots ))) \\
+    &   & \qquad \{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    & = & (\lambda^{0}.[\![M_{1}.N_{0} \ldots N_{m} \: \kw{then} \: \kappa_{m+1}(\kappa_{m+2}, \kappa_{m}, \ldots, \kappa_{0})]\!]) \\
+    &   & \qquad \{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    & = & [\![M_{1}(N_{0}, \ldots, N_{m})]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
+  \end{eqnarray*}
+
+\item[\sffamily Inductive case $M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}$]\hfill
+
+  Here the induction hypothesis is used in the third step:
+  \begin{eqnarray*} % eqnarray shouldn't be used
+    &   & [\![(\kw{let} \: M_{1} \: \kw{in} \: M_{2})\{A_{1}, \ldots, A_{n}\}]\!] \\
+    & = & [\![\kw{let} \: M_{1}\{A_{1}, \ldots, A_{n}\} \: \kw{in} \: M_{2}\{x_{0}, \Uparrow^{1} A_{1}, \ldots, \Uparrow^{1} A_{n}\}]\!] \\
+    & = & \lambda^{0}.[\![M_{1}\{A_{1}, \ldots, A_{n}\}]\!] \\
+    &   & \qquad (\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}\{x_{0}, \Uparrow^{1} A_{1}, \ldots, \Uparrow^{1} A_{n}\}]\!](\kappa_{1})) \\
+    & = & \lambda^{0}.[\![M_{1}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    &   & \qquad (\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!]\{\}\{x_{0}, \Uparrow_{x}^{1} \Psi(A_{1}), \ldots, \Uparrow_{x}^{1} \Psi(A_{n})\}(\kappa_{1})) \\
+    & = & \lambda^{0}.[\![M_{1}]\!](\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!](\kappa_{1}))\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    & = & [\![\kw{let} \: M_{1} \: \kw{in} \: M_{2}]\!]\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
+  \end{eqnarray*}
+\end{description}
+
+A case analysis over $A$ proves the second statement.
+
+\begin{description}
+\item[\sffamily Base case $A = x_{i}$]\hfill
+
+  If $i < n$, we have
+  \begin{align*}
+    \Psi(x_{i}\{A_{1}, \ldots, A_{n}\}) &= \Psi(A_{i+1}) \\
+                                      &= x_{i}\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+                                      &= \Psi(x_{i})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
+  \end{align*}
+  Otherwise,
+  \begin{align*}
+    \Psi(x_{i}\{A_{1}, \ldots, A_{n}\}) &= \Psi(x_{i}) \\
+                                      &= x_{i} \\
+                                      &= x_{i}\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+                                      &= \Psi(x_{i})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
+  \end{align*}
+
+\item[\sffamily Inductive case $A = \lambda^{m}.M_{1}$]\hfill
+  \begin{eqnarray*}
+    &   & \Psi((\lambda^{m}.M_{1})\{A_{1}, \ldots, A_{n}\}) \\
+    & = & \Psi(\lambda^{m}.M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow^{m+1} A_{1}, \ldots, \Uparrow^{m+1} A_{n}\}) \\
+    & = & \lambda^{m+1}.[\![M_{1}\{x_{0}, \ldots, x_{m}, \Uparrow^{m+1} A_{1}, \ldots, \Uparrow^{m+1} A_{n}\}]\!](\kappa_{0}) \\
+    & = & \lambda^{m+1}.[\![M_{1}]\!]\{\}\{\Uparrow_{x}^{m+1} \Psi(A_{1}), \ldots, \Uparrow_{x}^{m+1} \Psi(A_{n})\}(\kappa_{0}) \\
+    & = & (\lambda^{m+1}.[\![M_{1}]\!](\kappa_{0}))\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \\
+    & = & \Psi(\lambda^{m}.M_{1})\{\}\{\Psi(A_{1}), \ldots, \Psi(A_{n})\} \text{ .}
+  \end{eqnarray*}
+  Here we used the first statement of this lemma, which we already proved above.\qedhere
+\end{description}
+\end{proof}
+
+
+\subsection{Lemma~\ref{lem:mainlemma}}
+
+\begin{quote}
+  Let $K = \lambda^{0}.P$ be a $\kappa$-closed, one-argument
+  abstraction of the target language. If $M \Rightarrow v$ in the
+  source language, and $P\{\Psi(v)\}\{\} \Rightarrow v'$ in the target
+  language, then $[\![M]\!](K) \Rightarrow v'$ in the target language.
+\end{quote}
+
+\begin{proof}
+We assume $M \Rightarrow v$ and proceed by induction on its derivation, also
+assuming $P\{\Psi(v)\}\{\} \Rightarrow v'$.
+
+\begin{description}
+\item[\sffamily Base case $M = \lambda^{n}.M_{1}$]\hfill
+
+  This is the base case, where $v = \lambda^{n}.M_{1}$.
+
+  Because $[\![\lambda^{n}.M_{1}]\!] = \lambda^{0}.\kappa_{0}(\Psi(\lambda^{n}.M_{1}))$,
+  we need to show
+  \begin{equation}\label{eq:base}
+    (\lambda^{0}.\kappa_{0}(\Psi(\lambda^{n}.M_{1}))) \: (K) \Rightarrow v' \text{ .}
+  \end{equation}
+
+  This is trivial, because according to the evaluation rule for
+  function application we have
+  \begin{equation*}
+    K \: (\Psi(\lambda^{n}.M_{1})) \Rightarrow P\{\Psi(\lambda^{n}.M_{1})\}\{\} \text{ .}
+  \end{equation*}
+  Using the same evaluation rule and Lemma~\ref{lem:kappaclosed}, we conclude
+  \eqref{eq:base}.
+
+\item[\sffamily Inductive case $M = M_{1}(N_{0}, \ldots, N_{n})$]\hfill
+
+Premises of the evaluation rule for function application are
+$M_{1} \Rightarrow \lambda^{n}.Q$, $N_{i} \Rightarrow v_{i}$,
+and $Q\{v_{n}, \ldots, v_{0}\} \Rightarrow v$.
+
+Working out the transformation,
+\begin{align*}
+  [\![M_{1}(N_{0}, \ldots, N_{n})]\!]
+  &= \lambda^{0}.[\![M_{1}.N_{0} \ldots N_{n} \: \kw{then} \: \kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})]\!] \\
+  &= \lambda^{0}.[\![M_{1}]\!](\lambda^{0}.[\![N_{0}]\!](\lambda^{0}. \cdots \\
+  &  \qquad \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})) \cdots )) \text{ ,}
+\end{align*}
+we need to show
+\begin{multline}\label{eq:faresult}
+    (\lambda^{0}.[\![M_{1}]\!](\lambda^{0}.[\![N_{0}]\!](\lambda^{0}. \cdots \\
+    \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}(\kappa_{n+2}, \kappa_{n}, \ldots, \kappa_{0})) \cdots )))(K) \Rightarrow v' \text{ .}
+\end{multline}
+
+From the induction hypothesis applied to the premise $Q\{v_{n}, \ldots, v_{0}\} \Rightarrow v$
+and continuation $K$ we conclude
+\begin{equation*}
+  [\![Q\{v_{n}, \ldots, v_{0}\}]\!] (K) \Rightarrow v' \text{ ,}
+\end{equation*}
+and also, by Lemma~\ref{lem:commuting} ($v_{i}$ are atoms),
+\begin{equation}\label{eq:thirdpremise}
+  [\![Q]\!]\{\}\{\Psi(v_{n}), \ldots, \Psi(v_{0})\} (K) \Rightarrow v' \text{ .}
+\end{equation}
+
+Furthermore, $\Psi(\lambda^{n}.Q) = \lambda^{n+1}.[\![Q]\!](\kappa_{0})$, so
+the evaluation rule for function application gives us
+\begin{equation}\label{eq:psiq}
+  \Psi(\lambda^{n}.Q) \: (K, \Psi(v_{0}), \ldots, \Psi(v_{n})) \Rightarrow v'
+\end{equation}
+by \eqref{eq:thirdpremise} via Lemma~\ref{lem:kappaclosed}.
+
+
+Let $P_{1} = [\![N_{0}]\!](\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}(K, \kappa_{n}, \ldots, \kappa_{0})) \cdots )$.
+We have
+\begin{equation}\label{eq:p1}
+  P_{1}\{\Psi(\lambda^{n}.Q)\}\{\} \Rightarrow v'
+\end{equation}
+by \eqref{eq:psiq} and repeatedly (for $i = 0 \ldots n$) applying the
+induction hypothesis to premises $N_{i} \Rightarrow v_{i}$ and continuations
+\begin{equation*}
+  \lambda^{0}. [\![N_{i+1}]\!] (\lambda^{0}. \cdots [\![N_{n}]\!](\lambda^{0}.\kappa_{n+1}(K, \kappa_{n}, \ldots, \kappa_{0})) \cdots ) \text{ .}
+\end{equation*}
+
+Using this to apply the induction hypothesis to our first
+premise and continuation
+$\lambda^{0}.P_{1}$ ($\kappa$-closed by Lemma~\ref{lem:kappaclosed}), we get
+\begin{equation*}
+[\![M_{1}]\!](\lambda^{0}.P_{1}) \Rightarrow v' \text{ .}
+\end{equation*}
+
+Now, \eqref{eq:faresult} is proved using the evaluation rule for
+function application.
+
+\item[\sffamily Inductive case $M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}$]\hfill
+
+The evaluation rule for $\kw{let}$ gives us premises $M_{1} \Rightarrow v_{1}$ and $M_{2}\{v_{1}\} \Rightarrow v$.
+
+By definition of $[\![\cdot]\!]$, we have
+\begin{equation*}
+  [\![\kw{let} \: M_{1} \: \kw{in} \: M_{2}]\!]
+  = \lambda^{0}.[\![M_{1}]\!](\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!](\kappa_{1}))
+\end{equation*}
+and thus need to show
+\begin{equation}\label{eq:letresult}
+  (\lambda^{0}.[\![M_{1}]\!](\lambda^{0}. \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!](\kappa_{1})))(K)
+  \Rightarrow v' \text{ .}
+\end{equation}
+
+Applying the induction hypothesis to the second premise and continuation $K$ gives us
+$[\![M_{2}\{v_{1}\}]\!](K) \Rightarrow v'$, which is equivalent to
+\begin{equation}\label{eq:letsecondprem}
+  [\![M_{2}]\!]\{\}\{\Psi(v_{1})\}(K) \Rightarrow v'
+\end{equation}
+by Lemma~\ref{lem:commuting} and the fact that $v_{1}$ is an atom.
+
+Now consider the term $P_{1} = \: \kw{let} \: \kappa_{0} \: \kw{in} \: [\![M_{2}]\!](\Uparrow_{x}^{1} K)$. We
+will show
+\begin{equation}\label{eq:letp1}
+  P_{1}\{\Psi(v_{1})\}\{\} \Rightarrow v' \text{ .}
+\end{equation}
+
+By Lemma~\ref{lem:kappaclosed} there are no free continuation variables in
+$[\![M_{2}]\!](\Uparrow_{x}^{1} K)$, so
+\begin{equation*}
+  P_{1}\{\Psi(v_{1})\}\{\} = \: \kw{let} \: \Psi(v_{1}) \: \kw{in} \: [\![M_{2}]\!](\Uparrow_{x}^{1} K) \text{ .}
+\end{equation*}
+The $\kw{let}$-evaluation rule states that \eqref{eq:letp1} can now be concluded if
+$\Psi(v_{1})$ evaluates to itself, which it does, and
+$([\![M_{2}]\!](\Uparrow_{x}^{1} K))\{\}\{\Psi(v_{1})\} \Rightarrow v'$, which is
+equivalent to \eqref{eq:letsecondprem}.
+
+By \eqref{eq:letp1}, the induction hypothesis applied to the first premise and
+continuation $\lambda^{0}.P_{1}$ ($\kappa$-closed by Lemma~\ref{lem:kappaclosed})
+results in
+\begin{equation*}
+  [\![M_{1}]\!](\lambda^{0}.P_{1}) \Rightarrow v' \text{ .}
+\end{equation*}
+From this, the expected result \eqref{eq:letresult} follows via the evaluation rule for
+function application.\qedhere
+\end{description}
+\end{proof}
+
+
+\bibliographystyle{plain}
+\bibliography{literature-study}
+
+
+\end{document}
