@@ -41,4 +41,4 @@ pdf: $(ARTICLE).pdf $(SLIDES).pdf
 
 # Please make sure we don't kill any sources...
 clean:
-	rm -f *.aux *.pdf *.log *.toc *.out *.bbl *.blg *.nav *.snm *.vrb
+	rm -f *.aux *.pdf *.log *.toc *.out *.bbl *.blg *.nav *.snm *.vrb *.svn
