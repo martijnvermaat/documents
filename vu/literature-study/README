@@ -13,3 +13,9 @@ Required LaTeX packages:
   sectsty
   hyperref
   hypcap
+  svn-multi (svnkw in Debian)
+
+For using svn-multi, make sure Subversion will interact with the package
+by setting the svn:keywords property:
+
+  svn propset svn:keywords 'Id' literature-study.tex
