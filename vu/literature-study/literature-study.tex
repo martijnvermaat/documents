@@ -8,60 +8,13 @@
 \svnid{$Id$}
 
 
-\usepackage[T1]{fontenc}
-\usepackage{ae,aecompl}
-
-
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
 
 
-% Typesetting evaluation rules (http://cristal.inria.fr/~remy/latex/)
-\usepackage{mathpartir}
-
-
 % Don't add chapter to figure numbering
 \renewcommand\thefigure{\arabic{figure}}
-
-
-% Keywords like let,in,then,match,with
-\newcommand{\kw}[1]{\mathtt{#1}}
-
-
-% Theorems
-\newtheorem{lemma}{\sffamily Lemma}
-\newtheorem{theorem}{\sffamily Theorem}
-
-
-% One other fancy thing is sansserif headings, we go through some trouble to
-% get this in our document consistently...
-
-% Use sansserif font in section headings
-\usepackage{sectsty}
-\allsectionsfont{\sffamily}
-
-% Use sansserif font in abstract heading
-\usepackage{abstract}
-\renewcommand{\abstractnamefont}{\normalfont\small\bfseries\sffamily}
-\setlength{\abstitleskip}{-1.5em}
-
-% Use sansserif font in captions
-% http://dcwww.camd.dtu.dk/~schiotz/comp/LatexTips/LatexTips.html#captfont
-\newcommand{\captionfonts}{\sffamily \small}
-\makeatletter
-\long\def\@makecaption#1#2{%
-  \vskip\abovecaptionskip
-  \sbox\@tempboxa{{\captionfonts #1: #2}}%
-  \ifdim \wd\@tempboxa >\hsize
-    {\captionfonts #1: #2\par}
-  \else
-    \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
-  \fi
-  \vskip\belowcaptionskip}
-\makeatother
-
-% Furthermore, we use \sffamily in theorem titles and description item titles
 
 
 % Must be last in preamble
@@ -73,7 +26,7 @@
   linkcolor=black,
   urlcolor=black,
   pdfauthor={Martijn Vermaat},
-  pdftitle={Mechanized Reasoning about Languages with Bindings},
+  pdftitle={Mechanized Reasoning about Languages with Binding},
   pdfsubject={TODO},
   pdfkeywords={lambda calculus, binding, types, program verification, poplmark},
   draft=true
@@ -81,13 +34,13 @@
 \usepackage[figure]{hypcap}
 
 
-\title{\sffamily Mechanized Reasoning about Languages with Bindings}
+\title{Mechanized Reasoning about Languages~with~Binding}
 
-\author{\sffamily
+\author{
   Martijn Vermaat\\[0.3em]
   \href{mailto:mvermaat@cs.vu.nl}{\texttt{mvermaat@cs.vu.nl}}
 }
-\date{\sffamily Literature Study (\emph{draft r\svnrev})}
+\date{Literature Study (\emph{draft r\svnrev})}
 
 
 \begin{document}
@@ -102,20 +55,34 @@
 
 \section{Introduction}\label{sec:introduction}
 
+A major difficulty in formal reasoning about programs are bound variables.
+Traditionally, named variables are used and reasoning is done modulo $\alpha$-equivalence.
+While this approach is yields easy to read and sufficiently precise reasoning on paper,
+mechanical reasoning with named variables is hard:
+identification of $\alpha$-equivalent terms has to be made precise and substitution requires renaming of bound variables.
+
+Several approaches exist to remedy these problems, most of them using alternate representations for bindings and variables.
+We will study some of these approaches in the context of mechanical reasoning.
+
 
 \section{Named Variables}\label{sec:named}
 
-Stump \cite{Stump-05}.
+Implemented for POPLmark 1a in Coq by Stump \cite{Stump-05}.
 
 
 \section{De Bruijn Indices}\label{sec:debruijn}
 
-Vouillon \cite{Vouillon-05}.
+Implemented for POPLmark in Coq by Vouillon \cite{Vouillon-05}.
 
 
 \section{Locally Nameless}\label{sec:locally-nameless}
 
-Leroy \cite{Leroy-07}.
+McBride and McKinna \cite{McBride-McKinna-04}, implemented for POPLmark in Coq by Leroy \cite{Leroy-07}.
+
+
+\section{Others}\label{sec:others}
+
+Nominal, higher order abstract syntax \cite{Capretta-Felty-06}, nested datatypes (Hirschowitz and Maggesi).
 
 
 \section{Comparison}\label{sec:comparison}
@@ -124,7 +91,8 @@ Leroy \cite{Leroy-07}.
 \section{Conclusion}\label{sec:conclusion}
 
 
-\bibliographystyle{plain}
+\nocite{*}
+\bibliographystyle{amsplain}
 \bibliography{literature-study}
 
 

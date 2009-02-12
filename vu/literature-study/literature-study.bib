@@ -1,5 +1,7 @@
+@PREAMBLE{ {\providecommand{\noopsort}[1]{}} }
+
 @misc{Coq-89,
-  title =        {The {Coq} proof assistant},
+  title =        {The {Coq} Proof Assistant},
   author =       {Coq development team},
   organization = {LogiCal Project},
   note =         {Software and documentation available at {\href{http://coq.inria.fr/}{\texttt{http://coq.inria.fr/}}}},
@@ -9,7 +11,7 @@
 
 @book{CoqArt-04,
   author       = "Y. Bertot and P. Cast\'eran",
-  title        = "Interactive Theorem Proving and Program Development. Coq'Art: The Calculus of Inductive Constructions",
+  title        = {Interactive Theorem Proving and Program Development. {Coq'Art}: {T}he Calculus of Inductive Constructions},
   series       = "Texts in Theoretical Computer Science",
   year         = "2004",
   publisher    = "Springer Verlag",
@@ -20,14 +22,14 @@
 	author = {B. E. Aydemir and A. Bohannon and M. Fairbairn and N. J. Foster and B. C. Pierce and P. Sewell and D. Vytiniotis and G. Washburn and S. Weirich and S. Zdancewic},
 	booktitle = {International Conference on Theorem Proving in Higher Order Logics (TPHOLs)},
 	pdf = {http://www.cis.upenn.edu/~geoffw/research/papers/poplmark.pdf},
-	title = {Mechanized metatheory for the masses: {T}he {POPLmark} Challenge},
+	title = {Mechanized Metatheory for the Masses: {T}he {POPLmark} Challenge},
 	url = {http://www.cis.upenn.edu/~geoffw/research/papers/poplmark.pdf},
 	year = {2005}
 }
 
 @inproceedings{Chlipala-07,
  author = {A. Chlipala},
- title = {A certified type-preserving compiler from lambda calculus to assembly language},
+ title = {A Certified Type-preserving Compiler from Lambda Calculus to Assembly Language},
  booktitle = {Programming Language Design and Implementation 2007},
  year = {2007},
  isbn = {978-1-59593-633-2},
@@ -38,20 +40,20 @@
 
 @techreport{Leroy-07,
   author = {X. Leroy},
-  title = {A locally nameless solution to the {POPLmark} challenge},
+  title = {A Locally Nameless Solution to the {POPLmark} Challenge},
   institution = {INRIA},
   year = 2007
 }
 
 @misc{Stump-05,
-	author = {Stump, Aaron  },
-	title = {POPLmark 1a with Named Bound Variables},
+	author = {A. Stump},
+	title = {{POPLmark} 1a with Named Bound Variables},
 	url = {http://cl.cse.wustl.edu/poplmark.html},
 	year = {2005}
 }
 
-@inproceedings{Capretta-Felty-2006,
-	author = {Capretta, Venanzio   and Felty, Amy  },
+@inproceedings{Capretta-Felty-06,
+	author = {V. Capretta and A. Felty},
 	booktitle = {Logic Colloquium 2006},
 	title = {Higher Order Abstract Syntax in Type Theory},
 	url = {http://www.cs.ru.nl/\~{}venanzio/publications/HOUA.pdf},
@@ -59,18 +61,58 @@
 }
 
 @inproceedings{Cardelli-Martini-Mitchell-Scedrov-94,
-	author = {Cardelli, Luca   and Martini, Simone   and Mitchell, John  C.  and Scedrov, Andre  },
+	author = {L. Cardelli and S. Martini and J. C. Mitchell and A. Scedrov},
 	booktitle = {Information and Computation},
 	pages = {750--770},
-	title = {An extension of system F with subtyping},
+	title = {An Extension of System {F} with Subtyping},
 	url = {http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.35.8290},
 	volume = {109},
 	year = {1994}
 }
 
 @misc{Vouillon-05,
-  title =        {PoplMark Challenge, parts 1a and 2a},
-  author =       {Vouillon, Jerome},
+  title =        {{POPLMark} Challenge, Parts 1 and 2},
+  author =       {J. Vouillon},
   year =         {2005},
   url =          "http://www.cis.upenn.edu/~plclub/wiki-static/vouillon-coq.tar.gz"
+}
+
+@Unpublished{Altenkirch-02,
+  author = 	 {T. Altenkirch},
+  title = 	 {$\alpha$-conversion Is Easy},
+  note = 	 {Under Revision},
+  OPTkey = 	 {},
+  OPTmonth = 	 {},
+  year =	 {2002},
+  OPTannote = 	 {}
+}
+
+@inproceedings{McBride-McKinna-04,
+	author = {C. Mcbride and J. Mckinna},
+	booktitle = {Haskell '04: {P}roceedings of the {ACM SIGPLAN} workshop on {H}askell},
+	isbn = {1581138504},
+	pages = {1--9},
+	publisher = {ACM Press},
+	title = {Functional Pearl: {I} Am Not a Number -- {I} Am a Free Variable},
+	url = {http://dx.doi.org/10.1145/1017472.1017477},
+	year = {2004}
+}
+
+@article{Cardelli-Wegner-85,
+	author = {L. Cardelli and P. Wegner},
+	journal = {ACM Computing Surveys},
+	pages = {471--522},
+	title = {On Understanding Types, Data Abstraction, and Polymorphism},
+	url = {http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.48.7828},
+	volume = {17},
+	year = {1985}
+}
+
+@article{debruijn-72,
+	author = "{\noopsort{Bruijn}{N. G. de Bruijn}}",
+	journal = {Indagationes Mathematicae},
+	pages = {381--392},
+	title = {Lambda Calculus Notation with Nameless Dummies, a Tool for Automatic Formula Manipulation, with Application to the {Church-Rosser} Theorem},
+	url = {http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.135.8794},
+	year = {1972}
 }
