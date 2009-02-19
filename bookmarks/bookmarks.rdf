@@ -1,0 +1,2815 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://purl.org/rss/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ephy="http://gnome.org/ns/epiphany#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <channel rdf:about="file:///home/martijn/.gnome2/epiphany/bookmarks.rdf">
+    <title>Epiphany bookmarks</title>
+    <link>http://www.gnome.org/projects/epiphany/</link>
+    <items>
+      <rdf:Seq>
+        <rdf:li rdf:resource="http://www.cs.vu.nl/~mvermaat/"/>
+        <rdf:li rdf:resource="http://gathering.tweakers.net/forum/list_topics/23"/>
+        <rdf:li rdf:resource="http://planet.debian.org/"/>
+        <rdf:li rdf:resource="http://lambda-the-ultimate.org/tracker"/>
+        <rdf:li rdf:resource="http://www.intertwingly.net/blog/"/>
+        <rdf:li rdf:resource="http://simonwillison.net/"/>
+        <rdf:li rdf:resource="http://annevankesteren.nl/"/>
+        <rdf:li rdf:resource="http://www.ucalgary.ca/~rzach/logblog/"/>
+        <rdf:li rdf:resource="http://www.fotolog.com/eva23"/>
+        <rdf:li rdf:resource="http://gids.omroep.nl/core/content.php"/>
+        <rdf:li rdf:resource="http://10.0.0.138/index.htm"/>
+        <rdf:li rdf:resource="http://192.168.0.2/"/>
+        <rdf:li rdf:resource="http://priscilla/phpmyadmin/"/>
+        <rdf:li rdf:resource="http://priscilla/deltam/"/>
+        <rdf:li rdf:resource="http://priscilla/dorr/"/>
+        <rdf:li rdf:resource="http://priscilla/kjew/"/>
+        <rdf:li rdf:resource="http://priscilla/vu/"/>
+        <rdf:li rdf:resource="http://priscilla/pirouet/"/>
+        <rdf:li rdf:resource="http://www.e7l3.org/classics.html"/>
+        <rdf:li rdf:resource="http://citeseer.ist.psu.edu/247709.html"/>
+        <rdf:li rdf:resource="http://www-igm.univ-mlv.fr/~lecroq/string/"/>
+        <rdf:li rdf:resource="http://homepages.cwi.nl/~jve/HR/"/>
+        <rdf:li rdf:resource="http://jaqque.sbih.org/kplug/apt-pinning.html"/>
+        <rdf:li rdf:resource="http://www.debian.org/doc/manuals/apt-howto/"/>
+        <rdf:li rdf:resource="http://myrddin.org/howto/debian-kernel-recompiling/"/>
+        <rdf:li rdf:resource="http://www.nomaware.com/monads/html/"/>
+        <rdf:li rdf:resource="http://www.helsinki.fi/jarj/papintappajat/making_of.html"/>
+        <rdf:li rdf:resource="http://www.linearity.org/cas/"/>
+        <rdf:li rdf:resource="http://wwwtcs.inf.tu-dresden.de/~tews/htmlman-3.09/full-grammar.html"/>
+        <rdf:li rdf:resource="http://alessio.guglielmi.name/res/cos/crt.html"/>
+        <rdf:li rdf:resource="http://www.math.ucsd.edu/~sbuss/ResearchWeb/HandbookProofTheory/"/>
+        <rdf:li rdf:resource="http://www.cs.uu.nl/wiki/Martin/WritingCourse"/>
+        <rdf:li rdf:resource="http://mako.cc/writing/to_fork_or_not_to_fork.html"/>
+        <rdf:li rdf:resource="http://svnbook.red-bean.com/"/>
+        <rdf:li rdf:resource="http://www.luxuriamusic.com/"/>
+        <rdf:li rdf:resource="http://www.bradpriddy.com/paul_simon/surfer.htm"/>
+        <rdf:li rdf:resource="http://www.cs.brown.edu/people/pw/home.html"/>
+        <rdf:li rdf:resource="http://www.delijst.net/delijst/"/>
+        <rdf:li rdf:resource="http://www.debian-administration.org/"/>
+        <rdf:li rdf:resource="http://www.phil.cam.ac.uk/teaching_staff/Smith/LaTeX/"/>
+        <rdf:li rdf:resource="http://www.earlham.edu/~peters/courses.htm"/>
+        <rdf:li rdf:resource="http://www.venge.net/graydon/talks/"/>
+        <rdf:li rdf:resource="http://nazodane.hp.infoseek.co.jp/extension/translation.xhtml"/>
+        <rdf:li rdf:resource="http://3voor12.vpro.nl/luisterpaal/"/>
+        <rdf:li rdf:resource="http://en.wikipedia.org"/>
+        <rdf:li rdf:resource="http://nl.wikipedia.org"/>
+        <rdf:li rdf:resource="http://planet.ubuntu.com/"/>
+        <rdf:li rdf:resource="http://planet.ubuntu-nl.org/"/>
+        <rdf:li rdf:resource="http://www.ocaml-tutorial.org/"/>
+        <rdf:li rdf:resource="http://www.cs.uu.nl/wiki/Pt/WebHome"/>
+        <rdf:li rdf:resource="http://caml.inria.fr/pub/docs/oreilly-book/"/>
+        <rdf:li rdf:resource="http://www.ffconsultancy.com/free/sudoku/"/>
+        <rdf:li rdf:resource="http://rosanneinguatemala.blogspot.com/"/>
+        <rdf:li rdf:resource="http://blog.netbytes.nl/textpattern/index.php"/>
+        <rdf:li rdf:resource="http://blog.netbytes.nl/"/>
+        <rdf:li rdf:resource="http://demo.netbytes.nl:8887"/>
+        <rdf:li rdf:resource="http://wiki.netbytes.nl/"/>
+        <rdf:li rdf:resource="http://collaboa.netbytes.nl/"/>
+        <rdf:li rdf:resource="http://loeslog.blogspot.com/"/>
+        <rdf:li rdf:resource="http://planet.gnome.org/"/>
+        <rdf:li rdf:resource="http://caml.inria.fr/pub/docs/manual-ocaml/"/>
+        <rdf:li rdf:resource="http://www.argentum.freeserve.co.uk/lex_home.htm"/>
+        <rdf:li rdf:resource="http://radicaleye.com/lifepage/"/>
+        <rdf:li rdf:resource="http://genealogy.math.ndsu.nodak.edu/"/>
+        <rdf:li rdf:resource="http://search.yahoo.com"/>
+        <rdf:li rdf:resource="http://www-128.ibm.com/developerworks/ibm/library/it-haggar_bytecode/"/>
+        <rdf:li rdf:resource="http://www.cs.vu.nl/~tcs/iti/"/>
+        <rdf:li rdf:resource="http://www.flickr.com/photos/monkeypics"/>
+        <rdf:li rdf:resource="http://logicmatters.blogspot.com/"/>
+        <rdf:li rdf:resource="http://www.helsinki.fi/~pakaste/caboodle/"/>
+        <rdf:li rdf:resource="http://www.underlevel.net/crunchylogic/"/>
+        <rdf:li rdf:resource="http://www.ocf.berkeley.edu/~easwaran/blog/"/>
+        <rdf:li rdf:resource="http://sigfpe.blogspot.com/"/>
+        <rdf:li rdf:resource="http://theorymatters.org/pmwiki/pmwiki.php"/>
+        <rdf:li rdf:resource="http://geomblog.blogspot.com/"/>
+        <rdf:li rdf:resource="http://consequently.org/"/>
+        <rdf:li rdf:resource="http://www.matrox.com/mga/support/drivers/latest/home.cfm"/>
+        <rdf:li rdf:resource="http://www.ubuntuforums.org/showthread.php?t=123539"/>
+        <rdf:li rdf:resource="http://www.flickr.com/photos/sonic-nurse/"/>
+        <rdf:li rdf:resource="http://www.ugcs.caltech.edu/~weel/cgi/blog"/>
+        <rdf:li rdf:resource="http://www.pokerlistings.com/"/>
+        <rdf:li rdf:resource="http://www.everestpoker.com/"/>
+        <rdf:li rdf:resource="http://www.9292ov.nl/"/>
+        <rdf:li rdf:resource="http://blog.eelcovisser.net/"/>
+        <rdf:li rdf:resource="http://www.nos.nl/nosjournaal/voorpagina/index.html"/>
+        <rdf:li rdf:resource="http://caml.inria.fr/pub/docs/manual-ocaml/libref/index_modules.html"/>
+        <rdf:li rdf:resource="http://www.earlham.edu/~peters/fos/overview.htm"/>
+        <rdf:li rdf:resource="http://homepages.inf.ed.ac.uk/wadler/"/>
+        <rdf:li rdf:resource="http://www.fotolog.com/joh4n/"/>
+        <rdf:li rdf:resource="http://homepages.cwi.nl/~mcrl/"/>
+        <rdf:li rdf:resource="http://www.cduce.org/"/>
+        <rdf:li rdf:resource="http://www.artima.com/weblogs/viewpost.jsp?thread=85551"/>
+        <rdf:li rdf:resource="http://www.artima.com/weblogs/viewpost.jsp?thread=86641"/>
+        <rdf:li rdf:resource="http://www.artima.com/weblogs/viewpost.jsp?thread=87182"/>
+        <rdf:li rdf:resource="http://scala.epfl.ch/"/>
+        <rdf:li rdf:resource="http://reporter.kro.nl/uitzendingen/2006/20060524ropgonggrijp/20060524ropgonggrijp.aspx"/>
+        <rdf:li rdf:resource="http://www.student.vu.nl/l.e.claessen/"/>
+        <rdf:li rdf:resource="http://www.alizarin.nl/"/>
+        <rdf:li rdf:resource="http://www.sacredchao.net/quodlibet"/>
+        <rdf:li rdf:resource="http://plato.stanford.edu/"/>
+        <rdf:li rdf:resource="http://homepages.cwi.nl/~atanasso/ref"/>
+        <rdf:li rdf:resource="http://www.lmcs-online.org/"/>
+        <rdf:li rdf:resource="http://www.godelbook.net/"/>
+        <rdf:li rdf:resource="http://sage.soe.ucsc.edu/"/>
+        <rdf:li rdf:resource="http://therning.org/magnus/computer/epilicious/"/>
+        <rdf:li rdf:resource="http://tweakers.net/"/>
+        <rdf:li rdf:resource="http://www.nu.nl/"/>
+        <rdf:li rdf:resource="http://sommelsdijk.xs4all.nl/repository/"/>
+        <rdf:li rdf:resource="http://bb.vu.nl/"/>
+        <rdf:li rdf:resource="https://www.few.vu.nl/cgi-bin/mail_filter"/>
+        <rdf:li rdf:resource="http://www.flickrleech.net/"/>
+        <rdf:li rdf:resource="http://www.wkvoorspellen.nl/poules.asp?id=9917"/>
+        <rdf:li rdf:resource="http://www.tsvvmerlijn.nl/"/>
+        <rdf:li rdf:resource="http://www.phdcomics.com/comics.php"/>
+        <rdf:li rdf:resource="http://www.bof.nl/"/>
+        <rdf:li rdf:resource="http://www.last.fm/user/mvermaat"/>
+        <rdf:li rdf:resource="http://www.myp2p.eu/WorldCup/Match1.htm"/>
+        <rdf:li rdf:resource="http://www.uitzendinggemist.nl/"/>
+        <rdf:li rdf:resource="http://www.gmap-pedometer.com/?r=370966"/>
+        <rdf:li rdf:resource="http://www.gmap-pedometer.com/?r=370986"/>
+        <rdf:li rdf:resource="http://www.gmap-pedometer.com/?r=417001"/>
+        <rdf:li rdf:resource="http://mbravenboer.blogspot.com/"/>
+        <rdf:li rdf:resource="http://www.buienradar.nl/"/>
+        <rdf:li rdf:resource="https://www.fortisbanking.com/startOLB.asp"/>
+        <rdf:li rdf:resource="http://www.getgnulinux.org/"/>
+        <rdf:li rdf:resource="http://www.videojug.com/"/>
+        <rdf:li rdf:resource="http://www.eilandweb.nl/"/>
+        <rdf:li rdf:resource="http://fspc282.few.vu.nl/infinity/"/>
+        <rdf:li rdf:resource="http://del.icio.us/mvermaat"/>
+        <rdf:li rdf:resource="http://www.schneier.com/blog/"/>
+        <rdf:li rdf:resource="http://www.cs.vu.nl/~tcs/il/"/>
+        <rdf:li rdf:resource="http://itpolicy.princeton.edu/voting/"/>
+        <rdf:li rdf:resource="http://www.freedom-to-tinker.com/"/>
+        <rdf:li rdf:resource="http://blogs.gnome.org/view/rbultje/2006/09/15/0"/>
+        <rdf:li rdf:resource="http://defectivebydesign.org/"/>
+        <rdf:li rdf:resource="http://defectivebydesign.org/en/blog/announce_day_against_drm"/>
+        <rdf:li rdf:resource="http://system76.com/"/>
+        <rdf:li rdf:resource="http://diveintomark.org/"/>
+        <rdf:li rdf:resource="http://www.free-culture.cc/"/>
+        <rdf:li rdf:resource="http://www.eff.org/deeplinks/archives/004910.php"/>
+        <rdf:li rdf:resource="http://validator.w3.org/"/>
+        <rdf:li rdf:resource="http://rocky.molphys.leidenuniv.nl/"/>
+        <rdf:li rdf:resource="http://fm.schmoller.net/2006/07/blackboards_us_.html"/>
+        <rdf:li rdf:resource="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=354622"/>
+        <rdf:li rdf:resource="http://www.freedom-to-tinker.com/?p=1065"/>
+        <rdf:li rdf:resource="http://www.nerdtv.nl/"/>
+        <rdf:li rdf:resource="http://lwn.net/Articles/200422/"/>
+        <rdf:li rdf:resource="http://www.cs.vu.nl/~mvermaat/files/october-3rd-against-drm.html"/>
+        <rdf:li rdf:resource="http://www.bugmenot.com/"/>
+        <rdf:li rdf:resource="http://www.wijvertrouwenstemcomputersniet.nl/"/>
+        <rdf:li rdf:resource="http://www.wijvertrouwenstemcomputersniet.nl/images/9/91/Es3b-en.pdf"/>
+        <rdf:li rdf:resource="https://bugs.launchpad.net"/>
+        <rdf:li rdf:resource="http://www.climatechangecollege.org/entry/video.php?id=1000000072"/>
+        <rdf:li rdf:resource="http://www.readwriteweb.com/archives/firefox2_marketing.php"/>
+        <rdf:li rdf:resource="http://www.murrayc.com/blog/permalink/2006/04/21/building-modified-debian-packages/"/>
+        <rdf:li rdf:resource="http://maps.google.nl"/>
+        <rdf:li rdf:resource="http://www.novell.com/linux/microsoft/faq.html"/>
+        <rdf:li rdf:resource="http://tedioussartre.blogspot.com/"/>
+        <rdf:li rdf:resource="http://www.w3.org/TR/CSS21/"/>
+        <rdf:li rdf:resource="http://adainsa.waarbenjij.nu/"/>
+        <rdf:li rdf:resource="http://www.tbray.org/ongoing/When/200x/2006/11/12/OSS-Java"/>
+        <rdf:li rdf:resource="http://www.flickr.com/photos/mexicanwave/sets/589225/"/>
+        <rdf:li rdf:resource="http://blog.seattlepi.nwsource.com/microsoft/archives/108806.asp?source=rss"/>
+        <rdf:li rdf:resource="http://giveusbacknewyork.com/"/>
+        <rdf:li rdf:resource="http://vondellaan.vermaat.name/"/>
+        <rdf:li rdf:resource="http://www.flickr.com/photos/vondellaan"/>
+        <rdf:li rdf:resource="http://192.168.2.1/"/>
+        <rdf:li rdf:resource="https://tisvu.vu.nl/"/>
+        <rdf:li rdf:resource="http://www.robenanneinafrika.waarbenjij.nu/"/>
+        <rdf:li rdf:resource="http://www.attrition.org/postal/z/033/0871.html"/>
+        <rdf:li rdf:resource="http://www.bbc.co.uk/berkshire/content/articles/2006/12/06/divide_zero_feature.shtml"/>
+        <rdf:li rdf:resource="http://news.bbc.co.uk/2/hi/middle_east/6218485.stm"/>
+        <rdf:li rdf:resource="http://ietsmetkasper.blogspot.com/"/>
+        <rdf:li rdf:resource="http://ietsmatthkasper.blogspot.com/"/>
+        <rdf:li rdf:resource="http://www.xkcd.com/"/>
+        <rdf:li rdf:resource="http://matrox.tuxx-home.at/"/>
+        <rdf:li rdf:resource="http://priscilla/katten/"/>
+        <rdf:li rdf:resource="http://doc.ubuntu.com/screencasts/"/>
+        <rdf:li rdf:resource="http://priscilla/woonmagazine/"/>
+        <rdf:li rdf:resource="http://tirania.org/blog/archive/2007/Jan-30.html"/>
+        <rdf:li rdf:resource="http://www.roosinantwerpen.blogspot.com/"/>
+        <rdf:li rdf:resource="http://www.apple.com/hotnews/thoughtsonmusic/"/>
+        <rdf:li rdf:resource="http://www.jandekorte.nl/"/>
+        <rdf:li rdf:resource="http://teletekst.nos.nl/"/>
+        <rdf:li rdf:resource="http://www.google.com"/>
+        <rdf:li rdf:resource="http://www.number-10.gov.uk/output/Page11020.asp"/>
+        <rdf:li rdf:resource="http://www.fotolog.com/marinalog/"/>
+        <rdf:li rdf:resource="https://wiki.ubuntu.com"/>
+        <rdf:li rdf:resource="http://ubuntuforums.org/"/>
+        <rdf:li rdf:resource="http://www.rockwerchter.be/"/>
+        <rdf:li rdf:resource="http://192.168.1.254/"/>
+        <rdf:li rdf:resource="http://www.wijvertrouwenstemcomputersniet.nl/Groenendaal"/>
+        <rdf:li rdf:resource="http://www.nrc.nl/anp/binnenland/article644995.ece/Treinverkeer_Amsterdam_gestremd"/>
+        <rdf:li rdf:resource="http://priscilla/vu-few-layout-branch/"/>
+        <rdf:li rdf:resource="http://www.pimbongaerts.com/"/>
+        <rdf:li rdf:resource="https://www.fsf.org/resources/hw/how_hardware_vendors_can_help.html"/>
+        <rdf:li rdf:resource="http://www.few.vu.nl/itg/"/>
+        <rdf:li rdf:resource="http://www.youtube.com/watch?v=27zw8fp57jk"/>
+        <rdf:li rdf:resource="http://bieslog.vpro.nl/"/>
+        <rdf:li rdf:resource="http://linuxmce.com/"/>
+        <rdf:li rdf:resource="http://www.dreamhoststatus.com/"/>
+        <rdf:li rdf:resource="http://wiki.dreamhost.com/index.php/Main_Page"/>
+        <rdf:li rdf:resource="https://panel.dreamhost.com/"/>
+        <rdf:li rdf:resource="https://webmail.vermaat.name/"/>
+        <rdf:li rdf:resource="http://www.debian-administration.org/articles/152"/>
+        <rdf:li rdf:resource="http://www.tartarus.org/~simon-anonsvn/viewcvs.cgi/svn-tools/svndumpfilter2?view=markup"/>
+        <rdf:li rdf:resource="http://loesclaessen.hyves.nl/"/>
+        <rdf:li rdf:resource="http://www.ocaml.info/home/ocaml_hints.html"/>
+        <rdf:li rdf:resource="http://saucerlike.com/"/>
+        <rdf:li rdf:resource="http://www.sonicyouth.com/"/>
+        <rdf:li rdf:resource="http://lists.debian.org/debian-announce/debian-announce-2007/msg00002.html"/>
+        <rdf:li rdf:resource="http://www.pok3d.com/"/>
+        <rdf:li rdf:resource="http://www.cl.cam.ac.uk/~mgk25/ucs/examples/"/>
+        <rdf:li rdf:resource="http://www.columbia.edu/kermit/utf8-t1.html"/>
+        <rdf:li rdf:resource="http://martijn.vermaat.name/planet/"/>
+        <rdf:li rdf:resource="http://www.jerith.za.net/writings/erlangsockettut.html"/>
+        <rdf:li rdf:resource="https://forge.process-one.net/browse/Jungerl/jungerl/lib/rpc"/>
+        <rdf:li rdf:resource="http://tieguy.org/blog/2007/04/21/pathetic-commentary-on-computers-from-my-new-cable-box/"/>
+        <rdf:li rdf:resource="http://chuffyrodents.org/erlang.pdf"/>
+        <rdf:li rdf:resource="http://www.matt-mcdonnell.com/code/code_erl/code_erl.html"/>
+        <rdf:li rdf:resource="http://www.neuro-tech.net/insipid/"/>
+        <rdf:li rdf:resource="http://martijn.vermaat.name/bookmarks/"/>
+        <rdf:li rdf:resource="http://prototypejs.org/"/>
+        <rdf:li rdf:resource="http://www.linuxemporium.co.uk/"/>
+        <rdf:li rdf:resource="http://luxuriamusic.com/playlist.html"/>
+        <rdf:li rdf:resource="http://www.nslu2-linux.org/"/>
+        <rdf:li rdf:resource="http://www.myasics.nl/running/"/>
+        <rdf:li rdf:resource="http://www.few.vu.nl/~ssn310/mp/"/>
+        <rdf:li rdf:resource="http://www.fretplay.com/tabs/b/beatles/blackbird-tab.shtml"/>
+        <rdf:li rdf:resource="http://www.gmap-pedometer.com/?r=1363781"/>
+        <rdf:li rdf:resource="http://www.afstandsmeten.nl/index.php?id=9249"/>
+        <rdf:li rdf:resource="http://www.fortissingellooputrecht.nl/"/>
+        <rdf:li rdf:resource="http://www.ad.nl/loperswereld/fortissingelloop/"/>
+        <rdf:li rdf:resource="http://www.goedevis.nl/"/>
+        <rdf:li rdf:resource="http://developers.sun.com/docs/web-app-guidelines/uispec4_0/"/>
+        <rdf:li rdf:resource="https://woodstock.dev.java.net/index.html"/>
+        <rdf:li rdf:resource="http://www.cuteoverload.com/"/>
+        <rdf:li rdf:resource="http://www.ok-cancel.com/"/>
+        <rdf:li rdf:resource="http://www.radaronline.com/from-the-magazine/2007/09/google_fiction_evil_dangerous_surveillance_control_1.php"/>
+        <rdf:li rdf:resource="http://www.google.com/analytics/"/>
+        <rdf:li rdf:resource="http://www.viziervastgoed.nl/"/>
+        <rdf:li rdf:resource="http://www.humanmetrics.com/cgi-win/JTypes1.htm"/>
+        <rdf:li rdf:resource="http://martijn.vermaat.name/kiek/"/>
+        <rdf:li rdf:resource="http://www.dekappers.nl/"/>
+        <rdf:li rdf:resource="http://www.flickr.com/photos/vivified"/>
+        <rdf:li rdf:resource="http://www.flickr.com/photos/pieterhijma"/>
+        <rdf:li rdf:resource="http://www.kenrockwell.com/"/>
+        <rdf:li rdf:resource="http://www.fotolog.com/anne25"/>
+        <rdf:li rdf:resource="http://www.yourspot.nl/yourspot.nl/phpbb2nl/phpBB/viewforum.php?f=6"/>
+        <rdf:li rdf:resource="http://ma.gnolia.com/people/mvermaat"/>
+        <rdf:li rdf:resource="http://pauillac.inria.fr/~xleroy/"/>
+        <rdf:li rdf:resource="http://www.metaocaml.org/concoqtion/"/>
+        <rdf:li rdf:resource="http://www-sop.inria.fr/marelle/Yves.Bertot/cours-semantique2.html"/>
+        <rdf:li rdf:resource="http://wiki.vermaat.name/"/>
+        <rdf:li rdf:resource="http://www.johanvandijke.com/"/>
+        <rdf:li rdf:resource="http://www.all-guitar-chords.com/"/>
+        <rdf:li rdf:resource="http://lolcode.com/"/>
+        <rdf:li rdf:resource="http://sourceforge.net/projects/scuttle/"/>
+        <rdf:li rdf:resource="http://portal.netbytes.nl/"/>
+        <rdf:li rdf:resource="http://www.guitarists.net/tab/view.php?id=43340"/>
+        <rdf:li rdf:resource="http://www.gmap-pedometer.com/"/>
+        <rdf:li rdf:resource="http://www.gmap-pedometer.com/?r=1064044"/>
+        <rdf:li rdf:resource="http://braawi.org/obnam.html"/>
+        <rdf:li rdf:resource="http://www.ultimate-guitar.com/tabs/e/elliott_smith/between_the_bars_ver2_crd.htm"/>
+        <rdf:li rdf:resource="http://isoc.nl/OpenStandaardenCampagne/MS/"/>
+        <rdf:li rdf:resource="http://www.pixelbeat.org/cmdline.html"/>
+        <rdf:li rdf:resource="http://www.gmap-pedometer.com/?r=1137925"/>
+        <rdf:li rdf:resource="http://www.tabcrawler.com/search.php?show=viewfile&amp;amp;letter=w&amp;amp;artist=wainwright%20rufus&amp;amp;tabname=gay%20messiah.crd&amp;amp;tabtype=guitar%20chord&amp;amp;id=144937"/>
+        <rdf:li rdf:resource="http://twanmatheij.wordpress.com/"/>
+        <rdf:li rdf:resource="http://dagboekvaneenhostess.punt.nl/"/>
+        <rdf:li rdf:resource="http://martin.bravenboer.name/thesis.html"/>
+        <rdf:li rdf:resource="http://vivified.net/showcase/mano-dei-mario/"/>
+        <rdf:li rdf:resource="http://appft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;amp;Sect2=HITOFF&amp;amp;d=PG01&amp;amp;p=1&amp;amp;u=%2Fnetahtml%2FPTO%2Fsrchnum.html&amp;amp;r=1&amp;amp;f=G&amp;amp;l=50&amp;amp;s1=%2220040161257%22.PGNR.&amp;amp;OS=DN/20040161257&amp;amp;RS=DN/20040161257"/>
+        <rdf:li rdf:resource="http://www.myspace.com/hausmaggerahrefhttpmyspacetvcomindexcfm"/>
+        <rdf:li rdf:resource="http://platanenweg.blogspot.com/"/>
+        <rdf:li rdf:resource="http://chicamartina.waarbenjij.nu/"/>
+        <rdf:li rdf:resource="http://vivified.net/"/>
+        <rdf:li rdf:resource="http://www.gimp.org/tutorials/Blending_Exposures/"/>
+        <rdf:li rdf:resource="http://alum.wpi.edu/~tfraser/Software/Arduino/lambdacan.html"/>
+        <rdf:li rdf:resource="http://www-maths.swan.ac.uk/staff/jrh/papers/JRHHislamWeb.pdf"/>
+        <rdf:li rdf:resource="http://portal.acm.org/citation.cfm?id=1284635"/>
+        <rdf:li rdf:resource="http://okasaki.blogspot.com/2008/02/ten-years-of-purely-functional-data.html"/>
+        <rdf:li rdf:resource="http://www.denieuweanita.nl/"/>
+        <rdf:li rdf:resource="http://planet.ocamlcore.org/"/>
+        <rdf:li rdf:resource="http://www.citeulike.org/user/mvermaat"/>
+        <rdf:li rdf:resource="http://www.widexs.nl/"/>
+        <rdf:li rdf:resource="http://www.phanos.org/"/>
+        <rdf:li rdf:resource="https://mijn.vu.nl/nl/VU/Pages/MIJNVUNLweerbeschikbaar.aspx"/>
+        <rdf:li rdf:resource="http://www.cis.upenn.edu/%7Eplclub/popl08-tutorial/"/>
+        <rdf:li rdf:resource="http://amsterdamcentraal.nl/"/>
+        <rdf:li rdf:resource="http://www.scissorhands.nl/"/>
+        <rdf:li rdf:resource="http://www.math.uu.nl/people/jvoosten/advanced.html"/>
+        <rdf:li rdf:resource="http://cl-informatik.uibk.ac.at/events/isr-2008/"/>
+        <rdf:li rdf:resource="http://www.google.com"/>
+        <rdf:li rdf:resource="http://www.kriterion.nl/"/>
+        <rdf:li rdf:resource="http://seafur.com/"/>
+        <rdf:li rdf:resource="http://groups.msn.com/51psn21mq4nqaj2kbka5u2ga05/h.msnw"/>
+        <rdf:li rdf:resource="http://altafsir.com/"/>
+        <rdf:li rdf:resource="http://www.koranonline.nl/"/>
+        <rdf:li rdf:resource="http://www.esnips.com/doc/fa1de568-20a1-4576-a6c7-785ca9254b10/Surah-Rehman-with-English-Translation"/>
+        <rdf:li rdf:resource="http://www.versebyversequran.com/"/>
+        <rdf:li rdf:resource="http://www.arabeyes.org/"/>
+        <rdf:li rdf:resource="http://compcert.inria.fr/"/>
+        <rdf:li rdf:resource="http://www.rondjemokum.nl/"/>
+        <rdf:li rdf:resource="http://ocaml.janestcapital.com/"/>
+        <rdf:li rdf:resource="http://www.azchords.com/c/cashjohnny-tabs-717/iwontbackdown-tabs-69699.html"/>
+        <rdf:li rdf:resource="http://www.ultimate-guitar.com/tabs/e/elliott_smith/pitseleh_ver2_crd.htm"/>
+        <rdf:li rdf:resource="http://www.ultimate-guitar.com/tabs/e/elliott_smith/twilight_ver3_crd.htm"/>
+        <rdf:li rdf:resource="http://www.ultimate-guitar.com/tabs/e/elliott_smith/waltz_2_x0_tab.htm"/>
+        <rdf:li rdf:resource="http://www.releaseparty.eu/"/>
+        <rdf:li rdf:resource="http://www.amsterdam-underground.com/"/>
+        <rdf:li rdf:resource="http://www.haldern-pop.de/"/>
+        <rdf:li rdf:resource="http://www.cwi.nl/events/2008/cwilectures1.html"/>
+        <rdf:li rdf:resource="http://electoral-vote.com/"/>
+        <rdf:li rdf:resource="http://www.hansteeuwen.tv/"/>
+        <rdf:li rdf:resource="http://dictionary.sakhr.com/"/>
+        <rdf:li rdf:resource="javascript:location.href='http://www.citeulike.org/posturl?username=mvermaat&amp;bml=nopopup&amp;url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title)"/>
+        <rdf:li rdf:resource="http://images.google.com"/>
+        <rdf:li rdf:resource="http://diveintomark.org/archives/2008/05/06/the-day-the-music-died"/>
+        <rdf:li rdf:resource="http://www.ketelhuis.nl/"/>
+        <rdf:li rdf:resource="http://www.dpreview.com/"/>
+        <rdf:li rdf:resource="http://linuxhaters.blogspot.com/"/>
+        <rdf:li rdf:resource="http://www.few.vu.nl/~skn410/ek2008/EKpoule%202008.htm"/>
+        <rdf:li rdf:resource="http://www.umojawetu.nl/over-umoja-wetu"/>
+        <rdf:li rdf:resource="http://webtypography.net/"/>
+        <rdf:li rdf:resource="http://www.belknaller.nl/"/>
+        <rdf:li rdf:resource="http://www.ultimate-guitar.com/tabs/a/abba/sos_tab.htm"/>
+        <rdf:li rdf:resource="http://www.omloop.com/"/>
+        <rdf:li rdf:resource="http://www.damloop.nl/"/>
+        <rdf:li rdf:resource="http://www.nytimes.com/2007/08/30/fashion/30baggy.html?_r=1&amp;amp;oref=slogin"/>
+        <rdf:li rdf:resource="https://www.google.com/calendar"/>
+        <rdf:li rdf:resource="http://www.cs.vu.nl/~diem/research/adbmal/"/>
+        <rdf:li rdf:resource="http://www.seas.upenn.edu/~cis500/cis500-f07/index.html"/>
+        <rdf:li rdf:resource="http://www.walkers4walkers.nl/"/>
+        <rdf:li rdf:resource="http://www.vimeo.com/"/>
+        <rdf:li rdf:resource="http://blackboard.uva.nl/"/>
+        <rdf:li rdf:resource="http://rosanne.vermaat.name/log/"/>
+        <rdf:li rdf:resource="http://haxe.org/"/>
+        <rdf:li rdf:resource="http://athletic.nl/singelloop/"/>
+        <rdf:li rdf:resource="http://caml.inria.fr/resources/doc/guides/guidelines.en.html"/>
+        <rdf:li rdf:resource="http://www.micahcarrick.com/12-24-2007/gtk-glade-tutorial-part-1.html#Adding_Widgets_to_the_GtkWindow"/>
+        <rdf:li rdf:resource="http://library.gnome.org/devel/gtk/stable/"/>
+        <rdf:li rdf:resource="http://www.cairographics.org/manual/"/>
+        <rdf:li rdf:resource="http://www.imdb.com"/>
+        <rdf:li rdf:resource="http://www.allmusic.com"/>
+        <rdf:li rdf:resource="http://idfa.nl/"/>
+        <rdf:li rdf:resource="http://www.jazz-cafe-alto.nl/"/>
+        <rdf:li rdf:resource="http://twelf.plparty.org/wiki/Summer_school_2008"/>
+        <rdf:li rdf:resource="http://www.cs.cmu.edu/~aldrich/SASyLF/"/>
+        <rdf:li rdf:resource="http://www.cs.uoregon.edu/research/summerschool/summer08/"/>
+        <rdf:li rdf:resource="http://alliance.seas.upenn.edu/~plclub/cgi-bin/poplmark/index.php?title=The_POPLmark_Challenge"/>
+        <rdf:li rdf:resource="http://www.kombuizeren.nl/"/>
+        <rdf:li rdf:resource="http://www.few.vu.nl/~skn410/atletiek/atg/"/>
+      </rdf:Seq>
+    </items>
+  </channel>
+  <item rdf:about="http://www.cs.vu.nl/~mvermaat/">
+    <title>VU homepage</title>
+    <link>http://www.cs.vu.nl/~mvermaat/</link>
+    <dc:subject>vu</dc:subject>
+  </item>
+  <item rdf:about="http://gathering.tweakers.net/forum/list_topics/23">
+    <title>GoT - NOS</title>
+    <link>http://gathering.tweakers.net/forum/list_topics/23</link>
+    <dc:subject>linux</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://planet.debian.org/">
+    <title>Planet Debian</title>
+    <link>http://planet.debian.org/</link>
+    <dc:subject>debian</dc:subject>
+    <dc:subject>linux</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://lambda-the-ultimate.org/tracker">
+    <title>Lambda the Ultimate</title>
+    <link>http://lambda-the-ultimate.org/tracker</link>
+    <dc:subject>lambda-calculus</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>logic</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.intertwingly.net/blog/">
+    <title>Intertwingly</title>
+    <link>http://www.intertwingly.net/blog/</link>
+    <dc:subject>web</dc:subject>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://simonwillison.net/">
+    <title>Simon Willison's Weblog</title>
+    <link>http://simonwillison.net/</link>
+    <dc:subject>web</dc:subject>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://annevankesteren.nl/">
+    <title>Anne van Kesteren</title>
+    <link>http://annevankesteren.nl/</link>
+    <dc:subject>web</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.ucalgary.ca/~rzach/logblog/">
+    <title>LogBlog</title>
+    <link>http://www.ucalgary.ca/~rzach/logblog/</link>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+    <dc:subject>philosophy</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.fotolog.com/eva23">
+    <title>Eva's fotolog</title>
+    <link>http://www.fotolog.com/eva23</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://gids.omroep.nl/core/content.php">
+    <title>TV Gids</title>
+    <link>http://gids.omroep.nl/core/content.php</link>
+    <dc:subject>news</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://10.0.0.138/index.htm">
+    <title>SpeedTouch 510 configuratie</title>
+    <link>http://10.0.0.138/index.htm</link>
+    <dc:subject>private</dc:subject>
+    <dc:subject>local</dc:subject>
+  </item>
+  <item rdf:about="http://192.168.0.2/">
+    <title>DrayTek Vigor2200E admin</title>
+    <link>http://192.168.0.2/</link>
+    <dc:subject>private</dc:subject>
+    <dc:subject>local</dc:subject>
+  </item>
+  <item rdf:about="http://priscilla/phpmyadmin/">
+    <title>phpMyAdmin (local)</title>
+    <link>http://priscilla/phpmyadmin/</link>
+    <dc:subject>private</dc:subject>
+    <dc:subject>netbytes</dc:subject>
+    <dc:subject>local</dc:subject>
+  </item>
+  <item rdf:about="http://priscilla/deltam/">
+    <title>Delta Makelaardij (local)</title>
+    <link>http://priscilla/deltam/</link>
+    <dc:subject>private</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>netbytes</dc:subject>
+    <dc:subject>local</dc:subject>
+  </item>
+  <item rdf:about="http://priscilla/dorr/">
+    <title>Kees Dorr Makelaardij (local)</title>
+    <link>http://priscilla/dorr/</link>
+    <dc:subject>private</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>netbytes</dc:subject>
+    <dc:subject>local</dc:subject>
+  </item>
+  <item rdf:about="http://priscilla/kjew/">
+    <title>Kjew (local)</title>
+    <link>http://priscilla/kjew/</link>
+    <dc:subject>private</dc:subject>
+    <dc:subject>local</dc:subject>
+  </item>
+  <item rdf:about="http://priscilla/vu/">
+    <title>VU homepage (local)</title>
+    <link>http://priscilla/vu/</link>
+    <dc:subject>private</dc:subject>
+    <dc:subject>vu</dc:subject>
+    <dc:subject>local</dc:subject>
+  </item>
+  <item rdf:about="http://priscilla/pirouet/">
+    <title>Pirouet (local)</title>
+    <link>http://priscilla/pirouet/</link>
+    <dc:subject>private</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>family</dc:subject>
+    <dc:subject>local</dc:subject>
+  </item>
+  <item rdf:about="http://www.e7l3.org/classics.html">
+    <title>Classical Computer Science Texts</title>
+    <link>http://www.e7l3.org/classics.html</link>
+    <dc:subject>types</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://citeseer.ist.psu.edu/247709.html">
+    <title>Communicating Sequential Processes: a synopsis</title>
+    <link>http://citeseer.ist.psu.edu/247709.html</link>
+    <dc:subject>process-algebra</dc:subject>
+    <dc:subject>math</dc:subject>
+  </item>
+  <item rdf:about="http://www-igm.univ-mlv.fr/~lecroq/string/">
+    <title>Exact String Matching Algorithms</title>
+    <link>http://www-igm.univ-mlv.fr/~lecroq/string/</link>
+    <dc:subject>java</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://homepages.cwi.nl/~jve/HR/">
+    <title>The Haskell Road to Logic, Maths and Programming</title>
+    <link>http://homepages.cwi.nl/~jve/HR/</link>
+    <dc:subject>haskell</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://jaqque.sbih.org/kplug/apt-pinning.html">
+    <title>Apt-Pinning for Beginners</title>
+    <link>http://jaqque.sbih.org/kplug/apt-pinning.html</link>
+    <dc:subject>debian</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://www.debian.org/doc/manuals/apt-howto/">
+    <title>APT HOWTO</title>
+    <link>http://www.debian.org/doc/manuals/apt-howto/</link>
+    <dc:subject>debian</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://myrddin.org/howto/debian-kernel-recompiling/">
+    <title>Debian kernel recompiling</title>
+    <link>http://myrddin.org/howto/debian-kernel-recompiling/</link>
+    <dc:subject>debian</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://www.nomaware.com/monads/html/">
+    <title>All About Monads</title>
+    <link>http://www.nomaware.com/monads/html/</link>
+    <dc:subject>haskell</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.helsinki.fi/jarj/papintappajat/making_of.html">
+    <title>How To Maintain a Web Site Using XML, XSLT, CVS and Ant</title>
+    <link>http://www.helsinki.fi/jarj/papintappajat/making_of.html</link>
+    <dc:subject>xml</dc:subject>
+    <dc:subject>web</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.linearity.org/cas/">
+    <title>Charles Stewart homepage</title>
+    <link>http://www.linearity.org/cas/</link>
+    <dc:subject>types</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://wwwtcs.inf.tu-dresden.de/~tews/htmlman-3.09/full-grammar.html">
+    <title>OCaml grammar overview</title>
+    <link>http://wwwtcs.inf.tu-dresden.de/~tews/htmlman-3.09/full-grammar.html</link>
+    <dc:subject>ocaml</dc:subject>
+  </item>
+  <item rdf:about="http://alessio.guglielmi.name/res/cos/crt.html">
+    <title>DI &amp; CoS - Current Research Topics and Open Problems</title>
+    <link>http://alessio.guglielmi.name/res/cos/crt.html</link>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://www.math.ucsd.edu/~sbuss/ResearchWeb/HandbookProofTheory/">
+    <title>Handbook of Proof Theory (Samual Buss chapters)</title>
+    <link>http://www.math.ucsd.edu/~sbuss/ResearchWeb/HandbookProofTheory/</link>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://www.cs.uu.nl/wiki/Martin/WritingCourse">
+    <title>Martin Bravenboer / Writing Course</title>
+    <link>http://www.cs.uu.nl/wiki/Martin/WritingCourse</link>
+    <dc:subject>web</dc:subject>
+    <dc:subject>vu</dc:subject>
+  </item>
+  <item rdf:about="http://mako.cc/writing/to_fork_or_not_to_fork.html">
+    <title>To Fork or Not To Fork</title>
+    <link>http://mako.cc/writing/to_fork_or_not_to_fork.html</link>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>ubuntu</dc:subject>
+    <dc:subject>debian</dc:subject>
+  </item>
+  <item rdf:about="http://svnbook.red-bean.com/">
+    <title>Version Control with Subversion</title>
+    <link>http://svnbook.red-bean.com/</link>
+    <dc:subject>subversion</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.luxuriamusic.com/">
+    <title>LuxuriaMusic.com</title>
+    <link>http://www.luxuriamusic.com/</link>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://www.bradpriddy.com/paul_simon/surfer.htm">
+    <title>Surfer Girl tab</title>
+    <link>http://www.bradpriddy.com/paul_simon/surfer.htm</link>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://www.cs.brown.edu/people/pw/home.html">
+    <title>Peter Wegner's Home Page</title>
+    <link>http://www.cs.brown.edu/people/pw/home.html</link>
+    <dc:subject>logic</dc:subject>
+    <dc:subject>philosophy</dc:subject>
+  </item>
+  <item rdf:about="http://www.delijst.net/delijst/">
+    <title>de Lijst : Voor digitale bouwvakkers!</title>
+    <link>http://www.delijst.net/delijst/</link>
+    <dc:subject>web</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.debian-administration.org/">
+    <title>Debian Administration</title>
+    <link>http://www.debian-administration.org/</link>
+    <dc:subject>debian</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://www.phil.cam.ac.uk/teaching_staff/Smith/LaTeX/">
+    <title>LaTeX for Logicians</title>
+    <link>http://www.phil.cam.ac.uk/teaching_staff/Smith/LaTeX/</link>
+    <dc:subject>latex</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://www.earlham.edu/~peters/courses.htm">
+    <title>Peter Suber's course homepages</title>
+    <link>http://www.earlham.edu/~peters/courses.htm</link>
+    <dc:subject>logic</dc:subject>
+    <dc:subject>philosophy</dc:subject>
+  </item>
+  <item rdf:about="http://www.venge.net/graydon/talks/">
+    <title>One Day Compilers - Slides</title>
+    <link>http://www.venge.net/graydon/talks/</link>
+    <dc:subject>compilers</dc:subject>
+    <dc:subject>ocaml</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://nazodane.hp.infoseek.co.jp/extension/translation.xhtml">
+    <title>Translation Panel Firefox extension</title>
+    <link>http://nazodane.hp.infoseek.co.jp/extension/translation.xhtml</link>
+    <dc:subject>web</dc:subject>
+  </item>
+  <item rdf:about="http://3voor12.vpro.nl/luisterpaal/">
+    <title>3VOOR12 LUISTERPAAL</title>
+    <link>http://3voor12.vpro.nl/luisterpaal/</link>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://en.wikipedia.org">
+    <title>Wikipedia search</title>
+    <link>http://en.wikipedia.org</link>
+    <ephy:smartlink>http://en.wikipedia.org/w/wiki.phtml?search=%s</ephy:smartlink>
+    <dc:subject>search</dc:subject>
+  </item>
+  <item rdf:about="http://nl.wikipedia.org">
+    <title>Wikipedia NL search</title>
+    <link>http://nl.wikipedia.org</link>
+    <ephy:smartlink>http://nl.wikipedia.org/w/wiki.phtml?search=%s</ephy:smartlink>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>search</dc:subject>
+  </item>
+  <item rdf:about="http://planet.ubuntu.com/">
+    <title>Planet Ubuntu</title>
+    <link>http://planet.ubuntu.com/</link>
+    <dc:subject>ubuntu</dc:subject>
+    <dc:subject>linux</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://planet.ubuntu-nl.org/">
+    <title>Planet Ubuntu NL</title>
+    <link>http://planet.ubuntu-nl.org/</link>
+    <dc:subject>ubuntu</dc:subject>
+    <dc:subject>linux</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.ocaml-tutorial.org/">
+    <title>Objective CAML Tutorial</title>
+    <link>http://www.ocaml-tutorial.org/</link>
+    <dc:subject>ocaml</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.cs.uu.nl/wiki/Pt/WebHome">
+    <title>Program Transformation course</title>
+    <link>http://www.cs.uu.nl/wiki/Pt/WebHome</link>
+    <dc:subject>stratego</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://caml.inria.fr/pub/docs/oreilly-book/">
+    <title>Developing applications with Objective Caml</title>
+    <link>http://caml.inria.fr/pub/docs/oreilly-book/</link>
+    <dc:subject>ocaml</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.ffconsultancy.com/free/sudoku/">
+    <title>Sudoku solving in OCaml</title>
+    <link>http://www.ffconsultancy.com/free/sudoku/</link>
+    <dc:subject>games</dc:subject>
+    <dc:subject>ocaml</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>math</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://rosanneinguatemala.blogspot.com/">
+    <title>Mi Viaje a Guatemala - Rosanne</title>
+    <link>http://rosanneinguatemala.blogspot.com/</link>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>family</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://blog.netbytes.nl/textpattern/index.php">
+    <title>Netbytes Blog admin</title>
+    <link>http://blog.netbytes.nl/textpattern/index.php</link>
+    <dc:subject>private</dc:subject>
+    <dc:subject>web</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>netbytes</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://blog.netbytes.nl/">
+    <title>Netbytes Blog</title>
+    <link>http://blog.netbytes.nl/</link>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>web</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>netbytes</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://demo.netbytes.nl:8887">
+    <title>NetOffice</title>
+    <link>http://demo.netbytes.nl:8887</link>
+    <dc:subject>private</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>netbytes</dc:subject>
+  </item>
+  <item rdf:about="http://wiki.netbytes.nl/">
+    <title>Netbytes Wiki</title>
+    <link>http://wiki.netbytes.nl/</link>
+    <dc:subject>private</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>netbytes</dc:subject>
+  </item>
+  <item rdf:about="http://collaboa.netbytes.nl/">
+    <title>Netbytes Collaboa</title>
+    <link>http://collaboa.netbytes.nl/</link>
+    <dc:subject>private</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>netbytes</dc:subject>
+  </item>
+  <item rdf:about="http://loeslog.blogspot.com/">
+    <title>LoesLog</title>
+    <link>http://loeslog.blogspot.com/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://planet.gnome.org/">
+    <title>Planet GNOME</title>
+    <link>http://planet.gnome.org/</link>
+    <dc:subject>linux</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://caml.inria.fr/pub/docs/manual-ocaml/">
+    <title>OCaml documentation</title>
+    <link>http://caml.inria.fr/pub/docs/manual-ocaml/</link>
+    <dc:subject>ocaml</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.argentum.freeserve.co.uk/lex_home.htm">
+    <title>Life Lexicon Home Page</title>
+    <link>http://www.argentum.freeserve.co.uk/lex_home.htm</link>
+    <dc:subject>games</dc:subject>
+    <dc:subject>math</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://radicaleye.com/lifepage/">
+    <title>Paul's Page of Conway's Life Miscellany</title>
+    <link>http://radicaleye.com/lifepage/</link>
+    <dc:subject>games</dc:subject>
+    <dc:subject>math</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://genealogy.math.ndsu.nodak.edu/">
+    <title>The Mathematics Genealogy Project</title>
+    <link>http://genealogy.math.ndsu.nodak.edu/</link>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://search.yahoo.com">
+    <title>Yahoo! search</title>
+    <link>http://search.yahoo.com</link>
+    <ephy:smartlink>http://search.yahoo.com/search?p=%s</ephy:smartlink>
+    <dc:subject>search</dc:subject>
+  </item>
+  <item rdf:about="http://www-128.ibm.com/developerworks/ibm/library/it-haggar_bytecode/">
+    <title>Java bytecode</title>
+    <link>http://www-128.ibm.com/developerworks/ibm/library/it-haggar_bytecode/</link>
+    <dc:subject>java</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.cs.vu.nl/~tcs/iti/">
+    <title>Inleiding Theoretische Informatica</title>
+    <link>http://www.cs.vu.nl/~tcs/iti/</link>
+    <dc:subject>lambda-calculus</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>math</dc:subject>
+    <dc:subject>vu</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://www.flickr.com/photos/monkeypics">
+    <title>Mark @ Flickr</title>
+    <link>http://www.flickr.com/photos/monkeypics</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>netbytes</dc:subject>
+  </item>
+  <item rdf:about="http://logicmatters.blogspot.com/">
+    <title>Logic Matters</title>
+    <link>http://logicmatters.blogspot.com/</link>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+    <dc:subject>philosophy</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.helsinki.fi/~pakaste/caboodle/">
+    <title>Caboodle</title>
+    <link>http://www.helsinki.fi/~pakaste/caboodle/</link>
+    <dc:subject>games</dc:subject>
+    <dc:subject>ocaml</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://www.underlevel.net/crunchylogic/">
+    <title>CrunchyLogic</title>
+    <link>http://www.underlevel.net/crunchylogic/</link>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+    <dc:subject>philosophy</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.ocf.berkeley.edu/~easwaran/blog/">
+    <title>Antimeta</title>
+    <link>http://www.ocf.berkeley.edu/~easwaran/blog/</link>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+    <dc:subject>philosophy</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://sigfpe.blogspot.com/">
+    <title>A Neighborhood of Infinity</title>
+    <link>http://sigfpe.blogspot.com/</link>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+    <dc:subject>philosophy</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://theorymatters.org/pmwiki/pmwiki.php">
+    <title>Theory Matters</title>
+    <link>http://theorymatters.org/pmwiki/pmwiki.php</link>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://geomblog.blogspot.com/">
+    <title>The Geomblog</title>
+    <link>http://geomblog.blogspot.com/</link>
+    <dc:subject>math</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://consequently.org/">
+    <title>consequently.org</title>
+    <link>http://consequently.org/</link>
+    <dc:subject>logic</dc:subject>
+    <dc:subject>philosophy</dc:subject>
+  </item>
+  <item rdf:about="http://www.matrox.com/mga/support/drivers/latest/home.cfm">
+    <title>Matrox drivers</title>
+    <link>http://www.matrox.com/mga/support/drivers/latest/home.cfm</link>
+    <dc:subject>hardware</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://www.ubuntuforums.org/showthread.php?t=123539">
+    <title>Set up your Brother 2030/70 Laser printer - Ubuntu Forums</title>
+    <link>http://www.ubuntuforums.org/showthread.php?t=123539</link>
+    <dc:subject>hardware</dc:subject>
+    <dc:subject>ubuntu</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://www.flickr.com/photos/sonic-nurse/">
+    <title>Flickr: Photos from Sonic Nurse</title>
+    <link>http://www.flickr.com/photos/sonic-nurse/</link>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>family</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.ugcs.caltech.edu/~weel/cgi/blog">
+    <title>Jaap Weel | Blog</title>
+    <link>http://www.ugcs.caltech.edu/~weel/cgi/blog</link>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.pokerlistings.com/">
+    <title>Online Poker Guide</title>
+    <link>http://www.pokerlistings.com/</link>
+    <dc:subject>poker</dc:subject>
+    <dc:subject>games</dc:subject>
+  </item>
+  <item rdf:about="http://www.everestpoker.com/">
+    <title>Everest Poker</title>
+    <link>http://www.everestpoker.com/</link>
+    <dc:subject>poker</dc:subject>
+    <dc:subject>games</dc:subject>
+  </item>
+  <item rdf:about="http://www.9292ov.nl/">
+    <title>9292ov.nl</title>
+    <link>http://www.9292ov.nl/</link>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://blog.eelcovisser.net/">
+    <title>Transformations and Abstractions</title>
+    <link>http://blog.eelcovisser.net/</link>
+    <dc:subject>stratego</dc:subject>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.nos.nl/nosjournaal/voorpagina/index.html">
+    <title>NOS Journaal</title>
+    <link>http://www.nos.nl/nosjournaal/voorpagina/index.html</link>
+    <dc:subject>news</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://caml.inria.fr/pub/docs/manual-ocaml/libref/index_modules.html">
+    <title>OCaml index of modules</title>
+    <link>http://caml.inria.fr/pub/docs/manual-ocaml/libref/index_modules.html</link>
+    <dc:subject>ocaml</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.earlham.edu/~peters/fos/overview.htm">
+    <title>Open Access Overview</title>
+    <link>http://www.earlham.edu/~peters/fos/overview.htm</link>
+    <dc:subject>freedom</dc:subject>
+  </item>
+  <item rdf:about="http://homepages.inf.ed.ac.uk/wadler/">
+    <title>Philip Wadler's home page</title>
+    <link>http://homepages.inf.ed.ac.uk/wadler/</link>
+    <dc:subject>lambda-calculus</dc:subject>
+    <dc:subject>haskell</dc:subject>
+    <dc:subject>types</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>web</dc:subject>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://www.fotolog.com/joh4n/">
+    <title>Johan's fotolog</title>
+    <link>http://www.fotolog.com/joh4n/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://homepages.cwi.nl/~mcrl/">
+    <title>µCRL</title>
+    <link>http://homepages.cwi.nl/~mcrl/</link>
+    <dc:subject>process-algebra</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://www.cduce.org/">
+    <title>CDuce: Home page</title>
+    <link>http://www.cduce.org/</link>
+    <dc:subject>xml</dc:subject>
+    <dc:subject>types</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.artima.com/weblogs/viewpost.jsp?thread=85551">
+    <title>Adding Optional Static Typing to Python - Part 1</title>
+    <link>http://www.artima.com/weblogs/viewpost.jsp?thread=85551</link>
+    <dc:subject>types</dc:subject>
+    <dc:subject>python</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.artima.com/weblogs/viewpost.jsp?thread=86641">
+    <title>Adding Optional Static Typing to Python - Part 2</title>
+    <link>http://www.artima.com/weblogs/viewpost.jsp?thread=86641</link>
+    <dc:subject>types</dc:subject>
+    <dc:subject>python</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.artima.com/weblogs/viewpost.jsp?thread=87182">
+    <title>Adding Optional Static Typing to Python - Final note</title>
+    <link>http://www.artima.com/weblogs/viewpost.jsp?thread=87182</link>
+    <dc:subject>types</dc:subject>
+    <dc:subject>python</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://scala.epfl.ch/">
+    <title>The Scala Programming Language</title>
+    <link>http://scala.epfl.ch/</link>
+    <dc:subject>types</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>java</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://reporter.kro.nl/uitzendingen/2006/20060524ropgonggrijp/20060524ropgonggrijp.aspx">
+    <title>KRO-Reporter: Rop Gonggrijp</title>
+    <link>http://reporter.kro.nl/uitzendingen/2006/20060524ropgonggrijp/20060524ropgonggrijp.aspx</link>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.student.vu.nl/l.e.claessen/">
+    <title>Loes Claessen</title>
+    <link>http://www.student.vu.nl/l.e.claessen/</link>
+    <dc:subject>friends</dc:subject>
+  </item>
+  <item rdf:about="http://www.alizarin.nl/">
+    <title>Alizarin</title>
+    <link>http://www.alizarin.nl/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>music</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.sacredchao.net/quodlibet">
+    <title>Ex Falso / Quod Libet</title>
+    <link>http://www.sacredchao.net/quodlibet</link>
+    <dc:subject>python</dc:subject>
+    <dc:subject>music</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://plato.stanford.edu/">
+    <title>Stanford Encyclopedia of Philosophy</title>
+    <link>http://plato.stanford.edu/</link>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+    <dc:subject>philosophy</dc:subject>
+  </item>
+  <item rdf:about="http://homepages.cwi.nl/~atanasso/ref">
+    <title>PLT Online</title>
+    <link>http://homepages.cwi.nl/~atanasso/ref</link>
+    <dc:subject>lambda-calculus</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>types</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>math</dc:subject>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://www.lmcs-online.org/">
+    <title>Logical Methods in Computer Science</title>
+    <link>http://www.lmcs-online.org/</link>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://www.godelbook.net/">
+    <title>Gödel's Theorems</title>
+    <link>http://www.godelbook.net/</link>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+    <dc:subject>philosophy</dc:subject>
+  </item>
+  <item rdf:about="http://sage.soe.ucsc.edu/">
+    <title>Sage: A Programming Language with Hybrid Type-Checking</title>
+    <link>http://sage.soe.ucsc.edu/</link>
+    <dc:subject>types</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://therning.org/magnus/computer/epilicious/">
+    <title>Epilicious</title>
+    <link>http://therning.org/magnus/computer/epilicious/</link>
+    <dc:subject>python</dc:subject>
+    <dc:subject>web</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://tweakers.net/">
+    <title>Tweakers.net</title>
+    <link>http://tweakers.net/</link>
+    <dc:subject>news</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.nu.nl/">
+    <title>nu.nl</title>
+    <link>http://www.nu.nl/</link>
+    <dc:subject>news</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://sommelsdijk.xs4all.nl/repository/">
+    <title>Christina SVN repository</title>
+    <link>http://sommelsdijk.xs4all.nl/repository/</link>
+    <dc:subject>private</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://bb.vu.nl/">
+    <title>Blackboard VU</title>
+    <link>http://bb.vu.nl/</link>
+    <dc:subject>vu</dc:subject>
+  </item>
+  <item rdf:about="https://www.few.vu.nl/cgi-bin/mail_filter">
+    <title>VU Email filtering</title>
+    <link>https://www.few.vu.nl/cgi-bin/mail_filter</link>
+    <dc:subject>vu</dc:subject>
+  </item>
+  <item rdf:about="http://www.flickrleech.net/">
+    <title>Flickr Leech</title>
+    <link>http://www.flickrleech.net/</link>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>web</dc:subject>
+  </item>
+  <item rdf:about="http://www.wkvoorspellen.nl/poules.asp?id=9917">
+    <title>WK 2006 zolderboys voetbalpoule</title>
+    <link>http://www.wkvoorspellen.nl/poules.asp?id=9917</link>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>sports</dc:subject>
+    <dc:subject>news</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.tsvvmerlijn.nl/">
+    <title>Tilburgse Studenten Voetbal Vereniging Merlijn</title>
+    <link>http://www.tsvvmerlijn.nl/</link>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>sports</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.phdcomics.com/comics.php">
+    <title>Piled Higher and Deeper</title>
+    <link>http://www.phdcomics.com/comics.php</link>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.bof.nl/">
+    <title>BITS OF FREEDOM</title>
+    <link>http://www.bof.nl/</link>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>web</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.last.fm/user/mvermaat">
+    <title>Last.fm profile</title>
+    <link>http://www.last.fm/user/mvermaat</link>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://www.myp2p.eu/WorldCup/Match1.htm">
+    <title>World Cup 2006 P2P Streams</title>
+    <link>http://www.myp2p.eu/WorldCup/Match1.htm</link>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>sports</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.uitzendinggemist.nl/">
+    <title>Uitzendinggemist.nl</title>
+    <link>http://www.uitzendinggemist.nl/</link>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.gmap-pedometer.com/?r=370966">
+    <title>Pedometer - 6.5 km Sommelsdijk</title>
+    <link>http://www.gmap-pedometer.com/?r=370966</link>
+    <dc:subject>running</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>sports</dc:subject>
+  </item>
+  <item rdf:about="http://www.gmap-pedometer.com/?r=370986">
+    <title>Pedometer - 7.1 km Vondelpark</title>
+    <link>http://www.gmap-pedometer.com/?r=370986</link>
+    <dc:subject>running</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>sports</dc:subject>
+  </item>
+  <item rdf:about="http://www.gmap-pedometer.com/?r=417001">
+    <title>Pedometer - 1.8 km Stadionkade</title>
+    <link>http://www.gmap-pedometer.com/?r=417001</link>
+    <dc:subject>running</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>sports</dc:subject>
+  </item>
+  <item rdf:about="http://mbravenboer.blogspot.com/">
+    <title>Subject to Meta Programming</title>
+    <link>http://mbravenboer.blogspot.com/</link>
+    <dc:subject>types</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>java</dc:subject>
+    <dc:subject>stratego</dc:subject>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.buienradar.nl/">
+    <title>Buienradar.nl</title>
+    <link>http://www.buienradar.nl/</link>
+    <dc:subject>news</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="https://www.fortisbanking.com/startOLB.asp">
+    <title>Fortis Online Banking</title>
+    <link>https://www.fortisbanking.com/startOLB.asp</link>
+    <dc:subject>private</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.getgnulinux.org/">
+    <title>Get GNU/Linux</title>
+    <link>http://www.getgnulinux.org/</link>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>ubuntu</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://www.videojug.com/">
+    <title>VideoJug - Life Explained. On Film.</title>
+    <link>http://www.videojug.com/</link>
+    <dc:subject>video</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>fun</dc:subject>
+  </item>
+  <item rdf:about="http://www.eilandweb.nl/">
+    <title>EilandWeb.nl</title>
+    <link>http://www.eilandweb.nl/</link>
+    <dc:subject>flakkee</dc:subject>
+    <dc:subject>news</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://fspc282.few.vu.nl/infinity/">
+    <title>Infinity Project</title>
+    <link>http://fspc282.few.vu.nl/infinity/</link>
+    <dc:subject>math</dc:subject>
+    <dc:subject>vu</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://del.icio.us/mvermaat">
+    <title>mvermaat's bookmarks on del.icio.us</title>
+    <link>http://del.icio.us/mvermaat</link>
+    <dc:subject>web</dc:subject>
+  </item>
+  <item rdf:about="http://www.schneier.com/blog/">
+    <title>Schneier on Security</title>
+    <link>http://www.schneier.com/blog/</link>
+    <dc:subject>security</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.cs.vu.nl/~tcs/il/">
+    <title>Inleiding Logica</title>
+    <link>http://www.cs.vu.nl/~tcs/il/</link>
+    <dc:subject>vu</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://itpolicy.princeton.edu/voting/">
+    <title>Security Analysis of the Diebold AccuVote-TS Voting Machine</title>
+    <link>http://itpolicy.princeton.edu/voting/</link>
+    <dc:subject>voting</dc:subject>
+    <dc:subject>video</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>security</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>hardware</dc:subject>
+  </item>
+  <item rdf:about="http://www.freedom-to-tinker.com/">
+    <title>Freedom to Tinker</title>
+    <link>http://www.freedom-to-tinker.com/</link>
+    <dc:subject>voting</dc:subject>
+    <dc:subject>drm</dc:subject>
+    <dc:subject>security</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://blogs.gnome.org/view/rbultje/2006/09/15/0">
+    <title>DRM to play legal music</title>
+    <link>http://blogs.gnome.org/view/rbultje/2006/09/15/0</link>
+    <dc:subject>drm</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>music</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://defectivebydesign.org/">
+    <title>DefectiveByDesign.org</title>
+    <link>http://defectivebydesign.org/</link>
+    <dc:subject>drm</dc:subject>
+    <dc:subject>freedom</dc:subject>
+  </item>
+  <item rdf:about="http://defectivebydesign.org/en/blog/announce_day_against_drm">
+    <title>October 3rd Declared &quot;Day Against DRM&quot;</title>
+    <link>http://defectivebydesign.org/en/blog/announce_day_against_drm</link>
+    <dc:subject>drm</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://system76.com/">
+    <title>system76 Linux Computers</title>
+    <link>http://system76.com/</link>
+    <dc:subject>hardware</dc:subject>
+    <dc:subject>ubuntu</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://diveintomark.org/">
+    <title>dive into mark</title>
+    <link>http://diveintomark.org/</link>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>web</dc:subject>
+    <dc:subject>ubuntu</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.free-culture.cc/">
+    <title>Free Culture</title>
+    <link>http://www.free-culture.cc/</link>
+    <dc:subject>freedom</dc:subject>
+  </item>
+  <item rdf:about="http://www.eff.org/deeplinks/archives/004910.php">
+    <title>Microsoft's Zune Won't Play Protected Windows Media</title>
+    <link>http://www.eff.org/deeplinks/archives/004910.php</link>
+    <dc:subject>drm</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://validator.w3.org/">
+    <title>The W3C Markup Validation Service</title>
+    <link>http://validator.w3.org/</link>
+    <dc:subject>xml</dc:subject>
+    <dc:subject>web</dc:subject>
+  </item>
+  <item rdf:about="http://rocky.molphys.leidenuniv.nl/">
+    <title>Arno's IPTables firewall</title>
+    <link>http://rocky.molphys.leidenuniv.nl/</link>
+    <dc:subject>security</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://fm.schmoller.net/2006/07/blackboards_us_.html">
+    <title>Blackboard's US Patent 6988138 seems to cover most of the &quot;commodity&quot; features of a learning environment</title>
+    <link>http://fm.schmoller.net/2006/07/blackboards_us_.html</link>
+    <dc:subject>patents</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>freedom</dc:subject>
+  </item>
+  <item rdf:about="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=354622">
+    <title>Debian bug #354622: Firefox name without branding still a trademark violation</title>
+    <link>http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=354622</link>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>debian</dc:subject>
+  </item>
+  <item rdf:about="http://www.freedom-to-tinker.com/?p=1065">
+    <title>Refuting Diebold’s Response</title>
+    <link>http://www.freedom-to-tinker.com/?p=1065</link>
+    <dc:subject>voting</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>security</dc:subject>
+    <dc:subject>hardware</dc:subject>
+  </item>
+  <item rdf:about="http://www.nerdtv.nl/">
+    <title>NerdTV</title>
+    <link>http://www.nerdtv.nl/</link>
+    <dc:subject>video</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>news</dc:subject>
+    <dc:subject>linux</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://lwn.net/Articles/200422/">
+    <title>Kernel developers' position on GPLv3</title>
+    <link>http://lwn.net/Articles/200422/</link>
+    <dc:subject>patents</dc:subject>
+    <dc:subject>drm</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://www.cs.vu.nl/~mvermaat/files/october-3rd-against-drm.html">
+    <title>Martijn Vermaat - Against DRM</title>
+    <link>http://www.cs.vu.nl/~mvermaat/files/october-3rd-against-drm.html</link>
+    <dc:subject>drm</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>freedom</dc:subject>
+  </item>
+  <item rdf:about="http://www.bugmenot.com/">
+    <title>BugMeNot</title>
+    <link>http://www.bugmenot.com/</link>
+    <dc:subject>security</dc:subject>
+    <dc:subject>freedom</dc:subject>
+  </item>
+  <item rdf:about="http://www.wijvertrouwenstemcomputersniet.nl/">
+    <title>Wij vertrouwen stemcomputers niet</title>
+    <link>http://www.wijvertrouwenstemcomputersniet.nl/</link>
+    <dc:subject>voting</dc:subject>
+    <dc:subject>security</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.wijvertrouwenstemcomputersniet.nl/images/9/91/Es3b-en.pdf">
+    <title>Nedap/Groenendaal ES3B voting computer, a security analysis</title>
+    <link>http://www.wijvertrouwenstemcomputersniet.nl/images/9/91/Es3b-en.pdf</link>
+    <dc:subject>pdf</dc:subject>
+    <dc:subject>voting</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>security</dc:subject>
+    <dc:subject>freedom</dc:subject>
+  </item>
+  <item rdf:about="https://bugs.launchpad.net">
+    <title>Launchpad bug search</title>
+    <link>https://bugs.launchpad.net</link>
+    <ephy:smartlink>https://bugs.launchpad.net/ubuntu/+bugs?field.searchtext=%s</ephy:smartlink>
+    <dc:subject>ubuntu</dc:subject>
+    <dc:subject>linux</dc:subject>
+    <dc:subject>search</dc:subject>
+  </item>
+  <item rdf:about="http://www.climatechangecollege.org/entry/video.php?id=1000000072">
+    <title>Loes @ Climate Change College</title>
+    <link>http://www.climatechangecollege.org/entry/video.php?id=1000000072</link>
+    <dc:subject>video</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>friends</dc:subject>
+  </item>
+  <item rdf:about="http://www.readwriteweb.com/archives/firefox2_marketing.php">
+    <title>How Firefox 2.0 Will Be Marketed</title>
+    <link>http://www.readwriteweb.com/archives/firefox2_marketing.php</link>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>web</dc:subject>
+  </item>
+  <item rdf:about="http://www.murrayc.com/blog/permalink/2006/04/21/building-modified-debian-packages/">
+    <title>Building modified debian packages</title>
+    <link>http://www.murrayc.com/blog/permalink/2006/04/21/building-modified-debian-packages/</link>
+    <dc:subject>ubuntu</dc:subject>
+    <dc:subject>debian</dc:subject>
+    <dc:subject>linux</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://maps.google.nl">
+    <title>Google Maps search</title>
+    <link>http://maps.google.nl</link>
+    <ephy:smartlink>http://maps.google.nl/maps?q=%s</ephy:smartlink>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>search</dc:subject>
+  </item>
+  <item rdf:about="http://www.novell.com/linux/microsoft/faq.html">
+    <title>Microsoft and Novell Collaborate - FAQ</title>
+    <link>http://www.novell.com/linux/microsoft/faq.html</link>
+    <dc:subject>patents</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://tedioussartre.blogspot.com/">
+    <title>Photographer and more</title>
+    <link>http://tedioussartre.blogspot.com/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>netbytes</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.w3.org/TR/CSS21/">
+    <title>Cascading Style Sheets 2.1</title>
+    <link>http://www.w3.org/TR/CSS21/</link>
+    <dc:subject>xml</dc:subject>
+    <dc:subject>web</dc:subject>
+  </item>
+  <item rdf:about="http://adainsa.waarbenjij.nu/">
+    <title>Ada in South Africa</title>
+    <link>http://adainsa.waarbenjij.nu/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.tbray.org/ongoing/When/200x/2006/11/12/OSS-Java">
+    <title>Java Is Free</title>
+    <link>http://www.tbray.org/ongoing/When/200x/2006/11/12/OSS-Java</link>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>java</dc:subject>
+    <dc:subject>linux</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.flickr.com/photos/mexicanwave/sets/589225/">
+    <title>Mexico x 100 - a photoset on Flickr</title>
+    <link>http://www.flickr.com/photos/mexicanwave/sets/589225/</link>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>photos</dc:subject>
+  </item>
+  <item rdf:about="http://blog.seattlepi.nwsource.com/microsoft/archives/108806.asp?source=rss">
+    <title>Ballmer on Novell, Linux and patents</title>
+    <link>http://blog.seattlepi.nwsource.com/microsoft/archives/108806.asp?source=rss</link>
+    <dc:subject>patents</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>news</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://giveusbacknewyork.com/">
+    <title>Give us back New York</title>
+    <link>http://giveusbacknewyork.com/</link>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>fun</dc:subject>
+  </item>
+  <item rdf:about="http://vondellaan.vermaat.name/">
+    <title>Vondellaan</title>
+    <link>http://vondellaan.vermaat.name/</link>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>family</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.flickr.com/photos/vondellaan">
+    <title>Flickr: Photos from Vondellaan</title>
+    <link>http://www.flickr.com/photos/vondellaan</link>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>family</dc:subject>
+  </item>
+  <item rdf:about="http://192.168.2.1/">
+    <title>KPN Experia - Gigaset SX551 WLAN dsl</title>
+    <link>http://192.168.2.1/</link>
+    <dc:subject>private</dc:subject>
+    <dc:subject>hardware</dc:subject>
+    <dc:subject>local</dc:subject>
+  </item>
+  <item rdf:about="https://tisvu.vu.nl/">
+    <title>TISVU</title>
+    <link>https://tisvu.vu.nl/</link>
+    <dc:subject>vu</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.robenanneinafrika.waarbenjij.nu/">
+    <title>Rob en Anne in Afrika</title>
+    <link>http://www.robenanneinafrika.waarbenjij.nu/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.attrition.org/postal/z/033/0871.html">
+    <title>Congressional press aide attempts to hire hackers</title>
+    <link>http://www.attrition.org/postal/z/033/0871.html</link>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>security</dc:subject>
+    <dc:subject>fun</dc:subject>
+  </item>
+  <item rdf:about="http://www.bbc.co.uk/berkshire/content/articles/2006/12/06/divide_zero_feature.shtml">
+    <title>1200-year-old problem 'easy'</title>
+    <link>http://www.bbc.co.uk/berkshire/content/articles/2006/12/06/divide_zero_feature.shtml</link>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>math</dc:subject>
+  </item>
+  <item rdf:about="http://news.bbc.co.uk/2/hi/middle_east/6218485.stm">
+    <title>Saddam Hussein executed in Iraq</title>
+    <link>http://news.bbc.co.uk/2/hi/middle_east/6218485.stm</link>
+    <dc:subject>linkroll</dc:subject>
+  </item>
+  <item rdf:about="http://ietsmetkasper.blogspot.com/">
+    <title>Iets met Kasper</title>
+    <link>http://ietsmetkasper.blogspot.com/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://ietsmatthkasper.blogspot.com/">
+    <title>Iets Matth Kasper</title>
+    <link>http://ietsmatthkasper.blogspot.com/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.xkcd.com/">
+    <title>xkcd</title>
+    <link>http://www.xkcd.com/</link>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://matrox.tuxx-home.at/">
+    <title>Unofficial Matrox Technical Support Forum</title>
+    <link>http://matrox.tuxx-home.at/</link>
+    <dc:subject>hardware</dc:subject>
+    <dc:subject>ubuntu</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://priscilla/katten/">
+    <title>Restaurant De Drie Katten (local)</title>
+    <link>http://priscilla/katten/</link>
+    <dc:subject>private</dc:subject>
+    <dc:subject>web</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>local</dc:subject>
+  </item>
+  <item rdf:about="http://doc.ubuntu.com/screencasts/">
+    <title>Ubuntu Screencasts</title>
+    <link>http://doc.ubuntu.com/screencasts/</link>
+    <dc:subject>video</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>ubuntu</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://priscilla/woonmagazine/">
+    <title>Woonmagazine Schouwen Duiveland (local)</title>
+    <link>http://priscilla/woonmagazine/</link>
+    <dc:subject>private</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>netbytes</dc:subject>
+    <dc:subject>local</dc:subject>
+  </item>
+  <item rdf:about="http://tirania.org/blog/archive/2007/Jan-30.html">
+    <title>The EU Prosecutors are Wrong</title>
+    <link>http://tirania.org/blog/archive/2007/Jan-30.html</link>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>linux</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.roosinantwerpen.blogspot.com/">
+    <title>In 't Antwerpse - Rosanne</title>
+    <link>http://www.roosinantwerpen.blogspot.com/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>family</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.apple.com/hotnews/thoughtsonmusic/">
+    <title>Steve Jobs - Thoughts on Music</title>
+    <link>http://www.apple.com/hotnews/thoughtsonmusic/</link>
+    <dc:subject>apple</dc:subject>
+    <dc:subject>drm</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://www.jandekorte.nl/">
+    <title>Jan de Korte</title>
+    <link>http://www.jandekorte.nl/</link>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>family</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://teletekst.nos.nl/">
+    <title>NOS Teletekst</title>
+    <link>http://teletekst.nos.nl/</link>
+    <dc:subject>news</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.google.com">
+    <title>Google Code search</title>
+    <link>http://www.google.com</link>
+    <ephy:smartlink>http://www.google.com/codesearch?q=%s</ephy:smartlink>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>search</dc:subject>
+  </item>
+  <item rdf:about="http://www.number-10.gov.uk/output/Page11020.asp">
+    <title>UK Government: bandrm - epetition response</title>
+    <link>http://www.number-10.gov.uk/output/Page11020.asp</link>
+    <dc:subject>drm</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>freedom</dc:subject>
+  </item>
+  <item rdf:about="http://www.fotolog.com/marinalog/">
+    <title>Marina's fotolog</title>
+    <link>http://www.fotolog.com/marinalog/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="https://wiki.ubuntu.com">
+    <title>Ubuntu Wiki search</title>
+    <link>https://wiki.ubuntu.com</link>
+    <ephy:smartlink>https://wiki.ubuntu.com/%s</ephy:smartlink>
+    <dc:subject>ubuntu</dc:subject>
+    <dc:subject>linux</dc:subject>
+    <dc:subject>search</dc:subject>
+  </item>
+  <item rdf:about="http://ubuntuforums.org/">
+    <title>Ubuntu Forums</title>
+    <link>http://ubuntuforums.org/</link>
+    <dc:subject>ubuntu</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://www.rockwerchter.be/">
+    <title>Rock Werchter</title>
+    <link>http://www.rockwerchter.be/</link>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://192.168.1.254/">
+    <title>KPN SpeedTouch 5x6</title>
+    <link>http://192.168.1.254/</link>
+    <dc:subject>private</dc:subject>
+    <dc:subject>hardware</dc:subject>
+    <dc:subject>local</dc:subject>
+  </item>
+  <item rdf:about="http://www.wijvertrouwenstemcomputersniet.nl/Groenendaal">
+    <title>Groenendaal - Verkiezingssoftwareleverancier dreigde staat</title>
+    <link>http://www.wijvertrouwenstemcomputersniet.nl/Groenendaal</link>
+    <dc:subject>voting</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>security</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.nrc.nl/anp/binnenland/article644995.ece/Treinverkeer_Amsterdam_gestremd">
+    <title>Defecte harde schijf: treinverkeer Amsterdam gestremd</title>
+    <link>http://www.nrc.nl/anp/binnenland/article644995.ece/Treinverkeer_Amsterdam_gestremd</link>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>hardware</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://priscilla/vu-few-layout-branch/">
+    <title>VU homepage FEW layout branch (local)</title>
+    <link>http://priscilla/vu-few-layout-branch/</link>
+    <dc:subject>private</dc:subject>
+    <dc:subject>vu</dc:subject>
+    <dc:subject>local</dc:subject>
+  </item>
+  <item rdf:about="http://www.pimbongaerts.com/">
+    <title>Pim Bongaerts</title>
+    <link>http://www.pimbongaerts.com/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="https://www.fsf.org/resources/hw/how_hardware_vendors_can_help.html">
+    <title>The road to hardware free from restrictions</title>
+    <link>https://www.fsf.org/resources/hw/how_hardware_vendors_can_help.html</link>
+    <dc:subject>drm</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>hardware</dc:subject>
+  </item>
+  <item rdf:about="http://www.few.vu.nl/itg/">
+    <title>FEW ITgroup information</title>
+    <link>http://www.few.vu.nl/itg/</link>
+    <dc:subject>vu</dc:subject>
+  </item>
+  <item rdf:about="http://www.youtube.com/watch?v=27zw8fp57jk">
+    <title>Het Flakkeese Volkslied</title>
+    <link>http://www.youtube.com/watch?v=27zw8fp57jk</link>
+    <dc:subject>flakkee</dc:subject>
+    <dc:subject>video</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>music</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://bieslog.vpro.nl/">
+    <title>Bieslog</title>
+    <link>http://bieslog.vpro.nl/</link>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://linuxmce.com/">
+    <title>LinuxMCE</title>
+    <link>http://linuxmce.com/</link>
+    <dc:subject>video</dc:subject>
+    <dc:subject>hardware</dc:subject>
+    <dc:subject>ubuntu</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://www.dreamhoststatus.com/">
+    <title>DreamHost Status</title>
+    <link>http://www.dreamhoststatus.com/</link>
+    <dc:subject>dreamhost</dc:subject>
+  </item>
+  <item rdf:about="http://wiki.dreamhost.com/index.php/Main_Page">
+    <title>DreamHost Wiki</title>
+    <link>http://wiki.dreamhost.com/index.php/Main_Page</link>
+    <dc:subject>dreamhost</dc:subject>
+  </item>
+  <item rdf:about="https://panel.dreamhost.com/">
+    <title>DreamHost Web Panel</title>
+    <link>https://panel.dreamhost.com/</link>
+    <dc:subject>dreamhost</dc:subject>
+  </item>
+  <item rdf:about="https://webmail.vermaat.name/">
+    <title>Webmail vermaat.name</title>
+    <link>https://webmail.vermaat.name/</link>
+    <dc:subject>private</dc:subject>
+  </item>
+  <item rdf:about="http://www.debian-administration.org/articles/152">
+    <title>Password-less logins with OpenSSH</title>
+    <link>http://www.debian-administration.org/articles/152</link>
+    <dc:subject>security</dc:subject>
+    <dc:subject>debian</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://www.tartarus.org/~simon-anonsvn/viewcvs.cgi/svn-tools/svndumpfilter2?view=markup">
+    <title>svndumpfilter2</title>
+    <link>http://www.tartarus.org/~simon-anonsvn/viewcvs.cgi/svn-tools/svndumpfilter2?view=markup</link>
+    <dc:subject>subversion</dc:subject>
+    <dc:subject>python</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://loesclaessen.hyves.nl/">
+    <title>Loessie @ Hyves</title>
+    <link>http://loesclaessen.hyves.nl/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.ocaml.info/home/ocaml_hints.html">
+    <title>Practical hints for using OCaml (mostly Unix-specific)</title>
+    <link>http://www.ocaml.info/home/ocaml_hints.html</link>
+    <dc:subject>ocaml</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://saucerlike.com/">
+    <title>Saucer-like Sonic Youth</title>
+    <link>http://saucerlike.com/</link>
+    <dc:subject>sonic-youth</dc:subject>
+    <dc:subject>music</dc:subject>
+    <dc:subject>news</dc:subject>
+  </item>
+  <item rdf:about="http://www.sonicyouth.com/">
+    <title>Sonic Youth Official Website</title>
+    <link>http://www.sonicyouth.com/</link>
+    <dc:subject>sonic-youth</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://lists.debian.org/debian-announce/debian-announce-2007/msg00002.html">
+    <title>Debian GNU/Linux 4.0 released</title>
+    <link>http://lists.debian.org/debian-announce/debian-announce-2007/msg00002.html</link>
+    <dc:subject>debian</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://www.pok3d.com/">
+    <title>Pok3d!</title>
+    <link>http://www.pok3d.com/</link>
+    <dc:subject>poker</dc:subject>
+    <dc:subject>games</dc:subject>
+  </item>
+  <item rdf:about="http://www.cl.cam.ac.uk/~mgk25/ucs/examples/">
+    <title>Unicode samples</title>
+    <link>http://www.cl.cam.ac.uk/~mgk25/ucs/examples/</link>
+    <dc:subject>unicode</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.columbia.edu/kermit/utf8-t1.html">
+    <title>Unicode 4.0 / ISO 10646 Plane 0</title>
+    <link>http://www.columbia.edu/kermit/utf8-t1.html</link>
+    <dc:subject>unicode</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://martijn.vermaat.name/planet/">
+    <title>Planet Martijn</title>
+    <link>http://martijn.vermaat.name/planet/</link>
+    <dc:subject>news</dc:subject>
+  </item>
+  <item rdf:about="http://www.jerith.za.net/writings/erlangsockettut.html">
+    <title>Socket programming in Erlang</title>
+    <link>http://www.jerith.za.net/writings/erlangsockettut.html</link>
+    <dc:subject>erlang</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="https://forge.process-one.net/browse/Jungerl/jungerl/lib/rpc">
+    <title>Erlang SUN RPC library</title>
+    <link>https://forge.process-one.net/browse/Jungerl/jungerl/lib/rpc</link>
+    <dc:subject>erlang</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://tieguy.org/blog/2007/04/21/pathetic-commentary-on-computers-from-my-new-cable-box/">
+    <title>Pathetic commentary on computers, from my new cable box</title>
+    <link>http://tieguy.org/blog/2007/04/21/pathetic-commentary-on-computers-from-my-new-cable-box/</link>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>hardware</dc:subject>
+  </item>
+  <item rdf:about="http://chuffyrodents.org/erlang.pdf">
+    <title>Thinking in Erlang</title>
+    <link>http://chuffyrodents.org/erlang.pdf</link>
+    <dc:subject>erlang</dc:subject>
+    <dc:subject>pdf</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.matt-mcdonnell.com/code/code_erl/code_erl.html">
+    <title>Matt McDonnell's Erlang Code</title>
+    <link>http://www.matt-mcdonnell.com/code/code_erl/code_erl.html</link>
+    <dc:subject>erlang</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.neuro-tech.net/insipid/">
+    <title>Insipid</title>
+    <link>http://www.neuro-tech.net/insipid/</link>
+    <dc:subject>bookmarking</dc:subject>
+    <dc:subject>web</dc:subject>
+  </item>
+  <item rdf:about="http://martijn.vermaat.name/bookmarks/">
+    <title>Martijn Vermaat's bookmarks</title>
+    <link>http://martijn.vermaat.name/bookmarks/</link>
+    <dc:subject>bookmarking</dc:subject>
+    <dc:subject>web</dc:subject>
+  </item>
+  <item rdf:about="http://prototypejs.org/">
+    <title>Prototype JavaScript framework</title>
+    <link>http://prototypejs.org/</link>
+    <dc:subject>javascript</dc:subject>
+    <dc:subject>web</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.linuxemporium.co.uk/">
+    <title>The Linux Emporium</title>
+    <link>http://www.linuxemporium.co.uk/</link>
+    <dc:subject>hardware</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://luxuriamusic.com/playlist.html">
+    <title>LuxuriaMusic Playlist</title>
+    <link>http://luxuriamusic.com/playlist.html</link>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://www.nslu2-linux.org/">
+    <title>NSLU2-Linux</title>
+    <link>http://www.nslu2-linux.org/</link>
+    <dc:subject>hardware</dc:subject>
+    <dc:subject>debian</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://www.myasics.nl/running/">
+    <title>My ASICS Running</title>
+    <link>http://www.myasics.nl/running/</link>
+    <dc:subject>running</dc:subject>
+    <dc:subject>sports</dc:subject>
+  </item>
+  <item rdf:about="http://www.few.vu.nl/~ssn310/mp/">
+    <title>Sebastian Stern - Master Project</title>
+    <link>http://www.few.vu.nl/~ssn310/mp/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://www.fretplay.com/tabs/b/beatles/blackbird-tab.shtml">
+    <title>Beatles, Blackbird guitar tab</title>
+    <link>http://www.fretplay.com/tabs/b/beatles/blackbird-tab.shtml</link>
+    <dc:subject>guitar</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://www.gmap-pedometer.com/?r=1363781">
+    <title>Pedometer - From Rhijnvis Feithstraat to Uithof via Pelikaanstraat </title>
+    <link>http://www.gmap-pedometer.com/?r=1363781</link>
+    <dc:subject>running</dc:subject>
+  </item>
+  <item rdf:about="http://www.afstandsmeten.nl/index.php?id=9249">
+    <title>Afstand meten - 9,3 km Lunetten</title>
+    <link>http://www.afstandsmeten.nl/index.php?id=9249</link>
+    <dc:subject>running</dc:subject>
+    <dc:subject>sports</dc:subject>
+  </item>
+  <item rdf:about="http://www.fortissingellooputrecht.nl/">
+    <title>Fortis singelloop Utrecht</title>
+    <link>http://www.fortissingellooputrecht.nl/</link>
+    <dc:subject>running</dc:subject>
+    <dc:subject>sports</dc:subject>
+  </item>
+  <item rdf:about="http://www.ad.nl/loperswereld/fortissingelloop/">
+    <title>Uitslagen singelloop Utrecht 2007</title>
+    <link>http://www.ad.nl/loperswereld/fortissingelloop/</link>
+    <dc:subject>running</dc:subject>
+    <dc:subject>sports</dc:subject>
+  </item>
+  <item rdf:about="http://www.goedevis.nl/">
+    <title>Goede Vis - VISwijzer</title>
+    <link>http://www.goedevis.nl/</link>
+    <dc:subject>environment</dc:subject>
+    <dc:subject>food</dc:subject>
+  </item>
+  <item rdf:about="http://developers.sun.com/docs/web-app-guidelines/uispec4_0/">
+    <title>Sun Web Application Guidelines</title>
+    <link>http://developers.sun.com/docs/web-app-guidelines/uispec4_0/</link>
+    <dc:subject>ui</dc:subject>
+    <dc:subject>web</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="https://woodstock.dev.java.net/index.html">
+    <title>Project Woodstock</title>
+    <link>https://woodstock.dev.java.net/index.html</link>
+    <dc:subject>javascript</dc:subject>
+    <dc:subject>java</dc:subject>
+    <dc:subject>web</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.cuteoverload.com/">
+    <title>Cute Overload! :)</title>
+    <link>http://www.cuteoverload.com/</link>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.ok-cancel.com/">
+    <title>OK/Cancel</title>
+    <link>http://www.ok-cancel.com/</link>
+    <dc:subject>ui</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>web</dc:subject>
+  </item>
+  <item rdf:about="http://www.radaronline.com/from-the-magazine/2007/09/google_fiction_evil_dangerous_surveillance_control_1.php">
+    <title>Radar Online : Cory Doctorow imagines a world in which Google is evil</title>
+    <link>http://www.radaronline.com/from-the-magazine/2007/09/google_fiction_evil_dangerous_surveillance_control_1.php</link>
+    <dc:subject>security</dc:subject>
+    <dc:subject>freedom</dc:subject>
+  </item>
+  <item rdf:about="http://www.google.com/analytics/">
+    <title>Google Analytics</title>
+    <link>http://www.google.com/analytics/</link>
+    <dc:subject>web</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.viziervastgoed.nl/">
+    <title>Vizier Vastgoed</title>
+    <link>http://www.viziervastgoed.nl/</link>
+    <dc:subject>house-hunting</dc:subject>
+  </item>
+  <item rdf:about="http://www.humanmetrics.com/cgi-win/JTypes1.htm">
+    <title>Personality test based on Jung - Myers-Briggs typology</title>
+    <link>http://www.humanmetrics.com/cgi-win/JTypes1.htm</link>
+    <dc:subject>fun</dc:subject>
+  </item>
+  <item rdf:about="http://martijn.vermaat.name/kiek/">
+    <title>kiek!</title>
+    <link>http://martijn.vermaat.name/kiek/</link>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.dekappers.nl/">
+    <title>De Kappers, Utrecht</title>
+    <link>http://www.dekappers.nl/</link>
+    <dc:subject>kapper</dc:subject>
+    <dc:subject>utrecht</dc:subject>
+  </item>
+  <item rdf:about="http://www.flickr.com/photos/vivified">
+    <title>Flickr: Photos from vivified</title>
+    <link>http://www.flickr.com/photos/vivified</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>netbytes</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.flickr.com/photos/pieterhijma">
+    <title>Flickr: Photos from pieterhijma</title>
+    <link>http://www.flickr.com/photos/pieterhijma</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.kenrockwell.com/">
+    <title>KenRockwell.com</title>
+    <link>http://www.kenrockwell.com/</link>
+    <dc:subject>photography</dc:subject>
+  </item>
+  <item rdf:about="http://www.fotolog.com/anne25">
+    <title>Anne's fotolog</title>
+    <link>http://www.fotolog.com/anne25</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.yourspot.nl/yourspot.nl/phpbb2nl/phpBB/viewforum.php?f=6">
+    <title>Yourspot.nl - Te huur in Amsterdam</title>
+    <link>http://www.yourspot.nl/yourspot.nl/phpbb2nl/phpBB/viewforum.php?f=6</link>
+    <dc:subject>house-hunting</dc:subject>
+  </item>
+  <item rdf:about="http://ma.gnolia.com/people/mvermaat">
+    <title>Martijn Vermaat on Ma.gnolia</title>
+    <link>http://ma.gnolia.com/people/mvermaat</link>
+    <dc:subject>bookmarking</dc:subject>
+    <dc:subject>web</dc:subject>
+  </item>
+  <item rdf:about="http://pauillac.inria.fr/~xleroy/">
+    <title>Xavier Leroy</title>
+    <link>http://pauillac.inria.fr/~xleroy/</link>
+    <dc:subject>lambda-calculus</dc:subject>
+    <dc:subject>compilers</dc:subject>
+    <dc:subject>coq</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://www.metaocaml.org/concoqtion/">
+    <title>Concoqtion</title>
+    <link>http://www.metaocaml.org/concoqtion/</link>
+    <dc:subject>proof-assistent</dc:subject>
+    <dc:subject>coq</dc:subject>
+    <dc:subject>ocaml</dc:subject>
+    <dc:subject>types</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+  </item>
+  <item rdf:about="http://www-sop.inria.fr/marelle/Yves.Bertot/cours-semantique2.html">
+    <title>Yves Bertot: Semantics of Programming languages (2nd unit)</title>
+    <link>http://www-sop.inria.fr/marelle/Yves.Bertot/cours-semantique2.html</link>
+    <dc:subject>coq</dc:subject>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://wiki.vermaat.name/">
+    <title>martijn wiki</title>
+    <link>http://wiki.vermaat.name/</link>
+    <dc:subject>web</dc:subject>
+    <dc:subject>linux</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.johanvandijke.com/">
+    <title>Johan van Dijke</title>
+    <link>http://www.johanvandijke.com/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.all-guitar-chords.com/">
+    <title>Guitar Chords</title>
+    <link>http://www.all-guitar-chords.com/</link>
+    <dc:subject>guitar</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://lolcode.com/">
+    <title>LOLCODE</title>
+    <link>http://lolcode.com/</link>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://sourceforge.net/projects/scuttle/">
+    <title>SourceForge.net: Scuttle</title>
+    <link>http://sourceforge.net/projects/scuttle/</link>
+    <dc:subject>bookmarking</dc:subject>
+    <dc:subject>web</dc:subject>
+  </item>
+  <item rdf:about="http://portal.netbytes.nl/">
+    <title>Netbytes Portal</title>
+    <link>http://portal.netbytes.nl/</link>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>netbytes</dc:subject>
+  </item>
+  <item rdf:about="http://www.guitarists.net/tab/view.php?id=43340">
+    <title>Neil Young, Tell Me Why guitar tab</title>
+    <link>http://www.guitarists.net/tab/view.php?id=43340</link>
+    <dc:subject>guitar</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://www.gmap-pedometer.com/">
+    <title>Gmaps Pedometer</title>
+    <link>http://www.gmap-pedometer.com/</link>
+    <dc:subject>running</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>web</dc:subject>
+  </item>
+  <item rdf:about="http://www.gmap-pedometer.com/?r=1064044">
+    <title>Pedometer - 6.2 km Lunetten</title>
+    <link>http://www.gmap-pedometer.com/?r=1064044</link>
+    <dc:subject>running</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>sports</dc:subject>
+  </item>
+  <item rdf:about="http://braawi.org/obnam.html">
+    <title>obnam</title>
+    <link>http://braawi.org/obnam.html</link>
+    <dc:subject>security</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://www.ultimate-guitar.com/tabs/e/elliott_smith/between_the_bars_ver2_crd.htm">
+    <title>Elliott Smith, Between the Bars guitar tab</title>
+    <link>http://www.ultimate-guitar.com/tabs/e/elliott_smith/between_the_bars_ver2_crd.htm</link>
+    <dc:subject>guitar</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://isoc.nl/OpenStandaardenCampagne/MS/">
+    <title>Mooie Schijn Gloelampen in Nachtland | Open Standaarden Campagne</title>
+    <link>http://isoc.nl/OpenStandaardenCampagne/MS/</link>
+    <dc:subject>patents</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>linux</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.pixelbeat.org/cmdline.html">
+    <title>Linux Command Line Tips</title>
+    <link>http://www.pixelbeat.org/cmdline.html</link>
+    <dc:subject>linux</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.gmap-pedometer.com/?r=1137925">
+    <title>Pedometer - 7.5 km Middelharnis</title>
+    <link>http://www.gmap-pedometer.com/?r=1137925</link>
+    <dc:subject>running</dc:subject>
+    <dc:subject>sports</dc:subject>
+  </item>
+  <item rdf:about="http://www.tabcrawler.com/search.php?show=viewfile&amp;amp;letter=w&amp;amp;artist=wainwright%20rufus&amp;amp;tabname=gay%20messiah.crd&amp;amp;tabtype=guitar%20chord&amp;amp;id=144937">
+    <title>Rufus Wainwright, Gay Messia guitar tab</title>
+    <link>http://www.tabcrawler.com/search.php?show=viewfile&amp;amp;letter=w&amp;amp;artist=wainwright%20rufus&amp;amp;tabname=gay%20messiah.crd&amp;amp;tabtype=guitar%20chord&amp;amp;id=144937</link>
+    <dc:subject>guitar</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://twanmatheij.wordpress.com/">
+    <title>Twan in HK</title>
+    <link>http://twanmatheij.wordpress.com/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://dagboekvaneenhostess.punt.nl/">
+    <title>Ilona's weblog</title>
+    <link>http://dagboekvaneenhostess.punt.nl/</link>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>family</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://martin.bravenboer.name/thesis.html">
+    <title>Exercises in Free Syntax (Martin Bravenboer, Ph.D. Thesis)</title>
+    <link>http://martin.bravenboer.name/thesis.html</link>
+    <dc:subject>compilers</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>latex</dc:subject>
+    <dc:subject>stratego</dc:subject>
+  </item>
+  <item rdf:about="http://vivified.net/showcase/mano-dei-mario/">
+    <title>Mano dei Mario</title>
+    <link>http://vivified.net/showcase/mano-dei-mario/</link>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>games</dc:subject>
+    <dc:subject>hardware</dc:subject>
+  </item>
+  <item rdf:about="http://appft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;amp;Sect2=HITOFF&amp;amp;d=PG01&amp;amp;p=1&amp;amp;u=%2Fnetahtml%2FPTO%2Fsrchnum.html&amp;amp;r=1&amp;amp;f=G&amp;amp;l=50&amp;amp;s1=%2220040161257%22.PGNR.&amp;amp;OS=DN/20040161257&amp;amp;RS=DN/20040161257">
+    <title>United States Patent Application: 0040161257</title>
+    <link>http://appft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;amp;Sect2=HITOFF&amp;amp;d=PG01&amp;amp;p=1&amp;amp;u=%2Fnetahtml%2FPTO%2Fsrchnum.html&amp;amp;r=1&amp;amp;f=G&amp;amp;l=50&amp;amp;s1=%2220040161257%22.PGNR.&amp;amp;OS=DN/20040161257&amp;amp;RS=DN/20040161257</link>
+    <dc:subject>patents</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>fun</dc:subject>
+  </item>
+  <item rdf:about="http://www.myspace.com/hausmaggerahrefhttpmyspacetvcomindexcfm">
+    <title>HAUSMAGGER</title>
+    <link>http://www.myspace.com/hausmaggerahrefhttpmyspacetvcomindexcfm</link>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>music</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://platanenweg.blogspot.com/">
+    <title>Welkom in je eigen straat! - Platanenweg</title>
+    <link>http://platanenweg.blogspot.com/</link>
+    <dc:subject>amsterdam</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://chicamartina.waarbenjij.nu/">
+    <title>Chicamartina</title>
+    <link>http://chicamartina.waarbenjij.nu/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://vivified.net/">
+    <title>vivified</title>
+    <link>http://vivified.net/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>web</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.gimp.org/tutorials/Blending_Exposures/">
+    <title>GIMP - Blending Exposures</title>
+    <link>http://www.gimp.org/tutorials/Blending_Exposures/</link>
+    <dc:subject>gimp</dc:subject>
+    <dc:subject>photography</dc:subject>
+  </item>
+  <item rdf:about="http://alum.wpi.edu/~tfraser/Software/Arduino/lambdacan.html">
+    <title>Project LambdaCan - Lambda Calculus in a Can</title>
+    <link>http://alum.wpi.edu/~tfraser/Software/Arduino/lambdacan.html</link>
+    <dc:subject>lambda-calculus</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>hardware</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://www-maths.swan.ac.uk/staff/jrh/papers/JRHHislamWeb.pdf">
+    <title>History of Lambda-Calculus and Combinatory Logic</title>
+    <link>http://www-maths.swan.ac.uk/staff/jrh/papers/JRHHislamWeb.pdf</link>
+    <dc:subject>lambda-calculus</dc:subject>
+    <dc:subject>pdf</dc:subject>
+    <dc:subject>types</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://portal.acm.org/citation.cfm?id=1284635">
+    <title>Why you can't cite Wikipedia in my class</title>
+    <link>http://portal.acm.org/citation.cfm?id=1284635</link>
+    <dc:subject>research</dc:subject>
+    <dc:subject>freedom</dc:subject>
+  </item>
+  <item rdf:about="http://okasaki.blogspot.com/2008/02/ten-years-of-purely-functional-data.html">
+    <title>Ten Years of Purely Functional Data Structures</title>
+    <link>http://okasaki.blogspot.com/2008/02/ten-years-of-purely-functional-data.html</link>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>ocaml</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.denieuweanita.nl/">
+    <title>De Nieuwe Anita</title>
+    <link>http://www.denieuweanita.nl/</link>
+    <dc:subject>amsterdam</dc:subject>
+    <dc:subject>music</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://planet.ocamlcore.org/">
+    <title>OCamlcore Planet</title>
+    <link>http://planet.ocamlcore.org/</link>
+    <dc:subject>ocaml</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.citeulike.org/user/mvermaat">
+    <title>CiteULike library</title>
+    <link>http://www.citeulike.org/user/mvermaat</link>
+    <dc:subject>research</dc:subject>
+    <dc:subject>bookmarking</dc:subject>
+  </item>
+  <item rdf:about="http://www.widexs.nl/">
+    <title>WideXS</title>
+    <link>http://www.widexs.nl/</link>
+    <dc:subject>web</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.phanos.org/">
+    <title>Phanos</title>
+    <link>http://www.phanos.org/</link>
+    <dc:subject>amsterdam</dc:subject>
+    <dc:subject>running</dc:subject>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>sports</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="https://mijn.vu.nl/nl/VU/Pages/MIJNVUNLweerbeschikbaar.aspx">
+    <title>MIJN.VU.NL</title>
+    <link>https://mijn.vu.nl/nl/VU/Pages/MIJNVUNLweerbeschikbaar.aspx</link>
+    <dc:subject>vu</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.cis.upenn.edu/%7Eplclub/popl08-tutorial/">
+    <title>Using Proof Assistants for Programming Language Research</title>
+    <link>http://www.cis.upenn.edu/%7Eplclub/popl08-tutorial/</link>
+    <dc:subject>proof-assistent</dc:subject>
+    <dc:subject>lambda-calculus</dc:subject>
+    <dc:subject>coq</dc:subject>
+    <dc:subject>types</dc:subject>
+    <dc:subject>programming</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://amsterdamcentraal.nl/">
+    <title>Amsterdam Centraal</title>
+    <link>http://amsterdamcentraal.nl/</link>
+    <dc:subject>amsterdam</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.scissorhands.nl/">
+    <title>Scissorhands</title>
+    <link>http://www.scissorhands.nl/</link>
+    <dc:subject>amsterdam</dc:subject>
+    <dc:subject>kapper</dc:subject>
+  </item>
+  <item rdf:about="http://www.math.uu.nl/people/jvoosten/advanced.html">
+    <title>Advanced Topics in Logic</title>
+    <link>http://www.math.uu.nl/people/jvoosten/advanced.html</link>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://cl-informatik.uibk.ac.at/events/isr-2008/">
+    <title>ISR 2008 – 3rd International School on Rewriting</title>
+    <link>http://cl-informatik.uibk.ac.at/events/isr-2008/</link>
+    <dc:subject>lambda-calculus</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://www.google.com">
+    <title>Google search</title>
+    <link>http://www.google.com</link>
+    <ephy:smartlink>http://www.google.com/search?q=%s&amp;amp;ie=UTF-8&amp;amp;oe=UTF-8</ephy:smartlink>
+    <dc:subject>search</dc:subject>
+  </item>
+  <item rdf:about="http://www.kriterion.nl/">
+    <title>Filmtheater/Cafe Kriterion</title>
+    <link>http://www.kriterion.nl/</link>
+    <dc:subject>amsterdam</dc:subject>
+    <dc:subject>music</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://seafur.com/">
+    <title>SeaFur</title>
+    <link>http://seafur.com/</link>
+    <dc:subject>amsterdam</dc:subject>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>music</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://groups.msn.com/51psn21mq4nqaj2kbka5u2ga05/h.msnw">
+    <title>The Awakening - Quran Recitations</title>
+    <link>http://groups.msn.com/51psn21mq4nqaj2kbka5u2ga05/h.msnw</link>
+    <dc:subject>arabic</dc:subject>
+  </item>
+  <item rdf:about="http://altafsir.com/">
+    <title>Al Tafsir - Holy Quran</title>
+    <link>http://altafsir.com/</link>
+    <dc:subject>arabic</dc:subject>
+  </item>
+  <item rdf:about="http://www.koranonline.nl/">
+    <title>KoranOnline.NL</title>
+    <link>http://www.koranonline.nl/</link>
+    <dc:subject>arabic</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.esnips.com/doc/fa1de568-20a1-4576-a6c7-785ca9254b10/Surah-Rehman-with-English-Translation">
+    <title>Surah Rehman with English Translation</title>
+    <link>http://www.esnips.com/doc/fa1de568-20a1-4576-a6c7-785ca9254b10/Surah-Rehman-with-English-Translation</link>
+    <dc:subject>arabic</dc:subject>
+  </item>
+  <item rdf:about="http://www.versebyversequran.com/">
+    <title>Verse By Verse Quran Recitation</title>
+    <link>http://www.versebyversequran.com/</link>
+    <dc:subject>arabic</dc:subject>
+  </item>
+  <item rdf:about="http://www.arabeyes.org/">
+    <title>Arabeyes Project</title>
+    <link>http://www.arabeyes.org/</link>
+    <dc:subject>arabic</dc:subject>
+    <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://compcert.inria.fr/">
+    <title>CompCert</title>
+    <link>http://compcert.inria.fr/</link>
+    <dc:subject>proof-assistent</dc:subject>
+    <dc:subject>compilers</dc:subject>
+    <dc:subject>coq</dc:subject>
+    <dc:subject>ocaml</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.rondjemokum.nl/">
+    <title>Rondje Mokum</title>
+    <link>http://www.rondjemokum.nl/</link>
+    <dc:subject>amsterdam</dc:subject>
+    <dc:subject>running</dc:subject>
+    <dc:subject>sports</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://ocaml.janestcapital.com/">
+    <title>Jane Street OCaml blog</title>
+    <link>http://ocaml.janestcapital.com/</link>
+    <dc:subject>ocaml</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.azchords.com/c/cashjohnny-tabs-717/iwontbackdown-tabs-69699.html">
+    <title>Johnny Cash, I Won't Back Down guitar tab</title>
+    <link>http://www.azchords.com/c/cashjohnny-tabs-717/iwontbackdown-tabs-69699.html</link>
+    <dc:subject>guitar</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://www.ultimate-guitar.com/tabs/e/elliott_smith/pitseleh_ver2_crd.htm">
+    <title>Elliott Smith, Pitseleh guitar tab</title>
+    <link>http://www.ultimate-guitar.com/tabs/e/elliott_smith/pitseleh_ver2_crd.htm</link>
+    <dc:subject>guitar</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://www.ultimate-guitar.com/tabs/e/elliott_smith/twilight_ver3_crd.htm">
+    <title>Elliott Smith, Twilight guitar tab</title>
+    <link>http://www.ultimate-guitar.com/tabs/e/elliott_smith/twilight_ver3_crd.htm</link>
+    <dc:subject>guitar</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://www.ultimate-guitar.com/tabs/e/elliott_smith/waltz_2_x0_tab.htm">
+    <title>Elliott Smith, Waltz #2 (X0) guitar tab</title>
+    <link>http://www.ultimate-guitar.com/tabs/e/elliott_smith/waltz_2_x0_tab.htm</link>
+    <dc:subject>guitar</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://www.releaseparty.eu/">
+    <title>Ubuntu-nl Release Party</title>
+    <link>http://www.releaseparty.eu/</link>
+    <dc:subject>ubuntu</dc:subject>
+    <dc:subject>linux</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.amsterdam-underground.com/">
+    <title>Amsterdam Underground Collective</title>
+    <link>http://www.amsterdam-underground.com/</link>
+    <dc:subject>amsterdam</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://www.haldern-pop.de/">
+    <title>Haldern Pop Festival</title>
+    <link>http://www.haldern-pop.de/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://www.cwi.nl/events/2008/cwilectures1.html">
+    <title>CWI Lectures 23 May 2008: 25 Years of Concurrency Theory at CWI</title>
+    <link>http://www.cwi.nl/events/2008/cwilectures1.html</link>
+    <dc:subject>research</dc:subject>
+    <dc:subject>amsterdam</dc:subject>
+    <dc:subject>process-algebra</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>vu</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://electoral-vote.com/">
+    <title>Electoral Vote</title>
+    <link>http://electoral-vote.com/</link>
+    <dc:subject>voting</dc:subject>
+    <dc:subject>news</dc:subject>
+  </item>
+  <item rdf:about="http://www.hansteeuwen.tv/">
+    <title>HansTeeuwen.TV</title>
+    <link>http://www.hansteeuwen.tv/</link>
+    <dc:subject>amsterdam</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>music</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://dictionary.sakhr.com/">
+    <title>Arabic dictionary</title>
+    <link>http://dictionary.sakhr.com/</link>
+    <dc:subject>arabic</dc:subject>
+  </item>
+  <item rdf:about="javascript:location.href='http://www.citeulike.org/posturl?username=mvermaat&amp;bml=nopopup&amp;url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title)">
+    <title>Post to CiteULike </title>
+    <link>javascript:location.href='http://www.citeulike.org/posturl?username=mvermaat&amp;bml=nopopup&amp;url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title)</link>
+    <dc:subject>research</dc:subject>
+    <dc:subject>bookmarking</dc:subject>
+  </item>
+  <item rdf:about="http://images.google.com">
+    <title>Google Images search</title>
+    <link>http://images.google.com</link>
+    <ephy:smartlink>http://images.google.com/images?q=%s&amp;amp;ie=UTF-8&amp;amp;oe=UTF-8</ephy:smartlink>
+    <dc:subject>search</dc:subject>
+  </item>
+  <item rdf:about="http://diveintomark.org/archives/2008/05/06/the-day-the-music-died">
+    <title>The day the music died</title>
+    <link>http://diveintomark.org/archives/2008/05/06/the-day-the-music-died</link>
+    <dc:subject>drm</dc:subject>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>freedom</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://www.ketelhuis.nl/">
+    <title>Ketelhuis</title>
+    <link>http://www.ketelhuis.nl/</link>
+    <dc:subject>amsterdam</dc:subject>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.dpreview.com/">
+    <title>Digital Photography Review</title>
+    <link>http://www.dpreview.com/</link>
+    <dc:subject>photography</dc:subject>
+    <dc:subject>hardware</dc:subject>
+  </item>
+  <item rdf:about="http://linuxhaters.blogspot.com/">
+    <title>Linux Hater's Blog</title>
+    <link>http://linuxhaters.blogspot.com/</link>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>linux</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.few.vu.nl/~skn410/ek2008/EKpoule%202008.htm">
+    <title>EK poule 2008</title>
+    <link>http://www.few.vu.nl/~skn410/ek2008/EKpoule%202008.htm</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>sports</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.umojawetu.nl/over-umoja-wetu">
+    <title>Umoja Wetu Children’s Project</title>
+    <link>http://www.umojawetu.nl/over-umoja-wetu</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://webtypography.net/">
+    <title>The Elements of Typographic Style Applied to the Web</title>
+    <link>http://webtypography.net/</link>
+    <dc:subject>typography</dc:subject>
+    <dc:subject>ui</dc:subject>
+    <dc:subject>web</dc:subject>
+  </item>
+  <item rdf:about="http://www.belknaller.nl/">
+    <title>Belknaller</title>
+    <link>http://www.belknaller.nl/</link>
+    <dc:subject>telephony</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.ultimate-guitar.com/tabs/a/abba/sos_tab.htm">
+    <title>Abba, S.O.S. guitar tab</title>
+    <link>http://www.ultimate-guitar.com/tabs/a/abba/sos_tab.htm</link>
+    <dc:subject>guitar</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://www.omloop.com/">
+    <title>Stichting Omloop Goeree-Overflakkee</title>
+    <link>http://www.omloop.com/</link>
+    <dc:subject>flakkee</dc:subject>
+    <dc:subject>sports</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.damloop.nl/">
+    <title>Dam tot damloop</title>
+    <link>http://www.damloop.nl/</link>
+    <dc:subject>amsterdam</dc:subject>
+    <dc:subject>running</dc:subject>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>sports</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.nytimes.com/2007/08/30/fashion/30baggy.html?_r=1&amp;amp;oref=slogin">
+    <title>Are Your Jeans Sagging? Go Directly to Jail.</title>
+    <link>http://www.nytimes.com/2007/08/30/fashion/30baggy.html?_r=1&amp;amp;oref=slogin</link>
+    <dc:subject>linkroll</dc:subject>
+    <dc:subject>freedom</dc:subject>
+  </item>
+  <item rdf:about="https://www.google.com/calendar">
+    <title>Google Calendar</title>
+    <link>https://www.google.com/calendar</link>
+    <dc:subject>bookmarking</dc:subject>
+    <dc:subject>web</dc:subject>
+  </item>
+  <item rdf:about="http://www.cs.vu.nl/~diem/research/adbmal/">
+    <title>Adbmal-calculus</title>
+    <link>http://www.cs.vu.nl/~diem/research/adbmal/</link>
+    <dc:subject>lambda-calculus</dc:subject>
+    <dc:subject>coq</dc:subject>
+    <dc:subject>vu</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://www.seas.upenn.edu/~cis500/cis500-f07/index.html">
+    <title>CIS 500: Course Homepage (Benjamin Pierce)</title>
+    <link>http://www.seas.upenn.edu/~cis500/cis500-f07/index.html</link>
+    <dc:subject>lambda-calculus</dc:subject>
+    <dc:subject>coq</dc:subject>
+    <dc:subject>types</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://www.walkers4walkers.nl/">
+    <title>Walkers4Walkers.nl</title>
+    <link>http://www.walkers4walkers.nl/</link>
+    <dc:subject>sports</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.vimeo.com/">
+    <title>Vimeo</title>
+    <link>http://www.vimeo.com/</link>
+    <dc:subject>video</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>friends</dc:subject>
+  </item>
+  <item rdf:about="http://blackboard.uva.nl/">
+    <title>Blackboard UvA</title>
+    <link>http://blackboard.uva.nl/</link>
+    <dc:subject>vu</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://rosanne.vermaat.name/log/">
+    <title>Rosanne in Marokko</title>
+    <link>http://rosanne.vermaat.name/log/</link>
+    <dc:subject>arabic</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>family</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://haxe.org/">
+    <title>haXe</title>
+    <link>http://haxe.org/</link>
+    <dc:subject>javascript</dc:subject>
+    <dc:subject>compilers</dc:subject>
+    <dc:subject>web</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://athletic.nl/singelloop/">
+    <title>Singelloop Utrecht</title>
+    <link>http://athletic.nl/singelloop/</link>
+    <dc:subject>utrecht</dc:subject>
+    <dc:subject>running</dc:subject>
+    <dc:subject>sports</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://caml.inria.fr/resources/doc/guides/guidelines.en.html">
+    <title>Caml programming guidelines</title>
+    <link>http://caml.inria.fr/resources/doc/guides/guidelines.en.html</link>
+    <dc:subject>ocaml</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.micahcarrick.com/12-24-2007/gtk-glade-tutorial-part-1.html#Adding_Widgets_to_the_GtkWindow">
+    <title>Designing a User Interface using Glade3</title>
+    <link>http://www.micahcarrick.com/12-24-2007/gtk-glade-tutorial-part-1.html#Adding_Widgets_to_the_GtkWindow</link>
+    <dc:subject>gtk</dc:subject>
+    <dc:subject>ui</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://library.gnome.org/devel/gtk/stable/">
+    <title>GTK+ Reference Manual</title>
+    <link>http://library.gnome.org/devel/gtk/stable/</link>
+    <dc:subject>gtk</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.cairographics.org/manual/">
+    <title>Cairo reference manual</title>
+    <link>http://www.cairographics.org/manual/</link>
+    <dc:subject>cairo</dc:subject>
+    <dc:subject>programming</dc:subject>
+  </item>
+  <item rdf:about="http://www.imdb.com">
+    <title>IMDb search</title>
+    <link>http://www.imdb.com</link>
+    <ephy:smartlink>http://www.imdb.com/find?s=all&amp;q=%s</ephy:smartlink>
+    <dc:subject>search</dc:subject>
+  </item>
+  <item rdf:about="http://www.allmusic.com">
+    <title>Allmusic search</title>
+    <link>http://www.allmusic.com</link>
+    <ephy:smartlink>http://www.allmusic.com/cg/amg.dll?P=amg&amp;SQL=%s&amp;OPT1=1&amp;Submit=Go</ephy:smartlink>
+    <dc:subject>music</dc:subject>
+    <dc:subject>search</dc:subject>
+  </item>
+  <item rdf:about="http://idfa.nl/">
+    <title>International Documentary Festival Amsterdam</title>
+    <link>http://idfa.nl/</link>
+    <dc:subject>amsterdam</dc:subject>
+    <dc:subject>fun</dc:subject>
+  </item>
+  <item rdf:about="http://www.jazz-cafe-alto.nl/">
+    <title>Jazz Café Alto</title>
+    <link>http://www.jazz-cafe-alto.nl/</link>
+    <dc:subject>amsterdam</dc:subject>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://twelf.plparty.org/wiki/Summer_school_2008">
+    <title>Twelf Course</title>
+    <link>http://twelf.plparty.org/wiki/Summer_school_2008</link>
+    <dc:subject>proof-assistent</dc:subject>
+    <dc:subject>lambda-calculus</dc:subject>
+    <dc:subject>types</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://www.cs.cmu.edu/~aldrich/SASyLF/">
+    <title>SASyLF: An Educational Proof Assistant for Language Theory</title>
+    <link>http://www.cs.cmu.edu/~aldrich/SASyLF/</link>
+    <dc:subject>proof-assistent</dc:subject>
+    <dc:subject>types</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://www.cs.uoregon.edu/research/summerschool/summer08/">
+    <title>Summer School on Logic and Theorem-Proving in Programming Languages, July 2008</title>
+    <link>http://www.cs.uoregon.edu/research/summerschool/summer08/</link>
+    <dc:subject>proof-assistent</dc:subject>
+    <dc:subject>types</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://alliance.seas.upenn.edu/~plclub/cgi-bin/poplmark/index.php?title=The_POPLmark_Challenge">
+    <title>The POPLmark Challenge</title>
+    <link>http://alliance.seas.upenn.edu/~plclub/cgi-bin/poplmark/index.php?title=The_POPLmark_Challenge</link>
+    <dc:subject>proof-assistent</dc:subject>
+    <dc:subject>lambda-calculus</dc:subject>
+    <dc:subject>types</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://www.kombuizeren.nl/">
+    <title>kombuizeren</title>
+    <link>http://www.kombuizeren.nl/</link>
+    <dc:subject>food</dc:subject>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.few.vu.nl/~skn410/atletiek/atg/">
+    <title>Algemeen technische groep || Phanos</title>
+    <link>http://www.few.vu.nl/~skn410/atletiek/atg/</link>
+    <dc:subject>amsterdam</dc:subject>
+    <dc:subject>running</dc:subject>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+</rdf:RDF>
