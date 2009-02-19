@@ -3840,4 +3840,14 @@
     <parent id="2"/>
     <parent id="318"/>
   </node>
+  <node id="434">
+    <property id="2" value_type="gchararray">Snotr : The ultimate place for great videos!</property>
+    <property id="3" value_type="gchararray">http://www.snotr.com/</property>
+    <property id="4" value_type="gchararray">music fun video  snotr : the ultimate place for great videos!</property>
+    <property id="7" value_type="gchararray">http://www.snotr.com/images/favicon.ico</property>
+    <parent id="0"/>
+    <parent id="90"/>
+    <parent id="51"/>
+    <parent id="141"/>
+  </node>
 </ephy_bookmarks>

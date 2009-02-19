@@ -358,6 +358,7 @@
         <rdf:li rdf:resource="http://alliance.seas.upenn.edu/~plclub/cgi-bin/poplmark/index.php?title=The_POPLmark_Challenge"/>
         <rdf:li rdf:resource="http://www.kombuizeren.nl/"/>
         <rdf:li rdf:resource="http://www.few.vu.nl/~skn410/atletiek/atg/"/>
+        <rdf:li rdf:resource="http://www.snotr.com/"/>
       </rdf:Seq>
     </items>
   </channel>
@@ -2811,5 +2812,12 @@
     <dc:subject>running</dc:subject>
     <dc:subject>friends</dc:subject>
     <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://www.snotr.com/">
+    <title>Snotr : The ultimate place for great videos!</title>
+    <link>http://www.snotr.com/</link>
+    <dc:subject>video</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>music</dc:subject>
   </item>
 </rdf:RDF>
