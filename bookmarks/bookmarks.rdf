@@ -359,6 +359,10 @@
         <rdf:li rdf:resource="http://www.kombuizeren.nl/"/>
         <rdf:li rdf:resource="http://www.few.vu.nl/~skn410/atletiek/atg/"/>
         <rdf:li rdf:resource="http://www.snotr.com/"/>
+        <rdf:li rdf:resource="http://www.monova.org/"/>
+        <rdf:li rdf:resource="http://www.mininova.org/"/>
+        <rdf:li rdf:resource="http://isohunt.com/"/>
+        <rdf:li rdf:resource="http://thepiratebay.org/"/>
       </rdf:Seq>
     </items>
   </channel>
@@ -2816,6 +2820,38 @@
   <item rdf:about="http://www.snotr.com/">
     <title>Snotr : The ultimate place for great videos!</title>
     <link>http://www.snotr.com/</link>
+    <dc:subject>video</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://www.monova.org/">
+    <title>Monova</title>
+    <link>http://www.monova.org/</link>
+    <dc:subject>torrent</dc:subject>
+    <dc:subject>video</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://www.mininova.org/">
+    <title>Mininova</title>
+    <link>http://www.mininova.org/</link>
+    <dc:subject>torrent</dc:subject>
+    <dc:subject>video</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://isohunt.com/">
+    <title>isoHunt</title>
+    <link>http://isohunt.com/</link>
+    <dc:subject>torrent</dc:subject>
+    <dc:subject>video</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://thepiratebay.org/">
+    <title>The Pirate Bay</title>
+    <link>http://thepiratebay.org/</link>
+    <dc:subject>torrent</dc:subject>
     <dc:subject>video</dc:subject>
     <dc:subject>fun</dc:subject>
     <dc:subject>music</dc:subject>
