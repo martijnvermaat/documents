@@ -5,9 +5,6 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 
-% Typesetting evaluation rules (http://cristal.inria.fr/~remy/latex/)
-\usepackage{mathpartir}
-
 \usepackage[T1]{fontenc}
 \usepackage{ae,aecompl}
 
@@ -23,21 +20,14 @@
 \colorlet{darkblue}{blue!80!black}
 \colorlet{darkgreen}{green!80!black}
 
-% Keywords like let,in,then,match,with
-\newcommand{\kw}[1]{\mathtt{#1}}
 
-% Theorems
-\newtheorem{lemma}{Lemma 1}
-\newtheorem{maintheorem}{Correctness Theorem}
-
-
-\title{Verifying a CPS Transformation}
+\title{Names and Numbers in Binding}
 
 \author{Martijn Vermaat}
 \institute{mvermaat@cs.vu.nl\\
 http://www.cs.vu.nl/\~{}mvermaat/}
-\date{Bachelor Project\\
-December 20, 2007}
+\date{Literature Study\\
+March 13, 2009}
 
 
 \begin{document}
@@ -48,14 +38,14 @@ December 20, 2007}
 
 \frame{
 
-  \frametitle{Verifying a CPS Transformation}
+  \frametitle{Names and Numbers in Binding}
 
   \tableofcontents
 
 }
 
 
-\section{CPS Transformations}
+\section{Binding}
 
 
 \frame{
@@ -177,338 +167,6 @@ December 20, 2007}
   \uncover<2->{
     {\bf Observation:} No guarantees on correctness of executed program.
   }
-
-}
-
-
-\frame{
-
-  \frametitle{Roads to Correct Compilers}
-
-  Gap between correct source code and correct binary code.
-  Ways to fill it:
-
-  \begin{itemize}
-    \item Prove correctness of the compiler  % correctness proof of compiler
-    \item Validate compilation result        % correctness proof of validator
-    \item Use proof-carrying code            % check proof
-  \end{itemize}
-
-  We will focus on the first.
-
-}
-
-
-\frame{
-
-  \frametitle{Proving a Compiler Correct}
-
-  Compiler is a function $C \, : \, \text{Source code} \rightarrow \text{Target code}$
-
-  \begin{block}{Correctness of a compiler}
-    Amounts to:
-    \begin{itemize}
-      \item Semantics($S$) $=$ Semantics($C(S)$)
-      \item Observable behaviour($S$) $=$ Observable behaviour($C(S)$)
-      \item $P(S) \: \Rightarrow \: P(C(S))$
-      \item $P(S) \: \Rightarrow \: P'(C(S))$
-      \item \ldots
-    \end{itemize}
-  \end{block}
-
-  \uncover<2->{
-    $C$ is composed of many stages, one of which may be a CPS transformation.
-  }
-
-}
-
-
-\section{Our Setting}
-
-
-\frame{
-
-  \frametitle{Verifying a CPS Transformation}
-
-  \tableofcontents[currentsection]
-
-}
-
-
-\frame{
-
-  \frametitle{Mechanized Verification of CPS Transformations}
-
-  Zaynah Dargaye and Xavier Leroy: {\em Mechanized verification of CPS transformations} (LPAR 2007)
-
-  \begin{itemize}
-    \item Part of the Compcert project (INRIA)
-    \item Use Coq to implement and verify two CPS transformations
-    \item Relatively interesting source and target languages
-    \item No source code available (yet)
-  \end{itemize}
-
-  We will look at a simplified version of their setting.
-
-}
-
-
-\frame{
-
-  \frametitle{Source Language}
-
-  \begin{align*}
-    M ::=             &\; x_{n}
-      && \text{variable} \\
-    \llap{\textbar\:} &\; \lambda^{n}.M
-      && \text{abstraction of arity $n+1$} \\
-    \llap{\textbar\:} &\; M(M, \ldots, M)
-      && \text{function application} \\
-    \llap{\textbar\:} &\; \kw{let} \: M \: \kw{in} \: M
-      && \text{binding}
-  \end{align*}
-
-  Example term: $(\lambda^{0}. \, x_{0}) \, (\lambda^{1}. \, x_{0})$
-
-  \begin{itemize}
-    \item de Bruijn indices
-    \item $\lambda^{n}. \, M$ binds $x_{n}, \ldots, x_{0}$ in $M$
-    \item $\kw{let} \: M \: \kw{in} \: N$ binds $x_{0}$ to $M$ in $N$
-    \item Big-step operational semantics (next slide)
-  \end{itemize}
-
-}
-
-
-\frame{
-
-  \frametitle{Source Language Semantics}
-
-  \begin{mathpar}
-    \infer*
-           {\:}
-           {\lambda^{n}.M \Rightarrow \lambda^{n}.M}
-    \and
-    \infer*
-           {M \Rightarrow v_{1}
-             \\ N\{v_{1}\} \Rightarrow v}
-           {(\kw{let} \: M \: \kw{in} \: N) \Rightarrow v}
-    \and
-    \infer*
-           {M \Rightarrow \lambda^{n}.P
-             \\ N_{i} \Rightarrow v_{i}
-             \\ P\{v_{n}, \ldots, v_{0}\} \Rightarrow v}
-           {M(N_{0}, \ldots, N_{n}) \Rightarrow v}
-  \end{mathpar}
-
-  Example evaluation:
-  \begin{equation*}
-    (\lambda^{0}. \, x_{0}) \, (\lambda^{1}. \, x_{0}) \: \Rightarrow \: (\lambda^{1}. \, x_{0})
-  \end{equation*}
-
-}
-
-
-\frame{
-
-  \frametitle{Target Language}
-
-  \begin{align*}
-    M' ::=            &\; x_{n}
-      && \text{source-level variable} \\
-    \llap{\textbar\:} &\; \kappa_{n}
-      && \text{continuation variable} \\
-    \llap{\textbar\:} &\; \lambda^{n}.M'
-      && \text{abstraction of arity $n+1$} \\
-    \llap{\textbar\:} &\; M'(M', \ldots, M')
-      && \text{function application} \\
-    \llap{\textbar\:} &\; \kw{let} \: M' \: \kw{in} \: M'
-      && \text{binding}
-  \end{align*}
-
-  Example term: $\lambda^{0}. \, \kappa_{0}$ (the initial continuation)
-
-  Example term: $\lambda^{0}. \, (\lambda^{1}. \, \kappa_{0} \, (x_{0})) \, (\kappa_{0}, (\lambda^{2}. \, \kappa_{0} \, (x_{0})))$
-
-  \begin{itemize}
-    \item Two sorts of variables (indepenently numbered)
-    \item $\lambda^{n}. \, M$ binds $\kappa_{0}, x_{n-1}, \ldots, x_{0}$ in $M$
-  \end{itemize}
-
-}
-
-
-\frame{
-
-  \frametitle{Target Language Semantics}
-
-  \begin{mathpar}
-    \infer*
-           {\:}
-           {\lambda^{n}.M' \Rightarrow \lambda^{n}.M'}
-    \and
-    \infer*
-           {M' \Rightarrow v_{1}
-             \\ N'\{\}\{v_{1}\} \Rightarrow v}
-           {(\kw{let} \: M' \: \kw{in} \: N') \Rightarrow v}
-    \and
-    \infer*
-           {M' \Rightarrow \lambda^{n}.P'
-             \\ N'_{i} \Rightarrow v_{i}
-             \\ P'\{v_{0}\}\{v_{n}, \ldots, v_{1}\} \Rightarrow v}
-           {M'(N'_{0}, \ldots, N'_{n}) \Rightarrow v}
-  \end{mathpar}
-
-  Example evaluation:
-  \begin{equation*}
-    (\lambda^{1}. \, \kappa_{0} \, (x_{0})) \, (\kappa_{0}, (\lambda^{2}. \, \kappa_{0} \, (x_{0})))
-    \: \Rightarrow \: \kappa_{0} \, (\lambda^{2}. \, \kappa_{0} \, (x_{0}))
-  \end{equation*}
-
-}
-
-
-\frame{
-
-  \frametitle{CPS Transformation}
-
-  $[\![\cdot]\!]$ is an extension of Plotkin's original transformation:
-
-  \begin{align*}
-    \Psi(x_{n}) &=
-      x_{n} \\
-    \Psi(\lambda^{n}.M) &=
-      \lambda^{n+1}.[\![M]\!](\kappa_{0}) \\[1em]
-    [\![A]\!] &=
-      \lambda^{0}.\kappa_{0} (\Psi(A)) \\
-    [\![M(N_{1}, \ldots, N_{n})]\!] &=
-      \lambda^{0}.[\![M . N_{1} \ldots N_{n} \: \kw{then} \:
-      \kappa_{n}(\kappa_{n+1}, \kappa_{n-1}, \ldots, \kappa_{0})]\!] \\
-    [\![\kw{let} \: M \: \kw{in} \: N]\!] &=
-      \lambda^{0}.[\![M]\!] (\lambda^{0}.\kw{let} \:
-      \kappa_{0} \: \kw{in} \: [\![N]\!] (\kappa_{1})) \\
-    [\![M_{1} \ldots M_{n} \: \kw{then} \: N']\!] &=
-      [\![M_{1}]\!] (\lambda^{0} \ldots [\![M_{n}]\!] (\lambda^{0}.N') \ldots )
-  \end{align*}
-
-}
-
-
-\frame{
-
-  \frametitle{CPS Transformation Example}
-
-  On a slide like this, just $[\![(\lambda^{0}.x_{0})(\lambda^{1}.x_{0})]\!]$ is quite a term:
-  \begin{align*}
-    \lambda^{0}. \:& \bigl( \lambda^{0}.\kappa_{0}(\lambda^{1}. \: (\lambda^{0}.\kappa_{0}(x_{0})) \: (\kappa_{0}) \: ) \bigr)\\
-    & \bigl( \lambda^{0}. \: (\lambda^{0}.\kappa_{0}(\lambda^{2}.(\lambda^{0}.\kappa_{0}(x_{0}))(\kappa_{0}))) \: (\lambda^{0}.\kappa_{1}(\kappa_{2},\kappa_{0})) \: \bigr)
-  \end{align*}
-
-}
-
-
-\section{Proving Correctness of \texorpdfstring{$[\![\cdot]\!]$}{the Transformation}}
-
-
-\frame{
-
-  \frametitle{Verifying a CPS Transformation}
-
-  \tableofcontents[currentsection]
-
-}
-
-
-\frame{
-
-  \frametitle{Correctness of $[\![\cdot]\!]$}
-
-  What does it mean for $[\![\cdot]\!]$ to be correct?
-
-  \uncover<2->{
-    \begin{itemize}
-      \item $[\![\cdot]\!]$ preserves semantics
-      \item \uncover<3->{
-        How do we express this?
-
-        (This will not work: $[\![M]\!] \Rightarrow v$ whenever $M \Rightarrow v$)
-      }
-    \end{itemize}
-  }
-
-  \uncover<4->{
-    \begin{maintheorem}
-      If $M \Rightarrow v$ in the source language, then
-      $[\![M]\!] (\lambda^{0}.\kappa_{0}) \Rightarrow \Psi(v)$ in the target language.
-    \end{maintheorem}
-  }
-
-}
-
-
-\frame{
-
-  \frametitle{Proof of Correctness Theorem}
-
-  \begin{maintheorem}
-    If $M \Rightarrow v$ in the source language, then
-    $[\![M]\!] (\lambda^{0}.\kappa_{0}) \Rightarrow \Psi(v)$ in the target language.
-  \end{maintheorem}
-
-  More general result needed for proof by induction:
-
-  \begin{lemma}
-    Let $K = \lambda^{0}.P$ be a $\kappa$-closed, one-argument
-    abstraction of the target language. If $M \Rightarrow v$ in the
-    source language, and $P\{\Psi(v)\}\{\} \Rightarrow v'$ in the target
-    language, then $[\![M]\!](K) \Rightarrow v'$ in the target language.
-  \end{lemma}
-
-}
-
-
-\frame{
-
-  \frametitle{Proof of Lemma 1}
-
-  \begin{lemma}
-    Let $K = \lambda^{0}.P$ be a $\kappa$-closed, one-argument
-    abstraction of the target language. If $M \Rightarrow v$ in the
-    source language, and $P\{\Psi(v)\}\{\} \Rightarrow v'$ in the target
-    language, then $[\![M]\!](K) \Rightarrow v'$ in the target language.
-  \end{lemma}
-
-  \begin{proof}
-    By induction on the evaluation derivation of $M \Rightarrow v$ and
-    case analysis over the term $M$:
-    \begin{description}
-    \item[Base case $M = \lambda^{n}.M_{1}$]
-    \item[Inductive case $M = M_{1}(N_{0}, \ldots, N_{n})$]\hfill
-
-      Premises: $M_{1} \Rightarrow \lambda^{n}.Q$, $N_{i} \Rightarrow v_{i}$,
-      $Q\{v_{n}, \ldots, v_{0}\} \Rightarrow v$
-    \item[Inductive case $M = \kw{let} \: M_{1} \: \kw{in} \: M_{2}$]\hfill
-
-      Premises: $M_{1} \Rightarrow v_{1}$, $M_{2}\{v_{1}\} \Rightarrow v$\qedhere
-    \end{description}
-  \end{proof}
-
-}
-
-
-\frame{
-
-  \frametitle{Coq Development}
-
-  Zaynah Dargaye and Xavier Leroy: {\em Mechanized verification of CPS transformations} (LPAR 2007)
-
-  \begin{itemize}
-    \item Mechanization of proof in Coq
-    \item Extraction of executable Caml code
-    \item Also: recursive functions, pattern matching, optimized transformation
-    \item $\approx$ 9000 lines of Coq
-    \item Goal: verified mini-ML to Cminor compiler (part of Compcert)
-  \end{itemize}
 
 }
 
