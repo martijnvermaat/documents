@@ -41,7 +41,9 @@ Classical case, named variables:
 * simple substitution is not structural recursive (renaming of bound variables)
 * mechanically tedious (capture-avoiding substitution, no syntactical equivalence)
 
--> investigate simultaneous substitution
+-> investigate:
+   * simultaneous substitution (is structural recursive)
+   * variable convention (bound variables are distinct)
 
 De Bruijn indices:
 * represent bound variables by indices indicating the number of binders to skip
@@ -71,3 +73,35 @@ Higher-order abstract syntax:
 * alpha-equivalence and substitution for free
 * incompatible with coq and hol logics
 * leads to statements quite different from what we do on paper
+
+Let's consider substitution in untyped lambda calculus with named variables.
+
+Substituting N for x in M (M[N/x]) is defined inductively on M:
+
+  y[N/x]       = x if y=x, y otherwise
+  (\y.M')[N/x] = \z.(M'[z/y][N/x]) where z not free in N and M'
+  (M1 M2)[N/x] = (M1[N/x]) (M2[N/x])
+
+This is difficult enough to read on paper, but what it actually means is
+what we would intuitively do. So on paper we can do away with the problem
+with some handwaving.
+
+Now enter a formal system (we use the proof assistent coq).
+
+  Parameter name : Set.
+  Hypothesis eq_name : forall (x y : name), {x = y} + {x <> y}.
+
+  Inductive term : Set :=
+    | Var : name -> term
+    | Abs : name -> term -> term
+    | App : term -> term -> term.
+
+  Fixpoint subst (t1:term) (n:name) (t2:term) {struct t2} : term :=
+    match t2 with
+    | Var x =>
+        if eq_name x n then t1 else t2
+    | Abs x t3 =>
+        if eq_name x n then t2 else Abs x (subst t1 n t3)
+    | App t3 t4 =>
+        App (subst t1 n t3) (subst t1 n t4)
+  end.
