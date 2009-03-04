@@ -1,17 +1,73 @@
-Static Name Control for FreshML
+Pottier, Static Name Control for FreshML
 http://www.citeulike.org/user/huitseeker/article/1397450
 
-Toward a general theory of names: binding and scope
+Cheney, Toward a general theory of names: binding and scope
 http://www.citeulike.org/user/kavabean/article/359771
 
-Scrap your nameplate: (functional pearl)
+Cheney, Scrap your nameplate: (functional pearl)
 http://www.citeulike.org/user/kavabean/article/359763
+Generic programming in Haskell with nominal abstract syntax a la FreshML
 
-A fresh approach to representing syntax with static binders in functional programming
+Pitts, A fresh approach to representing syntax with static binders in functional programming
 http://www.citeulike.org/user/kavabean/article/352567
 
-Semantical Analysis of Higher-Order Abstract Syntax
+Hofmann, Semantical Analysis of Higher-Order Abstract Syntax
 http://www.citeulike.org/user/huitseeker/article/3014079
 
 Mechanizing the metatheory of Standard ML
 http://www.citeulike.org/user/huitseeker/article/1442505
+
+CINNI - A Calculus of Indexed Names and Named Indices
+http://www2.computer.org/portal/web/csdl/abs/proceedings/lics/1999/0158/00/01580204abs.htm
+
+PL Grand Challenges
+http://plgrand.blogspot.com/
+These are notes on the panel on Grand Challenges in Programming Languages,
+which was held at POPL 2009. The notes were taken by Benjamin C. Pierce and
+dited by Yitzhak Mandelbaum.
+
+
+Problem: manipulating terms with free and bound variables.
+
+How do we represent binders and bound variables?
+
+Recurring issues with most representations are the need to identify terms up to
+alpha conversion of bound variables and mechanical difficulties in substition
+(renaming, lifting, freshening).
+
+Classical case, named variables:
+* easy to read
+* equivalence modulo alpha conversion
+* simple substitution is not structural recursive (renaming of bound variables)
+* mechanically tedious (capture-avoiding substitution, no syntactical equivalence)
+
+-> investigate simultaneous substitution
+
+De Bruijn indices:
+* represent bound variables by indices indicating the number of binders to skip
+* syntactical equivalence
+* substition is structural recursive (lifting is done in the substituted term)
+* harder to read
+* lifting
+* mechanically less tedious
+
+Locally nameless:
+* de Bruijn indices for bound variables
+* names for free variables
+* syntactical equivalence
+* no lifting, no renaming
+* substitution is not structural recursive (freshening)
+
+We will focus on the above three representations, but there are more.
+
+Nominal:
+* names for variables
+* equivalence classes for terms
+* built on nominal logic
+* this is what we actually do on paper
+
+Higher-order abstract syntax:
+* meta-variables for variables and meta-functions for functions
+* alpha-equivalence and substitution for free
+* incompatible with coq and hol logics
+* leads to statements quite different from what we do on paper
