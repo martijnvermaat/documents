@@ -22,11 +22,11 @@ Inductive term : Set :=
 
 (* This is a non-capture-avoiding substitution. It could be useful if
    we maintain Barendregt's Variable Convention. *)
-Function subst_naive (t:term) (n:name) (t':term) {struct t'} : term :=
+Fixpoint subst_naive (t:term) (n:name) (t':term) {struct t'} : term :=
   match t' with
   | Var x =>
       if eq_name x n then t else t'
-  | Abs x b => 
+  | Abs x b =>
       if eq_name x n then t' else Abs x (subst_naive t n b)
   | App f a =>
       App (subst_naive t n f) (subst_naive t n a)

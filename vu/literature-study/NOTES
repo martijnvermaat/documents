@@ -84,6 +84,18 @@ Let's consider untyped lambda calculus with named variables.
 
 On paper, alpha-equivalent terms are routinely identified.
 
+Substitution _[_/_] is usually defined along the lines of:
+
+  x[N/x]       = N
+  y[N/x]       = y                    if y<>x
+  (\y.M)[N/x]  = \y.(M[N/x])          if y<>x and y not free in N
+  (M1 M2)[N/x] = (M1[N/x]) (M2[N/x])
+
+How do we implement the side conditions? We could assume Barendregt's
+variable convention and they are fullfilled.
+A less restricted aproach is using alpha-conversion to rename bound
+variables when needed. This brings us to the following generalization:
+
 Substituting N for x in M (M[N/x]) is defined inductively on M:
 
   y[N/x]       = x if y=x, y otherwise
@@ -109,23 +121,145 @@ of extra work has to be done (e.g. reduce to term equivalence by taking
 canonical terms, or recursively compare represented structures, or ...).
 
 The second problem is that of substitution. Following the on-paper
-definition of substitution, we could naively write (provided we have some
-way to get fresh names):
+definition of substitution, we could maintain the variable convention and
+use the naive implementation:
 
+  Function subst_naive (t:term) (n:name) (t':term) {struct t'} : term :=
+    match t' with
+    | Var x =>
+        if eq_name x n then t else t'
+    | Abs x b =>
+        if eq_name x n then t' else Abs x (subst_naive t n b)
+    | App f a =>
+        App (subst_naive t n f) (subst_naive t n a)
+  end.
+
+But it seems cumbersome to maintain the variable convention.
+
+As an alternative, let's have a look at the capture-avoiding substitution
+where we rename bound variables. We use an auxilary renaming function:
+
+  (* Just naively rename n to n'. *)
+  Fixpoint rename (n n':name) (t:term) {struct t} : term :=
+    match t with
+    | Var x =>
+        if eq_name x n then Var n' else t
+    | Abs x b =>
+        Abs (if eq_name x n then n' else x) (rename n n' b)
+    | App f a =>
+        App (rename n n' f) (rename n n' a)
+  end.
+
+Assume we can generate fresh names and can list free variables of terms.
+
+  (* Incorrect capture-avoiding substitution. *)
   Fixpoint subst (t:term) (n:name) (t':term) {struct t'} : term :=
     match t' with
     | Var x =>
         if eq_name x n then t else t'
     | Abs x b =>
-        let z := fresh_name ((free_vars t) ++ (free_vars b))
+        (* We always rename, this could of course be improved. *)
+        let z := fresh_name (n :: (free_vars t) ++ (free_vars b))
         in
-        Abs z (subst t n (subst (Var z) x b))
+        Abs z (subst t n (rename x z b))
     | App f a =>
         App (subst t n f) (subst t n a)
   end.
 
-But of course, this is ill-defined, since subst is not structural recursive
+But of course, this is ill-defined, since subst is not structurally recursive
 on t'. We can, however, recurse on another well-founded measure, such as
-the size of t'. We get this:
+the size of t'.
+Unfortunately, this adds a lot of extra code. We have to define the measure,
+and proof that it decreases on the recursive calls. This is the result:
 
-http://www.chargueraud.org/arthur/research/2007/binders/src_color/Metatheory_Var.html
+  (* Well-founded measure on terms. *)
+  Fixpoint size (t:term) : nat :=
+    match t with
+    | Var _   => 0
+    | Abs x b => S (size b)
+    | App f a => 1 + (size f) + (size a)
+  end.
+
+  (* Size is invariant under renaming. *)
+  Lemma size_rename : forall (n n':name) (t:term), size (rename n n' t) = size t.
+  Proof.
+  unfold size.
+  unfold rename.
+  induction t;
+    [ (* Var _ *)
+      case (eq_name n0 n); intro; trivial
+    | (* Abs _ _ *)
+      congruence
+    | (* App _ _ *)
+      congruence].
+  Qed.
+
+  (* Capture-avoiding substitution by recursion on size. *)
+  Function subst (t:term) (n:name) (t':term) {measure size t'} : term :=
+    match t' with
+    | Var x =>
+        if eq_name x n then t else t'
+    | Abs x b =>
+        (* We always rename, this could of course be improved. *)
+        let z := fresh_name (n :: (free_vars t) ++ (free_vars b))
+        in
+        Abs z (subst t n (rename x z b))
+    | App f a =>
+        App (subst t n f) (subst t n a)
+  end.
+  (* This leaves us with 3 obligations. *)
+  Proof.
+  intros.
+  rewrite size_rename.
+  auto.
+
+  intros.
+  unfold size.
+  inversion f; omega.
+
+  intros.
+  unfold size.
+  inversion a; omega.
+  Defined.
+
+So, presumably this works. But proving things about this substitution
+operation will not be fun.
+
+Of course we prefer structural recursion over recursion on some size
+measure. Stoughton suggests simultaneous substitution, which is
+structurally recursive:
+
+  (* Apply a list of substitutions to a name. *)
+  Fixpoint apply_subst (l:list (term*name)) (n:name) {struct l} : term :=
+    match l with
+    | nil        => Var n
+    | (t, x)::l' => if eq_name x n then t else apply_subst l' n
+  end.
+
+  (* Capture-avoiding simultaneous substitution by structural recursion. *)
+  Fixpoint sim_subst (l:list (term*name)) (t:term) {struct t} : term :=
+    match t with
+    | Var x =>
+        apply_subst l x
+    | Abs x b =>
+        let z := fresh_name ((free_vars_sub l) ++ (free_vars b))
+        in
+        Abs z (sim_subst ((Var z, x)::l) b)
+    | App f a =>
+        App (sim_subst l f) (sim_subst l a)
+  end.
+
+Singular substitution is then just a special case:
+
+  (* Define simple substitution in terms of simultaneous substitution. *)
+  Definition subst' (t:term) (n:name) (t':term) : term := sim_subst ((t, n) :: nil) t'.
+
+So far, so good. We still have the issue of alpha-conversion and the
+substitutions are messy.
+
+Another aproach is using numbers instead of names, de-Bruijn indices:
+
+  Inductive term : Set :=
+    | Var : nat -> term
+    | Abs : term -> term
+    | App : term -> term -> term.
