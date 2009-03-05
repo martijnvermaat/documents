@@ -103,3 +103,36 @@ intros.
 unfold size.
 inversion a; omega.
 Defined.
+
+(* Apply a list of substitutions to a name. *)
+Fixpoint apply_subst (l:list (term*name)) (n:name) {struct l} : term :=
+  match l with
+  | nil        => Var n
+  | (t, x)::l' => if eq_name x n then t else apply_subst l' n
+end.
+
+(* Number of free variables in substituted terms. *)
+Fixpoint free_vars_sub (l:list (term*name)) : list name :=
+  match l with
+  | nil        => nil
+  | (t, _)::l' => (free_vars t) ++ (free_vars_sub l')
+end.
+
+(* Capture-avoiding simultaneous substitution by structural recursion. *)
+Fixpoint sim_subst (l:list (term*name)) (t:term) {struct t} : term :=
+  match t with
+  | Var x =>
+      apply_subst l x
+  | Abs x b =>
+      let z := fresh_name ((free_vars_sub l) ++ (free_vars b))
+      in
+      Abs z (sim_subst ((Var z, x)::l) b)
+  | App f a =>
+      App (sim_subst l f) (sim_subst l a)
+end.
+
+(* Define simple substitution in terms of simultaneous substitution. *)
+Definition subst' (t:term) (n:name) (t':term) : term := sim_subst ((t, n) :: nil) t'.
+
+(* Substitution Lemma. *)
+(*Lemma substitution : forall (m t u:term) (x y:name), x <> y -> ~In x (free_vars u) -> subst u y (subst t x m) = subst (subst u y t) x (subst u y m).*)

@@ -26,6 +26,12 @@ These are notes on the panel on Grand Challenges in Programming Languages,
 which was held at POPL 2009. The notes were taken by Benjamin C. Pierce and
 dited by Yitzhak Mandelbaum.
 
+Coq-club: proving the substitution lemma
+http://pauillac.inria.fr/pipermail/coq-club/2007/003185.html
+
+POPLmark: Progress Meeting '06 Transcript
+http://alliance.seas.upenn.edu/~plclub/cgi-bin/poplmark/index.php?title=ProgressMeeting06Transcript
+
 
 Problem: manipulating terms with free and bound variables.
 
