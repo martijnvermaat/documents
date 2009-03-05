@@ -1,4 +1,8 @@
-(* Coq version 8.2 *)
+(*
+  Substitution in untyped lambda-calculus with named variables.
+  March 2009, Martijn Vermaat
+  Developed with Coq version 8.2 in CoqIDE
+*)
 
 Require Import Arith.
 Require Import Omega.
