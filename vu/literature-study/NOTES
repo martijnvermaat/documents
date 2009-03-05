@@ -82,6 +82,10 @@ Higher-order abstract syntax:
 
 Let's consider untyped lambda calculus with named variables.
 
+  Variable:    x
+  Abstraction: \x.M
+  Application: M N
+
 On paper, alpha-equivalent terms are routinely identified.
 
 Substitution _[_/_] is usually defined along the lines of:
@@ -258,6 +262,27 @@ So far, so good. We still have the issue of alpha-conversion and the
 substitutions are messy.
 
 Another aproach is using numbers instead of names, de-Bruijn indices:
+
+  Variable:    n
+  Abstraction: \M
+  Application: M N
+
+This is quite different from named variables, and harder to read. However,
+we don't need alpha-conversion, because equality is just syntactical
+equality. This is a major plus in automated reasoning.
+
+Let's see what happened to our substitution operation:
+
+  n[N/n]       = N
+  m[N/n]       = m            if m<>n
+  (\M)[N/n]    = \(M[^N/n+1])
+  (M1 M2)[N/n] = (M1[N/n]) (M2[N/n])
+
+Where ^N is N with all free indices increased by 1, called  shifting. So
+we lost the need for renaming, but got shifting in return.
+Fortunately, shifting is a technically much easier operation and we don't
+need to generate fresh names. Furthermore, this substitution is structurally
+recursive.
 
   Inductive term : Set :=
     | Var : nat -> term
