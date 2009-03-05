@@ -19,8 +19,12 @@ Fixpoint size (t:term) : nat :=
   match t with
   | Var _   => 0
   | Abs x b => S (size b)
-  | App f a => 1+ (size f) + (size a)
+  | App f a => 1 + (size f) + (size a)
 end.
+
+Hypothesis size_app1 : forall (f a:term), size f < size (App f a).
+Hypothesis size_app2 : forall (f a:term), size a < size (App f a).
+(* TODO proof *)
 
 Function subst_naive (t:term) (n:name) (t':term) {struct t'} : term :=
   match t' with
@@ -31,6 +35,29 @@ Function subst_naive (t:term) (n:name) (t':term) {struct t'} : term :=
   | App f a =>
       App (subst_naive t n f) (subst_naive t n a)
 end.
+
+Fixpoint rename (n n':name) (t:term) {struct t} : term :=
+  match t with
+  | Var x =>
+      if eq_name x n then Var n' else t
+  | Abs x b =>
+      Abs (if eq_name x n then n' else x) (rename n n' b)
+  | App f a =>
+      App (rename n n' f) (rename n n' a)
+end.
+
+Lemma size_rename : forall (n n':name) (t:term), size (rename n n' t) = size t.
+Proof.
+unfold size.
+unfold rename.
+induction t;
+  [ (* Var _ *)
+    case (eq_name n0 n); intro; trivial
+  | (* Abs _ _ *)
+    congruence
+  | (* App _ _ *)
+    congruence].
+Qed.
 
 Fixpoint free_vars (t:term) : list name :=
   match t with
@@ -46,18 +73,20 @@ Function subst (t:term) (n:name) (t':term) {measure size t'} : term :=
   | Var x =>
       if eq_name x n then t else t'
   | Abs x b =>
-      let z := fresh_name ((free_vars t) ++ (free_vars b))
+      let z := fresh_name (n :: (free_vars t) ++ (free_vars b))
       in
-      let b' := subst (Var z) x b
-      in
-      Abs z b'
+      Abs z (subst t n (rename x z b))
   | App f a =>
       App (subst t n f) (subst t n a)
 end.
 Proof.
-intros. simpl. omega.
-intros. simpl. omega.
-intros. simpl. omega.
-Defined.
+intros.
+rewrite size_rename.
+auto.
 
-Eval compute in (subst (Var v1) v1 (Var v1)).
+intros.
+apply size_app2.
+
+intros.
+apply size_app1.
+Defined.
