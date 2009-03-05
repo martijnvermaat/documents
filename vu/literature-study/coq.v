@@ -4,7 +4,6 @@ Require Import Arith.
 Require Import Omega.
 Require Import List.
 Require Import Recdef.
-Require Coq.Program.Wf.
 
 Parameter name : Set.
 Hypothesis eq_name : forall (x y : name), {x = y} + {x <> y}.
@@ -40,26 +39,18 @@ Fixpoint free_vars (t:term) : list name :=
   | App f a => (free_vars f) ++ (free_vars a)
 end.
 
-Definition fresh (l:list name) : name := v1.
-
-Program Fixpoint simple_subst (s n:name) (t:term) {measure size t} : term :=
-  match t with
-  | Var x =>
-      if eq_name x n then Var s else t
-  | Abs x b =>
-      let z := fresh nil in
-      Abs z (simple_subst s n (simple_subst z x b))
-  | App f a =>
-      App (simple_subst s n f) (simple_subst s n a)
-end.
+Definition fresh_name (l:list name) : name := v1.
 
 Function subst (t:term) (n:name) (t':term) {measure size t'} : term :=
   match t' with
   | Var x =>
       if eq_name x n then t else t'
   | Abs x b =>
-      if eq_name x n then t' else Abs x (subst_naive t n b)
-      (*Abs x (subst t n (subst (Var x) x b))*)
+      let z := fresh_name ((free_vars t) ++ (free_vars b))
+      in
+      let b' := subst (Var z) x b
+      in
+      Abs z b'
   | App f a =>
       App (subst t n f) (subst t n a)
 end.

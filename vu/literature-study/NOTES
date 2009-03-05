@@ -74,12 +74,14 @@ Higher-order abstract syntax:
 * incompatible with coq and hol logics
 * leads to statements quite different from what we do on paper
 
-Let's consider substitution in untyped lambda calculus with named variables.
+Let's consider untyped lambda calculus with named variables.
+
+On paper, alpha-equivalent terms are routinely identified.
 
 Substituting N for x in M (M[N/x]) is defined inductively on M:
 
   y[N/x]       = x if y=x, y otherwise
-  (\y.M')[N/x] = \z.(M'[z/y][N/x]) where z not free in N and M'
+  (\y.M')[N/x] = \z.(M'[z/y][N/x]) for z not free in N and M'
   (M1 M2)[N/x] = (M1[N/x]) (M2[N/x])
 
 This is difficult enough to read on paper, but what it actually means is
@@ -88,20 +90,36 @@ with some handwaving.
 
 Now enter a formal system (we use the proof assistent coq).
 
-  Parameter name : Set.
-  Hypothesis eq_name : forall (x y : name), {x = y} + {x <> y}.
-
   Inductive term : Set :=
     | Var : name -> term
     | Abs : name -> term -> term
     | App : term -> term -> term.
 
-  Fixpoint subst (t1:term) (n:name) (t2:term) {struct t2} : term :=
-    match t2 with
+Presumably, name lives in Set and equality on names is decidable.
+
+The first problem is that of alpha-conversion. Equivalence modulo alpha
+is not term equivalence. Whenever we have to decide on equivalence, a lot
+of extra work has to be done (e.g. reduce to term equivalence by taking
+canonical terms, or recursively compare represented structures, or ...).
+
+The second problem is that of substitution. Following the on-paper
+definition of substitution, we could naively write (provided we have some
+way to get fresh names):
+
+  Fixpoint subst (t:term) (n:name) (t':term) {struct t'} : term :=
+    match t' with
     | Var x =>
-        if eq_name x n then t1 else t2
-    | Abs x t3 =>
-        if eq_name x n then t2 else Abs x (subst t1 n t3)
-    | App t3 t4 =>
-        App (subst t1 n t3) (subst t1 n t4)
+        if eq_name x n then t else t'
+    | Abs x b =>
+        let z := fresh_name ((free_vars t) ++ (free_vars b))
+        in
+        Abs z (subst t n (subst (Var z) x b))
+    | App f a =>
+        App (subst t n f) (subst t n a)
   end.
+
+But of course, this is ill-defined, since subst is not structural recursive
+on t'. We can, however, recurse on another well-founded measure, such as
+the size of t'. We get this:
+
+http://www.chargueraud.org/arthur/research/2007/binders/src_color/Metatheory_Var.html
