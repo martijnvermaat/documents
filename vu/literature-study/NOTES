@@ -63,7 +63,7 @@ Locally nameless:
 * de Bruijn indices for bound variables
 * names for free variables
 * syntactical equivalence
-* no lifting, no renaming
+* no lifting, no renaming, but freshening
 * substitution is not structural recursive (freshening)
 
 We will focus on the above three representations, but there are more.
@@ -271,20 +271,56 @@ This is quite different from named variables, and harder to read. However,
 we don't need alpha-conversion, because equality is just syntactical
 equality. This is a major plus in automated reasoning.
 
-Let's see what happened to our substitution operation:
+Let's see what happened to our substitution operation. We could translate it
+as:
 
   n[N/n]       = N
   m[N/n]       = m            if m<>n
   (\M)[N/n]    = \(M[^N/n+1])
   (M1 M2)[N/n] = (M1[N/n]) (M2[N/n])
 
-Where ^N is N with all free indices increased by 1, called  shifting. So
-we lost the need for renaming, but got shifting in return.
-Fortunately, shifting is a technically much easier operation and we don't
+Where ^N is N with all free indices increased by 1, called lifting. So
+we lost the need for renaming, but got lifting in return.
+Fortunately, lifting is a technically much easier operation and we don't
 need to generate fresh names. Furthermore, this substitution is structurally
 recursive.
+
+This could look like this in Coq:
 
   Inductive term : Set :=
     | Var : nat -> term
     | Abs : term -> term
     | App : term -> term -> term.
+
+  (* Lift indices that are bound by at least l abstractions away. *)
+  Fixpoint lift (l:nat) (t:term) {struct t} : term :=
+    match t with
+    | Var n   => Var (if le_lt_dec l n then (S n) else n)
+    | Abs u   => Abs (lift (S l) u)
+    | App u v => App (lift l u) (lift l v)
+  end.
+
+  (* Capture-avoiding substitution. *)
+  Fixpoint subst (t:term) (n:nat) (t':term) {struct t'} : term :=
+    match t' with
+    | Var m   => if eq_nat_dec n m then t else t'
+    | Abs u   => Abs (subst (lift 0 t) (S n) u)
+    | App u v => App (subst t n u) (subst t n v)
+  end.
+
+We can also combine names and numbers in a locally nameless representation
+where bound variables are represented by de-bruijn indices and free
+variables are named:
+
+  Free variable:  x
+  Bound variable: n
+  Abstraction:    \M
+  Application:    M N
+
+In Coq:
+
+  Inductive term : Set :=
+    | FreeVar  : name -> term
+    | BoundVar : nat -> term
+    | Abs      : term -> term
+    | App      : term -> term -> term.
