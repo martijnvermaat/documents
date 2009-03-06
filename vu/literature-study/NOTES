@@ -343,6 +343,17 @@ recursion (an abstraction body might not be a subterm after freshening).
 
 --> Some code for the locally nameless representation
 
-Still other aproaches with names and numbers:
+Other tricks with names and numbers:
 * de-Bruijn for free variables, names for bound variables (Stump)
 * More-sorted de-bruijn indices (Leroy's CPS transformation)
+
+The examples above of the substitution operation do not seem to give a
+fair comparison between representations, e.g. because substitution is
+sometimes an inherently simple operation of the representation (as is the
+case in HOAS) while there may be other difficulties. And what is the goal
+of our representation anyway?
+
+To this end, the POPLmark challenge was constructed. It not only addresses
+the problem of binding, but it is a major part of the challenge. The
+challenge aims to give some verifiable properties which 'good'
+representations should have.
