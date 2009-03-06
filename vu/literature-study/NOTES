@@ -324,3 +324,25 @@ In Coq:
     | BoundVar : nat -> term
     | Abs      : term -> term
     | App      : term -> term -> term.
+
+This has a number of advantages. Equivalence is syntactical equivalence.
+There is never the need for renaming (names cannot be bound). There is
+never the need for lifting (indices cannot be free).
+
+At what costs? It's of course harder to read than the classical
+representation with named variables, but arguably slightly better in this
+respect than pure de-bruijn indices.
+The term datatype has one more constructor, so this adds a case to
+consider in functions and proofs.
+The main technical difficulty we get is that of maintaining the invariant
+that all terms are de-bruijn closed. Whenever we consider the body of an
+abstraction, we should substitute a name for any de-bruijn indices that
+were bound by the abstraction in order to have a de-bruijn closed subterm.
+This is called freshening. A consequence is that we lose structural
+recursion (an abstraction body might not be a subterm after freshening).
+
+--> Some code for the locally nameless representation
+
+Still other aproaches with names and numbers:
+* de-Bruijn for free variables, names for bound variables (Stump)
+* More-sorted de-bruijn indices (Leroy's CPS transformation)
