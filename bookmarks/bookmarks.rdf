@@ -363,6 +363,8 @@
         <rdf:li rdf:resource="http://www.mininova.org/"/>
         <rdf:li rdf:resource="http://isohunt.com/"/>
         <rdf:li rdf:resource="http://thepiratebay.org/"/>
+        <rdf:li rdf:resource="http://www.cs.harvard.edu/~adamc/cpdt/book/"/>
+        <rdf:li rdf:resource="http://r6.ca/Goedel/goedel1.html"/>
       </rdf:Seq>
     </items>
   </channel>
@@ -2855,5 +2857,22 @@
     <dc:subject>video</dc:subject>
     <dc:subject>fun</dc:subject>
     <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://www.cs.harvard.edu/~adamc/cpdt/book/">
+    <title>Certified Programming with Dependent Types</title>
+    <link>http://www.cs.harvard.edu/~adamc/cpdt/book/</link>
+    <dc:subject>lambda-calculus</dc:subject>
+    <dc:subject>compilers</dc:subject>
+    <dc:subject>coq</dc:subject>
+    <dc:subject>types</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://r6.ca/Goedel/goedel1.html">
+    <title>Essential Incompleteness of Arithmetic Verified by Coq</title>
+    <link>http://r6.ca/Goedel/goedel1.html</link>
+    <dc:subject>coq</dc:subject>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
   </item>
 </rdf:RDF>
