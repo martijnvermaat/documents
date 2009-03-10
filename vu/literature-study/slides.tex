@@ -45,30 +45,24 @@ March 13, 2009}
 }
 
 
-\section{Binding}
+\section{Mechanical Reasoning about Languages}
 
 
 \frame{
 
-  \frametitle{Continuation-Passing Style}
+  \frametitle{Mechanical Reasoning}
 
-  \begin{block}{Direct style}
-    Function returns the result of its computation.
+  Shift from on-paper reasoning to mechanical reasoning:
 
-    Example: $\lambda x . \, x - 2$
-  \end{block}
+  \begin{itemize}
+    \item History of on-paper proofs and ideas
+    \item Informal mechanical implementations of ideas
+    \item Add a scale increase and we have a gap
+  \end{itemize}
 
   \uncover<2->{
-    \begin{block}{Continuation passing style}
-      Function passes result to a {\em continuation}.
-
-      Example: $\lambda x \, k . \, k \, (x - 2)$
-      \uncover<3->{
-        \begin{itemize}
-        \item Order of evaluation is fixed
-        \item Suitable for aggressive optimizations
-        \end{itemize}
-      }
+    \begin{block}{Goal}
+      Let's make rigorous mechanical reasoning possible.
     \end{block}
   }
 
@@ -77,135 +71,17 @@ March 13, 2009}
 
 \frame{
 
-  \frametitle{Transforming to CPS}
+  \frametitle{Reasoning about Languages}
 
-  Programs in direct style can be mechanically transformed to equivalent
-  prorgrams in CPS:
+  \begin{block}{Reasoning about languages}
+    Often not intrinsically hard, but cumbersome in a mechanical setting.
+  \end{block}
 
-  \begin{itemize}
-    \item Plotkin, 1975
-    \item Danvy and Nielsen, 2003
-    \item \ldots and many more
-  \end{itemize}
-
-}
-
-
-\frame{
-
-  \frametitle{Plotkin's Original Transformation}
-
-  Plotkin, 1975:
-  \begin{align*}
-    [\![x]\!]               &= \lambda k. \, k \, x\\
-    [\![\lambda x. \, M]\!] &= \lambda k. \, k \, (\lambda x. \, [\![M]\!])\\
-    [\![M \, N]\!]          &= \lambda k. \, [\![M]\!] \, (\lambda m. \, [\![N]\!] \, (\lambda n. \, m \, n \, k))
-  \end{align*}
-
+  Why?
   \uncover<2->{
-    Generates many administrative redexes:
-    \begin{align*}
-      [\![(\lambda x. \, x) \, y]\!] &= \lambda k. \, (\lambda k. \, k \, (\lambda x. \, (\lambda k. \, k \, x))) \, (\lambda m. \, (\lambda k. \, k \, y) \, (\lambda n. \, m \, n \, k))\\
-                                     &\rightarrow_{\beta} \lambda k. \, (\lambda m. \, (\lambda k. \, k \, y) \, (\lambda n. \, m \, n \, k)) \, (\lambda x. \, (\lambda k. \, k \, x))\\
-                                     &\rightarrow_{\beta} \lambda k. \, (\lambda k. \, k \, y) \, (\lambda n. \, (\lambda x. \, (\lambda k. \, k \, x)) \, n \, k)\\
-                                     &\rightarrow_{\beta} \lambda k. \, (\lambda n. \, (\lambda x. \, (\lambda k. \, k \, x)) \, n \, k) \, y\\
-                                     &\rightarrow_{\beta} \lambda k. \, (\lambda x. \, (\lambda k. \, k \, x)) \, y \, k\\
-    \end{align*}
-  }
-
-}
-
-
-\frame{
-
-  \frametitle{Plotkin Optimized}
-
-  Slightly optimized version of Plotkin's original:
-
-  \begin{align*}
-    [\![x]\!] \triangleright k               &= k \, x\\
-    [\![\lambda x. \, M]\!] \triangleright k &= k \, (\lambda x \, k. \, [\![M]\!] \triangleright k)\\
-    [\![M \, N]\!] \triangleright k          &= [\![M]\!] \triangleright \lambda m. \, [\![N]\!] \triangleright \lambda n. \, m \, n \, k
-  \end{align*}
-
-  \uncover<2->{
-    Generates fewer administrative redexes:
-    \begin{align*}
-      [\![(\lambda x. \, x) \, y]\!] \triangleright k &= (\lambda m. \, (\lambda n. \, m \, n \, k) \, y) \, (\lambda x \, k. \, k \, x)\\
-                                                      &\rightarrow_{\beta} (\lambda n. \, (\lambda x \, k. \, k \, x) \, n \, k) \, y\\
-                                                      &\rightarrow_{\beta} (\lambda x \, k. \, k \, x) \, y \, k
-    \end{align*}
-  }
-
-}
-
-
-\section{Correct Compilers}
-
-
-\frame{
-
-  \frametitle{Verifying a CPS Transformation}
-
-  \tableofcontents[currentsection]
-
-}
-
-
-\frame{
-
-  \frametitle{Program Compilation}
-
-  Traditionally:
-
-  \begin{enumerate}
-    \item Source program is proven correct
-    \item Source program is compiled to binary code
-    \item Binary code is executed
-  \end{enumerate}
-
-  \uncover<2->{
-    {\bf Observation:} No guarantees on correctness of executed program.
-  }
-
-}
-
-
-\section{Discussion and Related Work}
-
-
-\frame{
-
-  \frametitle{Verifying a CPS Transformation}
-
-  \tableofcontents[currentsection]
-
-}
-
-
-\frame{
-
-  \frametitle{Design Choices}
-
-  (Two-sorted) de Bruijn indices:
-  \begin{itemize}
-    \item Binding and $\alpha$-conversion (POPLmark challenge)
-    \item Lifting
-  \end{itemize}
-
-  \uncover<2->{
-    Big-step operational semantics:
     \begin{itemize}
-      \item Administrative redexes
-      \item No diverging source programs
-    \end{itemize}
-  }
-
-  \uncover<3->{
-    Coq:
-    \begin{itemize}
-      \item Code extraction
-      \item Preference
+    \item Most languages have a notion of binding
+    \item Bindings and bound variables are easy on paper, hard on a computer
     \end{itemize}
   }
 
@@ -214,28 +90,142 @@ March 13, 2009}
 
 \frame{
 
-  \frametitle{Related Work}
+  \frametitle{Mechanical Reasoning about Languages}
 
-  Minamide and Okuma, 2003: {\em Verifying CPS Transformations in Isabelle/HOL}
+  So we want to
+  \begin{quote}
+    Reason about terms with bindings in tools like Coq, in a way that is close
+    to the on-paper way.
+  \end{quote}
+
+  \uncover<2->{
+    We need a representation for binders and variables.
+  }
+
+}
+
+
+\section{Representing Bindings}
+
+
+\frame{
+
+  \frametitle{Names and Numbers in Binding}
+
+  \tableofcontents[currentsection]
+
+}
+
+
+\frame{
+
+  \frametitle{Representing Bindings}
+
+  Classical problems related to binders and variables:
+
   \begin{itemize}
-    \item Named variables, no $\alpha$-conversion or explicit renaming
-    \item Small-step operational semantics
+    \item $\alpha$-conversion
+    \item substitution
   \end{itemize}
 
-  Tian, 2006: {\em Mechanically Verifying Correctness of CPS Compilation}
+  \uncover<2->{
+    Let's look at some representations.
+  }
+
+}
+
+
+\frame{
+
+  \frametitle{Traditional Representation}
+
+  \begin{block}{Running example}
+    Substitution in untyped $\lambda$-calculus
+  \end{block}
+
+  \uncover<2->{
+    Traditional representation with named variables:
+    \begin{align*}
+      M ::=             &\; x
+      && \text{variable} \\
+      \llap{\textbar\:} &\; \lambda x.M
+      && \text{abstraction} \\
+      \llap{\textbar\:} &\; M \; M
+      && \text{application} \\
+    \end{align*}
+
+  }
+
+}
+
+
+\frame{
+
+  \frametitle{Traditional Representation}
+
   \begin{itemize}
-    \item Twelf
-    \item Higher-order abstract syntax
-    \item Combination of big-step and small-step operational semantics
+
+    \item $\alpha$-equivalent terms are routinely identified
+
+    \item Substitution $M[N/x]$:
+      \begin{align*}
+        x[N/x]              &= N\\
+        y[N/x]              &= y                  && \text{$y \neq x$} \\
+        (\lambda y.M')[N/x] &= \lambda y.M'[N/x]  && \text{$y \neq x$ and $y$ not free in $N$} \\ % TODO: fix layout
+        (M_1 \; M_2)[N/x]   &= M_1[N/x] \; M_2[N/x]
+      \end{align*}
+
+    \item Now implement this
+      % alpha-conversion is very hard
+      % side-conditions are declarative
+      % (\x.M)[N/x] not even defined
+      % use variable convention, or a more general substitution (next slide)
+
   \end{itemize}
 
-  Chlipala, 2007: {\em A Certified Type-Preserving Compiler from Lambda Calculus to Assembly Language}
-  \begin{itemize}
-    \item Coq
-    \item de Bruijn indices
-    \item Denotational semantics
-    \item Dependent types with focus on automated proofs
-  \end{itemize}
+}
+
+
+\frame{
+
+  \frametitle{Simple Substitution}
+
+  Use $\alpha$-conversion to rename bound variables and define
+  substituting $N$ for $x$ in $M$ inductively$^*$ on M:
+
+  \begin{align*}
+    x[N/x]              &= \text{$N$ if $y = x$, $y$ otherwise}\\
+    (\lambda y.M')[N/x] &= \lambda z.M'[z/y][N/x]  && \text{$z$ not free in $N, M'$} \\ % TODO: fix layout
+    (M_1 \; M_2)[N/x]   &= M_1[N/x] \; M_2[N/x]
+  \end{align*}
+
+  % Note that M'[z/y] is not a subterm of M
+
+  \uncover<2->{
+    Already difficult enough to read, but just what we would intuitively do.
+    So on paper, we can get by with some handwaving.
+  }
+
+}
+
+
+\frame{
+
+  \frametitle{Simple Substitution}
+
+  In Coq:
+
+}
+
+
+\section{Conclusions}
+
+
+\frame{
+
+  \frametitle{Names and Numbers in Binding}
+
+  \tableofcontents[currentsection]
 
 }
 
@@ -245,9 +235,9 @@ March 13, 2009}
   \frametitle{Conclusion}
 
   \begin{itemize}
-    \item Verifying transformations such as CPS is tedious, but necessary
-    \item $\alpha$-conversion is a big problem in mechanized proofs
-    \item Closer look at related work is needed for more conclusions
+    \item One conclusion
+    \item Second conclusion
+    \item Conclusion of conclusions
   \end{itemize}
 
 }

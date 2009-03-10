@@ -102,7 +102,7 @@ variables when needed. This brings us to the following generalization:
 
 Substituting N for x in M (M[N/x]) is defined inductively on M:
 
-  y[N/x]       = x if y=x, y otherwise
+  y[N/x]       = N if y=x, y otherwise
   (\y.M')[N/x] = \z.(M'[z/y][N/x]) for z not free in N and M'
   (M1 M2)[N/x] = (M1[N/x]) (M2[N/x])
 
@@ -353,7 +353,24 @@ sometimes an inherently simple operation of the representation (as is the
 case in HOAS) while there may be other difficulties. And what is the goal
 of our representation anyway?
 
-To this end, the POPLmark challenge was constructed. It not only addresses
-the problem of binding, but it is a major part of the challenge. The
-challenge aims to give some verifiable properties which 'good'
+To this end, the POPLmark challenge was constructed. It addresses more than
+just the problem of binding, but binding is a major part of the challenge.
+The challenge aims to give some verifiable properties which 'good'
 representations should have.
+
+In the POPLmark challenge, the question is posed how close we are to a world
+where every paper on programming languages is accompanied by an electronic
+appendix with machine-checked proofs. The challenge consists of a set of
+benchmarks for measuring progress in this area.
+
+Part 1a consists of proving reflexivity and transitivity of subtyping in
+System Fsub, a typed lambda-calculus with second-order polymorphism and
+subtyping.
+
+Several solutions written in Coq have been submitted:
+* Named variables (Stump)
+* de-Bruijn indices (Vouillon, Sallinens, Chargueraud)
+* Locally-nameless (Chlipala, Leroy, Chargueraud)
+* Nested datatypes (Hirschowitz and Maggesi)
+
+(Nested datatypes: de-Bruijn with non-regular datatype and refined typing.)
