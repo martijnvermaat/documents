@@ -8,6 +8,8 @@
 \usepackage[T1]{fontenc}
 \usepackage{ae,aecompl}
 
+\usepackage{listings}
+
 \usepackage{beamerthemesplit}
 
 \setbeamertemplate{background canvas}[vertical shading][bottom=red!10,top=blue!10]
@@ -19,6 +21,34 @@
 \colorlet{darkred}{red!80!black}
 \colorlet{darkblue}{blue!80!black}
 \colorlet{darkgreen}{green!80!black}
+
+\lstdefinelanguage{Coq}{
+  mathescape=true,
+  texcl=false,
+  keywords={Require, Declare},
+  morekeywords={forall, exists, with, match, let, in, if, then, else},
+  morekeywords={
+    destruct, change, Variable, Inductive, CoInductive, Fixpoint, CoFixpoint, Definition,
+    Lemma, Theorem, Proof, Axiom, Local, Save, Grammar, Syntax, Intro, Trivial,
+    Qed, Intros, Symmetry, Simpl, Rewrite, Apply, Elim, Assumption, Left,
+    Cut, Case, Auto, Unfold, Exact, Right},
+  morekeywords={Section, Module, End},
+  emph={[1]Type, Set, nat, bool}, emphstyle={[1]\textit},
+  comment=[s]{(*}{*)},
+  showstringspaces=false,
+}%[keywords,comments,strings]%
+
+\lstset{
+  numbers=none,
+  basicstyle=\footnotesize\ttfamily,
+  frame=tb,
+  language=Coq,
+  captionpos=b,
+  xleftmargin=0em,
+  xrightmargin=0em,
+  aboveskip=1em,
+  belowskip=1em
+}
 
 
 \title{Names and Numbers in Binding}
@@ -209,13 +239,155 @@ March 13, 2009}
 }
 
 
-\frame{
+\begin{frame}[fragile]
 
-  \frametitle{Simple Substitution}
+  \frametitle{Named Variables in Coq}
 
-  In Coq:
+  Term datatype:
+  \begin{lstlisting}
+Inductive term : Set :=
+  | Var : name -> term
+  | Abs : name -> term -> term
+  | App : term -> term -> term.
+  \end{lstlisting}
 
-}
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+  \frametitle{Named Variables in Coq}
+
+  Simple substitution:
+  \begin{lstlisting}
+Fixpoint subst (t:term) (n:name) (t':term)
+  {struct t'} : term :=
+  match t' with
+  | Var x =>
+      if eq_name x n then t else t'
+  | Abs x b =>
+      let z := fresh_name
+                 (n :: (free_vars t) ++ (free_vars b))
+      in
+      Abs z (subst t n (rename x z b))
+  | App f a =>
+      App (subst t n f) (subst t n a)
+end.
+  \end{lstlisting}
+  \uncover<2->{
+    \emph{But this is ill-defined.}
+  }
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+  \frametitle{Named Variables in Coq}
+
+  Using term size as a measure:
+  \begin{lstlisting}
+Fixpoint size (t:term) : nat :=
+  match t with
+  | Var _   => 0
+  | Abs x b => S (size b)
+  | App f a => 1 + (size f) + (size a)
+end.
+
+Lemma size_rename : forall (n n':name) (t:term),
+  size (rename n n' t) = size t.
+Proof.
+unfold size.
+unfold rename.
+induction t;
+  [ case (eq_name n0 n); intro; trivial  (* Var *)
+  | congruence                           (* Abs *)
+  | congruence ].                        (* App *)
+Qed.
+  \end{lstlisting}
+
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+
+  \frametitle{Named Variables in Coq}
+
+  Substitution with term size as a recursion measure:
+  \begin{lstlisting}
+Function subst (t:term) (n:name) (t':term)
+  {measure size t'} : term :=
+  match t' with
+  | Var x =>
+      if eq_name x n then t else t'
+  | Abs x b =>
+      let z := fresh_name
+                 (n :: (free_vars t) ++ (free_vars b))
+      in
+      Abs z (subst t n (rename x z b))
+  | App f a =>
+      App (subst t n f) (subst t n a)
+end.
+(* Leaves us with 3 obligations. *)
+  \end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+  \frametitle{Named Variables in Coq}
+
+  Proving termination of \texttt{subst}:
+  \begin{lstlisting}
+Proof.
+intros.
+rewrite size_rename.
+auto.
+
+intros.
+unfold size.
+inversion f; omega.
+
+intros.
+unfold size.
+inversion a; omega.
+Defined.
+  \end{lstlisting}
+  \uncover<2->{
+    We really prefer structural recursion.
+  }
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+  \frametitle{Named Variables in Coq}
+
+  Stoughton suggests simultaneous substitution:
+  \begin{lstlisting}
+Fixpoint sim_subst (l:list (term*name)) (t:term)
+  {struct t} : term :=
+  match t with
+  | Var x =>
+      apply_subst l x
+  | Abs x b =>
+      let z := fresh_name
+                  ((free_vars_sub l) ++ (free_vars b))
+      in
+      Abs z (sim_subst ((Var z, x)::l) b)
+  | App f a =>
+      App (sim_subst l f) (sim_subst l a)
+end.
+
+Definition subst' (t:term) (n:name) (t':term)
+  : term := sim_subst ((t, n) :: nil) t'.
+  \end{lstlisting}
+
+\end{frame}
 
 
 \section{Conclusions}
