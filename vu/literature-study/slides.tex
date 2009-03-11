@@ -200,8 +200,8 @@ March 13, 2009}
     \item Substitution $M[N/x]$:
       \begin{align*}
         x[N/x]              &= N\\
-        y[N/x]              &= y                  && \text{$y \neq x$} \\
-        (\lambda y.M')[N/x] &= \lambda y.M'[N/x]  && \text{$y \neq x$ and $y$ not free in $N$} \\ % TODO: fix layout
+        y[N/x]              &= y                  && \text{$x \neq y$} \\
+        (\lambda y.M')[N/x] &= \lambda y.M'[N/x]  && \text{$x \neq y$ and $y$ not free in $N$} \\ % TODO: fix layout
         (M_1 \; M_2)[N/x]   &= M_1[N/x] \; M_2[N/x]
       \end{align*}
 
@@ -224,7 +224,7 @@ March 13, 2009}
   substituting $N$ for $x$ in $M$ inductively$^*$ on M:
 
   \begin{align*}
-    x[N/x]              &= \text{$N$ if $y = x$, $y$ otherwise}\\
+    x[N/x]              &= \text{$N$ if $x = y$, $y$ otherwise}\\
     (\lambda y.M')[N/x] &= \lambda z.M'[z/y][N/x]  && \text{$z$ not free in $N, M'$} \\ % TODO: fix layout
     (M_1 \; M_2)[N/x]   &= M_1[N/x] \; M_2[N/x]
   \end{align*}
@@ -388,6 +388,142 @@ Definition subst' (t:term) (n:name) (t':term)
   \end{lstlisting}
 
 \end{frame}
+
+
+\frame{
+
+  \frametitle{de Bruijn Indices}
+
+  Represent variable occurrences by numbers:
+  \begin{align*}
+    M ::=             &\; n
+    && \text{variable} \\
+    \llap{\textbar\:} &\; \lambda .M
+    && \text{abstraction} \\
+    \llap{\textbar\:} &\; M \; M
+    && \text{application} \\
+  \end{align*}
+
+  \uncover<2->{
+    \begin{itemize}
+      \item Harder to read
+      \item $\alpha$-equivalence is term equivalence
+      \item Substitution is structurally recursive
+      \item No renaming (but lifting)
+      \item Mechanically less tedious
+    \end{itemize}
+  }
+
+}
+
+
+\begin{frame}
+
+  \frametitle{de Bruijn Indices}
+
+  Substitution can be defined as:
+  \begin{align*}
+    n[N/n]             &= N\\
+    m[N/n]             &= m                    && \text{$m \neq n$} \\
+    (\lambda .M')[N/n] &= \lambda .M'[\uparrow \! N / n\!+\!1]\\
+    (M_1 \; M_2)[N/n]  &= M_1[N/n] \; M_2[N/n]
+  \end{align*}
+  where $\uparrow \! M$ is $M$ with all free variables incremented.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+  \frametitle{de Bruijn Indices in Coq}
+
+  Term datatype:
+  \begin{lstlisting}
+Inductive term : Set :=
+  | Var : nat -> term
+  | Abs : term -> term
+  | App : term -> term -> term.
+  \end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+  \frametitle{de Bruijn Indices in Coq}
+
+  Substitution:
+  \begin{lstlisting}
+Fixpoint lift (l:nat) (t:term) {struct t} : term :=
+  match t with
+  | Var n   => Var (if le_lt_dec l n then (S n)
+                    else n)
+  | Abs u   => Abs (lift (S l) u)
+  | App u v => App (lift l u) (lift l v)
+end.
+
+Fixpoint subst (t:term) (n:nat) (t':term)
+  {struct t'} : term :=
+  match t' with
+  | Var m   => if eq_nat_dec n m then t else t'
+  | Abs u   => Abs (subst (lift 0 t) (S n) u)
+  | App u v => App (subst t n u) (subst t n v)
+end.
+  \end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}
+
+  \frametitle{Locally Nameless Representation}
+
+  Combine names and numbers -- names for free variables, de Bruijn indices for bound variables:
+  \begin{align*}
+    M ::=             &\; x
+    && \text{free variable} \\
+    \llap{\textbar\:} &\; n
+    && \text{bound variable} \\
+    \llap{\textbar\:} &\; \lambda .M
+    && \text{abstraction} \\
+    \llap{\textbar\:} &\; M \; M
+    && \text{application} \\
+  \end{align*}
+
+  \uncover<2->{
+    \begin{itemize}
+      \item $\alpha$-equivalence is term equivalence
+      \item No renaming, no lifting (but freshening)
+      \item Substitution is not structurally recursive
+    \end{itemize}
+  }
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+  \frametitle{Locally Nameless Representation in Coq}
+
+  Term datatype:
+  \begin{lstlisting}
+Inductive term : Set :=
+  | FreeVar  : name -> term
+  | BoundVar : nat -> term
+  | Abs      : term -> term
+  | App      : term -> term -> term.
+  \end{lstlisting}
+
+\end{frame}
+
+
+
+
+
+
+
+
 
 
 \section{Conclusions}
