@@ -33,7 +33,7 @@
     Qed, Intros, Symmetry, Simpl, Rewrite, Apply, Elim, Assumption, Left,
     Cut, Case, Auto, Unfold, Exact, Right},
   morekeywords={Section, Module, End},
-  emph={[1]Type, Set, nat, bool}, emphstyle={[1]\textit},
+  %emph={[1]Type, Set, nat, bool}, emphstyle={[1]\textit},
   comment=[s]{(*}{*)},
   showstringspaces=false,
 }%[keywords,comments,strings]%
@@ -135,7 +135,25 @@ March 13, 2009}
 }
 
 
-\section{Representing Bindings}
+\frame{
+
+  \frametitle{Representing Bindings}
+
+  Classical problems related to binders and variables:
+
+  \begin{itemize}
+    \item $\alpha$-equivalence
+    \item $\alpha$-conversion (e.g. in substitution)
+  \end{itemize}
+
+  \uncover<2->{
+    Let's look at some representations.
+  }
+
+}
+
+
+\section{Representing Bindings: Named Variables}
 
 
 \frame{
@@ -149,25 +167,7 @@ March 13, 2009}
 
 \frame{
 
-  \frametitle{Representing Bindings}
-
-  Classical problems related to binders and variables:
-
-  \begin{itemize}
-    \item $\alpha$-conversion
-    \item substitution
-  \end{itemize}
-
-  \uncover<2->{
-    Let's look at some representations.
-  }
-
-}
-
-
-\frame{
-
-  \frametitle{Traditional Representation}
+  \frametitle{Traditional Representation 1/2}
 
   \begin{block}{Running example}
     Substitution in untyped $\lambda$-calculus
@@ -183,7 +183,7 @@ March 13, 2009}
       \llap{\textbar\:} &\; M \; M
       && \text{application} \\
     \end{align*}
-
+    Abstractions introduce names.
   }
 
 }
@@ -191,7 +191,7 @@ March 13, 2009}
 
 \frame{
 
-  \frametitle{Traditional Representation}
+  \frametitle{Traditional Representation 2/2}
 
   \begin{itemize}
 
@@ -206,7 +206,7 @@ March 13, 2009}
       \end{align*}
 
     \item Now implement this
-      % alpha-conversion is very hard
+      % alpha-quivalence is very hard
       % side-conditions are declarative
       % (\x.M)[N/x] not even defined
       % use variable convention, or a more general substitution (next slide)
@@ -256,7 +256,7 @@ Inductive term : Set :=
 
 \begin{frame}[fragile]
 
-  \frametitle{Named Variables in Coq}
+  \frametitle{Substitution in Coq}
 
   Simple substitution:
   \begin{lstlisting}
@@ -283,7 +283,7 @@ end.
 
 \begin{frame}[fragile]
 
-  \frametitle{Named Variables in Coq}
+  \frametitle{Recursion on Term Size in Coq 1/3}
 
   Using term size as a measure:
   \begin{lstlisting}
@@ -309,11 +309,9 @@ Qed.
 \end{frame}
 
 
-
-
 \begin{frame}[fragile]
 
-  \frametitle{Named Variables in Coq}
+  \frametitle{Recursion on Term Size in Coq 2/3}
 
   Substitution with term size as a recursion measure:
   \begin{lstlisting}
@@ -338,7 +336,7 @@ end.
 
 \begin{frame}[fragile]
 
-  \frametitle{Named Variables in Coq}
+  \frametitle{Recursion on Term Size in Coq 3/3}
 
   Proving termination of \texttt{subst}:
   \begin{lstlisting}
@@ -363,11 +361,36 @@ Defined.
 \end{frame}
 
 
+\frame{
+
+  \frametitle{Simultaneous Substitution}
+
+  Stoughton suggests the structurally recursive simultaneous substitution $M \sigma$:
+  \begin{align*}
+    x \sigma              &= \sigma x\\
+    (\lambda x.M') \sigma &= \lambda y.(M' \; \sigma[y/x])  && \text{$y$ not free in $M', \sigma$}\\
+    (M_1 \; M_2) \sigma   &= M_1 \sigma \; M_2 \sigma
+  \end{align*}
+  where
+  \begin{equation*}
+    \sigma[N/y] \; x =
+    \begin{cases}
+      N        & \text{if $x = y$,}\\
+      \sigma x & \text{otherwise}
+    \end{cases}
+  \end{equation*}
+
+  \uncover<2->{
+    Substituting $N$ for $x$ in $M$ is now $M \; \iota [N/x]$ with $\iota$ the identity substitution.
+  }
+
+}
+
+
 \begin{frame}[fragile]
 
-  \frametitle{Named Variables in Coq}
+  \frametitle{Simultaneous Substitution in Coq}
 
-  Stoughton suggests simultaneous substitution:
   \begin{lstlisting}
 Fixpoint sim_subst (l:list (term*name)) (t:term)
   {struct t} : term :=
@@ -390,11 +413,23 @@ Definition subst' (t:term) (n:name) (t':term)
 \end{frame}
 
 
+\section{Representing Bindings: de Bruijn Indices}
+
+
 \frame{
 
-  \frametitle{de Bruijn Indices}
+  \frametitle{Names and Numbers in Binding}
 
-  Represent variable occurrences by numbers:
+  \tableofcontents[currentsection]
+
+}
+
+
+\frame{
+
+  \frametitle{de Bruijn Indices 1/2}
+
+  Represent variable occurrences by number of binders between itself and abstraction:
   \begin{align*}
     M ::=             &\; n
     && \text{variable} \\
@@ -419,7 +454,7 @@ Definition subst' (t:term) (n:name) (t':term)
 
 \begin{frame}
 
-  \frametitle{de Bruijn Indices}
+  \frametitle{de Bruijn Indices 2/2}
 
   Substitution can be defined as:
   \begin{align*}
@@ -450,7 +485,7 @@ Inductive term : Set :=
 
 \begin{frame}[fragile]
 
-  \frametitle{de Bruijn Indices in Coq}
+  \frametitle{Substitution in Coq}
 
   Substitution:
   \begin{lstlisting}
@@ -474,9 +509,21 @@ end.
 \end{frame}
 
 
+\section{Representing Bindings: Locally Nameless}
+
+
+\frame{
+
+  \frametitle{Names and Numbers in Binding}
+
+  \tableofcontents[currentsection]
+
+}
+
+
 \begin{frame}
 
-  \frametitle{Locally Nameless Representation}
+  \frametitle{Locally Nameless Representation 1/3}
 
   Combine names and numbers -- names for free variables, de Bruijn indices for bound variables:
   \begin{align*}
@@ -494,10 +541,55 @@ end.
     \begin{itemize}
       \item $\alpha$-equivalence is term equivalence
       \item No renaming, no lifting (but freshening)
-      \item Substitution is not structurally recursive
+      \item Substitution is structurally recursive
     \end{itemize}
   }
 
+\end{frame}
+
+
+\begin{frame}
+
+  \frametitle{Locally Nameless Representation 2/3}
+
+  Two substitution operations:
+  \begin{itemize}
+  \item Substitute a term for a named variable
+  \item Substitute a term for a de Bruijn index
+  \end{itemize}
+
+  Named variable substitution:
+  \begin{align*}
+    x[N/x]             &= N\\
+    y[N/x]             &= y                 && \text{$x \neq y$} \\
+    n[N/x]             &= n\\
+    (\lambda .M')[N/x] &= \lambda .M'[N/x]\\
+    (M_1 \; M_2)[N/x]  &= M_1[N/x] \; M_2[N/x]
+  \end{align*}
+  No renaming.
+
+\end{frame}
+
+
+\begin{frame}
+
+  \frametitle{Locally Nameless Representation 3/3}
+
+  Two substitution operations:
+  \begin{itemize}
+  \item Substitute a term for a named variable
+  \item Substitute a term for a de Bruijn index
+  \end{itemize}
+
+  de Bruijn substitution:
+  \begin{align*}
+    x[N/n]             &= x\\
+    n[N/n]             &= N\\
+    m[N/n]             &= m                    && \text{$m \neq n$} \\
+    (\lambda .M')[N/n] &= \lambda .M'[N / n\!+\!1]\\
+    (M_1 \; M_2)[N/n]  &= M_1[N/n] \; M_2[N/n]
+  \end{align*}
+  No lifting.
 
 \end{frame}
 
@@ -518,7 +610,54 @@ Inductive term : Set :=
 \end{frame}
 
 
+\begin{frame}[fragile]
 
+  \frametitle{Named Variable Substitution in Coq}
+
+  Substitute a term for a named variable:
+  \begin{lstlisting}
+Fixpoint subst (t:term) (x:name) (t':term)
+  {struct t'} : term :=
+  match t' with
+  | FreeVar y  => if eq_name x y then t else t'
+  | BoundVar n => t'
+  | Abs b      => Abs (subst t x b)
+  | App f a    => App (subst t x f) (subst t x a)
+end.
+  \end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+  \frametitle{de Bruijn Substitution in Coq}
+
+  Substitute a term for a de Bruijn index:
+  \begin{lstlisting}
+Fixpoint subst (t:term) (n:nat) (t':term)
+  {struct t'} : term :=
+  match t' with
+  | FreeVar x  => t'
+  | BoundVar m => if eq_nat_dec m n then t else t'
+  | Abs b      => Abs (subst t (S n) b)
+  | App f a    => App (subst t n f) (subst t n a)
+end.
+  \end{lstlisting}
+
+\end{frame}
+
+
+\section{The POPLmark Challenge}
+
+
+\frame{
+
+  \frametitle{Names and Numbers in Binding}
+
+  \tableofcontents[currentsection]
+
+}
 
 
 

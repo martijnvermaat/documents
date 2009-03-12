@@ -5,7 +5,6 @@
 *)
 
 Require Import Arith.
-Require Import Omega.
 
 Inductive term : Set :=
   | Var : nat -> term
