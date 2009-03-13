@@ -374,3 +374,26 @@ Several solutions written in Coq have been submitted:
 * Nested datatypes (Hirschowitz and Maggesi)
 
 (Nested datatypes: de-Bruijn with non-regular datatype and refined typing.)
+
+Part 1b: Transitivity of subtyping with records
+Part 2a: Type safety
+Part 2b: Type safety with records and pattern matching
+Part 3: Implement the semantics
+
+Stump
+=====
+
+Named variables.
+
+Use grafting (naive substitution) instead of (capture-avoiding) substitution,
+possible by using disjoint sets for free and bound variables.
+
+Adapt SA-All typing rule using a fresh variable to circumvent alpha-equivalence
+issues.
+
+
+Vouillon
+========
+
+Leroy
+=====

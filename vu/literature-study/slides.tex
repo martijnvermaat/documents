@@ -5,6 +5,9 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 
+% Typesetting evaluation rules (http://cristal.inria.fr/~remy/latex/)
+\usepackage{mathpartir}
+
 \usepackage[T1]{fontenc}
 \usepackage{ae,aecompl}
 
@@ -135,25 +138,7 @@ March 13, 2009}
 }
 
 
-\frame{
-
-  \frametitle{Representing Bindings}
-
-  Classical problems related to binders and variables:
-
-  \begin{itemize}
-    \item $\alpha$-equivalence
-    \item $\alpha$-conversion (e.g. in substitution)
-  \end{itemize}
-
-  \uncover<2->{
-    Let's look at some representations.
-  }
-
-}
-
-
-\section{Representing Bindings: Named Variables}
+\section{Representing Bindings}
 
 
 \frame{
@@ -167,24 +152,51 @@ March 13, 2009}
 
 \frame{
 
-  \frametitle{Traditional Representation 1/2}
+  \frametitle{Representing Bindings}
 
-  \begin{block}{Running example}
-    Substitution in untyped $\lambda$-calculus
-  \end{block}
+  Classical problems related to binders and variables:
+
+  \begin{itemize}
+    \item $\alpha$-equivalence
+    \item $\alpha$-conversion (e.g. in substitution)
+  \end{itemize}
 
   \uncover<2->{
-    Traditional representation with named variables:
-    \begin{align*}
-      M ::=             &\; x
-      && \text{variable} \\
-      \llap{\textbar\:} &\; \lambda x.M
-      && \text{abstraction} \\
-      \llap{\textbar\:} &\; M \; M
-      && \text{application} \\
-    \end{align*}
-    Abstractions introduce names.
+    Let's look at some representations.
+    \begin{block}{Running example}
+      Substitution in untyped $\lambda$-calculus
+    \end{block}
   }
+
+}
+
+
+\subsection{Named Variables}
+
+
+\frame{
+
+  \frametitle{Names and Numbers in Binding}
+
+  \tableofcontents[currentsubsection]
+
+}
+
+
+\frame{
+
+  \frametitle{Traditional Representation 1/2}
+
+  Traditional representation with named variables:
+  \begin{align*}
+    M ::=             &\; x
+    && \text{variable} \\
+    \llap{\textbar\:} &\; \lambda x.M
+    && \text{abstraction} \\
+    \llap{\textbar\:} &\; M \; M
+    && \text{application} \\
+  \end{align*}
+  Abstractions introduce names.
 
 }
 
@@ -413,14 +425,14 @@ Definition subst' (t:term) (n:name) (t':term)
 \end{frame}
 
 
-\section{Representing Bindings: de Bruijn Indices}
+\subsection{de Bruijn Indices}
 
 
 \frame{
 
   \frametitle{Names and Numbers in Binding}
 
-  \tableofcontents[currentsection]
+  \tableofcontents[currentsubsection]
 
 }
 
@@ -509,14 +521,14 @@ end.
 \end{frame}
 
 
-\section{Representing Bindings: Locally Nameless}
+\subsection{Locally Nameless}
 
 
 \frame{
 
   \frametitle{Names and Numbers in Binding}
 
-  \tableofcontents[currentsection]
+  \tableofcontents[currentsubsection]
 
 }
 
@@ -648,7 +660,179 @@ end.
 \end{frame}
 
 
-\section{The POPLmark Challenge}
+\section{Applications}
+
+
+\subsection{The POPLmark Challenge}
+
+
+\frame{
+
+  \frametitle{Names and Numbers in Binding}
+
+  \tableofcontents[currentsubsection]
+
+}
+
+
+\begin{frame}
+
+  \frametitle{The POPLmark Challenge}
+
+  Mechanized metatheory for the masses:
+  \begin{quote}
+    Your average POPL paper should include machine-checked proofs
+  \end{quote}
+
+  Set of benchmarks for measuring progress:
+  \begin{itemize}
+    \item Based on metatheory of System F$_\texttt{<\!:}$
+    \item Binding issues are a central aspect
+    \item 15 (partial) solutions
+    \item Part 1a: transitivity of subtyping
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+  \frametitle{Syntax of System F$_\texttt{<\!:}$}
+
+  Part 1a considers just the type language of F$_\texttt{<\!:}$.
+
+  \begin{align*}
+    T ::=             &\; X
+    && \text{type variable} \\
+    \llap{\textbar\:} &\; \texttt{Top}
+    && \text{maximum type} \\
+    \llap{\textbar\:} &\; T \rightarrow T
+    && \text{type of functions} \\
+    \llap{\textbar\:} &\; \forall X\texttt{\small<\!:}T.T
+    && \text{universal type} \\[2em]
+    \Gamma ::=        &\; \emptyset
+    && \text{empty type environment} \\
+    \llap{\textbar\:} &\; \Gamma, X \texttt{\small<\!:}T
+    && \text{type variable binding} \\
+  \end{align*}
+
+\end{frame}
+
+
+\begin{frame}
+
+  \frametitle{Subtyping rules of System F$_\texttt{<\!:}$}
+
+  \begin{mathpar}
+    \infer*[right=SA-Top]
+           {\:}
+           {\Gamma \vdash S \texttt{\large<\!:} \texttt{Top}}
+    \and
+    \infer*[right=SA-Refl-TVar]
+           {\:}
+           {\Gamma \vdash X \texttt{\large<\!:} X}
+    \\
+    \infer*[right=SA-Trans-TVar]
+           {X \texttt{\small<\!:} U \in \Gamma
+             \\ \Gamma \vdash U \texttt{\large<\!:} T}
+           {\Gamma \vdash X \texttt{\large<\!:} T}
+    \\
+    \infer*[right=SA-Arrow]
+           {\Gamma \vdash T_1 \texttt{\large<\!:} S_1
+             \\ \Gamma \vdash S_2 \texttt{\large<\!:} T_2}
+           {\Gamma \vdash S_1 \rightarrow S_2 \; \texttt{\large<\!:} \; T_1 \rightarrow T_2}
+    \\
+    \infer*[right=SA-All]
+           {\Gamma \vdash T_1 \texttt{\large<\!:} S_1
+             \\ \Gamma, X \texttt{\small<\!:} T_1 \vdash S_2 \texttt{\large<\!:} T_2}
+           {\Gamma \vdash \forall X \texttt{\small<\!:} S_1.S_2 \; \texttt{\large<\!:} \; \forall X \texttt{\small<\!:} T_1.T_2}
+  \end{mathpar}
+
+  POPLmark 1a: transitivity of $\texttt{<\!:}$
+
+\end{frame}
+
+
+\begin{frame}
+
+  \frametitle{Solutions in Coq}
+
+  Named variables:
+  \begin{itemize}
+    \item Stump
+  \end{itemize}
+
+  de Bruijn indices:
+  \begin{itemize}
+    \item Vouillon
+    \item Sallinens
+    \item Charg\'eraud
+  \end{itemize}
+
+  Locally nameless:
+  \begin{itemize}
+    \item Leroy
+    \item Chlipala
+    \item Chargu\'eraud
+  \end{itemize}
+
+  Nested datatypes:
+  \begin{itemize}
+    \item Hirschowitz and Maggesi
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+  \frametitle{Stump -- Named Variables}
+
+  Two main techniques to avoid difficulties with named variables:
+  \begin{enumerate}
+    \item Free and bound variables are disjoint
+      \begin{itemize}
+        \item Substitution is just grafting
+      \end{itemize}
+    \item \uncover<2->{Use common bound variable in the bodies of the SA-All rule
+      \begin{itemize}
+        \item Avoid $\alpha$-equivalence issues
+        \item Original rule:
+          \begin{mathpar}
+            \infer*[right=SA-All]
+                   {\Gamma \vdash T_1 \texttt{\large<\!:} S_1
+                     \\ \Gamma, X \texttt{\small<\!:} T_1 \vdash S_2 \texttt{\large<\!:} T_2}
+                   {\Gamma \vdash \forall X \texttt{\small<\!:} S_1.S_2 \; \texttt{\large<\!:} \; \forall X \texttt{\small<\!:} T_1.T_2}
+          \end{mathpar}
+        \item \uncover<3->{Adapted rule:
+          \begin{mathpar}
+            \infer*[right=SA-All]
+                   {\Gamma \vdash T_1 \texttt{\large<\!:} S_1
+                     \\ \Gamma, X \texttt{\small<\!:} T_1 \vdash S_2[X/X_1] \; \texttt{\large<\!:} \; T_2[X/X_2]}
+                   {\Gamma \vdash \forall X_1 \texttt{\small<\!:} S_1.S_2 \; \texttt{\large<\!:} \; \forall X_2 \texttt{\small<\!:} T_1.T_2}
+          \end{mathpar}}}
+      \end{itemize}
+  \end{enumerate}
+
+\end{frame}
+
+
+\begin{frame}
+
+  \frametitle{Vouillon -- de Bruijn Indices}
+
+  Ja.
+
+\end{frame}
+
+
+\subsection{Engineering Formal Metatheory}
+
+
+\subsection{I Am Not a Number -- I Am a Free Variable}
+
+
+\section{Related Work}
 
 
 \frame{
@@ -658,11 +842,6 @@ end.
   \tableofcontents[currentsection]
 
 }
-
-
-
-
-
 
 
 \section{Conclusions}
