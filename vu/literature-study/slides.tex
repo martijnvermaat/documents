@@ -836,7 +836,8 @@ end.
      \begin{itemize}
        \item Useless case in de Bruijn substitution
        \item Treat well-formed typing environments as sets
-       \item Adaptation of SA-All rule
+       \item Cofinite quantification of free variable in SA-All
+       \item Proofs by induction on well-formdness derivation instead of size
      \end{itemize}
   \end{itemize}
 
@@ -846,19 +847,74 @@ end.
 \subsection{Engineering Formal Metatheory}
 
 
+\frame{
+
+  \frametitle{Names and Numbers in Binding}
+
+  \tableofcontents[currentsubsection]
+
+}
+
+
+\begin{frame}
+
+  \frametitle{Engineering Formal Metatheory}
+
+  Aydemir et al, POPL'08: {\em Engineering Formal Metatheory}\\[2em]
+
+  Complete style for formalizing language metatheory:
+  \begin{itemize}
+    \item Building on experience from POPLmark solutions
+    \item Locally nameless representation
+    \item Cofinite quantification of free variables in inductive definitions of relations on terms\\[2em]
+  \end{itemize}
+
+  Implemented in this style:
+  \begin{itemize}
+    \item Parts of POPLmark challenge
+    \item Type soundness for core ML
+    \item Subject reduction for Calculus of Constructions
+    \item Several small developments
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+  \frametitle{LNgen}
+
+  Aydemir and Weirich, this Wednesday:
+  \begin{quote}
+    LNgen: Tool Support for Locally Nameless Representations\\[2em]
+  \end{quote}
+
+  Building on {\em Engineering Formal Metatheory}:
+  \begin{itemize}
+    \item Takes Ott-like specifications
+    \item Generates locally nameless infrastructure for Coq
+  \end{itemize}
+
+\end{frame}
+
+
 \subsection{I Am Not a Number -- I Am a Free Variable}
-
-
-\section{Related Work}
 
 
 \frame{
 
   \frametitle{Names and Numbers in Binding}
 
-  \tableofcontents[currentsection]
+  \tableofcontents[currentsubsection]
 
 }
+
+
+\begin{frame}
+
+  \frametitle{TODO}
+
+\end{frame}
 
 
 \section{Conclusions}
@@ -873,17 +929,85 @@ end.
 }
 
 
+\begin{frame}
+
+  \frametitle{Related Work}
+
+  Other Representations
+
+  \begin{block}{Nominal Representation}
+    \begin{itemize}
+    \item Based on nominal logic (Pitts, Gabbay)
+    \item Names for variables
+    \item Swapping as primitive
+    \item Urban in Isabelle/HOL
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Higher Order Abstract Syntax}
+    \begin{itemize}
+    \item Meta-variables for variables
+    \item Meta-functions for functions
+    \item $\alpha$-equivalence for free
+    \item No renaming needed
+    \item Leads to quite unusual formulations
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
+
 \frame{
 
-  \frametitle{Conclusion}
+  \frametitle{Conclusion 1/2}
 
+  Named variables:
   \begin{itemize}
-    \item One conclusion
-    \item Second conclusion
-    \item Conclusion of conclusions
+    \item Closest to paper, but too much trouble mechanically\\[1em]
   \end{itemize}
 
+  \uncover<2->{
+    de Bruijn indices:
+    \begin{itemize}
+    \item Good candidate for mechanical developments
+    \item Involves a lot of `easy' work
+    \item Not so easy to read\\[1em]
+    \end{itemize}
+  }
+
+  \uncover<3->{
+    Locally nameless representation:
+    \begin{itemize}
+    \item Improves on de Bruijn
+    \item Still quite some boilerplate code
+    \item Tools like LNgen might make it feasible\\[1em]
+    \end{itemize}
+  }
+
+  \uncover<4->{
+    Nominal approaches are promissing
+  }
+
 }
+
+
+\begin{frame}
+
+  \frametitle{Conclusion 2/2}
+
+  Of course, it also depends on your goal:
+  \begin{itemize}
+    \item A language implementation might not need to be close to its concrete syntax
+    \item Metatheory for many users on the other hand probably does\\[1em]
+  \end{itemize}
+
+  \ldots and on your environment:
+  \begin{itemize}
+    \item We focussed on Coq
+    \item There are other tools
+  \end{itemize}
+
+\end{frame}
 
 
 \begin{frame}
@@ -892,7 +1016,7 @@ end.
 
   Questions?\\[4em]
 
-  \begin{block}{Further Reading}
+  \begin{block}{Further Reading} % TODO
     \begin{itemize}
       \item Plotkin, 1975: {\em Call-by-name, Call-by-value and the lambda-calculus}
       \item Danvy and Filinski, 1992: {\em Representing control: a study of the CPS transformation}
