@@ -812,7 +812,33 @@ end.
 
   \frametitle{Vouillon -- de Bruijn Indices}
 
+  \begin{itemize}
+    \item Very clear implementation, even suggested as baseline by POPLmark team
+    \item A lot of code deals with shifting (but straightforward)
+    \item Proofs not by structural induction, but by induction on the size of types
+    \item Narrowing and transitivity are proved separately
+    \item Unfortunately no accompanying paper
+  \end{itemize}
 
+\end{frame}
+
+
+\begin{frame}
+
+  \frametitle{Leroy -- Locally Nameless Representation}
+
+  \begin{itemize}
+   \item Two substitution operations, no renaming or lifting
+   \item Considering abstraction bodies, freshening is needed
+   \item Proofs not by structural induction, but by induction on the size of types
+   \item A lot of code deals with swaps (used for equivariance proofs)
+   \item Room for improvements, some implemented by Chargu\'eraud
+     \begin{itemize}
+       \item Useless case in de Bruijn substitution
+       \item Treat well-formed typing environments as sets
+       \item Adaptation of SA-All rule
+     \end{itemize}
+  \end{itemize}
 
 \end{frame}
 

@@ -411,9 +411,33 @@ issues.
 Vouillon
 ========
 
+de Bruijn indices.
 
+Clean implementation, close to paper proofs.
 
+A lot of code for lifting (but easy).
+
+No structural induction, but induction on the size of types.
+
+Narrowing and transitivity is not proved simultaneously, but first
+transitivity is proved assuming narrowing and transitivity for smaller types,
+and narrowing is proved assuming transitivity for types of the same size.
 
 
 Leroy
 =====
+
+Locally nameless.
+
+Two substitution operations, but both are just grafting since free and bound
+variables are disjoint.
+
+In considering bodies of abstractions, freshening is needed.
+
+A lot of code related to swapping, used for equivariance lemmas.
+
+No structural induction, but induction on the size of types.
+
+Improvements to be made, some implemented in the other locally nameless
+solutions. E.g., in substituting for de bruijn indices, a case that never
+occurs is considered (which does add to a lot of proofs).
