@@ -535,7 +535,7 @@ end.
 
 \begin{frame}
 
-  \frametitle{Locally Nameless Representation 1/3}
+  \frametitle{Locally Nameless Representation 1/2}
 
   Combine names and numbers -- names for free variables, de Bruijn indices for bound variables:
   \begin{align*}
@@ -562,14 +562,15 @@ end.
 
 \begin{frame}
 
-  \frametitle{Locally Nameless Representation 2/3}
+  \frametitle{Locally Nameless Representation 2/2}
 
   Two substitution operations:
   \begin{itemize}
   \item Substitute a term for a named variable
-  \item Substitute a term for a de Bruijn index
+  \item Substitute a term for a de Bruijn index\\[2em]
   \end{itemize}
 
+  \only<2>{
   Named variable substitution:
   \begin{align*}
     x[N/x]             &= N\\
@@ -579,20 +580,9 @@ end.
     (M_1 \; M_2)[N/x]  &= M_1[N/x] \; M_2[N/x]
   \end{align*}
   No renaming.
+  }
 
-\end{frame}
-
-
-\begin{frame}
-
-  \frametitle{Locally Nameless Representation 3/3}
-
-  Two substitution operations:
-  \begin{itemize}
-  \item Substitute a term for a named variable
-  \item Substitute a term for a de Bruijn index
-  \end{itemize}
-
+  \only<3->{
   de Bruijn substitution:
   \begin{align*}
     x[N/n]             &= x\\
@@ -602,6 +592,7 @@ end.
     (M_1 \; M_2)[N/n]  &= M_1[N/n] \; M_2[N/n]
   \end{align*}
   No lifting.
+  }
 
 \end{frame}
 
@@ -759,26 +750,26 @@ end.
 
   Named variables:
   \begin{itemize}
-    \item Stump
+    \item \only<1>{Stump} \uncover<2->{{\bf Stump} (7641)}
   \end{itemize}
 
   de Bruijn indices:
   \begin{itemize}
-    \item Vouillon
-    \item Sallinens
-    \item Charg\'eraud
+    \item \only<1>{Vouillon} \uncover<2->{{\bf Vouillon} (5443)}
+    \item Sallinens \uncover<2->{(unavailable)}
+    \item Charg\'eraud \uncover<2->{(3727)}
   \end{itemize}
 
   Locally nameless:
   \begin{itemize}
-    \item Leroy
-    \item Chlipala
-    \item Chargu\'eraud
+    \item \only<1>{Leroy} \uncover<2->{{\bf Leroy} (1081+5414=6495)}
+    \item Chlipala \uncover<2->{(2650+2400=5050)}
+    \item Chargu\'eraud \uncover<2->{(803+3533=4336)}
   \end{itemize}
 
   Nested datatypes:
   \begin{itemize}
-    \item Hirschowitz and Maggesi
+    \item Hirschowitz and Maggesi \uncover<2->{(2757)}
   \end{itemize}
 
 \end{frame}
@@ -821,7 +812,7 @@ end.
 
   \frametitle{Vouillon -- de Bruijn Indices}
 
-  Ja.
+
 
 \end{frame}
 

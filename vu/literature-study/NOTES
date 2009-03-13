@@ -375,10 +375,26 @@ Several solutions written in Coq have been submitted:
 
 (Nested datatypes: de-Bruijn with non-regular datatype and refined typing.)
 
+7641 stump.v.gz
+
+3727 chargueraud-de-bruijn.v.gz
+5443 vouillon.v.gz
+
+ 803 chargueraud-locally-nameless-extra.v.gz
+3533 chargueraud-locally-nameless.v.gz
+2650 chlipala-extra.v.gz
+2400 chlipala.v.gz
+1081 leroy-extra.v.gz
+5414 leroy.v.gz
+
+2757 hirschowitz.v.gz
+
+
 Part 1b: Transitivity of subtyping with records
 Part 2a: Type safety
 Part 2b: Type safety with records and pattern matching
 Part 3: Implement the semantics
+
 
 Stump
 =====
@@ -394,6 +410,10 @@ issues.
 
 Vouillon
 ========
+
+
+
+
 
 Leroy
 =====
