@@ -365,6 +365,10 @@
         <rdf:li rdf:resource="http://thepiratebay.org/"/>
         <rdf:li rdf:resource="http://www.cs.harvard.edu/~adamc/cpdt/book/"/>
         <rdf:li rdf:resource="http://r6.ca/Goedel/goedel1.html"/>
+        <rdf:li rdf:resource="http://www.tiltshiftphotography.net/photoshop-tutorial.php"/>
+        <rdf:li rdf:resource="http://janny.vermaat.name/log/"/>
+        <rdf:li rdf:resource="http://moqtada-al-sadr.hyves.nl/"/>
+        <rdf:li rdf:resource="http://twitter.com/manicmoomoo"/>
       </rdf:Seq>
     </items>
   </channel>
@@ -2874,5 +2878,38 @@
     <dc:subject>coq</dc:subject>
     <dc:subject>math</dc:subject>
     <dc:subject>logic</dc:subject>
+  </item>
+  <item rdf:about="http://www.tiltshiftphotography.net/photoshop-tutorial.php">
+    <title>Tilt-Shift Photography Miniature Faking</title>
+    <link>http://www.tiltshiftphotography.net/photoshop-tutorial.php</link>
+    <dc:subject>gimp</dc:subject>
+    <dc:subject>photography</dc:subject>
+    <dc:subject>fun</dc:subject>
+  </item>
+  <item rdf:about="http://janny.vermaat.name/log/">
+    <title>Janny’s hobbylog</title>
+    <link>http://janny.vermaat.name/log/</link>
+    <dc:subject>food</dc:subject>
+    <dc:subject>flakkee</dc:subject>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>family</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://moqtada-al-sadr.hyves.nl/">
+    <title>Derk @ Hyves</title>
+    <link>http://moqtada-al-sadr.hyves.nl/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>photos</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>family</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://twitter.com/manicmoomoo">
+    <title>Twitter / manicmoomoo (Yvonne)</title>
+    <link>http://twitter.com/manicmoomoo</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
   </item>
 </rdf:RDF>
