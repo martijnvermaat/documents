@@ -132,11 +132,49 @@ assistent.
 
 \section{Representing Bindings}\label{sec:representing}
 
+The most common problems related to bindings are $\alpha$-equivalence and
+$\alpha$-conversion.
+
+We use untyped pure $\lambda$-calculus to illustrate three concrete
+representations for terms using names and numbers for variables.
+
+
 \subsection{Named Variables}
+
+\begin{align*}
+  M ::=             &\; x
+  && \text{variable} \\
+  \llap{\textbar\:} &\; \lambda x.M
+  && \text{abstraction} \\
+  \llap{\textbar\:} &\; M \; M
+  && \text{application} \\
+\end{align*}
+
 
 \subsection{de Bruijn Indices}
 
+\begin{align*}
+  M ::=             &\; n
+  && \text{variable} \\
+  \llap{\textbar\:} &\; \lambda .M
+  && \text{abstraction} \\
+  \llap{\textbar\:} &\; M \; M
+  && \text{application} \\
+\end{align*}
+
+
 \subsection{Locally Nameless}
+
+\begin{align*}
+  M ::=             &\; x
+  && \text{free variable} \\
+  \llap{\textbar\:} &\; n
+  && \text{bound variable} \\
+  \llap{\textbar\:} &\; \lambda .M
+    && \text{abstraction} \\
+  \llap{\textbar\:} &\; M \; M
+  && \text{application} \\
+\end{align*}
 
 I am not a number, I am a free variable.
 
