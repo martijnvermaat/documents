@@ -17,6 +17,39 @@
 \renewcommand\thefigure{\arabic{figure}}
 
 
+\usepackage{listings}
+
+
+\lstdefinelanguage{Coq}{
+  mathescape=true,
+  texcl=false,
+  keywords={Require, Declare},
+  morekeywords={forall, exists, with, match, let, in, if, then, else},
+  morekeywords={
+    destruct, change, Variable, Inductive, CoInductive, Fixpoint, CoFixpoint, Definition,
+    Lemma, Theorem, Proof, Axiom, Local, Save, Grammar, Syntax, Intro, Trivial,
+    Qed, Intros, Symmetry, Simpl, Rewrite, Apply, Elim, Assumption, Left,
+    Cut, Case, Auto, Unfold, Exact, Right},
+  morekeywords={Section, Module, End},
+  %emph={[1]Type, Set, nat, bool}, emphstyle={[1]\textit},
+  comment=[s]{(*}{*)},
+  showstringspaces=false,
+}%[keywords,comments,strings]%
+
+
+\lstset{
+  numbers=none,
+  basicstyle=\footnotesize\ttfamily,
+  frame=tb,
+  language=Coq,
+  captionpos=b,
+  xleftmargin=0em,
+  xrightmargin=0em,
+  aboveskip=1em,
+  belowskip=1em
+}
+
+
 % Must be last in preamble
 \usepackage[
   pdftex,
@@ -55,40 +88,79 @@
 
 \section{Introduction}\label{sec:introduction}
 
-A major difficulty in formal reasoning about programs are bound variables.
-Traditionally, named variables are used and reasoning is done modulo $\alpha$-equivalence.
-While this approach is yields easy to read and sufficiently precise reasoning on paper,
+As is the case in many academic fields, theory and practice in the field
+of programming languages are not as close as we would like them to be.
+Language designers often take a pragmatic approach, where the focus is
+on the observable behaviour of implementations and not much attention
+is paid to prove properties of the language in a formal way.
+Research on the theory of programming languages has a long tradition and
+provides us with a large base of techniques and results, but is mostly
+isolated in academic settings.
+Applying formal reasoning to current programming language development
+has the premise of rigorously defined practical languages with provable
+properties, but is unfortunatily not commonplace.
+
+Many tools have become available to aid formal reasoning in a mechanical
+way, such as proof assistants and theorem provers.
+Researchers can use these tools to obtain machine-checked and reusable
+proofs while language designers can use them to formally define languages,
+clearing the way for formal reasoning.
+There are several issues holding back large-scale application of such
+tools, both technical and non-technical. In this literature study, we will
+focus on one specific technical aspect.
+
+A major difficulty in formal reasoning about languages are bindings and
+bound variables.
+Traditionally, named variables are used in the representation of terms
+and reasoning is done modulo $\alpha$-equivalence.
+While this approach yields easy to read and sufficiently precise
+reasoning on paper,
 mechanical reasoning with named variables is hard:
-identification of $\alpha$-equivalent terms has to be made precise and substitution requires renaming of bound variables.
+identification of $\alpha$-equivalent terms has to be made precise and
+substitution requires renaming of bound variables in order to prevent
+accidental binding of free variables.
 
-Several approaches exist to remedy these problems, most of them using alternate representations for bindings and variables.
-We will study some of these approaches in the context of mechanical reasoning.
-
-
-\section{Named Variables}\label{sec:named}
-
-Implemented for POPLmark 1a in Coq by Stump \cite{Stump-05}.
-
-
-\section{De Bruijn Indices}\label{sec:debruijn}
-
-Implemented for POPLmark in Coq by Vouillon \cite{Vouillon-05}.
+Several approaches exist to remedy these problems.
+Some of them try to make it easier to work with named variables, while
+others propose alternate representations for bindings and variables.
+We will study some of these approaches in the context of mechanical
+reasoning, focussing on concrete representations for terms using names
+and numbers for variables.
+The approaches are illustrated with applications using the Coq proof
+assistent.
 
 
-\section{Locally Nameless}\label{sec:locally-nameless}
+\section{Representing Bindings}\label{sec:representing}
 
+\subsection{Named Variables}
+
+\subsection{de Bruijn Indices}
+
+\subsection{Locally Nameless}
+
+I am not a number, I am a free variable.
+
+
+\section{Applications}
+
+\subsection{The POPLMark Challenge}
+
+POPLmark 1a in Coq by Stump \cite{Stump-05}.
+POPLmark in Coq by Vouillon \cite{Vouillon-05}.
 McBride and McKinna \cite{McBride-McKinna-04}, implemented for POPLmark in Coq by Leroy \cite{Leroy-07}.
 
+\subsection{Engineering Formal Metatheory}
 
-\section{Others}\label{sec:others}
+
+\section{Discussion}\label{sec:discussion}
+
+\subsection{Others Representations}
 
 Nominal, higher order abstract syntax \cite{Capretta-Felty-06}, nested datatypes (Hirschowitz and Maggesi).
 
+\subsection{Comparison}
 
-\section{Comparison}\label{sec:comparison}
-
-
-\section{Conclusion}\label{sec:conclusion}
+\subsection{Conclusion and Related Work}
 
 
 \nocite{*}
