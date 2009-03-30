@@ -64,7 +64,8 @@ Locally nameless:
 * names for free variables
 * syntactical equivalence
 * no lifting, no renaming, but freshening
-* substitution is not structural recursive (freshening)
+* substitution is structural recursive
+* some other operations are not (freshening)
 
 We will focus on the above three representations, but there are more.
 

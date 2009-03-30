@@ -62,7 +62,7 @@
   pdftitle={Mechanized Reasoning about Languages with Binding},
   pdfsubject={TODO},
   pdfkeywords={lambda calculus, binding, types, program verification, poplmark},
-  draft=true
+  draft=true % TODO: draft false, remove draft note in title page
 ]{hyperref}
 \usepackage[figure]{hypcap}
 
@@ -82,11 +82,17 @@
 
 
 \begin{abstract}
-  Abstract text. Citing PoplMark Challenge \cite{Poplmark-Challenge-05}.
+  % TODO
+  Abstract text.
 \end{abstract}
 
 
 \section{Introduction}\label{sec:introduction}
+
+% TODO: niet zo focussen op twee hokjes, beter gewoon zeggen wat we
+% technisch willen
+% TODO: misschien tekst over context van het probleem verplaatsen naar
+% achteren in een 'discussion' sectie
 
 As is the case in many academic fields, theory and practice in the field
 of programming languages are not as close as we would like them to be.
@@ -98,7 +104,7 @@ provides us with a large base of techniques and results, but is mostly
 isolated in academic settings.
 Applying formal reasoning to current programming language development
 has the premise of rigorously defined practical languages with provable
-properties, but is unfortunatily not commonplace.
+properties, but is unfortunately not commonplace.
 
 Many tools have become available to aid formal reasoning in a mechanical
 way, such as proof assistants and theorem provers.
@@ -127,28 +133,91 @@ We will study some of these approaches in the context of mechanical
 reasoning, focussing on concrete representations for terms using names
 and numbers for variables.
 The approaches are illustrated with applications using the Coq proof
-assistent.
+assistant.
 
 
 \section{Representing Bindings}\label{sec:representing}
 
-The most common problems related to bindings are $\alpha$-equivalence and
-$\alpha$-conversion.
+The most common problems associated with bindings are $\alpha$-equivalence
+and $\alpha$-conversion.
+They are actually notions related to the traditional representation where
+names are used for variables, and may or may not be relevant issues with
+other representations.
+Some representations however, have dual notions, for example lifting of
+so-called de Bruijn indices is dual to $\alpha$-conversion.
 
-We use untyped pure $\lambda$-calculus to illustrate three concrete
+We use untyped pure $\lambda$-calculus to introduce three concrete
 representations for terms using names and numbers for variables.
 
 
 \subsection{Named Variables}
 
+Untyped $\lambda$-calculus has function application and abstraction over
+variables. Using named variables, its terms can be represented with the
+grammar
 \begin{align*}
   M ::=             &\; x
   && \text{variable} \\
-  \llap{\textbar\:} &\; \lambda x.M
+  \llap{\textbar\:} &\; \lambda x. \; M
   && \text{abstraction} \\
   \llap{\textbar\:} &\; M \; M
-  && \text{application} \\
+  && \text{application}
 \end{align*}
+where $x$ ranges over a countably infinite set of variables.
+An abstraction introduces a name, occurences of which are said to be
+bound by it in its scope. The scope of an abstraction $\lambda x.M$ is
+the body $M$ minus any subterm of $M$ that is an abstraction over the
+same name $x$.
+
+\subsubsection*{$\alpha$-equivalence and $\alpha$-conversion}
+
+$\alpha$-conversion is the process of renaming bound variables, such
+that abstractions bind exactly the variables they did originally.
+Two terms are $\alpha$-equivalent if they are the same modulo
+$\alpha$-conversion.
+For example, the following are $\alpha$-equivalent pairs of terms:
+\begin{align*}
+  \lambda x&. \; x & (\lambda z&. \; z \; x) \; z & \lambda x&. \; \lambda y. \; x \; (y \; z)\\
+  \lambda z&. \; z & (\lambda y&. \; y \; x) \; z & \lambda y&. \; \lambda x. \; y \; (x \; z)
+\end{align*}
+When reasoning about terms, it is often needed to identify $\alpha$-equivalent
+terms. This can result in a lot of extra work if the reasoning is done in a
+tool such as a proof assistant.
+
+Manipulation of terms can result in accidental binding of variables that
+where previously not bound or bound by another abstraction.
+Consider substituting $x$ for $y$ in $\lambda x. \; y \; x$.
+The free variable $x$ becomes bound by the abstraction over $x$ and looses
+its possible contextual meaning.
+This is a phenomenon that should be avoided.
+A possible solution is applying $\alpha$-conversion to rename the bound
+variable $x$ before doing the substitution.
+Substituting $x$ for $y$ in $\lambda z. \; y \; z$ does not bind $x$.
+
+\subsubsection*{Substitution}
+
+Let us consider substitution some more.
+Substituting $N$ for $x$ in $M$ is usually defined as
+\begin{align*}
+  x[N/x]                 &= N\\
+  y[N/x]                 &= y                      && \text{$x \neq y$} \\
+  (\lambda y.\; M')[N/x] &= \lambda y. \; M'[N/x]  && \text{$x \neq y$ and $y$ not free in $N$} \\ % TODO: fix layout
+  (M_1 \; M_2)[N/x]      &= M_1[N/x] \; M_2[N/x]
+\end{align*}
+which is not directly implementable as an operation in this form, because
+of the declarative side condition in the case of abstraction.
+
+Of course, $\alpha$-conversion can be used to eliminate the undefined
+case, yielding
+\begin{align*}
+  x[N/x]              &= \text{$N$ if $x = y$, $y$ otherwise}\\
+  (\lambda y.M')[N/x] &= \lambda z.M'[z/y][N/x]  && \text{$z$ not free in $N, M'$} \\ % TODO: fix layout
+  (M_1 \; M_2)[N/x]   &= M_1[N/x] \; M_2[N/x] \text{ .}
+\end{align*}
+
+(this is not structurally recursive)
+
+Some Coq code.
 
 
 \subsection{de Bruijn Indices}
@@ -163,7 +232,7 @@ representations for terms using names and numbers for variables.
 \end{align*}
 
 
-\subsection{Locally Nameless}
+\subsection{Locally Nameless Representation}
 
 \begin{align*}
   M ::=             &\; x
