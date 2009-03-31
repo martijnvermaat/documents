@@ -206,7 +206,6 @@ Substituting $N$ for $x$ in $M$ is usually defined as
 \end{align*}
 which is not directly implementable as an operation in this form, because
 of the declarative side condition in the case of abstraction.
-
 Of course, $\alpha$-conversion can be used to eliminate the undefined
 case, yielding
 \begin{align*}
@@ -214,22 +213,202 @@ case, yielding
   (\lambda y.M')[N/x] &= \lambda z.M'[z/y][N/x]  && \text{$z$ not free in $N, M'$} \\ % TODO: fix layout
   (M_1 \; M_2)[N/x]   &= M_1[N/x] \; M_2[N/x] \text{ .}
 \end{align*}
+Note that this is not a structurally recursive definition, since
+$M'[z/y]$ is not a subterm of $\lambda y.M'$.
+Structural recursion is prefered over recursion on some other measure
+(e.g. term size), especially in a tool like Coq where structural
+induction principles are automatically generated for inductive
+definitions and structurally recursive functions don't need explicit
+termination proofs.
 
-(this is not structurally recursive)
+\subsubsection*{Named Variables in Coq}
 
-Some Coq code.
+Using named variables, $\lambda$-calculus terms can be represented in the
+Coq proof assistant with the following datatype, assuming some type for
+names on which equality is decidable.
+\begin{lstlisting}
+Parameter name : Set.
+Parameter eq_name : forall (x y : name), {x = y} + {x <> y}.
+
+Inductive term : Set :=
+  | Var : name -> term
+  | Abs : name -> term -> term
+  | App : term -> term -> term.
+\end{lstlisting}
+We also assume a way to generate fresh names with \lstinline{fresh_name},
+that returns a name not in a given a list of names.
+
+As a first try in translating the substitution operation to Coq, the
+definition below of \lstinline{subst_x} will fail because the definition
+is not structurally recursive on \lstinline{t'} as noted above.
+\begin{lstlisting}
+Fixpoint rename (n n':name) (t:term) {struct t} : term :=
+  match t with
+  | Var x =>
+      if eq_name x n then Var n' else t
+  | Abs x b =>
+      Abs (if eq_name x n then n' else x) (rename n n' b)
+  | App f a =>
+      App (rename n n' f) (rename n n' a)
+end.
+
+(* Ill-formed capture-avoiding substitution *)
+Fixpoint subst_x (t:term) (n:name) (t':term)
+  {struct t'} : term :=
+  match t' with
+  | Var x =>
+      if eq_name x n then t else t'
+  | Abs x b =>
+      (* We always rename, this could of course be improved *)
+      let z := fresh_name (n :: (free_vars t) ++ (free_vars b))
+      in
+      Abs z (subst_x t n (rename x z b))
+  | App f a =>
+      App (subst_x t n f) (subst_x t n a)
+end.
+\end{lstlisting}
+
+A solution is to use the term size as a recursion measure.
+\begin{lstlisting}
+Fixpoint size (t:term) : nat :=
+  match t with
+  | Var _   => 0
+  | Abs x b => S (size b)
+  | App f a => 1 + (size f) + (size a)
+end.
+
+Lemma size_rename : forall (n n':name) (t:term),
+  size (rename n n' t) = size t.
+Proof.
+  unfold size.
+  unfold rename.
+  induction t;
+    [ case (eq_name n0 n); intro; trivial  (* Var *)
+    | congruence                           (* Abs *)
+    | congruence ].                        (* App *)
+Qed.
+
+(* Capture-avoiding substitution by recursion on size. *)
+Function subst (t:term) (n:name) (t':term)
+  {measure size t'} : term :=
+  match t' with
+  | Var x =>
+      if eq_name x n then t else t'
+  | Abs x b =>
+      let z := fresh_name (n :: (free_vars t) ++ (free_vars b))
+      in
+      Abs z (subst t n (rename x z b))
+  | App f a =>
+      App (subst t n f) (subst t n a)
+end.
+Proof.
+  intros. rewrite size_rename. auto.
+  intros. unfold size. inversion f; omega.
+  intros. unfold size. inversion a; omega.
+Defined.
+\end{lstlisting}
+This definition of \lstinline{subst} requires us to provide three short
+proofs for Coq to be assured of termination.
+
+In search of a structural recursive substitution operation, Stoughton
+suggests the simultaneous substitution $M \sigma$
+\begin{align*}
+  x \sigma              &= \sigma x\\
+  (\lambda x.M') \sigma &= \lambda y.(M' \; \sigma[y/x])  && \text{$y$ not free in $M', \sigma$}\\
+  (M_1 \; M_2) \sigma   &= M_1 \sigma \; M_2 \sigma
+\end{align*}
+where
+\begin{equation*}
+  \sigma[N/y] \; x =
+  \begin{cases}
+    N        & \text{if $x = y$ ,}\\
+    \sigma x & \text{otherwise .}
+  \end{cases}
+\end{equation*}
+Substituting $N$ for $x$ in $M$ is now $M \; \iota [N/x]$ with $\iota$
+the identity substitution.
+This structurally recursive operation is easily implemented in Coq.
+\begin{lstlisting}
+(* Apply a list of substitutions to a name. *)
+Fixpoint apply_subst (l:list (term*name)) (n:name)
+  {struct l} : term :=
+  match l with
+  | nil        => Var n
+  | (t, x)::l' => if eq_name x n then t else apply_subst l' n
+end.
+
+(* Capture-avoiding simultaneous substitution. *)
+Fixpoint sim_subst (l:list (term*name)) (t:term)
+  {struct t} : term :=
+  match t with
+  | Var x =>
+      apply_subst l x
+  | Abs x b =>
+      let z := fresh_name ((free_vars_sub l) ++ (free_vars b))
+      in
+      Abs z (sim_subst ((Var z, x)::l) b)
+  | App f a =>
+      App (sim_subst l f) (sim_subst l a)
+end.
+
+(* Simple substitution in terms of simultaneous substitution. *)
+Definition subst' (t:term) (n:name) (t':term) : term :=
+  sim_subst ((t, n) :: nil) t'.
+\end{lstlisting}
+
+\subsubsection*{Concluding}
+
+The above examples illustrate that $\alpha$-conversion to prevent
+accidental binding of variables is not a trivial issue in an automated
+setting.
+The assumption of being able to generate fresh names might be troublesome
+and the traditional way of defining substitution is not structurally
+recursive.
+
+Perhaps an even greater problem is that of $\alpha$-equivalence.
+% TODO: some more text
 
 
 \subsection{de Bruijn Indices}
 
+As an alternative representation for $\lambda$-calculus terms, de Bruijn
+proposed a representation using natural numbers instead of names.
+A variable is represented by the number of binders between itself and its
+abstraction (called a de Bruijn index), yielding the following grammar.
 \begin{align*}
   M ::=             &\; n
   && \text{variable} \\
-  \llap{\textbar\:} &\; \lambda .M
+  \llap{\textbar\:} &\; \lambda . \; M
   && \text{abstraction} \\
   \llap{\textbar\:} &\; M \; M
-  && \text{application} \\
+  && \text{application}
 \end{align*}
+where $n$ ranges over the natural numbers.
+The following are some example terms in the traditional representation
+(above) and in the representation with de Bruijn indices (below).
+\begin{align*}
+  \lambda x&. \; x & (\lambda z&. \; z \; x) \; z & \lambda x&. \; \lambda y. \; x \; (y \; z)\\
+  \lambda &. \; 0  & (\lambda &. \; 0 \; 1) \; 2  & \lambda &. \; \lambda . \; 1 \; (0 \; 2)
+\end{align*}
+
+\subsubsection*{Lifting}
+
+Abstractions no longer introduce names, eliminating the need for
+$\alpha$-conversion of bound variables.
+However, manipulation of terms may still accidentally capture
+variables when a de Bruijn index is moved over an abstraction.
+In that case the index should be updated in order to still refer to the
+original binding site.
+This operation is called lifting. We denote the simple lifting operation
+of incrementing all free variables in $M$ by $\uparrow \! M$.
+
+% TODO: example
+
+\subsubsection*{Substitution}
+
+Substitution.
+
+\subsubsection*{de Bruijn Indices in Coq}
 
 
 \subsection{Locally Nameless Representation}
