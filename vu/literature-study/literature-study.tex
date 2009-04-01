@@ -3,6 +3,13 @@
 \usepackage{a4}
 
 
+% TODO:
+% opmaak code blokken (misschien floating numbered listings)
+% citations
+% variable convention
+% make it clear that there are more ways to program things in coq
+
+
 % Use some subversion information
 \usepackage{svnkw}
 \svnid{$Id$}
@@ -82,7 +89,7 @@
 
 
 \begin{abstract}
-  % TODO
+  % TODO: abstract
   Abstract text.
 \end{abstract}
 
@@ -163,7 +170,7 @@ grammar
   \llap{\textbar\:} &\; M \; M
   && \text{application}
 \end{align*}
-where $x$ ranges over a countably infinite set of variables.
+where $x$ ranges over a countably infinite set of names.
 An abstraction introduces a name, occurences of which are said to be
 bound by it in its scope. The scope of an abstraction $\lambda x.M$ is
 the body $M$ minus any subterm of $M$ that is an abstraction over the
@@ -181,8 +188,9 @@ For example, the following are $\alpha$-equivalent pairs of terms:
   \lambda z&. \; z & (\lambda y&. \; y \; x) \; z & \lambda y&. \; \lambda x. \; y \; (x \; z)
 \end{align*}
 When reasoning about terms, it is often needed to identify $\alpha$-equivalent
-terms. This can result in a lot of extra work if the reasoning is done in a
-tool such as a proof assistant.
+terms.
+This can result in a lot of extra work if the reasoning has to be rigorous,
+as is the case in a tool like a proof assistant.
 
 Manipulation of terms can result in accidental binding of variables that
 where previously not bound or bound by another abstraction.
@@ -191,7 +199,7 @@ The free variable $x$ becomes bound by the abstraction over $x$ and looses
 its possible contextual meaning.
 This is a phenomenon that should be avoided.
 A possible solution is applying $\alpha$-conversion to rename the bound
-variable $x$ before doing the substitution.
+variable $x$ to a fresh name, say $z$, before doing the substitution.
 Substituting $x$ for $y$ in $\lambda z. \; y \; z$ does not bind $x$.
 
 \subsubsection*{Substitution}
@@ -236,7 +244,7 @@ Inductive term : Set :=
   | App : term -> term -> term.
 \end{lstlisting}
 We also assume a way to generate fresh names with \lstinline{fresh_name},
-that returns a name not in a given a list of names.
+that returns a name that is not in a given a list of names.
 
 As a first try in translating the substitution operation to Coq, the
 definition below of \lstinline{subst_x} will fail because the definition
@@ -267,7 +275,6 @@ Fixpoint subst_x (t:term) (n:name) (t':term)
       App (subst_x t n f) (subst_x t n a)
 end.
 \end{lstlisting}
-
 A solution is to use the term size as a recursion measure.
 \begin{lstlisting}
 Fixpoint size (t:term) : nat :=
@@ -311,7 +318,7 @@ This definition of \lstinline{subst} requires us to provide three short
 proofs for Coq to be assured of termination.
 
 In search of a structural recursive substitution operation, Stoughton
-suggests the simultaneous substitution $M \sigma$
+\cite{Stoughton-88} suggests the simultaneous substitution $M \sigma$
 \begin{align*}
   x \sigma              &= \sigma x\\
   (\lambda x.M') \sigma &= \lambda y.(M' \; \sigma[y/x])  && \text{$y$ not free in $M', \sigma$}\\
@@ -356,7 +363,7 @@ Definition subst' (t:term) (n:name) (t':term) : term :=
   sim_subst ((t, n) :: nil) t'.
 \end{lstlisting}
 
-\subsubsection*{Concluding}
+\subsubsection*{Concluding} % TODO: andere subsubsectie titel
 
 The above examples illustrate that $\alpha$-conversion to prevent
 accidental binding of variables is not a trivial issue in an automated
@@ -372,9 +379,10 @@ Perhaps an even greater problem is that of $\alpha$-equivalence.
 \subsection{de Bruijn Indices}
 
 As an alternative representation for $\lambda$-calculus terms, de Bruijn
-proposed a representation using natural numbers instead of names.
+\cite{deBruijn-72} proposes a representation using natural numbers instead
+of names.
 A variable is represented by the number of binders between itself and its
-abstraction (called a de Bruijn index), yielding the following grammar.
+abstraction (called a de Bruijn index), yielding the grammar
 \begin{align*}
   M ::=             &\; n
   && \text{variable} \\
@@ -385,11 +393,13 @@ abstraction (called a de Bruijn index), yielding the following grammar.
 \end{align*}
 where $n$ ranges over the natural numbers.
 The following are some example terms in the traditional representation
-(above) and in the representation with de Bruijn indices (below).
+(above) and in the representation with de Bruijn indices (below):
 \begin{align*}
   \lambda x&. \; x & (\lambda z&. \; z \; x) \; z & \lambda x&. \; \lambda y. \; x \; (y \; z)\\
   \lambda &. \; 0  & (\lambda &. \; 0 \; 1) \; 2  & \lambda &. \; \lambda . \; 1 \; (0 \; 2)
 \end{align*}
+A major advantage of de Bruijn indices in machine-assisted reasoning
+is that $\alpha$-equivalence is just term equivalence.
 
 \subsubsection*{Lifting}
 
@@ -406,25 +416,114 @@ of incrementing all free variables in $M$ by $\uparrow \! M$.
 
 \subsubsection*{Substitution}
 
-Substitution.
+An example of an operation where lifting is used, is substitution.
+Substituting $N$ for free de Bruijn index $n$ can be defined
+\begin{align*}
+  n[N/n]             &= N\\
+  m[N/n]             &= m                    && \text{$m \neq n$} \\
+  (\lambda .M')[N/n] &= \lambda .M'[\uparrow \! N / n\!+\!1]\\
+  (M_1 \; M_2)[N/n]  &= M_1[N/n] \; M_2[N/n]
+\end{align*}
+which is structurally recursive.
+Note that the lifting of $N$ in the case of abstraction is needed because
+$N$ is moved into the abstraction $\lambda.M'$.
+For the same reason, recursively substituting $\uparrow \! N$ in the body
+$M'$ has to be done for indices $n+1$ instead of $n$.
 
 \subsubsection*{de Bruijn Indices in Coq}
+
+The following is a datatype definition in Coq for $\lambda$-calculus
+terms using de Bruijn indices:
+\begin{lstlisting}
+Inductive term : Set :=
+  | Var : nat -> term
+  | Abs : term -> term
+  | App : term -> term -> term.
+\end{lstlisting}
+Substitution is easily implemented using the lifting operation.
+\begin{lstlisting}
+(* Lift indices that are bound by at least l abstractions away. *)
+Fixpoint lift (l:nat) (t:term) {struct t} : term :=
+  match t with
+  | Var n   => Var (if le_lt_dec l n then (S n) else n)
+  | Abs u   => Abs (lift (S l) u)
+  | App u v => App (lift l u) (lift l v)
+end.
+
+(* Capture-avoiding substitution. *)
+Fixpoint subst (t:term) (n:nat) (t':term) {struct t'} : term :=
+  match t' with
+  | Var m   => if eq_nat_dec n m then t else t'
+  | Abs u   => Abs (subst (lift 0 t) (S n) u)
+  | App u v => App (subst t n u) (subst t n v)
+end.
+\end{lstlisting}
+% TODO: can we say more about de bruijn and coq?
+
+\subsubsection*{Concluding} % TODO: andere titel
+
+% TODO: deze tekst schrijven
+Diverges from traditional representation, hard to read.
+Lifting is easier than $\alpha$--conversion (and no need to generate
+fresh names), but still tedious.
+$\alpha$-equivalence is term equivalence.
 
 
 \subsection{Locally Nameless Representation}
 
+% TODO: relate this to the variable convention
+A way to avoid accidental capturing of variables and thus the need for
+$\alpha$-conversion is to make sure free and bound variables are drawn
+from disjoint sets.
+This strategy is implemented by the locally nameless representation,
+where free variables are represented by names and bound variables are
+represented by de Bruijn indices.
+The resulting grammar is
 \begin{align*}
   M ::=             &\; x
   && \text{free variable} \\
   \llap{\textbar\:} &\; n
   && \text{bound variable} \\
-  \llap{\textbar\:} &\; \lambda .M
+  \llap{\textbar\:} &\; \lambda . \; M
     && \text{abstraction} \\
   \llap{\textbar\:} &\; M \; M
-  && \text{application} \\
+  && \text{application}
 \end{align*}
+where $x$ ranges over a countably infinite set of names, and $n$ over
+the natural numbers.
 
 I am not a number, I am a free variable.
+
+\subsubsection*{Locally Nameless Representation in Coq}
+
+\begin{lstlisting}
+Parameter name : Set.
+Parameter eq_name : forall (x y : name), {x = y} + {x <> y}.
+
+Inductive term : Set :=
+  | FreeVar  : name -> term
+  | BoundVar : nat -> term
+  | Abs      : term -> term
+  | App      : term -> term -> term.
+
+Fixpoint subst_free (t:term) (x:name) (t':term)
+  {struct t'} : term :=
+  match t' with
+  | FreeVar y  => if eq_name x y then t else t'
+  | BoundVar n => t'
+  | Abs b      => Abs (subst_free t x b)
+  | App f a    => App (subst_free t x f) (subst_free t x a)
+end.
+
+Fixpoint subst_bound (t:term) (n:nat) (t':term)
+  {struct t'} : term :=
+  match t' with
+  | FreeVar x  => t'
+  | BoundVar m => if eq_nat_dec m n then t else t'
+  | Abs b      => Abs (subst_bound t (S n) b)
+  | App f a    => App (subst_bound t n f) (subst_bound t n a)
+end.
+\end{lstlisting}
 
 
 \section{Applications}
