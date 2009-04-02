@@ -379,11 +379,23 @@ The above examples illustrate that $\alpha$-conversion to prevent
 accidental binding of variables is not a trivial issue in an automated
 setting.
 The assumption of being able to generate fresh names might be troublesome
-and the traditional way of defining substitution is not structurally
+and standard operations such as simple substitution are not structurally
 recursive.
 
-Perhaps an even greater problem is that of $\alpha$-equivalence.
-% TODO: some more text
+Perhaps an even greater problem is that of $\alpha$-equivalence, depending
+on the task at hand.
+Terms can be treated as their $\alpha$-equivalence class, properties of
+terms with bound variables can sometimes be parameterized by their names,
+or terms can be translated to some canonically named variant, to name just
+a few techniques to overcome this problem.
+Most of these require a lot of tedious work that distracts from the actual
+task at hand.
+
+An obvious advantage of using a representation with named variables is
+that it is the same as the usual on-paper notation.
+It can therefore be read by anyone familiar with traditional work and there
+is no need to justify the relation between the original object language and
+the way it is represented.
 
 
 \subsection{de Bruijn Indices}
@@ -468,20 +480,30 @@ Fixpoint subst (t:term) (n:nat) (t':term) {struct t'} : term :=
   | App u v => App (subst t n u) (subst t n v)
 end.
 \end{lstlisting}
-% TODO: can we say more about de bruijn and coq?
+More complex operations on terms may involve quite some
+manipulation of indices.
+Although these manipulations are easier to carry out than
+$\alpha$-conversion in the named variables representation, they
+are still cumbersome and obfuscate proof scripts.
 
 \subsubsection*{Concluding} % TODO: andere titel
 
-% TODO: deze tekst schrijven
-Diverges from traditional representation, hard to read.
-Lifting is easier than $\alpha$--conversion (and no need to generate
-fresh names), but still tedious.
-$\alpha$-equivalence is term equivalence.
+The most obvious advantage of a representation with de Bruijn
+indices is that $\alpha$-equivalence is just term equivalence.
+This does away with the problems usually associated with
+$\alpha$-equivalence, a major win in automated reasoning.
+Additionally, lifting is easier than $\alpha$-conversion (but
+still tedious)  and there is no need to generate fresh names.
+
+The representation diverges quite far from the traditional
+representation using named variables.
+Therefore, it is arguably harder to read and the relation
+between the object language and formal developments using de
+Bruijn indices might need some argumentation.
 
 
 \subsection{Locally Nameless Representation}
 
-% TODO: relate this to the variable convention
 A way to avoid accidental capturing of variables and thus the need for
 $\alpha$-conversion is to make sure free and bound variables are drawn
 from disjoint sets.
