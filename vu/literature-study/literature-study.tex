@@ -8,6 +8,7 @@
 % citations
 % variable convention
 % make it clear that there are more ways to program things in coq
+% check if naming is consistent (term, variable, index, etc names)
 
 
 % Use some subversion information
@@ -217,7 +218,8 @@ of the declarative side condition in the case of abstraction.
 Of course, $\alpha$-conversion can be used to eliminate the undefined
 case, yielding
 \begin{align*}
-  x[N/x]              &= \text{$N$ if $x = y$, $y$ otherwise}\\
+  x[N/x]              &= N\\
+  y[N/x]              &= y                      && \text{$x \neq y$} \\
   (\lambda y.M')[N/x] &= \lambda z.M'[z/y][N/x]  && \text{$z$ not free in $N, M'$} \\ % TODO: fix layout
   (M_1 \; M_2)[N/x]   &= M_1[N/x] \; M_2[N/x] \text{ .}
 \end{align*}
@@ -493,6 +495,29 @@ where $x$ ranges over a countably infinite set of names, and $n$ over
 the natural numbers.
 
 I am not a number, I am a free variable.
+
+\subsubsection*{Freshening}
+
+\subsubsection*{Substitution}
+
+Substituting a term for a name:
+\begin{align*}
+  x[N/x]             &= N\\
+  y[N/x]             &= y                 && \text{$x \neq y$} \\
+  n[N/x]             &= n\\
+  (\lambda .M')[N/x] &= \lambda .M'[N/x]\\
+  (M_1 \; M_2)[N/x]  &= M_1[N/x] \; M_2[N/x]
+\end{align*}
+
+Substituting a term for a de Bruijn index is used to implement the
+freshening operation:
+\begin{align*}
+  x[N/n]             &= x\\
+  n[N/n]             &= N\\
+  m[N/n]             &= m                    && \text{$m \neq n$} \\
+  (\lambda .M')[N/n] &= \lambda .M'[N / n\!+\!1]\\
+  (M_1 \; M_2)[N/n]  &= M_1[N/n] \; M_2[N/n]
+\end{align*}
 
 \subsubsection*{Locally Nameless Representation in Coq}
 
