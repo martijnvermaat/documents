@@ -21,12 +21,7 @@
 \usepackage{amsthm}
 
 
-% Don't add chapter to figure numbering
-\renewcommand\thefigure{\arabic{figure}}
-
-
 \usepackage{listings}
-
 
 \lstdefinelanguage{Coq}{
   mathescape=true,
@@ -44,7 +39,6 @@
   showstringspaces=false,
 }%[keywords,comments,strings]%
 
-
 \lstset{
   numbers=none,
   basicstyle=\footnotesize\ttfamily,
@@ -56,6 +50,9 @@
   aboveskip=1em,
   belowskip=1em
 }
+
+% Add subsection to listing numbering
+%\renewcommand\thelstlisting{\thesubsection .\arabic{lstlisting}}
 
 
 % Must be last in preamble
@@ -154,8 +151,9 @@ other representations.
 Some representations however, have dual notions, for example lifting of
 so-called de Bruijn indices is dual to $\alpha$-conversion.
 
-We use untyped pure $\lambda$-calculus to introduce three concrete
-representations for terms using names and numbers for variables.
+We use untyped pure $\lambda$-calculus \cite{Barendregt-84} to introduce
+three concrete representations for terms using names and numbers for
+variables.
 
 
 \subsection{Named Variables}
@@ -203,6 +201,14 @@ A possible solution is applying $\alpha$-conversion to rename the bound
 variable $x$ to a fresh name, say $z$, before doing the substitution.
 Substituting $x$ for $y$ in $\lambda z. \; y \; z$ does not bind $x$.
 
+Barendregt's variable convention is a way to avoid accidental binding of
+variables by maintaining the invariant that in any context, all bound
+variables in a term are chosen to be different from the free variables.
+It is however not straightforward to implement this invariant directly in
+mechanical developments and its effects are thus often mimicked by other
+technicalities (e.g. explicit renaming or disjoint sets for bound and
+free variables).
+
 \subsubsection*{Substitution}
 
 Let us consider substitution some more.
@@ -213,18 +219,19 @@ Substituting $N$ for $x$ in $M$ is usually defined as
   (\lambda y.\; M')[N/x] &= \lambda y. \; M'[N/x]  && \text{$x \neq y$ and $y$ not free in $N$} \\ % TODO: fix layout
   (M_1 \; M_2)[N/x]      &= M_1[N/x] \; M_2[N/x]
 \end{align*}
-which is not directly implementable as an operation in this form, because
-of the declarative side condition in the case of abstraction.
+which is not directly implementable as an operation without using the
+variable convention, because of the declarative side condition in the
+case of abstraction.
 Of course, $\alpha$-conversion can be used to eliminate the undefined
 case, yielding
 \begin{align*}
   x[N/x]              &= N\\
-  y[N/x]              &= y                      && \text{$x \neq y$} \\
+  y[N/x]              &= y                       && \text{$x \neq y$} \\
   (\lambda y.M')[N/x] &= \lambda z.M'[z/y][N/x]  && \text{$z$ not free in $N, M'$} \\ % TODO: fix layout
-  (M_1 \; M_2)[N/x]   &= M_1[N/x] \; M_2[N/x] \text{ .}
+  (M_1 \; M_2)[N/x]   &= M_1[N/x] \; M_2[N/x]
 \end{align*}
 Note that this is not a structurally recursive definition, since
-$M'[z/y]$ is not a subterm of $\lambda y.M'$.
+$M'[z/y]$ is not necessarily a subterm of $\lambda y.M'$.
 Structural recursion is prefered over recursion on some other measure
 (e.g. term size), especially in a tool like Coq where structural
 induction principles are automatically generated for inductive
@@ -234,9 +241,9 @@ termination proofs.
 \subsubsection*{Named Variables in Coq}
 
 Using named variables, $\lambda$-calculus terms can be represented in the
-Coq proof assistant with the following datatype, assuming some type for
-names on which equality is decidable.
-\begin{lstlisting}
+Coq proof assistant with the following datatype, assuming
+some type for names on which equality is decidable.
+\begin{lstlisting}[frame=,xleftmargin=1em,xrightmargin=1em]
 Parameter name : Set.
 Parameter eq_name : forall (x y : name), {x = y} + {x <> y}.
 
@@ -246,12 +253,12 @@ Inductive term : Set :=
   | App : term -> term -> term.
 \end{lstlisting}
 We also assume a way to generate fresh names with \lstinline{fresh_name},
-that returns a name that is not in a given a list of names.
+which returns a name that is not in a given a list of names.
 
 As a first try in translating the substitution operation to Coq, the
-definition below of \lstinline{subst_x} will fail because the definition
+definition in listing~\ref{lst:names-subst-x} will fail because it
 is not structurally recursive on \lstinline{t'} as noted above.
-\begin{lstlisting}
+\begin{lstlisting}[float,caption={{\small \em (Named variables)} Renaming},label=lst:names-rename]
 Fixpoint rename (n n':name) (t:term) {struct t} : term :=
   match t with
   | Var x =>
@@ -261,15 +268,14 @@ Fixpoint rename (n n':name) (t:term) {struct t} : term :=
   | App f a =>
       App (rename n n' f) (rename n n' a)
 end.
-
-(* Ill-formed capture-avoiding substitution *)
+\end{lstlisting}
+\begin{lstlisting}[float,caption={{\small \em (Named variables)} Ill-formed capture-avoiding substitution},label=lst:names-subst-x]
 Fixpoint subst_x (t:term) (n:name) (t':term)
   {struct t'} : term :=
   match t' with
   | Var x =>
       if eq_name x n then t else t'
   | Abs x b =>
-      (* We always rename, this could of course be improved *)
       let z := fresh_name (n :: (free_vars t) ++ (free_vars b))
       in
       Abs z (subst_x t n (rename x z b))
@@ -277,8 +283,9 @@ Fixpoint subst_x (t:term) (n:name) (t':term)
       App (subst_x t n f) (subst_x t n a)
 end.
 \end{lstlisting}
-A solution is to use the term size as a recursion measure.
-\begin{lstlisting}
+A solution is to use the term size as a recursion measure as in
+listing~\ref{lst:names-subst}.
+\begin{lstlisting}[float,caption={{\small \em (Named variables)} Capture-avoiding substitution, recursion on size},label=lst:names-subst]
 Fixpoint size (t:term) : nat :=
   match t with
   | Var _   => 0
@@ -297,7 +304,6 @@ Proof.
     | congruence ].                        (* App *)
 Qed.
 
-(* Capture-avoiding substitution by recursion on size. *)
 Function subst (t:term) (n:name) (t':term)
   {measure size t'} : term :=
   match t' with
@@ -316,8 +322,10 @@ Proof.
   intros. unfold size. inversion a; omega.
 Defined.
 \end{lstlisting}
-This definition of \lstinline{subst} requires us to provide three short
-proofs for Coq to be assured of termination.
+This definition of \lstinline{subst} requires us to additionally provide
+three short proofs for Coq to be assured of termination.
+
+\subsubsection*{Simultaneous Substitution}
 
 In search of a structural recursive substitution operation, Stoughton
 \cite{Stoughton-88} suggests the simultaneous substitution $M \sigma$
@@ -330,15 +338,16 @@ where
 \begin{equation*}
   \sigma[N/y] \; x =
   \begin{cases}
-    N        & \text{if $x = y$ ,}\\
-    \sigma x & \text{otherwise .}
+    N        & \text{if $x = y$,}\\
+    \sigma x & \text{otherwise}
   \end{cases}
 \end{equation*}
 Substituting $N$ for $x$ in $M$ is now $M \; \iota [N/x]$ with $\iota$
 the identity substitution.
-This structurally recursive operation is easily implemented in Coq.
-\begin{lstlisting}
-(* Apply a list of substitutions to a name. *)
+This structurally recursive operation is easily implemented in Coq, as
+is shown in listing~\ref{lst:names-simsubst}, and simple substitution
+can be written as
+\begin{lstlisting}[float,caption={{\small \em (Named variables)} Capture-avoiding simultaneous substitution},label=lst:names-simsubst]
 Fixpoint apply_subst (l:list (term*name)) (n:name)
   {struct l} : term :=
   match l with
@@ -346,7 +355,6 @@ Fixpoint apply_subst (l:list (term*name)) (n:name)
   | (t, x)::l' => if eq_name x n then t else apply_subst l' n
 end.
 
-(* Capture-avoiding simultaneous substitution. *)
 Fixpoint sim_subst (l:list (term*name)) (t:term)
   {struct t} : term :=
   match t with
@@ -359,8 +367,8 @@ Fixpoint sim_subst (l:list (term*name)) (t:term)
   | App f a =>
       App (sim_subst l f) (sim_subst l a)
 end.
-
-(* Simple substitution in terms of simultaneous substitution. *)
+\end{lstlisting}
+\begin{lstlisting}[frame=,xleftmargin=1em,xrightmargin=1em]
 Definition subst' (t:term) (n:name) (t':term) : term :=
   sim_subst ((t, n) :: nil) t'.
 \end{lstlisting}
@@ -436,23 +444,23 @@ $M'$ has to be done for indices $n+1$ instead of $n$.
 
 The following is a datatype definition in Coq for $\lambda$-calculus
 terms using de Bruijn indices:
-\begin{lstlisting}
+\begin{lstlisting}[frame=,xleftmargin=1em,xrightmargin=1em]
 Inductive term : Set :=
   | Var : nat -> term
   | Abs : term -> term
   | App : term -> term -> term.
 \end{lstlisting}
-Substitution is easily implemented using the lifting operation.
-\begin{lstlisting}
-(* Lift indices that are bound by at least l abstractions away. *)
+Substitution (listing~\ref{lst:bruijn-subst}) is easily implemented
+using the lifting operation from listing~\ref{lst:bruijn-lift}.
+\begin{lstlisting}[float,caption={{\small \em (de Bruijn indices)} Lifting},label=lst:bruijn-lift]
 Fixpoint lift (l:nat) (t:term) {struct t} : term :=
   match t with
   | Var n   => Var (if le_lt_dec l n then (S n) else n)
   | Abs u   => Abs (lift (S l) u)
   | App u v => App (lift l u) (lift l v)
 end.
-
-(* Capture-avoiding substitution. *)
+\end{lstlisting}
+\begin{lstlisting}[float,caption={{\small \em (de Bruijn indices)} Substitution},label=lst:bruijn-subst]
 Fixpoint subst (t:term) (n:nat) (t':term) {struct t'} : term :=
   match t' with
   | Var m   => if eq_nat_dec n m then t else t'
@@ -479,7 +487,8 @@ $\alpha$-conversion is to make sure free and bound variables are drawn
 from disjoint sets.
 This strategy is implemented by the locally nameless representation,
 where free variables are represented by names and bound variables are
-represented by de Bruijn indices.
+represented by de Bruijn indices, effectively obeying Barendregt's
+variable convention.
 The resulting grammar is
 \begin{align*}
   M ::=             &\; x
