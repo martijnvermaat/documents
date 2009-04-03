@@ -9,6 +9,8 @@
 % variable convention
 % make it clear that there are more ways to program things in coq
 % check if naming is consistent (term, variable, index, etc names)
+% check other locally nameless approaches (do they use freshening?)
+% freshening in coq
 
 
 % Use some subversion information
@@ -509,8 +511,8 @@ $\alpha$-conversion is to make sure free and bound variables are drawn
 from disjoint sets.
 This strategy is implemented by the locally nameless representation,
 where free variables are represented by names and bound variables are
-represented by de Bruijn indices, effectively obeying Barendregt's
-variable convention.
+represented by de Bruijn indices \cite{McBride-McKinna-04}, effectively
+obeying Barendregt's variable convention.
 The resulting grammar is
 \begin{align*}
   M ::=             &\; x
@@ -524,14 +526,42 @@ The resulting grammar is
 \end{align*}
 where $x$ ranges over a countably infinite set of names, and $n$ over
 the natural numbers.
+The following are some example terms in the traditional representation
+(above), using de Bruijn indices (middle), and in the locally nameless
+representation:
+\begin{align*}
+  \lambda x&. \; x & (\lambda z&. \; z \; x) \; z & \lambda x&. \; \lambda y. \; x \; (y \; z)\\
+  \lambda &. \; 0  & (\lambda &. \; 0 \; 1) \; 2  & \lambda &. \; \lambda . \; 1 \; (0 \; 2)\\
+  \lambda &. \; 0  & (\lambda &. \; 0 \; x) \; z  & \lambda &. \; \lambda . \; 1 \; (0 \; z)
+\end{align*}
 
-I am not a number, I am a free variable.
+Just like pure de Bruijn indices, the locally nameless representation
+has $\alpha$-equivalence as term equivalence.
+What sets it apart from both representations discussed above, is that
+there is no need to worry about accidental capturing of variables,
+since the invariant is maintained that all bound variables are
+different from free variables.
+There is, unfortunately, a cost to this.
 
 \subsubsection*{Freshening}
 
+Consider the term $\lambda . \; \lambda . \; 1 \; (0 \; z)$.
+How should we proceed in order to reason about the body of the outer
+abstraction?
+Surely we cannot say anything about the verbatim subterm
+$\lambda . \; 1 \; (0 \; z)$, since it is not locally nameless.
+What happend is that a previously bound variable was taken from the
+scope of its binder, making it a free variable.
+To maintain the locally nameless invariant, this variable should now be
+represented by a name.
+The substitution of a name for index $0$ is called freshening.
+In this example, $freshen(\lambda . \; 1 \; (0 \; z), v)$ would yield
+$\lambda . \; v \; (0 \; z)$.
+
 \subsubsection*{Substitution}
 
-Substituting a term for a name:
+Substitution of terms for free variables in a locally nameless term
+means substutition of terms for names.
 \begin{align*}
   x[N/x]             &= N\\
   y[N/x]             &= y                 && \text{$x \neq y$} \\
@@ -539,9 +569,14 @@ Substituting a term for a name:
   (\lambda .M')[N/x] &= \lambda .M'[N/x]\\
   (M_1 \; M_2)[N/x]  &= M_1[N/x] \; M_2[N/x]
 \end{align*}
+There is no need for renaming, because abstractions do not bind names.
+Since there are no free de Bruijn indices, there is also no need
+for lifting.
 
-Substituting a term for a de Bruijn index is used to implement the
-freshening operation:
+To implement the freshening operation, it must also be possible to
+replace de Bruijn indices by a term.
+Substitution for free variables thus has a dual notion for bound
+variables.
 \begin{align*}
   x[N/n]             &= x\\
   n[N/n]             &= N\\
@@ -549,8 +584,12 @@ freshening operation:
   (\lambda .M')[N/n] &= \lambda .M'[N / n\!+\!1]\\
   (M_1 \; M_2)[N/n]  &= M_1[N/n] \; M_2[N/n]
 \end{align*}
+Freshening $M$ with name $x$ can now be written
+$freshen(M, x) = M[x/0]$.
 
 \subsubsection*{Locally Nameless Representation in Coq}
+
+% TODO
 
 \begin{lstlisting}
 Parameter name : Set.
@@ -580,6 +619,10 @@ Fixpoint subst_bound (t:term) (n:nat) (t':term)
   | App f a    => App (subst_bound t n f) (subst_bound t n a)
 end.
 \end{lstlisting}
+
+\subsubsection*{Concluding}
+
+%TODO
 
 
 \section{Applications}
