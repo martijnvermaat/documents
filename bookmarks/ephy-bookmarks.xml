@@ -937,7 +937,7 @@
     <property id="2" value_type="gchararray">LoesLog</property>
     <property id="3" value_type="gchararray">http://loeslog.blogspot.com/</property>
     <property id="4" value_type="gchararray">blog dutch photos friends  loeslog</property>
-    <property id="7" value_type="gchararray">http://loeslog.blogspot.com/favicon.ico</property>
+    <property id="7" value_type="gchararray">http://www.blogger.com/favicon.ico</property>
     <parent id="0"/>
     <parent id="242"/>
     <parent id="89"/>
@@ -1577,6 +1577,7 @@
     <parent id="0"/>
     <parent id="242"/>
     <parent id="244"/>
+    <parent id="2"/>
   </node>
   <node id="105">
     <property id="2" value_type="gchararray">Fortis Online Banking</property>
@@ -2385,7 +2386,7 @@
     <property id="2" value_type="gchararray">DreamHost Web Panel</property>
     <property id="3" value_type="gchararray">https://panel.dreamhost.com/</property>
     <property id="4" value_type="gchararray">dreamhost  dreamhost web panel</property>
-    <property id="7" value_type="gchararray">https://secure.newdream.net/newpanel/browser.ico</property>
+    <property id="7" value_type="gchararray">https://panel.dreamhost.com/favicon.ico</property>
     <parent id="0"/>
     <parent id="275"/>
   </node>
@@ -3065,7 +3066,7 @@
     <property id="2" value_type="gchararray">Welkom in je eigen straat! - Platanenweg</property>
     <property id="3" value_type="gchararray">http://platanenweg.blogspot.com/</property>
     <property id="4" value_type="gchararray">blog dutch amsterdam  welkom in je eigen straat! - platanenweg</property>
-    <property id="7" value_type="gchararray">http://platanenweg.blogspot.com/favicon.ico</property>
+    <property id="7" value_type="gchararray">http://www.blogger.com/favicon.ico</property>
     <parent id="0"/>
     <parent id="242"/>
     <parent id="37"/>
@@ -3827,19 +3828,19 @@
     <parent id="242"/>
     <parent id="89"/>
     <parent id="343"/>
-    <parent id="2"/>
     <parent id="37"/>
   </node>
   <node id="457">
     <property id="2" value_type="gchararray">Algemeen technische groep || Phanos</property>
-    <property id="3" value_type="gchararray">http://www.few.vu.nl/~skn410/atletiek/atg/</property>
-    <property id="4" value_type="gchararray">dutch friends running amsterdam  algemeen technische groep || phanos</property>
-    <property id="7" value_type="gchararray">http://www.few.vu.nl/~skn410/atletiek/atg/images/favicon.ico</property>
+    <property id="3" value_type="gchararray">http://phanatics.nl/</property>
+    <property id="4" value_type="gchararray">dutch sports friends running amsterdam  algemeen technische groep || phanos</property>
+    <property id="7" value_type="gchararray">http://phanatics.nl/images/favicon.ico</property>
     <parent id="0"/>
     <parent id="242"/>
     <parent id="89"/>
     <parent id="100"/>
     <parent id="2"/>
+    <parent id="284"/>
     <parent id="318"/>
   </node>
   <node id="434">
@@ -3966,5 +3967,18 @@
     <parent id="89"/>
     <parent id="2"/>
     <parent id="37"/>
+  </node>
+  <node id="468">
+    <property id="2" value_type="gchararray">Matthew Garrett's Journal</property>
+    <property id="3" value_type="gchararray">http://mjg59.livejournal.com/</property>
+    <property id="4" value_type="gchararray">blog programming linux ubuntu hardware fun  matthew garrett's journal</property>
+    <property id="7" value_type="gchararray">http://mjg59.livejournal.com/favicon.ico</property>
+    <parent id="0"/>
+    <parent id="243"/>
+    <parent id="90"/>
+    <parent id="37"/>
+    <parent id="246"/>
+    <parent id="269"/>
+    <parent id="241"/>
   </node>
 </ephy_bookmarks>

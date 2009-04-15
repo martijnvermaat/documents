@@ -357,7 +357,7 @@
         <rdf:li rdf:resource="http://www.cs.uoregon.edu/research/summerschool/summer08/"/>
         <rdf:li rdf:resource="http://alliance.seas.upenn.edu/~plclub/cgi-bin/poplmark/index.php?title=The_POPLmark_Challenge"/>
         <rdf:li rdf:resource="http://www.kombuizeren.nl/"/>
-        <rdf:li rdf:resource="http://www.few.vu.nl/~skn410/atletiek/atg/"/>
+        <rdf:li rdf:resource="http://phanatics.nl/"/>
         <rdf:li rdf:resource="http://www.snotr.com/"/>
         <rdf:li rdf:resource="http://www.monova.org/"/>
         <rdf:li rdf:resource="http://www.mininova.org/"/>
@@ -369,6 +369,7 @@
         <rdf:li rdf:resource="http://janny.vermaat.name/log/"/>
         <rdf:li rdf:resource="http://moqtada-al-sadr.hyves.nl/"/>
         <rdf:li rdf:resource="http://twitter.com/manicmoomoo"/>
+        <rdf:li rdf:resource="http://mjg59.livejournal.com/"/>
       </rdf:Seq>
     </items>
   </channel>
@@ -2815,12 +2816,13 @@
     <dc:subject>dutch</dc:subject>
     <dc:subject>blog</dc:subject>
   </item>
-  <item rdf:about="http://www.few.vu.nl/~skn410/atletiek/atg/">
+  <item rdf:about="http://phanatics.nl/">
     <title>Algemeen technische groep || Phanos</title>
-    <link>http://www.few.vu.nl/~skn410/atletiek/atg/</link>
+    <link>http://phanatics.nl/</link>
     <dc:subject>amsterdam</dc:subject>
     <dc:subject>running</dc:subject>
     <dc:subject>friends</dc:subject>
+    <dc:subject>sports</dc:subject>
     <dc:subject>dutch</dc:subject>
   </item>
   <item rdf:about="http://www.snotr.com/">
@@ -2910,6 +2912,16 @@
     <link>http://twitter.com/manicmoomoo</link>
     <dc:subject>friends</dc:subject>
     <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://mjg59.livejournal.com/">
+    <title>Matthew Garrett's Journal</title>
+    <link>http://mjg59.livejournal.com/</link>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>hardware</dc:subject>
+    <dc:subject>ubuntu</dc:subject>
+    <dc:subject>linux</dc:subject>
+    <dc:subject>programming</dc:subject>
     <dc:subject>blog</dc:subject>
   </item>
 </rdf:RDF>
