@@ -32,3 +32,5 @@ Fixpoint subst_bound (t:term) (n:nat) (t':term) {struct t'} : term :=
   | Abs b      => Abs (subst_bound t (S n) b)
   | App f a    => App (subst_bound t n f) (subst_bound t n a)
 end.
+
+Definition freshen (t:term) (x:name) : term := subst_bound (FreeVar x) 0 t.

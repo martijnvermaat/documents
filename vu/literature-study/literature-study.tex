@@ -548,7 +548,7 @@ There is, unfortunately, a cost to this.
 Consider the term $\lambda . \; \lambda . \; 1 \; (0 \; z)$.
 How should we proceed in order to reason about the body of the outer
 abstraction?
-Surely we cannot say anything about the verbatim subterm
+Surely we cannot say much about the verbatim subterm
 $\lambda . \; 1 \; (0 \; z)$, since it is not locally nameless.
 What happend is that a previously bound variable was taken from the
 scope of its binder, making it a free variable.
@@ -589,27 +589,29 @@ $freshen(M, x) = M[x/0]$.
 
 \subsubsection*{Locally Nameless Representation in Coq}
 
-% TODO
-
-\begin{lstlisting}
-Parameter name : Set.
-Parameter eq_name : forall (x y : name), {x = y} + {x <> y}.
-
+$\lambda$-calculus terms can be represented locally nameless in Coq with
+the following datatype:
+\begin{lstlisting}[frame=,xleftmargin=1em,xrightmargin=1em]
 Inductive term : Set :=
   | FreeVar  : name -> term
-  | BoundVar : nat -> term
+  | BoundVar : nat  -> term
   | Abs      : term -> term
   | App      : term -> term -> term.
-
-Fixpoint subst_free (t:term) (x:name) (t':term)
-  {struct t'} : term :=
+\end{lstlisting}
+Substitution of terms for free variables is defined in
+listing~\ref{lst:local-subst}.
+The \lstinline{subst_bound} function in listing~\ref{lst:local-freshen}
+is meant to be used only in the definition of \lstinline{freshen}.
+\begin{lstlisting}[float,caption={{\small \em (Locally nameless)} Substitution},label=lst:local-subst]
+Fixpoint subst (t:term) (x:name) (t':term) {struct t'} : term :=
   match t' with
   | FreeVar y  => if eq_name x y then t else t'
   | BoundVar n => t'
-  | Abs b      => Abs (subst_free t x b)
-  | App f a    => App (subst_free t x f) (subst_free t x a)
+  | Abs b      => Abs (subst t x b)
+  | App f a    => App (subst t x f) (subst t x a)
 end.
-
+\end{lstlisting}
+\begin{lstlisting}[float,caption={{\small \em (Locally nameless)} Freshening},label=lst:local-freshen]
 Fixpoint subst_bound (t:term) (n:nat) (t':term)
   {struct t'} : term :=
   match t' with
@@ -618,11 +620,33 @@ Fixpoint subst_bound (t:term) (n:nat) (t':term)
   | Abs b      => Abs (subst_bound t (S n) b)
   | App f a    => App (subst_bound t n f) (subst_bound t n a)
 end.
+
+Definition freshen (t:term) (x:name) : term :=
+  subst_bound (FreeVar x) 0 t.
 \end{lstlisting}
 
 \subsubsection*{Concluding}
 
-%TODO
+In a way, the locally nameless representation tries to be a
+\emph{best of both worlds} combination of named variables and de Bruijn
+indices.
+Inherited from pure de Bruijn indices are the pleasant properties that
+$\alpha$-equivalence is term equivalence and bound variables do not need
+renaming.
+Using names, however, feels like a natural way to represent free
+variables that presumably take some meaning from a context, and as such
+makes locally nameless terms arguably easier to read than their pure de
+Bruijn equivalents.
+
+The main technical difficulty we get is that of maintaining the invariant
+that all terms are de Bruijn-closed, sometimes requiring freshening.
+A consequence is that we might lose structural recursion for some
+operations (an abstraction body might not be a subterm after freshening).
+This does not apply to our current definition of substitution, where
+freshening is omitted since it can easily be seen that the invariant is
+only needed for the substituted term and not for the term that is recursed
+on.
+For more complex operations this may not be the case.
 
 
 \section{Applications}
