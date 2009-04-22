@@ -10,7 +10,6 @@
 % make it clear that there are more ways to program things in coq
 % check if naming is consistent (term, variable, index, etc names)
 % check other locally nameless approaches (do they use freshening?)
-% freshening in coq
 
 
 % Use some subversion information
@@ -653,11 +652,31 @@ For more complex operations this may not be the case.
 
 \subsection{The POPLMark Challenge}
 
-POPLmark 1a in Coq by Stump \cite{Stump-05}.
-POPLmark in Coq by Vouillon \cite{Vouillon-05}.
-McBride and McKinna \cite{McBride-McKinna-04}, implemented for POPLmark in Coq by Leroy \cite{Leroy-07}.
+Bla.
+The POPLmark Challenge \cite{Poplmark-Challenge-05} proposes a set of
+benchmarks to measure progress in this area.
+Several solutions to the chalange have since been submitted.
+We discuss some of those implemented in the Coq proof assistant.
+
+Named variables (1a) in Coq by Stump \cite{Stump-05}.
+
+de Bruijn indices in Coq by Vouillon \cite{Vouillon-05}.
+
+Locally nameless in Coq by Leroy \cite{Leroy-07}.
+
+Chargu\'eraud uses proofs by induction on the derivation of the
+well-formation relation (locally nameless) instead of induction on the
+size of types. See POPLmark site (and his paper?).
+
 
 \subsection{Engineering Formal Metatheory}
+
+LNgen and \cite{Aydemir-et-al-08}.
+
+
+\subsection{I Am Not A Number -- I Am a Free Variable}
+
+McBride and McKinna \cite{McBride-McKinna-04}.
 
 
 \section{Discussion}\label{sec:discussion}
@@ -666,7 +685,9 @@ McBride and McKinna \cite{McBride-McKinna-04}, implemented for POPLmark in Coq b
 
 Nominal, higher order abstract syntax \cite{Capretta-Felty-06}, nested datatypes (Hirschowitz and Maggesi).
 
+
 \subsection{Comparison}
+
 
 \subsection{Conclusion and Related Work}
 
