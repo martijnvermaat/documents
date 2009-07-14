@@ -373,6 +373,8 @@
         <rdf:li rdf:resource="http://www.ijazz.nl/"/>
         <rdf:li rdf:resource="http://www.tvtorrents.com/"/>
         <rdf:li rdf:resource="http://mjg59.livejournal.com/"/>
+        <rdf:li rdf:resource="http://www.thuisbezorgd.nl/"/>
+        <rdf:li rdf:resource="http://idyllictux.wordpress.com/2009/04/21/ubuntu-904-jaunty-keeping-the-beast-pulseaudio-at-bay/"/>
       </rdf:Seq>
     </items>
   </channel>
@@ -2946,5 +2948,18 @@
     <dc:subject>linux</dc:subject>
     <dc:subject>programming</dc:subject>
     <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.thuisbezorgd.nl/">
+    <title>Thuisbezorgd.NL</title>
+    <link>http://www.thuisbezorgd.nl/</link>
+    <dc:subject>amsterdam</dc:subject>
+    <dc:subject>food</dc:subject>
+    <dc:subject>dutch</dc:subject>
+  </item>
+  <item rdf:about="http://idyllictux.wordpress.com/2009/04/21/ubuntu-904-jaunty-keeping-the-beast-pulseaudio-at-bay/">
+    <title>Keeping the beast Pulseaudio at bay « Tux’s idyllic life.</title>
+    <link>http://idyllictux.wordpress.com/2009/04/21/ubuntu-904-jaunty-keeping-the-beast-pulseaudio-at-bay/</link>
+    <dc:subject>ubuntu</dc:subject>
+    <dc:subject>linux</dc:subject>
   </item>
 </rdf:RDF>
