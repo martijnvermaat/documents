@@ -373,6 +373,8 @@
         <rdf:li rdf:resource="http://www.ijazz.nl/"/>
         <rdf:li rdf:resource="http://www.tvtorrents.com/"/>
         <rdf:li rdf:resource="http://mjg59.livejournal.com/"/>
+        <rdf:li rdf:resource="http://beta.tv.timbormans.com/"/>
+        <rdf:li rdf:resource="http://www.routeyou.com/home.nl"/>
         <rdf:li rdf:resource="http://www.thuisbezorgd.nl/"/>
         <rdf:li rdf:resource="http://idyllictux.wordpress.com/2009/04/21/ubuntu-904-jaunty-keeping-the-beast-pulseaudio-at-bay/"/>
       </rdf:Seq>
@@ -2822,7 +2824,7 @@
     <dc:subject>blog</dc:subject>
   </item>
   <item rdf:about="http://phanatics.nl/">
-    <title>Algemeen technische groep || Phanos</title>
+    <title>Phanatics</title>
     <link>http://phanatics.nl/</link>
     <dc:subject>amsterdam</dc:subject>
     <dc:subject>running</dc:subject>
@@ -2948,6 +2950,19 @@
     <dc:subject>linux</dc:subject>
     <dc:subject>programming</dc:subject>
     <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://beta.tv.timbormans.com/">
+    <title>LastTube | A Last.fm - YouTube mashup</title>
+    <link>http://beta.tv.timbormans.com/</link>
+    <dc:subject>video</dc:subject>
+    <dc:subject>fun</dc:subject>
+    <dc:subject>music</dc:subject>
+  </item>
+  <item rdf:about="http://www.routeyou.com/home.nl">
+    <title>RouteYou</title>
+    <link>http://www.routeyou.com/home.nl</link>
+    <dc:subject>cycling</dc:subject>
+    <dc:subject>dutch</dc:subject>
   </item>
   <item rdf:about="http://www.thuisbezorgd.nl/">
     <title>Thuisbezorgd.NL</title>
