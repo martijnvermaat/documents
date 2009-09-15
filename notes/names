@@ -23,5 +23,5 @@ Posh       Unencrypted partition on Tosh
 Pia        Desktop PC of Yvonne
 Audrey     Desktop PC of Martijn
 Maybe      VirtualBox guest
-Wynne      1GB USB stick
-Wanda      Unencrypted partition on Wynne
+Wynne      1GB encrypted USB stick
+Wanda      Encrypted partition for use @ VU on Wynne
