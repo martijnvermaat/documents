@@ -1,0 +1,97 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[dutch]{babel}
+\usepackage{a4,fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+
+%\renewcommand{\familydefault}{\sfdefault}
+
+
+\title{Uitwerking van opgave 16c\\
+\normalsize{bij paragraaf 5.3 van Huth\&Ryan}}
+%\date{Martijn Vermaat, 1 oktober 2009}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+We zoeken een eigenschap van de toegankelijkheidsrelatie die correspondeert
+met het formuleschema $\Diamond \Box \phi \rightarrow \Box \Diamond \phi$,
+dat wil zeggen:
+
+\begin{quote}
+  Het schema $\Diamond \Box \phi \rightarrow \Box \Diamond \phi$ is geldig in
+  een frame
+  $\mathcal{F} = (W, R)$ \\
+  $\Longleftrightarrow$ \\
+  $R$ heeft de gezochte eigenschap
+\end{quote}
+
+De gezochte eigenschap wordt wel de `diamond property' genoemd en is als
+volgt gedefinieerd:
+
+\begin{quote}
+  $\forall xyz \; [ \; Rxy \wedge Rxz \; \rightarrow \; \exists t \; ( Ryt \wedge Rzt ) \; ]$
+\end{quote}
+
+Er rest ons nog te bewijzen dat de diamond property inderdaad correspondeert
+met het gegeven formuleschema.
+
+\begin{description}
+
+\item{\bf (a)}
+We bewijzen eerst dat het schema $\Diamond \Box \phi \rightarrow \Box \Diamond \phi$ geldig
+is in een frame als de relatie van het frame de diamond property heeft.
+
+We nemen aan dat $R$ de diamond property heeft. Neem nu een labeling functie $L$ en een
+verzameling werelden $W$ zodat $\mathcal{M} = (W, R, L)$ een model is. We
+laten zien dat $\mathcal{M} \Vdash \Diamond \Box \phi \rightarrow \Box \Diamond \phi$.
+
+Kies een willekeurige $x$ uit $W$ en neem aan dat $x \Vdash \Diamond \Box \phi$. Er
+is dus een $y$ met $Rxy$ en $y \Vdash \Box \phi$. De diamond property zegt nu dat
+voor iedere $z$ met $Rxz$ er een $t$ bestaat met $Ryt$ en $Rzt$. Dat betekent dat
+$t \Vdash \phi$ (immers, $y \Vdash \Box \phi$). Maar dan hebben we voor iedere $z$ met
+$Rxz$ dus $z \Vdash \Diamond \phi$. Dit geeft precies $x \Vdash \Box \Diamond \phi$.
+
+Hiermee hebben we laten zien dat $\Diamond \Box \phi \rightarrow \Box \Diamond \phi$
+waar is in iedere wereld van ieder model op ieder frame met de diamond property en dus
+geldig in al deze frames.
+
+\item{\bf (b)}
+We bewijzen vervolgens dat het schema $\Diamond \Box \phi \rightarrow \Box \Diamond \phi$
+niet geldig is in een frame als de relatie van het frame niet de diamond property heeft.
+
+Neem een willekeurig frame $\mathcal{F} = (W, R)$ zonder de diamond property. Dan
+zijn er dus drie werelden $x$, $y$ en $z$ in $W$ zodat $Rxy$ en $Rxz$ zonder dat er
+een wereld $t$ bestaat met $Ryt$ en $Rzt$.
+
+We laten nu zien dat $\Diamond \Box \phi \rightarrow \Box \Diamond \phi$ niet geldig is in
+$\mathcal{F}$. Daartoe kiezen we een labeling functie $L$ zodat
+$\mathcal{M} = (W, R, L)$ een model is met:
+\begin{quote}
+$p$ is waar in alle werelden $u$ met $Ryu$ en nergens anders
+\end{quote}
+
+Nu hebben we $x \Vdash \Diamond \Box p$, want $y$ is toegankelijk vanuit $x$ en alle
+werelden vanuit $y$ toegankelijk maken $p$ waar.
+
+Maar we hebben {\em niet} $x \Vdash \Box \Diamond p$, immers, $\Diamond p$ zou waar
+moeten zijn in alle werelden bereikbaar vanuit $x$, waaronder $z$. Maar
+$z \not \Vdash \Diamond p$ omdat er geen wereld bereikbaar is vanuit $z$ die $p$
+waar maakt. De enige werelden die $p$ waar maken zijn bereikbaar vanuit $y$ en er
+is geen wereld $t$ met $Ryt$ en $Rzt$.
+
+Dit betekent dat $x \not \Vdash \Diamond \Box p \rightarrow \Box \Diamond p$.
+Dit is een instantie van het schema en dus weten we ook dat
+$x \not \Vdash \Diamond \Box \phi \rightarrow \Box \Diamond \phi$.
+
+Hiermee hebben we laten zien dat er een wereld in een model op $\mathcal{F}$
+is waar $\Diamond \Box \phi \rightarrow \Box \Diamond \phi$ niet waar is, dus dat
+$\Diamond \Box \phi \rightarrow \Box \Diamond \phi$ niet geldig is in $\mathcal{F}$.
+
+\end{description}
+
+
+\end{document}
