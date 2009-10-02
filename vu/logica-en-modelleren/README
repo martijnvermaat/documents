@@ -1,0 +1,5 @@
+To compile uitwerking-5.3-16c.tex to PDF, use the following commands:
+
+dia -n -t eps diamond.dia
+epstopdf diamond.eps
+pdflatex uitwerking-5.3-16c.tex

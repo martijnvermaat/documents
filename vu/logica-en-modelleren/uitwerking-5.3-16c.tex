@@ -2,6 +2,7 @@
 \usepackage[dutch]{babel}
 \usepackage{a4,fullpage}
 \usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
 
 %\renewcommand{\familydefault}{\sfdefault}
 
@@ -28,13 +29,20 @@ dat wil zeggen:
   $\Longleftrightarrow$ \\
   $R$ heeft de gezochte eigenschap
 \end{quote}
-
 De gezochte eigenschap wordt wel de `diamond property' genoemd en is als
 volgt gedefinieerd:
-
-\begin{quote}
-  $\forall xyz \; [ \; Rxy \wedge Rxz \; \rightarrow \; \exists t \; ( Ryt \wedge Rzt ) \; ]$
-\end{quote}
+\begin{table}[!hm]
+  \begin{minipage}[t]{0.65\linewidth}\centering
+    \vspace{10pt}
+  $\forall xyz \; [ \; Rxy \wedge Rxz \; \rightarrow \; \exists t \; (
+    Ryt \wedge Rzt ) \; ]$
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.3\linewidth}\centering
+    \vspace{0pt}\raggedright
+  \includegraphics[totalheight=3cm]{diamond}
+  \end{minipage}
+\end{table}
 
 Er rest ons nog te bewijzen dat de diamond property inderdaad correspondeert
 met het gegeven formuleschema.
