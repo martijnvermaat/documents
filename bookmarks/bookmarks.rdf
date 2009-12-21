@@ -377,6 +377,9 @@
         <rdf:li rdf:resource="http://www.routeyou.com/home.nl"/>
         <rdf:li rdf:resource="http://www.thuisbezorgd.nl/"/>
         <rdf:li rdf:resource="http://idyllictux.wordpress.com/2009/04/21/ubuntu-904-jaunty-keeping-the-beast-pulseaudio-at-bay/"/>
+        <rdf:li rdf:resource="http://losseveter.nl/"/>
+        <rdf:li rdf:resource="http://muaddibspace.blogspot.com/"/>
+        <rdf:li rdf:resource="http://www.few.vu.nl/~fevers/ta/"/>
       </rdf:Seq>
     </items>
   </channel>
@@ -2976,5 +2979,31 @@
     <link>http://idyllictux.wordpress.com/2009/04/21/ubuntu-904-jaunty-keeping-the-beast-pulseaudio-at-bay/</link>
     <dc:subject>ubuntu</dc:subject>
     <dc:subject>linux</dc:subject>
+  </item>
+  <item rdf:about="http://losseveter.nl/">
+    <title>Losse Veter</title>
+    <link>http://losseveter.nl/</link>
+    <dc:subject>video</dc:subject>
+    <dc:subject>running</dc:subject>
+    <dc:subject>sports</dc:subject>
+    <dc:subject>dutch</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://muaddibspace.blogspot.com/">
+    <title>Muad`Dib</title>
+    <link>http://muaddibspace.blogspot.com/</link>
+    <dc:subject>coq</dc:subject>
+    <dc:subject>haskell</dc:subject>
+    <dc:subject>functional-programming</dc:subject>
+    <dc:subject>math</dc:subject>
+    <dc:subject>logic</dc:subject>
+    <dc:subject>blog</dc:subject>
+  </item>
+  <item rdf:about="http://www.few.vu.nl/~fevers/ta/">
+    <title>Teaching Assistent Wiki</title>
+    <link>http://www.few.vu.nl/~fevers/ta/</link>
+    <dc:subject>friends</dc:subject>
+    <dc:subject>vu</dc:subject>
+    <dc:subject>dutch</dc:subject>
   </item>
 </rdf:RDF>
