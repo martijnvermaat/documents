@@ -1,6 +1,5 @@
-\documentclass[a4paper,11pt]{article}
+\documentclass[11pt,oneside,a4paper,final]{report}
 \usepackage[english]{babel}
-\usepackage{a4}
 
 
 % Use some subversion information
@@ -8,9 +7,74 @@
 \svnid{$Id$}
 
 
+% Use scalable, PostScript Type 1 versions of the Computer Modern fonts.
+\usepackage{type1cm}
+
+% How to encode fonts.
+\usepackage[T1]{fontenc}
+
+% Text encoding to take for data input stream. I.e. the text we write in.
+\usepackage[latin1]{inputenc}
+
+\usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+
+% Times
+%\usepackage{txfonts}
+%\usepackage{times}
+
+% Times
+%\usepackage{mathptmx}
+
+% Palatino
+%\usepackage{pxfonts}
+%\usepackage{palatino}
+
+% Palatino
+%\usepackage[osf,sc]{mathpazo}
+
+% TeX Gyre Pagella (like Palatino)
+%\usepackage{qpxmath}
+%\usepackage{tgpagella}
+
+% TeX Gyre Termes (like Times)
+\usepackage{qtxmath}
+\usepackage{tgtermes}
+
+% txtt for tt
+\renewcommand{\ttdefault}{txtt}
+
+% Computer Modern for tt
+%\renewcommand{\ttdefault}{cmtt}
+
+% Helvetica for sans serif
+%\renewcommand{\sfdefault}{qhv}
+\usepackage[scaled=0.95]{helvet}
+
+
+\usepackage{a4}
+
+\raggedbottom
+
+% Dutch style of paragraph formatting, i.e. no indents.
+%\setlength{\parskip}{1.3ex plus 0.2ex minus 0.2ex}
+\setlength\parskip{\medskipamount}
+%\setlength\parskip{\bigskipamount}
+\setlength{\parindent}{0pt}
+
+% Linespacing
+\usepackage{setspace}
+\onehalfspacing
+%\doublespacing
+
+
+% Natbib for the bibliography, always. sort&compress will make i.e. [1-5,7].
+%\usepackage[square,numbers,sort&compress]{natbib}
+%\usepackage[authoryear,sort]{natbib}
+\usepackage[numbers]{natbib}
+\setlength{\bibhang}{0ex}
 
 
 % Must be last in preamble
@@ -32,13 +96,12 @@
 
 \title{Infinitary Rewriting in Coq}
 
-\author{Martijn Vermaat\\[0.3em]
-  \href{mailto:mvermaat@cs.vu.nl}{\texttt{mvermaat@cs.vu.nl}}
-}
-\date{Master's Thesis, revision \svnrev}
+\author{Martijn Vermaat}
+\date{MSc. Thesis (\emph{draft r\svnrev})}
 
 
 \begin{document}
+
 
 \maketitle
 
@@ -48,12 +111,99 @@
 \end{abstract}
 
 
-\section{Introduction}\label{sec:introduction}
+\chapter*{Preamble}
+
+
+\section*{Acknowledgements}
+
+
+\tableofcontents
+
+
+\chapter{Introduction}
+
+I have a lot of dummy text here.
+That way we can see how the formatting stuff works with these settings.
+And you know what, this is just dummy text!
+
+I have a lot of dummy text here.
+That way we can see how the formatting stuff works with these settings.
+And you know what, \textbf{this is just dummy text}!
+That way we can see how the formatting stuff works with these settings.
+And you know what, this is just dummy text!
+
+I have a lot of dummy text here.
+That way we can see how the \emph{formatting stuff} works with these settings.
+And you know what, this is just dummy text!
+And you know what, this is just dummy text!
+
+
+\section*{Outline}
+
+Some Greek letters in math: $\alpha$ $\beta$ $\rho$ $\psi$ $\phi$ $\sigma$ $\lambda$.
+
+This transformation is conceptually easy, but unfortunately yields a lot of
+administrative redexes. An administrative redex is a redex introduced by the CPS
+transformation, thus not present in the original source term. Consider for example
+the transformation of $(\lambda x. \, x) \, y$ and subsequent $\beta$-reduction
+of several administrative redexes:
+\begin{align*}
+  [\![(\lambda x. \, x) \, y]\!] &= \lambda k. \, (\lambda k. \, k \, (\lambda x. \, (\lambda k. \, k \, x))) \, (\lambda m. \, (\lambda k. \, k \, y) \,
+ (\lambda n. \, m \, n \, k))\\
+                                 &\rightarrow_{\beta} \lambda k. \, (\lambda m. \, (\lambda k. \, k \, y) \, (\lambda n. \, m \, n \, k)) \, (\lambda x.
+\, (\lambda k. \, k \, x))\\
+                                 &\rightarrow_{\beta} \lambda k. \, (\lambda k. \, k \, y) \, (\lambda n. \, (\lambda x. \, (\lambda k. \, k \, x)) \, n
+\, k)\\
+                                 &\rightarrow_{\beta} \lambda k. \, (\lambda n. \, (\lambda x. \, (\lambda k. \, k \, x)) \, n \, k) \, y\\
+                                 &\rightarrow_{\beta} \lambda k. \, (\lambda x. \, (\lambda k. \, k \, x)) \, y \, k
+\end{align*}
+Note that the term concluding the above reduction still contains a redex, but
+this redex was already present in the source term.
+Administrative redexes are to be avoided, because they complicate formal
+reasoning about a transformation and add computation steps to a compilation
+process.
+
+
+\chapter{Infinitary Term Rewriting}
+
+
+\section{Term Rewriting}
+
+
+\section{Ordinal Numbers}
+
+
+\section{Infinitary Term Rewriting}
+
+
+\chapter{Mechanically Verifiable Formalizations}
+
+
+\section{The Coq Proof Assistent}
+
+
+\section{Ordinal Numbers}
+
+
+\section{Coinductive Terms}
+
+
+\section{Transfinite Rewrite Sequences}
+
+
+\chapter{Weak Orthogonality and Unique Normal Forms}
+
+
+\section{Jan Willem's Counterexample}
+
+
+\section{Description of UNWO.v}
 
 
 \pagebreak
 
 
+\nocite{*}
 \bibliographystyle{plain}
 \bibliography{master-project}
 
