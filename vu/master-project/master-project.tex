@@ -313,16 +313,21 @@ constitutes a well-founded total order on the ordinals.
 We abbreviate $\alpha \cup \{ \alpha \}$ by $\alpha^+$ (corresponding to the
 successor function) and say that $\alpha$ is a successor ordinal if $\alpha =
 \beta^+$ for some ordinal $\beta$. If $\alpha$ is not a successor ordinal and
-$\alpha \neq \emptyset$, $\alpha$ is called a limit ordinal. So an ordinal can
+$\alpha \neq \emptyset$, it is called a limit ordinal. So an ordinal can
 be either zero, a successor ordinal, or a limit ordinal.
+
+From now on, we make no distinction between an ordinal and its set-theoretic
+representation (e.g.\ between $0$ and $\emptyset$). Examples of successor
+ordinals are $4$, $\omega + 7$, and $\omega^{\omega \times 2} + 1$. Examples
+of limit ordinals are $\omega$ and $\omega \times 3$.
 
 One can do arithmetics on ordinals much like we do arithmetics on natural
 numbers. For example, addition can be defined by recursion on the right
 argument:
 \begin{align*}
-  \alpha + \emptyset &= \alpha\\
-  \alpha + \beta^+   &= (\alpha + \beta)^+\\
-  \alpha + \beta     &= \bigcup \{ \alpha + \gamma \; | \; \gamma \in \beta \}
+  \alpha + 0       &= \alpha\\
+  \alpha + \beta^+ &= (\alpha + \beta)^+\\
+  \alpha + \beta   &= \bigcup \{ \alpha + \gamma \; | \; \gamma \in \beta \}
 \end{align*}
 
 % http://books.google.com/books?id=_hsUmpc6OfcC&pg=PA418&lpg=PA418&dq=schwichtenberg+%22tree+ordinal%22&source=bl&ots=PiwnKytq5C&sig=9_RpDlf89Oz3X_sHfkN0-VbDrZY#v=onepage&q&f=false
