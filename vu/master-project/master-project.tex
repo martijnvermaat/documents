@@ -83,6 +83,7 @@
 
 
 \usepackage{paralist}
+\setdefaultenum{i.}{a.}{}{}
 
 
 % Must be last in preamble
@@ -321,6 +322,11 @@ representation (e.g.\ between $0$ and $\emptyset$). Examples of successor
 ordinals are $4$, $\omega + 7$, and $\omega^{\omega \times 2} + 1$. Examples
 of limit ordinals are $\omega$ and $\omega \times 3$.
 
+% TODO: we also make no distinction between the ordinal and its brouwer
+% ordinal
+% TODO: i use + en x all the time, while not explaining their meaning
+% TODO: use lambda for the limit ordinal in addition definition
+
 One can do arithmetics on ordinals much like we do arithmetics on natural
 numbers. For example, addition can be defined by recursion on the right
 argument:
@@ -332,18 +338,31 @@ argument:
 
 % http://books.google.com/books?id=_hsUmpc6OfcC&pg=PA418&lpg=PA418&dq=schwichtenberg+%22tree+ordinal%22&source=bl&ots=PiwnKytq5C&sig=9_RpDlf89Oz3X_sHfkN0-VbDrZY#v=onepage&q&f=false
 
-\subsection{Brouwer Ordinals}
 
-(Countable ) tree ordinals (Schwichtenburg) are a formally constructive
-interpretation of the set theoretic notion of countable ordinal.
+\subsection{Brouwer Ordinals}\label{sub:brouwer}
 
-tree ordinal = countably branching well-founded tree
+The Brouwer ordinals are a constructive representation of the countable
+ordinals as countably branching well-founded trees. Their inductive definition
+uses constructors $0$, $^+$, and $\sqcup$. Again, we identify ordinals and
+their representation as Brouwer ordinal (and by $^+$ we no longer mean the
+set-theoretic abbreviation defined above).
 
-this goes back to brouwer. a countable ordinal can be seen as in inductively
-generated object of three possible forms (0, S, Lim). induction principle can
-be formulated as [ordinal induction].
+\begin{definition}[Ordinals]
+The set of \emph{Brouwer ordinals} (ordinals) $\Omega$ is defined by
+induction:
+\begin{compactenum}
+  \item
+    $0 \in \Omega$.
+  \item
+    If $\alpha \in \Omega$, then $\alpha^+ \in \Omega$.
+  \item
+    % TODO: explain the notation with \sqcup
+    If $\beta_i \in \Omega$ for all $i \in \mathbb{N}$, then $\sqcup_i \beta_i
+    \in \Omega$.
+\end{compactenum}
+\end{definition}
 
-they are not uniquely represented and not linearly ordered.
+They are not uniquely represented and not linearly ordered.
 
 
 \section{Infinitary Term Rewriting}\label{sec:itr}
