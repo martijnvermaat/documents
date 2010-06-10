@@ -171,8 +171,8 @@ aspects of rewriting that are studied.
 
 We give a short introduction to the basic notions of term rewriting needed for
 section~\ref{sec:itr}. For a more in-depth treatment of the theory of term
-rewriting, consult (TODO: terese etc). In this section, we use definitions and
-notations from Terese.
+rewriting, consult~\cite{terese-03} (TODO: others). In this section, we use
+definitions and notations from Terese.
 
 
 \subsection{Definition of a TRS}
@@ -325,7 +325,7 @@ of limit ordinals are $\omega$ and $\omega \times 3$.
 % TODO: we also make no distinction between the ordinal and its brouwer
 % ordinal
 % TODO: i use + en x all the time, while not explaining their meaning
-% TODO: use lambda for the limit ordinal in addition definition
+% TODO: explain we use \lambda for limit ordinals
 
 One can do arithmetics on ordinals much like we do arithmetics on natural
 numbers. For example, addition can be defined by recursion on the right
@@ -333,7 +333,7 @@ argument:
 \begin{align*}
   \alpha + 0       &= \alpha\\
   \alpha + \beta^+ &= (\alpha + \beta)^+\\
-  \alpha + \beta   &= \bigcup \{ \alpha + \gamma \; | \; \gamma \in \beta \}
+  \alpha + \lambda &= \bigcup \{ \alpha + \gamma \; | \; \gamma \in \lambda \}
 \end{align*}
 
 % http://books.google.com/books?id=_hsUmpc6OfcC&pg=PA418&lpg=PA418&dq=schwichtenberg+%22tree+ordinal%22&source=bl&ots=PiwnKytq5C&sig=9_RpDlf89Oz3X_sHfkN0-VbDrZY#v=onepage&q&f=false
@@ -343,9 +343,16 @@ argument:
 
 The Brouwer ordinals are a constructive representation of the countable
 ordinals as countably branching well-founded trees. Their inductive definition
-uses constructors $0$, $^+$ and $\sqcup$. Again, we identify ordinals and
-their representation as Brouwer ordinal (and by $^+$ we no longer mean the
-set-theoretic abbreviation defined above).
+uses constructors $0$ (zero), $^+$ (successor) and $\sqcup$ (limit).
+%Again, we
+%identify ordinals and their representation as Brouwer ordinal (and by $^+$ we
+%no longer mean the set-theoretic abbreviation defined above).
+
+The $\sqcup$ constructor has type $(\mathbb{N} \rightarrow \Omega) \rightarrow
+\Omega$, but for our convenience we write $\sqcup_i \cdots i \cdots$ instead
+of $\sqcup (\lambda i . \cdots i \cdots)$. Sometimes we explicitely enumerate
+the function, writing for example $\sqcup \{ \alpha_1, \alpha_2, \alpha_3,
+\ldots \}$.
 
 \begin{definition}[Ordinals]
 The set of \emph{Brouwer ordinals} (ordinals) $\Omega$ is defined by
@@ -356,13 +363,63 @@ induction:
   \item
     If $\alpha \in \Omega$, then $\alpha^+ \in \Omega$.
   \item
-    % TODO: explain the notation with \sqcup
-    If $\beta_i \in \Omega$ for all $i \in \mathbb{N}$, then $\sqcup_i \beta_i
-    \in \Omega$.
+    If $\alpha_i \in \Omega$ for all $i \in \mathbb{N}$, then $\sqcup_i
+    \alpha_i \in \Omega$.
 \end{compactenum}
 \end{definition}
 
-They are not uniquely represented and not linearly ordered.
+Now zero is represented by $0$, a successor ordinal $\alpha +1$ is represented
+by $\alpha^+$ and a limit ordinal $\lambda$ is represented by $\sqcup_i
+\alpha_i$ if $\lambda$ is the least upper bound of the sequence $\alpha_1,
+\alpha_2, \alpha_3, \ldots$. % TODO: strict or unstrict upper bound
+Again, we identify ordinals and their representation as Brouwer ordinal.
+
+Some ordinals have no unique representation as Brouwer ordinal. Consider for
+example the limit ordinals $\sqcup_i i + 3$ and $\sqcup_i i \times 2$. Both
+are representations of $\omega$ and a meaningful order relation would have to
+position them at the same rank.
+
+A more intricate issue is what to make of ordinals such as $\sqcup \{ 3, 3, 3,
+\ldots \}$. In spirit of the intuition given above it represents $3$ ($4$),
+that being the non-strict (strict) upper bound of $3, 3, 3, \ldots$.
+% TODO: this makes it undecidable to compare an ordinal to 0 or 3
+In practice, we might like to exclude such representations and require that
+$\sqcup_i \alpha_i$ always represents a limit ordinal. This can be done by
+imposing a strict monotonicity property on the limit sequences, but some order
+relation on the Brouwer ordinals is needed for that.
+
+% TODO: much of the following is taken from Hancock, but i think we cannot
+% cite that paper. however, we must acknowledge this in some way
+
+Before we can define an extensional order relation on $\Omega$, we define a
+structural strict order relation as follows.
+
+\begin{definition}[Predecessor indices]
+% TODO: include I(a) for a in emph
+The set-valued function $I$ defines the \emph{predecessor indices} $I(\alpha)$
+for $\alpha$ by recursion on $\alpha$:
+\begin{align*}
+  I(0)                 &= \emptyset \\
+  I(\alpha^+)          &= I(\alpha)^? \\
+  I(\sqcup_i \alpha_i) &= (\Sigma n \in \mathbb{N}) \; I(\alpha_n)
+\end{align*}
+\end{definition}
+
+With $A^?$ we mean the option type over $A$, or equivalently the disjoint sum
+$1 + A$ of the unit type $1$ and $A$. We use \textsc{none} and \textsc{some
+  $a$} (for $a \in A$) as constructors of $A^?$. Note that the set $I(0)$ of
+predecessor indices for $0$ is uninhabited.
+
+\begin{definition}[Predecessor]
+The function $\_[\_] : (\prod \alpha : \Omega) \; I(\alpha) \rightarrow
+\Omega$ defines the \emph{predecessor} $\alpha[i]$ of $\alpha$ indexed by $i$
+recursively on $\alpha$:
+\begin{align*}
+  \alpha^+[\textsc{none}]                 &= \alpha \\
+  \alpha^+[\textsc{some $i$}]             &= \alpha[i] \\
+  \sqcup_i \alpha_i[\langle n, i \rangle] &= \alpha_n[i]
+\end{align*}
+\end{definition}
 
 
 \section{Infinitary Term Rewriting}\label{sec:itr}
