@@ -405,7 +405,9 @@ for $\alpha$ by recursion on $\alpha$:
 \end{align*}
 \end{definition}
 
-With $A^?$ we mean the option type over $A$, or equivalently the disjoint sum
+% TODO: investigate what happens if we take I(lim f) to be just N
+
+By $A^?$ we mean the option type over $A$, or equivalently the disjoint sum
 $1 + A$ of the unit type $1$ and $A$. We use \textsc{none} and \textsc{some
   $a$} (for $a \in A$) as constructors of $A^?$. Note that the set $I(0)$ of
 predecessor indices for $0$ is uninhabited.
@@ -419,6 +421,30 @@ recursively on $\alpha$:
   \alpha^+[\textsc{some $i$}]             &= \alpha[i] \\
   \sqcup_i \alpha_i[\langle n, i \rangle] &= \alpha_n[i]
 \end{align*}
+\end{definition}
+
+% TODO: explain what I() and _[_] mean
+
+With this structural strict predecessor relation we are ready to define a
+non-strict order relation on $\Omega$ that classifies ordinals by rank.
+
+% TODO: note <= infix notation
+% TODO: or use the set-theoretic definitions from hancock?
+\begin{definition}[Order]
+We define the \emph{order} $\preceq$ as a binary relation on $\Omega$ by
+induction on the first argument (and write $\alpha \preceq \beta$ for $\langle
+\alpha, \beta \rangle \in \; \preceq$):
+\begin{compactenum}
+  \item
+    $0 \preceq \beta$ for every ordinal $\beta \in \Omega$.
+  \item
+    For all $\alpha, \beta \in \Omega$ and $i \in I(\beta)$, if $\alpha
+    \preceq \beta[i]$ then $\alpha^+ \preceq \beta$.
+  \item
+    For all $\alpha_1, \alpha_2, \alpha_3, \ldots, \beta \in \Omega$, if
+    $\alpha_n \preceq \beta$ for all $n \in \mathbb{N}$, then $\sqcup_i
+    \alpha_i \preceq \beta$.
+\end{compactenum}
 \end{definition}
 
 
