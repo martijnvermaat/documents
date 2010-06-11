@@ -164,7 +164,7 @@ conclusions.
 \chapter{Infinitary Term Rewriting}\label{chap:itr}
 
 
-\section{Term Rewriting}
+\section{Term Rewriting}\label{sec:trs}
 
 TODO: Short motivation for term rewriting, summation of its applications and
 aspects of rewriting that are studied.
@@ -191,6 +191,7 @@ variables $X = \{x, y, \ldots\}$ is defined by induction:
   \item
     $x \in Ter_\Sigma(X)$ for every variable $x \in X$.
   \item
+    % TODO: overfull hbox
     If $f \in \Sigma$ is a function symbol with arity $n$ and $t_1, \ldots,
     t_n \in Ter_\Sigma(X)$, then $f(t_1, \ldots, t_n) \in Ter_\Sigma(X)$.
 \end{compactenum}
@@ -254,8 +255,10 @@ inductively:
 Since $\bar{\sigma}$ is completely defined by $\sigma$ we refer to both as
 `the' substitution $\sigma$. The notation $[x_1, \ldots, x_n := s_1, \ldots,
   s_n]$ is used for the substitution $\sigma$ with $\sigma(x_i) = s_i$ for $1
-\leq i \leq n$ and $\sigma(y) = y$ for all other $y$. Applying a substitution % TODO: syntactical equality?
+\leq i \leq n$ and $\sigma(y) = y$ for all other $y$. Applying a substitution
 $\sigma$ to a term $t$ is usually written $t^\sigma$.
+% TODO: use some syntactical equality symbol and define = to be
+% convertibility?
 
 If we view a rewriting rule $\rho : l \rightarrow r$ as a \emph{scheme}, an
 \emph{instance} of $\rho$ can be obtained by applying a substitution
@@ -277,12 +280,7 @@ with rewrite rules $R$ is defined as the union of $\{ \rightarrow_\rho | \;
 
 \subsection{Orthogonality}
 
-Bla.
-
-
-\subsection{Normal Forms}
-
-Bla.
+Normal forms, left-linearity, critical pairs, etc.
 
 
 \section{Ordinal Numbers}
@@ -425,7 +423,8 @@ recursively on $\alpha$:
 
 % TODO: explain what I() and _[_] mean
 
-With this structural strict predecessor relation we are ready to define a
+This structural predecessor function can be viewed as defining a `subtree'
+partial order on $\Omega$. With it we are ready to define an extensional
 non-strict order relation on $\Omega$ that classifies ordinals by rank.
 
 % TODO: note <= infix notation
@@ -447,8 +446,21 @@ induction on the first argument (and write $\alpha \preceq \beta$ for $\langle
 \end{compactenum}
 \end{definition}
 
+Using this order, we can define two other useful binary relations on
+$\Omega$. First, the extensional equality $\alpha \simeq \beta$ by the
+conjunction of $\alpha \preceq \beta$ and $\beta \preceq \alpha$. Second, the
+extensional strict order $\alpha \prec \beta$ if $\alpha \preceq \beta[i]$ for
+some $i \in I(\beta)$.
+
 
 \section{Infinitary Term Rewriting}\label{sec:itr}
+
+% TODO: we can also skip finitary rewriting and only define infinitary
+% rewriting
+% TODO: some informal motivation for infinitary rewriting
+
+We present infinitary term rewriting as a generalization of finitary term
+rewriting as defined in section~\ref{sec:trs}.
 
 
 \subsection{Definition of an iTRS}
