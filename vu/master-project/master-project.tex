@@ -96,8 +96,10 @@
   urlcolor=black,
   pdfauthor={Martijn Vermaat},
   pdftitle={Infinitary Rewriting in Coq},
-  pdfsubject={A Mechanically Verifiable Formalisation of Infinitary Rewriting in the Coq Proof Assistant},
-  pdfkeywords={rewriting, infinitary rewriting, verification, coq, functional programming},
+  pdfsubject={A Mechanic Formalisation of Infinitary Rewriting in the Coq
+    Proof Assistant},
+  pdfkeywords={brouwer ordinals, infinitary rewriting, verification, coq,
+    functional programming},
   draft=false
 ]{hyperref}
 \usepackage[figure]{hypcap}
@@ -218,17 +220,14 @@ argument:
   \alpha + \lambda &= \bigcup \{ \alpha + \gamma \; | \; \gamma \in \lambda \}
 \end{align*}
 
-% http://books.google.com/books?id=_hsUmpc6OfcC&pg=PA418&lpg=PA418&dq=schwichtenberg+%22tree+ordinal%22&source=bl&ots=PiwnKytq5C&sig=9_RpDlf89Oz3X_sHfkN0-VbDrZY#v=onepage&q&f=false
-
 
 \subsection{Brouwer Ordinals}\label{sub:brouwer}
 
-The Brouwer ordinals are a constructive representation of the countable
-ordinals as countably branching well-founded trees. Their inductive definition
-uses constructors $0$ (zero), $^+$ (successor) and $\sqcup$ (limit).
-%Again, we
-%identify ordinals and their representation as Brouwer ordinal (and by $^+$ we
-%no longer mean the set-theoretic abbreviation defined above).
+% TODO: should we mention the name tree ordinals?
+The Brouwer ordinals (also known as tree ordinals) are a constructive
+representation of the countable ordinals as countably branching well-founded
+trees. Their inductive definition uses constructors $0$ (zero), $^+$
+(successor) and $\sqcup$ (limit).
 
 The $\sqcup$ constructor has type $(\mathbb{N} \rightarrow \Omega) \rightarrow
 \Omega$, but for our convenience we write $\sqcup_i \cdots i \cdots$ instead
@@ -339,8 +338,8 @@ some $i \in I(\beta)$.
 
 \section{Term Rewriting}\label{sec:trs}
 
-%TODO: Short motivation for term rewriting, summation of its applications and
-%aspects of rewriting that are studied.
+% TODO: Short motivation for term rewriting, summation of its applications and
+% aspects of rewriting that are studied.
 
 We give a short introduction to the basic notions of infinitary term
 rewriting. For a more in-depth treatment of the theory of term rewriting,
@@ -369,7 +368,6 @@ set of variables $X = \{x, y, \ldots\}$ is defined by co-induction:
   \item
     $x \in Ter_\Sigma^\infty(X)$ for every variable $x \in X$.
   \item
-    % TODO: overfull hbox
     If $f \in \Sigma$ is a function symbol with arity $n$ and $t_1, \ldots,
     t_n \in Ter_\Sigma^\infty(X)$, then $f(t_1, \ldots, t_n) \in
     Ter_\Sigma^\infty(X)$.
@@ -399,9 +397,10 @@ $\Sigma$.
 \end{definition}
 
 In contrast to Terese, we do not define contexts as terms over an extended
-signature. Instead, a direct inductive definition is given because this is how
-the notion of context is defined in our Coq development.
-% TODO: the main reason being that we choose not to consider multi-hole contexts
+signature. Instead, a direct inductive definition is given since this is how
+we defined the notion of context in our Coq development (the main reason being
+that we choose not to consider multi-hole contexts).
+% TODO: maybe this needs more explaining
 
 \begin{definition}[Context]
 The set of (one-hole) \emph{contexts} $Ctx_\Sigma^\infty$ over a signature
@@ -429,7 +428,8 @@ generalized to a mapping $\bar{\sigma} : Ter_\Sigma(X) \rightarrow
 Ter_\Sigma^\infty(X)$ recursively:
 \begin{align*}
   \bar{\sigma}(x) &= \sigma(x)\\
-  \bar{\sigma}(f(t_1, \ldots, t_n)) &= f(\bar{\sigma}(t_1), \ldots, \bar{\sigma}(t_n))
+  \bar{\sigma}(f(t_1, \ldots, t_n)) &= f(\bar{\sigma}(t_1), \ldots,
+  \bar{\sigma}(t_n))
 \end{align*}
 \end{definition}
 
@@ -466,7 +466,9 @@ TODO: infinite rewriting sequences, convergence definitions.
 TODO: Normal forms, left-linearity, critical pairs, etc.
 
 
-\chapter{A Mechanically Verifiable Formalization}\label{chap:formalization}
+\chapter{A Mechanic Formalization}\label{chap:formalization}
+
+TODO: introduction.
 
 
 \section{The Coq Proof Assistant}
