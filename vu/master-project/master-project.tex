@@ -98,7 +98,7 @@
   pdftitle={Infinitary Rewriting in Coq},
   pdfsubject={A Mechanically Verifiable Formalisation of Infinitary Rewriting in the Coq Proof Assistant},
   pdfkeywords={rewriting, infinitary rewriting, verification, coq, functional programming},
-  draft=true
+  draft=false
 ]{hyperref}
 \usepackage[figure]{hypcap}
 
@@ -144,6 +144,7 @@ Infinitary term rewriting, the Coq proof assistant, etc.
 
 \section*{Outline}
 
+% TODO: this is no longer correct (no finitary rewriting)
 In chapter~\ref{chap:itr} we introduce the theory of infinitary term
 rewriting. To this end we first give a quick summary of traditional (finitary)
 term rewriting and an introduction to the mathematical concept of ordinal
@@ -163,124 +164,7 @@ conclusions.
 
 \chapter{Infinitary Term Rewriting}\label{chap:itr}
 
-
-\section{Term Rewriting}\label{sec:trs}
-
-TODO: Short motivation for term rewriting, summation of its applications and
-aspects of rewriting that are studied.
-
-We give a short introduction to the basic notions of term rewriting needed for
-section~\ref{sec:itr}. For a more in-depth treatment of the theory of term
-rewriting, consult~\cite{terese-03} (TODO: others). In this section, we use
-definitions and notations from Terese.
-
-
-\subsection{Definition of a TRS}
-
-\begin{definition}[Signature]
-A \emph{signature} $\Sigma$ is a non-empty set of \emph{function symbols} $f,
-g, \ldots$. Each function symbol $f$ has a fixed natural number $\#_f$, which
-we call its \emph{arity}. A function symbol with arity $0$ is also called a
-\emph{constant}.
-\end{definition}
-
-\begin{definition}[Term]
-The set of \emph{terms} $Ter_\Sigma(X)$ over a signature $\Sigma$ and a set of
-variables $X = \{x, y, \ldots\}$ is defined by induction:
-\begin{compactenum}
-  \item
-    $x \in Ter_\Sigma(X)$ for every variable $x \in X$.
-  \item
-    % TODO: overfull hbox
-    If $f \in \Sigma$ is a function symbol with arity $n$ and $t_1, \ldots,
-    t_n \in Ter_\Sigma(X)$, then $f(t_1, \ldots, t_n) \in Ter_\Sigma(X)$.
-\end{compactenum}
-\end{definition}
-
-The terms $t_i$ are called the \emph{arguments} of $f(t_1, \ldots, t_n)$ and
-the symbol $f$ the \emph{root}. By $Var(t)$ we denote the set of variables
-occuring in $t$, and $t$ is \emph{closed} if $Var(t) = \emptyset$. If no
-variable occurs more than once in $t$, we say $t$ is \emph{linear}.
-
-Often, the set of variables $X$ is left implicit and $Ter_\Sigma(X)$ is
-denoted simply by $Ter_\Sigma$.
-
-\begin{definition}[Rewrite rule]
-  A \emph{rewrite rule} $\rho$ for a signature $\Sigma$ is a pair $\langle l,
-  r \rangle$ of terms in $Ter_\Sigma$ (written $\rho : l \rightarrow r$). We
-  restrict ourselves to rewrite rules where $l$ is not a variable and $Var(r)
-  \subseteq Var(l)$.
-\end{definition}
-
-\begin{definition}[TRS]
-A \emph{term rewriting system} (TRS) $\mathcal{R}$ is a pair $\langle \Sigma,
-R \rangle$ of a signature $\Sigma$ and a set of rewrite rules $R$ on
-$\Sigma$.
-\end{definition}
-
-In contrast to Terese, we do not define contexts as terms over an extended
-signature. Instead, a direct inductive definition is given because this is how
-the notion of context is defined in our Coq development.
-% TODO: the main reason being that we choose not to consider multi-hole contexts
-
-\begin{definition}[Context]
-The set of (one-hole) \emph{contexts} $Ctx_\Sigma$ over a signature $\Sigma$
-is defined by induction:
-\begin{compactenum}
-  \item
-    $\Box \in Ctx_\Sigma$.
-  \item
-    If $f \in \Sigma$ is a function symbol with arity $n + 1$, $C \in
-    Ctx_\Sigma$, and $t_1, \ldots, t_n \in Ter_\Sigma$, then for any $m
-    \leq n + 1$, $f(t_1, \ldots, t_m, C, t_{m+2}, \ldots, t_{n}) \in
-    Ctx_\Sigma$.
-\end{compactenum}
-\end{definition}
-
-Thus every context $C$ has exactly one occurence of the symbol $\Box$, called
-its \emph{hole}. By the term $C[t]$ we mean the result of replacing the hole
-of $C$ by $t$.
-
-\begin{definition}[Substitution]
-Given a signature $\Sigma$ and a set of variables $X$, a \emph{substitution}
-$\sigma$ is a mapping from $X$ to $Ter_\Sigma(X)$. It can be generalized to
-a mapping $\bar{\sigma} : Ter_\Sigma(X) \rightarrow Ter_\Sigma(X)$
-inductively:
-\begin{align*}
-  \bar{\sigma}(x) &= \sigma(x)\\
-  \bar{\sigma}(f(t_1, \ldots, t_n)) &= f(\bar{\sigma}(t_1), \ldots, \bar{\sigma}(t_n))
-\end{align*}
-\end{definition}
-
-Since $\bar{\sigma}$ is completely defined by $\sigma$ we refer to both as
-`the' substitution $\sigma$. The notation $[x_1, \ldots, x_n := s_1, \ldots,
-  s_n]$ is used for the substitution $\sigma$ with $\sigma(x_i) = s_i$ for $1
-\leq i \leq n$ and $\sigma(y) = y$ for all other $y$. Applying a substitution
-$\sigma$ to a term $t$ is usually written $t^\sigma$.
-% TODO: use some syntactical equality symbol and define = to be
-% convertibility?
-
-If we view a rewriting rule $\rho : l \rightarrow r$ as a \emph{scheme}, an
-\emph{instance} of $\rho$ can be obtained by applying a substitution
-$\sigma$. The result is the \emph{atomic} rewrite step $l^\sigma
-\rightarrow_\rho r^\sigma$. We call $l^\sigma$ a ($\rho$-) \emph{redex} and
-$r^\sigma$ its \emph{contractum}.
-
-\begin{definition}[Rewrite step]
-A \emph{rewrite step} $C[l^\sigma] \rightarrow_\rho C[r^\sigma]$ according to
-$\rho$ consists of a rewrite rule $\rho : l \rightarrow r$, a substitution
-$\sigma$ and a context $C$.
-\end{definition}
-
-We call $\rightarrow_\rho$ the \emph{one-step rewriting relation} generated by
-$\rho$. The one-step rewriting relation $\rightarrow$ of a TRS $\mathcal{R}$
-with rewrite rules $R$ is defined as the union of $\{ \rightarrow_\rho | \;
-\rho \in R \}$.
-
-
-\subsection{Orthogonality}
-
-Normal forms, left-linearity, critical pairs, etc.
+Before we can study infinitary rewriting, we must introduce ordinal numbers.
 
 
 \section{Ordinal Numbers}
@@ -453,20 +337,133 @@ extensional strict order $\alpha \prec \beta$ if $\alpha \preceq \beta[i]$ for
 some $i \in I(\beta)$.
 
 
-\section{Infinitary Term Rewriting}\label{sec:itr}
+\section{Term Rewriting}\label{sec:trs}
 
-% TODO: we can also skip finitary rewriting and only define infinitary
-% rewriting
-% TODO: some informal motivation for infinitary rewriting
+%TODO: Short motivation for term rewriting, summation of its applications and
+%aspects of rewriting that are studied.
 
-We present infinitary term rewriting as a generalization of finitary term
-rewriting as defined in section~\ref{sec:trs}.
+We give a short introduction to the basic notions of infinitary term
+rewriting. For a more in-depth treatment of the theory of term rewriting,
+consult~\cite{terese-03} (TODO: infinitary see chapter 12, others). In this
+section, we use definitions and notations from Terese.
+
+% TODO: rewrite this statement (and perhaps we never mention finitary
+% rewriting)
+From now on, we drop the `infinitary' from infinitary rewriting and
+explicitely say so if we mean finitary rewriting.
 
 
-\subsection{Definition of an iTRS}
+\subsection{Definition of a TRS}
 
-Coinductive terms, finite rewriting rules, infinite rewriting sequences,
-convergence definitions.
+\begin{definition}[Signature]
+A \emph{signature} $\Sigma$ is a non-empty set of \emph{function symbols} $f,
+g, \ldots$. Each function symbol $f$ has a fixed natural number $\#_f$, which
+we call its \emph{arity}. A function symbol with arity $0$ is also called a
+\emph{constant}.
+\end{definition}
+
+\begin{definition}[Term]
+The set of \emph{terms} $Ter_\Sigma^\infty(X)$ over a signature $\Sigma$ and a
+set of variables $X = \{x, y, \ldots\}$ is defined by co-induction:
+\begin{compactenum}
+  \item
+    $x \in Ter_\Sigma^\infty(X)$ for every variable $x \in X$.
+  \item
+    % TODO: overfull hbox
+    If $f \in \Sigma$ is a function symbol with arity $n$ and $t_1, \ldots,
+    t_n \in Ter_\Sigma^\infty(X)$, then $f(t_1, \ldots, t_n) \in
+    Ter_\Sigma^\infty(X)$.
+\end{compactenum}
+\end{definition}
+
+The terms $t_i$ are called the \emph{arguments} of $f(t_1, \ldots, t_n)$ and
+the symbol $f$ the \emph{root}. By $Var(t)$ we denote the set of variables
+occuring in $t$, and $t$ is \emph{closed} if $Var(t) = \emptyset$. If no
+variable occurs more than once in $t$, we say $t$ is \emph{linear}.
+
+Often, the set of variables $X$ is left implicit and $Ter_\Sigma^\infty(X)$ is
+denoted simply by $Ter_\Sigma^\infty$. By the set of \emph{finite terms}
+$Ter_\Sigma$ we mean the subset of well-founded terms of $Ter_\Sigma^\infty$.
+
+\begin{definition}[Rewrite rule]
+  A \emph{rewrite rule} $\rho$ for a signature $\Sigma$ is a pair $\langle l,
+  r \rangle$ of finite terms in $Ter_\Sigma$ (written $\rho : l \rightarrow
+  r$). We restrict ourselves to rewrite rules where $l$ is not a variable and
+  $Var(r) \subseteq Var(l)$.
+\end{definition}
+
+\begin{definition}[TRS]
+A \emph{term rewriting system} (TRS) $\mathcal{R}$ is a pair $\langle \Sigma,
+R \rangle$ of a signature $\Sigma$ and a set of rewrite rules $R$ on
+$\Sigma$.
+\end{definition}
+
+In contrast to Terese, we do not define contexts as terms over an extended
+signature. Instead, a direct inductive definition is given because this is how
+the notion of context is defined in our Coq development.
+% TODO: the main reason being that we choose not to consider multi-hole contexts
+
+\begin{definition}[Context]
+The set of (one-hole) \emph{contexts} $Ctx_\Sigma^\infty$ over a signature
+$\Sigma$ is defined by induction:
+\begin{compactenum}
+  \item
+    $\Box \in Ctx_\Sigma^\infty$.
+  \item
+    If $f \in \Sigma$ is a function symbol with arity $n + 1$, $C \in
+    Ctx_\Sigma^\infty$, and $t_1, \ldots, t_n \in Ter_\Sigma^\infty$, then for
+    any $m \leq n + 1$, $f(t_1, \ldots, t_m, C, t_{m+2}, \ldots, t_{n}) \in
+    Ctx_\Sigma^\infty$.
+\end{compactenum}
+\end{definition}
+
+Thus every context $C$ has exactly one occurence of the symbol $\Box$, called
+its \emph{hole}. By the term $C[t]$ we mean the result of replacing the hole
+of $C$ by $t$.
+
+\begin{definition}[Substitution]
+% TODO: now we only generalize to finite terms
+Given a signature $\Sigma$ and a set of variables $X$, a \emph{substitution}
+$\sigma$ is a mapping from $X$ to $Ter_\Sigma^\infty(X)$. It can be
+generalized to a mapping $\bar{\sigma} : Ter_\Sigma(X) \rightarrow
+Ter_\Sigma^\infty(X)$ recursively:
+\begin{align*}
+  \bar{\sigma}(x) &= \sigma(x)\\
+  \bar{\sigma}(f(t_1, \ldots, t_n)) &= f(\bar{\sigma}(t_1), \ldots, \bar{\sigma}(t_n))
+\end{align*}
+\end{definition}
+
+Since $\bar{\sigma}$ is completely defined by $\sigma$ we refer to both as
+`the' substitution $\sigma$. The notation $[x_1, \ldots, x_n := s_1, \ldots,
+  s_n]$ is used for the substitution $\sigma$ with $\sigma(x_i) = s_i$ for $1
+\leq i \leq n$ and $\sigma(y) = y$ for all other $y$. Applying a substitution
+$\sigma$ to a term $t$ is usually written $t^\sigma$.
+% TODO: use some syntactical equality symbol and define = to be
+% convertibility?
+
+If we view a rewriting rule $\rho : l \rightarrow r$ as a \emph{scheme}, an
+\emph{instance} of $\rho$ can be obtained by applying a substitution
+$\sigma$. The result is the \emph{atomic} rewrite step $l^\sigma
+\rightarrow_\rho r^\sigma$. We call $l^\sigma$ a ($\rho$-) \emph{redex} and
+$r^\sigma$ its \emph{contractum}.
+
+\begin{definition}[Rewrite step]
+A \emph{rewrite step} $C[l^\sigma] \rightarrow_\rho C[r^\sigma]$ according to
+$\rho$ consists of a rewrite rule $\rho : l \rightarrow r$, a substitution
+$\sigma$ and a context $C$.
+\end{definition}
+
+We call $\rightarrow_\rho$ the \emph{one-step rewriting relation} generated by
+$\rho$. The one-step rewriting relation $\rightarrow$ of a TRS $\mathcal{R}$
+with rewrite rules $R$ is defined as the union of $\{ \rightarrow_\rho | \;
+\rho \in R \}$.
+
+TODO: infinite rewriting sequences, convergence definitions.
+
+
+\subsection{Orthogonality}
+
+TODO: Normal forms, left-linearity, critical pairs, etc.
 
 
 \chapter{A Mechanically Verifiable Formalization}\label{chap:formalization}
@@ -484,7 +481,7 @@ convergence definitions.
 \section{Transfinite Rewrite Sequences}
 
 
-\chapter{UN$^\infty$ and Weak Orthogonality}\label{chap:unwo}
+\chapter{UN\texorpdfstring{$^\infty$}{} and Weak Orthogonality}\label{chap:unwo}
 
 
 \section{Jan Willem's Counterexample}
