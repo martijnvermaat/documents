@@ -64,8 +64,8 @@
 \setlength{\parindent}{0pt}
 
 % Linespacing
-\usepackage{setspace}
-\onehalfspacing
+\usepackage[onehalfspacing]{setspace}
+%\onehalfspacing
 %\doublespacing
 
 
@@ -86,9 +86,17 @@
 \setdefaultenum{i.}{a.}{}{}
 
 
-% Must be last in preamble
-\usepackage[
-  pdftex,
+\usepackage{alltt}
+\usepackage[color]{coqdoc}
+%\usepackage{coq}
+
+\setlength{\coqdocbaseindent}{0.7em}
+
+\newcommand{\arrow}{\mbox{$\rightarrow$}}
+\newcommand{\nat}{\mbox{$\mathbb{N}$}}
+
+
+\hypersetup{
   colorlinks,
   citecolor=black,
   filecolor=black,
@@ -100,9 +108,8 @@
     Proof Assistant},
   pdfkeywords={brouwer ordinals, infinitary rewriting, verification, coq,
     functional programming},
-  draft=false
-]{hyperref}
-\usepackage[figure]{hypcap}
+  draft=false}
+%\usepackage[figure]{hypcap}
 
 
 \title{Infinitary Rewriting in Coq}
@@ -473,8 +480,50 @@ TODO: introduction.
 
 \section{The Coq Proof Assistant}
 
+TODO: text
+
 
 \section{Ordinal Numbers}
+
+% TODO: do we use pure ascii coq, or add readable notations?
+% e.g. \arrow{} vs ->
+
+This structural predecessor function can be viewed as defining a `subtree'
+partial order on $\Omega$. With it we are ready to define an extensional
+non-strict order relation on $\Omega$ that classifies ordinals by rank.
+
+This structural predecessor function can be viewed as defining a `subtree'
+partial order on $\Omega$. With it we are ready to define an extensional
+non-strict order relation on $\Omega$ that classifies ordinals by rank.
+
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Inductive} \coqdef{ja.ord}{ord}{\coqdocinductive{ord}} :
+\coqdockw{Set} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{ja.Zero}{Zero}{\coqdocconstructor{Zero}}  :
+\coqref{ja.ord}{\coqdocinductive{ord}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{ja.Succ}{Succ}{\coqdocconstructor{Succ}}  :
+\coqref{ja.ord}{\coqdocinductive{ord}} \ensuremath{\rightarrow}
+\coqref{ja.ord}{\coqdocinductive{ord}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{ja.Limit}{Limit}{\coqdocconstructor{Limit}} :
+(\coqdocinductive{nat} \ensuremath{\rightarrow}
+\coqref{ja.ord}{\coqdocinductive{ord}}) \ensuremath{\rightarrow}
+\coqref{ja.ord}{\coqdocinductive{ord}}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+This structural predecessor function can be viewed as defining a `subtree'
+partial order on $\Omega$. With it we are ready to define an extensional
+non-strict order relation on $\Omega$ that classifies ordinals by rank.
+
+This structural predecessor function can be viewed as defining a `subtree'
+partial order on $\Omega$. With it we are ready to define an extensional
+non-strict order relation on $\Omega$ that classifies ordinals by rank.
 
 
 \section{Coinductive Terms}
