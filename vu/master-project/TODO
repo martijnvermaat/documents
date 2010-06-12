@@ -5,6 +5,7 @@ Use we or I?
 Spell check
 1, 2, 3, and 5 or 1, 2, 3 and 5?
 Refer to Section 4 or to section 4?
+Write Coq the right way
 
 coqdoc --latex --stdout --body-only --no-externals /tmp/code.v
 
@@ -14,6 +15,7 @@ http://tlug.up.ac.za/wiki/index.php/Generating_a_LaTeX_thesis
 http://martin.bravenboer.name/thesis.html
 https://bugs.launchpad.net/ubuntu/+source/tex-gyre/+bug/135911
 ftp://ftp.tug.ctan.org/hefferon/tug2009/gyre.pdf
+http://groups.google.com/group/comp.text.tex/browse_thread/thread/fce5d39f69052b3c/086275d50d253ffa
 
 http://perso.ens-lyon.fr/pierre.lescanne/not_accessible.html
 http://books.google.com/books?id=_hsUmpc6OfcC&pg=PA418&lpg=PA418&dq=schwichtenberg+%22tree+ordinal%22&source=bl&ots=PiwnKytq5C&sig=9_RpDlf89Oz3X_sHfkN0-VbDrZY#v=onepage&q&f=false

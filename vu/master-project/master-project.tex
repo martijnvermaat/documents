@@ -86,14 +86,8 @@
 \setdefaultenum{i.}{a.}{}{}
 
 
-\usepackage{alltt}
 \usepackage[color]{coqdoc}
-%\usepackage{coq}
-
 \setlength{\coqdocbaseindent}{0.7em}
-
-\newcommand{\arrow}{\mbox{$\rightarrow$}}
-\newcommand{\nat}{\mbox{$\mathbb{N}$}}
 
 
 \hypersetup{
@@ -311,7 +305,7 @@ recursively on $\alpha$:
 \end{align*}
 \end{definition}
 
-% TODO: explain what I() and _[_] mean
+% TODO: explain what I and _[_] mean
 
 This structural predecessor function can be viewed as defining a `subtree'
 partial order on $\Omega$. With it we are ready to define an extensional
@@ -485,45 +479,109 @@ TODO: text
 
 \section{Ordinal Numbers}
 
-% TODO: do we use pure ascii coq, or add readable notations?
-% e.g. \arrow{} vs ->
-
-This structural predecessor function can be viewed as defining a `subtree'
-partial order on $\Omega$. With it we are ready to define an extensional
-non-strict order relation on $\Omega$ that classifies ordinals by rank.
-
-This structural predecessor function can be viewed as defining a `subtree'
-partial order on $\Omega$. With it we are ready to define an extensional
-non-strict order relation on $\Omega$ that classifies ordinals by rank.
+The \coqref{Ordinal.ord}{\coqdocinductive{ord}} datatype defines the Brouwer
+ordinals:
 
 \begin{singlespace}
 \begin{coqdoccode}
-\coqdocemptyline
 \coqdocnoindent
-\coqdockw{Inductive} \coqdef{ja.ord}{ord}{\coqdocinductive{ord}} :
+\coqdockw{Inductive} \coqdef{Ordinal.ord}{ord}{\coqdocinductive{ord}} :
 \coqdockw{Set} :=\coqdoceol
 \coqdocindent{1.00em}
-\ensuremath{|} \coqdef{ja.Zero}{Zero}{\coqdocconstructor{Zero}}  :
-\coqref{ja.ord}{\coqdocinductive{ord}}\coqdoceol
+\ensuremath{|} \coqdef{Ordinal.Zero}{Zero}{\coqdocconstructor{Zero}}  :
+\coqref{Ordinal.ord}{\coqdocinductive{ord}}\coqdoceol
 \coqdocindent{1.00em}
-\ensuremath{|} \coqdef{ja.Succ}{Succ}{\coqdocconstructor{Succ}}  :
-\coqref{ja.ord}{\coqdocinductive{ord}} \ensuremath{\rightarrow}
-\coqref{ja.ord}{\coqdocinductive{ord}}\coqdoceol
+\ensuremath{|} \coqdef{Ordinal.Succ}{Succ}{\coqdocconstructor{Succ}}  :
+\coqref{Ordinal.ord}{\coqdocinductive{ord}} \ensuremath{\rightarrow}
+\coqref{Ordinal.ord}{\coqdocinductive{ord}}\coqdoceol
 \coqdocindent{1.00em}
-\ensuremath{|} \coqdef{ja.Limit}{Limit}{\coqdocconstructor{Limit}} :
-(\coqdocinductive{nat} \ensuremath{\rightarrow}
-\coqref{ja.ord}{\coqdocinductive{ord}}) \ensuremath{\rightarrow}
-\coqref{ja.ord}{\coqdocinductive{ord}}.\coqdoceol
+\ensuremath{|} \coqdef{Ordinal.Limit}{Limit}{\coqdocconstructor{Limit}} :
+(\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+\ensuremath{\rightarrow} \coqref{Ordinal.ord}{\coqdocinductive{ord}})
+\ensuremath{\rightarrow}
+\coqref{Ordinal.ord}{\coqdocinductive{ord}}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 
-This structural predecessor function can be viewed as defining a `subtree'
-partial order on $\Omega$. With it we are ready to define an extensional
-non-strict order relation on $\Omega$ that classifies ordinals by rank.
+And here is $I$:
 
-This structural predecessor function can be viewed as defining a `subtree'
-partial order on $\Omega$. With it we are ready to define an extensional
-non-strict order relation on $\Omega$ that classifies ordinals by rank.
+\begin{singlespace}
+\coqdocnoindent
+\coqdockw{Fixpoint}
+\coqdef{Ordinal.predtype}{pred\_type}{\coqdocdefinition{pred\_type}}
+(\coqdocvar{alpha} : \coqref{Ordinal.ord}{\coqdocinductive{ord}}) :
+\coqdockw{Set} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{alpha} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Ordinal.Zero}{\coqdocconstructor{Zero}}
+\ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Logic}{False}{\coqdocinductive{False}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Ordinal.Succ}{\coqdocconstructor{Succ}}
+\coqdocvar{alpha} \ensuremath{\Rightarrow}
+(\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{unit}{\coqdocinductive{unit}}
++ \coqref{Ordinal.predtype}{\coqdocdefinition{pred\_type}}
+\coqdocvariable{alpha}) \% \coqdocvar{type}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Ordinal.Limit}{\coqdocconstructor{Limit}} \coqdocvar{f}
+\ensuremath{\Rightarrow} \{ \coqdocvar{n} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+\& \coqref{Ordinal.predtype}{\coqdocdefinition{pred\_type}}
+(\coqdocvariable{f} \coqdocvariable{n}) \}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\end{singlespace}
+
+And $\_[\_]$:
+
+\begin{singlespace}
+\coqdocnoindent
+\coqdockw{Fixpoint} \coqdef{Ordinal.pred}{pred}{\coqdocdefinition{pred}}
+(\coqdocvar{alpha} : \coqref{Ordinal.ord}{\coqdocinductive{ord}}) :
+\coqref{Ordinal.predtype}{\coqdocdefinition{pred\_type}}
+\coqdocvariable{alpha} \ensuremath{\rightarrow}
+\coqref{Ordinal.ord}{\coqdocinductive{ord}} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{alpha} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Ordinal.Zero}{\coqdocconstructor{Zero}}
+\ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Logic}{Falserect}{\coqdocdefinition{False\_rect}}
+\coqdocvar{\_}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Ordinal.Succ}{\coqdocconstructor{Succ}}
+\coqdocvar{alpha} \ensuremath{\Rightarrow} \coqdockw{fun} \coqdocvar{i}
+\ensuremath{\Rightarrow} \coqdockw{match} \coqdocvariable{i}
+\coqdockw{with}\coqdoceol
+\coqdocindent{13.50em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{inl}{\coqdocconstructor{inl}}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{tt}{\coqdocconstructor{tt}}
+\ensuremath{\Rightarrow} \coqdocvariable{alpha}\coqdoceol
+\coqdocindent{13.50em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{inr}{\coqdocconstructor{inr}}
+\coqdocvar{t}  \ensuremath{\Rightarrow}
+\coqref{Ordinal.pred}{\coqdocdefinition{pred}} \coqdocvariable{alpha}
+\coqdocvariable{t}\coqdoceol
+\coqdocindent{13.50em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Ordinal.Limit}{\coqdocconstructor{Limit}} \coqdocvar{f}
+\ensuremath{\Rightarrow} \coqdockw{fun} \coqdocvar{i} \ensuremath{\Rightarrow}
+\coqdockw{match} \coqdocvariable{i} \coqdockw{with}\coqdoceol
+\coqdocindent{13.50em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{existT}{\coqdocconstructor{existT}}
+\coqdocvar{n} \coqdocvar{t} \ensuremath{\Rightarrow}
+\coqref{Ordinal.pred}{\coqdocdefinition{pred}} (\coqdocvariable{f}
+\coqdocvariable{n}) \coqdocvariable{t}\coqdoceol
+\coqdocindent{13.50em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\end{singlespace}
 
 
 \section{Coinductive Terms}
