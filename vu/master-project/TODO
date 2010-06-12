@@ -9,6 +9,8 @@ Write Coq the right way
 
 coqdoc --latex --stdout --body-only --no-externals /tmp/code.v
 
+http://wiki.cs.vu.nl/mp/index.php/Main_Page
+
 http://ecohydro.falw.vu.nl/latex/latex.html
 http://www.markschenk.com/tensegrity/latexexplanation.html
 http://tlug.up.ac.za/wiki/index.php/Generating_a_LaTeX_thesis
