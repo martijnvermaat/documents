@@ -318,7 +318,7 @@ non-strict order relation on $\Omega$ that classifies ordinals by rank.
 
 % TODO: note <= infix notation
 % TODO: or use the set-theoretic definitions from hancock?
-\begin{definition}[Order]
+\begin{definition}[Order]\label{def:order}
 We define the \emph{order} $\preceq$ as a binary relation on $\Omega$ by
 induction on the first argument (and write $\alpha \preceq \beta$ for $\langle
 \alpha, \beta \rangle \in \; \preceq$):
@@ -484,8 +484,12 @@ TODO: text
 
 \section{Ordinal Numbers}
 
-We define the ordinal numbers in Coq using the representation of Brouwer
-ordinals:
+In the theory of infinitary rewriting, the lengths of rewriting sequences play
+a central role. Therefore, any reasonable formalization of infinitary
+rewriting ought to have some notion of ordinal numbers.
+
+We define the ordinal numbers using the representation of Brouwer
+ordinals (cf.~Definition~\ref{def:ordinals}):
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -506,38 +510,111 @@ ordinals:
 \coqref{Ordinal.ord}{\coqdocinductive{ord}}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-
-Here is the order:
+In fact, all definitions from Section~\ref{sub:brouwer} translate directly to
+Coq code. We can now prove basic properties of \coqdocinductive{$\preceq$},
+for example that it is transitive:
 \begin{singlespace}
+\begin{coqdoccode}
 \coqdocnoindent
-\coqdockw{Inductive}
-\coqdef{Ordinal.ordle}{ord\_le}{\coqdocinductive{\ensuremath{\le}}} :
-\coqref{Ordinal.ord}{\coqdocinductive{ord}} \ensuremath{\rightarrow}
-\coqref{Ordinal.ord}{\coqdocinductive{ord}} \ensuremath{\rightarrow}
-\coqdockw{Prop} :=\coqdoceol
+\coqdockw{Lemma}
+\coqdef{Ordinal.ordletrans}{ord\_le\_trans}{\coqdoclemma{\ensuremath{\preceq_{\text{trans}}}}}
+:
+\ensuremath{\forall} \coqdocvar{\ensuremath{\alpha}}
+\coqdocvar{\ensuremath{\beta}}
+\coqdocvar{\ensuremath{\gamma}}, \coqdocvariable{\ensuremath{\alpha}}
+\coqdocinductive{\ensuremath{\preceq}} \coqdocvariable{\ensuremath{\beta}}
+\ensuremath{\rightarrow}
+\coqdocvariable{\ensuremath{\beta}} \coqdocinductive{\ensuremath{\preceq}}
+\coqdocvariable{\ensuremath{\gamma}}
+\ensuremath{\rightarrow} \coqdocvariable{\ensuremath{\alpha}}
+\coqdocinductive{\ensuremath{\preceq}}
+\coqdocvariable{\ensuremath{\gamma}}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+Recalling our discussion in Section~\ref{sub:brouwer} of limit ordinals whose
+sequences do not actually approximate to a limit ordinal, we consider the
+following lemma as an example of this issue:
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdef{Ordinal.ordlezeroright}{ord\_le\_zero\_right}{\coqdoclemma{\ensuremath{\preceq_{\text{zero\_right}}}}}
+:
+\ensuremath{\forall} \coqdocvar{\ensuremath{\alpha}} \coqdocvar{\ensuremath{\beta}},
+\coqdocvariable{\ensuremath{\alpha}} \coqdocinductive{\ensuremath{\preceq}}
+\coqref{Ordinal.Zero}{\coqdocconstructor{Zero}}
+\ensuremath{\rightarrow}
+\coqdocvariable{\ensuremath{\alpha}} \coqdocinductive{\ensuremath{\preceq}}
+\coqdocvariable{\ensuremath{\beta}}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+We would like to strengthen this, but cannot, since nothing denies \coqdocvariable{\ensuremath{\alpha}}
+from being the Brouwer ordinal $\sqcup \{ 0, 0, 0, \ldots \}$ (which has the
+same rank as $0$). We therefore turn to a subset of the Brouwer ordinals where
+we restrict limit sequences to be strictly monotonic. This restriction is
+encoded in the \coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} property and the
+$\Sigma$-type \coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}}
+defines the resulting subset:
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Fixpoint} \coqdef{WfOrdinal.wf}{wf}{\coqdocdefinition{wf}}
+\coqdocvar{\ensuremath{\alpha}} : \coqdockw{Prop} :=\coqdoceol
 \coqdocindent{1.00em}
-\ensuremath{|}
-\coqdef{Ordinal.OrdleZero}{Ord\_le\_Zero}{\coqdocconstructor{\ensuremath{\le_{\text{Zero}}}}}
-: \ensuremath{\forall} \coqdocvar{\ensuremath{\alpha}},
-\coqref{Ordinal.Zero}{\coqdocconstructor{Zero}} \coqref{Ordinal.ordle}{\coqdocinductive{\ensuremath{\le}}}
-\coqdocvariable{\ensuremath{\alpha}}\coqdoceol
+\coqdockw{match} \coqdocvariable{\ensuremath{\alpha}} \coqdockw{with}\coqdoceol
 \coqdocindent{1.00em}
-\ensuremath{|}
-\coqdef{Ordinal.OrdleSucc}{Ord\_le\_Succ}{\coqdocconstructor{\ensuremath{\le_{\text{Succ}}}}}
-: \ensuremath{\forall} \coqdocvar{\ensuremath{\alpha}} \coqdocvar{\ensuremath{\beta}}
-\coqdocvar{i},
-\coqdocvariable{\ensuremath{\alpha}} \coqref{Ordinal.ordle}{\coqdocinductive{\ensuremath{\le}}}
-\coqdocvariable{\ensuremath{\beta}}[\coqdocvariable{i}] \ensuremath{\rightarrow}
-\coqref{Ordinal.Succ}{\coqdocconstructor{Succ}} \coqdocvariable{\ensuremath{\alpha}}
-\coqref{Ordinal.ordle}{\coqdocinductive{\ensuremath{\le}}} \coqdocvariable{\ensuremath{\beta}}\coqdoceol
+\ensuremath{|} \coqref{Ordinal.Zero}{\coqdocconstructor{Zero}}
+\ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Logic}{True}{\coqdocinductive{True}}\coqdoceol
 \coqdocindent{1.00em}
-\ensuremath{|}
-\coqdef{Ordinal.OrdleLimit}{Ord\_le\_Limit}{\coqdocconstructor{\ensuremath{\le_{\text{Limit}}}}}
-: \ensuremath{\forall} \coqdocvar{f} \coqdocvar{\ensuremath{\beta}},
-(\ensuremath{\forall} \coqdocvar{n}, \coqdocvariable{f} \coqdocvariable{n}
-\coqref{Ordinal.ordle}{\coqdocinductive{\ensuremath{\le}}} \coqdocvariable{\ensuremath{\beta}}) \ensuremath{\rightarrow}
-\coqref{Ordinal.Limit}{\coqdocconstructor{Limit}} \coqdocvariable{f}
-\coqref{Ordinal.ordle}{\coqdocinductive{\ensuremath{\le}}} \coqdocvariable{\ensuremath{\beta}}.\coqdoceol
+\ensuremath{|} \coqref{Ordinal.Succ}{\coqdocconstructor{Succ}}
+\coqdocvar{\ensuremath{\beta}} \ensuremath{\Rightarrow}
+\coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} \coqdocvariable{\ensuremath{\beta}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Ordinal.Limit}{\coqdocconstructor{Limit}} \coqdocvar{f}
+\ensuremath{\Rightarrow} \ensuremath{\forall} \coqdocvar{n},
+\coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} (\coqdocvariable{f}
+\coqdocvariable{n}) \ensuremath{\land} \ensuremath{\forall} \coqdocvar{m},
+\coqdocvariable{n} < \coqdocvariable{m} \ensuremath{\rightarrow}
+(\coqdocvariable{f} \coqdocvariable{n}) \coqdocdefinition{\ensuremath{\prec}}
+(\coqdocvariable{f} \coqdocvariable{m})\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdef{WfOrdinal.wford}{wf\_ord}{\coqdocdefinition{ord$^\text{wf}$}} : \coqdockw{Set}
+:=
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{sig}{\coqdocinductive{sig}}
+\coqref{WfOrdinal.wf}{\coqdocdefinition{wf}}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+Now we can prove the stronger result we were looking for\footnote{Although
+  \coqdocvariable{\ensuremath{\alpha}} has type
+  \coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}} and
+  \coqdocinductive{$\preceq$} has type
+  \coqref{Ordinal.ord}{\coqdocinductive{ord}} $\rightarrow$
+  \coqref{Ordinal.ord}{\coqdocinductive{ord}} $\rightarrow$ \coqdockw{Prop},
+  we can state the lemma in this concise way by defining a simple coercion
+  from \coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}} to
+  \coqref{Ordinal.ord}{\coqdocinductive{ord}} (as first projection on
+  $\Sigma$-types).}:
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdef{WfOrdinal.wfordlezeroright}{wf\_ord\_le\_zero\_right}{\coqdoclemma{\ensuremath{\preceq^{\text{wf}}_{\text{zero\_right}}}}}
+:
+\ensuremath{\forall} \coqdocvar{\ensuremath{\alpha}} :
+\coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}},
+\coqdocvariable{\ensuremath{\alpha}} \coqdocinductive{\ensuremath{\preceq}}
+\coqref{Ordinal.Zero}{\coqdocconstructor{Zero}}
+\ensuremath{\rightarrow}
+\coqdocvariable{\ensuremath{\alpha}} =
+\coqref{Ordinal.Zero}{\coqdocconstructor{Zero}}.\coqdoceol
+\end{coqdoccode}
 \end{singlespace}
 
 
