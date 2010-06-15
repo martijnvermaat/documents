@@ -144,11 +144,13 @@ Roel de Vrijer.
 
 \chapter*{Notation Glossary}
 
-This chapter is used during writing, probably won't be in final thesis.
+This chapter is used during writing, probably won't be in final thesis. Note
+that some notations are used more than once, but with roughly comparable
+meaning.
 
-{\renewcommand{\arraystretch}{1.2}
-\renewcommand{\tabcolsep}{0.6cm}
-\begin{tabular}{l l l}
+{\renewcommand{\arraystretch}{1.1}
+\renewcommand{\tabcolsep}{0.4cm}
+\begin{tabular}{l l p{6.1cm}}
 Thesis & Coq & Meaning\\
 \hline
 \multicolumn{3}{l}{\bf Ordinals}\\
@@ -158,10 +160,10 @@ $\alpha \preceq \beta$ & \texttt{alpha <= beta} & non-strict order\\
 $\alpha \prec \beta$ & \texttt{alpha < beta} & strict order\\
 $\alpha \simeq \beta$ & \texttt{alpha == beta} & extensional equality\\
 \multicolumn{3}{l}{\bf Terms}\\
-$s \equiv t$ & \texttt{s = t} & syntactical and Coq equality \small{(not really the
-same thing)}\\
+$s \equiv t$ & \texttt{s = t} & syntactical and Coq equality \small{(not really the same thing)}\\
 $s \sim t$ & \texttt{s [\textasciitilde] t} & bisimilarity\\
-$s \eqcirc t$ & \texttt{s [=] t} & pointwise equality\\
+$s \doteq t$ & \texttt{s [=] t} & pointwise equality\\ % \eqcirc
+$s \stackrel{n}{=} t$ & \texttt{term\_eq\_up\_to n s t} & pointwise equality up to depth $n$\\ % \eqcirc_n
 \multicolumn{3}{l}{\bf Rewriting Sequences}\\
 $\rho \rightarrow \tau$ & \texttt{r [>] q} & $\rho$ rewrites to
 $\tau$ in one step\\
@@ -176,9 +178,6 @@ $\rho[i]^\textsc{r}$ & \texttt{r[2 i]} & right predecessor term of $\rho$ indexe
 $\rho \sqsubseteq \tau$ & \texttt{r <= q} & $\rho$ is embedded in $\tau$\\
 $\rho \sqsubset \tau$ & \texttt{r < q} & $\rho$ is strictly embedded in $\tau$\\
 \end{tabular}}
-
-Note that some notations are used more than once, for example $I$ and
-$\_[\_]$ (on ordinals and on sequences), but with roughly comparable meaning.
 
 
 \tableofcontents
