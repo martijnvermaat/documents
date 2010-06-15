@@ -179,8 +179,8 @@ $\alpha \simeq \beta$ & \texttt{alpha == beta} & extensional equality\\
 \multicolumn{3}{l}{\bf Terms}\\
 $s \equiv t$ & \texttt{s = t} & syntactical and \Coq equality \small{(not really the same thing)}\\
 $s \sim t$ & \texttt{s [\textasciitilde] t} & bisimilarity\\
+$s \doteq_n t$ & \texttt{term\_eq\_up\_to n s t} & pointwise equality up to depth $n$\\ % \eqcirc_n
 $s \doteq t$ & \texttt{s [=] t} & pointwise equality\\ % \eqcirc
-$s \stackrel{n}{=} t$ & \texttt{term\_eq\_up\_to n s t} & pointwise equality up to depth $n$\\ % \eqcirc_n
 \multicolumn{3}{l}{\bf Rewriting Sequences}\\
 $\rho \rightarrow \tau$ & \texttt{r [>] q} & $\rho$ rewrites to
 $\tau$ in one step\\
@@ -245,7 +245,7 @@ $\omega \times 3$. Some other (still relatively small) ordinals are:
   \omega^\omega \qquad
   \omega^{\omega^2} \qquad
   \omega^{\omega^\omega} \qquad
-  \omega^{\omega^{\omega^{\ldots}}} = \epsilon_0 % TODO: diagonal dots
+  \omega^{\omega^{\omega^{\ldots}}} = \epsilon_0 % TODO: \iddots or \adots
 \end{displaymath}
 Note that this is all just notation, we have not yet defined a representation
 for ordinals and what $+$ and $\times$ are.
@@ -683,9 +683,10 @@ not well-founded.\footnote{\Coq automatically derives induction principles for
 infinite number of constructors, but can only be built in some restricted way
 to ensure productivity of the construction.
 % TODO: productivity or effectiveness?
-Before we discuss the details of this restriction, we define the type
-\coqref{Term.term}{\coqdocinductive{term}} of infinite terms with function
-symbols in \coqdocvar{F} and variables from \coqdocvar{X} as follows:
+We defer discussion of this restriction to Section~\ref{sub:guardedness}, and
+define the type \coqref{Term.term}{\coqdocinductive{term}} of infinite terms
+with function symbols in \coqdocvar{F} and variables in \coqdocvar{X} as
+follows:
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -697,10 +698,167 @@ symbols in \coqdocvar{F} and variables from \coqdocvar{X} as follows:
 \coqdocindent{1.00em}
 \ensuremath{|} \coqdef{Term.Fun}{Fun}{\coqdocconstructor{Fun}} :
 \ensuremath{\forall} \coqdocvar{f} : \coqdocvar{F},
-\coqref{Vector.vector}{\coqdocdefinition{vector}}
+\coqdocdefinition{vector}
 \coqref{Term.term}{\coqdocinductive{term}}
-(\coqref{Signature.arity}{\coqdocprojection{arity}} \coqdocvariable{f})
+(\coqdocprojection{arity} \coqdocvariable{f})
 \ensuremath{\rightarrow} \coqref{Term.term}{\coqdocinductive{term}}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+Here, \coqdocdefinition{vector} is assumed to implement dependently typed
+lists (their type depending on their length).
+
+The only way to build infinite objects in \Coq is by corecursion. However,
+because the amount of memory available is finite, this is done lazilly,
+meaning that the corecursive definition is only ever unfolded when explicitely
+asked for. Now consider the objective of proving two infinite terms
+equal. Simply comparing their definitions will not suffice, since the
+corecursive construction of any given infinite object is not
+unique.\footnote{Even unfolding the corecursion will not help us here. We can
+  only unfold finitely often, and then still be left with the corecursive
+  definition.} To this end, we define two extensional equalities on
+\coqref{Term.term}{\coqdocinductive{term}}.
+
+The coinductive predicate
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}} defines bisimilarity
+on terms:
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{CoInductive}
+\coqdef{TermEquality.termbis}{term\_bis}{\coqdocinductive{$\sim$}} :
+\coqref{Term.term}{\coqdocabbreviation{term}} \ensuremath{\rightarrow}
+\coqref{Term.term}{\coqdocabbreviation{term}} \ensuremath{\rightarrow}
+\coqdockw{Prop} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdef{TermEquality.Varbis}{Var\_bis}{\coqdocconstructor{$\sim_\text{Var}$}} :
+\ensuremath{\forall} \coqdocvar{x},
+\coqref{Term.Var}{\coqdocconstructor{Var}} \coqdocvariable{x}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqref{Term.Var}{\coqdocconstructor{Var}} \coqdocvariable{x}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdef{TermEquality.Funbis}{Fun\_bis}{\coqdocconstructor{$\sim_\text{Fun}$}} :
+\ensuremath{\forall} \coqdocvar{f} \coqdocvar{v} \coqdocvar{w},
+(\ensuremath{\forall} \coqdocvar{i},
+\coqdocvariable{v} \coqdocvariable{i}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqdocvariable{w} \coqdocvariable{i})
+\ensuremath{\rightarrow}
+\coqref{Term.Fun}{\coqdocconstructor{Fun}} \coqdocvariable{f}
+\coqdocvariable{v}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqref{Term.Fun}{\coqdocconstructor{Fun}} \coqdocvariable{f}
+\coqdocvariable{w}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+Any proof of two infinite terms being bisimilar is an infinite proof, in the
+sense that the proof term is built by corecursion.
+
+Another way to define equality on infinite terms is pointwise. First we define
+pointwise equality of terms up to a given depth. Then two terms are equal if
+this pointwise equality holds up to all depths:
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Inductive}
+\coqdef{TermEquality.termequpto}{term\_eq\_up\_to}{\coqdocinductive{term\_eq\_up\_to}}
+:
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+\ensuremath{\rightarrow} \coqref{Term.term}{\coqdocabbreviation{term}}
+\ensuremath{\rightarrow} \coqref{Term.term}{\coqdocabbreviation{term}}
+\ensuremath{\rightarrow} \coqdockw{Prop} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdef{TermEquality.teut0}{teut\_0}{\coqdocconstructor{teut$_0$}}   :
+\ensuremath{\forall} \coqdocvar{t} \coqdocvar{u},
+\coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
+$0$ \coqdocvariable{t} \coqdocvariable{u}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdef{TermEquality.teutvar}{teut\_var}{\coqdocconstructor{teut$_\text{Var}$}} :
+\ensuremath{\forall} \coqdocvar{n} \coqdocvar{x},
+\coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
+\coqdocvariable{n}
+(\coqref{Term.Var}{\coqdocconstructor{Var}} \coqdocvariable{x})
+(\coqref{Term.Var}{\coqdocconstructor{Var}} \coqdocvariable{x})\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdef{TermEquality.teutfun}{teut\_fun}{\coqdocconstructor{teut$_\text{Fun}$}} :
+\ensuremath{\forall} \coqdocvar{n} \coqdocvar{f} \coqdocvar{v}
+\coqdocvar{w},\coqdoceol
+\coqdocindent{7.50em}
+(\ensuremath{\forall} \coqdocvar{i},
+\coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
+\coqdocvariable{n} (\coqdocvariable{v} \coqdocvariable{i}) (\coqdocvariable{w}
+\coqdocvariable{i})) \ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{7.50em}
+\coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
+(\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqdocvariable{n}) (\coqref{Term.Fun}{\coqdocconstructor{Fun}}
+\coqdocvariable{f} \coqdocvariable{v})
+(\coqref{Term.Fun}{\coqdocconstructor{Fun}} \coqdocvariable{f}
+\coqdocvariable{w}).\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocvar{t}
+\coqdef{TermEquality.termeq}{term\_eq}{\coqdocdefinition{$\doteq$}}
+\coqdocvar{u} :=
+\ensuremath{\forall} \coqdocvar{n},
+\coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
+\coqdocvariable{n} \coqdocvariable{t} \coqdocvariable{u}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+We can prove that \coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}} and
+\coqref{TermEquality.termeq}{\coqdocdefinition{$\doteq$}} are the same
+relation, and that indeed it is an equality:
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdef{TermEquality.termbistermeq}{term\_bis\_term\_eq}{\coqdoclemma{term\_bis\_term\_eq}}
+: \ensuremath{\forall} \coqdocvar{t} \coqdocvar{u},
+\coqdocvariable{t}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqdocvariable{u} \ensuremath{\leftrightarrow}
+\coqdocvariable{t}
+\coqref{TermEquality.termeq}{\coqdocdefinition{$\doteq$}}
+\coqdocvariable{u}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdef{TermEquality.termbisrefl}{term\_bis\_refl}{\coqdoclemma{$\sim_\text{refl}$}}
+: \ensuremath{\forall} \coqdocvar{t},
+\coqdocvariable{t}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqdocvariable{t}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdef{TermEquality.termbissymm}{term\_bis\_symm}{\coqdoclemma{$\sim_\text{symm}$}}
+: \ensuremath{\forall} \coqdocvar{t} \coqdocvar{u},
+\coqdocvariable{t}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqdocvariable{u} $\rightarrow$
+\coqdocvariable{u}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqdocvariable{t}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdef{TermEquality.termbistrans}{term\_bis\_trans}{\coqdoclemma{$\sim_\text{trans}$}}
+: \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u},
+\coqdocvariable{s}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqdocvariable{t} $\rightarrow$
+\coqdocvariable{t}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqdocvariable{u} $\rightarrow$
+\coqdocvariable{s}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqdocvariable{u}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 
@@ -724,13 +882,33 @@ symbols in \coqdocvar{F} and variables from \coqdocvar{X} as follows:
 
 One-hole contexts vs multi-hole contexts (possible using extended signature).
 
-Recursive vectors vs inductive vectors.
-
 Casteran's ordinals in Veblen nf vs Mamane's set-theoretic ordinals vs Brouwer
 ordinals.
 
 Rewriting sequences as functions from ordinals to steps vs inductive
 definition.
+
+
+\subsection{Guardedness}\label{sub:guardedness}
+
+In the \coqref{Term.term}{\coqdocinductive{term}} definition, we used a vector
+type, parameterized by the type of its element and its size. Naturally, one
+would implement a vector type inductively, as for example has been done in the
+\Coq standard library:
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Inductive} \coqdocvar{vector} : \coqdocvar{nat}
+\ensuremath{\rightarrow} \coqdockw{Type} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{Vnil} : \coqdocvar{vector} 0\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{Vcons} : \ensuremath{\forall} (\coqdocvar{a}:A)
+(\coqdocvar{n}:nat), \coqdocvar{vector} \coqdocvar{n} \ensuremath{\rightarrow}
+\coqdocvar{vector} (\coqdocvar{S} \coqdocvar{n}).\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+% TODO: links to stdlib documentation
 
 
 \section{Discussion}
