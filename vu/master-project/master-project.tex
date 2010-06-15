@@ -52,10 +52,21 @@
 %\renewcommand{\sfdefault}{qhv}
 \usepackage[scaled=0.95]{helvet}
 
+% Use semi-bold instead of bold
+%\renewcommand{\bfdefault}{sb}
+
 
 \usepackage{a4}
 
+% Tweak the inner margin to align all text as nice as possible
+%\usepackage[inner=3.83cm]{geometry}
+
 \raggedbottom
+
+% Section numbering in margin
+%\usepackage{sectsty}
+%\makeatletter\def\@seccntformat#1{\protect\makebox[0pt][r]{\csname
+%    the#1\endcsname\hspace{12pt}}}\makeatother
 
 % Dutch style of paragraph formatting, i.e. no indents.
 %\setlength{\parskip}{1.3ex plus 0.2ex minus 0.2ex}
@@ -74,6 +85,12 @@
 %\usepackage[authoryear,sort]{natbib}
 \usepackage[numbers]{natbib}
 \setlength{\bibhang}{0ex}
+
+
+\usepackage{xspace}
+
+\newcommand{\name}[1]{\textsc{#1}\xspace}
+\def\Coq{\name{Coq}}
 
 
 \usepackage{amsthm}
@@ -106,7 +123,7 @@
 %\usepackage[figure]{hypcap}
 
 
-\title{Infinitary Rewriting in Coq}
+\title{Infinitary Rewriting in \Coq}
 
 \author{Martijn Vermaat}
 \date{MSc. Thesis (\emph{draft r\svnrev})}
@@ -151,16 +168,16 @@ meaning.
 {\renewcommand{\arraystretch}{1.1}
 \renewcommand{\tabcolsep}{0.4cm}
 \begin{tabular}{l l p{6.1cm}}
-Thesis & Coq & Meaning\\
+Thesis & \Coq & Meaning\\
 \hline
 \multicolumn{3}{l}{\bf Ordinals}\\
-$I(\alpha)$ & \texttt{pred\_type(alpha)} & predecessor indices of $\alpha$\\
+$I(\alpha)$ & \texttt{pd\_type(alpha)} & predecessor indices of $\alpha$\\
 $\alpha[i]$ & \texttt{alpha[i]} & predecessor of $\alpha$ indexed by $i$\\
 $\alpha \preceq \beta$ & \texttt{alpha <= beta} & non-strict order\\
 $\alpha \prec \beta$ & \texttt{alpha < beta} & strict order\\
 $\alpha \simeq \beta$ & \texttt{alpha == beta} & extensional equality\\
 \multicolumn{3}{l}{\bf Terms}\\
-$s \equiv t$ & \texttt{s = t} & syntactical and Coq equality \small{(not really the same thing)}\\
+$s \equiv t$ & \texttt{s = t} & syntactical and \Coq equality \small{(not really the same thing)}\\
 $s \sim t$ & \texttt{s [\textasciitilde] t} & bisimilarity\\
 $s \doteq t$ & \texttt{s [=] t} & pointwise equality\\ % \eqcirc
 $s \stackrel{n}{=} t$ & \texttt{term\_eq\_up\_to n s t} & pointwise equality up to depth $n$\\ % \eqcirc_n
@@ -169,7 +186,7 @@ $\rho \rightarrow \tau$ & \texttt{r [>] q} & $\rho$ rewrites to
 $\tau$ in one step\\
 $\rho \twoheadrightarrow \tau$ & \texttt{r ->{}> q} & $\rho$ rewrites to
 $\tau$\\
-$I(\rho)$ & \texttt{pref\_type(r)} & predecessor indices of $\rho$\\
+$I(\rho)$ & \texttt{pred\_type(r)} & predecessor indices of $\rho$\\
 $\rho[i]$ & \texttt{r[i]} & predecessor location of $\rho$ indexed by $i$\\
 $\rho[i]^\textsc{seq}$ & \texttt{r[seq i]} & predecessor sequence of $\rho$ indexed by $i$\\
 $\rho[i]^\textsc{stp}$ & \texttt{r[stp i]} & predecessor step of $\rho$ indexed by $i$\\
@@ -185,7 +202,7 @@ $\rho \sqsubset \tau$ & \texttt{r < q} & $\rho$ is strictly embedded in $\tau$\\
 
 \chapter{Introduction}
 
-Infinitary term rewriting, the Coq proof assistant, etc.
+Infinitary term rewriting, the \Coq proof assistant, etc.
 
 
 \section*{Outline}
@@ -197,7 +214,7 @@ term rewriting and an introduction to the mathematical concept of ordinal
 numbers.
 
 The goal of chapter~\ref{chap:formalization} is to introduce our formalization
-of infinitary term rewriting in the Coq proof assistant. We first discuss this
+of infinitary term rewriting in the \Coq proof assistant. We first discuss this
 proof assistant and then review the main parts of our development.
 
 Our formalization was used to prove that in infinitary rewriting, weak
@@ -442,7 +459,7 @@ $\Sigma$.
 
 In contrast to Terese, we do not define contexts as terms over an extended
 signature. Instead, a direct inductive definition is given since this is how
-we defined the notion of context in our Coq development (the main reason being
+we defined the notion of context in our \Coq development (the main reason being
 that we choose not to consider multi-hole contexts).
 % TODO: maybe this needs more explaining
 
@@ -515,7 +532,7 @@ TODO: Normal forms, left-linearity, critical pairs, etc.
 TODO: introduction.
 
 
-\section{The Coq Proof Assistant}
+\section{The \Coq Proof Assistant}
 
 TODO: text
 
@@ -549,8 +566,9 @@ ordinals (cf.~Definition~\ref{def:ordinals}):
 \end{coqdoccode}
 \end{singlespace}
 In fact, all definitions from Section~\ref{sub:brouwer} translate directly to
-Coq code. We can now prove basic properties of \coqdocinductive{$\preceq$},
+\Coq code. We can now prove basic properties of \coqdocinductive{$\preceq$},
 for example that it is transitive:
+% TODO: maybe add another example
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -629,7 +647,7 @@ defines the resulting subset:
 \end{coqdoccode}
 \end{singlespace}
 
-Now we can prove the stronger result we were looking for\footnote{Although
+Now we can prove the stronger result we were looking for:\footnote{Although
   \coqdocvariable{\ensuremath{\alpha}} has type
   \coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}} and
   \coqdocinductive{$\preceq$} has type
@@ -637,8 +655,8 @@ Now we can prove the stronger result we were looking for\footnote{Although
   \coqref{Ordinal.ord}{\coqdocinductive{ord}} $\rightarrow$ \coqdockw{Prop},
   we can state the lemma in this concise way by defining a simple coercion
   from \coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}} to
-  \coqref{Ordinal.ord}{\coqdocinductive{ord}} (as first projection on
-  $\Sigma$-types).}:
+  \coqref{Ordinal.ord}{\coqdocinductive{ord}} (first $\Sigma$-type
+  projection).}
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -657,6 +675,34 @@ Now we can prove the stronger result we were looking for\footnote{Although
 
 
 \section{Coinductive Terms}
+
+In \Coq, coinductive datatypes can be defined using the \coqdockw{CoInductive}
+command. No induction principles are defined for these types, because they are
+not well-founded.\footnote{\Coq automatically derives induction principles for
+  inductive definitions.} The objects of a coinductive type may contain an
+infinite number of constructors, but can only be built in some restricted way
+to ensure productivity of the construction.
+% TODO: productivity or effectiveness?
+Before we discuss the details of this restriction, we define the type
+\coqref{Term.term}{\coqdocinductive{term}} of infinite terms with function
+symbols in \coqdocvar{F} and variables from \coqdocvar{X} as follows:
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{CoInductive} \coqdef{Term.term}{term}{\coqdocinductive{term}} :
+\coqdockw{Type} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{Term.Var}{Var}{\coqdocconstructor{Var}} : \coqdocvar{X}
+\ensuremath{\rightarrow} \coqref{Term.term}{\coqdocinductive{term}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{Term.Fun}{Fun}{\coqdocconstructor{Fun}} :
+\ensuremath{\forall} \coqdocvar{f} : \coqdocvar{F},
+\coqref{Vector.vector}{\coqdocdefinition{vector}}
+\coqref{Term.term}{\coqdocinductive{term}}
+(\coqref{Signature.arity}{\coqdocprojection{arity}} \coqdocvariable{f})
+\ensuremath{\rightarrow} \coqref{Term.term}{\coqdocinductive{term}}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
 
 
 \section{Transfinite Rewrite Sequences}
@@ -680,8 +726,8 @@ One-hole contexts vs multi-hole contexts (possible using extended signature).
 
 Recursive vectors vs inductive vectors.
 
-Casteran's ordinals in Veblen normal form vs Mamane's set-theoretic ordinals
-vs Brouwer ordinals.
+Casteran's ordinals in Veblen nf vs Mamane's set-theoretic ordinals vs Brouwer
+ordinals.
 
 Rewriting sequences as functions from ordinals to steps vs inductive
 definition.
