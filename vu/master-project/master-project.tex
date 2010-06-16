@@ -2,19 +2,14 @@
 \usepackage[english]{babel}
 
 
+% Text encoding to take for data input stream. I.e. the text we write in.
+\usepackage[latin1]{inputenc}
+
+
 % Use some subversion information
 \usepackage{svn-multi}
 \svnid{$Id$}
 
-
-% Use scalable, PostScript Type 1 versions of the Computer Modern fonts.
-\usepackage{type1cm}
-
-% How to encode fonts.
-\usepackage[T1]{fontenc}
-
-% Text encoding to take for data input stream. I.e. the text we write in.
-\usepackage[latin1]{inputenc}
 
 \usepackage{amsfonts}
 \usepackage{amsmath}
@@ -35,12 +30,12 @@
 %\usepackage[osf,sc]{mathpazo}
 
 % TeX Gyre Pagella (like Palatino)
-%\usepackage{qpxmath}
 %\usepackage{tgpagella}
+%\usepackage{qpxmath}
 
 % TeX Gyre Termes (like Times)
-\usepackage{qtxmath}
 \usepackage{tgtermes}
+\usepackage{qtxmath}
 
 % txtt for tt
 \renewcommand{\ttdefault}{txtt}
@@ -54,6 +49,9 @@
 
 % Use semi-bold instead of bold
 %\renewcommand{\bfdefault}{sb}
+
+% How to encode fonts.
+\usepackage[T1]{fontenc}
 
 
 \usepackage{a4}
@@ -108,18 +106,18 @@
 
 
 \hypersetup{
-  colorlinks,
+  colorlinks=true,
   citecolor=black,
   filecolor=black,
   linkcolor=black,
   urlcolor=black,
+  anchorcolor=black,
   pdfauthor={Martijn Vermaat},
   pdftitle={Infinitary Rewriting in Coq},
   pdfsubject={A Mechanic Formalisation of Infinitary Rewriting in the Coq
     Proof Assistant},
   pdfkeywords={brouwer ordinals, infinitary rewriting, verification, coq,
-    functional programming},
-  draft=false}
+    functional programming}}
 %\usepackage[figure]{hypcap}
 
 
@@ -337,6 +335,7 @@ relation on the Brouwer ordinals is needed for that.
 
 Before we can define an extensional order relation on $\Omega$, we define a
 structural strict order relation as follows.
+% TODO: , is too close on $\Omega$
 
 \begin{definition}[Predecessor indices]
 % TODO: include I(a) for a in emph
@@ -900,13 +899,13 @@ definition.
 
 \subsection{Guardedness}\label{sub:guardedness}
 
-Objects in a coinductive type may be infinite (i.e.~contain an infinite amount
-of constructors). However, in order to guarantee productivity, definitions of
-such objects are required by \Coq to be in \emph{guarded} form. A corecursive
-definition in guarded form satisfies two (syntactical) conditions. First,
-every corecursive call must occur inside at least one constructor (of the same
-coinductive type). Second, every corecursive call may only occur inside
-abstractions or constructors (of the same coinductive
+Objects in a coinductive type may be infinite (i.e.\ contain an infinite
+amount of constructors). However, in order to guarantee productivity,
+definitions of such objects are required by \Coq to be in \emph{guarded}
+form. A corecursive definition in guarded form satisfies two (syntactical)
+conditions. First, every corecursive call must occur inside at least one
+constructor (of the same coinductive type). Second, every corecursive call may
+only occur inside abstractions or constructors (of the same coinductive
 type).\footnote{To be more precise, the corecursive call is also allowed to
   occur inside \coqdockw{match} constructs and other corecursive definitions.}
 
