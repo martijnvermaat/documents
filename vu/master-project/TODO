@@ -6,6 +6,7 @@ Spell check
 1, 2, 3, and 5 or 1, 2, 3 and 5?
 Refer to Section 4 or to section 4?
 Write Coq the right way
+Coinduction or co-induction?
 
 coqdoc --latex --stdout --body-only --no-externals /tmp/code.v
 
