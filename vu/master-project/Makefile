@@ -6,7 +6,7 @@
 # Martijn Vermaat, martijn@vermaat.name
 
 # Configuration
-THESIS = master-project
+THESIS = thesis
 DEPENDS = vu.cls abbrevs.tex discussion.tex glossary.tex implementation.tex introduction.tex preface.tex rewriting.tex unwo.tex
 SLIDES = slides
 PDFLATEX = /usr/bin/pdflatex
