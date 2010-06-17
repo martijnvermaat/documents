@@ -34,14 +34,24 @@ $(THESIS).pdf: $(DEPENDS)
 # BibTeX database, but we don't want to regenerate that on every .tex change.
 # We compile the file twice to make sure all references are okay.
 %.pdf: %.tex
-	$(PDFLATEX) $(PDFLATEXFLAGS) $< && $(PDFLATEX) $(PDFLATEXFLAGS) $<
+	$(PDFLATEX) $(PDFLATEXFLAGS) $<
+	while egrep -q -s 'Rerun (LaTeX|to get cross-references right)' $*.log ;\
+	    do \
+	        $(PDFLATEX) $(PDFLATEXFLAGS) $< ;\
+	    done
+	$(PDFLATEX) $(PDFLATEXFLAGS) $< # With ntheorem, another run is needed
 
 # For the .bbl BibTeX database we need the .bib BibTeX source and .tex LaTeX
 # source.
 # Afterwards, we remove the resulting PDF, because we require some additional
 # compilation passes that are done by the %.pdf rule.
 %.bbl: %.bib %.tex
-	$(PDFLATEX) $(PDFLATEXFLAGS) $* && $(BIBTEX) $* && $(PDFLATEX) $(PDFLATEXFLAGS) $* && /bin/rm $*.pdf
+	$(PDFLATEX) $(PDFLATEXFLAGS) $*
+	while egrep -q -s 'Rerun (LaTeX|to get cross-references right)' $*.log ;\
+	    do \
+	        $(PDFLATEX) $(PDFLATEXFLAGS) $* ;\
+	    done
+	/bin/rm $*.pdf
 
 # Please make sure we don't kill any sources...
 clean:

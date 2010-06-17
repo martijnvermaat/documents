@@ -39,6 +39,29 @@
 % Headings
 %\pagestyle{headings}
 
+% Chapter and section title styles
+\usepackage{titlesec}
+
+% Smallcaps for 'Chapter n' and section numbering
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries}{\sc\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titleformat{\section}
+{\normalfont\Large\bfseries}{\sc\thesection}{1em}{}
+\titleformat{\subsection}
+{\normalfont\large\bfseries}{\sc\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+{\normalfont\normalsize\bfseries}{\sc\thesubsubsection}{1em}{}
+\titleformat{\paragraph}[runin]
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titleformat{\subparagraph}[runin]
+{\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}
+\titlespacing*{\chapter} {0pt}{50pt}{40pt}
+\titlespacing*{\section} {0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+\titlespacing*{\subsection} {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\titlespacing*{\subsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus.2ex}
+\titlespacing*{\paragraph} {0pt}{3.25ex plus 1ex minus .2ex}{1em}
+\titlespacing*{\subparagraph} {\parindent}{3.25ex plus 1ex minus .2ex}{1em}
+
 % Dutch style of paragraph formatting, i.e. no indents
 %\setlength{\parskip}{1.3ex plus 0.2ex minus 0.2ex}
 %\setlength\parskip{\bigskipamount}
@@ -59,11 +82,20 @@
 \usepackage[numbers]{natbib}
 \setlength{\bibhang}{0ex}
 
-% AMS theorem styles
-\usepackage{amsthm}
+% Customizable theorem environments
+\usepackage[amsmath,thmmarks]{ntheorem}
 
-% Theorem styles
-\theoremstyle{definition}
+%\makeatletter
+%\newtheoremstyle{definition}
+%{\item[\hskip\labelsep \theorem@headerfont ##1\ ##2\theorem@separator]}
+%{\item[\hskip\labelsep \theorem@headerfont ##1\ ##2\ (##3)\theorem@separator]}
+%\makeatother
+
+\theoremstyle{plain}
+\theoremheaderfont{\sc}
+\theorembodyfont{\normalfont}
+\theoremsymbol{\ensuremath{\ast}}
+\theoremseparator{.}
 \newtheorem{definition}{Definition}
 
 % Additional list environments

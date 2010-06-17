@@ -200,8 +200,8 @@ on terms:
 \coqdocnoindent
 \coqdockw{CoInductive}
 \coqdef{TermEquality.termbis}{term\_bis}{$\sim$} :
-\coqref{Term.term}{\coqdocabbreviation{term}} \ensuremath{\rightarrow}
-\coqref{Term.term}{\coqdocabbreviation{term}} \ensuremath{\rightarrow}
+\coqref{Term.term}{\coqdocinductive{term}} \ensuremath{\rightarrow}
+\coqref{Term.term}{\coqdocinductive{term}} \ensuremath{\rightarrow}
 \coqdockw{Prop} :=\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|}
@@ -238,8 +238,8 @@ pointwise equality of terms up to a given depth:
 \coqdef{TermEquality.termequpto}{term\_eq\_up\_to}{\coqdocinductive{term\_eq\_up\_to}}
 :
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
-\ensuremath{\rightarrow} \coqref{Term.term}{\coqdocabbreviation{term}}
-\ensuremath{\rightarrow} \coqref{Term.term}{\coqdocabbreviation{term}}
+\ensuremath{\rightarrow} \coqref{Term.term}{\coqdocinductive{term}}
+\ensuremath{\rightarrow} \coqref{Term.term}{\coqdocinductive{term}}
 \ensuremath{\rightarrow} \coqdockw{Prop} :=\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|}
@@ -346,6 +346,7 @@ relation, and that indeed it is an equality:
 \end{coqdoccode}
 \end{singlespace}
 
+% TODO: we already defined cauchy convergence earlier
 In Section~\ref{sec:seq} we use the notion of convergence of an infinite
 sequence of terms. A sequence of terms $\{ t_1, t_2, t_3, \ldots \}$ converges
 to the term $t$ by the notion of \emph{Cauchy convergence} if for all depths
@@ -358,8 +359,8 @@ t$. This is implemented in \Coq as follows:
 \coqdef{Rewriting.converges}{converges}{\coqdocdefinition{converges}}
 (\coqdocvar{f} :
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
-\ensuremath{\rightarrow} \coqref{Rewriting.term}{\coqdocabbreviation{term}})
-(\coqdocvar{t} : \coqref{Rewriting.term}{\coqdocabbreviation{term}}) :
+\ensuremath{\rightarrow} \coqref{Term.term}{\coqdocinductive{term}})
+(\coqdocvar{t} : \coqref{Term.term}{\coqdocinductive{term}}) :
 \coqdockw{Prop} :=\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{\forall} \coqdocvar{d}, \ensuremath{\exists} \coqdocvar{n},
@@ -373,7 +374,9 @@ t$. This is implemented in \Coq as follows:
 \end{singlespace}
 
 The definitions of finite term, rewrite rule, context and substitution from
-Section~\ref{sub:trs} translate to \Coq directly.
+Section~\ref{sub:trs} translate to \Coq directly. We define
+\coqdocprojection{lhs} and \coqdocprojection{rhs} to be first and second
+projection on rewrite rules.
 
 
 \section{Transfinite Rewrite Sequences}\label{sec:seq}
@@ -385,34 +388,33 @@ and target terms, as follows:
 \begin{coqdoccode}
 \coqdocnoindent
 \coqdockw{Inductive} \coqdef{Rewriting.step}{step}{$\rightarrow_\mathcal{R}$} :
-\coqref{Rewriting.term}{\coqdocabbreviation{term}} \ensuremath{\rightarrow}
-\coqref{Rewriting.term}{\coqdocabbreviation{term}} \ensuremath{\rightarrow}
+\coqref{Term.term}{\coqdocinductive{term}} \ensuremath{\rightarrow}
+\coqref{Term.term}{\coqdocinductive{term}} \ensuremath{\rightarrow}
 \coqdockw{Type} :=\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|} \coqdef{Rewriting.Step}{Step}{\coqdocconstructor{Step}} :
 \ensuremath{\forall} (\coqdocvar{s} \coqdocvar{t} :
-\coqref{Rewriting.term}{\coqdocabbreviation{term}}) (\coqdocvar{$\rho$} :
-\coqref{Rewriting.rule}{\coqdocrecord{rule}}) (\coqdocvar{c} :
-\coqref{Rewriting.context}{\coqdocabbreviation{context}}) (\coqdocvar{$\sigma$} :
-\coqref{Rewriting.substitution}{\coqdocabbreviation{substitution}}),\coqdoceol
+\coqref{Term.term}{\coqdocinductive{term}}) (\coqdocvar{$\rho$} :
+\coqdocrecord{rule}) (\coqdocvar{c} :
+\coqdocinductive{context}) (\coqdocvar{$\sigma$} :
+\coqdocdefinition{substitution}),\coqdoceol
 \coqdocindent{6.50em} \coqdocvariable{$\rho$}
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Lists.List}{In}{\coqdocdefinition{$\in$}}
 \coqdocvar{$\mathcal{R}$} \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{6.50em}
 \coqdocvariable{c}
-[(\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
+[(\coqdocprojection{lhs}
 \coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] $\sim$ \coqdocvariable{s}
 \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{6.50em}
 \coqdocvariable{c}
-[(\coqref{Rewriting.rhs}{\coqdocprojection{rhs}}
+[(\coqdocprojection{rhs}
 \coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] $\sim$ \coqdocvariable{t}
 \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{6.50em}
 \coqdocvariable{s} $\rightarrow_\mathcal{R}$ \coqdocvariable{t}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-% TODO: use notations for fill and substitute when these are defined
 
 Label every successor with a step:
 \begin{singlespace}
@@ -420,8 +422,8 @@ Label every successor with a step:
 \coqdocnoindent
 \coqdockw{Inductive}
 \coqdef{Rewriting.sequence}{sequence}{$\twoheadrightarrow_\mathcal{R}$} :
-\coqref{Rewriting.term}{\coqdocabbreviation{term}} \ensuremath{\rightarrow}
-\coqref{Rewriting.term}{\coqdocabbreviation{term}} \ensuremath{\rightarrow}
+\coqref{Term.term}{\coqdocinductive{term}} \ensuremath{\rightarrow}
+\coqref{Term.term}{\coqdocinductive{term}} \ensuremath{\rightarrow}
 \coqdockw{Type} :=\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|} \coqdef{Rewriting.Nil}{Nil}{\coqdocconstructor{Nil}}   :

@@ -69,7 +69,7 @@ of $\sqcup (\lambda i . \cdots i \cdots)$. Sometimes we explicitely enumerate
 the function, writing for example $\sqcup \{ \alpha_1, \alpha_2, \alpha_3,
 \ldots \}$.
 
-\begin{definition}[Ordinals]\label{def:ordinals}
+\begin{definition}\label{def:ordinals}%[Ordinals]
 The set of \emph{Brouwer ordinals} (ordinals) $\Omega$ is defined by
 induction:
 \begin{compactenum}
@@ -147,7 +147,7 @@ non-strict order relation on $\Omega$ that classifies ordinals by rank.
 
 % TODO: note <= infix notation
 % TODO: or use the set-theoretic definitions from hancock?
-\begin{definition}[Order]\label{def:order}
+\begin{definition}\label{def:order}%[Order]
 We define the \emph{order} $\preceq$ as a binary relation on $\Omega$ by
 induction on the first argument (and write $\alpha \preceq \beta$ for $\langle
 \alpha, \beta \rangle \in \; \preceq$):
@@ -189,14 +189,14 @@ explicitely say so if we mean finitary rewriting.
 
 \subsection{Definition of a TRS}\label{sub:trs}
 
-\begin{definition}[Signature]
+\begin{definition}%[Signature]
 A \emph{signature} $\Sigma$ is a non-empty set of \emph{function symbols} $f,
 g, \ldots$. Each function symbol $f$ has a fixed natural number $\#_f$, which
 we call its \emph{arity}. A function symbol with arity $0$ is also called a
 \emph{constant}.
 \end{definition}
 
-\begin{definition}[Term]
+\begin{definition}%[Term]
 The set of \emph{terms} $Ter_\Sigma^\infty(X)$ over a signature $\Sigma$ and a
 set of variables $X = \{x, y, \ldots\}$ is defined by co-induction:
 \begin{compactenum}
@@ -218,14 +218,14 @@ Often, the set of variables $X$ is left implicit and $Ter_\Sigma^\infty(X)$ is
 denoted simply by $Ter_\Sigma^\infty$. By the set of \emph{finite terms}
 $Ter_\Sigma$ we mean the subset of well-founded terms of $Ter_\Sigma^\infty$.
 
-\begin{definition}[Rewrite rule]
+\begin{definition}%[Rewrite rule]
   A \emph{rewrite rule} $\rho$ for a signature $\Sigma$ is a pair $\langle l,
   r \rangle$ of finite terms in $Ter_\Sigma$ (written $\rho : l \rightarrow
   r$). We restrict ourselves to rewrite rules where $l$ is not a variable and
   $Var(r) \subseteq Var(l)$.
 \end{definition}
 
-\begin{definition}[TRS]
+\begin{definition}%[TRS]
 A \emph{term rewriting system} (TRS) $\mathcal{R}$ is a pair $\langle \Sigma,
 R \rangle$ of a signature $\Sigma$ and a set of rewrite rules $R$ on
 $\Sigma$.
@@ -237,7 +237,7 @@ we defined the notion of context in our \Coq development (the main reason being
 that we choose not to consider multi-hole contexts).
 % TODO: maybe this needs more explaining
 
-\begin{definition}[Context]
+\begin{definition}%[Context]
 The set of (one-hole) \emph{contexts} $Ctx_\Sigma^\infty$ over a signature
 $\Sigma$ is defined by induction:
 \begin{compactenum}
@@ -255,7 +255,7 @@ Thus every context $C$ has exactly one occurence of the symbol $\Box$, called
 its \emph{hole}. By the term $C[t]$ we mean the result of replacing the hole
 of $C$ by $t$.
 
-\begin{definition}[Substitution]
+\begin{definition}%[Substitution]
 % TODO: now we only generalize to finite terms
 Given a signature $\Sigma$ and a set of variables $X$, a \emph{substitution}
 $\sigma$ is a mapping from $X$ to $Ter_\Sigma^\infty(X)$. It can be
@@ -282,7 +282,7 @@ $\sigma$. The result is the \emph{atomic} rewrite step $l^\sigma
 \rightarrow_\rho r^\sigma$. We call $l^\sigma$ a ($\rho$-) \emph{redex} and
 $r^\sigma$ its \emph{contractum}.
 
-\begin{definition}[Rewrite step]
+\begin{definition}%[Rewrite step]
 A \emph{rewrite step} $C[l^\sigma] \rightarrow_\rho C[r^\sigma]$ according to
 $\rho$ consists of a rewrite rule $\rho : l \rightarrow r$, a substitution
 $\sigma$ and a context $C$.
@@ -293,7 +293,40 @@ $\rho$. The one-step rewriting relation $\rightarrow$ of a TRS $\mathcal{R}$
 with rewrite rules $R$ is defined as the union of $\{ \rightarrow_\rho | \;
 \rho \in R \}$.
 
-TODO: infinite rewriting sequences, convergence definitions.
+\begin{definition}%[Rewrite sequence]
+A \emph{rewrite sequence} of ordinal length $\alpha$ is a sequence of rewrite
+steps $(t_\beta \rightarrow t_{\beta^+})_{\beta < \alpha}$.
+\end{definition}
+
+This definition only makes sense if we somehow require that for every limit
+ordinal $\lambda < \alpha$, the terms $(t_\beta)_{\beta < \lambda}$ approach
+$t_\lambda$ in the limit and sometimes even further restrictions are
+desirable. We define four conditions on rewrite sequences.
+
+\begin{definition}%[Continuity and convergence]
+A rewrite sequence $(t_\beta \rightarrow t_{\beta^+})_{\beta < \alpha}$ of
+length $\alpha$ is
+\begin{compactenum}
+  \item
+    \emph{weakly continuous} if for every limit ordinal $\lambda < \alpha$,
+    the sequence $(t_\beta)_{\beta < \lambda}$ converges to the term
+    $t_\lambda$,
+  \item
+    \emph{strongly continuous}, if it is weakly continuous and for every limit
+    ordinal $\lambda < \alpha$, the depth of the rewrite steps $(t_\beta
+    \rightarrow t_{\beta^+})_{\beta < \lambda}$ tends to infinity,
+  \item
+    \emph{weakly convergent} with limit $t_\alpha$, if for every limit ordinal
+    $\lambda \leq \alpha$, the sequence $(t_\beta)_{\beta < \lambda}$
+    converges to the term $t_\lambda$,
+  \item
+    and \emph{strongly convergent} with limit $t_\alpha$ if it is weakly
+    convergent with limit $t_\alpha$ and for every limit ordinal $\lambda \leq
+    \alpha$, the depth of the rewrite step $(t_\beta \rightarrow
+    t_{\beta^+})_{\beta < \lambda}$ tends to infinity.
+\end{compactenum}
+\end{definition}
+% TODO: state strong conditions
 
 
 \subsection{Orthogonality}
