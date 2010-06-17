@@ -36,6 +36,9 @@
 % A4 page
 \usepackage{a4}
 
+% Headings
+%\pagestyle{headings}
+
 % Dutch style of paragraph formatting, i.e. no indents
 %\setlength{\parskip}{1.3ex plus 0.2ex minus 0.2ex}
 %\setlength\parskip{\bigskipamount}

@@ -7,11 +7,13 @@ Spell check
 Refer to Section 4 or to section 4?
 Write Coq the right way
 Coinduction or co-induction?
+Look at chap 15 of terese for implementations of rewriting
 
 coqdoc --latex -s -g --coqlib http://coq.inria.fr/stdlib/ -d coqdoc *.v
 
 http://wiki.cs.vu.nl/mp/index.php/Main_Page
 
+http://www-ra.phys.utas.edu.au/~jstevens/code_thesis_style.html
 http://theoval.cmp.uea.ac.uk/~nlct/latex/thesis/
 http://ecohydro.falw.vu.nl/latex/latex.html
 http://www.markschenk.com/tensegrity/latexexplanation.html

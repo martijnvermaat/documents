@@ -6,7 +6,7 @@ TODO: introduction.
 \section{The \Coq Proof Assistant}
 
 TODO: text
-
+TODO: very short intro to coq syntax (include `(...) notation)
 TODO: some notes about code listings. coq has implicit arguments. we aim for
 brevity.
 
@@ -40,8 +40,8 @@ ordinals (cf.~Definition~\ref{def:ordinals}):
 \end{coqdoccode}
 \end{singlespace}
 In fact, all definitions from Section~\ref{sub:brouwer} translate directly to
-\Coq code. We can now prove basic properties of \coqdocinductive{$\preceq$},
-for example that it is transitive:
+\Coq code. We can now prove basic properties of $\preceq$, for example that it
+is transitive:
 % TODO: maybe add another example
 \begin{singlespace}
 \begin{coqdoccode}
@@ -123,9 +123,8 @@ defines the resulting subset:
 
 Now we can prove the stronger result we were looking for:\footnote{Although
   \coqdocvariable{\ensuremath{\alpha}} has type
-  \coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}} and
-  \coqdocinductive{$\preceq$} has type
-  \coqref{Ordinal.ord}{\coqdocinductive{ord}} $\rightarrow$
+  \coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}} and $\preceq$
+  has type \coqref{Ordinal.ord}{\coqdocinductive{ord}} $\rightarrow$
   \coqref{Ordinal.ord}{\coqdocinductive{ord}} $\rightarrow$ \coqdockw{Prop},
   we can state the lemma in this concise way by defining a simple coercion
   from \coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}} to
@@ -200,7 +199,7 @@ on terms:
 \begin{coqdoccode}
 \coqdocnoindent
 \coqdockw{CoInductive}
-\coqdef{TermEquality.termbis}{term\_bis}{\coqdocinductive{$\sim$}} :
+\coqdef{TermEquality.termbis}{term\_bis}{$\sim$} :
 \coqref{Term.term}{\coqdocabbreviation{term}} \ensuremath{\rightarrow}
 \coqref{Term.term}{\coqdocabbreviation{term}} \ensuremath{\rightarrow}
 \coqdockw{Prop} :=\coqdoceol
@@ -209,7 +208,7 @@ on terms:
 \coqdef{TermEquality.Varbis}{Var\_bis}{\coqdocconstructor{$\sim_\text{Var}$}} :
 \ensuremath{\forall} \coqdocvar{x},
 \coqref{Term.Var}{\coqdocconstructor{Var}} \coqdocvariable{x}
-\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqref{TermEquality.termbis}{$\sim$}
 \coqref{Term.Var}{\coqdocconstructor{Var}} \coqdocvariable{x}\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|}
@@ -217,12 +216,12 @@ on terms:
 \ensuremath{\forall} \coqdocvar{f} \coqdocvar{v} \coqdocvar{w},
 (\ensuremath{\forall} \coqdocvar{i},
 \coqdocvariable{v} \coqdocvariable{i}
-\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqref{TermEquality.termbis}{$\sim$}
 \coqdocvariable{w} \coqdocvariable{i})
 \ensuremath{\rightarrow}
 \coqref{Term.Fun}{\coqdocconstructor{Fun}} \coqdocvariable{f}
 \coqdocvariable{v}
-\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqref{TermEquality.termbis}{$\sim$}
 \coqref{Term.Fun}{\coqdocconstructor{Fun}} \coqdocvariable{f}
 \coqdocvariable{w}.\coqdoceol
 \end{coqdoccode}
@@ -231,8 +230,7 @@ Any proof of two infinite terms being bisimilar is an infinite proof, in the
 sense that the proof term is built by corecursion.
 
 Another way to define equality on infinite terms is pointwise. First we define
-pointwise equality of terms up to a given depth. Then two terms are equal if
-this pointwise equality holds up to all depths:
+pointwise equality of terms up to a given depth:
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -252,45 +250,53 @@ $0$ \coqdocvariable{t} \coqdocvariable{u}\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|}
 \coqdef{TermEquality.teutvar}{teut\_var}{\coqdocconstructor{teut$_\text{Var}$}} :
-\ensuremath{\forall} \coqdocvar{n} \coqdocvar{x},
+\ensuremath{\forall} \coqdocvar{d} \coqdocvar{x},
 \coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
-\coqdocvariable{n}
+\coqdocvariable{d}
 (\coqref{Term.Var}{\coqdocconstructor{Var}} \coqdocvariable{x})
 (\coqref{Term.Var}{\coqdocconstructor{Var}} \coqdocvariable{x})\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|}
 \coqdef{TermEquality.teutfun}{teut\_fun}{\coqdocconstructor{teut$_\text{Fun}$}} :
-\ensuremath{\forall} \coqdocvar{n} \coqdocvar{f} \coqdocvar{v}
+\ensuremath{\forall} \coqdocvar{d} \coqdocvar{f} \coqdocvar{v}
 \coqdocvar{w},\coqdoceol
 \coqdocindent{7.50em}
 (\ensuremath{\forall} \coqdocvar{i},
 \coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
-\coqdocvariable{n} (\coqdocvariable{v} \coqdocvariable{i}) (\coqdocvariable{w}
+\coqdocvariable{d} (\coqdocvariable{v} \coqdocvariable{i}) (\coqdocvariable{w}
 \coqdocvariable{i})) \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{7.50em}
 \coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
 (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
-\coqdocvariable{n}) (\coqref{Term.Fun}{\coqdocconstructor{Fun}}
+\coqdocvariable{d}) (\coqref{Term.Fun}{\coqdocconstructor{Fun}}
 \coqdocvariable{f} \coqdocvariable{v})
 (\coqref{Term.Fun}{\coqdocconstructor{Fun}} \coqdocvariable{f}
 \coqdocvariable{w}).\coqdoceol
-\coqdocemptyline
+\end{coqdoccode}
+\end{singlespace}
+We abbreviate
+\coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
+\coqdocvariable{d} by
+\coqref{TermEquality.termequpto}{\equpto{\textnormal{\coqdocvariable{d}}}}
+and two terms are equal if this pointwise equality holds up to all depths:
+\begin{singlespace}
+\begin{coqdoccode}
 \coqdocnoindent
 \coqdockw{Definition}
 \coqdocvar{t}
-\coqdef{TermEquality.termeq}{term\_eq}{\coqdocdefinition{$\doteq$}}
+\coqdef{TermEquality.termeq}{term\_eq}{$\doteq$}
 \coqdocvar{u} :=
-\ensuremath{\forall} \coqdocvar{n},
-\coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
-\coqdocvariable{n} \coqdocvariable{t} \coqdocvariable{u}.\coqdoceol
+\ensuremath{\forall} \coqdocvar{d},
+\coqdocvariable{t}
+\coqref{TermEquality.termequpto}{\equpto{\coqdocvariable{d}}}
+\coqdocvariable{u}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 
 % TODO: leave out the lemma statements?
-% TODO: don't color notations like \sim?
 
-We can prove that \coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}} and
-\coqref{TermEquality.termeq}{\coqdocdefinition{$\doteq$}} are the same
+We can prove that \coqref{TermEquality.termbis}{$\sim$} and
+\coqref{TermEquality.termeq}{$\doteq$} are the same
 relation, and that indeed it is an equality:
 \begin{singlespace}
 \begin{coqdoccode}
@@ -299,10 +305,10 @@ relation, and that indeed it is an equality:
 \coqdef{TermEquality.termbistermeq}{term\_bis\_term\_eq}{\coqdoclemma{term\_bis\_term\_eq}}
 : \ensuremath{\forall} \coqdocvar{t} \coqdocvar{u},
 \coqdocvariable{t}
-\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqref{TermEquality.termbis}{$\sim$}
 \coqdocvariable{u} \ensuremath{\leftrightarrow}
 \coqdocvariable{t}
-\coqref{TermEquality.termeq}{\coqdocdefinition{$\doteq$}}
+\coqref{TermEquality.termeq}{$\doteq$}
 \coqdocvariable{u}.\coqdoceol
 \coqdocemptyline
 \coqdocnoindent
@@ -310,7 +316,7 @@ relation, and that indeed it is an equality:
 \coqdef{TermEquality.termbisrefl}{term\_bis\_refl}{\coqdoclemma{$\sim_\text{refl}$}}
 : \ensuremath{\forall} \coqdocvar{t},
 \coqdocvariable{t}
-\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqref{TermEquality.termbis}{$\sim$}
 \coqdocvariable{t}.\coqdoceol
 \coqdocemptyline
 \coqdocnoindent
@@ -318,10 +324,10 @@ relation, and that indeed it is an equality:
 \coqdef{TermEquality.termbissymm}{term\_bis\_symm}{\coqdoclemma{$\sim_\text{symm}$}}
 : \ensuremath{\forall} \coqdocvar{t} \coqdocvar{u},
 \coqdocvariable{t}
-\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqref{TermEquality.termbis}{$\sim$}
 \coqdocvariable{u} $\rightarrow$
 \coqdocvariable{u}
-\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqref{TermEquality.termbis}{$\sim$}
 \coqdocvariable{t}.\coqdoceol
 \coqdocemptyline
 \coqdocnoindent
@@ -329,16 +335,114 @@ relation, and that indeed it is an equality:
 \coqdef{TermEquality.termbistrans}{term\_bis\_trans}{\coqdoclemma{$\sim_\text{trans}$}}
 : \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u},
 \coqdocvariable{s}
-\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqref{TermEquality.termbis}{$\sim$}
 \coqdocvariable{t} $\rightarrow$
 \coqdocvariable{t}
-\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqref{TermEquality.termbis}{$\sim$}
 \coqdocvariable{u} $\rightarrow$
 \coqdocvariable{s}
-\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqref{TermEquality.termbis}{$\sim$}
 \coqdocvariable{u}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 
+In Section~\ref{sec:seq} we use the notion of convergence of an infinite
+sequence of terms. A sequence of terms $\{ t_1, t_2, t_3, \ldots \}$ converges
+to the term $t$ by the notion of \emph{Cauchy convergence} if for all depths
+$d$ there exists $n$ such that for every $m \geq n$ we have $t_m \equpto{d}
+t$. This is implemented in \Coq as follows:
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdef{Rewriting.converges}{converges}{\coqdocdefinition{converges}}
+(\coqdocvar{f} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+\ensuremath{\rightarrow} \coqref{Rewriting.term}{\coqdocabbreviation{term}})
+(\coqdocvar{t} : \coqref{Rewriting.term}{\coqdocabbreviation{term}}) :
+\coqdockw{Prop} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{\forall} \coqdocvar{d}, \ensuremath{\exists} \coqdocvar{n},
+\ensuremath{\forall} \coqdocvar{m},
+\coqdocvariable{n} \ensuremath{\le} \coqdocvariable{m}
+\ensuremath{\rightarrow}
+\coqdocvariable{f} \coqdocvariable{m}
+\coqref{TermEquality.termequpto}{\equpto{\coqdocvariable{d}}}
+\coqdocvariable{t}.
+\end{coqdoccode}
+\end{singlespace}
 
-\section{Transfinite Rewrite Sequences}
+The definitions of finite term, rewrite rule, context and substitution from
+Section~\ref{sub:trs} translate to \Coq directly.
+
+
+\section{Transfinite Rewrite Sequences}\label{sec:seq}
+
+Throughout this section, let $\mathcal{R}$ be a fixed TRS. We define the type
+of steps using rewrite rules in $\mathcal{R}$, parameterized by their source
+and target terms, as follows:
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Inductive} \coqdef{Rewriting.step}{step}{$\rightarrow_\mathcal{R}$} :
+\coqref{Rewriting.term}{\coqdocabbreviation{term}} \ensuremath{\rightarrow}
+\coqref{Rewriting.term}{\coqdocabbreviation{term}} \ensuremath{\rightarrow}
+\coqdockw{Type} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{Rewriting.Step}{Step}{\coqdocconstructor{Step}} :
+\ensuremath{\forall} (\coqdocvar{s} \coqdocvar{t} :
+\coqref{Rewriting.term}{\coqdocabbreviation{term}}) (\coqdocvar{$\rho$} :
+\coqref{Rewriting.rule}{\coqdocrecord{rule}}) (\coqdocvar{c} :
+\coqref{Rewriting.context}{\coqdocabbreviation{context}}) (\coqdocvar{$\sigma$} :
+\coqref{Rewriting.substitution}{\coqdocabbreviation{substitution}}),\coqdoceol
+\coqdocindent{6.50em} \coqdocvariable{$\rho$}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Lists.List}{In}{\coqdocdefinition{$\in$}}
+\coqdocvar{$\mathcal{R}$} \ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{6.50em}
+\coqdocvariable{c}
+[(\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
+\coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] $\sim$ \coqdocvariable{s}
+\ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{6.50em}
+\coqdocvariable{c}
+[(\coqref{Rewriting.rhs}{\coqdocprojection{rhs}}
+\coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] $\sim$ \coqdocvariable{t}
+\ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{6.50em}
+\coqdocvariable{s} $\rightarrow_\mathcal{R}$ \coqdocvariable{t}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+% TODO: use notations for fill and substitute when these are defined
+
+Label every successor with a step:
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Inductive}
+\coqdef{Rewriting.sequence}{sequence}{$\twoheadrightarrow_\mathcal{R}$} :
+\coqref{Rewriting.term}{\coqdocabbreviation{term}} \ensuremath{\rightarrow}
+\coqref{Rewriting.term}{\coqdocabbreviation{term}} \ensuremath{\rightarrow}
+\coqdockw{Type} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{Rewriting.Nil}{Nil}{\coqdocconstructor{Nil}}   :
+\ensuremath{\forall} \coqdocvar{t}, \coqdocvariable{t}
+$\twoheadrightarrow_\mathcal{R}$ \coqdocvariable{t}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{Rewriting.Cons}{Cons}{\coqdocconstructor{Cons}}  :
+\ensuremath{\forall} `(\coqdocvar{$\rho$} : \coqdocvar{s}
+$\twoheadrightarrow_\mathcal{R}$ \coqdocvar{t},
+\coqdocvar{$\pi$} : \coqdocvariable{t} $\rightarrow_\mathcal{R}$ \coqdocvar{u}),
+\coqdocvariable{s} $\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{u}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{Rewriting.Lim}{Lim}{\coqdocconstructor{Lim}}   :
+\ensuremath{\forall} `(\coqdocvar{f} : (\ensuremath{\forall} \coqdocvar{n},
+\coqdocvar{s} $\twoheadrightarrow_\mathcal{R}$ \coqdocvar{ts}
+\coqdocvariable{n}), \coqdocvar{c} :
+\coqref{Rewriting.converges}{\coqdocdefinition{converges}} \coqdocvariable{ts}
+\coqdocvar{t}), \coqdocvariable{s} $\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{t}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+% TODO: consider dropping the R subscript for ->>
+% TODO: expanded version of Lim, for explanation

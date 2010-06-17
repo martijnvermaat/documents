@@ -6,6 +6,27 @@ meaning.
 
 {\renewcommand{\arraystretch}{1.1}
 \renewcommand{\tabcolsep}{10pt}
+\begin{tabular}{p{150pt} p{175pt}}
+Names & Used for\\
+\hline
+\multicolumn{2}{l}{\bf Ordinals}\\
+$\alpha, \beta, \gamma$ & ordinals\\
+$\lambda$ & limit ordinals\\
+$i, j, k$ & ordinal predecessor indices\\
+\multicolumn{2}{l}{\bf Terms}\\
+$x, y$ & variables\\
+$f, g$ & function symbols\\
+$t, u, s$ & terms\\
+$\rho, \tau$ & rewrite rules\\
+$\mathcal{R}$ & TRSs\\
+$\sigma$ & substitutions\\
+$\pi, o$ & rewrite steps\\
+$\rho, \tau$ & rewrite sequences\\
+\multicolumn{2}{l}{\bf Rewriting Sequences}\\
+\end{tabular}}
+
+{\renewcommand{\arraystretch}{1.1}
+\renewcommand{\tabcolsep}{10pt}
 \begin{tabular}{l l p{175pt}}
 Thesis & \Coq & Meaning\\
 \hline
@@ -18,7 +39,7 @@ $\alpha \simeq \beta$ & \texttt{alpha == beta} & extensional equality\\
 \multicolumn{3}{l}{\bf Terms}\\
 $s \equiv t$ & \texttt{s = t} & syntactical and \Coq equality \small{(not really the same thing)}\\
 $s \sim t$ & \texttt{s [\textasciitilde] t} & bisimilarity\\
-$s \doteq_n t$ & \texttt{term\_eq\_up\_to n s t} & pointwise equality up to depth $n$\\ % \eqcirc_n
+$s \equpto{n} t$ & \texttt{term\_eq\_up\_to n s t} & pointwise equality up to depth $n$\\ % \eqcirc_n
 $s \doteq t$ & \texttt{s [=] t} & pointwise equality\\ % \eqcirc
 \multicolumn{3}{l}{\bf Rewriting Sequences}\\
 $\rho \rightarrow \tau$ & \texttt{r [>] q} & $\rho$ rewrites to
