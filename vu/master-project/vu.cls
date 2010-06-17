@@ -7,11 +7,6 @@
 
 \LoadClass[11pt,a4paper]{report}
 
-% Use some subversion information
-% TODO: only do this when draft option is used
-\usepackage{svn-multi}
-\svnid{$Id: master-project.tex 563 2010-06-16 22:40:09Z martijn $}
-
 % AMS math fonts
 \usepackage{amsmath}
 \usepackage{amsfonts}
