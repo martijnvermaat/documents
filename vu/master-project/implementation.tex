@@ -1,0 +1,344 @@
+\chapter{A Mechanic Formalization}\label{chap:implementation}
+
+TODO: introduction.
+
+
+\section{The \Coq Proof Assistant}
+
+TODO: text
+
+TODO: some notes about code listings. coq has implicit arguments. we aim for
+brevity.
+
+
+\section{Ordinal Numbers}
+
+In the theory of infinitary rewriting, the lengths of rewriting sequences play
+a central role. Therefore, any reasonable formalization of infinitary
+rewriting ought to have some notion of ordinal numbers.
+
+We define the ordinal numbers using the representation of Brouwer
+ordinals (cf.~Definition~\ref{def:ordinals}):
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Inductive} \coqdef{Ordinal.ord}{ord}{\coqdocinductive{ord}} :
+\coqdockw{Set} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{Ordinal.Zero}{Zero}{\coqdocconstructor{Zero}}  :
+\coqref{Ordinal.ord}{\coqdocinductive{ord}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{Ordinal.Succ}{Succ}{\coqdocconstructor{Succ}}  :
+\coqref{Ordinal.ord}{\coqdocinductive{ord}} \ensuremath{\rightarrow}
+\coqref{Ordinal.ord}{\coqdocinductive{ord}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{Ordinal.Limit}{Limit}{\coqdocconstructor{Limit}} :
+(\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+\ensuremath{\rightarrow} \coqref{Ordinal.ord}{\coqdocinductive{ord}})
+\ensuremath{\rightarrow}
+\coqref{Ordinal.ord}{\coqdocinductive{ord}}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+In fact, all definitions from Section~\ref{sub:brouwer} translate directly to
+\Coq code. We can now prove basic properties of \coqdocinductive{$\preceq$},
+for example that it is transitive:
+% TODO: maybe add another example
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdef{Ordinal.ordletrans}{ord\_le\_trans}{\coqdoclemma{\ensuremath{\preceq_{\text{trans}}}}}
+:
+\ensuremath{\forall} \coqdocvar{\ensuremath{\alpha}}
+\coqdocvar{\ensuremath{\beta}}
+\coqdocvar{\ensuremath{\gamma}}, \coqdocvariable{\ensuremath{\alpha}}
+\coqdocinductive{\ensuremath{\preceq}} \coqdocvariable{\ensuremath{\beta}}
+\ensuremath{\rightarrow}
+\coqdocvariable{\ensuremath{\beta}} \coqdocinductive{\ensuremath{\preceq}}
+\coqdocvariable{\ensuremath{\gamma}}
+\ensuremath{\rightarrow} \coqdocvariable{\ensuremath{\alpha}}
+\coqdocinductive{\ensuremath{\preceq}}
+\coqdocvariable{\ensuremath{\gamma}}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+Recalling our discussion in Section~\ref{sub:brouwer} of limit ordinals whose
+sequences do not actually approximate to a limit ordinal, we consider the
+following lemma as an example of this issue:
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdef{Ordinal.ordlezeroright}{ord\_le\_zero\_right}{\coqdoclemma{\ensuremath{\preceq_{\text{zero\_right}}}}}
+:
+\ensuremath{\forall} \coqdocvar{\ensuremath{\alpha}} \coqdocvar{\ensuremath{\beta}},
+\coqdocvariable{\ensuremath{\alpha}} \coqdocinductive{\ensuremath{\preceq}}
+\coqref{Ordinal.Zero}{\coqdocconstructor{Zero}}
+\ensuremath{\rightarrow}
+\coqdocvariable{\ensuremath{\alpha}} \coqdocinductive{\ensuremath{\preceq}}
+\coqdocvariable{\ensuremath{\beta}}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+We would like to strengthen this, but cannot, since nothing denies \coqdocvariable{\ensuremath{\alpha}}
+from being the Brouwer ordinal $\sqcup \{ 0, 0, 0, \ldots \}$ (which has the
+same rank as $0$). We therefore turn to a subset of the Brouwer ordinals where
+we restrict limit sequences to be strictly monotonic. This restriction is
+encoded in the \coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} property and the
+$\Sigma$-type \coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}}
+defines the resulting subset:
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Fixpoint} \coqdef{WfOrdinal.wf}{wf}{\coqdocdefinition{wf}}
+\coqdocvar{\ensuremath{\alpha}} : \coqdockw{Prop} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{\ensuremath{\alpha}} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Ordinal.Zero}{\coqdocconstructor{Zero}}
+\ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Logic}{True}{\coqdocinductive{True}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Ordinal.Succ}{\coqdocconstructor{Succ}}
+\coqdocvar{\ensuremath{\beta}} \ensuremath{\Rightarrow}
+\coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} \coqdocvariable{\ensuremath{\beta}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Ordinal.Limit}{\coqdocconstructor{Limit}} \coqdocvar{f}
+\ensuremath{\Rightarrow} \ensuremath{\forall} \coqdocvar{n},
+\coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} (\coqdocvariable{f}
+\coqdocvariable{n}) \ensuremath{\land} \ensuremath{\forall} \coqdocvar{m},
+\coqdocvariable{n} < \coqdocvariable{m} \ensuremath{\rightarrow}
+(\coqdocvariable{f} \coqdocvariable{n}) \coqdocdefinition{\ensuremath{\prec}}
+(\coqdocvariable{f} \coqdocvariable{m})\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdef{WfOrdinal.wford}{wf\_ord}{\coqdocdefinition{ord$^\text{wf}$}} : \coqdockw{Set}
+:=
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{sig}{\coqdocinductive{sig}}
+\coqref{WfOrdinal.wf}{\coqdocdefinition{wf}}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+Now we can prove the stronger result we were looking for:\footnote{Although
+  \coqdocvariable{\ensuremath{\alpha}} has type
+  \coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}} and
+  \coqdocinductive{$\preceq$} has type
+  \coqref{Ordinal.ord}{\coqdocinductive{ord}} $\rightarrow$
+  \coqref{Ordinal.ord}{\coqdocinductive{ord}} $\rightarrow$ \coqdockw{Prop},
+  we can state the lemma in this concise way by defining a simple coercion
+  from \coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}} to
+  \coqref{Ordinal.ord}{\coqdocinductive{ord}} (first $\Sigma$-type
+  projection).}
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdef{WfOrdinal.wfordlezeroright}{wf\_ord\_le\_zero\_right}{\coqdoclemma{\ensuremath{\preceq^{\text{wf}}_{\text{zero\_right}}}}}
+:
+\ensuremath{\forall} \coqdocvar{\ensuremath{\alpha}} :
+\coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}},
+\coqdocvariable{\ensuremath{\alpha}} \coqdocinductive{\ensuremath{\preceq}}
+\coqref{Ordinal.Zero}{\coqdocconstructor{Zero}}
+\ensuremath{\rightarrow}
+\coqdocvariable{\ensuremath{\alpha}} =
+\coqref{Ordinal.Zero}{\coqdocconstructor{Zero}}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+
+\section{Coinductive Terms}
+
+In \Coq, coinductive datatypes can be defined using the \coqdockw{CoInductive}
+command. No induction principles are defined for these types, because they are
+not well-founded.\footnote{\Coq automatically derives induction principles for
+  inductive definitions.} The objects of a coinductive type may contain an
+infinite number of constructors, but can only be built in some restricted way
+to ensure productivity of the construction.
+% TODO: productivity or effectiveness?
+We defer discussion of this restriction to Section~\ref{sub:guardedness}, and
+define the type \coqref{Term.term}{\coqdocinductive{term}} of infinite terms
+with function symbols in \coqdocvar{F} and variables in \coqdocvar{X} as
+follows:
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{CoInductive} \coqdef{Term.term}{term}{\coqdocinductive{term}} :
+\coqdockw{Type} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{Term.Var}{Var}{\coqdocconstructor{Var}} : \coqdocvar{X}
+\ensuremath{\rightarrow} \coqref{Term.term}{\coqdocinductive{term}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{Term.Fun}{Fun}{\coqdocconstructor{Fun}} :
+\ensuremath{\forall} \coqdocvar{f} : \coqdocvar{F},
+\coqdocdefinition{vector}
+\coqref{Term.term}{\coqdocinductive{term}}
+(\coqdocprojection{arity} \coqdocvariable{f})
+\ensuremath{\rightarrow} \coqref{Term.term}{\coqdocinductive{term}}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+Here, \coqdocdefinition{vector} is assumed to implement dependently typed
+lists (their type depending on their length).
+% TODO: add refs to vector definition in sub:guardedness
+
+The only way to build infinite objects in \Coq is by corecursion. However,
+because the amount of memory available is finite, this is done lazilly,
+meaning that the corecursive definition is only ever unfolded when explicitely
+asked for. Now consider the objective of proving two infinite terms
+equal. Simply comparing their definitions will not suffice, since the
+corecursive construction of any given infinite object is not
+unique.\footnote{Even unfolding the corecursion will not help us here. We can
+  only unfold finitely many times, and then still be left with the corecursive
+  definition.} To this end, we define two extensional equalities on
+\coqref{Term.term}{\coqdocinductive{term}}.
+
+The coinductive predicate
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}} defines bisimilarity
+on terms:
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{CoInductive}
+\coqdef{TermEquality.termbis}{term\_bis}{\coqdocinductive{$\sim$}} :
+\coqref{Term.term}{\coqdocabbreviation{term}} \ensuremath{\rightarrow}
+\coqref{Term.term}{\coqdocabbreviation{term}} \ensuremath{\rightarrow}
+\coqdockw{Prop} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdef{TermEquality.Varbis}{Var\_bis}{\coqdocconstructor{$\sim_\text{Var}$}} :
+\ensuremath{\forall} \coqdocvar{x},
+\coqref{Term.Var}{\coqdocconstructor{Var}} \coqdocvariable{x}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqref{Term.Var}{\coqdocconstructor{Var}} \coqdocvariable{x}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdef{TermEquality.Funbis}{Fun\_bis}{\coqdocconstructor{$\sim_\text{Fun}$}} :
+\ensuremath{\forall} \coqdocvar{f} \coqdocvar{v} \coqdocvar{w},
+(\ensuremath{\forall} \coqdocvar{i},
+\coqdocvariable{v} \coqdocvariable{i}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqdocvariable{w} \coqdocvariable{i})
+\ensuremath{\rightarrow}
+\coqref{Term.Fun}{\coqdocconstructor{Fun}} \coqdocvariable{f}
+\coqdocvariable{v}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqref{Term.Fun}{\coqdocconstructor{Fun}} \coqdocvariable{f}
+\coqdocvariable{w}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+Any proof of two infinite terms being bisimilar is an infinite proof, in the
+sense that the proof term is built by corecursion.
+
+Another way to define equality on infinite terms is pointwise. First we define
+pointwise equality of terms up to a given depth. Then two terms are equal if
+this pointwise equality holds up to all depths:
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Inductive}
+\coqdef{TermEquality.termequpto}{term\_eq\_up\_to}{\coqdocinductive{term\_eq\_up\_to}}
+:
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+\ensuremath{\rightarrow} \coqref{Term.term}{\coqdocabbreviation{term}}
+\ensuremath{\rightarrow} \coqref{Term.term}{\coqdocabbreviation{term}}
+\ensuremath{\rightarrow} \coqdockw{Prop} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdef{TermEquality.teut0}{teut\_0}{\coqdocconstructor{teut$_0$}}   :
+\ensuremath{\forall} \coqdocvar{t} \coqdocvar{u},
+\coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
+$0$ \coqdocvariable{t} \coqdocvariable{u}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdef{TermEquality.teutvar}{teut\_var}{\coqdocconstructor{teut$_\text{Var}$}} :
+\ensuremath{\forall} \coqdocvar{n} \coqdocvar{x},
+\coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
+\coqdocvariable{n}
+(\coqref{Term.Var}{\coqdocconstructor{Var}} \coqdocvariable{x})
+(\coqref{Term.Var}{\coqdocconstructor{Var}} \coqdocvariable{x})\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdef{TermEquality.teutfun}{teut\_fun}{\coqdocconstructor{teut$_\text{Fun}$}} :
+\ensuremath{\forall} \coqdocvar{n} \coqdocvar{f} \coqdocvar{v}
+\coqdocvar{w},\coqdoceol
+\coqdocindent{7.50em}
+(\ensuremath{\forall} \coqdocvar{i},
+\coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
+\coqdocvariable{n} (\coqdocvariable{v} \coqdocvariable{i}) (\coqdocvariable{w}
+\coqdocvariable{i})) \ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{7.50em}
+\coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
+(\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqdocvariable{n}) (\coqref{Term.Fun}{\coqdocconstructor{Fun}}
+\coqdocvariable{f} \coqdocvariable{v})
+(\coqref{Term.Fun}{\coqdocconstructor{Fun}} \coqdocvariable{f}
+\coqdocvariable{w}).\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocvar{t}
+\coqdef{TermEquality.termeq}{term\_eq}{\coqdocdefinition{$\doteq$}}
+\coqdocvar{u} :=
+\ensuremath{\forall} \coqdocvar{n},
+\coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
+\coqdocvariable{n} \coqdocvariable{t} \coqdocvariable{u}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+% TODO: leave out the lemma statements?
+% TODO: don't color notations like \sim?
+
+We can prove that \coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}} and
+\coqref{TermEquality.termeq}{\coqdocdefinition{$\doteq$}} are the same
+relation, and that indeed it is an equality:
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdef{TermEquality.termbistermeq}{term\_bis\_term\_eq}{\coqdoclemma{term\_bis\_term\_eq}}
+: \ensuremath{\forall} \coqdocvar{t} \coqdocvar{u},
+\coqdocvariable{t}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqdocvariable{u} \ensuremath{\leftrightarrow}
+\coqdocvariable{t}
+\coqref{TermEquality.termeq}{\coqdocdefinition{$\doteq$}}
+\coqdocvariable{u}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdef{TermEquality.termbisrefl}{term\_bis\_refl}{\coqdoclemma{$\sim_\text{refl}$}}
+: \ensuremath{\forall} \coqdocvar{t},
+\coqdocvariable{t}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqdocvariable{t}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdef{TermEquality.termbissymm}{term\_bis\_symm}{\coqdoclemma{$\sim_\text{symm}$}}
+: \ensuremath{\forall} \coqdocvar{t} \coqdocvar{u},
+\coqdocvariable{t}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqdocvariable{u} $\rightarrow$
+\coqdocvariable{u}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqdocvariable{t}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdef{TermEquality.termbistrans}{term\_bis\_trans}{\coqdoclemma{$\sim_\text{trans}$}}
+: \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u},
+\coqdocvariable{s}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqdocvariable{t} $\rightarrow$
+\coqdocvariable{t}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqdocvariable{u} $\rightarrow$
+\coqdocvariable{s}
+\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}}
+\coqdocvariable{u}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+
+\section{Transfinite Rewrite Sequences}

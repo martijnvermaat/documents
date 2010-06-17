@@ -1,0 +1,301 @@
+\chapter{Infinitary Term Rewriting}\label{chap:rewriting}
+
+Before we can study infinitary rewriting, we must introduce ordinal numbers.
+
+
+\section{Ordinal Numbers}
+
+% ordinals are origininally by Cantor
+
+Ordinal numbers (ordinals for short) are an extension of the natural numbers
+with transfinite objects. Indeed, the finite ordinals are just the natural
+numbers. The smallest infinite ordinal is called $\omega$ and following
+$\omega$ we have $\omega + 1$, $\omega + 2$, \ldots, $\omega \times 2$. Then
+there are the ordinals $\omega \times 2 + 1$, $\omega \times 2 + 2$, \ldots,
+$\omega \times 3$. Some other (still relatively small) ordinals are:
+\begin{displaymath}
+  \omega^2 \qquad
+  \omega^\omega \qquad
+  \omega^{\omega^2} \qquad
+  \omega^{\omega^\omega} \qquad
+  \omega^{\omega^{\omega^{\ldots}}} = \epsilon_0 % TODO: \iddots or \adots
+\end{displaymath}
+Note that this is all just notation, we have not yet defined a representation
+for ordinals and what $+$ and $\times$ are.
+
+In set theory, ordinals are usually represented by hereditarily transitive
+sets. Zero corresponds to the empty set $\emptyset$, one to the singleton $\{
+\emptyset \}$ and so on, and $\omega$ is represented by $\{ \emptyset, \{
+\emptyset \}, \{ \emptyset, \{ \emptyset \} \} , \ldots \}$. Now $\in$
+constitutes a well-founded total order on the ordinals.
+
+We abbreviate $\alpha \cup \{ \alpha \}$ by $\alpha^+$ (corresponding to the
+successor function) and say that $\alpha$ is a successor ordinal if $\alpha =
+\beta^+$ for some ordinal $\beta$. If $\alpha$ is not a successor ordinal and
+$\alpha \neq \emptyset$, it is called a limit ordinal. So an ordinal can
+be either zero, a successor ordinal, or a limit ordinal.
+
+From now on, we make no distinction between an ordinal and its set-theoretic
+representation (e.g.\ between $0$ and $\emptyset$). Examples of successor
+ordinals are $4$, $\omega + 7$  and $\omega^{\omega \times 2} + 1$. Examples
+of limit ordinals are $\omega$ and $\omega \times 3$.
+
+% TODO: we also make no distinction between the ordinal and its brouwer
+% ordinal
+% TODO: i use + en x all the time, while not explaining their meaning
+% TODO: explain we use \lambda for limit ordinals
+
+One can do arithmetics on ordinals much like we do arithmetics on natural
+numbers. For example, addition can be defined by recursion on the right
+argument:
+\begin{align*}
+  \alpha + 0       &= \alpha\\
+  \alpha + \beta^+ &= (\alpha + \beta)^+\\
+  \alpha + \lambda &= \bigcup \{ \alpha + \gamma \; | \; \gamma \in \lambda \}
+\end{align*}
+
+
+\subsection{Brouwer Ordinals}\label{sub:brouwer}
+
+% TODO: should we mention the name tree ordinals?
+The Brouwer ordinals (also known as tree ordinals) are a constructive
+representation of the countable ordinals as countably branching well-founded
+trees. Their inductive definition uses constructors $0$ (zero), $^+$
+(successor) and $\sqcup$ (limit).
+
+The $\sqcup$ constructor has type $(\mathbb{N} \rightarrow \Omega) \rightarrow
+\Omega$, but for our convenience we write $\sqcup_i \cdots i \cdots$ instead
+of $\sqcup (\lambda i . \cdots i \cdots)$. Sometimes we explicitely enumerate
+the function, writing for example $\sqcup \{ \alpha_1, \alpha_2, \alpha_3,
+\ldots \}$.
+
+\begin{definition}[Ordinals]\label{def:ordinals}
+The set of \emph{Brouwer ordinals} (ordinals) $\Omega$ is defined by
+induction:
+\begin{compactenum}
+  \item
+    $0 \in \Omega$.
+  \item
+    If $\alpha \in \Omega$, then $\alpha^+ \in \Omega$.
+  \item
+    If $\alpha_i \in \Omega$ for all $i \in \mathbb{N}$, then $\sqcup_i
+    \alpha_i \in \Omega$.
+\end{compactenum}
+\end{definition}
+
+Now zero is represented by $0$, a successor ordinal $\alpha +1$ is represented
+by $\alpha^+$ and a limit ordinal $\lambda$ is represented by $\sqcup_i
+\alpha_i$ if $\lambda$ is the least upper bound of the sequence $\alpha_1,
+\alpha_2, \alpha_3, \ldots$. % TODO: strict or unstrict upper bound
+Again, we identify ordinals and their representation as Brouwer ordinal.
+
+Some ordinals have no unique representation as Brouwer ordinal. Consider for
+example the limit ordinals $\sqcup_i i + 3$ and $\sqcup_i i \times 2$. Both
+are representations of $\omega$ and a meaningful order relation would have to
+position them at the same rank.
+
+A more intricate issue is what to make of ordinals such as $\sqcup \{ 3, 3, 3,
+\ldots \}$. In spirit of the intuition given above it represents $3$ ($4$),
+that being the non-strict (strict) upper bound of $3, 3, 3, \ldots$.
+% TODO: this makes it undecidable to compare an ordinal to 0 or 3
+In practice, we might like to exclude such representations and require that
+$\sqcup_i \alpha_i$ always represents a limit ordinal. This can be done by
+imposing a strict monotonicity property on the limit sequences, but some order
+relation on the Brouwer ordinals is needed for that.
+
+% TODO: much of the following is taken from Hancock, but i think we cannot
+% cite that paper. however, we must acknowledge this in some way
+
+Before we can define an extensional order relation on $\Omega$, we define a
+structural strict order relation as follows.
+% TODO: , is too close on $\Omega$
+
+\begin{definition}[Predecessor indices]
+% TODO: include I(a) for a in emph
+The set-valued function $I$ defines the \emph{predecessor indices} $I(\alpha)$
+for $\alpha$ by recursion on $\alpha$:
+\begin{align*}
+  I(0)                 &= \emptyset \\
+  I(\alpha^+)          &= I(\alpha)^? \\
+  I(\sqcup_i \alpha_i) &= (\Sigma n \in \mathbb{N}) \; I(\alpha_n)
+\end{align*}
+\end{definition}
+
+% TODO: investigate what happens if we take I(lim f) to be just N
+
+By $A^?$ we mean the option type over $A$, or equivalently the disjoint sum
+$1 + A$ of the unit type $1$ and $A$. We use \textsc{none} and \textsc{some
+  $a$} (for $a \in A$) as constructors of $A^?$. Note that the set $I(0)$ of
+predecessor indices for $0$ is uninhabited.
+
+\begin{definition}[Predecessor]
+The function $\_[\_] : (\prod \alpha : \Omega) \; I(\alpha) \rightarrow
+\Omega$ defines the \emph{predecessor} $\alpha[i]$ of $\alpha$ indexed by $i$
+recursively on $\alpha$:
+\begin{align*}
+  \alpha^+[\textsc{none}]                 &= \alpha \\
+  \alpha^+[\textsc{some $i$}]             &= \alpha[i] \\
+  \sqcup_i \alpha_i[\langle n, i \rangle] &= \alpha_n[i]
+\end{align*}
+\end{definition}
+
+% TODO: explain what I and _[_] mean
+
+This structural predecessor function can be viewed as defining a `subtree'
+partial order on $\Omega$. With it we are ready to define an extensional
+non-strict order relation on $\Omega$ that classifies ordinals by rank.
+
+% TODO: note <= infix notation
+% TODO: or use the set-theoretic definitions from hancock?
+\begin{definition}[Order]\label{def:order}
+We define the \emph{order} $\preceq$ as a binary relation on $\Omega$ by
+induction on the first argument (and write $\alpha \preceq \beta$ for $\langle
+\alpha, \beta \rangle \in \; \preceq$):
+\begin{compactenum}
+  \item
+    $0 \preceq \beta$ for every ordinal $\beta \in \Omega$.
+  \item
+    For all $\alpha, \beta \in \Omega$ and $i \in I(\beta)$, if $\alpha
+    \preceq \beta[i]$ then $\alpha^+ \preceq \beta$.
+  \item
+    For all $\alpha_1, \alpha_2, \alpha_3, \ldots, \beta \in \Omega$, if
+    $\alpha_n \preceq \beta$ for all $n \in \mathbb{N}$, then $\sqcup_i
+    \alpha_i \preceq \beta$.
+\end{compactenum}
+\end{definition}
+
+Using this order, we can define two other useful binary relations on
+$\Omega$. First, the extensional equality $\alpha \simeq \beta$ by the
+conjunction of $\alpha \preceq \beta$ and $\beta \preceq \alpha$. Second, the
+extensional strict order $\alpha \prec \beta$ if $\alpha \preceq \beta[i]$ for
+some $i \in I(\beta)$.
+
+
+\section{Term Rewriting}\label{sec:trs}
+
+% TODO: Short motivation for term rewriting, summation of its applications and
+% aspects of rewriting that are studied.
+
+We give a short introduction to the basic notions of infinitary term
+rewriting. For a more in-depth treatment of the theory of term rewriting,
+consult~\cite{terese-03} (TODO: infinitary see chapter 12, others). In this
+section, we use definitions and notations from Terese.
+
+% TODO: rewrite this statement (and perhaps we never mention finitary
+% rewriting)
+From now on, we drop the `infinitary' from infinitary rewriting and
+explicitely say so if we mean finitary rewriting.
+
+
+\subsection{Definition of a TRS}
+
+\begin{definition}[Signature]
+A \emph{signature} $\Sigma$ is a non-empty set of \emph{function symbols} $f,
+g, \ldots$. Each function symbol $f$ has a fixed natural number $\#_f$, which
+we call its \emph{arity}. A function symbol with arity $0$ is also called a
+\emph{constant}.
+\end{definition}
+
+\begin{definition}[Term]
+The set of \emph{terms} $Ter_\Sigma^\infty(X)$ over a signature $\Sigma$ and a
+set of variables $X = \{x, y, \ldots\}$ is defined by co-induction:
+\begin{compactenum}
+  \item
+    $x \in Ter_\Sigma^\infty(X)$ for every variable $x \in X$.
+  \item
+    If $f \in \Sigma$ is a function symbol with arity $n$ and $t_1, \ldots,
+    t_n \in Ter_\Sigma^\infty(X)$, then $f(t_1, \ldots, t_n) \in
+    Ter_\Sigma^\infty(X)$.
+\end{compactenum}
+\end{definition}
+
+The terms $t_i$ are called the \emph{arguments} of $f(t_1, \ldots, t_n)$ and
+the symbol $f$ the \emph{root}. By $Var(t)$ we denote the set of variables
+occuring in $t$, and $t$ is \emph{closed} if $Var(t) = \emptyset$. If no
+variable occurs more than once in $t$, we say $t$ is \emph{linear}.
+
+Often, the set of variables $X$ is left implicit and $Ter_\Sigma^\infty(X)$ is
+denoted simply by $Ter_\Sigma^\infty$. By the set of \emph{finite terms}
+$Ter_\Sigma$ we mean the subset of well-founded terms of $Ter_\Sigma^\infty$.
+
+\begin{definition}[Rewrite rule]
+  A \emph{rewrite rule} $\rho$ for a signature $\Sigma$ is a pair $\langle l,
+  r \rangle$ of finite terms in $Ter_\Sigma$ (written $\rho : l \rightarrow
+  r$). We restrict ourselves to rewrite rules where $l$ is not a variable and
+  $Var(r) \subseteq Var(l)$.
+\end{definition}
+
+\begin{definition}[TRS]
+A \emph{term rewriting system} (TRS) $\mathcal{R}$ is a pair $\langle \Sigma,
+R \rangle$ of a signature $\Sigma$ and a set of rewrite rules $R$ on
+$\Sigma$.
+\end{definition}
+
+In contrast to Terese, we do not define contexts as terms over an extended
+signature. Instead, a direct inductive definition is given since this is how
+we defined the notion of context in our \Coq development (the main reason being
+that we choose not to consider multi-hole contexts).
+% TODO: maybe this needs more explaining
+
+\begin{definition}[Context]
+The set of (one-hole) \emph{contexts} $Ctx_\Sigma^\infty$ over a signature
+$\Sigma$ is defined by induction:
+\begin{compactenum}
+  \item
+    $\Box \in Ctx_\Sigma^\infty$.
+  \item
+    If $f \in \Sigma$ is a function symbol with arity $n + 1$, $C \in
+    Ctx_\Sigma^\infty$, and $t_1, \ldots, t_n \in Ter_\Sigma^\infty$, then for
+    any $m \leq n + 1$, $f(t_1, \ldots, t_m, C, t_{m+2}, \ldots, t_{n}) \in
+    Ctx_\Sigma^\infty$.
+\end{compactenum}
+\end{definition}
+
+Thus every context $C$ has exactly one occurence of the symbol $\Box$, called
+its \emph{hole}. By the term $C[t]$ we mean the result of replacing the hole
+of $C$ by $t$.
+
+\begin{definition}[Substitution]
+% TODO: now we only generalize to finite terms
+Given a signature $\Sigma$ and a set of variables $X$, a \emph{substitution}
+$\sigma$ is a mapping from $X$ to $Ter_\Sigma^\infty(X)$. It can be
+generalized to a mapping $\bar{\sigma} : Ter_\Sigma(X) \rightarrow
+Ter_\Sigma^\infty(X)$ recursively:
+\begin{align*}
+  \bar{\sigma}(x) &= \sigma(x)\\
+  \bar{\sigma}(f(t_1, \ldots, t_n)) &= f(\bar{\sigma}(t_1), \ldots,
+  \bar{\sigma}(t_n))
+\end{align*}
+\end{definition}
+
+Since $\bar{\sigma}$ is completely defined by $\sigma$ we refer to both as
+`the' substitution $\sigma$. The notation $[x_1, \ldots, x_n := s_1, \ldots,
+  s_n]$ is used for the substitution $\sigma$ with $\sigma(x_i) = s_i$ for $1
+\leq i \leq n$ and $\sigma(y) = y$ for all other $y$. Applying a substitution
+$\sigma$ to a term $t$ is usually written $t^\sigma$.
+% TODO: use some syntactical equality symbol and define = to be
+% convertibility?
+
+If we view a rewriting rule $\rho : l \rightarrow r$ as a \emph{scheme}, an
+\emph{instance} of $\rho$ can be obtained by applying a substitution
+$\sigma$. The result is the \emph{atomic} rewrite step $l^\sigma
+\rightarrow_\rho r^\sigma$. We call $l^\sigma$ a ($\rho$-) \emph{redex} and
+$r^\sigma$ its \emph{contractum}.
+
+\begin{definition}[Rewrite step]
+A \emph{rewrite step} $C[l^\sigma] \rightarrow_\rho C[r^\sigma]$ according to
+$\rho$ consists of a rewrite rule $\rho : l \rightarrow r$, a substitution
+$\sigma$ and a context $C$.
+\end{definition}
+
+We call $\rightarrow_\rho$ the \emph{one-step rewriting relation} generated by
+$\rho$. The one-step rewriting relation $\rightarrow$ of a TRS $\mathcal{R}$
+with rewrite rules $R$ is defined as the union of $\{ \rightarrow_\rho | \;
+\rho \in R \}$.
+
+TODO: infinite rewriting sequences, convergence definitions.
+
+
+\subsection{Orthogonality}
+
+TODO: Normal forms, left-linearity, critical pairs, etc.

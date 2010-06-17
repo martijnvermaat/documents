@@ -6,7 +6,8 @@
 # Martijn Vermaat, martijn@vermaat.name
 
 # Configuration
-ARTICLE = master-project
+THESIS = master-project
+DEPENDS = vu.cls abbrevs.tex discussion.tex glossary.tex implementation.tex introduction.tex preface.tex rewriting.tex unwo.tex
 SLIDES = slides
 PDFLATEX = /usr/bin/pdflatex
 PDFLATEXFLAGS = -halt-on-error -interaction errorstopmode
@@ -17,14 +18,17 @@ PDFVIEW = /usr/bin/evince
 all: pdf
 
 # Create PDF and have a look at it
-preview: $(ARTICLE).pdf
+preview: $(THESIS).pdf
 	$(PDFVIEW) $< &
 
 # Compile BibTeX source file (run this when citations or .bib file change)
-bibtex: $(ARTICLE).bbl
+bibtex: $(THESIS).bbl
 
 # Create the files
-pdf: $(ARTICLE).pdf $(SLIDES).pdf
+pdf: $(THESIS).pdf $(SLIDES).pdf
+
+# The thesis depends on these files
+$(THESIS).pdf: $(DEPENDS)
 
 # For the PDF, we need a .tex LaTeX source. Actually, we also need a .bbl
 # BibTeX database, but we don't want to regenerate that on every .tex change.
