@@ -9,11 +9,41 @@ TODO: text
 TODO: very short intro to coq syntax (include `(...) notation)
 TODO: some notes about code listings. coq has implicit arguments. we aim for
 brevity.
+TODO: label and number listings
+TODO: style of text around listings (all these :'s are ugly)
+
+For example, the type of the \coqdocconstructor{Cons} constructor in listing
+(TODO) is written with explicitely generalized variables as
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\ensuremath{\forall} (\coqdocvar{s} \coqdocvar{t} :
+\coqref{Term.term}{\coqdocinductive{term}}) (\coqdocvar{$\rho$}
+: \coqdocvar{s} $\twoheadrightarrow_\mathcal{R}$ \coqdocvar{t})
+(\coqdocvar{u} : \coqref{Term.term}{\coqdocinductive{term}})
+(\coqdocvar{$\pi$} : \coqdocvariable{t}
+$\rightarrow_\mathcal{R}$ \coqdocvar{u}),
+\coqdocvariable{s} $\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{u}\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+and can be simplified with automatically generalized variables as
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\ensuremath{\forall} `(\coqdocvar{$\rho$} : \coqdocvar{s}
+$\twoheadrightarrow_\mathcal{R}$ \coqdocvar{t},
+\coqdocvar{$\pi$} : \coqdocvariable{t} $\rightarrow_\mathcal{R}$ \coqdocvar{u}),
+\coqdocvariable{s} $\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{u}\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+% TODO: the other way around
 
 
 \section{Ordinal Numbers}
 
-In the theory of infinitary rewriting, the lengths of rewriting sequences play
+In the theory of infinitary rewriting, the lengths of rewrite sequences play
 a central role. Therefore, any reasonable formalization of infinitary
 rewriting ought to have some notion of ordinal numbers.
 
@@ -415,8 +445,56 @@ and target terms, as follows:
 \coqdocvariable{s} $\rightarrow_\mathcal{R}$ \coqdocvariable{t}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
+We sketch a way to define rewrite sequences as an inductive type. A rewrite
+sequence of length $\alpha$ can be represented by the Brouwer ordinal $\alpha$
+where we label every occurrence of the $^+$ constructor with a rewrite
+step. To ensure successive steps have the same target and source terms,
+respectively, we include the source and target terms of the rewrite sequence
+in its type and label accordingly.
 
-Label every successor with a step:
+At this point, it might not be immediately clear what the type of the
+limit constructor should be. Following the Brouwer ordinals, we think of a
+rewrite sequence as a countably branching tree with every branching node
+representing the least upper bound of its branches.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Inductive}
+$\twoheadrightarrow_\mathcal{R}$ :
+\coqref{Term.term}{\coqdocinductive{term}} \ensuremath{\rightarrow}
+\coqref{Term.term}{\coqdocinductive{term}} \ensuremath{\rightarrow}
+\coqdockw{Type} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Nil}   :
+\ensuremath{\forall} \coqdocvar{t}, \coqdocvariable{t}
+$\twoheadrightarrow_\mathcal{R}$ \coqdocvariable{t}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Cons}  :
+\ensuremath{\forall} `(\coqdocvar{$\rho$} : \coqdocvar{s}
+$\twoheadrightarrow_\mathcal{R}$ \coqdocvar{t},
+\coqdocvar{$\pi$} : \coqdocvariable{t} $\rightarrow_\mathcal{R}$ \coqdocvar{u}),
+\coqdocvariable{s} $\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{u}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Lim}   :
+\ensuremath{\forall} (\coqdocvar{s} \coqdocvar{t} :
+\coqref{Term.term}{\coqdocinductive{term}}),
+(\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+\ensuremath{\rightarrow} \coqdocvariable{s} $\twoheadrightarrow_\mathcal{R}$
+\textbf{?}) $\rightarrow$
+\coqdocvariable{s} $\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{t}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+This is not yet a satisfying definition for several reasons, the first being
+that we cannot fix a value for \textbf{?}. And even if we could, surely there
+must be some relation between whatever we come up with for \textbf{?} and the
+target term \coqdocvariable{t}.
+
+A possible definition that passes the type checker is by using a $\Sigma$
+type.
+
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
