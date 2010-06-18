@@ -377,6 +377,7 @@ relation, and that indeed it is an equality:
 \end{singlespace}
 
 % TODO: we already defined cauchy convergence earlier
+% TODO: \equpto is a notion only defined in coq
 In Section~\ref{sec:seq} we use the notion of convergence of an infinite
 sequence of terms. A sequence of terms $\{ t_1, t_2, t_3, \ldots \}$ converges
 to the term $t$ by the notion of \emph{Cauchy convergence} if for all depths
@@ -413,7 +414,7 @@ projection on rewrite rules.
 
 Throughout this section, let $\mathcal{R}$ be a fixed TRS. We define the type
 of steps using rewrite rules in $\mathcal{R}$, parameterized by their source
-and target terms, as follows:
+and target terms.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -452,10 +453,10 @@ step. To ensure successive steps have the same target and source terms,
 respectively, we include the source and target terms of the rewrite sequence
 in its type and label accordingly.
 
-At this point, it might not be immediately clear what the type of the
-limit constructor should be. Following the Brouwer ordinals, we think of a
-rewrite sequence as a countably branching tree with every branching node
-representing the least upper bound of its branches.
+At this point, it is not immediately clear what the type of the limit
+constructor should be. Following the Brouwer ordinals, we think of a rewrite
+sequence as a countably branching tree with every branching node representing
+the least upper bound of its branches.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -470,15 +471,14 @@ $\twoheadrightarrow_\mathcal{R}$ :
 $\twoheadrightarrow_\mathcal{R}$ \coqdocvariable{t}\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|} \coqdocconstructor{Cons}  :
-\ensuremath{\forall} `(\coqdocvar{$\rho$} : \coqdocvar{s}
-$\twoheadrightarrow_\mathcal{R}$ \coqdocvar{t},
-\coqdocvar{$\pi$} : \coqdocvariable{t} $\rightarrow_\mathcal{R}$ \coqdocvar{u}),
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u}, \coqdocvar{s}
+$\twoheadrightarrow_\mathcal{R}$ \coqdocvar{t} $\rightarrow$
+\coqdocvariable{t} $\rightarrow_\mathcal{R}$ \coqdocvar{u} $\rightarrow$
 \coqdocvariable{s} $\twoheadrightarrow_\mathcal{R}$
 \coqdocvariable{u}\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|} \coqdocconstructor{Lim}   :
-\ensuremath{\forall} (\coqdocvar{s} \coqdocvar{t} :
-\coqref{Term.term}{\coqdocinductive{term}}),
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t},
 (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
 \ensuremath{\rightarrow} \coqdocvariable{s} $\twoheadrightarrow_\mathcal{R}$
 \textbf{?}) $\rightarrow$
@@ -487,13 +487,30 @@ $\twoheadrightarrow_\mathcal{R}$ \coqdocvar{t},
 \end{coqdoccode}
 \end{singlespace}
 
-This is not yet a satisfying definition for several reasons, the first being
-that we cannot fix a value for \textbf{?}. And even if we could, surely there
-must be some relation between whatever we come up with for \textbf{?} and the
-target term \coqdocvariable{t}.
+This is not yet a satisfying definition, because we cannot fix a value for
+\textbf{?}. We complete the type for
+\coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} as follows. First, we
+parameterize it with the target terms of the branches. Second, we add the
+condition that these terms must converge to the target term
+\coqdocvariable{t}.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Lim}   :
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t}
+(\coqdocvar{ts} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+\ensuremath{\rightarrow} \coqref{Term.term}{\coqdocinductive{term}}),
+(\ensuremath{\forall} \coqdocvar{n}, \coqdocvar{s}
+$\twoheadrightarrow_\mathcal{R}$ \coqdocvar{ts} \coqdocvariable{n})
+$\rightarrow$
+\coqref{Rewriting.converges}{\coqdocdefinition{converges}} \coqdocvariable{ts}
+\coqdocvariable{t} $\rightarrow$
+\coqdocvariable{s} $\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{t}\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
 
-A possible definition that passes the type checker is by using a $\Sigma$
-type.
 
 \begin{singlespace}
 \begin{coqdoccode}

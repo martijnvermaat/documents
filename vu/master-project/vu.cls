@@ -46,9 +46,9 @@
 \titleformat{\chapter}[display]
 {\normalfont\huge\bfseries}{\sc\chaptertitlename\ \thechapter}{20pt}{\Huge}
 \titleformat{\section}
-{\normalfont\Large\bfseries}{\sc\thesection}{1em}{}
+{\normalfont\Large}{\sc Section\ \thesection}{1em}{}
 \titleformat{\subsection}
-{\normalfont\large\bfseries}{\sc\thesubsection}{1em}{}
+{\normalfont\large}{\sc\thesubsection}{1em}{}
 \titleformat{\subsubsection}
 {\normalfont\normalsize\bfseries}{\sc\thesubsubsection}{1em}{}
 \titleformat{\paragraph}[runin]
