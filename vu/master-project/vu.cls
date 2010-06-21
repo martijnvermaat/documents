@@ -43,6 +43,7 @@
 \usepackage{titlesec}
 
 % Smallcaps for 'Chapter n' and section numbering
+% TODO: smallcaps for footnote and page numbering
 \titleformat{\chapter}[display]
 {\normalfont\huge\bfseries}{\sc\chaptertitlename\ \thechapter}{20pt}{\Huge}
 \titleformat{\section}
@@ -105,5 +106,7 @@
 % TODO: title page layout
 % TODO: bibliography style
 % http://tug.ctan.org/tex-archive/macros/latex/contrib/ucthesis/
+
+\usepackage{graphicx}
 
 \endinput

@@ -202,15 +202,14 @@ follows:
 \coqdocindent{1.00em}
 \ensuremath{|} \coqdef{Term.Fun}{Fun}{\coqdocconstructor{Fun}} :
 \ensuremath{\forall} \coqdocvar{f} : \coqdocvar{F},
-\coqdocdefinition{vector}
+\coqref{Vector.vector}{\coqdocdefinition{vector}}
 \coqref{Term.term}{\coqdocinductive{term}}
 (\coqdocprojection{arity} \coqdocvariable{f})
 \ensuremath{\rightarrow} \coqref{Term.term}{\coqdocinductive{term}}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-Here, \coqdocdefinition{vector} is assumed to implement dependently typed
-lists (their type depending on their length).
-% TODO: add refs to vector definition in sub:guardedness
+Here, \coqref{Vector.vector}{\coqdocdefinition{vector}} is assumed to
+implement dependently typed lists (the type depending on their length).
 
 The only way to build infinite objects in \Coq is by corecursion. However,
 because the amount of memory available is finite, this is done lazilly,
@@ -611,7 +610,7 @@ and target terms of the rewrite step.
 (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Logic}{Falserect}{\coqdocdefinition{False\_rect}}
 \coqdocvar{\_}) \coqdocvariable{i} \coqdoceol
 \coqdocindent{1.00em}
-\ensuremath{|} \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}} \coqdocvar{s}
+\ensuremath{|} \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}} \coqdocvar{\_}
 \coqdocvar{u} \coqdocvar{t} \coqdocvar{$\tau$} \coqdocvar{$\pi$}
 \ensuremath{\Rightarrow}
 \coqdockw{match} \coqdocvariable{i} \coqdockw{with}\coqdoceol
@@ -650,8 +649,8 @@ and target terms of the rewrite step.
 \end{singlespace}
 % TODO: we simplified this (mainly type inference helpers)
 
-In an effort to prevent getting lost in a notational labyrinth, we define
-the following shortcuts:
+In an effort to prevent getting lost in a syntacical labyrinth, we define
+the following notational shortcuts:
 
 % TODO: keep an eye on placement of the table
 {\renewcommand{\arraystretch}{1.1}
@@ -664,6 +663,12 @@ $\rho[i]^\textsc{l}$ & source term of $\rho[i]^\textsc{stp}$ (also target term
   of $\rho[i]^\textsc{seq}$)\\
 $\rho[i]^\textsc{r}$ & target term of $\rho[i]^\textsc{stp}$
 \end{tabular}}
+
+TODO: maybe include a graphical hint like the following (only prettier), where
+$i$ is the index $\coqdocconstructor{inr} \; (\coqdocconstructor{inr} \;
+\langle 4, \coqdocconstructor{inl}\rangle)$:
+
+\includegraphics[draft=false]{predecessor.pdf}
 
 Now we turn to embeddings of rewrite sequences.
 \begin{singlespace}
@@ -726,6 +731,7 @@ $\rightarrow$ \coqdockw{Prop} :=\coqdoceol
 \coqdocvariable{c} \coqref{Rewriting.embed}{$\sqsubseteq$} \coqdocvariable{$\tau$}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
+% TODO: say what implicit/explicit arguments for cons and lim are
 
 
 \subsection{Well-formed Sequences}\label{sub:wf}
