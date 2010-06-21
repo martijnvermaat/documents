@@ -11,6 +11,7 @@ TODO: some notes about code listings. coq has implicit arguments. we aim for
 brevity.
 TODO: label and number listings
 TODO: style of text around listings (all these :'s are ugly)
+TODO: we will take some notational liberties (syntax precedence levels etc)
 
 For example, the type of the \coqdocconstructor{Cons} constructor in listing
 (TODO) is written with explicitely generalized variables as
@@ -82,12 +83,12 @@ is transitive:
 \ensuremath{\forall} \coqdocvar{\ensuremath{\alpha}}
 \coqdocvar{\ensuremath{\beta}}
 \coqdocvar{\ensuremath{\gamma}}, \coqdocvariable{\ensuremath{\alpha}}
-\coqdocinductive{\ensuremath{\preceq}} \coqdocvariable{\ensuremath{\beta}}
+\ensuremath{\preceq} \coqdocvariable{\ensuremath{\beta}}
 \ensuremath{\rightarrow}
-\coqdocvariable{\ensuremath{\beta}} \coqdocinductive{\ensuremath{\preceq}}
+\coqdocvariable{\ensuremath{\beta}} \ensuremath{\preceq}
 \coqdocvariable{\ensuremath{\gamma}}
 \ensuremath{\rightarrow} \coqdocvariable{\ensuremath{\alpha}}
-\coqdocinductive{\ensuremath{\preceq}}
+\ensuremath{\preceq}
 \coqdocvariable{\ensuremath{\gamma}}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
@@ -102,10 +103,10 @@ following lemma as an example of this issue:
 \coqdef{Ordinal.ordlezeroright}{ord\_le\_zero\_right}{\coqdoclemma{\ensuremath{\preceq_{\text{zero\_right}}}}}
 :
 \ensuremath{\forall} \coqdocvar{\ensuremath{\alpha}} \coqdocvar{\ensuremath{\beta}},
-\coqdocvariable{\ensuremath{\alpha}} \coqdocinductive{\ensuremath{\preceq}}
+\coqdocvariable{\ensuremath{\alpha}} \ensuremath{\preceq}
 \coqref{Ordinal.Zero}{\coqdocconstructor{Zero}}
 \ensuremath{\rightarrow}
-\coqdocvariable{\ensuremath{\alpha}} \coqdocinductive{\ensuremath{\preceq}}
+\coqdocvariable{\ensuremath{\alpha}} \ensuremath{\preceq}
 \coqdocvariable{\ensuremath{\beta}}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
@@ -113,7 +114,7 @@ We would like to strengthen this, but cannot, since nothing denies \coqdocvariab
 from being the Brouwer ordinal $\sqcup \{ 0, 0, 0, \ldots \}$ (which has the
 same rank as $0$). We therefore turn to a subset of the Brouwer ordinals where
 we restrict limit sequences to be strictly monotonic. This restriction is
-encoded in the \coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} property and the
+encoded in the \coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} property. The
 $\Sigma$-type \coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}}
 defines the resulting subset:
 \begin{singlespace}
@@ -137,7 +138,7 @@ defines the resulting subset:
 \coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} (\coqdocvariable{f}
 \coqdocvariable{n}) \ensuremath{\land} \ensuremath{\forall} \coqdocvar{m},
 \coqdocvariable{n} < \coqdocvariable{m} \ensuremath{\rightarrow}
-(\coqdocvariable{f} \coqdocvariable{n}) \coqdocdefinition{\ensuremath{\prec}}
+(\coqdocvariable{f} \coqdocvariable{n}) \ensuremath{\prec}
 (\coqdocvariable{f} \coqdocvariable{m})\coqdoceol
 \coqdocindent{1.00em}
 \coqdockw{end}.\coqdoceol
@@ -168,7 +169,7 @@ Now we can prove the stronger result we were looking for:\footnote{Although
 :
 \ensuremath{\forall} \coqdocvar{\ensuremath{\alpha}} :
 \coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}},
-\coqdocvariable{\ensuremath{\alpha}} \coqdocinductive{\ensuremath{\preceq}}
+\coqdocvariable{\ensuremath{\alpha}} \ensuremath{\preceq}
 \coqref{Ordinal.Zero}{\coqdocconstructor{Zero}}
 \ensuremath{\rightarrow}
 \coqdocvariable{\ensuremath{\alpha}} =
@@ -223,7 +224,7 @@ unique.\footnote{Even unfolding the corecursion will not help us here. We can
 \coqref{Term.term}{\coqdocinductive{term}}.
 
 The coinductive predicate
-\coqref{TermEquality.termbis}{\coqdocinductive{$\sim$}} defines bisimilarity
+\coqref{TermEquality.termbis}{$\sim$} defines bisimilarity
 on terms:
 \begin{singlespace}
 \begin{coqdoccode}
@@ -443,7 +444,8 @@ and target terms.
 \coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] $\sim$ \coqdocvariable{t}
 \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{6.50em}
-\coqdocvariable{s} $\rightarrow_\mathcal{R}$ \coqdocvariable{t}.\coqdoceol
+\coqdocvariable{s} \coqref{Rewriting.step}{$\rightarrow_\mathcal{R}$}
+\coqdocvariable{t}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 We sketch a way to define rewrite sequences as an inductive type. A rewrite
@@ -461,34 +463,38 @@ the least upper bound of its branches.
 \begin{coqdoccode}
 \coqdocnoindent
 \coqdockw{Inductive}
-$\twoheadrightarrow_\mathcal{R}$ :
+\coqdef{Rewriting.sequence}{sequence}{$\twoheadrightarrow_\mathcal{R}$} :
 \coqref{Term.term}{\coqdocinductive{term}} \ensuremath{\rightarrow}
 \coqref{Term.term}{\coqdocinductive{term}} \ensuremath{\rightarrow}
 \coqdockw{Type} :=\coqdoceol
 \coqdocindent{1.00em}
-\ensuremath{|} \coqdocconstructor{Nil}   :
+\ensuremath{|} \coqdef{Rewriting.Nil}{Nil}{\coqdocconstructor{Nil}} :
 \ensuremath{\forall} \coqdocvar{t}, \coqdocvariable{t}
-$\twoheadrightarrow_\mathcal{R}$ \coqdocvariable{t}\coqdoceol
-\coqdocindent{1.00em}
-\ensuremath{|} \coqdocconstructor{Cons}  :
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqdocvariable{t}\coqdoceol \coqdocindent{1.00em}
+\ensuremath{|} \coqdef{Rewriting.Cons}{Cons}{\coqdocconstructor{Cons}} :
 \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u}, \coqdocvar{s}
-$\twoheadrightarrow_\mathcal{R}$ \coqdocvar{t} $\rightarrow$
-\coqdocvariable{t} $\rightarrow_\mathcal{R}$ \coqdocvar{u} $\rightarrow$
-\coqdocvariable{s} $\twoheadrightarrow_\mathcal{R}$
-\coqdocvariable{u}\coqdoceol
-\coqdocindent{1.00em}
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$} \coqdocvar{t}
+$\rightarrow$
+\coqdocvariable{t} \coqref{Rewriting.step}{$\rightarrow_\mathcal{R}$}
+\coqdocvar{u} $\rightarrow$ \coqdocvariable{s}
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqdocvariable{u}\coqdoceol \coqdocindent{1.00em}
 \ensuremath{|} \coqdocconstructor{Lim}   :
 \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t},
 (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
-\ensuremath{\rightarrow} \coqdocvariable{s} $\twoheadrightarrow_\mathcal{R}$
-\textbf{?}) $\rightarrow$
-\coqdocvariable{s} $\twoheadrightarrow_\mathcal{R}$
+\ensuremath{\rightarrow} \coqdocvariable{s}
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqdef{Rewriting.LimPlaceholder}{LimPlaceholder}{\textbf{?}}) $\rightarrow$
+\coqdocvariable{s}
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
 \coqdocvariable{t}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
+% TODO: consider dropping the R subscript for ->>
 
 This is not yet a satisfying definition, because we cannot fix a value for
-\textbf{?}. We complete the type for
+\coqref{Rewriting.LimPlaceholder}{\textbf{?}}. We complete the type for
 \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} as follows. First, we
 parameterize it with the target terms of the branches. Second, we add the
 condition that these terms must converge to the target term
@@ -496,50 +502,236 @@ condition that these terms must converge to the target term
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocindent{1.00em}
-\ensuremath{|} \coqdocconstructor{Lim}   :
+\ensuremath{|} \coqdef{Rewriting.Lim}{Lim}{\coqdocconstructor{Lim}} :
 \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t}
 (\coqdocvar{ts} :
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
 \ensuremath{\rightarrow} \coqref{Term.term}{\coqdocinductive{term}}),
 (\ensuremath{\forall} \coqdocvar{n}, \coqdocvar{s}
-$\twoheadrightarrow_\mathcal{R}$ \coqdocvar{ts} \coqdocvariable{n})
-$\rightarrow$
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqdocvar{ts} \coqdocvariable{n}) $\rightarrow$
 \coqref{Rewriting.converges}{\coqdocdefinition{converges}} \coqdocvariable{ts}
 \coqdocvariable{t} $\rightarrow$
-\coqdocvariable{s} $\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{s}
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
 \coqdocvariable{t}\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 
+Of course, the branches of a \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}}
+constructor may still not actually approximate to a rewrite sequence (of
+length a limit ordinal). The intuition is that each branche should extend on
+its preceeding ones. This would correspond to the
+\coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} property we defined on
+\coqref{Ordinal.ord}{\coqdocinductive{ord}}, where we take $\prec$ to be a
+strict prefix relation on
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}.
 
+We return to this issue in Section~\ref{sub:wf}, but
+first consider the definition of [an order] on
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}.
+TODO: probably wf does not deserve a subsection
+
+
+\subsection{Embeddings of Sequences}
+
+We lift the notions of predecessor and predecessor indices to the domain of
+rewrite sequences. The set of predecessor indices is easily defined as
+\coqref{Rewriting.predtype}{\coqdocdefinition{pred\_type}}.
+%\footnote{We employ some notational overloading by reusing $I(\_)$ and
+%  $[\_]\_$ for the corresponding definitions on rewrite sequences.}
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
-\coqdockw{Inductive}
-\coqdef{Rewriting.sequence}{sequence}{$\twoheadrightarrow_\mathcal{R}$} :
-\coqref{Term.term}{\coqdocinductive{term}} \ensuremath{\rightarrow}
-\coqref{Term.term}{\coqdocinductive{term}} \ensuremath{\rightarrow}
+\coqdockw{Fixpoint}
+\coqdef{Rewriting.predtype}{pred\_type}{\coqdocdefinition{pred\_type}}
+\coqdocvar{s} \coqdocvar{t}
+(\coqdocvar{$\rho$} : \coqdocvar{s}
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$} \coqdocvar{t}) :
 \coqdockw{Type} :=\coqdoceol
 \coqdocindent{1.00em}
-\ensuremath{|} \coqdef{Rewriting.Nil}{Nil}{\coqdocconstructor{Nil}}   :
-\ensuremath{\forall} \coqdocvar{t}, \coqdocvariable{t}
-$\twoheadrightarrow_\mathcal{R}$ \coqdocvariable{t}\coqdoceol
+\coqdockw{match} \coqdocvariable{$\rho$} \coqdockw{with}\coqdoceol
 \coqdocindent{1.00em}
-\ensuremath{|} \coqdef{Rewriting.Cons}{Cons}{\coqdocconstructor{Cons}}  :
-\ensuremath{\forall} `(\coqdocvar{$\rho$} : \coqdocvar{s}
-$\twoheadrightarrow_\mathcal{R}$ \coqdocvar{t},
-\coqdocvar{$\pi$} : \coqdocvariable{t} $\rightarrow_\mathcal{R}$ \coqdocvar{u}),
-\coqdocvariable{s} $\twoheadrightarrow_\mathcal{R}$
-\coqdocvariable{u}\coqdoceol
+\ensuremath{|} \coqref{Rewriting.Nil}{\coqdocconstructor{Nil}} \coqdocvar{\_}
+\ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Logic}{False}{\coqdocinductive{False}}\coqdoceol
 \coqdocindent{1.00em}
-\ensuremath{|} \coqdef{Rewriting.Lim}{Lim}{\coqdocconstructor{Lim}}   :
-\ensuremath{\forall} `(\coqdocvar{f} : (\ensuremath{\forall} \coqdocvar{n},
-\coqdocvar{s} $\twoheadrightarrow_\mathcal{R}$ \coqdocvar{ts}
-\coqdocvariable{n}), \coqdocvar{c} :
-\coqref{Rewriting.converges}{\coqdocdefinition{converges}} \coqdocvariable{ts}
-\coqdocvar{t}), \coqdocvariable{s} $\twoheadrightarrow_\mathcal{R}$
-\coqdocvariable{t}.\coqdoceol
+\ensuremath{|} \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{\_} \coqdocvar{$\tau$} \coqdocvar{\_}
+\ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{unit}{\coqdocinductive{unit}}
++ \coqref{Rewriting.predtype}{\coqdocdefinition{pred\_type}}
+\coqdocvariable{$\tau$}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} \coqdocvar{\_}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{f} \coqdocvar{\_}
+\ensuremath{\Rightarrow} \{ \coqdocvar{n} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+\& \coqref{Rewriting.predtype}{\coqdocdefinition{pred\_type}}
+(\coqdocvariable{f} \coqdocvariable{n}) \}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-% TODO: consider dropping the R subscript for ->>
-% TODO: expanded version of Lim, for explanation
+
+The predecessor indices defined by
+\coqref{Rewriting.predtype}{\coqdocdefinition{pred\_type}} point to a specific
+occurrence of the \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}}
+constructor in a rewrite sequence. This constructor does not just contain a
+rewrite sequence (analoguous to an ordinal in the
+\coqref{Ordinal.ord}{\coqdocinductive{ord}} case), but also a rewrite
+step. The \coqref{Rewriting.pred}{\coqdocdefinition{pred}} function gives us
+both the sequence and the step. For the type checker to accept the definition,
+we use a $\Sigma$-type that contains this pair, parameterized by the source
+and target terms of the rewrite step.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Fixpoint} \coqdef{Rewriting.pred}{pred}{\coqdocdefinition{pred}}
+\coqdocvar{s} \coqdocvar{t} (\coqdocvar{$\rho$} : \coqdocvar{s}
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$} \coqdocvar{t})
+(\coqdocvar{i} : \coqref{Rewriting.predtype}{\coqdocdefinition{pred\_type}}
+\coqdocvariable{$\rho$})
+:\coqdoceol \coqdocindent{2.00em}
+\{ \coqdocvar{ts} :
+\coqref{Term.term}{\coqdocabbreviation{term}} \ensuremath{\times}
+\coqref{Term.term}{\coqdocabbreviation{term}} \&
+(\coqdocvariable{s} \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{fst}{\coqdocdefinition{fst}}
+\coqdocvariable{ts}) \ensuremath{\times}
+(\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{fst}{\coqdocdefinition{fst}}
+\coqdocvariable{ts} \coqref{Rewriting.step}{$\rightarrow_\mathcal{R}$}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{snd}{\coqdocdefinition{snd}}
+\coqdocvariable{ts}) \} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{$\rho$} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Nil}{\coqdocconstructor{Nil}} \coqdocvar{\_}
+\ensuremath{\Rightarrow}
+(\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Logic}{Falserect}{\coqdocdefinition{False\_rect}}
+\coqdocvar{\_}) \coqdocvariable{i} \coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}} \coqdocvar{s}
+\coqdocvar{u} \coqdocvar{t} \coqdocvar{$\tau$} \coqdocvar{$\pi$}
+\ensuremath{\Rightarrow}
+\coqdockw{match} \coqdocvariable{i} \coqdockw{with}\coqdoceol
+\coqdocindent{10.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{inl}{\coqdocconstructor{inl}}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{tt}{\coqdocconstructor{tt}}
+\ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{existT}{\coqdocconstructor{existT}}
+\coqdocvar{\_} (\coqdocvariable{u}, \coqdocvariable{t})
+(\coqdocvariable{$\tau$}, \coqdocvariable{$\pi$})\coqdoceol
+\coqdocindent{10.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{inr}{\coqdocconstructor{inr}}
+\coqdocvar{j}  \ensuremath{\Rightarrow}
+\coqref{Rewriting.pred}{\coqdocdefinition{pred}} \coqdocvariable{$\tau$}
+\coqdocvariable{j}\coqdoceol
+\coqdocindent{10.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} \coqdocvar{\_}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{f} \coqdocvar{\_}
+\ensuremath{\Rightarrow}
+\coqdockw{match} \coqdocvariable{i} \coqdockw{with}\coqdoceol
+\coqdocindent{10.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{existT}{\coqdocconstructor{existT}}
+\coqdocvar{n} \coqdocvar{j} \ensuremath{\Rightarrow}
+\coqref{Rewriting.pred}{\coqdocdefinition{pred}} (\coqdocvariable{f}
+\coqdocvariable{n}) \coqdocvariable{j}\coqdoceol
+\coqdocindent{10.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+% TODO: we simplified this (mainly type inference helpers)
+
+In an effort to prevent getting lost in a notational labyrinth, we define
+the following shortcuts:
+
+% TODO: keep an eye on placement of the table
+{\renewcommand{\arraystretch}{1.1}
+\renewcommand{\tabcolsep}{10pt}
+\begin{tabular}{ll}
+$\rho[i]$ & location of $\rho$ indexed by $i$\\
+$\rho[i]^\textsc{seq}$ & predecessor sequence of $\rho$ indexed by $i$\\
+$\rho[i]^\textsc{stp}$ & step of $\rho$ indexed by $i$\\
+$\rho[i]^\textsc{l}$ & source term of $\rho[i]^\textsc{stp}$ (also target term
+  of $\rho[i]^\textsc{seq}$)\\
+$\rho[i]^\textsc{r}$ & target term of $\rho[i]^\textsc{stp}$
+\end{tabular}}
+
+Now we turn to embeddings of rewrite sequences.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Inductive} \coqdef{Rewriting.embed}{embed}{$\sqsubseteq$}
+: \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u}
+\coqdocvar{v}, \coqdocvariable{s}
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$} \coqdocvariable{t}
+$\rightarrow$ \coqdocvariable{u}
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$} \coqdocvariable{v}
+$\rightarrow$ \coqdockw{Prop} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdef{Rewriting.EmbedNil}{Embed\_Nil}{\coqdocconstructor{$\sqsubseteq_\text{Nil}$}}  :
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{u} \coqdocvar{v} (\coqdocvar{$\tau$}
+: \coqdocvariable{u} \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqdocvariable{v}),\coqdoceol
+\coqdocindent{9.50em}
+\coqref{Rewriting.Nil}{\coqdocconstructor{Nil}} \coqdocvariable{s}
+\coqref{Rewriting.embed}{$\sqsubseteq$} \coqdocvariable{$\tau$}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdef{Rewriting.EmbedCons}{Embed\_Cons}{\coqdocconstructor{$\sqsubseteq_\text{Cons}$}} :
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{u} \coqdocvar{v} (\coqdocvar{$\tau$}
+: \coqdocvariable{u} \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqdocvariable{v}) (\coqdocvar{i} :
+\coqref{Rewriting.predtype}{\coqdocdefinition{pred\_type}} \coqdocvariable{$\tau$})
+(\coqdocvar{$\rho$} : \coqdocvariable{s}
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqdocvariable{$\tau$}[\coqdocvariable{i}]$^\textsc{l}$),\coqdoceol
+\coqdocindent{9.50em}
+\coqdocvariable{$\rho$} \coqref{Rewriting.embed}{$\sqsubseteq$} \coqdocvariable{$\tau$}[\coqdocvariable{i}]$^\textsc{seq}$ \ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{9.50em}
+\coqref{Rewriting.Cons}{\coqdocconstructor{Cons}} \coqdocvariable{$\rho$}
+\coqdocvariable{$\tau$}[\coqdocvariable{i}]$^\textsc{stp}$ \coqref{Rewriting.embed}{$\sqsubseteq$}
+\coqdocvariable{$\tau$}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdef{Rewriting.EmbedLim}{Embed\_Lim}{\coqdocconstructor{$\sqsubseteq_\text{Lim}$}}  :
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u} \coqdocvar{v}
+(\coqdocvar{ts} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+\ensuremath{\rightarrow} \coqref{Term.term}{\coqdocinductive{term}})
+(\coqdocvar{f} : \ensuremath{\forall} \coqdocvar{n},
+\coqdocvariable{s}
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqdocvariable{ts} \coqdocvariable{n})\coqdoceol
+\coqdocindent{5.00em}
+(\coqdocvar{c} :
+\coqref{Rewriting.converges}{\coqdocdefinition{converges}} \coqdocvariable{ts}
+\coqdocvar{t}) (\coqdocvar{$\tau$} : \coqdocvar{u}
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqdocvar{v}),\coqdoceol
+\coqdocindent{9.50em}
+(\ensuremath{\forall} \coqdocvar{n}, (\coqdocvariable{f} \coqdocvariable{n})
+\coqref{Rewriting.embed}{$\sqsubseteq$} \coqdocvariable{$\tau$}) \ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{9.50em}
+\coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} \coqdocvariable{f}
+\coqdocvariable{c} \coqref{Rewriting.embed}{$\sqsubseteq$} \coqdocvariable{$\tau$}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+
+\subsection{Well-formed Sequences}\label{sub:wf}
+
+% TODO: this should not be in a subsection
+On \coqref{Ordinal.ord}{\coqdocinductive{ord}} we defined the
+\coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} property to rule out a certain
+class of ordinal representations. This issue translates directly to our
+inductive representation of rewrite sequences.
