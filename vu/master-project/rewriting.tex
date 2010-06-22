@@ -1,5 +1,7 @@
 \chapter{Infinitary Term Rewriting}\label{chap:rewriting}
 
+This chapter does not contain original material.
+
 Before we can study infinitary rewriting, we must introduce ordinal numbers.
 
 
@@ -63,12 +65,15 @@ representation of the countable ordinals as countably branching well-founded
 trees. Their inductive definition uses constructors $0$ (zero), $^+$
 (successor) and $\sqcup$ (limit).
 
+% TODO: \mathcal{O} or \Omega?
 The $\sqcup$ constructor has type $(\mathbb{N} \rightarrow \Omega) \rightarrow
 \Omega$, but for our convenience we write $\sqcup_i \cdots i \cdots$ instead
 of $\sqcup (\lambda i . \cdots i \cdots)$. Sometimes we explicitely enumerate
 the function, writing for example $\sqcup \{ \alpha_1, \alpha_2, \alpha_3,
 \ldots \}$.
 
+% Be alerted that all ordinals cannot form a set (only a class), but we are
+% defining a subset here
 \begin{definition}\label{def:ordinals}%[Ordinals]
 The set of \emph{Brouwer ordinals} (ordinals) $\Omega$ is defined by
 induction:
@@ -89,6 +94,7 @@ by $\alpha^+$ and a limit ordinal $\lambda$ is represented by $\sqcup_i
 \alpha_2, \alpha_3, \ldots$. % TODO: strict or unstrict upper bound
 Again, we identify ordinals and their representation as Brouwer ordinal.
 
+% TODO: some ordinals have no representation as Brouwer ordinal at all
 Some ordinals have no unique representation as Brouwer ordinal. Consider for
 example the limit ordinals $\sqcup_i i + 3$ and $\sqcup_i i \times 2$. Both
 are representations of $\omega$ and a meaningful order relation would have to
@@ -154,7 +160,7 @@ induction on the first argument (and write $\alpha \preceq \beta$ for $\langle
 \begin{compactenum}
   \item
     $0 \preceq \beta$ for every ordinal $\beta \in \Omega$.
-  \item
+  \item\label{def:order:succ}
     For all $\alpha, \beta \in \Omega$ and $i \in I(\beta)$, if $\alpha
     \preceq \beta[i]$ then $\alpha^+ \preceq \beta$.
   \item

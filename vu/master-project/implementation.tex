@@ -519,17 +519,15 @@ condition that these terms must converge to the target term
 
 Of course, the branches of a \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}}
 constructor may still not actually approximate to a rewrite sequence (of
-length a limit ordinal). The intuition is that each branche should extend on
+length a limit ordinal). The intuition is that each branch should extend on
 its preceeding ones. This would correspond to the
 \coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} property we defined on
 \coqref{Ordinal.ord}{\coqdocinductive{ord}}, where we take $\prec$ to be a
 strict prefix relation on
 \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}.
-
 We return to this issue in Section~\ref{sub:wf}, but
-first consider the definition of [an order] on
+first consider the definition of an embedding relation on
 \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}.
-TODO: probably wf does not deserve a subsection
 
 
 \subsection{Embeddings of Sequences}
@@ -670,7 +668,21 @@ $i$ is the index $\coqdocconstructor{inr} \; (\coqdocconstructor{inr} \;
 
 \includegraphics[draft=false]{predecessor.pdf}
 
-Now we turn to embeddings of rewrite sequences.
+% TODO: better wording for 'canceled out'?
+Having a closer look at the order $\preceq$ on the Brouwer ordinals, we can
+see that it really defines embeddings of their tree structures. This is due to
+clause~\ref{def:order:succ} of Definition~\ref{def:order}. In this clause,
+two occurrences of the $^+$ constructor (one in both ordinals) are canceled
+out against each other, but the positions of these occurences in their
+respective ordinals do not necessarily correspond. Since all occurrences of
+$^+$ are equal, this has no effect on the resulting relation.
+
+What this means for a translation of $\preceq$ to the domain of our
+inductively defined rewrite sequences is that, indeed, we get an embedding
+relation. We just have to make sure that in the
+\coqref{Rewriting.Cons}{\coqdocconstructor{Cons}} case, we cancel out two
+equivelent steps against each other.\footnote{A remark about equality on
+  steps $\approx$.}
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -693,18 +705,31 @@ $\rightarrow$ \coqdockw{Prop} :=\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|}
 \coqdef{Rewriting.EmbedCons}{Embed\_Cons}{\coqdocconstructor{$\sqsubseteq_\text{Cons}$}} :
-\ensuremath{\forall} \coqdocvar{s} \coqdocvar{u} \coqdocvar{v} (\coqdocvar{$\tau$}
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u} \coqdocvar{v}
+(\coqdocvar{$\tau$}
 : \coqdocvariable{u} \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
 \coqdocvariable{v}) (\coqdocvar{i} :
-\coqref{Rewriting.predtype}{\coqdocdefinition{pred\_type}} \coqdocvariable{$\tau$})
+\coqref{Rewriting.predtype}{\coqdocdefinition{pred\_type}}
+\coqdocvariable{$\tau$})
 (\coqdocvar{$\rho$} : \coqdocvariable{s}
 \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
-\coqdocvariable{$\tau$}[\coqdocvariable{i}]$^\textsc{l}$),\coqdoceol
+\coqdocvariable{$\tau$}[\coqdocvariable{i}]$^\textsc{l}$)\coqdoceol
+\coqdocindent{5.00em}
+(\coqdocvar{$\pi$} :
+\coqdocvariable{$\tau$}[\coqdocvariable{i}]$^\textsc{l}$
+\coqref{Rewriting.step}{$\rightarrow_\mathcal{R}$}
+\coqdocvariable{t}),\coqdoceol
 \coqdocindent{9.50em}
-\coqdocvariable{$\rho$} \coqref{Rewriting.embed}{$\sqsubseteq$} \coqdocvariable{$\tau$}[\coqdocvariable{i}]$^\textsc{seq}$ \ensuremath{\rightarrow}\coqdoceol
+\coqdocvariable{$\rho$} \coqref{Rewriting.embed}{$\sqsubseteq$}
+\coqdocvariable{$\tau$}[\coqdocvariable{i}]$^\textsc{seq}$
+\ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{9.50em}
+\coqdocvariable{$\pi$} $\approx$
+\coqdocvariable{$\tau$}[\coqdocvariable{i}]$^\textsc{stp}$
+\ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{9.50em}
 \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}} \coqdocvariable{$\rho$}
-\coqdocvariable{$\tau$}[\coqdocvariable{i}]$^\textsc{stp}$ \coqref{Rewriting.embed}{$\sqsubseteq$}
+\coqdocvariable{$\pi$} \coqref{Rewriting.embed}{$\sqsubseteq$}
 \coqdocvariable{$\tau$}\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|}
@@ -734,10 +759,12 @@ $\rightarrow$ \coqdockw{Prop} :=\coqdoceol
 % TODO: say what implicit/explicit arguments for cons and lim are
 
 
-\subsection{Well-formed Sequences}\label{sub:wf}
+\subsection{Well-formed Sequences and Convergence}\label{sub:wf}
 
 % TODO: this should not be in a subsection
 On \coqref{Ordinal.ord}{\coqdocinductive{ord}} we defined the
 \coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} property to rule out a certain
 class of ordinal representations. This issue translates directly to our
 inductive representation of rewrite sequences.
+
+$\sqsubseteq$ turns out to be satisfying for our present purposes.
