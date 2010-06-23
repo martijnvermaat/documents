@@ -315,7 +315,7 @@ and two terms are equal if this pointwise equality holds up to all depths:
 \coqdocnoindent
 \coqdockw{Definition}
 \coqdocvar{t}
-\coqdef{TermEquality.termeq}{term\_eq}{$\doteq$}
+\coqdef{TermEquality.termeq}{term\_eq}{$equiv$}
 \coqdocvar{u} :=
 \ensuremath{\forall} \coqdocvar{d},
 \coqdocvariable{t}
@@ -327,7 +327,7 @@ and two terms are equal if this pointwise equality holds up to all depths:
 % TODO: leave out the lemma statements?
 
 We can prove that \coqref{TermEquality.termbis}{$\sim$} and
-\coqref{TermEquality.termeq}{$\doteq$} are the same
+\coqref{TermEquality.termeq}{$equiv$} are the same
 relation, and that indeed it is an equality:
 \begin{singlespace}
 \begin{coqdoccode}
@@ -339,7 +339,7 @@ relation, and that indeed it is an equality:
 \coqref{TermEquality.termbis}{$\sim$}
 \coqdocvariable{u} \ensuremath{\leftrightarrow}
 \coqdocvariable{t}
-\coqref{TermEquality.termeq}{$\doteq$}
+\coqref{TermEquality.termeq}{$equiv$}
 \coqdocvariable{u}.\coqdoceol
 \coqdocemptyline
 \coqdocnoindent
@@ -531,7 +531,7 @@ first consider the definition of an embedding relation on
 \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}.
 
 
-\subsection{Embeddings of Sequences}
+\subsection{Embeddings of Rewrite Sequences}
 
 We lift the notions of predecessor and predecessor indices to the domain of
 rewrite sequences. The set of predecessor indices is easily defined as
@@ -579,9 +579,9 @@ constructor in a rewrite sequence. This constructor does not just contain a
 rewrite sequence (analoguous to an ordinal in the
 \coqref{Ordinal.ord}{\coqdocinductive{ord}} case), but also a rewrite
 step. The \coqref{Rewriting.pred}{\coqdocdefinition{pred}} function gives us
-both the sequence and the step. For the type checker to accept the definition,
-we use a $\Sigma$-type that contains this pair, parameterized by the source
-and target terms of the rewrite step.
+both the rewrite sequence and the step. For the type checker to accept the
+definition, we use a $\Sigma$-type that contains this pair, parameterized by
+the source and target terms of the rewrite step.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -656,7 +656,7 @@ the following notational shortcuts:
 \renewcommand{\tabcolsep}{10pt}
 \begin{tabular}{ll}
 $\rho[i]$ & location of $\rho$ indexed by $i$\\
-$\rho[i]^\textsc{seq}$ & predecessor sequence of $\rho$ indexed by $i$\\
+$\rho[i]^\textsc{seq}$ & predecessor rewrite sequence of $\rho$ indexed by $i$\\
 $\rho[i]^\textsc{stp}$ & step of $\rho$ indexed by $i$\\
 $\rho[i]^\textsc{l}$ & source term of $\rho[i]^\textsc{stp}$ (also target term
   of $\rho[i]^\textsc{seq}$)\\
@@ -799,7 +799,7 @@ Strict embedding relation. It really expands after the last step!
 \end{singlespace}
 
 
-\subsection{Well-formed Sequences and Convergence}\label{sub:wf}
+\subsection{Well-formed Rewrite Sequences and Convergence}\label{sub:wf}
 
 % TODO: this should not be in a subsection
 On \coqref{Ordinal.ord}{\coqdocinductive{ord}} we defined the

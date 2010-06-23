@@ -10,6 +10,7 @@ Coinduction or co-induction?
 Look at chap 15 of terese for implementations of rewriting
 Throw in some examples here and there
 Add some clarifying pictures (ordinals, predecessors, convergence)
+Equality vs equivalence
 
 coqdoc --latex -s -g --coqlib http://coq.inria.fr/stdlib/ -d coqdoc *.v
 

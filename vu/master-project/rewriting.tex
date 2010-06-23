@@ -4,6 +4,8 @@ This chapter does not contain original material.
 
 Before we can study infinitary rewriting, we must introduce ordinal numbers.
 
+% TODO: note that we are explicit in de wording: sequence vs rewrite sequence
+
 
 \section{Ordinal Numbers}
 
@@ -153,10 +155,11 @@ non-strict order relation on $\Omega$ that classifies ordinals by rank.
 
 % TODO: note <= infix notation
 % TODO: or use the set-theoretic definitions from hancock?
+% TODO: infix notations are used all the time, maybe state this at front
 \begin{definition}\label{def:order}%[Order]
 We define the \emph{order} $\preceq$ as a binary relation on $\Omega$ by
-induction on the first argument (and write $\alpha \preceq \beta$ for $\langle
-\alpha, \beta \rangle \in \; \preceq$):
+induction (and write $\alpha \preceq \beta$ for $\langle \alpha, \beta \rangle
+\in \; \preceq$):
 \begin{compactenum}
   \item
     $0 \preceq \beta$ for every ordinal $\beta \in \Omega$.
@@ -204,7 +207,7 @@ we call its \emph{arity}. A function symbol with arity $0$ is also called a
 
 \begin{definition}%[Term]
 The set of \emph{terms} $Ter_\Sigma^\infty(X)$ over a signature $\Sigma$ and a
-set of variables $X = \{x, y, \ldots\}$ is defined by co-induction:
+set of variables $X = \{x, y, \ldots\}$ is defined by coinduction:
 \begin{compactenum}
   \item
     $x \in Ter_\Sigma^\infty(X)$ for every variable $x \in X$.
@@ -223,6 +226,56 @@ variable occurs more than once in $t$, we say $t$ is \emph{linear}.
 Often, the set of variables $X$ is left implicit and $Ter_\Sigma^\infty(X)$ is
 denoted simply by $Ter_\Sigma^\infty$. By the set of \emph{finite terms}
 $Ter_\Sigma$ we mean the subset of well-founded terms of $Ter_\Sigma^\infty$.
+
+% TODO: is this equality story correct?
+%We use the symbol $\equiv$ for syntactic equality on terms. Sometimes, we
+%want to be more explicit as to what this equality amounts to. Proving two
+%infinite objects equal is generally done by giving a bisimulation relation
+%between them.
+
+Especially on a coinductive domain, we want to be precise about the notions of
+equality we employ. We consider terms to be equal if they are
+\begin{inparaenum}[(i)]
+  \item bisimilar or
+  \item syntactically equivalent up to all depths.
+\end{inparaenum} According to Proposition~\ref{prop:equalities} it does not
+matter ultimately which equality we use.
+
+\begin{definition}%[Bismilarity]
+We define the \emph{bisimularity relation} $\sim$ on $Ter_\Sigma^\infty$ by
+coinduction:
+\begin{compactenum}
+  \item
+    $x \sim x$ for every variable $x \in X$.
+  \item
+    For every $f \in \Sigma$, if $s_i \sim t_i$ for all $i \leq
+    \#_f$, then $f(s_1, \ldots s_{\#_f}) \sim f(t_1, \ldots, t_{\#_f})$.
+\end{compactenum}
+%We say that $s$ and $t$ are \emph{bisimilar} if $s \sim t$.
+\end{definition}
+
+\begin{definition}%[Syntactic equivalence]
+\emph{(Syntactic) equivalence} of terms $s$ and $t$ \emph{up to depth} $d$,
+written $s \equpto{d} t$, is defined by induction:
+\begin{compactenum}
+  \item $s \equpto{0} t$ for every $s, t \in Ter_\Sigma^\infty$.
+  \item $x \equpto{d} x$ for every $d \in \mathbb{N}$ and $x \in X$.
+  \item For every $f \in \Sigma$, if $s_i \equpto{d} t_i$ for all $i \leq
+    \#_f$, then $f(s_1, \ldots s_{\#_f}) \equpto{d+1} f(t_1, \ldots,
+    t_{\#_f})$.
+\end{compactenum}
+The \emph{(syntactic) equivalence} $s \equiv t$ holds if $s \equpto{d} t$ for
+every depth $d$.
+\end{definition}
+
+\begin{proposition}\label{prop:equalities}
+$s \sim t \; \Leftrightarrow \; s \equiv t$.
+\end{proposition}
+\begin{proof}
+By induction on the depth of syntactical equivalence ($\Rightarrow$) and by
+coinduction on $s$ ($\Leftarrow$).
+\footnote{This proposition is proved in our \Coq development.}
+\end{proof}
 
 \begin{definition}%[Rewrite rule]
   A \emph{rewrite rule} $\rho$ for a signature $\Sigma$ is a pair $\langle l,
@@ -307,7 +360,15 @@ steps $(t_\beta \rightarrow t_{\beta^+})_{\beta < \alpha}$.
 This definition only makes sense if we somehow require that for every limit
 ordinal $\lambda < \alpha$, the terms $(t_\beta)_{\beta < \lambda}$ approach
 $t_\lambda$ in the limit and sometimes even further restrictions are
-desirable. We define four conditions on rewrite sequences.
+desirable. We define the notion of Cauchy convergence and, using that, four
+conditions on rewrite sequences.
+
+% TODO: define d(t,u) and depth of rewrite steps
+\begin{definition}%[Cauchy convergence]
+  A sequence of terms $(t_\beta)_{\beta < \alpha}$ \emph{(Cauchy-) converges}
+  to the term $t$ if $d(t_\beta, t)$ tends to $0$ when $\beta$ approaches
+  $\alpha$ from below.
+\end{definition}
 
 \begin{definition}%[Continuity and convergence]
 A rewrite sequence $(t_\beta \rightarrow t_{\beta^+})_{\beta < \alpha}$ of
@@ -332,9 +393,6 @@ length $\alpha$ is
     t_{\beta^+})_{\beta < \lambda}$ tends to infinity.
 \end{compactenum}
 \end{definition}
-
-TODO: is this accurate enough for this text? we did not define the depth of a
-step.
 
 
 \subsection{Orthogonality}
