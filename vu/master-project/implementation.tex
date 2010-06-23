@@ -681,8 +681,26 @@ What this means for a translation of $\preceq$ to the domain of our
 inductively defined rewrite sequences is that, indeed, we get an embedding
 relation. We just have to make sure that in the
 \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}} case, we cancel out two
-equivelent steps against each other.\footnote{A remark about equality on
-  steps $\approx$.}
+equivelent steps against each other.\footnote{Rewrite steps $\pi$ and $o$ are
+  defined to be equivalent ($\pi \approx o$) iff % TODO: equivalent vs equal
+\begin{compactenum}
+  \item they use the same rewrite rule $\rho$,
+  \item their contexts are bisimilar and
+  \item their substitutions agree on all variables in $\rho$.
+\end{compactenum}}
+We say that $\rho$ is embedded in $\tau$ ($\rho \sqsubseteq \tau$) if $\tau$
+can be obtained from $\rho$ by inserting any number of steps in $\rho$. We
+distinguish between inserting a step
+\begin{inparaenum}[(i)]
+  \item before the first step,
+  \item after the last step and
+  \item in between steps
+\end{inparaenum}
+in a rewrite sequence. Note that any steps inserted consecutively in between
+steps necessarily form a cycle, because of typing constraints.
+% TODO: is the wording good here (the three cases)?
+% TODO: define cycle
+% TODO: explaining image
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -758,6 +776,25 @@ $\rightarrow$ \coqdockw{Prop} :=\coqdoceol
 \end{singlespace}
 % TODO: say what implicit/explicit arguments for cons and lim are
 
+Strict embedding relation. It really expands after the last step!
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdef{Rewriting.embedstrict}{embed\_strict}{$\sqsubset$}
+\coqdocvar{s} \coqdocvar{t} \coqdocvar{u} \coqdocvar{v} (\coqdocvar{$\rho$} :
+\coqdocvariable{s}
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqdocvariable{t},
+\coqdocvar{$\tau$} :
+\coqdocvariable{u}
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqdocvariable{v}) := \ensuremath{\exists} \coqdocvar{i},
+\coqdocvariable{$\rho$} $\sqsubseteq$
+\coqdocvariable{$\tau$}[\coqdocvariable{i}]$^\textsc{seq}$.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
 
 \subsection{Well-formed Sequences and Convergence}\label{sub:wf}
 
@@ -768,3 +805,22 @@ class of ordinal representations. This issue translates directly to our
 inductive representation of rewrite sequences.
 
 $\sqsubseteq$ turns out to be satisfying for our present purposes.
+
+TODO: think harder about what it means to have an embedding relation instead
+of a prefix relation. Vincent said this about it:
+\begin{quote}
+Overigens bedachten dat het in principe niet heel erg is $\sqsubseteq$ te
+definieren voor reducties zoals voor ordinalen. alleen zie je dan het meer een
+notie van embedding/deelreductie ipv een notie van prefix geeft, maar ook daar
+kun je denkelijk goed mee werken.
+
+\ldots
+
+als je een stuk invoegt in het midden in sigma moet dat noodzakelijkerwijs,
+vanwege de constraints op begin-en eindpunten, een reductie cykel zijn. ik zou
+verwachten dat dat uiteindelijk een goede notie van ordening (goede reducties)
+oplevert (``de cykels doen er niet toe voor convergente rijen, en kun je
+weglaten bij compressie''), die natuurlijk niet overeenkomt, ook niet in het
+eindige geval met de prefix notie; het is deelwoord, of (op reductie rijtjes
+als bomen) deelboom (en niet boom-factor).
+\end{quote}
