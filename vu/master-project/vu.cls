@@ -12,6 +12,9 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 
+% For \iddots
+\usepackage{mathdots}
+
 % TeX Gyre Pagella (like Palatino)
 %\usepackage{tgpagella}
 %\usepackage{qpxmath}
@@ -45,7 +48,7 @@
 % Smallcaps for 'Chapter n' and section numbering
 % TODO: smallcaps for footnote and page numbering
 \titleformat{\chapter}[display]
-{\normalfont\huge\bfseries}{\sc\chaptertitlename\ \thechapter}{20pt}{\Huge}
+{\normalfont\huge}{\sc\chaptertitlename\ \thechapter}{20pt}{\Huge}
 \titleformat{\section}
 {\normalfont\Large}{\sc Section\ \thesection}{1em}{}
 \titleformat{\subsection}
@@ -106,6 +109,20 @@
 % TODO: title page layout
 % TODO: bibliography style
 % http://tug.ctan.org/tex-archive/macros/latex/contrib/ucthesis/
+
+\makeatletter
+\def\maketitle{
+    \thispagestyle{empty}
+    \null\vfil
+    \vspace{2cm}
+    {\Huge \@title \par}
+    \vspace{7cm}
+    {\sc \@date \par}
+    {\@author \par}
+    \vfil\null
+    \setcounter{page}{1}
+}
+\makeatother
 
 \usepackage{graphicx}
 

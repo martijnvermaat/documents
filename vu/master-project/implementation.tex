@@ -11,10 +11,11 @@ TODO: some notes about code listings. coq has implicit arguments. we aim for
 brevity.
 TODO: label and number listings
 TODO: style of text around listings (all these :'s are ugly)
-TODO: we will take some notational liberties (syntax precedence levels etc)
+TODO: we will take some notational liberties (syntax precedence levels, infix
+notation etc)
 
-For example, the type of the \coqdocconstructor{Cons} constructor in listing
-(TODO) is written with explicitely generalized variables as
+For example, the type of the \coqdocconstructor{Cons} constructor in listing x
+is written with explicitely generalized variables as
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -376,7 +377,7 @@ relation, and that indeed it is an equality:
 \end{coqdoccode}
 \end{singlespace}
 
-% TODO: we already defined cauchy convergence earlier
+% TODO: we already defined a cauchy convergence earlier
 % TODO: \equpto is a notion only defined in coq
 In Section~\ref{sec:seq} we use the notion of convergence of an infinite
 sequence of terms. A sequence of terms $\{ t_1, t_2, t_3, \ldots \}$ converges
@@ -768,10 +769,12 @@ $\rightarrow$ \coqdockw{Prop} :=\coqdoceol
 \coqdocvar{v}),\coqdoceol
 \coqdocindent{9.50em}
 (\ensuremath{\forall} \coqdocvar{n}, (\coqdocvariable{f} \coqdocvariable{n})
-\coqref{Rewriting.embed}{$\sqsubseteq$} \coqdocvariable{$\tau$}) \ensuremath{\rightarrow}\coqdoceol
+\coqref{Rewriting.embed}{$\sqsubseteq$} \coqdocvariable{$\tau$})
+\ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{9.50em}
 \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} \coqdocvariable{f}
-\coqdocvariable{c} \coqref{Rewriting.embed}{$\sqsubseteq$} \coqdocvariable{$\tau$}.\coqdoceol
+\coqdocvariable{c} \coqref{Rewriting.embed}{$\sqsubseteq$}
+\coqdocvariable{$\tau$}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 % TODO: say what implicit/explicit arguments for cons and lim are
@@ -804,7 +807,7 @@ On \coqref{Ordinal.ord}{\coqdocinductive{ord}} we defined the
 class of ordinal representations. This issue translates directly to our
 inductive representation of rewrite sequences.
 
-$\sqsubseteq$ turns out to be satisfying for our present purposes.
+$\sqsubset$ turns out to be satisfying for our present purposes.
 
 TODO: think harder about what it means to have an embedding relation instead
 of a prefix relation. Vincent said this about it:

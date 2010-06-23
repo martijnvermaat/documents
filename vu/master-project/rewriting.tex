@@ -20,7 +20,7 @@ $\omega \times 3$. Some other (still relatively small) ordinals are:
   \omega^\omega \qquad
   \omega^{\omega^2} \qquad
   \omega^{\omega^\omega} \qquad
-  \omega^{\omega^{\omega^{\ldots}}} = \epsilon_0 % TODO: \iddots or \adots
+  \omega^{\omega^{\omega^{\iddots}}} = \epsilon_0 % TODO: \iddots or \adots
 \end{displaymath}
 Note that this is all just notation, we have not yet defined a representation
 for ordinals and what $+$ and $\times$ are.
@@ -116,7 +116,7 @@ Before we can define an extensional order relation on $\Omega$, we define a
 structural strict order relation as follows.
 % TODO: , is too close on $\Omega$
 
-\begin{definition}[Predecessor indices]
+\begin{definition}%[Predecessor indices]
 % TODO: include I(a) for a in emph
 The set-valued function $I$ defines the \emph{predecessor indices} $I(\alpha)$
 for $\alpha$ by recursion on $\alpha$:
@@ -134,7 +134,7 @@ $1 + A$ of the unit type $1$ and $A$. We use \textsc{none} and \textsc{some
   $a$} (for $a \in A$) as constructors of $A^?$. Note that the set $I(0)$ of
 predecessor indices for $0$ is uninhabited.
 
-\begin{definition}[Predecessor]
+\begin{definition}%[Predecessor]
 The function $\_[\_] : (\prod \alpha : \Omega) \; I(\alpha) \rightarrow
 \Omega$ defines the \emph{predecessor} $\alpha[i]$ of $\alpha$ indexed by $i$
 recursively on $\alpha$:
@@ -324,15 +324,17 @@ length $\alpha$ is
   \item
     \emph{weakly convergent} with limit $t_\alpha$, if for every limit ordinal
     $\lambda \leq \alpha$, the sequence $(t_\beta)_{\beta < \lambda}$
-    converges to the term $t_\lambda$,
+    converges to the term $t_\lambda$ and
   \item
-    and \emph{strongly convergent} with limit $t_\alpha$ if it is weakly
+    \emph{strongly convergent} with limit $t_\alpha$ if it is weakly
     convergent with limit $t_\alpha$ and for every limit ordinal $\lambda \leq
-    \alpha$, the depth of the rewrite step $(t_\beta \rightarrow
+    \alpha$, the depth of the rewrite steps $(t_\beta \rightarrow
     t_{\beta^+})_{\beta < \lambda}$ tends to infinity.
 \end{compactenum}
 \end{definition}
-% TODO: state strong conditions
+
+TODO: is this accurate enough for this text? we did not define the depth of a
+step.
 
 
 \subsection{Orthogonality}
