@@ -111,14 +111,38 @@
 % http://tug.ctan.org/tex-archive/macros/latex/contrib/ucthesis/
 
 \makeatletter
-\def\maketitle{
+\def\makefrontmatter{
+  \newpage
     \thispagestyle{empty}
     \null\vfil
     \vspace{2cm}
     {\Huge \@title \par}
-    \vspace{7cm}
-    {\sc \@date \par}
+    \vspace{6cm}
     {\@author \par}
+    \vfil\null
+    \setcounter{page}{1}
+}
+\makeatother
+
+\makeatletter
+\def\maketitle{
+  \newpage
+    \thispagestyle{empty}
+    \null\vfil
+    \begin{center}
+    {VU UNIVERSITY AMSTERDAM \par}
+    \vspace{2cm}
+    {\Huge \@title \par}
+    \vspace{3cm}
+    {THESIS \par}
+    \vspace{2cm}
+    {submitted for the degree of Master of Science by research at\\
+      the VU University Amsterdam \par}
+    \vspace{1cm}
+    {by \@author \par}
+    \vspace{1cm}
+    {\sc \@date \par}
+    \end{center}
     \vfil\null
     \setcounter{page}{1}
 }
