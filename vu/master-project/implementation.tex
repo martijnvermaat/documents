@@ -10,7 +10,6 @@ TODO: very short intro to coq syntax (include `(...) notation)
 TODO: some notes about code listings. coq has implicit arguments. we aim for
 brevity.
 TODO: label and number listings
-TODO: style of text around listings (all these :'s are ugly)
 TODO: we will take some notational liberties (syntax precedence levels, infix
 notation etc)
 
@@ -310,7 +309,6 @@ sense that the proof term is built by corecursion.
 \end{coqdoccode}
 \end{singlespace}
 
-% TODO: leave out the lemma statements?
 We can prove that \coqref{TermEquality.termbis}{$\sim$} and
 \coqref{TermEquality.termeq}{$\equiv$} are the same
 relation, and that indeed it is an equality.
@@ -362,8 +360,6 @@ relation, and that indeed it is an equality.
 \end{coqdoccode}
 \end{singlespace}
 
-% TODO: we already defined a cauchy convergence earlier
-% TODO: \equpto is a notion only defined in coq
 In Section~\ref{sec:seq} we need some notion of convergence for functions of
 type
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
@@ -476,7 +472,6 @@ $\rightarrow$
 \coqdocvariable{t}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-% TODO: consider dropping the R subscript for ->>
 
 This is not yet a satisfying definition, because we cannot fix a value for
 \coqref{Rewriting.LimPlaceholder}{\textbf{?}}. We complete the type for
@@ -786,7 +781,6 @@ Strict embedding relation. It really expands after the last step!
 
 \subsection{Well-formed Rewrite Sequences and Convergence}\label{sub:wf}
 
-% TODO: this should not be in a subsection
 On \coqref{Ordinal.ord}{\coqdocinductive{ord}} we defined the
 \coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} property to rule out a certain
 class of ordinal representations. This issue translates directly to our
