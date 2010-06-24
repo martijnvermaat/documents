@@ -132,7 +132,7 @@
     \thispagestyle{empty}
     \null\vfil
     \vspace{2cm}
-    {\Huge \@title \par}
+    {\Huge \@title (DRAFT) \par}
     \vspace{6cm}
     {\@author \par}
     \vfil\null
@@ -148,7 +148,7 @@
     \begin{center}
     {VU UNIVERSITY AMSTERDAM \par}
     \vspace{2cm}
-    {\Huge \@title \par}
+    {\Huge \@title (DRAFT) \par}
     \vspace{3cm}
     {THESIS \par}
     \vspace{2cm}
