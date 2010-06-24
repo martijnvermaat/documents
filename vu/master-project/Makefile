@@ -7,8 +7,9 @@
 
 # Configuration
 THESIS = thesis
-DEPENDS = vu.cls abbrevs.tex discussion.tex glossary.tex implementation.tex introduction.tex preface.tex rewriting.tex unwo.tex
+THESISDEPS = vu.cls abbrevs.tex discussion.tex glossary.tex implementation.tex introduction.tex preface.tex rewriting.tex unwo.tex
 SLIDES = slides
+SLIDESDEPS = abbrevs.tex
 PDFLATEX = /usr/bin/pdflatex
 PDFLATEXFLAGS = -halt-on-error -interaction errorstopmode
 BIBTEX = /usr/bin/bibtex
@@ -28,7 +29,10 @@ bibtex: $(THESIS).bbl
 pdf: $(THESIS).pdf $(SLIDES).pdf
 
 # The thesis depends on these files
-$(THESIS).pdf: $(DEPENDS)
+$(THESIS).pdf: $(THESISDEPS)
+
+# The slides depend on these files
+$(SLIDES).pdf: $(SLIDESDEPS)
 
 # For the PDF, we need a .tex LaTeX source. Actually, we also need a .bbl
 # BibTeX database, but we don't want to regenerate that on every .tex change.

@@ -212,20 +212,19 @@ follows:
 Here, \coqref{Vector.vector}{\coqdocdefinition{vector}} is assumed to
 implement dependently typed lists (the type depending on their length).
 
-The only way to build infinite objects in \Coq is by corecursion. However,
-because the amount of memory available is finite, this is done lazilly,
-meaning that the corecursive definition is only ever unfolded when explicitely
-asked for. Now consider the objective of proving two infinite terms
-equal. Simply comparing their definitions will not suffice, since the
-corecursive construction of any given infinite object is not
-unique.\footnote{Even unfolding the corecursion will not help us here. We can
-  only unfold finitely many times, and then still be left with the corecursive
-  definition.} To this end, we define two extensional equalities on
-\coqref{Term.term}{\coqdocinductive{term}}.
+The standard Leibniz equality defined in \Coq, written $=$, does not suffice
+for establishing that two terms are equal, given that the only way to build
+infinite objects is by corecursion. Because the amount of memory available is
+finite, we can only unfold the corecursive definition finitely many times, and
+then still be left with a corecursive definition. Simply comparing such
+definitions will not do, since the corecursive construction of any given
+infinite object is not unique. To this end, we define two extensional
+equalities on \coqref{Term.term}{\coqdocinductive{term}}, following
+Definitions~\ref{def:bisimilarity} and \ref{def:equiv}. The coinductive
+predicate \coqref{TermEquality.termbis}{$\sim$} defines bisimilarity and
+syntactical equality is defined by \coqref{TermEquality.termeq}{$\equiv$}
+inductively.
 
-The coinductive predicate
-\coqref{TermEquality.termbis}{$\sim$} defines bisimilarity
-on terms:
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -260,13 +259,11 @@ on terms:
 Any proof of two infinite terms being bisimilar is an infinite proof, in the
 sense that the proof term is built by corecursion.
 
-Another way to define equality on infinite terms is pointwise. First we define
-pointwise equality of terms up to a given depth:
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
 \coqdockw{Inductive}
-\coqdef{TermEquality.termequpto}{term\_eq\_up\_to}{\coqdocinductive{term\_eq\_up\_to}}
+\coqdef{TermEquality.termequpto}{term\_eq\_up\_to}{\equpto{}}
 :
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
 \ensuremath{\rightarrow} \coqref{Term.term}{\coqdocinductive{term}}
@@ -275,72 +272,61 @@ pointwise equality of terms up to a given depth:
 \coqdocindent{1.00em}
 \ensuremath{|}
 \coqdef{TermEquality.teut0}{teut\_0}{\coqdocconstructor{teut$_0$}}   :
-\ensuremath{\forall} \coqdocvar{t} \coqdocvar{u},
-\coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
-$0$ \coqdocvariable{t} \coqdocvariable{u}\coqdoceol
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t},
+\coqdocvariable{s} \coqref{TermEquality.termequpto}{\equpto{0}}
+\coqdocvariable{t}\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|}
 \coqdef{TermEquality.teutvar}{teut\_var}{\coqdocconstructor{teut$_\text{Var}$}} :
 \ensuremath{\forall} \coqdocvar{d} \coqdocvar{x},
-\coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
-\coqdocvariable{d}
-(\coqref{Term.Var}{\coqdocconstructor{Var}} \coqdocvariable{x})
-(\coqref{Term.Var}{\coqdocconstructor{Var}} \coqdocvariable{x})\coqdoceol
+\coqref{Term.Var}{\coqdocconstructor{Var}} \coqdocvariable{x}
+\coqref{TermEquality.termequpto}{\equpto{\coqdocvariable{d}}}
+\coqref{Term.Var}{\coqdocconstructor{Var}} \coqdocvariable{x}\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|}
 \coqdef{TermEquality.teutfun}{teut\_fun}{\coqdocconstructor{teut$_\text{Fun}$}} :
 \ensuremath{\forall} \coqdocvar{d} \coqdocvar{f} \coqdocvar{v}
-\coqdocvar{w},\coqdoceol
-\coqdocindent{7.50em}
+\coqdocvar{w},
 (\ensuremath{\forall} \coqdocvar{i},
-\coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
-\coqdocvariable{d} (\coqdocvariable{v} \coqdocvariable{i}) (\coqdocvariable{w}
-\coqdocvariable{i})) \ensuremath{\rightarrow}\coqdoceol
-\coqdocindent{7.50em}
-\coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
-(\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
-\coqdocvariable{d}) (\coqref{Term.Fun}{\coqdocconstructor{Fun}}
-\coqdocvariable{f} \coqdocvariable{v})
-(\coqref{Term.Fun}{\coqdocconstructor{Fun}} \coqdocvariable{f}
-\coqdocvariable{w}).\coqdoceol
-\end{coqdoccode}
-\end{singlespace}
-We abbreviate
-\coqref{TermEquality.termequpto}{\coqdocinductive{term\_eq\_up\_to}}
-\coqdocvariable{d} by
-\coqref{TermEquality.termequpto}{\equpto{\textnormal{\coqdocvariable{d}}}}
-and two terms are equal if this pointwise equality holds up to all depths:
-\begin{singlespace}
-\begin{coqdoccode}
+\coqdocvariable{v} \coqdocvariable{i}
+\coqref{TermEquality.termequpto}{\equpto{\coqdocvariable{d}}}
+\coqdocvariable{w} \coqdocvariable{i}) \ensuremath{\rightarrow}
+\coqref{Term.Fun}{\coqdocconstructor{Fun}}
+\coqdocvariable{f} \coqdocvariable{v}
+\coqref{TermEquality.termequpto}{\equpto{\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+    \, \coqdocvariable{d}}}
+\coqref{Term.Fun}{\coqdocconstructor{Fun}} \coqdocvariable{f}
+\coqdocvariable{w}.\coqdoceol
+\coqdocemptyline
 \coqdocnoindent
 \coqdockw{Definition}
-\coqdocvar{t}
-\coqdef{TermEquality.termeq}{term\_eq}{$equiv$}
-\coqdocvar{u} :=
+\coqdocvar{s}
+\coqdef{TermEquality.termeq}{term\_eq}{$\equiv$}
+\coqdocvar{t} :=
 \ensuremath{\forall} \coqdocvar{d},
-\coqdocvariable{t}
+\coqdocvariable{s}
 \coqref{TermEquality.termequpto}{\equpto{\coqdocvariable{d}}}
-\coqdocvariable{u}.\coqdoceol
+\coqdocvariable{t}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 
 % TODO: leave out the lemma statements?
 
 We can prove that \coqref{TermEquality.termbis}{$\sim$} and
-\coqref{TermEquality.termeq}{$equiv$} are the same
+\coqref{TermEquality.termeq}{$\equiv$} are the same
 relation, and that indeed it is an equality:
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
 \coqdockw{Lemma}
 \coqdef{TermEquality.termbistermeq}{term\_bis\_term\_eq}{\coqdoclemma{term\_bis\_term\_eq}}
-: \ensuremath{\forall} \coqdocvar{t} \coqdocvar{u},
-\coqdocvariable{t}
+: \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t},
+\coqdocvariable{s}
 \coqref{TermEquality.termbis}{$\sim$}
-\coqdocvariable{u} \ensuremath{\leftrightarrow}
-\coqdocvariable{t}
-\coqref{TermEquality.termeq}{$equiv$}
-\coqdocvariable{u}.\coqdoceol
+\coqdocvariable{t} \ensuremath{\leftrightarrow}
+\coqdocvariable{s}
+\coqref{TermEquality.termeq}{$\equiv$}
+\coqdocvariable{t}.\coqdoceol
 \coqdocemptyline
 \coqdocnoindent
 \coqdockw{Lemma}
@@ -353,13 +339,13 @@ relation, and that indeed it is an equality:
 \coqdocnoindent
 \coqdockw{Lemma}
 \coqdef{TermEquality.termbissymm}{term\_bis\_symm}{\coqdoclemma{$\sim_\text{symm}$}}
-: \ensuremath{\forall} \coqdocvar{t} \coqdocvar{u},
+: \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t},
+\coqdocvariable{s}
+\coqref{TermEquality.termbis}{$\sim$}
+\coqdocvariable{t} $\rightarrow$
 \coqdocvariable{t}
 \coqref{TermEquality.termbis}{$\sim$}
-\coqdocvariable{u} $\rightarrow$
-\coqdocvariable{u}
-\coqref{TermEquality.termbis}{$\sim$}
-\coqdocvariable{t}.\coqdoceol
+\coqdocvariable{s}.\coqdoceol
 \coqdocemptyline
 \coqdocnoindent
 \coqdockw{Lemma}
@@ -379,11 +365,12 @@ relation, and that indeed it is an equality:
 
 % TODO: we already defined a cauchy convergence earlier
 % TODO: \equpto is a notion only defined in coq
-In Section~\ref{sec:seq} we use the notion of convergence of an infinite
-sequence of terms. A sequence of terms $\{ t_1, t_2, t_3, \ldots \}$ converges
-to the term $t$ by the notion of \emph{Cauchy convergence} if for all depths
-$d$ there exists $n$ such that for every $m \geq n$ we have $t_m \equpto{d}
-t$. This is implemented in \Coq as follows:
+In Section~\ref{sec:seq} we need some notion of convergence for functions of
+type
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+$\rightarrow$
+\coqref{Term.term}{\coqdocinductive{term}}. We implement
+Definition~\ref{def:cauchy} in \Coq for sequences of length $\omega$.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -405,8 +392,8 @@ t$. This is implemented in \Coq as follows:
 \end{coqdoccode}
 \end{singlespace}
 
-The definitions of finite term, rewrite rule, context and substitution from
-Section~\ref{sub:trs} translate to \Coq directly. We define
+The definitions of finite term, rewrite rule, TRS, context and substitution
+from Section~\ref{sub:trs} translate to \Coq directly. We define
 \coqdocprojection{lhs} and \coqdocprojection{rhs} to be first and second
 projection on rewrite rules.
 
