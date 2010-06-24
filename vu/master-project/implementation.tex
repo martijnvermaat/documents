@@ -50,7 +50,8 @@ a central role. Therefore, any reasonable formalization of infinitary
 rewriting ought to have some notion of ordinal numbers.
 
 We define the ordinal numbers using the representation of Brouwer
-ordinals (cf.~Definition~\ref{def:ordinals}):
+ordinals (cf.~Definition~\ref{def:ordinals}) in \Coq by
+\coqref{Ordinal.ord}{\coqdocinductive{ord}}.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -73,7 +74,7 @@ ordinals (cf.~Definition~\ref{def:ordinals}):
 \end{singlespace}
 In fact, all definitions from Section~\ref{sub:brouwer} translate directly to
 \Coq code. We can now prove basic properties of $\preceq$, for example that it
-is transitive:
+is transitive.
 % TODO: maybe add another example
 \begin{singlespace}
 \begin{coqdoccode}
@@ -96,7 +97,9 @@ is transitive:
 
 Recalling our discussion in Section~\ref{sub:brouwer} of limit ordinals whose
 sequences do not actually approximate to a limit ordinal, we consider the
-following lemma as an example of this issue:
+lemma
+\coqref{Ordinal.ordlezeroright}{\coqdoclemma{\ensuremath{\preceq_{\text{zero\_right}}}}}
+as an example of this issue.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -111,13 +114,14 @@ following lemma as an example of this issue:
 \coqdocvariable{\ensuremath{\beta}}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-We would like to strengthen this, but cannot, since nothing denies \coqdocvariable{\ensuremath{\alpha}}
-from being the Brouwer ordinal $\sqcup \{ 0, 0, 0, \ldots \}$ (which has the
-same rank as $0$). We therefore turn to a subset of the Brouwer ordinals where
-we restrict limit sequences to be strictly monotonic. This restriction is
-encoded in the \coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} property. The
-$\Sigma$-type \coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}}
-defines the resulting subset:
+We would like to strengthen this, but cannot, since nothing denies
+\coqdocvariable{$\alpha$} from being the Brouwer ordinal $\sqcup \{ 0, 0, 0,
+\ldots \}$ (which has the same rank as $0$). We therefore turn to a subset of
+the Brouwer ordinals where we restrict limit sequences to be strictly
+monotonic. This restriction is encoded in the
+\coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} property. The $\Sigma$-type
+\coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}} defines the
+resulting subset.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -152,8 +156,7 @@ defines the resulting subset:
 \coqref{WfOrdinal.wf}{\coqdocdefinition{wf}}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-
-Now we can prove the stronger result we were looking for:\footnote{Although
+Now we can prove the stronger result we were looking for.\footnote{Although
   \coqdocvariable{\ensuremath{\alpha}} has type
   \coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}} and $\preceq$
   has type \coqref{Ordinal.ord}{\coqdocinductive{ord}} $\rightarrow$
@@ -190,8 +193,7 @@ to ensure productivity of the construction.
 % TODO: productivity or effectiveness?
 We defer discussion of this restriction to Section~\ref{sub:guardedness}, and
 define the type \coqref{Term.term}{\coqdocinductive{term}} of infinite terms
-with function symbols in \coqdocvar{F} and variables in \coqdocvar{X} as
-follows:
+with function symbols in \coqdocvar{F} and variables in \coqdocvar{X}.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -224,7 +226,6 @@ Definitions~\ref{def:bisimilarity} and \ref{def:equiv}. The coinductive
 predicate \coqref{TermEquality.termbis}{$\sim$} defines bisimilarity and
 syntactical equality is defined by \coqref{TermEquality.termeq}{$\equiv$}
 inductively.
-
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -258,7 +259,6 @@ inductively.
 \end{singlespace}
 Any proof of two infinite terms being bisimilar is an infinite proof, in the
 sense that the proof term is built by corecursion.
-
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -311,10 +311,9 @@ sense that the proof term is built by corecursion.
 \end{singlespace}
 
 % TODO: leave out the lemma statements?
-
 We can prove that \coqref{TermEquality.termbis}{$\sim$} and
 \coqref{TermEquality.termeq}{$\equiv$} are the same
-relation, and that indeed it is an equality:
+relation, and that indeed it is an equality.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -391,7 +390,6 @@ Definition~\ref{def:cauchy} in \Coq for sequences of length $\omega$.
 \coqdocvariable{t}.
 \end{coqdoccode}
 \end{singlespace}
-
 The definitions of finite term, rewrite rule, TRS, context and substitution
 from Section~\ref{sub:trs} translate to \Coq directly. We define
 \coqdocprojection{lhs} and \coqdocprojection{rhs} to be first and second

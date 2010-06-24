@@ -4,7 +4,10 @@ This chapter does not contain original material.
 
 Before we can study infinitary rewriting, we must introduce ordinal numbers.
 
-% TODO: note that we are explicit in de wording: sequence vs rewrite sequence
+Orthogonal TRSs have some nice properties, for example UN$^{\infty}$ and
+compression.
+
+% TODO: note that we are explicit in the wording: sequence vs rewrite sequence
 
 
 \section{Ordinal Numbers}
@@ -290,6 +293,8 @@ coinduction on $s$ ($\Leftarrow$).
   $Var(r) \subseteq Var(l)$.
 \end{definition}
 
+We say a rewrite rule is \emph{left-linear} if its left-hand side is linear.
+
 \begin{definition}%[TRS]
 A \emph{term rewriting system} (TRS) $\mathcal{R}$ is a pair $\langle \Sigma,
 R \rangle$ of a signature $\Sigma$ and a set of rewrite rules $R$ on
@@ -348,7 +353,8 @@ If we view a rewriting rule $\rho : l \rightarrow r$ as a \emph{scheme}, an
 \emph{instance} of $\rho$ can be obtained by applying a substitution
 $\sigma$. The result is the \emph{atomic} rewrite step $l^\sigma
 \rightarrow_\rho r^\sigma$. We call $l^\sigma$ a ($\rho$-) \emph{redex} and
-$r^\sigma$ its \emph{contractum}.
+$r^\sigma$ its \emph{contractum}. An atomic rewrite step can be placed in a
+context, forming a rewrite step.
 
 \begin{definition}%[Rewrite step]
 A \emph{rewrite step} $C[l^\sigma] \rightarrow_\rho C[r^\sigma]$ according to
@@ -405,6 +411,33 @@ length $\alpha$ is
 \end{definition}
 
 
-\subsection{Orthogonality}
+\subsection{Normal Forms and Orthogonality}
 
-TODO: Normal forms, left-linearity, critical pairs, compression, etc.
+TODO: here we probably cannot get away without definitions of position,
+occurrence, and critical pair.
+
+A term is a \emph{normal form} if it contains no redex occurrences.
+
+%We say two rewrite rules $\rho_1 : l_1 \rightarrow r_2$ and $\rho_2 : l_2
+%\rightarrow r_2$ overlap if there is a term $t$ with overlapping occurrences
+%of the pattern of $l_1$ and the pattern of $l_2$.
+
+%Two redex occurrences in a term $t$ overlap if their patterns share at least
+%one symbol occurrence. Here we do not count the trivial overlap between a
+%redex s and itself, unless s is a redex with respect to two different
+%reduction rules.
+%We say two rewrite rules $\rho_1, \rho_2$ overlap if there is a term $t$ with
+%overlapping occurrences of a $\rho_1$- and $\rho_2$-redex.
+
+\begin{definition}%[Orthogonality]
+A TRS is called
+\begin{compactenum}
+  \item \emph{left-linear} if all its rewrite rules are left-linear,
+  \item \emph{orthogonal} if it is left-linear and there are no critical pairs and
+  \item \emph{weakly orthogonal} if it is left-linear and all critical pairs
+    are trivial.
+\end{compactenum}
+\end{definition}
+
+Orthogonal TRSs have unique normal forms. See Chapter~\ref{chap:unwo} for
+weakly orthogonal TRSs.
