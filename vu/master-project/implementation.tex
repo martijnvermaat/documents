@@ -524,22 +524,22 @@ rewrite sequences. The set of predecessor indices is easily defined as
 \coqdockw{Fixpoint}
 \coqdef{Rewriting.predtype}{pred\_type}{\coqdocdefinition{pred\_type}}
 \coqdocvar{s} \coqdocvar{t}
-(\coqdocvar{$\rho$} : \coqdocvar{s}
+(\coqdocvar{$\varphi$} : \coqdocvar{s}
 \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$} \coqdocvar{t}) :
 \coqdockw{Type} :=\coqdoceol
 \coqdocindent{1.00em}
-\coqdockw{match} \coqdocvariable{$\rho$} \coqdockw{with}\coqdoceol
+\coqdockw{match} \coqdocvariable{$\varphi$} \coqdockw{with}\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|} \coqref{Rewriting.Nil}{\coqdocconstructor{Nil}} \coqdocvar{\_}
 \ensuremath{\Rightarrow}
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Logic}{False}{\coqdocinductive{False}}\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|} \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}}
-\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{\_} \coqdocvar{$\tau$} \coqdocvar{\_}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{\_} \coqdocvar{$\psi$} \coqdocvar{\_}
 \ensuremath{\Rightarrow}
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{unit}{\coqdocinductive{unit}}
 + \coqref{Rewriting.predtype}{\coqdocdefinition{pred\_type}}
-\coqdocvariable{$\tau$}\coqdoceol
+\coqdocvariable{$\psi$}\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|} \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} \coqdocvar{\_}
 \coqdocvar{\_} \coqdocvar{\_} \coqdocvar{f} \coqdocvar{\_}
@@ -566,10 +566,10 @@ the source and target terms of the rewrite step.
 \begin{coqdoccode}
 \coqdocnoindent
 \coqdockw{Fixpoint} \coqdef{Rewriting.pred}{pred}{\coqdocdefinition{pred}}
-\coqdocvar{s} \coqdocvar{t} (\coqdocvar{$\rho$} : \coqdocvar{s}
+\coqdocvar{s} \coqdocvar{t} (\coqdocvar{$\varphi$} : \coqdocvar{s}
 \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$} \coqdocvar{t})
-(\coqdocvar{i} : \coqref{Rewriting.predtype}{\coqdocdefinition{pred\_type}}
-\coqdocvariable{$\rho$})
+(\coqdocvar{$\iota$} : \coqref{Rewriting.predtype}{\coqdocdefinition{pred\_type}}
+\coqdocvariable{$\varphi$})
 :\coqdoceol \coqdocindent{2.00em}
 \{ \coqdocvar{ts} :
 \coqref{Term.term}{\coqdocabbreviation{term}} \ensuremath{\times}
@@ -582,17 +582,17 @@ the source and target terms of the rewrite step.
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{snd}{\coqdocdefinition{snd}}
 \coqdocvariable{ts}) \} :=\coqdoceol
 \coqdocindent{1.00em}
-\coqdockw{match} \coqdocvariable{$\rho$} \coqdockw{with}\coqdoceol
+\coqdockw{match} \coqdocvariable{$\varphi$} \coqdockw{with}\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|} \coqref{Rewriting.Nil}{\coqdocconstructor{Nil}} \coqdocvar{\_}
 \ensuremath{\Rightarrow}
 (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Logic}{Falserect}{\coqdocdefinition{False\_rect}}
-\coqdocvar{\_}) \coqdocvariable{i} \coqdoceol
+\coqdocvar{\_}) \coqdocvariable{$\iota$} \coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|} \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}} \coqdocvar{\_}
-\coqdocvar{u} \coqdocvar{t} \coqdocvar{$\tau$} \coqdocvar{$\pi$}
+\coqdocvar{u} \coqdocvar{t} \coqdocvar{$\psi$} \coqdocvar{$\pi$}
 \ensuremath{\Rightarrow}
-\coqdockw{match} \coqdocvariable{i} \coqdockw{with}\coqdoceol
+\coqdockw{match} \coqdocvariable{$\iota$} \coqdockw{with}\coqdoceol
 \coqdocindent{10.00em}
 \ensuremath{|}
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{inl}{\coqdocconstructor{inl}}
@@ -600,26 +600,26 @@ the source and target terms of the rewrite step.
 \ensuremath{\Rightarrow}
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{existT}{\coqdocconstructor{existT}}
 \coqdocvar{\_} (\coqdocvariable{u}, \coqdocvariable{t})
-(\coqdocvariable{$\tau$}, \coqdocvariable{$\pi$})\coqdoceol
+(\coqdocvariable{$\psi$}, \coqdocvariable{$\pi$})\coqdoceol
 \coqdocindent{10.00em}
 \ensuremath{|}
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{inr}{\coqdocconstructor{inr}}
-\coqdocvar{j}  \ensuremath{\Rightarrow}
-\coqref{Rewriting.pred}{\coqdocdefinition{pred}} \coqdocvariable{$\tau$}
-\coqdocvariable{j}\coqdoceol
+\coqdocvar{$\kappa$}  \ensuremath{\Rightarrow}
+\coqref{Rewriting.pred}{\coqdocdefinition{pred}} \coqdocvariable{$\psi$}
+\coqdocvariable{$\kappa$}\coqdoceol
 \coqdocindent{10.00em}
 \coqdockw{end}\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|} \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} \coqdocvar{\_}
 \coqdocvar{\_} \coqdocvar{\_} \coqdocvar{f} \coqdocvar{\_}
 \ensuremath{\Rightarrow}
-\coqdockw{match} \coqdocvariable{i} \coqdockw{with}\coqdoceol
+\coqdockw{match} \coqdocvariable{$\iota$} \coqdockw{with}\coqdoceol
 \coqdocindent{10.00em}
 \ensuremath{|}
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{existT}{\coqdocconstructor{existT}}
-\coqdocvar{n} \coqdocvar{j} \ensuremath{\Rightarrow}
+\coqdocvar{n} \coqdocvar{$\kappa$} \ensuremath{\Rightarrow}
 \coqref{Rewriting.pred}{\coqdocdefinition{pred}} (\coqdocvariable{f}
-\coqdocvariable{n}) \coqdocvariable{j}\coqdoceol
+\coqdocvariable{n}) \coqdocvariable{$\kappa$}\coqdoceol
 \coqdocindent{10.00em}
 \coqdockw{end}\coqdoceol
 \coqdocindent{1.00em}
@@ -635,16 +635,16 @@ the following notational shortcuts:
 {\renewcommand{\arraystretch}{1.1}
 \renewcommand{\tabcolsep}{10pt}
 \begin{tabular}{ll}
-$\rho[i]$ & location of $\rho$ indexed by $i$\\
-$\rho[i]^\textsc{seq}$ & predecessor rewrite sequence of $\rho$ indexed by $i$\\
-$\rho[i]^\textsc{stp}$ & step of $\rho$ indexed by $i$\\
-$\rho[i]^\textsc{l}$ & source term of $\rho[i]^\textsc{stp}$ (also target term
-  of $\rho[i]^\textsc{seq}$)\\
-$\rho[i]^\textsc{r}$ & target term of $\rho[i]^\textsc{stp}$
+$\varphi[\iota]$ & location of $\varphi$ indexed by $\iota$\\
+$\varphi[\iota]^\textsc{seq}$ & predecessor rewrite sequence of $\varphi$ indexed by $\iota$\\
+$\varphi[\iota]^\textsc{stp}$ & step of $\varphi$ indexed by $\iota$\\
+$\varphi[\iota]^\textsc{l}$ & source term of $\varphi[\iota]^\textsc{stp}$ (also target term
+  of $\varphi[\iota]^\textsc{seq}$)\\
+$\varphi[\iota]^\textsc{r}$ & target term of $\varphi[\iota]^\textsc{stp}$
 \end{tabular}}
 
 TODO: maybe include a graphical hint like the following (only prettier), where
-$i$ is the index $\coqdocconstructor{inr} \; (\coqdocconstructor{inr} \;
+$\iota$ is the index $\coqdocconstructor{inr} \; (\coqdocconstructor{inr} \;
 \langle 4, \coqdocconstructor{inl}\rangle)$:
 
 \includegraphics[draft=false]{figures/predecessor.pdf}
@@ -669,9 +669,9 @@ equivelent steps against each other.\footnote{Rewrite steps $\pi$ and $o$ are
   \item their contexts are bisimilar and
   \item their substitutions agree on all variables in $\rho$.
 \end{compactenum}}
-We say that $\rho$ is embedded in $\tau$ ($\rho \sqsubseteq \tau$) if $\tau$
-can be obtained from $\rho$ by inserting any number of steps in $\rho$. We
-distinguish between inserting a step
+We say that $\varphi$ is embedded in $\psi$ (written $\varphi
+\sqsubseteq \psi$) if $\psi$ can be obtained from $\varphi$ by inserting
+any number of steps in $\varphi$. We distinguish between inserting a step
 \begin{inparaenum}[(i)]
   \item before the first step,
   \item after the last step and
@@ -695,41 +695,42 @@ $\rightarrow$ \coqdockw{Prop} :=\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|}
 \coqdef{Rewriting.EmbedNil}{Embed\_Nil}{\coqdocconstructor{$\sqsubseteq_\text{Nil}$}}  :
-\ensuremath{\forall} \coqdocvar{s} \coqdocvar{u} \coqdocvar{v} (\coqdocvar{$\tau$}
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{u} \coqdocvar{v} (\coqdocvar{$\psi$}
 : \coqdocvariable{u} \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
 \coqdocvariable{v}),\coqdoceol
 \coqdocindent{9.50em}
 \coqref{Rewriting.Nil}{\coqdocconstructor{Nil}} \coqdocvariable{s}
-\coqref{Rewriting.embed}{$\sqsubseteq$} \coqdocvariable{$\tau$}\coqdoceol
+\coqref{Rewriting.embed}{$\sqsubseteq$} \coqdocvariable{$\psi$}\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|}
 \coqdef{Rewriting.EmbedCons}{Embed\_Cons}{\coqdocconstructor{$\sqsubseteq_\text{Cons}$}} :
 \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u} \coqdocvar{v}
-(\coqdocvar{$\tau$}
+(\coqdocvar{$\psi$}
 : \coqdocvariable{u} \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
-\coqdocvariable{v}) (\coqdocvar{i} :
+\coqdocvariable{v}) (\coqdocvar{$\iota$} :
 \coqref{Rewriting.predtype}{\coqdocdefinition{pred\_type}}
-\coqdocvariable{$\tau$})
-(\coqdocvar{$\rho$} : \coqdocvariable{s}
+\coqdocvariable{$\psi$})
+(\coqdocvar{$\varphi$} : \coqdocvariable{s}
 \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
-\coqdocvariable{$\tau$}[\coqdocvariable{i}]$^\textsc{l}$)\coqdoceol
+\coqdocvariable{$\psi$}[\coqdocvariable{$\iota$}]$^\textsc{l}$)\coqdoceol
 \coqdocindent{5.00em}
 (\coqdocvar{$\pi$} :
-\coqdocvariable{$\tau$}[\coqdocvariable{i}]$^\textsc{l}$
+\coqdocvariable{$\psi$}[\coqdocvariable{$\iota$}]$^\textsc{l}$
 \coqref{Rewriting.step}{$\rightarrow_\mathcal{R}$}
 \coqdocvariable{t}),\coqdoceol
 \coqdocindent{9.50em}
-\coqdocvariable{$\rho$} \coqref{Rewriting.embed}{$\sqsubseteq$}
-\coqdocvariable{$\tau$}[\coqdocvariable{i}]$^\textsc{seq}$
+\coqdocvariable{$\varphi$} \coqref{Rewriting.embed}{$\sqsubseteq$}
+\coqdocvariable{$\psi$}[\coqdocvariable{$\iota$}]$^\textsc{seq}$
 \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{9.50em}
 \coqdocvariable{$\pi$} $\approx$
-\coqdocvariable{$\tau$}[\coqdocvariable{i}]$^\textsc{stp}$
+\coqdocvariable{$\psi$}[\coqdocvariable{$\iota$}]$^\textsc{stp}$
 \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{9.50em}
-\coqref{Rewriting.Cons}{\coqdocconstructor{Cons}} \coqdocvariable{$\rho$}
-\coqdocvariable{$\pi$} \coqref{Rewriting.embed}{$\sqsubseteq$}
-\coqdocvariable{$\tau$}\coqdoceol
+\coqref{Rewriting.Cons}{\coqdocconstructor{Cons}}
+\coqdocvariable{$\varphi$} \coqdocvariable{$\pi$}
+\coqref{Rewriting.embed}{$\sqsubseteq$}
+\coqdocvariable{$\psi$}\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|}
 \coqdef{Rewriting.EmbedLim}{Embed\_Lim}{\coqdocconstructor{$\sqsubseteq_\text{Lim}$}}  :
@@ -744,17 +745,17 @@ $\rightarrow$ \coqdockw{Prop} :=\coqdoceol
 \coqdocindent{5.00em}
 (\coqdocvar{c} :
 \coqref{Rewriting.converges}{\coqdocdefinition{converges}} \coqdocvariable{ts}
-\coqdocvar{t}) (\coqdocvar{$\tau$} : \coqdocvar{u}
+\coqdocvar{t}) (\coqdocvar{$\psi$} : \coqdocvar{u}
 \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
 \coqdocvar{v}),\coqdoceol
 \coqdocindent{9.50em}
 (\ensuremath{\forall} \coqdocvar{n}, (\coqdocvariable{f} \coqdocvariable{n})
-\coqref{Rewriting.embed}{$\sqsubseteq$} \coqdocvariable{$\tau$})
+\coqref{Rewriting.embed}{$\sqsubseteq$} \coqdocvariable{$\psi$})
 \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{9.50em}
 \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} \coqdocvariable{f}
 \coqdocvariable{c} \coqref{Rewriting.embed}{$\sqsubseteq$}
-\coqdocvariable{$\tau$}.\coqdoceol
+\coqdocvariable{$\psi$}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 % TODO: say what implicit/explicit arguments for cons and lim are
@@ -765,16 +766,16 @@ Strict embedding relation. It really expands after the last step!
 \coqdocnoindent
 \coqdockw{Definition}
 \coqdef{Rewriting.embedstrict}{embed\_strict}{$\sqsubset$}
-\coqdocvar{s} \coqdocvar{t} \coqdocvar{u} \coqdocvar{v} (\coqdocvar{$\rho$} :
-\coqdocvariable{s}
+\coqdocvar{s} \coqdocvar{t} \coqdocvar{u} \coqdocvar{v}
+(\coqdocvar{$\varphi$} : \coqdocvariable{s}
 \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
 \coqdocvariable{t},
-\coqdocvar{$\tau$} :
+\coqdocvar{$\psi$} :
 \coqdocvariable{u}
 \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
-\coqdocvariable{v}) := \ensuremath{\exists} \coqdocvar{i},
-\coqdocvariable{$\rho$} $\sqsubseteq$
-\coqdocvariable{$\tau$}[\coqdocvariable{i}]$^\textsc{seq}$.\coqdoceol
+\coqdocvariable{v}) := \ensuremath{\exists} \coqdocvar{$\iota$},
+\coqdocvariable{$\varphi$} $\sqsubseteq$
+\coqdocvariable{$\psi$}[\coqdocvariable{$\iota$}]$^\textsc{seq}$.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 

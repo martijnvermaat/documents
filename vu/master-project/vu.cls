@@ -163,7 +163,7 @@
       \renewcommand{\tabcolsep}{50pt}
       \begin{tabular}{c c}
         {\sc supervisor} & {\sc second reader}\\
-        {\sc dr.} R.D.A. Hendriks & {\sc dr.} R.C. de Vrijer
+        {\sc dr.} R.D.A.\ Hendriks & {\sc dr.} R.C.\ de Vrijer
     \end{tabular}}
     \end{center}
     \vfil\null

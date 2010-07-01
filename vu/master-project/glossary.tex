@@ -12,18 +12,21 @@ Names & Used for\\
 \multicolumn{2}{l}{\bf Ordinals}\\
 $\alpha, \beta, \gamma$ & ordinals\\
 $\lambda$ & limit ordinals\\
-$i, j, k$ & ordinal predecessor indices\\
+$\iota, \kappa$ & ordinal predecessor indices\\
 \multicolumn{2}{l}{\bf Terms}\\
 $x, y$ & variables\\
 $f, g$ & function symbols\\
-$s, t, u, v$ & terms\\
+$s, t, u$ & terms\\
 $\rho, \tau$ & rewrite rules\\
 $\mathcal{R}$ & TRSs\\
 $\sigma$ & substitutions\\
 \multicolumn{2}{l}{\bf Rewriting Sequences}\\
 $\pi, o$ & rewrite steps\\
-$\rho, \tau$ & rewrite sequences\\
+$\varphi, \psi$ & rewrite sequences\\
 \end{tabular}}
+% TODO: choose notation for rules/steps/sequences
+% We first had \rho and \tau for sequences, but also for rules (bad
+% clash). Joerg uses \varphi and \psi for steps.
 
 {\renewcommand{\arraystretch}{1.1}
 \renewcommand{\tabcolsep}{10pt}
@@ -31,8 +34,8 @@ $\rho, \tau$ & rewrite sequences\\
 Thesis & \Coq & Meaning\\
 \hline
 \multicolumn{3}{l}{\bf Ordinals}\\
-$I(\alpha)$ & \texttt{pd\_type(alpha)} & predecessor indices of $\alpha$\\
-$\alpha[i]$ & \texttt{alpha[i]} & predecessor of $\alpha$ indexed by $i$\\
+$\Phi(\alpha)$ & \texttt{pd\_type(alpha)} & predecessor indices of $\alpha$\\
+$\alpha[\iota]$ & \texttt{alpha[i]} & predecessor of $\alpha$ indexed by $\iota$\\
 $\alpha \preceq \beta$ & \texttt{alpha <= beta} & non-strict order\\
 $\alpha \prec \beta$ & \texttt{alpha < beta} & strict order\\
 $\alpha \simeq \beta$ & \texttt{alpha == beta} & extensional equality\\
@@ -47,12 +50,12 @@ $t$ in one step\\
 $\pi \approx o$ & \texttt{step\_eq p o} & equality of steps\\
 $s \twoheadrightarrow_\mathcal{R} t$ & \texttt{s ->{}> t} & $s$ rewrites to
 $t$\\
-$I(\rho)$ & \texttt{pred\_type(r)} & predecessor indices of $\rho$\\
-$\rho[i]$ & \texttt{r[i]} & predecessor location of $\rho$ indexed by $i$\\
-$\rho[i]^\textsc{seq}$ & \texttt{r[seq i]} & predecessor sequence of $\rho$ indexed by $i$\\
-$\rho[i]^\textsc{stp}$ & \texttt{r[stp i]} & predecessor step of $\rho$ indexed by $i$\\
-$\rho[i]^\textsc{l}$ & \texttt{r[1 i]} & left predecessor term of $\rho$ indexed by $i$\\
-$\rho[i]^\textsc{r}$ & \texttt{r[2 i]} & right predecessor term of $\rho$ indexed by $i$\\
-$\rho \sqsubseteq \tau$ & \texttt{r <= q} & $\rho$ is embedded in $\tau$\\
-$\rho \sqsubset \tau$ & \texttt{r < q} & $\rho$ is strictly embedded in $\tau$\\
+$\cdots$ & \texttt{pred\_type(r)} & predecessor indices of $\varphi$\\
+$\varphi[\iota]$ & \texttt{r[i]} & predecessor location of $\varphi$ indexed by $\iota$\\
+$\varphi[\iota]^\textsc{seq}$ & \texttt{r[seq i]} & predecessor sequence of $\varphi$ indexed by $\iota$\\
+$\varphi[\iota]^\textsc{stp}$ & \texttt{r[stp i]} & predecessor step of $\varphi$ indexed by $\iota$\\
+$\varphi[\iota]^\textsc{l}$ & \texttt{r[1 i]} & left predecessor term of $\varphi$ indexed by $\iota$\\
+$\varphi[\iota]^\textsc{r}$ & \texttt{r[2 i]} & right predecessor term of $\varphi$ indexed by $\iota$\\
+$\varphi \sqsubseteq \psi$ & \texttt{r <= q} & $\varphi$ is embedded in $\psi$\\
+$\varphi \sqsubset \psi$ & \texttt{r < q} & $\varphi$ is strictly embedded in $\psi$\\
 \end{tabular}}

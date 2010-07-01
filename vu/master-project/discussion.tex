@@ -54,7 +54,7 @@ TODO: additional remarks on productivity and guardedness restriction?
 In the \coqref{Term.term}{\coqdocinductive{term}} definition, we used a vector
 type, parameterized by the type of its element and its size. Naturally, one
 would implement a vector type in \Coq inductively, as for example has been
-done in the standard library:
+done in the standard library.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -77,7 +77,7 @@ done in the standard library:
 \end{singlespace}
 
 Now consider the following trivial example of a basic operation on terms by
-corecursive traversal:
+corecursive traversal.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -105,7 +105,6 @@ This definition is ill-formed, since the corecursive call to
   \coqref{Term.id}{\coqdocdefinition{id}} is hidden inside
   \coqdocdefinition{vmap}, which is defined by recursion on the vector
   \coqdocvariable{args}.}
-
 We define a recursive type of vectors as an alternative to the inductive type:
 \begin{singlespace}
 \begin{coqdoccode}
@@ -135,10 +134,10 @@ We define a recursive type of vectors as an alternative to the inductive type:
 \ensuremath{\rightarrow} \coqdocvariable{A}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-% TODO: explain this vector
+% TODO: explain this vector type
 This makes for a definition of \coqref{Vector.vmap}{\coqdocdefinition{vmap}}
 that is just an abstraction, and therefore solves the guardedness problem in
-\coqref{Term.id}{\coqdocdefinition{id}}:
+\coqref{Term.id}{\coqdocdefinition{id}}.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
