@@ -204,29 +204,27 @@ we call its \emph{arity}. A function symbol with arity $0$ is also called a
 \end{definition}
 
 \begin{definition}%[Term]
-The set of \emph{terms} $Ter_\Sigma^\infty(X)$ over a signature $\Sigma$ and a
+The set of \emph{terms} $\TerI(X)$ over a signature $\Sigma$ and a
 set of variables $X = \{x, y, \ldots\}$ is defined by coinduction:
 \begin{compactenum}
   \item
-    $x \in Ter_\Sigma^\infty(X)$ for every variable $x \in X$.
+    $x \in \TerI(X)$ for every variable $x \in X$.
   \item
-    For every $f \in \Sigma$, if $t_1, \ldots, t_{\#f} \in
-    Ter_\Sigma^\infty(X)$, then $f(t_1, \ldots, t_{\#f}) \in
-    Ter_\Sigma^\infty(X)$.
+    For every $f \in \Sigma$, if $t_1, \ldots, t_{\#f} \in \TerI(X)$,
+    then $f(t_1, \ldots, t_{\#f}) \in \TerI(X)$.
 %  \item
 %    If $f$ is a function symbol with arity $n$ and $t_1, \ldots, t_n \in
-%    Ter_\Sigma^\infty(X)$, then $f(t_1, \ldots, t_n) \in
-%      Ter_\Sigma^\infty(X)$.
+%    \TerI(X)$, then $f(t_1, \ldots, t_n) \in \TerI(X)$.
 \end{compactenum}
 \end{definition}
 
 The terms $t_i$ are called the \emph{arguments} of $f(t_1, \ldots, t_n)$ and
-the symbol $f$ the \emph{root}. By $Var(t)$ we denote the set of variables
-occuring in $t$, and $t$ is \emph{closed} if $Var(t) = \emptyset$. If no
+the symbol $f$ the \emph{root}. By $\Var(t)$ we denote the set of variables
+occuring in $t$, and $t$ is \emph{closed} if $\Var(t) = \emptyset$. If no
 variable occurs more than once in $t$, we say $t$ is \emph{linear}.
-Often, the set of variables $X$ is left implicit and $Ter_\Sigma^\infty(X)$ is
-denoted simply by $Ter_\Sigma^\infty$. By the set of \emph{finite terms}
-$Ter_\Sigma$ we mean the subset of well-founded terms of $Ter_\Sigma^\infty$.
+Often, the set of variables $X$ is left implicit and $\TerI(X)$ is
+denoted simply by $\TerI$. By the set of \emph{finite terms} $\Ter$ we
+mean the subset of well-founded terms of $\TerI$.
 
 Preparing for the mechanized setting of Section~\ref{chap:implementation} with
 its constrains of finite memory and computing time, we want to be precise
@@ -239,7 +237,7 @@ to be equal if they are
 matter ultimately which equality we use.
 
 \begin{definition}\label{def:bisimilarity}%[Bismilarity]
-We define the \emph{bisimilarity relation} $\sim$ on $Ter_\Sigma^\infty$ by
+We define the \emph{bisimilarity relation} $\sim$ on $\TerI$ by
 coinduction:
 \begin{compactenum}
   \item
@@ -255,7 +253,7 @@ We say that $s$ and $t$ are \emph{bisimilar} if $s \sim t$.
 \emph{(Syntactic) equivalence} of terms $s$ and $t$ \emph{up to depth} $d$,
 written $s \equpto{d} t$, is defined by induction:
 \begin{compactenum}
-  \item $s \equpto{0} t$ for every $s, t \in Ter_\Sigma^\infty$.
+  \item $s \equpto{0} t$ for every $s, t \in \TerI$.
   \item $x \equpto{d} x$ for every $d \in \mathbb{N}$ and $x \in X$.
   \item For every $f \in \Sigma$, if $s_i \equpto{d} t_i$ for all $1 \leq i
     \leq \#f$, then $f(s_1, \ldots s_{\#f}) \equpto{d+1} f(t_1, \ldots,
@@ -276,9 +274,9 @@ coinduction on $s$ ($\Leftarrow$).
 
 \begin{definition}%[Rewrite rule]
   A \emph{rewrite rule} $\rho$ for a signature $\Sigma$ is a pair $\langle l,
-  r \rangle$ of finite terms in $Ter_\Sigma$ (written $\rho : l \rightarrow
+  r \rangle$ of finite terms in $\Ter$ (written $\rho : l \rightarrow
   r$). We restrict ourselves to rewrite rules where $l$ is not a variable and
-  $Var(r) \subseteq Var(l)$.
+  $\Var(r) \subseteq \Var(l)$.
 \end{definition}
 
 We say a rewrite rule is \emph{left-linear} if its left-hand side is linear.
@@ -296,16 +294,15 @@ reason being that we choose not to consider multi-hole contexts).
 % TODO: maybe this needs more explaining
 
 \begin{definition}%[Context]
-The set of (one-hole) \emph{contexts} $Ctx_\Sigma^\infty$ over a signature
+The set of (one-hole) \emph{contexts} $\Ctx$ over a signature
 $\Sigma$ is defined by induction:
 \begin{compactenum}
   \item
-    $\Box \in Ctx_\Sigma^\infty$.
+    $\Box \in \Ctx$.
   \item
     For every $f \in \Sigma$ and $1 \le n \le \#f$, if $t_1, \ldots, t_{\#f -
-      1} \in Ter_\Sigma^\infty$ and $C \in Ctx_\Sigma^\infty$, then $f(t_1,
-    \ldots, t_{n - 1}, C, t_{n + 1}, \ldots, t_{\#f - 1}) \in
-    Ctx_\Sigma^\infty$.
+      1} \in \TerI$ and $C \in \Ctx$, then $f(t_1, \ldots, t_{n - 1},
+    C, t_{n + 1}, \ldots, t_{\#f - 1}) \in \Ctx$.
 \end{compactenum}
 \end{definition}
 
@@ -319,9 +316,9 @@ TODO: this seemed to me the shortest way to define the hole depth?
 \begin{definition}%[Substitution]
 % TODO: now we only generalize to finite terms
 Given a signature $\Sigma$ and a set of variables $X$, a \emph{substitution}
-$\sigma$ is a mapping from $X$ to $Ter_\Sigma^\infty(X)$. It can be
-generalized to a mapping $\bar{\sigma} : Ter_\Sigma(X) \rightarrow
-Ter_\Sigma^\infty(X)$ recursively:
+$\sigma$ is a mapping from $X$ to $\TerI(X)$. It can be
+generalized to a mapping $\bar{\sigma} : \Ter(X) \rightarrow
+\TerI(X)$ recursively:
 \begin{align*}
   \bar{\sigma}(x) &= \sigma(x)\\
   \bar{\sigma}(f(t_1, \ldots, t_n)) &= f(\bar{\sigma}(t_1), \ldots,

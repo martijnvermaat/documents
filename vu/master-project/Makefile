@@ -51,6 +51,8 @@ $(SLIDES).pdf: $(SLIDESDEPS)
 # compilation passes that are done by the %.pdf rule.
 %.bbl: %.bib %.tex
 	$(PDFLATEX) $(PDFLATEXFLAGS) $*
+	$(BIBTEX) $*
+	$(PDFLATEX) $(PDFLATEXFLAGS) $*
 	while egrep -q -s 'Rerun (LaTeX|to get cross-references right)' $*.log ;\
 	    do \
 	        $(PDFLATEX) $(PDFLATEXFLAGS) $* ;\
