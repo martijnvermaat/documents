@@ -6,10 +6,18 @@ To generate PDF files from the sources, run
 Required LaTeX packages:
 
   beamer (requiring pgf and xcolor)
-  mathpartir
   amsmath
   amssymb
   amsthm
-  sectsty
   hyperref
   hypcap
+  coqdoc (probably version from Coq 8.3 beta)
+  mathdots
+  tgtermes
+  qtxmath
+  helvet
+  titlesec
+  natbib
+  ntheorem
+  paralist
+  graphicx
