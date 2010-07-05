@@ -647,7 +647,7 @@ As an example, consider the graphical representation of a rewrite
 sequence $\varphi$ of length $\omega + 2$ and its predecessor index
 $\iota = \coqdocconstructor{inr} \; (\coqdocconstructor{inr} \;
 \langle 4, \coqdocconstructor{inl}\rangle)$ in
-figure~\ref{fig:pred}. The initial part of length $\omega$ is
+Figure~\ref{fig:pred}. The initial part of length $\omega$ is
 represented by a series of finite rewrite sequences, each extending on
 the previous by one step. The sequence of terms $\{ t_1,t_2, t_3,
 \ldots \}$ converges to the term $t_\omega$.
@@ -656,7 +656,7 @@ $t_3$ and $\varphi[\iota]^\textsc{stp}$ is a step from $t_3$ to
 $t_4$.
 
 \begin{figure}
-\begin{centering}
+\begin{center}
 \begin{tikzpicture}
   \node at (1, 0) {$t_{1}$};
   \foreach \i in {2, ..., 5}{%
@@ -697,7 +697,7 @@ $t_4$.
           (node43);
   \end{scope}
  \end{tikzpicture}
-\end{centering}
+\end{center}
 \caption{Example of a rewrite sequence and predecessor
   index.}\label{fig:pred}
 \end{figure}

@@ -39,8 +39,32 @@
 % A4 page
 \usepackage{a4}
 
+% Abstract
+\usepackage{abstract}
+\renewcommand{\abstractnamefont}{\normalfont\sc}
+
 % Headings
-%\pagestyle{headings}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\fancyhead{}
+\fancyfoot{}
+
+\renewcommand{\chaptermark}[1]{\markboth{\textsc{Chapter
+      \thechapter}\hskip 1em #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\textsc{Section
+      \thesection}\hskip 1em #1}}
+
+\fancyhead[LO]{\leftmark}
+\fancyhead[RE]{\rightmark}
+\fancyfoot[LO,RE]{\textsc{\thepage}}
+% TODO: fix page numbering (check if they are all textsc)
+
+% Redefine plain page style
+\fancypagestyle{plain}{%
+  \fancyhead{} % get rid of headers
+  \renewcommand{\headrulewidth}{0pt} % and the line
+}
 
 % Chapter and section title styles
 \usepackage{titlesec}
@@ -117,6 +141,12 @@
 \theoremsymbol{\ensuremath{\Box}}
 \theoremseparator{.}
 \newtheorem{proof}{Proof}
+
+% Figure captions
+\usepackage[labelfont=sc,labelsep=period]{caption}
+
+% Figure numbering
+\renewcommand{\thefigure}{\arabic{figure}}
 
 % Additional list environments
 \usepackage{paralist}

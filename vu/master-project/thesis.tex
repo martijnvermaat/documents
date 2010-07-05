@@ -1,4 +1,4 @@
-\documentclass[oneside,draft]{vu}
+\documentclass[twoside,draft]{vu}
 
 % Hyphenation patterns for English
 \usepackage[english]{babel}
@@ -53,8 +53,6 @@
 \makefrontmatter
 \maketitle
 
-\include{preface}
-
 \begin{abstract}
   % 250 words
   We formalize the basic notions from the theory of infinitary
@@ -67,7 +65,7 @@
   Joint work with Dimitri Hendriks.
 \end{abstract}
 
-\include{glossary}
+\include{preface}
 
 \tableofcontents
 
@@ -76,6 +74,10 @@
 \include{implementation}
 \include{unwo}
 \include{discussion}
+
+\appendix
+
+\include{glossary}
 
 \pagebreak
 
