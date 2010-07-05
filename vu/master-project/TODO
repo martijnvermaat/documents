@@ -17,6 +17,7 @@ coqdoc --latex -s -g --coqlib http://coq.inria.fr/stdlib/ -d coqdoc *.v
 
 http://wiki.cs.vu.nl/mp/index.php/Main_Page
 
+http://www.texample.net/tikz/examples/rotated-triangle/
 http://www.ece.ucdavis.edu/~jowens/commonerrors.html
 http://www.cl.cam.ac.uk/~mgk25/publ-tips/
 http://consequently.org/edit/page/Proof_Theory_and_Philosophy/Typesetting_PTP
