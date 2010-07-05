@@ -643,11 +643,64 @@ $\varphi[\iota]^\textsc{l}$ & source term of $\varphi[\iota]^\textsc{stp}$ (also
 $\varphi[\iota]^\textsc{r}$ & target term of $\varphi[\iota]^\textsc{stp}$
 \end{tabular}}
 
-TODO: maybe include a graphical hint like the following (only prettier), where
-$\iota$ is the index $\coqdocconstructor{inr} \; (\coqdocconstructor{inr} \;
-\langle 4, \coqdocconstructor{inl}\rangle)$:
+As an example, consider the graphical representation of a rewrite
+sequence $\varphi$ of length $\omega + 2$ and its predecessor index
+$\iota = \coqdocconstructor{inr} \; (\coqdocconstructor{inr} \;
+\langle 4, \coqdocconstructor{inl}\rangle)$ in
+figure~\ref{fig:pred}. The initial part of length $\omega$ is
+represented by a series of finite rewrite sequences, each extending on
+the previous by one step. The sequence of terms $\{ t_1,t_2, t_3,
+\ldots \}$ converges to the term $t_\omega$.
+Here, $\varphi[\iota]^\textsc{seq}$ is a rewrite sequence from $t_1$ to
+$t_3$ and $\varphi[\iota]^\textsc{stp}$ is a step from $t_3$ to
+$t_4$.
 
-\includegraphics[draft=false]{figures/predecessor.pdf}
+\begin{figure}
+\begin{centering}
+\begin{tikzpicture}
+  \node at (1, 0) {$t_{1}$};
+  \foreach \i in {2, ..., 5}{%
+    \begin{scope}[start chain=\i,every join/.style=->,node distance=0.5]
+      \node [on chain=\i, join] at (1, -\i + 1) {$t_{1}$};
+      \foreach \j in {2, ..., \i}{%
+        \node (node\i\j) [on chain=\i, join] {$t_{\j}$};
+      }
+    \end{scope}
+  }
+  \node at (1, -5) {$\vdots$};
+  \node at (5, -5) {$\ddots$};
+  \begin{scope}[start chain=i,every join/.style=->,node distance=0.5]
+    \node [on chain=i, join] at (1, -6) {$t_{1}$};
+    \foreach \j in {2, ..., 5}{%
+      \node [on chain=i, join] {$t_{\j}$};
+    }
+    \node [on chain=i, join] {$\cdots$};
+    \node [on chain=i, join] {$t_{i}$};
+  \end{scope}
+  \node at (1, -7) {$\vdots$};
+  \node at (7, -7) {$\ddots$};
+  \begin{scope}[start chain=o,every join/.style=->,node distance=0.5]
+    \node (nodeO) [on chain=o, join] at (10, -3.5) {$t_\omega$};
+    \node (nodeO1) [on chain=o, join] {$t_{\omega+1}$};
+    \node (nodeO2) [on chain=o, join] {$t_{\omega+2}$};
+  \end{scope}
+  \begin{scope}[auto]
+    \draw [->, thick] (nodeO2) to [out=110,in=70] node [swap]
+          {\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{inr}{\coqdocconstructor{inr}}}
+          (nodeO1);
+    \draw [->, thick] (nodeO1) to [out=110,in=70] node [swap]
+          {\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{inr}{\coqdocconstructor{inr}}}
+          (nodeO);
+    \draw [->, thick] (nodeO) to [out=100,in=50] node [swap] {4} (node44);
+    \draw [->, thick] (node44) to [out=110,in=70] node [swap]
+          {\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{inr}{\coqdocconstructor{inl}}}
+          (node43);
+  \end{scope}
+ \end{tikzpicture}
+\end{centering}
+\caption{Example of a rewrite sequence and predecessor
+  index.}\label{fig:pred}
+\end{figure}
 
 % TODO: better wording for 'canceled out'?
 Having a closer look at the order $\preceq$ on the Brouwer ordinals, we can
