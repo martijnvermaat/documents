@@ -8,6 +8,7 @@ Orthogonal TRSs have some nice properties, for example UN$^{\infty}$ and
 compression.
 
 % TODO: note that we are explicit in the wording: sequence vs rewrite sequence
+% TODO: \Ord etc always in math mode (no space is added after it)
 
 
 \section{Ordinal Numbers}
@@ -135,9 +136,9 @@ $1 + A$ of the unit type $1$ and $A$. We use \textsc{none} and \textsc{some
 $\Phi(0)$ of predecessor indices for $0$ is uninhabited.
 
 \begin{definition}%[Predecessor]
-The function $\_[\_] : (\prod \alpha : \Ord) \; \Phi(\alpha) \rightarrow
-\Ord$ defines the \emph{predecessor} $\alpha[\iota]$ of $\alpha$
-indexed by $\iota$ recursively on $\alpha$:
+The function $\_[\_] : (\prod \alpha : \Ord) \; \Phi(\alpha)
+\rightarrow \Ord$ defines the \emph{predecessor} $\alpha[\iota]$
+\emph{of} $\alpha$ \emph{indexed by} $\iota$ recursively on $\alpha$:
 \begin{align*}
   \alpha^+[\textsc{none}]                     &= \alpha \\
   \alpha^+[\textsc{some $\iota$}]             &= \alpha[\iota] \\
@@ -154,6 +155,8 @@ non-strict order relation on \Ord that classifies ordinals by rank.
 % TODO: note <= infix notation
 % TODO: or use the set-theoretic definitions from hancock?
 % TODO: infix notations are used all the time, maybe state this at front
+% TODO: does \sqcup_i start at 0 or 1? we have pred_type saying all of
+% the natural numbers, but this definition starting at \alpha_1...
 \begin{definition}\label{def:order}%[Order]
 We define the \emph{order} $\preceq$ as a binary relation on \Ord by
 induction (and write $\alpha \preceq \beta$ for $\langle \alpha, \beta \rangle

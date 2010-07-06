@@ -11,6 +11,10 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{amsthm}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
 
 %\usepackage{tgtermes}
 \usepackage{tgheros}
@@ -51,7 +55,7 @@
 
 \frame{
 
-  \frametitle{Infinitary Rewriting in \Coq}
+  \frametitle{Infinitary rewriting in \Coq}
 
   \tableofcontents
 
@@ -89,18 +93,264 @@
 
 \frame{
 
-  \frametitle{Related Work}
+  \frametitle{Related work}
 
-  Rewriting in \Coq
+  \begin{block}{Rewriting in \Coq}
+    \begin{description}
+    \item[\CoLoR] focussed on termination
+    \item[\Coccinelle] base of \CiME termination tool
+    \end{description}
+  \end{block}
 
-  Ordinals in \Coq
+  \begin{block}{Ordinals in \Coq}
+    \begin{itemize}
+    \item Veblen Normal Form (Casteran)
+    \item Set-theoretic ordinals (Mamane)
+    \end{itemize}
+  \end{block}
 
 }
 
 
-\section{Infinite Terms}
+\section{Infinite terms}
+
+
+\frame{
+
+  \frametitle{Infinitary rewriting in \Coq}
+
+  \tableofcontents[currentsection]
+
+}
+
+
+\frame{
+
+  \frametitle{Coinductive terms}
+
+  $\TerI(\X)$ defined in \Coq:\\[2em]
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{CoInductive}
+\coqdocinductive{term} :
+\coqdockw{Type} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Var} :
+\coqdocvar{X}
+\ensuremath{\rightarrow}
+\coqdocinductive{term}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Fun} :
+\ensuremath{\forall} \coqdocvar{f} : \coqdocvar{F},
+\coqdocdefinition{vector}
+\coqdocinductive{term}
+(\coqdocprojection{arity} \coqdocvariable{f})
+\ensuremath{\rightarrow}
+\coqdocinductive{term}.\coqdoceol
+\end{coqdoccode}
+
+% TODO: guardedness problem?
+
+}
+
+
+\frame{
+
+  \frametitle{Equalities on infinite terms}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{CoInductive}
+$\sim$ :
+\coqdocinductive{term} \ensuremath{\rightarrow}
+\coqdocinductive{term} \ensuremath{\rightarrow}
+\coqdockw{Prop} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{$\sim_\text{Var}$}
+:
+\ensuremath{\forall} \coqdocvar{x},
+\coqdocconstructor{Var} \coqdocvariable{x}
+$\sim$
+\coqdocconstructor{Var}
+\coqdocvariable{x}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{$\sim_\text{Fun}$}
+:
+\ensuremath{\forall} \coqdocvar{f} \coqdocvar{v} \coqdocvar{w},
+(\ensuremath{\forall} \coqdocvar{i},
+\coqdocvariable{v} \coqdocvariable{i}
+$\sim$
+\coqdocvariable{w} \coqdocvariable{i})
+\ensuremath{\rightarrow}
+\coqdocconstructor{Fun} \coqdocvariable{f}
+\coqdocvariable{v}
+$\sim$
+\coqdocconstructor{Fun} \coqdocvariable{f}
+\coqdocvariable{w}.\coqdoceol
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Inductive}
+\equpto{}
+:
+\coqdocinductive{nat}
+\ensuremath{\rightarrow} \coqdocinductive{term}
+\ensuremath{\rightarrow} \coqdocinductive{term}
+\ensuremath{\rightarrow} \coqdockw{Prop} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{teut$_0$}   :
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t},
+\coqdocvariable{s} \equpto{0}
+\coqdocvariable{t}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{teut$_\text{Var}$}
+:
+\ensuremath{\forall} \coqdocvar{d} \coqdocvar{x},
+\coqdocconstructor{Var} \coqdocvariable{x}
+\equpto{\coqdocvariable{d}}
+\coqdocconstructor{Var}
+\coqdocvariable{x}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{teut$_\text{Fun}$}
+:
+\ensuremath{\forall} \coqdocvar{d} \coqdocvar{f} \coqdocvar{v}
+\coqdocvar{w},\coqdoceol
+\coqdocindent{4em}
+(\ensuremath{\forall} \coqdocvar{i},
+\coqdocvariable{v} \coqdocvariable{i}
+\equpto{\coqdocvariable{d}}
+\coqdocvariable{w} \coqdocvariable{i}) \ensuremath{\rightarrow}
+\coqdocconstructor{Fun}
+\coqdocvariable{f} \coqdocvariable{v}
+\equpto{\coqdocconstructor{S} \, \coqdocvariable{d}}
+\coqdocconstructor{Fun} \coqdocvariable{f}
+\coqdocvariable{w}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocvar{s}
+$\equiv$
+\coqdocvar{t} :=
+\ensuremath{\forall} \coqdocvar{d},
+\coqdocvariable{s}
+\equpto{\coqdocvariable{d}}
+\coqdocvariable{t}.\coqdoceol
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdoclemma{term\_bis\_term\_eq}
+: \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t},
+\coqdocvariable{s}
+$\sim$
+\coqdocvariable{t} \ensuremath{\leftrightarrow}
+\coqdocvariable{s}
+$\equiv$
+\coqdocvariable{t}.\coqdoceol
+\end{coqdoccode}
+
+}
+
 
 \section{Ordinal Numbers}
+
+
+\frame{
+
+  \frametitle{Brouwer ordinals}
+
+\begin{definition}
+The set of \emph{Brouwer ordinals} $\Ord$ is defined by induction:
+\begin{itemize}
+  \item
+    $0 \in \Ord$
+  \item
+    If $\alpha \in \Ord$, then $\alpha^+ \in \Ord$
+  \item
+    If $\alpha_i \in \Ord$ for all $i \in \mathbb{N}$, then $\sqcup_i
+    \alpha_i \in \Ord$
+\end{itemize}
+\end{definition}
+
+\begin{itemize}
+  \item We need an order on $\Ord$
+  \item It should position $\sqcup_i i + 3$ and $\sqcup_i i \times 2$
+    at the same rank
+  \item And what to make of $\sqcup \{ 3, 3, 3, \ldots \}$?
+\end{itemize}
+
+}
+
+
+\frame{
+
+  \frametitle{Structural partial order on $\Ord$}
+
+\begin{definition}
+The set-valued function $\Phi$ defines the \emph{predecessor indices}
+$\Phi(\alpha)$
+\emph{for} $\alpha$ by recursion on $\alpha$:
+\begin{align*}
+  \Phi(0)                 &= \emptyset \\
+  \Phi(\alpha^+)          &= \Phi(\alpha)^? \\
+  \Phi(\sqcup_i \alpha_i) &= (\Sigma n \in \mathbb{N}) \;
+  \Phi(\alpha_n)
+\end{align*}
+\end{definition}
+
+\begin{definition}
+The function $\_[\_] : (\prod \alpha : \Ord) \; \Phi(\alpha)
+\rightarrow
+\Ord$ defines the \emph{predecessor} $\alpha[\iota]$ \emph{of}
+$\alpha$ \emph{indexed by} $\iota$ recursively on $\alpha$:
+\begin{align*}
+  \alpha^+[\textsc{none}]                     &= \alpha \\
+  \alpha^+[\textsc{some $\iota$}]             &= \alpha[\iota] \\
+  \sqcup_i \alpha_i[\langle n, \iota \rangle] &= \alpha_n[\iota]
+\end{align*}
+\end{definition}
+
+}
+
+
+\frame{
+
+  \frametitle{Extensional order on $\Ord$}
+
+\begin{definition}
+We define the \emph{order} $\preceq$ as a binary relation on $\Ord$ by
+induction:
+\begin{itemize}
+  \item
+    $0 \preceq \beta$ for every ordinal $\beta \in \Ord$
+  \item
+    For all $\alpha, \beta \in \Ord$ and $\iota \in \Phi(\beta)$, if
+    $\alpha \preceq \beta[\iota]$ then $\alpha^+ \preceq \beta$
+  \item
+    For all $\alpha_0, \alpha_1, \alpha_2, \ldots, \beta \in \Ord$, if
+    $\alpha_n \preceq \beta$ for all $n \in \mathbb{N}$, then
+    $\sqcup_i
+    \alpha_i \preceq \beta$
+\end{itemize}
+\end{definition}
+
+\begin{itemize}
+  \item $\alpha \simeq \beta$ if $\alpha \preceq \beta$ and $\beta
+    \preceq \alpha$
+  \item $\alpha \prec \beta$ if $\alpha \preceq \beta[\iota]$ for some
+    $\iota \in \Phi(\beta)$
+\end{itemize}
+
+}
+
 
 \section{Rewrite Sequences of Ordinal Length}
 
