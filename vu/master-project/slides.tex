@@ -2,16 +2,27 @@
 
 \usepackage[english]{babel}
 
+\usepackage[latin1]{inputenc}
+
 \input{abbrevs}
 
+\usepackage[T1]{fontenc}
+
 \usepackage{amsmath}
+\usepackage{amsfonts}
 \usepackage{amssymb}
 
-% Typesetting evaluation rules (http://cristal.inria.fr/~remy/latex/)
-\usepackage{mathpartir}
+%\usepackage{tgtermes}
+\usepackage{tgheros}
+%\usepackage{cmbright}
+\usepackage{qtxmath}
+%\usepackage{kpfonts}
+\renewcommand{\ttdefault}{txtt}
 
-\usepackage[T1]{fontenc}
-\usepackage{ae,aecompl}
+%\usepackage[amsmath,thmmarks]{ntheorem}
+
+\usepackage[color]{coqdoc}
+\setlength{\coqdocbaseindent}{0.7em}
 
 \usepackage{beamerthemesplit}
 
@@ -25,21 +36,11 @@
 \colorlet{darkblue}{blue!80!black}
 \colorlet{darkgreen}{green!80!black}
 
-% Keywords like let,in,then,match,with
-\newcommand{\kw}[1]{\mathtt{#1}}
-
-% Theorems
-\newtheorem{lemma}{Lemma 1}
-\newtheorem{maintheorem}{Correctness Theorem}
-
-
 \title{Infinitary Rewriting in \Coq}
 
 \author{Martijn Vermaat}
-\institute{mvermaat@cs.vu.nl\\
-http://www.cs.vu.nl/\~{}mvermaat/}
-\date{Master Project\\
-August 2010}
+\institute{VU University Amsterdam}
+\date{August 2010}
 
 
 \begin{document}
@@ -55,6 +56,55 @@ August 2010}
   \tableofcontents
 
 }
+
+
+\section{Introduction}
+
+
+\frame{
+
+  \frametitle{Why?}
+
+  Why formalize a mathematical theory mechanically?
+
+}
+
+
+\frame{
+
+  \frametitle{\Coq}
+
+  \Coq is a \emph{proof assistant}
+
+  \pause
+  \begin{itemize}[<+->]
+    \item (interactive) theorem prover
+    \item proof checker
+    \item programming language
+    \item certified program extractor
+  \end{itemize}
+
+}
+
+
+\frame{
+
+  \frametitle{Related Work}
+
+  Rewriting in \Coq
+
+  Ordinals in \Coq
+
+}
+
+
+\section{Infinite Terms}
+
+\section{Ordinal Numbers}
+
+\section{Rewrite Sequences of Ordinal Length}
+
+\section{Conclusions}
 
 
 \end{document}
