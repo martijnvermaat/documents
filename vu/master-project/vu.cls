@@ -47,24 +47,36 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 
-\fancyhead{}
-\fancyfoot{}
+\fancyhf{} % reset headers and footers
+
+% Redefine plain page style
+\fancypagestyle{plain}{%
+  \fancyhead{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
 
 \renewcommand{\chaptermark}[1]{\markboth{\textsc{Chapter
       \thechapter}\hskip 1em #1}{}}
 \renewcommand{\sectionmark}[1]{\markright{\textsc{Section
       \thesection}\hskip 1em #1}}
 
-\fancyhead[LO]{\leftmark}
-\fancyhead[RE]{\rightmark}
-\fancyfoot[LO,RE]{\textsc{\thepage}}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RO]{\rightmark}
+\fancyfoot[LE,RO]{\textsc{\thepage}}
 % TODO: fix page numbering (check if they are all textsc)
 
-% Redefine plain page style
-\fancypagestyle{plain}{%
-  \fancyhead{} % get rid of headers
-  \renewcommand{\headrulewidth}{0pt} % and the line
+% Cleared left pages must be really empty
+\let\origdoublepage\cleardoublepage
+\newcommand{\clearemptydoublepage}{%
+  \clearpage
+      {\pagestyle{empty}\origdoublepage}%
 }
+\let\cleardoublepage\clearemptydoublepage
+
+% Empty page style in table of contents
+% TODO: get empty page style for toc, this doesn't seem to work
+\addtocontents{toc}{\protect\thispagestyle{empty}}
 
 % Chapter and section title styles
 \usepackage{titlesec}
@@ -166,7 +178,10 @@
     \vspace{6cm}
     {\@author \par}
     \vfil\null
-    \setcounter{page}{1}
+%    \setcounter{page}{1}
+  \newpage
+    \thispagestyle{empty}
+    \null\vfil\null
 }
 \makeatother
 
@@ -182,6 +197,7 @@
     \vspace{3cm}
     {THESIS \par}
     \vspace{2cm}
+    % TODO: submitted in partial fulfillment for the degree?
     {submitted for the degree of Master of Science by research at\\
       the VU University Amsterdam \par}
     \vspace{1cm}
@@ -197,7 +213,13 @@
     \end{tabular}}
     \end{center}
     \vfil\null
-    \setcounter{page}{1}
+%    \setcounter{page}{1}
+  \newpage
+    \thispagestyle{empty}
+    \null\vfil
+    \vspace{12cm}
+    {Copyright (c) 2010, Martijn Vermaat \par}
+    \vfil\null
 }
 \makeatother
 
