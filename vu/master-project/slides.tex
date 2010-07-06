@@ -265,6 +265,15 @@ $\equiv$
 
 \frame{
 
+  \frametitle{Infinitary rewriting in \Coq}
+
+  \tableofcontents[currentsection]
+
+}
+
+
+\frame{
+
   \frametitle{Brouwer ordinals}
 
 \begin{definition}
@@ -352,9 +361,100 @@ induction:
 }
 
 
+\frame{
+
+  \frametitle{Brouwer ordinals in \Coq}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Inductive} \coqdocinductive{ord}
+:
+\coqdockw{Set} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Zero}
+:
+\coqdocinductive{ord}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Succ}
+:
+\coqdocinductive{ord} \ensuremath{\rightarrow}
+\coqdocinductive{ord}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{Limit} :
+(\coqdocinductive{nat}
+\ensuremath{\rightarrow} \coqdocinductive{ord})
+\ensuremath{\rightarrow}
+\coqdocinductive{ord}.\coqdoceol
+\end{coqdoccode}
+
+}
+
+
 \section{Rewrite Sequences of Ordinal Length}
 
+
+\frame{
+
+  \frametitle{Infinitary rewriting in \Coq}
+
+  \tableofcontents[currentsection]
+
+}
+
+
+\frame{
+
+  \frametitle{Rewrite steps}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Inductive}
+$\rightarrow_\mathcal{R}$ :
+\coqdocinductive{term} \ensuremath{\rightarrow}
+\coqdocinductive{term} \ensuremath{\rightarrow}
+\coqdockw{Type} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Step}
+:
+\ensuremath{\forall} (\coqdocvar{s} \coqdocvar{t} :
+\coqdocinductive{term}) (\coqdocvar{$\rho$} :
+\coqdocrecord{rule}) (\coqdocvar{c} :
+\coqdocinductive{context}) (\coqdocvar{$\sigma$} :
+\coqdocdefinition{substitution}),\coqdoceol
+\coqdocindent{6.50em} \coqdocvariable{$\rho$}
+\coqdocdefinition{$\in$}
+\coqdocvar{$\mathcal{R}$} \ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{6.50em}
+\coqdocvariable{c}
+[(\coqdocprojection{lhs}
+\coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] $\sim$
+\coqdocvariable{s}
+\ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{6.50em}
+\coqdocvariable{c}
+[(\coqdocprojection{rhs}
+\coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] $\sim$
+\coqdocvariable{t}
+\ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{6.50em}
+\coqdocvariable{s} $\rightarrow_\mathcal{R}$
+\coqdocvariable{t}.\coqdoceol
+\end{coqdoccode}
+
+}
+
+
 \section{Conclusions}
+
+
+\frame{
+
+  \frametitle{Infinitary rewriting in \Coq}
+
+  \tableofcontents[currentsection]
+
+}
 
 
 \end{document}
