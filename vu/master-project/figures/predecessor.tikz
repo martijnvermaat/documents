@@ -1,0 +1,40 @@
+  \node at (1, 0) {$t_{1}$};
+  \foreach \i in {2, ..., 5}{%
+    \begin{scope}[start chain=\i,every join/.style=->,node
+        distance=0.5]
+      \node [on chain=\i, join] at (1, -\i + 1) {$t_{1}$};
+      \foreach \j in {2, ..., \i}{%
+        \node (node\i\j) [on chain=\i, join] {$t_{\j}$};
+      }
+    \end{scope}
+  }
+  \node at (1, -5) {$\vdots$};
+  \node at (5, -5) {$\ddots$};
+  \begin{scope}[start chain=i,every join/.style=->,node distance=0.5]
+    \node [on chain=i, join] at (1, -6) {$t_{1}$};
+    \foreach \j in {2, ..., 5}{%
+      \node [on chain=i, join] {$t_{\j}$};
+    }
+    \node [on chain=i, join] {$\cdots$};
+    \node [on chain=i, join] {$t_{i}$};
+  \end{scope}
+  \node at (1, -7) {$\vdots$};
+  \node at (7, -7) {$\ddots$};
+  \begin{scope}[start chain=o,every join/.style=->,node distance=0.5]
+    \node (nodeO) [on chain=o, join] at (10, -3.5) {$t_\omega$};
+    \node (nodeO1) [on chain=o, join] {$t_{\omega+1}$};
+    \node (nodeO2) [on chain=o, join] {$t_{\omega+2}$};
+  \end{scope}
+  \begin{scope}[auto]
+    \draw [->, thick] (nodeO2) to [out=110,in=70] node [swap]
+          {\coqdocconstructor{inr}}
+          (nodeO1);
+    \draw [->, thick] (nodeO1) to [out=110,in=70] node [swap]
+          {\coqdocconstructor{inr}}
+          (nodeO);
+    \draw [->, thick] (nodeO) to [out=100,in=50] node [swap] {4}
+    (node44);
+    \draw [->, thick] (node44) to [out=110,in=70] node [swap]
+          {\coqdocconstructor{inl}}
+          (node43);
+  \end{scope}

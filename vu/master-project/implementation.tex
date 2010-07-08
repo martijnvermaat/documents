@@ -395,9 +395,11 @@ second projection on rewrite rules.
 
 \section{Transfinite Rewrite Sequences}\label{sec:seq}
 
-Throughout this section, let $\mathcal{R}$ be a fixed TRS. We define the type
-of steps using rewrite rules in $\mathcal{R}$, parameterized by their source
-and target terms.
+% TODO: find correct \rightarrow symbol (this one is too fat)
+
+Throughout this section, let $\mathcal{R}$ be a fixed TRS. We define
+the type of steps using rewrite rules in $\mathcal{R}$, parameterized
+by their source and target terms.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -659,45 +661,8 @@ $t_4$.
 \begin{figure}
 \begin{center}
 \begin{tikzpicture}
-  \node at (1, 0) {$t_{1}$};
-  \foreach \i in {2, ..., 5}{%
-    \begin{scope}[start chain=\i,every join/.style=->,node distance=0.5]
-      \node [on chain=\i, join] at (1, -\i + 1) {$t_{1}$};
-      \foreach \j in {2, ..., \i}{%
-        \node (node\i\j) [on chain=\i, join] {$t_{\j}$};
-      }
-    \end{scope}
-  }
-  \node at (1, -5) {$\vdots$};
-  \node at (5, -5) {$\ddots$};
-  \begin{scope}[start chain=i,every join/.style=->,node distance=0.5]
-    \node [on chain=i, join] at (1, -6) {$t_{1}$};
-    \foreach \j in {2, ..., 5}{%
-      \node [on chain=i, join] {$t_{\j}$};
-    }
-    \node [on chain=i, join] {$\cdots$};
-    \node [on chain=i, join] {$t_{i}$};
-  \end{scope}
-  \node at (1, -7) {$\vdots$};
-  \node at (7, -7) {$\ddots$};
-  \begin{scope}[start chain=o,every join/.style=->,node distance=0.5]
-    \node (nodeO) [on chain=o, join] at (10, -3.5) {$t_\omega$};
-    \node (nodeO1) [on chain=o, join] {$t_{\omega+1}$};
-    \node (nodeO2) [on chain=o, join] {$t_{\omega+2}$};
-  \end{scope}
-  \begin{scope}[auto]
-    \draw [->, thick] (nodeO2) to [out=110,in=70] node [swap]
-          {\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{inr}{\coqdocconstructor{inr}}}
-          (nodeO1);
-    \draw [->, thick] (nodeO1) to [out=110,in=70] node [swap]
-          {\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{inr}{\coqdocconstructor{inr}}}
-          (nodeO);
-    \draw [->, thick] (nodeO) to [out=100,in=50] node [swap] {4} (node44);
-    \draw [->, thick] (node44) to [out=110,in=70] node [swap]
-          {\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{inr}{\coqdocconstructor{inl}}}
-          (node43);
-  \end{scope}
- \end{tikzpicture}
+\input{figures/predecessor.tikz}
+\end{tikzpicture}
 \end{center}
 \caption{Example of a rewrite sequence and predecessor
   index.}\label{fig:pred}
@@ -712,6 +677,7 @@ out against each other, but the positions of these occurences in their
 respective ordinals do not necessarily correspond. Since all occurrences of
 $^+$ are equal, this has no effect on the resulting relation.
 
+% TODO: should we use the word 'iff'?
 What this means for a translation of $\preceq$ to the domain of our
 inductively defined rewrite sequences is that, indeed, we get an embedding
 relation. We just have to make sure that in the
