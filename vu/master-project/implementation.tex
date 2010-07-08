@@ -142,8 +142,8 @@ resulting subset.
 \coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} (\coqdocvariable{f}
 \coqdocvariable{n}) \ensuremath{\land} \ensuremath{\forall} \coqdocvar{m},
 \coqdocvariable{n} < \coqdocvariable{m} \ensuremath{\rightarrow}
-(\coqdocvariable{f} \coqdocvariable{n}) \ensuremath{\prec}
-(\coqdocvariable{f} \coqdocvariable{m})\coqdoceol
+\coqdocvariable{f} \coqdocvariable{n} \ensuremath{\prec}
+\coqdocvariable{f} \coqdocvariable{m}\coqdoceol
 \coqdocindent{1.00em}
 \coqdockw{end}.\coqdoceol
 \coqdocemptyline
@@ -388,8 +388,9 @@ Definition~\ref{def:cauchy} in \Coq for sequences of length $\omega$.
 \end{singlespace}
 The definitions of finite term, rewrite rule, TRS, context and substitution
 from Section~\ref{sub:trs} translate to \Coq directly. We define
-\coqdocprojection{lhs} and \coqdocprojection{rhs} to be first and second
-projection on rewrite rules.
+\coqdef{Rewriting.lhs}{lhs}{\coqdocprojection{lhs}} and
+\coqdef{Rewriting.rhs}{rhs}{\coqdocprojection{rhs}} to be first and
+second projection on rewrite rules.
 
 
 \section{Transfinite Rewrite Sequences}\label{sec:seq}
@@ -415,13 +416,11 @@ and target terms.
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Lists.List}{In}{\coqdocdefinition{$\in$}}
 \coqdocvar{$\mathcal{R}$} \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{6.50em}
-\coqdocvariable{c}
-[(\coqdocprojection{lhs}
+\coqdocvariable{c}[(\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
 \coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] $\sim$ \coqdocvariable{s}
 \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{6.50em}
-\coqdocvariable{c}
-[(\coqdocprojection{rhs}
+\coqdocvariable{c}[(\coqref{Rewriting.rhs}{\coqdocprojection{rhs}}
 \coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] $\sim$ \coqdocvariable{t}
 \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{6.50em}
@@ -497,6 +496,7 @@ condition that these terms must converge to the target term
 \coqdocvariable{t}\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
+% TODO: maybe first convergence, then branches
 
 Of course, the branches of a \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}}
 constructor may still not actually approximate to a rewrite sequence (of
@@ -632,6 +632,7 @@ In an effort to prevent getting lost in a syntacical labyrinth, we define
 the following notational shortcuts:
 
 % TODO: keep an eye on placement of the table
+% TODO: \coqdoc markup of these notations
 {\renewcommand{\arraystretch}{1.1}
 \renewcommand{\tabcolsep}{10pt}
 \begin{tabular}{ll}
@@ -811,6 +812,7 @@ $\rightarrow$ \coqdockw{Prop} :=\coqdoceol
 \coqdocvariable{$\psi$}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
+% TODO: (f n) without ()
 % TODO: say what implicit/explicit arguments for cons and lim are
 
 Strict embedding relation. It really expands after the last step!
@@ -860,3 +862,41 @@ weglaten bij compressie''), die natuurlijk niet overeenkomt, ook niet in het
 eindige geval met de prefix notie; het is deelwoord, of (op reductie rijtjes
 als bomen) deelboom (en niet boom-factor).
 \end{quote}
+
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Fixpoint} \coqdef{Rewriting.wf}{wf}{\coqdocdefinition{wf}}
+\coqdocvar{s} \coqdocvar{t}
+(\coqdocvar{$\varphi$} : \coqdocvariable{s}
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqdocvariable{t}) : \coqdockw{Prop}
+:=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{$\varphi$} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Nil}{\coqdocconstructor{Nil}}
+\coqdocvar{\_}          \ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Logic}{True}{\coqdocinductive{True}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{$\psi$} \coqdocvar{\_}
+\coqdocvar{\_} \ensuremath{\Rightarrow}
+\coqref{Rewriting.wf}{\coqdocdefinition{wf}}
+\coqdocvariable{\coqdocvariable{$\psi$}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{f} \coqdocvar{\_}
+\coqdocvar{\_}  \ensuremath{\Rightarrow}
+(\ensuremath{\forall} \coqdocvar{n},
+\coqref{Rewriting.wf}{\coqdocdefinition{wf}} (\coqdocvariable{f}
+\coqdocvariable{n})) \ensuremath{\land}
+\ensuremath{\forall} \coqdocvar{n} \coqdocvar{m}, \coqdocvariable{n}
+< \coqdocvariable{m} \ensuremath{\rightarrow} \coqdocvariable{f}
+\coqdocvariable{n}
+\coqref{Rewriting.embedstrict}{$\sqsubset$}
+\coqdocvariable{f} \coqdocvariable{m}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}

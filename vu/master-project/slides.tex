@@ -25,6 +25,9 @@
 
 %\usepackage[amsmath,thmmarks]{ntheorem}
 
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning,chains}
+
 \usepackage[color]{coqdoc}
 \setlength{\coqdocbaseindent}{0.7em}
 
@@ -80,8 +83,8 @@
 
   \Coq is a \emph{proof assistant}
 
-  \pause
-  \begin{itemize}[<+->]
+%  \pause
+  \begin{itemize}%[<+->]
     \item (interactive) theorem prover
     \item proof checker
     \item programming language
@@ -260,7 +263,159 @@ $\equiv$
 }
 
 
-\section{Ordinal Numbers}
+\frame{
+
+  \frametitle{Term rewriting systems}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Record} \coqdocrecord{rule} :
+\coqdockw{Type} :=
+\coqdocconstructor{Rule} \{\coqdoceol
+\coqdocindent{1.00em}
+\coqdocprojection{lhs}     :
+\coqdocinductive{finite\_term};\coqdoceol
+\coqdocindent{1.00em}
+\coqdocprojection{rhs}     :
+\coqdocinductive{finite\_term};\coqdoceol
+\coqdocindent{1.00em}
+\coqdocprojection{rule\_wf} :
+\coqdocdefinition{is\_var}
+\coqdocmethod{lhs} =
+\coqdocconstructor{false}
+\ensuremath{\land}
+\coqdocdefinition{incl}
+(\coqdocdefinition{vars}
+\coqdocmethod{rhs})
+(\coqdocdefinition{vars}
+\coqdocmethod{lhs})\coqdoceol
+\coqdocnoindent
+\}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{left\_linear}
+(\coqdocvar{r} : \coqdocrecord{rule}) :
+\coqdockw{Prop} :=
+\coqdocdefinition{linear}
+(\coqdocprojection{lhs}
+\coqdocvariable{r}).\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{trs} :=
+\coqdocinductive{list}
+\coqdocrecord{rule}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{trs\_left\_linear} (\coqdocvar{$\mathcal{R}$} : \coqdocdefinition{trs}) :
+\coqdockw{Prop} :=\coqdoceol
+\coqdocindent{1em}
+\coqdocinductive{Forall} \coqdocdefinition{left\_linear}
+\coqdocvar{$\mathcal{R}$}.\coqdoceol
+\end{coqdoccode}
+
+}
+
+
+\frame{
+
+  \frametitle{Orthogonality}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{critical\_pair}
+(\coqdocvar{$\mathcal{R}$} : \coqdocdefinition{trs})
+(\coqdocvar{t$_1$} \coqdocvar{t$_2$} :
+\coqdocinductive{term}) : \coqdockw{Prop}
+:=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{\exists} \coqdocvar{$\rho_1$} :
+\coqdocrecord{rule}, \ensuremath{\exists}
+\coqdocvar{$\rho_2$} :
+\coqdocrecord{rule},
+\ensuremath{\exists} \coqdocvar{p} :
+\coqdocabbreviation{position},
+\ensuremath{\exists} \coqdocvar{$\sigma$},
+\ensuremath{\exists} \coqdocvar{$\tau$},\coqdoceol
+\coqdocindent{3.00em}
+\coqdocvariable{$\rho_1$} \coqdocdefinition{$\in$}
+\coqdocvariable{$\mathcal{R}$}
+\ensuremath{\land}
+\coqdocvariable{$\rho_2$} \coqdocdefinition{$\in$}
+\coqdocvar{$\mathcal{R}$} \ensuremath{\land}
+(\coqdocvariable{$\rho_1$} = \coqdocvariable{$\rho_2$} \ensuremath{\rightarrow}
+\coqdocvariable{p} \ensuremath{\not=}
+\coqdocconstructor{nil})
+\ensuremath{\land}\coqdoceol
+\coqdocindent{3.00em}
+\coqdockw{match}
+(\coqdocprojection{lhs}
+\coqdocvariable{$\rho_1$})|$_{\coqdocvariable{p}}$,
+\coqdocvariable{C}[(\coqdocprojection{lhs}
+\coqdocvariable{$\rho_1$})$^{\coqdocvariable{$\sigma$}}$]$_{\coqdocvariable{p}}$ \coqdockw{with}\coqdoceol
+\coqdocindent{3.00em}
+\ensuremath{|}
+\coqdocconstructor{Some}
+\coqdocvar{s},
+\coqdocconstructor{Some}
+\coqdocvar{c} \ensuremath{\Rightarrow}\coqdoceol
+\coqdocindent{5.00em}
+\coqdocdefinition{is\_var} \coqdocvariable{s} =
+\coqdocconstructor{false}
+\ensuremath{\land}
+\coqdocvariable{s}$^{\coqdocvariable{$\sigma$}}$ $\sim$
+(\coqdocprojection{lhs}
+\coqdocvariable{$\rho_2$})$^{\coqdocvariable{$\tau$}}$
+\ensuremath{\land}\coqdoceol
+\coqdocindent{5.00em}
+\coqdocvariable{t$_1$} $\sim$
+\coqdocvariable{c}[(\coqdocprojection{rhs}
+\coqdocvariable{$\rho_2$})$^{\coqdocvariable{$\tau$}}$] \ensuremath{\land}
+\coqdocvariable{t$_2$} $\sim$
+(\coqdocprojection{rhs}
+\coqdocvariable{$\rho_1$})$^{\coqdocvariable{$\sigma$}}$\coqdoceol
+\coqdocindent{3.00em}
+\ensuremath{|} \coqdocvar{\_}, \coqdocvar{\_}
+\ensuremath{\Rightarrow}
+\coqdocinductive{False}\coqdoceol
+\coqdocindent{3.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{orthogonal} (\coqdocvar{$\mathcal{R}$} :
+\coqdocdefinition{trs})
+: \coqdockw{Prop} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdocdefinition{trs\_left\_linear}
+\coqdocvariable{$\mathcal{R}$} \ensuremath{\land}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{\forall} \coqdocvar{t$_1$} \coqdocvar{t$_2$}, \ensuremath{\lnot}
+\coqdocdefinition{critical\_pair}
+\coqdocvariable{t$_1$} \coqdocvariable{t$_2$}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{weakly\_orthogonal} (\coqdocvar{$\mathcal{R}$} :
+\coqdocdefinition{trs})
+: \coqdockw{Prop} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdocdefinition{trs\_left\_linear}
+\coqdocvariable{$\mathcal{R}$} \ensuremath{\land}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{\forall} \coqdocvar{t$_1$} \coqdocvar{t$_2$},
+\coqdocdefinition{critical\_pair}
+\coqdocvariable{t$_1$} \coqdocvariable{t$_2$} \ensuremath{\rightarrow}
+\coqdocvariable{t$_1$} $\sim$ \coqdocvariable{t$_2$}.\coqdoceol
+\end{coqdoccode}
+
+}
+
+
+\section{Ordinal numbers}
 
 
 \frame{
@@ -388,10 +543,50 @@ induction:
 \coqdocinductive{ord}.\coqdoceol
 \end{coqdoccode}
 
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Fixpoint} \coqdocdefinition{wf}
+\coqdocvar{\ensuremath{\alpha}} : \coqdockw{Prop} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{\ensuremath{\alpha}}
+\coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Zero}
+\ensuremath{\Rightarrow}
+\coqdocinductive{True}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Succ}
+\coqdocvar{\ensuremath{\beta}} \ensuremath{\Rightarrow}
+\coqdocdefinition{wf}
+\coqdocvariable{\ensuremath{\beta}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Limit}
+\coqdocvar{f}
+\ensuremath{\Rightarrow} \ensuremath{\forall} \coqdocvar{n},
+\coqdocdefinition{wf} (\coqdocvariable{f}
+\coqdocvariable{n}) \ensuremath{\land} \ensuremath{\forall}
+\coqdocvar{m},
+\coqdocvariable{n} < \coqdocvariable{m} \ensuremath{\rightarrow}
+\coqdocvariable{f} \coqdocvariable{n} \ensuremath{\prec}
+\coqdocvariable{f} \coqdocvariable{m}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{ord$^\text{wf}$}
+: \coqdockw{Set}
+:=
+\coqdocinductive{sig} \coqdocdefinition{wf}.\coqdoceol
+\end{coqdoccode}
+
 }
 
 
-\section{Rewrite Sequences of Ordinal Length}
+\section{Rewrite sequences of ordinal length}
 
 
 \frame{
@@ -426,14 +621,12 @@ $\rightarrow_\mathcal{R}$ :
 \coqdocdefinition{$\in$}
 \coqdocvar{$\mathcal{R}$} \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{6.50em}
-\coqdocvariable{c}
-[(\coqdocprojection{lhs}
+\coqdocvariable{c}[(\coqdocprojection{lhs}
 \coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] $\sim$
 \coqdocvariable{s}
 \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{6.50em}
-\coqdocvariable{c}
-[(\coqdocprojection{rhs}
+\coqdocvariable{c}[(\coqdocprojection{rhs}
 \coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] $\sim$
 \coqdocvariable{t}
 \ensuremath{\rightarrow}\coqdoceol
@@ -441,6 +634,462 @@ $\rightarrow_\mathcal{R}$ :
 \coqdocvariable{s} $\rightarrow_\mathcal{R}$
 \coqdocvariable{t}.\coqdoceol
 \end{coqdoccode}
+
+}
+
+
+\frame{
+
+  \frametitle{Rewrite sequences}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Inductive}
+$\twoheadrightarrow_\mathcal{R}$
+:
+\coqdocinductive{term} \ensuremath{\rightarrow}
+\coqdocinductive{term} \ensuremath{\rightarrow}
+\coqdockw{Type} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Nil} :
+\ensuremath{\forall} \coqdocvar{t}, \coqdocvariable{t}
+$\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{t}\coqdoceol \coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Cons}
+:
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u},
+\coqdocvar{s}
+$\twoheadrightarrow_\mathcal{R}$
+\coqdocvar{t}
+$\rightarrow$
+\coqdocvariable{t} $\rightarrow_\mathcal{R}$
+\coqdocvar{u} $\rightarrow$ \coqdocvariable{s}
+$\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{u}\coqdoceol \coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Lim}   :
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t},
+(\coqdocinductive{nat}
+\ensuremath{\rightarrow} \coqdocvariable{s}
+$\twoheadrightarrow_\mathcal{R}$
+\textbf{?})
+$\rightarrow$
+\coqdocvariable{s}
+$\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{t}.\coqdoceol
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\end{coqdoccode}
+
+Parameterize \coqdocconstructor{Lim} with target terms of
+branches, they should converge to \coqdocvariable{t}.
+
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Lim} :
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t}
+(\coqdocvar{ts} :
+\coqdocinductive{nat}
+\ensuremath{\rightarrow} \coqdocinductive{term}),
+\coqdocdefinition{converges}
+\coqdocvariable{ts}
+\coqdocvariable{t} $\rightarrow$\coqdoceol
+\coqdocindent{5em}
+(\ensuremath{\forall} \coqdocvar{n}, \coqdocvar{s}
+$\twoheadrightarrow_\mathcal{R}$
+\coqdocvar{ts} \coqdocvariable{n}) $\rightarrow$
+\coqdocvariable{s}
+$\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{t}\coqdoceol
+\end{coqdoccode}
+
+}
+
+
+\frame{
+
+  \frametitle{Predecessor indices for $\twoheadrightarrow_\mathcal{R}$}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Fixpoint}
+\coqdocdefinition{pred\_type}
+\coqdocvar{s} \coqdocvar{t}
+(\coqdocvar{$\varphi$} : \coqdocvar{s}
+$\twoheadrightarrow_\mathcal{R}$
+\coqdocvar{t}) :
+\coqdockw{Type} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{$\varphi$} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Nil}
+\coqdocvar{\_}
+\ensuremath{\Rightarrow}
+\coqdocinductive{False}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Cons}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{\_} \coqdocvar{$\psi$}
+\coqdocvar{\_}
+\ensuremath{\Rightarrow}
+\coqdocinductive{unit}
++ \coqdocdefinition{pred\_type}
+\coqdocvariable{$\psi$}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Lim}
+\coqdocvar{\_}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{f} \coqdocvar{\_}
+\ensuremath{\Rightarrow} \{ \coqdocvar{n} :
+\coqdocinductive{nat}
+\& \coqdocdefinition{pred\_type}
+(\coqdocvariable{f} \coqdocvariable{n}) \}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\end{coqdoccode}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Fixpoint}
+\coqdocdefinition{pred}
+\coqdocvar{s} \coqdocvar{t} (\coqdocvar{$\varphi$} : \coqdocvar{s}
+$\twoheadrightarrow_\mathcal{R}$
+\coqdocvar{t})
+(\coqdocvar{$\iota$} :
+\coqdocdefinition{pred\_type}
+\coqdocvariable{$\varphi$})
+:\coqdoceol \coqdocindent{2.00em}
+\{ \coqdocvar{ts} :
+\coqdocabbreviation{term} \ensuremath{\times}
+\coqdocabbreviation{term} \&
+(\coqdocvariable{s}
+$\twoheadrightarrow_\mathcal{R}$
+\coqdocdefinition{fst}
+\coqdocvariable{ts}) \ensuremath{\times}
+(\coqdocdefinition{fst}
+\coqdocvariable{ts} $\rightarrow_\mathcal{R}$
+\coqdocdefinition{snd}
+\coqdocvariable{ts}) \} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{$\varphi$} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Nil}
+\coqdocvar{\_}
+\ensuremath{\Rightarrow}
+(\coqdocdefinition{False\_rect}
+\coqdocvar{\_}) \coqdocvariable{$\iota$} \coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Cons}
+\coqdocvar{\_}
+\coqdocvar{u} \coqdocvar{t} \coqdocvar{$\psi$} \coqdocvar{$\pi$}
+\ensuremath{\Rightarrow}
+\coqdockw{match} \coqdocvariable{$\iota$} \coqdockw{with}\coqdoceol
+\coqdocindent{10.00em}
+\ensuremath{|}
+\coqdocconstructor{inl}
+\coqdocconstructor{tt}
+\ensuremath{\Rightarrow}
+\coqdocconstructor{existT}
+\coqdocvar{\_} (\coqdocvariable{u}, \coqdocvariable{t})
+(\coqdocvariable{$\psi$}, \coqdocvariable{$\pi$})\coqdoceol
+\coqdocindent{10.00em}
+\ensuremath{|}
+\coqdocconstructor{inr}
+\coqdocvar{$\kappa$}  \ensuremath{\Rightarrow}
+\coqdocdefinition{pred}
+\coqdocvariable{$\psi$}
+\coqdocvariable{$\kappa$}\coqdoceol
+\coqdocindent{10.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Lim}
+\coqdocvar{\_}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{f} \coqdocvar{\_}
+\ensuremath{\Rightarrow}
+\coqdockw{match} \coqdocvariable{$\iota$} \coqdockw{with}\coqdoceol
+\coqdocindent{10.00em}
+\ensuremath{|}
+\coqdocconstructor{existT}
+\coqdocvar{n} \coqdocvar{$\kappa$} \ensuremath{\Rightarrow}
+\coqdocdefinition{pred} (\coqdocvariable{f}
+\coqdocvariable{n}) \coqdocvariable{$\kappa$}\coqdoceol
+\coqdocindent{10.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\end{coqdoccode}
+
+}
+
+
+\frame{
+
+  \frametitle{Notations for predecessor indexing}
+
+{\renewcommand{\arraystretch}{1.1}
+\renewcommand{\tabcolsep}{10pt}
+\begin{tabular}{ll}
+\coqdocvariable{$\varphi$}[\coqdocvariable{$\iota$}] & location of
+\coqdocvariable{$\varphi$} indexed by \coqdocvariable{$\iota$}\\
+\coqdocvariable{$\varphi$}[\coqdocvariable{$\iota$}]$^\textsc{seq}$ &
+predecessor rewrite sequence of \coqdocvariable{$\varphi$} indexed by
+\coqdocvariable{$\iota$}\\
+\coqdocvariable{$\varphi$}[\coqdocvariable{$\iota$}]$^\textsc{stp}$ &
+step of \coqdocvariable{$\varphi$} indexed by
+\coqdocvariable{$\iota$}\\
+\coqdocvariable{$\varphi$}[\coqdocvariable{$\iota$}]$^\textsc{l}$ &
+source term of
+\coqdocvariable{$\varphi$}[\coqdocvariable{$\iota$}]$^\textsc{stp}$
+(also target term of
+\coqdocvariable{$\varphi$}[\coqdocvariable{$\iota$}]$^\textsc{seq}$)\\
+\coqdocvariable{$\varphi$}[\coqdocvariable{$\iota$}]$^\textsc{r}$ &
+target term of
+\coqdocvariable{$\varphi$}[\coqdocvariable{$\iota$}]$^\textsc{stp}$
+\end{tabular}}\\[2em]
+
+\begin{center}
+\coqdocvariable{$\varphi$}[\coqdocvariable{$\iota$}]$^\textsc{stp}$
+\ \ \ \ \ \ instead of \ \ \ \ \ \ \coqdocdefinition{fst}
+(\coqdocdefinition{projT2} (\coqdocdefinition{pred}
+\coqdocvariable{$\varphi$} \coqdocvariable{$\iota$}))
+\end{center}
+
+}
+
+
+\frame{
+
+  \frametitle{Example}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.84]
+  \node at (1, 0) {$t_{1}$};
+  \foreach \i in {2, ..., 5}{%
+    \begin{scope}[start chain=\i,every join/.style=->,node
+        distance=0.5]
+      \node [on chain=\i, join] at (1, -\i + 1) {$t_{1}$};
+      \foreach \j in {2, ..., \i}{%
+        \node (node\i\j) [on chain=\i, join] {$t_{\j}$};
+      }
+    \end{scope}
+  }
+  \node at (1, -5) {$\vdots$};
+  \node at (5, -5) {$\ddots$};
+  \begin{scope}[start chain=i,every join/.style=->,node distance=0.5]
+    \node [on chain=i, join] at (1, -6) {$t_{1}$};
+    \foreach \j in {2, ..., 5}{%
+      \node [on chain=i, join] {$t_{\j}$};
+    }
+    \node [on chain=i, join] {$\cdots$};
+    \node [on chain=i, join] {$t_{i}$};
+  \end{scope}
+  \node at (1, -7) {$\vdots$};
+  \node at (7, -7) {$\ddots$};
+  \begin{scope}[start chain=o,every join/.style=->,node distance=0.5]
+    \node (nodeO) [on chain=o, join] at (10, -3.5) {$t_\omega$};
+    \node (nodeO1) [on chain=o, join] {$t_{\omega+1}$};
+    \node (nodeO2) [on chain=o, join] {$t_{\omega+2}$};
+  \end{scope}
+  \begin{scope}[auto]
+    \draw [->, thick] (nodeO2) to [out=110,in=70] node [swap]
+          {\coqdocconstructor{inr}}
+          (nodeO1);
+    \draw [->, thick] (nodeO1) to [out=110,in=70] node [swap]
+          {\coqdocconstructor{inr}}
+          (nodeO);
+    \draw [->, thick] (nodeO) to [out=100,in=50] node [swap] {4}
+    (node44);
+    \draw [->, thick] (node44) to [out=110,in=70] node [swap]
+          {\coqdocconstructor{inl}}
+          (node43);
+  \end{scope}
+ \end{tikzpicture}
+\end{center}
+
+\footnotesize{Rewrite sequence of length $\omega + 2$ with predecessor index
+$\coqdocconstructor{inr} \; (\coqdocconstructor{inr} \; \langle 4,
+\coqdocconstructor{inl}\rangle)$}
+
+}
+
+
+\frame{
+
+  \frametitle{Embeddings of rewrite sequences}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Inductive} $\sqsubseteq$
+: \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u}
+\coqdocvar{v}, \coqdocvariable{s}
+$\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{t}
+$\rightarrow$ \coqdocvariable{u}
+$\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{v}
+$\rightarrow$ \coqdockw{Prop} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{$\sqsubseteq_\text{Nil}$}
+:
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{u} \coqdocvar{v}
+(\coqdocvar{$\psi$}
+: \coqdocvariable{u}
+$\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{v}),\coqdoceol
+\coqdocindent{9.50em}
+\coqdocconstructor{Nil} \coqdocvariable{s}
+$\sqsubseteq$
+\coqdocvariable{$\psi$}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{$\sqsubseteq_\text{Cons}$}
+:
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u}
+\coqdocvar{v}
+(\coqdocvar{$\psi$}
+: \coqdocvariable{u}
+$\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{v}) (\coqdocvar{$\iota$} :
+\coqdocdefinition{pred\_type}
+\coqdocvariable{$\psi$})\coqdoceol
+\coqdocindent{5.00em}
+(\coqdocvar{$\varphi$} : \coqdocvariable{s}
+$\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{$\psi$}[\coqdocvariable{$\iota$}]$^\textsc{l}$)
+(\coqdocvar{$\pi$} :
+\coqdocvariable{$\psi$}[\coqdocvariable{$\iota$}]$^\textsc{l}$
+$\rightarrow_\mathcal{R}$
+\coqdocvariable{t}),\coqdoceol
+\coqdocindent{9.50em}
+\coqdocvariable{$\varphi$} $\sqsubseteq$
+\coqdocvariable{$\psi$}[\coqdocvariable{$\iota$}]$^\textsc{seq}$
+\ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{9.50em}
+\coqdocvariable{$\pi$} $\approx$
+\coqdocvariable{$\psi$}[\coqdocvariable{$\iota$}]$^\textsc{stp}$
+\ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{9.50em}
+\coqdocconstructor{Cons}
+\coqdocvariable{$\varphi$} \coqdocvariable{$\pi$}
+$\sqsubseteq$
+\coqdocvariable{$\psi$}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{$\sqsubseteq_\text{Lim}$}
+:
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u}
+\coqdocvar{v}
+(\coqdocvar{ts} :
+\coqdocinductive{nat}
+\ensuremath{\rightarrow} \coqdocinductive{term})
+(\coqdocvar{f} : \ensuremath{\forall} \coqdocvar{n},
+\coqdocvariable{s}
+$\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{ts} \coqdocvariable{n})\coqdoceol
+\coqdocindent{5.00em}
+(\coqdocvar{c} :
+\coqdocdefinition{converges}
+\coqdocvariable{ts}
+\coqdocvar{t}) (\coqdocvar{$\psi$} : \coqdocvar{u}
+$\twoheadrightarrow_\mathcal{R}$
+\coqdocvar{v}),\coqdoceol
+\coqdocindent{9.50em}
+(\ensuremath{\forall} \coqdocvar{n}, \coqdocvariable{f}
+\coqdocvariable{n}
+$\sqsubseteq$ \coqdocvariable{$\psi$})
+\ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{9.50em}
+\coqdocconstructor{Lim} \coqdocvariable{f}
+\coqdocvariable{c} $\sqsubseteq$
+\coqdocvariable{$\psi$}.\coqdoceol
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\end{coqdoccode}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Definition}
+$\sqsubset$
+\coqdocvar{s} \coqdocvar{t} \coqdocvar{u} \coqdocvar{v}
+(\coqdocvar{$\varphi$} : \coqdocvariable{s}
+$\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{t},
+\coqdocvar{$\psi$} :
+\coqdocvariable{u}
+$\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{v}) :=\coqdoceol
+\coqdocindent{1em}
+\ensuremath{\exists} \coqdocvar{$\iota$},
+\coqdocvariable{$\varphi$} $\sqsubseteq$
+\coqdocvariable{$\psi$}[\coqdocvariable{$\iota$}]$^\textsc{seq}$.\coqdoceol
+\end{coqdoccode}
+
+}
+
+
+\frame{
+
+  \frametitle{Well-formed rewrite sequences}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Fixpoint} \coqdocdefinition{wf}
+\coqdocvar{s} \coqdocvar{t}
+(\coqdocvar{$\varphi$} : \coqdocvariable{s}
+$\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{t}) : \coqdockw{Prop}
+:=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{$\varphi$} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Nil}
+\coqdocvar{\_} \ensuremath{\Rightarrow}
+\coqdocinductive{True}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Cons}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{$\psi$} \coqdocvar{\_}
+\coqdocvar{\_} \ensuremath{\Rightarrow}
+\coqdocdefinition{wf}
+\coqdocvariable{\coqdocvariable{$\psi$}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Lim}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{f} \coqdocvar{\_}
+\coqdocvar{\_}  \ensuremath{\Rightarrow}
+(\ensuremath{\forall} \coqdocvar{n},
+\coqdocdefinition{wf} (\coqdocvariable{f}
+\coqdocvariable{n})) \ensuremath{\land}
+\ensuremath{\forall} \coqdocvar{n} \coqdocvar{m}, \coqdocvariable{n}
+< \coqdocvariable{m} \ensuremath{\rightarrow} \coqdocvariable{f}
+\coqdocvariable{n}
+$\sqsubset$
+\coqdocvariable{f} \coqdocvariable{m}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\end{coqdoccode}
+
+}
+
+
+\section{\texorpdfstring{UN$^\infty$}{UN} and weak orthogonality}
+
+
+\frame{
+
+  \frametitle{Infinitary rewriting in \Coq}
+
+  \tableofcontents[currentsection]
+
+}
+
+
+\frame{
+
+  \frametitle{UN$^\infty$ and weak orthogonality}
+
+  Orthogonality implies UN$^\infty$; what about weak orthogonality?
 
 }
 
