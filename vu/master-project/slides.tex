@@ -250,7 +250,7 @@ $\equiv$
 \coqdocemptyline
 \coqdocnoindent
 \coqdockw{Lemma}
-\coqdoclemma{term\_bis\_term\_eq}
+\coqdoclemma{eq$_\equiv^\sim$}
 : \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t},
 \coqdocvariable{s}
 $\sim$
@@ -1050,7 +1050,522 @@ $\sqsubset$
 
   \frametitle{UN$^\infty$ and weak orthogonality}
 
-  Orthogonality implies UN$^\infty$; what about weak orthogonality?
+  Orthogonality implies UN$^\infty$; what about weak orthogonality?\\[2em]
+
+  The TRS
+  \begin{align*}
+    \rho_1 \, &: \, PSx \to x\\
+    \rho_2 \, &: \, SPx \to x
+  \end{align*}
+  is weakly orthogonal and
+  \begin{align*}
+    \psi = P \, SS \, PPP \, SSSS \, PPPPP \, SSSSSS \ldots
+  \end{align*}
+  has two normal forms:
+  \begin{align*}
+    S^\omega \quad \twoheadleftarrow_{\rho_1} \quad \psi \quad
+    \twoheadrightarrow_{\rho_2} \quad P^\omega
+  \end{align*}
+
+}
+
+
+\frame{
+
+  \frametitle{S$^\omega$, P$^\omega$ and $\psi$ in \Coq}
+
+  We define finite repetitions by recursion
+
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Fixpoint}
+\coqdocdefinition{Pnt} (\coqdocvar{n} :
+\coqdocinductive{nat})
+\coqdocvar{t} :=
+\coqdockw{match} \coqdocvariable{n} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{O}
+\ensuremath{\Rightarrow} \coqdocvariable{t}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{S}
+\coqdocvar{n} \ensuremath{\Rightarrow}
+\coqdocconstructor{P} @
+(\coqdocdefinition{Pnt} \coqdocvariable{n}
+\coqdocvariable{t})\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\end{coqdoccode}
+
+and infinite repetitions by corecursion
+
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{CoFixpoint}
+\coqdocdefinition{S$^\omega$}
+: \coqdocinductive{term} :=
+\coqdocconstructor{S} @ \coqdocdefinition{S$^\omega$}.\coqdoceol
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\end{coqdoccode}
+
+We would like to define $\psi$ as
+
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{CoFixpoint}
+\coqdocdefinition{$\psi'$} \coqdocvar{n}
+: \coqdocinductive{term} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdocdefinition{Snt} \coqdocvariable{n} (\coqdocdefinition{Pnt}
+(\coqdocconstructor{S} \coqdocvariable{n}) (\coqdocdefinition{$\psi'$}
+(\coqdocconstructor{S} (\coqdocconstructor{S}
+\coqdocvariable{n})))).\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{$\psi$} :=
+\coqdocdefinition{$\psi'$} 0.\coqdoceol
+\coqdocemptyline
+\end{coqdoccode}
+
+but this definition is not guarded.
+
+}
+
+
+\frame{
+
+  \frametitle{$\psi$ in \Coq}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{CoFixpoint}
+\coqdocdefinition{$\psi'$} \coqdocvar{n}
+: \coqdocinductive{term} :=\coqdoceol
+\coqdocindent{1.00em}
+(\coqdocvar{cofix} \coqdocvar{P2nPt} (\coqdocvar{p} :
+\coqdocinductive{nat})
+:=\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{match} \coqdocvariable{p} \coqdockw{with}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|}
+\coqdocconstructor{O}
+\ensuremath{\Rightarrow} \coqdocconstructor{P}
+@ (\coqdocvar{cofix} \coqdocvar{S2nt} (\coqdocvar{s} :
+\coqdocinductive{nat})
+:=\coqdoceol
+\coqdocindent{7.50em}
+\coqdockw{match} \coqdocvariable{s} \coqdockw{with}\coqdoceol
+\coqdocindent{7.50em}
+\ensuremath{|}
+\coqdocconstructor{O}
+\ensuremath{\Rightarrow}
+\coqdocdefinition{$\psi'$}
+(\coqdocconstructor{S}
+\coqdocvariable{n})\coqdoceol
+\coqdocindent{7.50em}
+\ensuremath{|}
+\coqdocconstructor{S}
+\coqdocvar{s} \ensuremath{\Rightarrow}
+\coqdocconstructor{S} @
+\coqdocconstructor{S} @ (\coqdocvariable{S2nt}
+\coqdocvariable{s})\coqdoceol
+\coqdocindent{7.50em}
+\coqdockw{end})
+(\coqdocconstructor{S}
+\coqdocvariable{n})\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|}
+\coqdocconstructor{S}
+\coqdocvar{p} \ensuremath{\Rightarrow}
+\coqdocconstructor{P} @
+\coqdocconstructor{P} @
+(\coqdocvariable{P2nPt} \coqdocvariable{p})\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{end}) \coqdocvariable{n}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{$\psi$} :=
+\coqdocdefinition{$\psi'$} 0.\coqdoceol
+\end{coqdoccode}
+
+}
+
+
+\frame{
+
+  \frametitle{The TRS in \Coq}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{$\mathcal{R}$} :=
+\coqdocdefinition{$\rho_1$} ::
+\coqdocdefinition{$\rho_2$} ::
+\coqdocconstructor{nil}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdoclemma{wo$_\mathcal{R}$} :
+\coqdocdefinition{weakly\_orthogonal} \coqdocdefinition{$\mathcal{R}$}.\coqdoceol
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\end{coqdoccode}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Lemma} \coqdoclemma{nf$_{\text{S}^\omega}$} :
+\coqdocdefinition{normal\_form}
+(\coqdocvar{system} :=
+\coqdocdefinition{$\mathcal{R}$}) \coqdocdefinition{S$^\omega$}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma} \coqdoclemma{nf$_{\text{P}^\omega}$} :
+\coqdocdefinition{normal\_form}
+(\coqdocvar{system} :=
+\coqdocdefinition{$\mathcal{R}$}) \coqdocdefinition{P$^\omega$}.\coqdoceol
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\end{coqdoccode}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdoclemma{neq$^{\text{S}^\omega}_{\text{P}^\omega}$} :
+\ensuremath{\lnot}
+\coqdocdefinition{S$^\omega$} $\sim$
+\coqdocdefinition{P$^\omega$}.\coqdoceol
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\end{coqdoccode}
+
+Now we construct rewrite sequences from $\psi$ to $S^\omega$ and
+$P^\omega$.
+
+}
+
+
+\frame{
+
+  \frametitle{Example rewrite sequences from $\psi$ to $\ldots$}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{$\phi_0$}
+: \coqdocdefinition{$\psi$} $\twoheadrightarrow_\mathcal{R}$
+\coqdocdefinition{$\psi$} :=
+\coqdocconstructor{Nil}
+\coqdocdefinition{$\psi$}.\coqdoceol
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{$\sigma_1$}
+(\coqdocvar{x} : \coqdocdefinition{X}) :
+\coqdocinductive{term} :=
+\coqdockw{match} \coqdocvariable{x} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+1 \ensuremath{\Rightarrow}
+\coqdocconstructor{S} @
+\coqdocdefinition{$\psi'$} 1
+$\quad$ \ensuremath{|} $\quad$ \coqdocvar{\_} \ensuremath{\Rightarrow}
+\coqdocconstructor{Var}
+\coqdocvariable{x}
+$\quad$ \coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{$\pi_1$}
+: \coqdocdefinition{$\psi$} $\rightarrow_\mathcal{R}$
+(\coqdocconstructor{S} @
+\coqdocdefinition{$\psi'$} 1) :=
+\coqdocconstructor{Step}
+\coqdocdefinition{$\rho_1$}
+$\Box$
+\coqdocdefinition{$\sigma_1$}
+\coqdoclemma{\_}
+\coqdoclemma{\_}
+\coqdoclemma{\_}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{$\phi_1$}
+: \coqdocdefinition{$\psi$} $\twoheadrightarrow_\mathcal{R}$
+(\coqdocconstructor{S} @
+\coqdocdefinition{$\psi'$} 1) :=
+\coqdocconstructor{Cons}
+\coqdocdefinition{$\phi_0$}
+\coqdocdefinition{$\pi_1$}.\coqdoceol
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{$\sigma_2$}
+(\coqdocvar{x} : \coqdocdefinition{X}) :
+\coqdocinductive{term} :=
+\coqdockw{match} \coqdocvariable{x} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} 1 \ensuremath{\Rightarrow}
+\coqdocconstructor{S} @
+\coqdocconstructor{S} @
+\coqdocconstructor{S} @
+\coqdocdefinition{$\psi'$} 2\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{\_} \ensuremath{\Rightarrow}
+\coqdocconstructor{Var}
+\coqdocvariable{x}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{$\pi_2$}
+: \coqdocconstructor{S} @
+\coqdocdefinition{$\psi'$} 1) $\rightarrow_\mathcal{R}$
+(\coqdocconstructor{S} @
+\coqdocconstructor{P} @
+\coqdocconstructor{P} @
+\coqdocconstructor{S} @
+\coqdocconstructor{S} @
+\coqdocconstructor{S}\coqdoceol
+\coqdocindent{1.00em} @
+\coqdocdefinition{$\psi'$} 2) :=
+\coqdocconstructor{Step}
+\coqdocdefinition{$\rho_1$}
+(\coqdocconstructor{S} @
+\coqdocconstructor{P} @
+\coqdocconstructor{P} @
+$\Box$)
+\coqdocdefinition{$\sigma_2$}
+\coqdoclemma{\_}
+\coqdoclemma{\_}
+\coqdoclemma{\_}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{$\phi_2$}
+: \coqdocdefinition{$\psi$} $\twoheadrightarrow_\mathcal{R}$
+(\coqdocconstructor{S} @
+\coqdocconstructor{P} @
+\coqdocconstructor{P} @
+\coqdocconstructor{S} @
+\coqdocconstructor{S} @
+\coqdocconstructor{S} @
+\coqdocdefinition{$\psi'$} 2) :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdocconstructor{Cons}
+\coqdocdefinition{$\phi_1$}
+\coqdocdefinition{$\pi_2$}.\coqdoceol
+\end{coqdoccode}
+
+}
+
+
+\frame{
+
+  \frametitle{Constructing $\psi \twoheadrightarrow S^n (\psi' n)$}
+
+\begin{coqdoccode}
+%\coqdocnoindent
+%\coqdockw{Definition}
+%\coqdocdefinition{$\sigma$}
+%\coqdocvar{n} \coqdocvar{t} (\coqdocvar{x} :
+%\coqdocdefinition{X}) :
+%\coqdocinductive{term} :=\coqdoceol
+%\coqdocindent{1.00em}
+%\coqdockw{match} \coqdocvariable{x} \coqdockw{with}\coqdoceol
+%\coqdocindent{1.00em}
+%\ensuremath{|} 1 \ensuremath{\Rightarrow}
+%\coqdocdefinition{Snt} \coqdocvariable{n}
+%\coqdocvariable{t}\coqdoceol
+%\coqdocindent{1.00em}
+%\ensuremath{|} \coqdocvar{\_} \ensuremath{\Rightarrow}
+%\coqdocconstructor{Var}
+%\coqdocvariable{x}\coqdoceol
+%\coqdocindent{1.00em}
+%\coqdockw{end}.\coqdoceol
+%\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{$\pi$}
+\coqdocvar{m} \coqdocvar{n} \coqdocvar{t} :\coqdoceol
+\coqdocindent{1.00em}\coqdocdefinition{Snt} \coqdocvariable{m}
+(\coqdocdefinition{PnSnt}
+(\coqdocconstructor{S}
+\coqdocvariable{n}) \coqdocvariable{t}) $\rightarrow_\mathcal{R}$
+\coqdocdefinition{Snt} \coqdocvariable{m}
+(\coqdocdefinition{PnSnt}
+\coqdocvariable{n} \coqdocvariable{t}) :=\coqdoceol
+\coqdocindent{2.00em}
+\coqdocinductive{Step}
+\coqdocdefinition{$\rho_1$}
+(\coqdocdefinition{Snc} \coqdocvariable{m}
+(\coqdocdefinition{Pnc} \coqdocvariable{n}
+$\Box$))
+(\coqdocdefinition{$\sigma$}
+\coqdocvariable{n} \coqdocvariable{t})
+\coqdoclemma{\_}
+\coqdoclemma{\_}
+\coqdoclemma{\_}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Fixpoint}
+\coqdocdefinition{$\phi_a$}
+\coqdocvar{m} \coqdocvar{n} \coqdocvar{t} :
+\coqdocdefinition{Snt} \coqdocvariable{m}
+(\coqdocdefinition{PnSnt}
+\coqdocvariable{n} \coqdocvariable{t}) $\twoheadrightarrow_\mathcal{R}$
+\coqdocdefinition{Snt} \coqdocvariable{m}
+\coqdocvariable{t} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{n} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{O}
+\ensuremath{\Rightarrow}
+\coqdocconstructor{Nil}
+(\coqdocdefinition{Snt} \coqdocvariable{m}
+\coqdocvariable{t})\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{S}
+\coqdocvar{n} \ensuremath{\Rightarrow}
+\coqdocdefinition{snoc}
+(\coqdocdefinition{$\pi$}
+\coqdocvariable{m} \coqdocvariable{n} \coqdocvariable{t})
+(\coqdocdefinition{$\phi_a$}
+\coqdocvariable{m} \coqdocvariable{n} \coqdocvariable{t})\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{$\phi_b$}
+\coqdocvar{n} : \coqdocdefinition{Snt}
+\coqdocvariable{n} (\coqdocdefinition{$\psi'$}
+\coqdocvariable{n}) $\twoheadrightarrow_\mathcal{R}$
+\coqdocdefinition{Snt}
+(\coqdocconstructor{S}
+\coqdocvariable{n})
+(\coqdocdefinition{$\psi'$}
+(\coqdocconstructor{S}
+\coqdocvariable{n})) :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdocdefinition{$\phi_a$} \coqdocvariable{n} (\coqdocconstructor{S} (2
+$\times$ \coqdocvariable{n})) (\coqdocconstructor{S} @
+\coqdocdefinition{$\psi'$} (\coqdocconstructor{S}
+\coqdocvariable{n})).\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Fixpoint}
+\coqdocdefinition{$\phi_c$}
+\coqdocvar{n} : \coqdocdefinition{$\psi$} $\twoheadrightarrow_\mathcal{R}$
+\coqdocdefinition{Snt} \coqdocvariable{n}
+(\coqdocdefinition{$\psi'$}
+\coqdocvariable{n}) :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{n} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{O}
+\ensuremath{\Rightarrow}
+\coqdocconstructor{Nil}
+\coqdocdefinition{$\psi$}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{S}
+\coqdocvar{n} \ensuremath{\Rightarrow}
+\coqdocdefinition{append}
+(\coqdocdefinition{$\phi_c$}
+\coqdocvariable{n})
+(\coqdocdefinition{$\phi_b$}
+\coqdocvariable{n})\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\end{coqdoccode}
+
+}
+
+
+\frame{
+
+  \frametitle{$\omega$-step rewrite sequence from $\psi$ to $S^\omega$}
+
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdoclemma{conv}
+: \coqdocdefinition{converges}
+(\coqdockw{fun} \coqdocvar{n} \ensuremath{\Rightarrow}
+\coqdocdefinition{Snt} \coqdocvariable{n}
+(\coqdocdefinition{$\psi'$}
+\coqdocvariable{n}))
+\coqdocdefinition{S$^\omega$}.\coqdoceol
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{$\phi$}
+: \coqdocdefinition{$\psi$} $\twoheadrightarrow_\mathcal{R}$
+\coqdocdefinition{S$^\omega$} :=
+\coqdocconstructor{Lim}
+\coqdocdefinition{$\phi_c$}
+\coqdoclemma{conv}.\coqdoceol
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdoclemma{wf$_\phi$}
+: \coqdocdefinition{wf}
+\coqdocdefinition{$\phi$}.\coqdoceol
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\end{coqdoccode}
+
+We can now prove our lemma.
+
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdoclemma{no\_un$_\mathcal{R}$}
+: \ensuremath{\lnot}
+\coqdocdefinition{unique\_normal\_forms}
+\coqdocdefinition{$\mathcal{R}$}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma} \coqdoclemma{no\_un\_wo}
+: \ensuremath{\lnot} \ensuremath{\forall} \coqdocvar{F} \coqdocvar{X}
+\coqdocvar{$\mathcal{R}$},\coqdoceol
+\coqdocindent{1.00em}
+\coqdocdefinition{weakly\_orthogonal}
+(\coqdocvar{F} := \coqdocvariable{F}) (\coqdocvar{X} :=
+\coqdocvariable{X}) \coqdocvariable{$\mathcal{R}$}
+\ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{1.00em}
+\coqdocdefinition{unique\_normal\_forms}
+\coqdocvariable{$\mathcal{R}$}.\coqdoceol
+\end{coqdoccode}
 
 }
 
@@ -1063,6 +1578,32 @@ $\sqsubset$
   \frametitle{Infinitary rewriting in \Coq}
 
   \tableofcontents[currentsection]
+
+}
+
+
+\frame{
+
+  \frametitle{Our \Coq-development}
+
+  Joint work with Dimitri Hendriks\\[1em]
+
+  Some 7500 physical lines of code
+  \begin{itemize}
+    \item 1250 for terms
+    \item 900 for ordinals
+    \item 1500 for rewriting
+    \item 3000 for UN$^\infty$ and weak orthogonality\\[1em]
+  \end{itemize}
+
+  Acknowledgements
+  \begin{itemize}
+    \item J\"org Endrullis
+    \item Vincent van Oostrom for ideas on embedding relation
+    \item Peter Hancock for the order on ordinals
+    \item Adam Chlipala for recursive vector type and more
+    \item Matthieu Sozeau for help on dependent destruction tactic
+  \end{itemize}
 
 }
 
