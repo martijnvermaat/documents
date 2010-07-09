@@ -74,6 +74,13 @@
 
   Why formalize a mathematical theory mechanically?
 
+  \begin{itemize}
+    \item Increases confidence in theorems
+    \item Might catch oversights or errors in proofs
+    \item Automation
+    \item Can form the basis of useful tools
+  \end{itemize}
+
 }
 
 
@@ -91,6 +98,51 @@
     \item certified program extractor
   \end{itemize}
 
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocemptyline
+\coqdockw{Inductive} \coqdocinductive{nat}
+:
+\coqdockw{Set} :=\coqdoceol
+\coqdocindent{0.3em}
+\ensuremath{|} \coqdocconstructor{O}
+:
+\coqdocinductive{nat}\coqdoceol
+\coqdocindent{0.3em}
+\ensuremath{|} \coqdocconstructor{S}
+:
+\coqdocinductive{nat} \ensuremath{\rightarrow}
+\coqdocinductive{nat}.
+\coqdocindent{7.50em}
+\coqdockw{Lemma}
+\coqdoclemma{$+_0$}
+: \ensuremath{\forall} \coqdocvar{n},
+\coqdocvariable{n} = \coqdocvariable{n} + 0.\coqdoceol
+\end{coqdoccode}
+
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Fixpoint}
++ (\coqdocvar{n} \coqdocvar{m} :
+\coqdocinductive{nat}) :
+\coqdocinductive{nat} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{n} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{O}
+\ensuremath{\Rightarrow} \coqdocvariable{m}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{S}
+\coqdocvar{n} \ensuremath{\Rightarrow}
+\coqdocconstructor{S} (\coqdocvar{n} + \coqdocvar{m})\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\end{coqdoccode}
+
 }
 
 
@@ -107,8 +159,8 @@
 
   \begin{block}{Ordinals in \Coq}
     \begin{itemize}
-    \item Veblen Normal Form (Casteran)
-    \item Set-theoretic ordinals (Mamane)
+    \item Cantor and Veblen normal forms (Cast\'eran)
+    \item Set-theoretic surreal numbers (Mamane)
     \end{itemize}
   \end{block}
 
@@ -151,9 +203,12 @@
 (\coqdocprojection{arity} \coqdocvariable{f})
 \ensuremath{\rightarrow}
 \coqdocinductive{term}.\coqdoceol
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
 \end{coqdoccode}
 
-% TODO: guardedness problem?
+We use a recursive vector type instead of the standard inductive one
 
 }
 
@@ -815,8 +870,7 @@ $\twoheadrightarrow_\mathcal{R}$
 \coqdocdefinition{pred} (\coqdocvariable{f}
 \coqdocvariable{n}) \coqdocvariable{$\kappa$}\coqdoceol
 \coqdocindent{10.00em}
-\coqdockw{end}\coqdoceol
-\coqdocindent{1.00em}
+\coqdockw{end}
 \coqdockw{end}.\coqdoceol
 \end{coqdoccode}
 
@@ -850,7 +904,7 @@ target term of
 
 \begin{center}
 \coqdocvariable{$\varphi$}[\coqdocvariable{$\iota$}]$^\textsc{stp}$
-\ \ \ \ \ \ instead of \ \ \ \ \ \ \coqdocdefinition{fst}
+\ \ \ \ \ \ instead of \ \ \ \ \ \ \coqdocdefinition{snd}
 (\coqdocdefinition{projT2} (\coqdocdefinition{pred}
 \coqdocvariable{$\varphi$} \coqdocvariable{$\iota$}))
 \end{center}
@@ -1570,7 +1624,7 @@ We can now prove our lemma.
 }
 
 
-\section{Conclusions}
+\section{Conclusion}
 
 
 \frame{
@@ -1604,6 +1658,44 @@ We can now prove our lemma.
     \item Adam Chlipala for recursive vector type and more
     \item Matthieu Sozeau for help on dependent destruction tactic
   \end{itemize}
+
+}
+
+
+\frame{
+
+  \frametitle{Conclusions}
+
+  State of \Coq
+  \begin{itemize}
+    \item Formalizing takes too much time and working with it is tedious
+    \item Guardedness restriction is too restrictive\\[1em]
+  \end{itemize}
+
+  Our formalization
+  \begin{itemize}
+    \item Representation of rewriting sequences not close to
+      traditional
+    \item Convergence notions are not translated easily
+    \item Compression Lemma was too high a goal
+  \end{itemize}
+
+}
+
+
+\frame{
+
+  \frametitle{The End}
+
+  Questions?
+
+  \begin{block}{Selected references}
+    \begin{itemize}
+    \item Peter Hancock
+    \item Terese
+    \item RTA
+    \end{itemize}
+  \end{block}
 
 }
 
