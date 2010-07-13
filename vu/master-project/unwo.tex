@@ -1,14 +1,47 @@
-\chapter{A Counterexample to \texorpdfstring{UN$^\infty$}{UN} for Weakly
-  Orthogonal Systems}\label{chap:unwo}
+\chapter{\texorpdfstring{Unique Normal Forms in\\Weakly Orthogonal
+  Systems}{Unique Normal Forms in Weakly Orthogonal Systems}}\label{chap:unwo}
 
-% TODO: typesetting UN^\infty
+TODO: this intro
 
-UN$^\infty$ holds for orthogonal TRSs, but does it hold for weakly orthogonal TRSs?
+Every orthogonal TRS exhibits the infinitary unique normal forms
+(UN$^\infty$) property. We might expect this property to generalize to
+weakly orthogonal systems. However, this does not turn out to be the
+case.
 
 
 \section{A Counterexample}
 
-Counterexample for UN$^\infty$ in weakly orthogonal TRSs. Short description.
+We describe a simple counterexample showing that weak orthogonality
+does not imply the UN$^\infty$ property.
+
+We work in a signature with unary function symbols $P$ and $S$. In the
+notation of terms, we omit the brackets around arguments and assume
+right-associativity of function symbol application, e.g.\ writing
+$PSx$ for $P(S(x))$. A notation for finite repetitions of a function
+symbol $f$ terminated by a term $t$ is defined by
+\begin{inparaenum}[(i)]
+\item $f^0 t = t$ and
+\item $f^{n+1} = ff^nt$.
+\end{inparaenum}
+The infinite nesting $fff \ldots$ of $f$ is written $f^\omega$.
+% TODO: nesting vs repetition
+
+Consider the TRS consisting of the two left-linear rewrite rules
+$\rho_1$ and $\rho_2$:
+\begin{align*}
+  \rho_1 \, : \, PSx \to x \qquad \qquad \qquad
+  \rho_2 \, : \, SPx \to x
+\end{align*}
+This system has two critical pairs $\langle Px, Px \rangle$ and
+$\langle Sx, Sx \rangle$, both of which are trivial, establishing
+weak orthogonality.
+
+The infinite term
+\begin{align*}
+  \psi = P \, SS \, PPP \, SSSS \, PPPPP \, SSSSSS \ldots
+\end{align*}
+has two normal forms. It rewrites to $S^\omega$ in $\omega$
+$\rho_1$-steps and to $P^\omega$ in $\omega$ $\rho_2$-steps.
 
 
 \section{A Mechanic Formalization}
