@@ -58,8 +58,10 @@
 
 \renewcommand{\chaptermark}[1]{\markboth{\textsc{Chapter
       \thechapter}\hskip 1em #1}{}}
-\renewcommand{\sectionmark}[1]{\markright{\textsc{Section
-      \thesection}\hskip 1em #1}}
+%\renewcommand{\sectionmark}[1]{\markright{\textsc{Section
+%      \thesection}\hskip 1em #1}}
+\renewcommand{\sectionmark}[1]{\markright{\textsc{\thesection}\hskip
+    1em #1}}
 
 \fancyhead[LE]{\leftmark}
 \fancyhead[RO]{\rightmark}
@@ -85,8 +87,10 @@
 % TODO: smallcaps for footnote and page numbering
 \titleformat{\chapter}[display]
 {\normalfont\huge}{\sc\chaptertitlename\ \thechapter}{20pt}{\Huge}
+%\titleformat{\section}
+%{\normalfont\Large}{\sc Section\ \thesection}{1em}{}
 \titleformat{\section}
-{\normalfont\Large}{\sc Section\ \thesection}{1em}{}
+{\normalfont\Large}{\sc \thesection}{1em}{}
 \titleformat{\subsection}
 {\normalfont\large}{\sc\thesubsection}{1em}{}
 \titleformat{\subsubsection}
@@ -118,9 +122,10 @@
 
 % Natbib for the bibliography, always. sort&compress will make i.e. [1-5,7].
 %\usepackage[square,numbers,sort&compress]{natbib}
-%\usepackage[authoryear,sort]{natbib}
-\usepackage[numbers]{natbib}
-\setlength{\bibhang}{0ex}
+\usepackage[round,authoryear,sort&compress,longnamesfirst]{natbib}
+%\usepackage[numbers]{natbib}
+\bibliographystyle{plainnat}
+%\setlength{\bibhang}{0ex}
 
 % Customizable theorem environments
 \usepackage[amsmath,thmmarks]{ntheorem}
@@ -217,8 +222,25 @@
   \newpage
     \thispagestyle{empty}
     \null\vfil
-    \vspace{12cm}
-    {Copyright (c) 2010, Martijn Vermaat \par}
+    \vspace{13cm}
+    % TODO: international version of VU logo
+    {\includegraphics[draft=false,width=5cm]{logos/vu-logo} \par}
+    \vspace{10pt}
+    {\copyright\ 2010 Martijn Vermaat \par}
+    \vspace{10pt}
+    % TODO: check license text
+    % TODO: attribute Sebastian Pipping for cc logo,
+    % http://blog.hartwork.org/?p=52
+    % TODO: this is ugly (333pt should exactly fill the page)
+    {\begin{tabular}{c p{333pt}}
+      \raisebox{-10pt}{\includegraphics[draft=false,scale=1.0]{logos/cc-by}} &
+      This work is licensed under the Creative Commons
+      Attribution 3.0 Netherlands License. To view a copy of this
+      license, visit
+      \emph{http://creativecommons.org/licenses/by/3.0/nl/} or send
+      a letter to Creative Commons, 171 Second Street, Suite 300,
+      San Francisco, California 94105, US.
+    \end{tabular} \par}
     \vfil\null
 }
 \makeatother

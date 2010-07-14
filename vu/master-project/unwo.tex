@@ -14,7 +14,7 @@ case.
 \section{A Counterexample}
 
 We describe a simple counterexample showing that weak orthogonality
-does not imply the UN$^\infty$ property.
+does not imply the UN$^\infty$ property \citep{endrullis-10}.
 
 We work in a signature with unary function symbols $P$ and $S$. In the
 notation of terms, we omit the brackets around arguments and assume
@@ -40,6 +40,10 @@ weak orthogonality. The infinite term $\psi = P^1 S^2 P^3 S^4 \ldots$
 has two normal forms. It rewrites to $S^\omega$ in $\omega$ many
 $\rho_1$-steps and to $P^\omega$ in $\omega$ many $\rho_2$-steps.
 
+Other interesting properties of this TRS (e.g.\ weak normalisation is
+not preserved under rewriting) and a translation to the infinitary
+$\lambda \beta \eta$-calculus can be found in \citet{endrullis-10}.
+
 
 \subsection{\texorpdfstring{Rewriting $\psi$ to $S^\omega$}{Rewriting
     PSSPPP... to SSS...}}
@@ -62,12 +66,12 @@ stick with, is the slight reformulation:
 For any term $t$ and natural numbers $n$ and $m$ we have $S^n P^{m+1}
 S^{m+1} t \rightarrow_{\rho_1} S^n P^m S^m t$ and thus $S^n P^m S^m t
 \twoheadrightarrow S^n t$ by iterating $m$ such steps. Instantiating
-$m$ with $2 n + 1$ and $t$ with $S \psi'_{n + 1}$, we obtain $S^n P^{2
-  n + 1} S^{2 n + 1} S \psi'_{n + 1} \equiv S^n \psi'_n
-\twoheadrightarrow S^{n+1} \psi'_{n + 1}$ for any $n$.
-
-TODO: concatenating these sequences, iterating $n$ from $0$ to
-$\omega$, we arrive at $\psi \twoheadrightarrow S^\omega$.
+$m$ with $2 n + 1$ and $t$ with $S \psi'_{n + 1}$, we obtain
+%$S^n P^{2 n + 1} S^{2 n + 1} S \psi'_{n + 1} \equiv S^n \psi'_n$
+$S^n \psi'_n \twoheadrightarrow S^{n+1} \psi'_{n + 1}$ for any $n$.
+Concatenating these sequences, iterating $n$ from $0$ onwards, we
+arrive at $\psi \twoheadrightarrow S^\omega$.
+% TODO: wording 'iterating n from 0 onwards'
 
 
 \section{A Mechanic Formalization}
