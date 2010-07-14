@@ -11,16 +11,25 @@ weakly orthogonal systems. However, this does not turn out to be the
 case.
 
 
-\section{A Counterexample}
+\section{A Counterexample}\label{sec:counterexample}
+
+% TODO: is the naming D,U really a good idea?
 
 We describe a simple counterexample showing that weak orthogonality
 does not imply the UN$^\infty$ property \citep{endrullis-10}.
 
-We work in a signature with unary function symbols $P$ and $S$. In the
-notation of terms, we omit the brackets around arguments and assume
-right-associativity of function symbol application, e.g.\ writing
-$PSx$ for $P(S(x))$. A notation for finite repetitions of a function
-symbol $f$ terminated by a term $t$ is defined by
+We work in a signature with unary function symbols $D$ and
+$U$.\footnote{We can think of $D$ and $U$ as `down' and `up'. The
+  original formulation of this TRS uses $P$ and $S$ (`predecessor' and
+  `successor'), but to avoid notational conflicts with the
+  \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+  constructor for
+  \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+  in \Coq, we proceed with this modification.}
+In the notation of terms, we omit the brackets around arguments and
+assume right-associativity of function symbol application,
+e.g.\ writing $DU$ for $D(U(x))$. A notation for finite repetitions of
+a function symbol $f$ terminated by a term $t$ is defined by
 \begin{inparaenum}[(i)]
 \item $f^0 t = t$ and
 \item $f^{n+1} = ff^nt$.
@@ -31,49 +40,263 @@ The infinite nesting $fff \ldots$ of $f$ is written $f^\omega$.
 Consider the TRS consisting of the two left-linear rewrite rules
 $\rho_1$ and $\rho_2$:
 \begin{align*}
-  \rho_1 \, : \, PSx \to x \qquad \qquad \qquad
-  \rho_2 \, : \, SPx \to x
+  \rho_1 \, : \, DUx \to x \qquad \qquad \qquad
+  \rho_2 \, : \, UDx \to x
 \end{align*}
-This system has two critical pairs $\langle Px, Px \rangle$ and
-$\langle Sx, Sx \rangle$, both of which are trivial, establishing
-weak orthogonality. The infinite term $\psi = P^1 S^2 P^3 S^4 \ldots$
-has two normal forms. It rewrites to $S^\omega$ in $\omega$ many
-$\rho_1$-steps and to $P^\omega$ in $\omega$ many $\rho_2$-steps.
+This system has two critical pairs $\langle Dx, Dx \rangle$ and
+$\langle Ux, Ux \rangle$, both of which are trivial, establishing
+weak orthogonality. The infinite term $\psi = D^1 U^2 D^3 U^4 \ldots$
+has two normal forms. It rewrites to $U^\omega$ in $\omega$ many
+$\rho_1$-steps and to $D^\omega$ in $\omega$ many $\rho_2$-steps.
 
 Other interesting properties of this TRS (e.g.\ weak normalisation is
 not preserved under rewriting) and a translation to the infinitary
 $\lambda \beta \eta$-calculus can be found in \citet{endrullis-10}.
 
 
-\subsection{\texorpdfstring{Rewriting $\psi$ to $S^\omega$}{Rewriting
-    PSSPPP... to SSS...}}
+\subsection{\texorpdfstring{Rewriting $\psi$ to $U^\omega$}{Rewriting
+    DUUDDD... to UUU...}}\label{sub:counterexample}
 
-We show briefly what rewriting $\psi$ to $S^\omega$ amounts
-to. Rewriting $\psi$ to $P^\omega$ is done in a similar way.
+We show briefly what rewriting $\psi$ to $U^\omega$ amounts
+to. Rewriting $\psi$ to $D^\omega$ is done in a similar way.
 An obvious way to define $\psi$ by corecursion is via auxiliary terms
 $\psi'_n$ parameterized by $n$ as follows:
 \begin{align*}
-  \psi'_n = S^n P^{n + 1} \psi'_{n + 2} \qquad \qquad \qquad
+  \psi'_n = U^n D^{n + 1} \psi'_{n + 2} \qquad \qquad \qquad
   \psi = \psi'_0
 \end{align*}
 But a more useful definition for our present purposes, and the one we
 stick with, is the slight reformulation:
 \begin{align*}
-  \psi'_n = P^{2 n + 1} S^{2 n + 2} \psi'_{n + 1} \qquad
+  \psi'_n = D^{2 n + 1} U^{2 n + 2} \psi'_{n + 1} \qquad
   \qquad \qquad
   \psi = \psi'_0
 \end{align*}
-For any term $t$ and natural numbers $n$ and $m$ we have $S^n P^{m+1}
-S^{m+1} t \rightarrow_{\rho_1} S^n P^m S^m t$ and thus $S^n P^m S^m t
-\twoheadrightarrow S^n t$ by iterating $m$ such steps. Instantiating
-$m$ with $2 n + 1$ and $t$ with $S \psi'_{n + 1}$, we obtain
+For any term $t$ and natural numbers $n$ and $m$ we have $U^n D^{m+1}
+U^{m+1} t \rightarrow_{\rho_1} U^n D^m U^m t$ and thus $U^n D^m U^m t
+\twoheadrightarrow U^n t$ by iterating $m$ such steps. Instantiating
+$m$ with $2 n + 1$ and $t$ with $U \psi'_{n + 1}$, we obtain
 %$S^n P^{2 n + 1} S^{2 n + 1} S \psi'_{n + 1} \equiv S^n \psi'_n$
-$S^n \psi'_n \twoheadrightarrow S^{n+1} \psi'_{n + 1}$ for any $n$.
+$U^n \psi'_n \twoheadrightarrow U^{n+1} \psi'_{n + 1}$ for any $n$.
 Concatenating these sequences, iterating $n$ from $0$ onwards, we
-arrive at $\psi \twoheadrightarrow S^\omega$.
+arrive at $\psi \twoheadrightarrow U^\omega$.
 % TODO: wording 'iterating n from 0 onwards'
 
 
 \section{A Mechanic Formalization}
 
-Implementation in \Coq.
+We implement the counterexample from Section~\ref{sec:counterexample}
+using the \Coq development described in
+Chapter~\ref{chap:implementation}.
+
+The rewrite rules $\rho_1$ and $\rho_2$ are straightforwardly defined
+and shown left-linear. By a simple proof we obtain that all critical
+pairs are trivial and hence that the TRS is weakly orthogonal.
+\begin{singlespace}
+\begin{coqdoccode}
+%\coqdocnoindent
+%\coqdockw{Definition}
+%\coqdef{ExampleUNWO.UNWOtrs}{UNWO\_trs}{\coqdocdefinition{$\mathcal{R}$}}
+%:=
+%\coqdocdefinition{$\rho_1$} ::
+%\coqdocdefinition{$\rho_2$} ::
+%\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nil}{\coqdocconstructor{nil}}.\coqdoceol
+%\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdoclemma{wo$_\mathcal{R}$} :
+\coqdocdefinition{weakly\_orthogonal} % TODO: link to definition
+%\coqref{ExampleUNWO.UNWOtrs}{\coqdocdefinition{$\mathcal{R}$}}.\coqdoceol
+\coqdocdefinition{$\mathcal{R}$}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+We introduce the notation \begin{coqdoccode}\coqdocvariable{f} @
+  \coqdocvariable{t}\end{coqdoccode} to mean
+\begin{coqdoccode}\coqref{Term.Fun}{\coqdocconstructor{Fun}}
+  \coqdocvariable{f} (\coqdocdefinition{vcons} \coqdocvariable{t}
+  (\coqdocdefinition{vnil}
+  \coqref{Term.term}{\coqdocinductive{term}}))\end{coqdoccode}. For
+brevity, mirrored constructions for both function symbols are only
+discussed for one of them. The infinite term $U^\omega$ is defined by
+corecursion and finite repetitions $U^n t$ are defined by recursion
+(and are assumed to generalize to contexts with the same notation).
+% TODO: wording of the generalization to contexts
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{CoFixpoint}
+\coqdef{ExampleUNWO.repeatU}{repeat\_U}{\coqdocdefinition{U$^\omega$}}
+: \coqref{Term.term}{\coqdocinductive{term}} :=
+\coqdocconstructor{U} @
+\coqref{ExampleUNWO.repeatU}{\coqdocdefinition{U$^\omega$}}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Fixpoint}
+\coqdef{ExampleUNWO.Unt}{Unt}{\coqdocdefinition{U}}$^\coqdocvar{n}$
+\coqdocvar{t} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{n} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{O}{\coqdocconstructor{O}}
+\ensuremath{\Rightarrow} \coqdocvariable{t}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqdocvar{n} \ensuremath{\Rightarrow}
+\coqdocconstructor{U} @
+(\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
+\coqdocvariable{t})\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+Unfortunately, $\psi$ is not as easily defined. Although clearly
+productive, direct translations of the corecursions in
+Section~\ref{sub:counterexample} do not satisfy \Coq's guardedness
+condition (see also Section~\ref{sub:guardedness}). The conclusion of
+a \emph{trial and error} approach is that we must use anonymous cofix
+constructions. The definition we proceed with is the following.
+% TODO: wording 'trial and error approach'
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{CoFixpoint}
+\coqdef{ExampleUNWO.psi'}{psi'}{\coqdocdefinition{$\psi'$}} \coqdocvar{n}
+: \coqref{Term.term}{\coqdocinductive{term}} :=\coqdoceol
+\coqdocindent{1.00em}
+(\coqdocvar{cofix} \coqdocvar{Ds} (\coqdocvar{d} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}})
+:=\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{match} \coqdocvariable{d} \coqdockw{with}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{O}{\coqdocconstructor{O}}
+\ensuremath{\Rightarrow} \coqdocconstructor{D}
+@ (\coqdocvar{cofix} \coqdocvar{Us} (\coqdocvar{u} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}})
+:=\coqdoceol
+\coqdocindent{7.50em}
+\coqdockw{match} \coqdocvariable{u} \coqdockw{with}\coqdoceol
+\coqdocindent{7.50em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{O}{\coqdocconstructor{O}}
+\ensuremath{\Rightarrow}
+\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\psi'$}}
+(\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqdocvariable{n})\coqdoceol
+\coqdocindent{7.50em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqdocvar{u} \ensuremath{\Rightarrow}
+\coqdocconstructor{U} @
+\coqdocconstructor{U} @ (\coqdocvariable{Us}
+\coqdocvariable{u})\coqdoceol
+\coqdocindent{7.50em}
+\coqdockw{end})
+(\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqdocvariable{n})\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqdocvar{d} \ensuremath{\Rightarrow}
+\coqdocconstructor{D} @
+\coqdocconstructor{D} @
+(\coqdocvariable{Ds} \coqdocvariable{d})\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{end}) \coqdocvariable{n}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdef{ExampleUNWO.psi}{psi}{\coqdocdefinition{$\psi$}} :=
+\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\psi'$}} 0.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+We now prove that $U^\omega$ and $D^\omega$ are (distinct) normal
+forms. This is essentially done by exhaustive case analysis of
+the position of redex occurrences in the terms, yielding that there
+can not be such an occurence.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Lemma} \coqdoclemma{nf$_{\text{U}^\omega}$} :
+\coqdocdefinition{normal\_form} % TODO: link to definition
+(\coqdocvar{system} :=
+\coqdocdefinition{$\mathcal{R}$})
+\coqref{ExampleUNWO.repeatU}{\coqdocdefinition{U$^\omega$}}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma} \coqdoclemma{nf$_{\text{D}^\omega}$} :
+\coqdocdefinition{normal\_form}
+(\coqdocvar{system} :=
+\coqdocdefinition{$\mathcal{R}$})
+\coqdocdefinition{D$^\omega$}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdoclemma{neq$^{\text{U}^\omega}_{\text{D}^\omega}$} :
+\ensuremath{\lnot}
+\coqref{ExampleUNWO.repeatU}{\coqdocdefinition{U$^\omega$}}
+\coqref{TermEquality.termbis}{$\sim$}
+\coqdocdefinition{D$^\omega$}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+Constructing a rewrite sequence from $\psi$ to $U^\omega$ is done in
+much the same way as described in
+Section~\ref{sub:counterexample}. First, we define the parameterized
+step that is used in the rewrite sequence. It eliminates one pair of $D,
+U$ constructors in a term of the form $U^n D^{m+1} U^{m+1} t$. The
+substitution that is applied is also defined parameterized. Note that
+the set of variables \coqdocdefinition{X} is instantiated with
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+and that the variable in both rewrite rules is 1.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{$\sigma$}
+\coqdocvar{t} (\coqdocvar{x} :
+\coqdocdefinition{X}) :
+\coqref{Term.term}{\coqdocinductive{term}} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{x} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} 1 \ensuremath{\Rightarrow}
+\coqdocvariable{t}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{\_} \ensuremath{\Rightarrow}
+\coqref{Term.Var}{\coqdocconstructor{Var}}
+\coqdocvariable{x}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdocdefinition{$\pi$}
+\coqdocvar{n} \coqdocvar{m} \coqdocvar{t} :
+\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
+\coqdocdefinition{D}$^{\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}} \coqdocvariable{m}}$
+\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^{\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqdocvariable{m}}$
+\coqdocvariable{t} $\rightarrow_\mathcal{R}$
+\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
+\coqdocdefinition{D}$^\coqdocvariable{m}$
+\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{m}$
+\coqdocvariable{t} :=\coqdoceol
+\coqdocindent{2.00em}
+\coqref{Rewriting.Step}{\coqdocconstructor{Step}}
+\coqdocdefinition{$\rho_1$}
+(\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
+\coqdocdefinition{D}$^\coqdocvariable{m}$ $\Box$)
+(\coqdocdefinition{$\sigma$}
+(\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{m}$ \coqdocvariable{t}))
+\coqdoclemma{\_}
+\coqdoclemma{\_}
+\coqdoclemma{\_}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+We leave out three arguments of the Step constructor here. The first
+is a proof of $\rho_1 \in \mathcal{R}$. TODO.
