@@ -238,7 +238,7 @@
       This work is licensed under the Creative Commons
       Attribution 3.0 Netherlands License. To view a copy of this
       license, visit
-      \emph{http://creativecommons.org/licenses/by/3.0/nl/} or send
+      \url{http://creativecommons.org/licenses/by/3.0/nl/} or send
       a letter to Creative Commons, 171 Second Street, Suite 300,
       San Francisco, California 94105, US.
     \end{tabular} \par}
