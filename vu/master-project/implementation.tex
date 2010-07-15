@@ -392,6 +392,8 @@ from Section~\ref{sub:trs} translate to \Coq directly. We define
 \coqdef{Rewriting.rhs}{rhs}{\coqdocprojection{rhs}} to be first and
 second projection on rewrite rules.
 
+TODO: definitions for subterm, fill and dig
+
 
 \section{Transfinite Rewrite Sequences}\label{sec:seq}
 
@@ -419,11 +421,11 @@ by their source and target terms.
 \coqdocvar{$\mathcal{R}$} \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{6.50em}
 \coqdocvariable{c}[(\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
-\coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] $\sim$ \coqdocvariable{s}
+\coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] \coqref{TermEquality.termbis}{$\sim$} \coqdocvariable{s}
 \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{6.50em}
 \coqdocvariable{c}[(\coqref{Rewriting.rhs}{\coqdocprojection{rhs}}
-\coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] $\sim$ \coqdocvariable{t}
+\coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] \coqref{TermEquality.termbis}{$\sim$} \coqdocvariable{t}
 \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{6.50em}
 \coqdocvariable{s} \coqref{Rewriting.step}{$\rightarrow_\mathcal{R}$}
@@ -866,3 +868,153 @@ als bomen) deelboom (en niet boom-factor).
 \coqdockw{end}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
+
+
+\section{Properties of Terms and TRSs}
+
+Again, let throughout this section $\mathcal{R}$ be a fixed TRS.
+
+TODO: text for this section
+TODO: definitions of left-linearity (term, trs)
+
+% TODO: define position somewhere (and link to it)
+% TODO: define subterm, fill and dig
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdef{Rewriting.criticalpair}{critical\_pair}{\coqdocdefinition{critical\_pair}}
+(\coqdocvar{$\mathcal{R}$} : \coqdocdefinition{trs})
+(\coqdocvar{t$_1$} \coqdocvar{t$_2$} :
+\coqref{Term.term}{\coqdocinductive{term}}) : \coqdockw{Prop}
+:=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{\exists} \coqdocvar{$\rho_1$} :
+\coqdocrecord{rule}, \ensuremath{\exists}
+\coqdocvar{$\rho_2$} :
+\coqdocrecord{rule},
+\ensuremath{\exists} \coqdocvar{p} :
+\coqdocabbreviation{position},
+\ensuremath{\exists} \coqdocvar{$\sigma$},
+\ensuremath{\exists} \coqdocvar{$\tau$},\coqdoceol
+\coqdocindent{3.00em}
+\coqdocvariable{$\rho_1$} \coqdocdefinition{$\in$}
+\coqdocvariable{$\mathcal{R}$}
+\ensuremath{\land}
+\coqdocvariable{$\rho_2$} \coqdocdefinition{$\in$}
+\coqdocvar{$\mathcal{R}$} \ensuremath{\land}
+(\coqdocvariable{$\rho_1$} = \coqdocvariable{$\rho_2$}
+\ensuremath{\rightarrow}
+\coqdocvariable{p} \ensuremath{\not=}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nil}{\coqdocconstructor{nil}})
+\ensuremath{\land}\coqdoceol
+\coqdocindent{3.00em}
+\coqdockw{match}
+(\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
+\coqdocvariable{$\rho_1$})|$_{\coqdocvariable{p}}$,
+(\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
+\coqdocvariable{$\rho_1$})$^{\coqdocvariable{$\sigma$}}$[$\Box$]$_{\coqdocvariable{p}}$
+\coqdockw{with}\coqdoceol
+\coqdocindent{3.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{Some}{\coqdocconstructor{Some}}
+\coqdocvar{s},
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{Some}{\coqdocconstructor{Some}}
+\coqdocvar{c} \ensuremath{\Rightarrow}
+\coqdocdefinition{is\_var} \coqdocvariable{s} =
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{false}{\coqdocconstructor{false}}
+\ensuremath{\land}
+\coqdocvariable{s}$^{\coqdocvariable{$\sigma$}}$ \coqref{TermEquality.termbis}{$\sim$}
+(\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
+\coqdocvariable{$\rho_2$})$^{\coqdocvariable{$\tau$}}$
+\ensuremath{\land}\coqdoceol
+\coqdocindent{12.00em}
+\coqdocvariable{t$_1$} \coqref{TermEquality.termbis}{$\sim$}
+\coqdocvariable{c}[(\coqref{Rewriting.rhs}{\coqdocprojection{rhs}}
+\coqdocvariable{$\rho_2$})$^{\coqdocvariable{$\tau$}}$]
+\ensuremath{\land}
+\coqdocvariable{t$_2$} \coqref{TermEquality.termbis}{$\sim$}
+(\coqref{Rewriting.rhs}{\coqdocprojection{rhs}}
+\coqdocvariable{$\rho_1$})$^{\coqdocvariable{$\sigma$}}$\coqdoceol
+\coqdocindent{3.00em}
+\ensuremath{|} \coqdocvar{\_}, \coqdocvar{\_}
+\ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Logic}{False}{\coqdocinductive{False}}\coqdoceol
+\coqdocindent{3.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdef{Rewriting.orthogonal}{orthogonal}{\coqdocdefinition{orthogonal}} (\coqdocvar{$\mathcal{R}$} :
+\coqdocdefinition{trs})
+: \coqdockw{Prop} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdocdefinition{trs\_left\_linear} % TODO: maybe define trs_left_linear and link to it
+\coqdocvariable{$\mathcal{R}$} \ensuremath{\land}
+\ensuremath{\forall} \coqdocvar{t$_1$} \coqdocvar{t$_2$},
+\ensuremath{\lnot}
+\coqref{Rewriting.criticalpair}{\coqdocdefinition{critical\_pair}}
+\coqdocvariable{t$_1$} \coqdocvariable{t$_2$}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdef{Rewriting.weaklyorthogonal}{weakly\_orthogonal}{\coqdocdefinition{weakly\_orthogonal}} (\coqdocvar{$\mathcal{R}$} :
+\coqdocdefinition{trs})
+: \coqdockw{Prop} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdocdefinition{trs\_left\_linear}
+\coqdocvariable{$\mathcal{R}$} \ensuremath{\land}
+\ensuremath{\forall} \coqdocvar{t$_1$} \coqdocvar{t$_2$},
+\coqref{Rewriting.criticalpair}{\coqdocdefinition{critical\_pair}}
+\coqdocvariable{t$_1$} \coqdocvariable{t$_2$} \ensuremath{\rightarrow}
+\coqdocvariable{t$_1$} \coqref{TermEquality.termbis}{$\sim$} \coqdocvariable{t$_2$}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdef{Rewriting.normalform}{normal\_form}{\coqdocdefinition{normal\_form}}
+\coqdocvar{t} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{\lnot} \ensuremath{\exists} \coqdocvar{c} : \coqdocinductive{context},
+\ensuremath{\exists} \coqdocvar{$\rho$} : \coqdocrecord{rule},
+\ensuremath{\exists} \coqdocvar{$\sigma$} :
+\coqdocdefinition{substitution},
+\coqdocvariable{$\rho$}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Lists.List}{In}{\coqdocdefinition{$\in$}}
+\coqdocvar{$\mathcal{R}$} \ensuremath{\land}
+\coqdocvariable{c}[(\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
+\coqdocvariable{r})\coqdocvariable{$^\sigma$}] \coqref{TermEquality.termbis}{$\sim$}
+\coqdocvariable{t}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdef{Rewriting.uniquenormalforms}{unique\_normal\_forms}{\coqdocdefinition{unique\_normal\_forms}}
+: \coqdockw{Prop} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u}
+(\coqdocvar{$\phi$} : \coqdocvariable{s} \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$} \coqdocvariable{t})
+(\coqdocvar{$\psi$} : \coqdocvariable{s} \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$} \coqdocvariable{u}),\coqdoceol
+\coqdocindent{2.00em}
+\coqref{Rewriting.wf}{\coqdocdefinition{wf}} \coqdocvariable{$\phi$}
+\ensuremath{\rightarrow}
+\coqref{Rewriting.wf}{\coqdocdefinition{wf}} \coqdocvariable{$\psi$}
+\ensuremath{\rightarrow}
+\coqref{Rewriting.normalform}{\coqdocdefinition{normal\_form}}
+\coqdocvariable{t} \ensuremath{\rightarrow}
+\coqref{Rewriting.normalform}{\coqdocdefinition{normal\_form}}
+\coqdocvariable{u} \ensuremath{\rightarrow}
+\coqdocvariable{t} \coqref{TermEquality.termbis}{$\sim$} \coqdocvariable{u}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+Note that the
+\coqref{Rewriting.uniquenormalforms}{\coqdocdefinition{unique\_normal\_forms}}
+definition is only a translation of the $UN^\twoheadrightarrow$
+property, not of the more general $UN^\infty$ property (see also
+Definition~\ref{def:normalization}).
