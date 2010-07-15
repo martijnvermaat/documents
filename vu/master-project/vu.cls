@@ -85,6 +85,7 @@
 
 % Smallcaps for 'Chapter n' and section numbering
 % TODO: smallcaps for footnote and page numbering
+% TODO: footmisc package with bottom option
 \titleformat{\chapter}[display]
 {\normalfont\huge}{\sc\chaptertitlename\ \thechapter}{20pt}{\Huge}
 %\titleformat{\section}
@@ -224,7 +225,7 @@
     \null\vfil
     \vspace{13cm}
     % TODO: international version of VU logo
-    {\includegraphics[draft=false,width=5cm]{logos/vu-logo} \par}
+    {\includegraphics[draft=false,width=5cm]{logos/vu-logo-en} \par}
     \vspace{10pt}
     {\copyright\ 2010 Martijn Vermaat \par}
     \vspace{10pt}

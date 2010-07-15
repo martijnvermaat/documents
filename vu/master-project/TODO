@@ -17,6 +17,7 @@ coqdoc --latex -s -g --coqlib http://coq.inria.fr/stdlib/ -d coqdoc *.v
 
 http://wiki.cs.vu.nl/mp/index.php/Main_Page
 
+http://www.tug.org/pracjourn/2008-1/mori/
 http://merkel.zoneo.net/Latex/natbib.php
 http://www.texample.net/tikz/examples/rotated-triangle/
 http://www.ece.ucdavis.edu/~jowens/commonerrors.html

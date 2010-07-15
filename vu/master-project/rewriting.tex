@@ -187,6 +187,7 @@ extensional strict order $\alpha \prec \beta$ if $\alpha \preceq
 
 % TODO: Short motivation for term rewriting, summation of its applications and
 % aspects of rewriting that are studied.
+% TODO: we only give definitions or notions we actually use
 
 We give a short introduction to the basic notions of infinitary term
 rewriting. For a more in-depth treatment of the theory of term rewriting,
@@ -384,8 +385,8 @@ context, forming a rewrite step.
 
 \begin{definition}%[Rewrite step]
 A \emph{rewrite step} $C[l^\sigma] \rightarrow_\rho C[r^\sigma]$ according to
-$\rho$ consists of a rewrite rule $\rho : l \rightarrow r$, a substitution
-$\sigma$ and a context $C$.
+the rewrite rule $\rho$ consists of rewriting the redex by substitution
+$\sigma$ to its contractum in a context $C$.
 \end{definition}
 
 The \emph{depth} of a rewrite step is the hole depth of its context.
@@ -435,16 +436,38 @@ length $\alpha$ is
 \end{compactenum}
 \end{definition}
 
-% TODO: define ->> notation
+We write $t_0 \twoheadrightarrow t_\alpha$ if there exists a strongly
+convergent rewrite sequence $(t_\beta \rightarrow t_{\beta^+})_{\beta
+  < \alpha}$ with limit $t_\alpha$. The \emph{convertibility relation}
+is defined as the reflexive transitive symmetric closure of
+$\twoheadrightarrow$.
 
 
 \subsection{Normal Forms and Orthogonality}
 
-TODO: write this subsection
-
-\begin{definition}%[Normal form]
-  A term is a \emph{normal form} if it contains no redex occurrences.
+\begin{definition}%[Normalization]
+  Let $\mathcal{R}$ be a TRS.
+  \begin{compactenum}
+    \item
+      A term $t$ is a \emph{normal form} if there do not exist rewrite
+      rule $\rho$ in $\mathcal{R}$, substitution $\sigma$ and context
+      $C$ such that $t \equiv C[l^\sigma]$ (i.e.\ if there is no step
+      from $t$). We say $t$ is a normal form \emph{of} $s$ if $s
+      \twoheadrightarrow t$ and $t$ is a normal form.
+    \item
+      $\mathcal{R}$ has the (infinitary) \emph{unique normal forms}
+      (UN$^\infty$) property if $t \equiv u$ for every two
+      convertible normal forms $t$ and $u$.
+    \item
+      $\mathcal{R}$ has the (infinitary) \emph{unique normal forms
+      with respect to rewriting} (UN$^\twoheadrightarrow$) property if
+      for all terms $s$, we have $t \equiv u$ for every two normal
+      forms $t$ and $u$ of $s$.
+  \end{compactenum}
 \end{definition}
+
+Of course we have that UN$^\infty$ implies UN$^\twoheadrightarrow$.
+% TODO: pictures
 
 \begin{definition}%[Overlap and critical pairs]
 We say two rewrite rules $\rho_1 : l_1 \rightarrow r_1$ and $\rho_2 :
