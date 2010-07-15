@@ -296,6 +296,9 @@ R \rangle$ of a signature $\Sigma$ and a set of rewrite rules $R$ on
 $\Sigma$.
 \end{definition}
 
+
+\subsection{Rewriting}
+
 Subterm positions are sequences of natural numbers. The empty sequence
 is denoted by $\epsilon$ and $\prefix{i}{p}$ is the prefixing of a
 sequence $p$ with the number $i$.
@@ -467,9 +470,15 @@ $\twoheadrightarrow$.
 \end{definition}
 % TODO: klop-de-vrijer-05 uses our UN->> definition for UN^\infty,
 % should we destinguish between the two?
-
-Of course we have that UN$^\infty$ implies UN$^\twoheadrightarrow$.
 % TODO: pictures
+
+Obviously we have that UN$^\infty$ implies
+UN$^\twoheadrightarrow$. One source of non-unique normal forms is
+the interference of two redex occurences in a term. Contracting one of
+them may result in a term where (a descendant of) the other redex is
+no longer present, possibly losing confluence. This fenomenon is made
+precise in the following definition.
+% TODO: informal definition of descendants and confluence
 
 \begin{definition}%[Overlap and critical pairs]
 We say two rewrite rules $\rho_1 : l_1 \rightarrow r_1$ and $\rho_2 :
@@ -487,7 +496,8 @@ r_1^{\,\;\sigma} \rangle$ is called a \emph{critical pair of} $\rho_1$
 \emph{trivial} if $s \equiv t$.
 \end{definition}
 
-Critical pairs are unique up to renaming.
+Critical pairs are unique up to renaming. Using these notions we can
+define some useful classes of term rewriting systems.
 
 %We say two rewrite rules $\rho_1 : l_1 \rightarrow r_2$ and $\rho_2 : l_2
 %\rightarrow r_2$ overlap if there is a term $t$ with overlapping occurrences
@@ -510,6 +520,7 @@ A TRS is called
 \end{compactenum}
 \end{definition}
 
-Orthogonal TRSs have unique normal forms
-\citep{kennaway-95,klop-de-vrijer-05}. See Chapter~\ref{chap:unwo} for
-weakly orthogonal TRSs.
+Orthogonal systems enjoy the UN$^\infty$ property
+\citep{kennaway-95,klop-de-vrijer-05}. In Chapter~\ref{chap:unwo} we
+discuss a counterexample to UN$^\infty$ for weakly orthogonal TRSs
+\citep{endrullis-10}.
