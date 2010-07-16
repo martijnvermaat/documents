@@ -386,7 +386,7 @@ Definition~\ref{def:cauchy} in \Coq for sequences of length $\omega$.
 \coqdocvariable{t}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-The definitions of finite term, rewrite rule, TRS and substitution
+The definitions of finite term, rewrite rule, TRS and left-linearity
 from Section~\ref{sub:trs} translate to \Coq directly. We define
 \coqdef{Rewriting.lhs}{lhs}{\coqdocprojection{lhs}} and
 \coqdef{Rewriting.rhs}{rhs}{\coqdocprojection{rhs}} to be first and
@@ -1086,13 +1086,19 @@ als bomen) deelboom (en niet boom-factor).
 
 \section{Properties of Terms and TRSs}
 
-Again, let throughout this section $\mathcal{R}$ be a fixed TRS.
+We define some predicates on terms and TRSs. Again, let throughout
+this section $\mathcal{R}$ be a fixed TRS.
 
-TODO: text for this section
-TODO: definitions of left-linearity (term, trs)
-
-% TODO: define position somewhere (and link to it)
-% TODO: define subterm, fill and dig
+We work with a somewhat relaxed definition of critical pairs. First,
+we do not require the common instance to be a most general
+one. Second, the substitution $\sigma$ might not be minimal and might
+not introduce only fresh variables
+(cf.\ Definition~\ref{def:overlap}). The effect of this variation is
+that for every critical pair, we have a series of critical pairs by
+this relaxed definition. This is precise enough for our present
+purposes, however, since it has no effect on questions such as
+\emph{`are there critical pairs?'} or \emph{`are all critical pairs
+  trivial?'}.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -1124,10 +1130,10 @@ TODO: definitions of left-linearity (term, trs)
 \ensuremath{\land}\coqdoceol
 \coqdocindent{3.00em}
 \coqdockw{match}
-(\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
-\coqdocvariable{$\rho_1$})|$_{\coqdocvariable{p}}$,
-(\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
-\coqdocvariable{$\rho_1$})$^{\coqdocvariable{$\sigma$}}$[$\Box$]$_{\coqdocvariable{p}}$
+\coqref{Term.subterm}{\coqdocdefinition{subterm}} (\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
+\coqdocvariable{$\rho_1$}) \coqdocvariable{p},
+\coqref{Context.dig}{\coqdocdefinition{dig}} (\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
+\coqdocvariable{$\rho_1$})$^{\coqdocvariable{$\sigma$}}$ \coqdocvariable{p}
 \coqdockw{with}\coqdoceol
 \coqdocindent{3.00em}
 \ensuremath{|}
@@ -1156,7 +1162,12 @@ TODO: definitions of left-linearity (term, trs)
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Logic}{False}{\coqdocinductive{False}}\coqdoceol
 \coqdocindent{3.00em}
 \coqdockw{end}.\coqdoceol
-\coqdocemptyline
+\end{coqdoccode}
+\end{singlespace}
+Now we can in a straightforward manner define the properties of
+orthogonality and weak orhogonality.
+\begin{singlespace}
+\begin{coqdoccode}
 \coqdocnoindent
 \coqdockw{Definition}
 \coqdef{Rewriting.orthogonal}{orthogonal}{\coqdocdefinition{orthogonal}} (\coqdocvar{$\mathcal{R}$} :
@@ -1185,6 +1196,8 @@ TODO: definitions of left-linearity (term, trs)
 \end{coqdoccode}
 \end{singlespace}
 
+%TODO: some text here?
+
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -1202,11 +1215,7 @@ TODO: definitions of left-linearity (term, trs)
 \coqdocvariable{c}[(\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
 \coqdocvariable{r})\coqdocvariable{$^\sigma$}] \coqref{TermEquality.termbis}{$\sim$}
 \coqdocvariable{t}.\coqdoceol
-\end{coqdoccode}
-\end{singlespace}
-
-\begin{singlespace}
-\begin{coqdoccode}
+\coqdocemptyline
 \coqdocnoindent
 \coqdockw{Definition}
 \coqdef{Rewriting.uniquenormalforms}{unique\_normal\_forms}{\coqdocdefinition{unique\_normal\_forms}}
