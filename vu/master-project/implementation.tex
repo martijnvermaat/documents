@@ -383,16 +383,230 @@ Definition~\ref{def:cauchy} in \Coq for sequences of length $\omega$.
 \ensuremath{\rightarrow}
 \coqdocvariable{f} \coqdocvariable{m}
 \coqref{TermEquality.termequpto}{\equpto{\coqdocvariable{d}}}
-\coqdocvariable{t}.
+\coqdocvariable{t}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-The definitions of finite term, rewrite rule, TRS, context and substitution
+The definitions of finite term, rewrite rule, TRS and substitution
 from Section~\ref{sub:trs} translate to \Coq directly. We define
 \coqdef{Rewriting.lhs}{lhs}{\coqdocprojection{lhs}} and
 \coqdef{Rewriting.rhs}{rhs}{\coqdocprojection{rhs}} to be first and
 second projection on rewrite rules.
 
-TODO: definitions for subterm, fill and dig
+The type of contexts is inductively defined, where the hole always
+occurs at a finite depth.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Inductive}
+\coqdef{Context.context}{context}{\coqdocinductive{context}} :
+\coqdockw{Type} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} $\Box$ :
+\coqref{Context.context}{\coqdocinductive{context}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{Context.CFun}{CFun}{\coqdocconstructor{CFun}} :
+\ensuremath{\forall} (\coqdocvar{f} : \coqdocvar{F}) (\coqdocvar{i}
+\coqdocvar{j} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}),\coqdoceol
+\coqdocindent{5.50em}
+\coqdocvariable{i} +
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqdocvariable{j} =
+\coqdocprojection{arity} \coqdocvariable{f}
+\ensuremath{\rightarrow}
+\coqref{Vector.vector}{\coqdocdefinition{vector}}
+\coqref{Term.term}{\coqdocinductive{term}} \coqdocvariable{i}
+\ensuremath{\rightarrow}
+\coqref{Context.context}{\coqdocinductive{context}}
+\ensuremath{\rightarrow}
+\coqref{Vector.vector}{\coqdocdefinition{vector}}
+\coqref{Term.term}{\coqdocinductive{term}} \coqdocvariable{j}
+\ensuremath{\rightarrow}
+\coqref{Context.context}{\coqdocinductive{context}}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+Applying a substitution \coqdocvariable{$\sigma$} to a term
+\coqdocvariable{t} is defined by corecursion over
+\coqdocvariable{t}. We also use the
+notation \begin{coqdoccode}\coqdocvariable{t}$^\coqdocvariable{$\sigma$}$\end{coqdoccode}
+for \begin{coqdoccode}\coqref{Substitution.substitute}{\coqdocdefinition{substitute}}
+  \coqdocvariable{$\sigma$} \coqdocvariable{t}\end{coqdoccode}.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{CoFixpoint}
+\coqdef{Substitution.substitute}{substitute}{\coqdocdefinition{substitute}}
+(\coqdocvar{$\sigma$} :
+\coqdocdefinition{substitution})
+(\coqdocvar{t} :
+\coqref{Term.term}{\coqdocinductive{term}}) :
+\coqref{Term.term}{\coqdocinductive{term}} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{t} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Term.Var}{\coqdocconstructor{Var}}
+\coqdocvar{x}      \ensuremath{\Rightarrow} \coqdocvariable{$\sigma$}
+\coqdocvariable{x}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Term.Fun}{\coqdocconstructor{Fun}}
+\coqdocvar{f} \coqdocvar{args} \ensuremath{\Rightarrow}
+\coqref{Term.Fun}{\coqdocconstructor{Fun}} \coqdocvariable{f}
+(\coqref{Vector.vmap}{\coqdocdefinition{vmap}}
+(\coqref{Substitution.substitute}{\coqdocdefinition{substitute}}
+\coqdocvariable{$\sigma$}) \coqdocvariable{args})\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+We apply the recursive function
+\coqdef{Context.fill}{fill}{\coqdocdefinition{fill}} (not shown here)
+to a context \coqdocvariable{c} and a term \coqdocvariable{t}
+(written \begin{coqdoccode}\coqdocvariable{c}[\coqdocvariable{t}]\end{coqdoccode})
+to replace the hole in \coqdocvariable{c} with \coqdocvariable{t}.
+
+Positions are represented by simple lists of natural numbers. This
+means the subterm at some position in some term may not actually
+exist. For this reason we employ
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{option}{\coqdocinductive{option}}
+types in functions that do a lookup by position (functions in \Coq are
+always \emph{total}).
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Fixpoint}
+\coqdef{Term.subterm}{subterm}{\coqdocdefinition{subterm}}
+(\coqdocvar{t} : \coqref{Term.term}{\coqdocabbreviation{term}})
+(\coqdocvar{p} :
+\coqdocabbreviation{position})
+\{\coqdockw{struct} \coqdocvar{p}\} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{option}{\coqdocinductive{option}}
+\coqref{Term.term}{\coqdocabbreviation{term}} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{p} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nil}{\coqdocconstructor{nil}}
+\ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{Some}{\coqdocconstructor{Some}}
+\coqdocvariable{t}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{n} :: \coqdocvar{p} \ensuremath{\Rightarrow}
+\coqdockw{match} \coqdocvariable{t} \coqdockw{with}\coqdoceol
+\coqdocindent{7.00em}
+\ensuremath{|} \coqref{Term.Var}{\coqdocconstructor{Var}}
+\coqdocvar{\_}      \ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{None}{\coqdocconstructor{None}}\coqdoceol
+\coqdocindent{7.00em}
+\ensuremath{|} \coqref{Term.Fun}{\coqdocconstructor{Fun}}
+\coqdocvar{f} \coqdocvar{args} \ensuremath{\Rightarrow}
+\coqdockw{match}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Arith.Bool\_nat}{ltgedec}{\coqdocdefinition{lt\_ge\_dec}}
+\coqdocvariable{n} (\coqdocprojection{arity}
+\coqdocvariable{f}) \coqdockw{with}\coqdoceol
+\coqdocindent{15.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{left}{\coqdocconstructor{left}}
+\coqdocvar{h}  \ensuremath{\Rightarrow}
+\coqref{Term.subterm}{\coqdocdefinition{subterm}}
+(\coqdocdefinition{vnth} \coqdocvariable{h}
+\coqdocvariable{args}) \coqdocvariable{p}\coqdoceol
+\coqdocindent{15.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{right}{\coqdocconstructor{right}}
+\coqdocvar{\_} \ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{None}{\coqdocconstructor{None}}\coqdoceol
+\coqdocindent{15.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{7.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Fixpoint} \coqdef{Context.dig}{dig}{\coqdocdefinition{dig}}
+(\coqdocvar{t} : \coqref{Term.term}{\coqdocabbreviation{term}})
+(\coqdocvar{p} :
+\coqdocabbreviation{position})
+\{\coqdockw{struct} \coqdocvar{p}\} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{option}{\coqdocinductive{option}}
+\coqref{Context.context}{\coqdocinductive{context}} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{p} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nil}{\coqdocconstructor{nil}}
+\ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{Some}{\coqdocconstructor{Some}}
+$\Box$\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{n} :: \coqdocvar{p} \ensuremath{\Rightarrow}
+\coqdockw{match} \coqdocvariable{t} \coqdockw{with}\coqdoceol
+\coqdocindent{3.00em}
+\ensuremath{|} \coqref{Term.Var}{\coqdocconstructor{Var}}
+\coqdocvar{\_}      \ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{None}{\coqdocconstructor{None}}\coqdoceol
+\coqdocindent{3.00em}
+\ensuremath{|} \coqref{Term.Fun}{\coqdocconstructor{Fun}}
+\coqdocvar{f} \coqdocvar{args} \ensuremath{\Rightarrow}
+\coqdockw{match}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Arith.Bool\_nat}{ltgedec}{\coqdocdefinition{lt\_ge\_dec}}
+\coqdocvariable{n} (\coqdocprojection{arity}
+\coqdocvariable{f}) \coqdockw{with}\coqdoceol
+\coqdocindent{5.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{left}{\coqdocconstructor{left}}
+\coqdocvar{h}  \ensuremath{\Rightarrow} \coqdockw{match}
+\coqref{Context.dig}{\coqdocdefinition{dig}}
+(\coqdocdefinition{vnth} \coqdocvariable{h}
+\coqdocvariable{args}) \coqdocvariable{p} \coqdockw{with}\coqdoceol
+\coqdocindent{7.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{None}{\coqdocconstructor{None}}
+\ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{None}{\coqdocconstructor{None}}\coqdoceol
+\coqdocindent{7.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{Some}{\coqdocconstructor{Some}}
+\coqdocvar{c} \ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{Some}{\coqdocconstructor{Some}}
+(\coqref{Context.CFun}{\coqdocconstructor{CFun}} \coqdocvariable{f}
+(\coqdoclemma{lt\_plus\_minus\_r}
+\coqdocvariable{h})\coqdoceol
+\coqdocindent{14.00em}
+(\coqdocdefinition{vtake}
+(\coqexternalref{http://coq.inria.fr/stdlib/Coq.Arith.Lt}{ltleweak}{\coqdoclemma{lt\_le\_weak}}
+\coqdocvariable{n} (\coqdocprojection{arity}
+\coqdocvariable{f}) \coqdocvariable{h})
+\coqdocvariable{args})\coqdoceol
+\coqdocindent{14.00em}
+\coqdocvariable{c}\coqdoceol
+\coqdocindent{14.00em}
+(\coqdocdefinition{vdrop} \coqdocvariable{h}
+\coqdocvariable{args}))\coqdoceol
+\coqdocindent{7.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{5.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{right}{\coqdocconstructor{right}}
+\coqdocvar{\_} \ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{None}{\coqdocconstructor{None}}\coqdoceol
+\coqdocindent{5.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{3.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+Now \begin{coqdoccode}\coqref{Term.subterm}{\coqdocdefinition{subterm}}
+  \coqdocvariable{t} \coqdocvariable{p}\end{coqdoccode} gives the
+subterm of \coqdocvariable{t} (if it exists)
+and \begin{coqdoccode}\coqref{Context.dig}{\coqdocdefinition{dig}}
+  \coqdocvariable{t} \coqdocvariable{p}\end{coqdoccode} gives the
+context \coqdocvariable{c} (if it exists) that is \coqdocvariable{t}
+with \begin{coqdoccode}\coqref{Term.subterm}{\coqdocdefinition{subterm}}
+  \coqdocvariable{t} \coqdocvariable{p}\end{coqdoccode} replaced by
+$\Box$ at position \coqdocvariable{p}.
 
 
 \section{Transfinite Rewrite Sequences}\label{sec:seq}
@@ -414,7 +628,7 @@ by their source and target terms.
 \ensuremath{\forall} (\coqdocvar{s} \coqdocvar{t} :
 \coqref{Term.term}{\coqdocinductive{term}}) (\coqdocvar{$\rho$} :
 \coqdocrecord{rule}) (\coqdocvar{c} :
-\coqdocinductive{context}) (\coqdocvar{$\sigma$} :
+\coqref{Context.context}{\coqdocinductive{context}}) (\coqdocvar{$\sigma$} :
 \coqdocdefinition{substitution}),\coqdoceol
 \coqdocindent{6.50em} \coqdocvariable{$\rho$}
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Lists.List}{In}{\coqdocdefinition{$\in$}}
@@ -978,7 +1192,7 @@ TODO: definitions of left-linearity (term, trs)
 \coqdef{Rewriting.normalform}{normal\_form}{\coqdocdefinition{normal\_form}}
 \coqdocvar{t} :=\coqdoceol
 \coqdocindent{1.00em}
-\ensuremath{\lnot} \ensuremath{\exists} \coqdocvar{c} : \coqdocinductive{context},
+\ensuremath{\lnot} \ensuremath{\exists} \coqdocvar{c} : \coqref{Context.context}{\coqdocinductive{context}},
 \ensuremath{\exists} \coqdocvar{$\rho$} : \coqdocrecord{rule},
 \ensuremath{\exists} \coqdocvar{$\sigma$} :
 \coqdocdefinition{substitution},

@@ -83,7 +83,7 @@ arrive at $\psi \twoheadrightarrow U^\omega$.
 % TODO: wording 'iterating n from 0 onwards'
 
 
-\section{A Mechanic Formalization}
+\section{The Counterexample in \Coq}
 
 We implement the counterexample from Section~\ref{sec:counterexample}
 using the \Coq development described in
@@ -300,3 +300,52 @@ and that the variable in both rewrite rules is 1.
 \end{singlespace}
 We omit three arguments of the Step constructor here. The first
 is a proof of $\rho_1 \in \mathcal{R}$. TODO.
+
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdef{ExampleUNWO.facttermbisUmDSnUSnt}{fact\_term\_bis\_UmDSnUSnt}{\coqdoclemma{fact$_\pi^\text{source}$}}
+:\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{\forall} (\coqdocvar{n} \coqdocvar{m} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}})
+(\coqdocvar{t} :
+\coqref{Term.term}{\coqdocinductive{term}}),\coqdoceol
+\coqdocindent{2.00em}
+(\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
+\coqdocdefinition{D}$^\coqdocvariable{m}$
+$\Box$)[\coqref{Substitution.substitute}{\coqdocdefinition{substitute}}
+  (\coqdocdefinition{$\sigma$}
+(\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{m}$
+    \coqdocvariable{t})) (\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
+\coqdocdefinition{$\rho_1$})] \coqref{TermEquality.termbis}{$\sim$}
+\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
+\coqdocdefinition{D}$^{\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}} \coqdocvariable{m}}$
+\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^{\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqdocvariable{m}}$
+\coqdocvariable{t}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdef{ExampleUNWO.facttermbisUmDnUnt}{fact\_term\_bis\_UmDnUnt}{\coqdoclemma{fact$_\pi^\text{target}$}}
+:\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{\forall} (\coqdocvar{n} \coqdocvar{m} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}})
+(\coqdocvar{t} :
+\coqref{Term.term}{\coqdocinductive{term}}),\coqdoceol
+\coqdocindent{2.00em}
+(\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
+\coqdocdefinition{D}$^\coqdocvariable{m}$
+$\Box$)[\coqref{Substitution.substitute}{\coqdocdefinition{substitute}}
+  (\coqdocdefinition{$\sigma$}
+(\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{m}$
+    \coqdocvariable{t})) (\coqref{Rewriting.rhs}{\coqdocprojection{rhs}}
+\coqdocdefinition{$\rho_1$})] \coqref{TermEquality.termbis}{$\sim$}
+\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
+\coqdocdefinition{D}$^\coqdocvariable{m}$
+\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{m}$
+\coqdocvariable{t}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
