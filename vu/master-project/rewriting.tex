@@ -79,7 +79,7 @@ the function, writing for example $\sqcup \{ \alpha_1, \alpha_2, \alpha_3,
 % Be alerted that all ordinals cannot form a set (only a class), but we are
 % defining a subset here
 \begin{definition}\label{def:ordinals}%[Ordinals]
-The set of \emph{Brouwer ordinals} (ordinals) \Ord is defined by
+The set of \emph{Brouwer ordinals} (ordinals) $\Ord$ is defined by
 induction:
 \begin{compactenum}
   \item
@@ -116,7 +116,7 @@ relation on the Brouwer ordinals is needed for that.
 % TODO: much of the following is taken from Hancock, but i think we cannot
 % cite that paper. however, we must acknowledge this in some way
 
-Before we can define an extensional order relation on \Ord, we define a
+Before we can define an extensional order relation on $\Ord$, we define a
 structural strict order relation as follows.
 % TODO: , is too close on $\Omega$
 
@@ -149,8 +149,8 @@ The function $\_[\_] : (\prod \alpha : \Ord) \; \Phi(\alpha)
 % TODO: explain what I and _[_] mean
 
 This structural predecessor function can be viewed as defining a `subtree'
-partial order on \Ord. With it we are ready to define an extensional
-non-strict order relation on \Ord that classifies ordinals by rank.
+partial order on $\Ord$. With it we are ready to define an extensional
+non-strict order relation on $\Ord$ that classifies ordinals by rank.
 
 % TODO: note <= infix notation
 % TODO: or use the set-theoretic definitions from hancock?
@@ -158,7 +158,7 @@ non-strict order relation on \Ord that classifies ordinals by rank.
 % TODO: does \sqcup_i start at 0 or 1? we have pred_type saying all of
 % the natural numbers, but this definition starting at \alpha_1...
 \begin{definition}\label{def:order}%[Order]
-We define the \emph{order} $\preceq$ as a binary relation on \Ord by
+We define the \emph{order} $\preceq$ as a binary relation on $\Ord$ by
 induction (and write $\alpha \preceq \beta$ for $\langle \alpha, \beta \rangle
 \in \; \preceq$):
 \begin{compactenum}
@@ -175,7 +175,7 @@ induction (and write $\alpha \preceq \beta$ for $\langle \alpha, \beta \rangle
 \end{definition}
 
 Using this order, we can define two other useful binary relations on
-\Ord. First, the extensional equality $\alpha \simeq \beta$ by the
+$\Ord$. First, the extensional equality $\alpha \simeq \beta$ by the
 conjunction of $\alpha \preceq \beta$ and $\beta \preceq \alpha$. Second, the
 extensional strict order $\alpha \prec \beta$ if $\alpha \preceq
 \beta[\iota]$ for some $\iota \in \Phi(\beta)$.

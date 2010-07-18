@@ -885,10 +885,11 @@ $t_4$.
 \end{figure}
 
 % TODO: better wording for 'canceled out'?
+% TODO: picture of this embedding behaviour?
 Having a closer look at the order $\preceq$ on the Brouwer ordinals, we can
 see that it really defines embeddings of their tree structures. This is due to
 clause~\ref{def:order:succ} of Definition~\ref{def:order}. In this clause,
-two occurrences of the $^+$ constructor (one in both ordinals) are canceled
+two occurrences of the $^+$ constructor (one in both ordinals) are cancelled
 out against each other, but the positions of these occurences in their
 respective ordinals do not necessarily correspond. Since all occurrences of
 $^+$ are equal, this has no effect on the resulting relation.
@@ -899,7 +900,7 @@ inductively defined rewrite sequences is that, indeed, we get an embedding
 relation. We just have to make sure that in the
 \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}} case, we cancel out two
 equivelent steps against each other.\footnote{Rewrite steps $\pi$ and $o$ are
-  defined to be equivalent ($\pi \approx o$) iff % TODO: equivalent vs equal
+  defined to be equivalent ($\pi \approx o$) if % TODO: equivalent vs equal
 \begin{compactenum}
   \item they use the same rewrite rule $\rho$,
   \item their contexts are bisimilar and
