@@ -249,74 +249,42 @@ much the same way as described in
 Section~\ref{sub:counterexample}. First, we define the parameterized
 step that is used in the rewrite sequence. It eliminates one pair of $D,
 U$ constructors in a term of the form $U^n D^{m+1} U^{m+1} t$. The
-substitution that is applied is also defined parameterized. Note that
-the set of variables \coqdocdefinition{X} is instantiated with
-\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
-and that the variable in both rewrite rules is 1.
+omitted argument of the \coqref{Rewriting.Step}{\coqdocconstructor{Step}}
+constructor (denoted by \coqdoclemma{\_}) is a proof of $\rho_1 \in
+\mathcal{R}$.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
 \coqdockw{Definition}
-\coqdocdefinition{$\sigma$}
-\coqdocvar{t} (\coqdocvar{x} :
+\coqdef{ExampleUNWO.sigma}{sigma}{\coqdocdefinition{$\sigma$}}
+\coqdocvar{t} (\coqdocvar{y} :
 \coqdocdefinition{X}) :
 \coqref{Term.term}{\coqdocinductive{term}} :=\coqdoceol
 \coqdocindent{1.00em}
-\coqdockw{match} \coqdocvariable{x} \coqdockw{with}\coqdoceol
+\coqdockw{match} \coqdocdefinition{beq\_var} \coqdocvariable{y} \coqdocvariable{x} \coqdockw{with}\coqdoceol
 \coqdocindent{1.00em}
-\ensuremath{|} 1 \ensuremath{\Rightarrow}
+\ensuremath{|} \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{true}{\coqdocconstructor{true}} \ensuremath{\Rightarrow}
 \coqdocvariable{t}\coqdoceol
 \coqdocindent{1.00em}
-\ensuremath{|} \coqdocvar{\_} \ensuremath{\Rightarrow}
+\ensuremath{|} \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{false}{\coqdocconstructor{false}} \ensuremath{\Rightarrow}
 \coqref{Term.Var}{\coqdocconstructor{Var}}
-\coqdocvariable{x}\coqdoceol
+\coqdocvariable{y}\coqdoceol
 \coqdocindent{1.00em}
 \coqdockw{end}.\coqdoceol
 \coqdocemptyline
 \coqdocnoindent
-\coqdockw{Definition}
-\coqdocdefinition{$\pi$}
-\coqdocvar{n} \coqdocvar{m} \coqdocvar{t} :
-\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
-\coqdocdefinition{D}$^{\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}} \coqdocvariable{m}}$
-\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^{\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
-\coqdocvariable{m}}$
-\coqdocvariable{t} \coqref{Rewriting.step}{$\rightarrow_\mathcal{R}$}
-\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
-\coqdocdefinition{D}$^\coqdocvariable{m}$
-\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{m}$
-\coqdocvariable{t} :=\coqdoceol
-\coqdocindent{2.00em}
-\coqref{Rewriting.Step}{\coqdocconstructor{Step}}
-\coqdocdefinition{$\rho_1$}
-(\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
-\coqdocdefinition{D}$^\coqdocvariable{m}$ $\Box$)
-(\coqdocdefinition{$\sigma$}
-(\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{m}$ \coqdocvariable{t}))
-\coqdoclemma{\_}
-\coqdoclemma{\_}
-\coqdoclemma{\_}.\coqdoceol
-\end{coqdoccode}
-\end{singlespace}
-We omit three arguments of the Step constructor here. The first
-is a proof of $\rho_1 \in \mathcal{R}$. TODO.
-
-\begin{singlespace}
-\begin{coqdoccode}
-\coqdocnoindent
 \coqdockw{Lemma}
 \coqdef{ExampleUNWO.facttermbisUmDSnUSnt}{fact\_term\_bis\_UmDSnUSnt}{\coqdoclemma{fact$_\pi^\text{source}$}}
-:\coqdoceol
-\coqdocindent{1.00em}
+:
 \ensuremath{\forall} (\coqdocvar{n} \coqdocvar{m} :
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}})
 (\coqdocvar{t} :
 \coqref{Term.term}{\coqdocinductive{term}}),\coqdoceol
-\coqdocindent{2.00em}
+\coqdocindent{1.00em}
 (\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
 \coqdocdefinition{D}$^\coqdocvariable{m}$
 $\Box$)[\coqref{Substitution.substitute}{\coqdocdefinition{substitute}}
-  (\coqdocdefinition{$\sigma$}
+  (\coqref{ExampleUNWO.sigma}{\coqdocdefinition{$\sigma$}}
 (\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{m}$
     \coqdocvariable{t})) (\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
 \coqdocdefinition{$\rho_1$})] \coqref{TermEquality.termbis}{$\sim$}
@@ -329,17 +297,16 @@ $\Box$)[\coqref{Substitution.substitute}{\coqdocdefinition{substitute}}
 \coqdocnoindent
 \coqdockw{Lemma}
 \coqdef{ExampleUNWO.facttermbisUmDnUnt}{fact\_term\_bis\_UmDnUnt}{\coqdoclemma{fact$_\pi^\text{target}$}}
-:\coqdoceol
-\coqdocindent{1.00em}
+:
 \ensuremath{\forall} (\coqdocvar{n} \coqdocvar{m} :
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}})
 (\coqdocvar{t} :
 \coqref{Term.term}{\coqdocinductive{term}}),\coqdoceol
-\coqdocindent{2.00em}
+\coqdocindent{1.00em}
 (\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
 \coqdocdefinition{D}$^\coqdocvariable{m}$
 $\Box$)[\coqref{Substitution.substitute}{\coqdocdefinition{substitute}}
-  (\coqdocdefinition{$\sigma$}
+  (\coqref{ExampleUNWO.sigma}{\coqdocdefinition{$\sigma$}}
 (\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{m}$
     \coqdocvariable{t})) (\coqref{Rewriting.rhs}{\coqdocprojection{rhs}}
 \coqdocdefinition{$\rho_1$})] \coqref{TermEquality.termbis}{$\sim$}
@@ -347,5 +314,201 @@ $\Box$)[\coqref{Substitution.substitute}{\coqdocdefinition{substitute}}
 \coqdocdefinition{D}$^\coqdocvariable{m}$
 \coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{m}$
 \coqdocvariable{t}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdef{ExampleUNWO.pi}{pi}{\coqdocdefinition{$\pi$}}
+\coqdocvar{n} \coqdocvar{m} \coqdocvar{t} :
+\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
+\coqdocdefinition{D}$^{\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}} \coqdocvariable{m}}$
+\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^{\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqdocvariable{m}}$
+\coqdocvariable{t} \coqref{Rewriting.step}{$\rightarrow_\mathcal{R}$}
+\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
+\coqdocdefinition{D}$^\coqdocvariable{m}$
+\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{m}$
+\coqdocvariable{t} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqref{Rewriting.Step}{\coqdocconstructor{Step}}
+\coqdocdefinition{$\rho_1$}
+(\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
+\coqdocdefinition{D}$^\coqdocvariable{m}$ $\Box$)
+(\coqref{ExampleUNWO.sigma}{\coqdocdefinition{$\sigma$}}
+(\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{m}$ \coqdocvariable{t}))
+\coqdoclemma{\_}
+(\coqref{ExampleUNWO.facttermbisUmDSnUSnt}{\coqdoclemma{fact$_\pi^\text{source}$}}
+\coqdocvariable{n} \coqdocvariable{m} \coqdocvariable{t})
+(\coqref{ExampleUNWO.facttermbisUmDnUnt}{\coqdoclemma{fact$_\pi^\text{target}$}}
+\coqdocvariable{n} \coqdocvariable{m} \coqdocvariable{t}).\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+Generalizing these rewrite steps
+\coqref{ExampleUNWO.pi}{\coqdocdefinition{$\pi$}}, we construct
+the rewrite sequences
+\coqref{ExampleUNWO.phia}{\coqdocdefinition{$\varphi_a$}}. In their
+recursive definition, the \coqdocdefinition{snoc}
+function\footnote{With the
+  \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}} constructor, we
+  can extend a rewrite sequence with one step at the end. In contrast,
+  \coqdocdefinition{snoc} extends a rewrite sequence
+  with one step at the start. It is the dual of $1 + \alpha$ on
+  ordinals. The type of \coqdocdefinition{snoc}
+  is \begin{coqdoccode}\ldots\end{coqdoccode}. TODO: define snoc and
+    append in a separate subsection (3.4.2)} is used to
+prepend \begin{coqdoccode}(\coqref{ExampleUNWO.pi}{\coqdocdefinition{$\pi$}}
+\coqdocvariable{n} \coqdocvariable{m}
+\coqdocvariable{t})\end{coqdoccode} to
+\begin{coqdoccode}(\coqref{ExampleUNWO.phia}{\coqdocdefinition{$\varphi_a$}}
+\coqdocvariable{n} \coqdocvariable{m}
+\coqdocvariable{t})\end{coqdoccode}. Doing some arithmetic, we obtain
+that these rewrite sequences can be used to define rewrite sequences
+\coqref{ExampleUNWO.phib}{\coqdocdefinition{$\varphi_b$}} of a more
+useful type.\footnote{TODO: note about \coqdockw{Program}
+  construction.}
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Fixpoint}
+\coqdef{ExampleUNWO.phia}{phia}{\coqdocdefinition{$\varphi_a$}}
+\coqdocvar{n} \coqdocvar{m} \coqdocvar{t} :
+\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
+\coqdocdefinition{D}$^\coqdocvariable{m}$
+\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{m}$
+\coqdocvariable{t}
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
+\coqdocvariable{t} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{m} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{O}
+\ensuremath{\Rightarrow}
+\coqref{Rewriting.Nil}{\coqdocconstructor{Nil}}
+(\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
+\coqdocvariable{t})\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{S}
+\coqdocvar{m} \ensuremath{\Rightarrow}
+\coqdocdefinition{snoc} % TODO: define snoc and link to it
+(\coqref{ExampleUNWO.pi}{\coqdocdefinition{$\pi$}}
+\coqdocvariable{n} \coqdocvariable{m} \coqdocvariable{t})
+(\coqref{ExampleUNWO.phia}{\coqdocdefinition{$\varphi_a$}}
+\coqdocvariable{n} \coqdocvariable{m} \coqdocvariable{t})\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Program Definition} % TODO: here the S(2 n) is not correct (?)
+\coqdef{ExampleUNWO.phib}{phib}{\coqdocdefinition{$\varphi_b$}}
+\coqdocvar{n} : \coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
+(\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\psi'$}}
+\coqdocvariable{n}) \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^{\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}} \coqdocvariable{n}}$
+(\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\psi'$}}
+(\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqdocvariable{n})) :=\coqdoceol
+\coqdocindent{1.00em}
+\coqref{ExampleUNWO.phia}{\coqdocdefinition{$\varphi_a$}}
+\coqdocvariable{n} (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+(2
+$\times$ \coqdocvariable{n})) (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}} @
+\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\psi'$}} (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqdocvariable{n})).\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+We concatenate all rewrite sequences
+\coqref{ExampleUNWO.phib}{\coqdocdefinition{$\varphi_b$}} to construct
+rewrite sequences from $\psi$ to a term that is equal to $U^\omega$ up
+to any given depth.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Fixpoint}
+\coqdef{ExampleUNWO.phic}{phic}{\coqdocdefinition{$\varphi_c$}}
+\coqdocvar{n} : \coqref{ExampleUNWO.psi}{\coqdocdefinition{$\psi$}}
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
+(\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\psi'$}}
+\coqdocvariable{n}) :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{n} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{O}
+\ensuremath{\Rightarrow}
+\coqref{Rewriting.Nil}{\coqdocconstructor{Nil}}
+\coqref{ExampleUNWO.psi}{\coqdocdefinition{$\psi$}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqdocconstructor{S}
+\coqdocvar{n} \ensuremath{\Rightarrow}
+\coqdocdefinition{append} % TODO: define append and link to it
+(\coqref{ExampleUNWO.phic}{\coqdocdefinition{$\varphi_c$}}
+\coqdocvariable{n})
+(\coqref{ExampleUNWO.phib}{\coqdocdefinition{$\varphi_b$}}
+\coqdocvariable{n})\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+The definition of the final rewrite sequence
+\coqref{ExampleUNWO.phi}{\coqdocdefinition{$\varphi$}} is done by combining
+\coqref{ExampleUNWO.phic}{\coqdocdefinition{$\varphi_c$}} with a proof
+that the target terms converge to $U^\omega$.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdef{ExampleUNWO.conv}{conv}{\coqdoclemma{conv$_{\varphi_c}$}}
+: \coqref{Rewriting.converges}{\coqdocdefinition{converges}}
+(\coqdockw{fun} \coqdocvar{n} \ensuremath{\Rightarrow}
+\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
+(\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\psi'$}}
+\coqdocvariable{n}))
+\coqref{ExampleUNWO.repeatU}{\coqdocdefinition{U$^\omega$}}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdef{ExampleUNWO.phi}{phi}{\coqdocdefinition{$\varphi$}}
+: \coqref{ExampleUNWO.psi}{\coqdocdefinition{$\psi$}}
+\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqref{ExampleUNWO.repeatU}{\coqdocdefinition{U$^\omega$}} :=
+\coqref{Rewriting.Lim}{\coqdocconstructor{Lim}}
+\coqdef{ExampleUNWO.phic}{phic}{\coqdocdefinition{$\varphi_c$}}
+\coqdef{ExampleUNWO.conv}{conv}{\coqdoclemma{conv$_{\varphi_c}$}}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdoclemma{wf$_\varphi$}
+: \coqref{Rewriting.wf}{\coqdocdefinition{wf}}
+\coqref{ExampleUNWO.phi}{\coqdocdefinition{$\varphi$}}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+We can prove $\psi \twoheadrightarrow D^\omega$ in a similar way and
+conclude by proving two general lemmas.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdoclemma{no\_un$_\mathcal{R}$}
+: \ensuremath{\lnot}
+\coqref{Rewriting.uniquenormalforms}{\coqdocdefinition{unique\_normal\_forms}}
+\coqdocdefinition{$\mathcal{R}$}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma} \coqdoclemma{no\_un\_wo}
+: \ensuremath{\lnot} \ensuremath{\forall} \coqdocvar{F} \coqdocvar{X}
+\coqdocvar{$\mathcal{R}$},\coqdoceol
+\coqdocindent{1.00em}
+\coqdocdefinition{weakly\_orthogonal}
+(\coqdocvar{F} := \coqdocvariable{F}) (\coqdocvar{X} :=
+\coqdocvariable{X}) \coqdocvariable{$\mathcal{R}$}
+\ensuremath{\rightarrow}
+\coqdocdefinition{unique\_normal\_forms}
+\coqdocvariable{$\mathcal{R}$}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
