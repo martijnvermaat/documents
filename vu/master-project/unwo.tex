@@ -6,7 +6,7 @@
 TODO: this intro
 
 Every orthogonal TRS exhibits the infinitary unique normal forms
-(UN$^\infty$) property. We might expect this property to generalize to
+(UN$^\infty$) property. We might expect this property to generalise to
 weakly orthogonal systems. However, this does not turn out to be the
 case.
 
@@ -45,7 +45,7 @@ $\rho_1$ and $\rho_2$:
 \end{align*}
 This system has two critical pairs $\langle Dx, Dx \rangle$ and
 $\langle Ux, Ux \rangle$, both of which are trivial, establishing
-weak orthogonality. The infinite term $\psi = D^1 U^2 D^3 U^4 \ldots$
+weak orthogonality. The infinite term $\du = D^1 U^2 D^3 U^4 \ldots$
 has two normal forms. It rewrites to $U^\omega$ in $\omega$ many
 $\rho_1$-steps and to $D^\omega$ in $\omega$ many $\rho_2$-steps.
 
@@ -54,32 +54,33 @@ not preserved under rewriting) and a translation to the infinitary
 $\lambda \beta \eta$-calculus are discussed by \citet{endrullis-10}.
 
 
-\subsection{\texorpdfstring{Rewriting $\psi$ to $U^\omega$}{Rewriting
-    DUUDDD... to UUU...}}\label{sub:counterexample}
+\subsection{\texorpdfstring{Rewriting $\du$ to
+    $U^\omega$}{Rewriting DUUDDD... to
+    UUU...}}\label{sub:counterexample}
 
-We show briefly what rewriting $\psi$ to $U^\omega$ amounts
-to. Rewriting $\psi$ to $D^\omega$ is done in a similar way.
-An obvious way to define $\psi$ by corecursion is via auxiliary terms
-$\psi'_n$ parameterized by $n$ as follows:
+We show briefly what rewriting $\du$ to $U^\omega$ amounts
+to. Rewriting $\du$ to $D^\omega$ is done in a similar way.
+An obvious way to define $\du$ by corecursion is via auxiliary terms
+$\du'_n$ parameterised by $n$ as follows:
 \begin{align*}
-  \psi'_n = U^n D^{n + 1} \psi'_{n + 2} \qquad \qquad \qquad
-  \psi = \psi'_0
+  \du'_n = U^n D^{n + 1} \du'_{n + 2} \qquad \qquad \qquad
+  \du = \du'_0
 \end{align*}
 But a more useful definition for our present purposes, and the one we
 stick with, is the slight reformulation:
 \begin{align*}
-  \psi'_n = D^{2 n + 1} U^{2 n + 2} \psi'_{n + 1} \qquad
+  \du'_n = D^{2 n + 1} U^{2 n + 2} \du'_{n + 1} \qquad
   \qquad \qquad
-  \psi = \psi'_0
+  \du = \du'_0
 \end{align*}
 For any term $t$ and natural numbers $n$ and $m$ we have $U^n D^{m+1}
 U^{m+1} t \rightarrow_{\rho_1} U^n D^m U^m t$ and thus $U^n D^m U^m t
-\twoheadrightarrow U^n t$ by iterating $m$ such steps. Instantiating
-$m$ with $2 n + 1$ and $t$ with $U \psi'_{n + 1}$, we obtain
-%$S^n P^{2 n + 1} S^{2 n + 1} S \psi'_{n + 1} \equiv S^n \psi'_n$
-$U^n \psi'_n \twoheadrightarrow U^{n+1} \psi'_{n + 1}$ for any $n$.
+\rewrites U^n t$ by iterating $m$ such steps. Instantiating
+$m$ with $2 n + 1$ and $t$ with $U \du'_{n + 1}$, we obtain
+%$S^n P^{2 n + 1} S^{2 n + 1} S \du'_{n + 1} \equiv S^n \du'_n$
+$U^n \du'_n \rewrites U^{n+1} \du'_{n + 1}$ for any $n$.
 Concatenating these sequences, iterating $n$ from $0$ onwards, we
-arrive at $\psi \twoheadrightarrow U^\omega$.
+arrive at $\du \rewrites U^\omega$.
 % TODO: wording 'iterating n from 0 onwards'
 
 
@@ -119,8 +120,8 @@ We introduce the notation \begin{coqdoccode}\coqdocvariable{f} @
 brevity, mirrored constructions for both function symbols are only
 discussed for one of them. The infinite term $U^\omega$ is defined by
 corecursion and finite repetitions $U^n t$ are defined by recursion
-(and are assumed to generalize to contexts with the same notation).
-% TODO: wording of the generalization to contexts
+(and are assumed to generalise to contexts with the same notation).
+% TODO: wording of the generalisation to contexts
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -151,7 +152,7 @@ corecursion and finite repetitions $U^n t$ are defined by recursion
 \coqdockw{end}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-Unfortunately, $\psi$ is not as easily defined. Although clearly
+Unfortunately, $\du$ is not as easily defined. Although clearly
 productive, direct translations of the corecursions in
 Section~\ref{sub:counterexample} do not satisfy \Coq's guardedness
 condition (see also Section~\ref{sub:guardedness}). The conclusion of
@@ -162,7 +163,7 @@ constructions. The definition we proceed with is the following.
 \begin{coqdoccode}
 \coqdocnoindent
 \coqdockw{CoFixpoint}
-\coqdef{ExampleUNWO.psi'}{psi'}{\coqdocdefinition{$\psi'$}} \coqdocvar{n}
+\coqdef{ExampleUNWO.psi'}{psi'}{\coqdocdefinition{$\du'$}} \coqdocvar{n}
 : \coqref{Term.term}{\coqdocinductive{term}} :=\coqdoceol
 \coqdocindent{1.00em}
 (\coqdocvar{cofix} \coqdocvar{Ds} (\coqdocvar{d} :
@@ -183,7 +184,7 @@ constructions. The definition we proceed with is the following.
 \ensuremath{|}
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{O}{\coqdocconstructor{O}}
 \ensuremath{\Rightarrow}
-\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\psi'$}}
+\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\du'$}}
 (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
 \coqdocvariable{n})\coqdoceol
 \coqdocindent{7.50em}
@@ -209,8 +210,8 @@ constructions. The definition we proceed with is the following.
 \coqdocemptyline
 \coqdocnoindent
 \coqdockw{Definition}
-\coqdef{ExampleUNWO.psi}{psi}{\coqdocdefinition{$\psi$}} :=
-\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\psi'$}} 0.\coqdoceol
+\coqdef{ExampleUNWO.psi}{psi}{\coqdocdefinition{$\du$}} :=
+\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\du'$}} 0.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 
@@ -239,14 +240,15 @@ can not be such an occurence.
 \coqdoclemma{neq$^{\text{U}^\omega}_{\text{D}^\omega}$} :
 \ensuremath{\lnot}
 \coqref{ExampleUNWO.repeatU}{\coqdocdefinition{U$^\omega$}}
-\coqref{TermEquality.termbis}{$\sim$}
+\coqref{TermEquality.termbis}{$\bis$}
 \coqdocdefinition{D$^\omega$}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
+% TODO: for general equality statements, use \bis or \equiv?
 
-Constructing a rewrite sequence from $\psi$ to $U^\omega$ is done in
+Constructing a rewrite sequence from $\du$ to $U^\omega$ is done in
 much the same way as described in
-Section~\ref{sub:counterexample}. First, we define the parameterized
+Section~\ref{sub:counterexample}. First, we define the parameterised
 step that is used in the rewrite sequence. It eliminates one pair of $D,
 U$ constructors in a term of the form $U^n D^{m+1} U^{m+1} t$. The
 omitted argument of the \coqref{Rewriting.Step}{\coqdocconstructor{Step}}
@@ -287,7 +289,7 @@ $\Box$)[\coqref{Substitution.substitute}{\coqdocdefinition{substitute}}
   (\coqref{ExampleUNWO.sigma}{\coqdocdefinition{$\sigma$}}
 (\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{m}$
     \coqdocvariable{t})) (\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
-\coqdocdefinition{$\rho_1$})] \coqref{TermEquality.termbis}{$\sim$}
+\coqdocdefinition{$\rho_1$})] \coqref{TermEquality.termbis}{$\bis$}
 \coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
 \coqdocdefinition{D}$^{\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}} \coqdocvariable{m}}$
 \coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^{\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
@@ -309,7 +311,7 @@ $\Box$)[\coqref{Substitution.substitute}{\coqdocdefinition{substitute}}
   (\coqref{ExampleUNWO.sigma}{\coqdocdefinition{$\sigma$}}
 (\coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{m}$
     \coqdocvariable{t})) (\coqref{Rewriting.rhs}{\coqdocprojection{rhs}}
-\coqdocdefinition{$\rho_1$})] \coqref{TermEquality.termbis}{$\sim$}
+\coqdocdefinition{$\rho_1$})] \coqref{TermEquality.termbis}{$\bis$}
 \coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
 \coqdocdefinition{D}$^\coqdocvariable{m}$
 \coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{m}$
@@ -342,7 +344,7 @@ $\Box$)[\coqref{Substitution.substitute}{\coqdocdefinition{substitute}}
 \coqdocvariable{n} \coqdocvariable{m} \coqdocvariable{t}).\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-Generalizing these rewrite steps
+Generalising these rewrite steps
 \coqref{ExampleUNWO.pi}{\coqdocdefinition{$\pi$}}, we construct
 the rewrite sequences
 \coqref{ExampleUNWO.phia}{\coqdocdefinition{$\varphi_a$}}. In their
@@ -375,7 +377,7 @@ useful type.\footnote{TODO: note about \coqdockw{Program}
 \coqdocdefinition{D}$^\coqdocvariable{m}$
 \coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{m}$
 \coqdocvariable{t}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
 \coqdocvariable{t} :=\coqdoceol
 \coqdocindent{1.00em}
@@ -403,10 +405,10 @@ useful type.\footnote{TODO: note about \coqdockw{Program}
 \coqdockw{Program Definition} % TODO: here the S(2 n) is not correct (?)
 \coqdef{ExampleUNWO.phib}{phib}{\coqdocdefinition{$\varphi_b$}}
 \coqdocvar{n} : \coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
-(\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\psi'$}}
-\coqdocvariable{n}) \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+(\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\du'$}}
+\coqdocvariable{n}) \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^{\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}} \coqdocvariable{n}}$
-(\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\psi'$}}
+(\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\du'$}}
 (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
 \coqdocvariable{n})) :=\coqdoceol
 \coqdocindent{1.00em}
@@ -414,23 +416,23 @@ useful type.\footnote{TODO: note about \coqdockw{Program}
 \coqdocvariable{n} (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
 (2
 $\times$ \coqdocvariable{n})) (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}} @
-\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\psi'$}} (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\du'$}} (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
 \coqdocvariable{n})).\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 We concatenate all rewrite sequences
 \coqref{ExampleUNWO.phib}{\coqdocdefinition{$\varphi_b$}} to construct
-rewrite sequences from $\psi$ to a term that is equal to $U^\omega$ up
+rewrite sequences from $\du$ to a term that is equal to $U^\omega$ up
 to any given depth.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
 \coqdockw{Fixpoint}
 \coqdef{ExampleUNWO.phic}{phic}{\coqdocdefinition{$\varphi_c$}}
-\coqdocvar{n} : \coqref{ExampleUNWO.psi}{\coqdocdefinition{$\psi$}}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqdocvar{n} : \coqref{ExampleUNWO.psi}{\coqdocdefinition{$\du$}}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
-(\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\psi'$}}
+(\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\du'$}}
 \coqdocvariable{n}) :=\coqdoceol
 \coqdocindent{1.00em}
 \coqdockw{match} \coqdocvariable{n} \coqdockw{with}\coqdoceol
@@ -439,7 +441,7 @@ to any given depth.
 \coqdocconstructor{O}
 \ensuremath{\Rightarrow}
 \coqref{Rewriting.Nil}{\coqdocconstructor{Nil}}
-\coqref{ExampleUNWO.psi}{\coqdocdefinition{$\psi$}}\coqdoceol
+\coqref{ExampleUNWO.psi}{\coqdocdefinition{$\du$}}\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|}
 \coqdocconstructor{S}
@@ -466,15 +468,15 @@ that the target terms converge to $U^\omega$.
 : \coqref{Rewriting.converges}{\coqdocdefinition{converges}}
 (\coqdockw{fun} \coqdocvar{n} \ensuremath{\Rightarrow}
 \coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
-(\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\psi'$}}
+(\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\du'$}}
 \coqdocvariable{n}))
 \coqref{ExampleUNWO.repeatU}{\coqdocdefinition{U$^\omega$}}.\coqdoceol
 \coqdocemptyline
 \coqdocnoindent
 \coqdockw{Definition}
 \coqdef{ExampleUNWO.phi}{phi}{\coqdocdefinition{$\varphi$}}
-: \coqref{ExampleUNWO.psi}{\coqdocdefinition{$\psi$}}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+: \coqref{ExampleUNWO.psi}{\coqdocdefinition{$\du$}}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqref{ExampleUNWO.repeatU}{\coqdocdefinition{U$^\omega$}} :=
 \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}}
 \coqdef{ExampleUNWO.phic}{phic}{\coqdocdefinition{$\varphi_c$}}
@@ -488,7 +490,7 @@ that the target terms converge to $U^\omega$.
 \end{coqdoccode}
 \end{singlespace}
 
-We can prove $\psi \twoheadrightarrow D^\omega$ in a similar way and
+We can prove $\du \rewrites D^\omega$ in a similar way and
 conclude by proving two general lemmas.
 \begin{singlespace}
 \begin{coqdoccode}

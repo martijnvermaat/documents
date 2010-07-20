@@ -42,14 +42,14 @@ $\alpha \prec \beta$ & \texttt{alpha < beta} & strict order\\
 $\alpha \simeq \beta$ & \texttt{alpha == beta} & extensional equality\\
 \multicolumn{3}{l}{\bf Terms}\\
 % TODO: have a look where we use this, i think we could just use =
-$s \sim t$ & \texttt{s [\textasciitilde] t} & bisimilarity\\
+$s \bis t$ & \texttt{s [\textasciitilde] t} & bisimilarity\\
 $s \equpto{n} t$ & \texttt{term\_eq\_up\_to n s t} & pointwise equality up to depth $n$\\ % \eqcirc_n
 $s \equiv t$ & \texttt{s [=] t} & pointwise equality\\ % \eqcirc
 \multicolumn{3}{l}{\bf Rewriting Sequences}\\
 $s \rightarrow_\mathcal{R} t$ & \texttt{s [>] t} & $s$ rewrites to
 $t$ in one step\\
 $\pi \approx o$ & \texttt{step\_eq p o} & equality of steps\\
-$s \twoheadrightarrow_\mathcal{R} t$ & \texttt{s ->{}> t} & $s$ rewrites to
+$s \rewrites_\mathcal{R} t$ & \texttt{s ->{}> t} & $s$ rewrites to
 $t$\\
 $\cdots$ & \texttt{pred\_type(r)} & predecessor indices of $\varphi$\\
 $\varphi[\iota]$ & \texttt{r[i]} & predecessor location of $\varphi$ indexed by $\iota$\\

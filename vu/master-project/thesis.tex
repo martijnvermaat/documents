@@ -1,10 +1,12 @@
 \documentclass[twoside,openright,draft]{vu}
 
-% Hyphenation patterns for English
-\usepackage[english]{babel}
-
 % Text encoding to take for data input stream (i.e. the text we write in)
 \usepackage[latin1]{inputenc}
+
+% Hyphenation patterns for UK English
+% TODO: check if UKenglish actually works (otherwise use english)
+%\usepackage[british]{babel}
+\usepackage[english]{babel}
 
 % Tweak the inner margin to align all text as nice as possible
 %\usepackage[inner=3.83cm]{geometry}
@@ -63,7 +65,7 @@
   inductive structure of the Brouwer ordinals. We discuss an
   application of the formalization in a verification of the
   counterexample to unique normal forms in weakly orthogonal iTRSs,
-  introduced by Endrullis et al (RTA, 2010).
+  introduced by \citet{endrullis-10}.
 \end{abstract}
 
 \include{preface}

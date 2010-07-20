@@ -19,7 +19,7 @@ The embedding relation and order on ordinals by Hancock, are there other
 choices?
 
 Positions are just lists (using option types) versus a safe position
-type parameterized by a term.
+type parameterised by a term.
 
 
 \subsection{The Positivity Condition}\label{sub:positivity}
@@ -34,9 +34,9 @@ Using a $\Sigma$-type
 \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t},
 (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
 \ensuremath{\rightarrow} \{ \coqdocvar{t'} \& \coqdocvariable{s}
-$\twoheadrightarrow_\mathcal{R}$
+$\rewrites_\mathcal{R}$
 \coqdocvariable{t'}\}) $\rightarrow$
-\coqdocvariable{s} $\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{s} $\rewrites_\mathcal{R}$
 \coqdocvariable{t}\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
@@ -57,7 +57,7 @@ type).\footnote{To be more precise, the corecursive call is also allowed to
 TODO: additional remarks on productivity and guardedness restriction?
 
 In the \coqref{Term.term}{\coqdocinductive{term}} definition, we used a vector
-type, parameterized by the type of its element and its size. Naturally, one
+type, parameterised by the type of its element and its size. Naturally, one
 would implement a vector type in \Coq inductively, as for example has been
 done in the standard library.
 \begin{singlespace}

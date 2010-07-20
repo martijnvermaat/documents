@@ -1,5 +1,7 @@
 \chapter{Infinitary Term Rewriting}\label{chap:rewriting}
 
+TODO: write introduction
+
 This chapter does not contain original material.
 
 Before we can study infinitary rewriting, we must introduce ordinal numbers.
@@ -8,12 +10,11 @@ Orthogonal TRSs have some nice properties, for example UN$^{\infty}$ and
 compression.
 
 % TODO: note that we are explicit in the wording: sequence vs rewrite sequence
-% TODO: \Ord etc always in math mode (no space is added after it)
 
 
 \section{Ordinal Numbers}
 
-% ordinals are origininally by Cantor
+% ordinals are originally by Cantor
 
 Ordinal numbers (ordinals for short) are an extension of the natural numbers
 with transfinite objects. Indeed, the finite ordinals are just the natural
@@ -28,23 +29,25 @@ $\omega \times 3$. Some other (still relatively small) ordinals are:
   \omega^{\omega^\omega} \qquad
   \omega^{\omega^{\omega^{\iddots}}} = \epsilon_0
 \end{displaymath}
-Note that this is all just notation, we have not yet defined a representation
-for ordinals and what $+$ and $\times$ are.
+Note that this is all merely notation, we have not yet defined a
+representation for ordinals or what $+$ and $\times$ are.
+% TODO: and exponentiation
 
 In set theory, ordinals are usually represented by hereditarily transitive
-sets. Zero corresponds to the empty set $\emptyset$, one to the singleton $\{
-\emptyset \}$ and so on, and $\omega$ is represented by $\{ \emptyset, \{
-\emptyset \}, \{ \emptyset, \{ \emptyset \} \} , \ldots \}$. Now $\in$
-constitutes a well-founded total order on the ordinals.
+sets. Zero corresponds to the empty set $\nothing$, one to the
+singleton $\{ \nothing \}$ and so on, and $\omega$ is represented by
+$\{ \nothing, \{ \nothing \}, \{ \nothing, \{ \nothing \} \} , \ldots
+\}$. Now $\in$ constitutes a well-founded total order on the
+ordinals.
 
-We abbreviate $\alpha \cup \{ \alpha \}$ by $\alpha^+$ (corresponding to the
-successor function) and say that $\alpha$ is a successor ordinal if $\alpha =
-\beta^+$ for some ordinal $\beta$. If $\alpha$ is not a successor ordinal and
-$\alpha \neq \emptyset$, it is called a limit ordinal. So an ordinal can
-be either zero, a successor ordinal, or a limit ordinal.
+We abbreviate $\alpha \cup \{ \alpha \}$ by $\alpha^+$ and say that
+$\alpha$ is a \emph{successor ordinal} if $\alpha = \beta^+$ for some
+ordinal $\beta$. If $\alpha$ is not a successor ordinal and $\alpha
+\neq \nothing$, it is called a \emph{limit ordinal}. Hence, an ordinal
+can be either zero, a successor ordinal, or a limit ordinal.
 
 From now on, we make no distinction between an ordinal and its set-theoretic
-representation (e.g.\ between $0$ and $\emptyset$). Examples of successor
+representation (e.g.\ between $0$ and $\nothing$). Examples of successor
 ordinals are $4$, $\omega + 7$  and $\omega^{\omega \times 2} + 1$. Examples
 of limit ordinals are $\omega$ and $\omega \times 3$.
 
@@ -64,17 +67,15 @@ argument:
 
 \subsection{Brouwer Ordinals}\label{sub:brouwer}
 
-The Brouwer ordinals (also known as tree ordinals) are a constructive
-representation of the countable ordinals as countably branching well-founded
-trees. Their inductive definition uses constructors $0$ (zero), $^+$
-(successor) and $\sqcup$ (limit).
+The Brouwer ordinals are a representation of the countable ordinals as
+countably branching well-founded trees. Their inductive definition
+uses constructors $0$ (zero), $^+$ (successor) and $\sqcup$ (limit).
 
-% TODO: \mathcal{O} or \Omega?
 The $\sqcup$ constructor has type $(\mathbb{N} \rightarrow \Ord) \rightarrow
 \Ord$, but for our convenience we write $\sqcup_i \cdots i \cdots$ instead
-of $\sqcup (\lambda i . \cdots i \cdots)$. Sometimes we explicitely enumerate
-the function, writing for example $\sqcup \{ \alpha_1, \alpha_2, \alpha_3,
-\ldots \}$.
+of $\sqcup (\lambda i . \cdots i \cdots)$. Sometimes we explicitly enumerate
+the argument, writing for example $\sqcup \{ \alpha_1, \alpha_2,
+\alpha_3, \ldots \}$.
 
 % Be alerted that all ordinals cannot form a set (only a class), but we are
 % defining a subset here
@@ -95,7 +96,7 @@ induction:
 Now zero is represented by $0$, a successor ordinal $\alpha +1$ is represented
 by $\alpha^+$ and a limit ordinal $\lambda$ is represented by $\sqcup_i
 \alpha_i$ if $\lambda$ is the least upper bound of the sequence $\alpha_1,
-\alpha_2, \alpha_3, \ldots$. % TODO: strict or unstrict upper bound
+\alpha_2, \alpha_3, \ldots$. % TODO: strict or non-strict upper bound
 Again, we identify ordinals and their representation as Brouwer ordinal.
 
 % TODO: some ordinals have no representation as Brouwer ordinal at all
@@ -108,10 +109,11 @@ A more intricate issue is what to make of ordinals such as $\sqcup \{ 3, 3, 3,
 \ldots \}$. In spirit of the intuition given above it represents $3$ ($4$),
 that being the non-strict (strict) upper bound of $3, 3, 3, \ldots$.
 % TODO: this makes it undecidable to compare an ordinal to 0 or 3
-In practice, we might like to exclude such representations and require that
-$\sqcup_i \alpha_i$ always represents a limit ordinal. This can be done by
-imposing a strict monotonicity property on the limit sequences, but some order
-relation on the Brouwer ordinals is needed for that.
+We might like to exclude such representations and require that
+$\sqcup_i \alpha_i$ always represents a limit ordinal. This can be
+done by imposing a strict monotonicity property on the limit
+sequences. Some order relation on the Brouwer ordinals is needed for
+that.
 
 % TODO: much of the following is taken from Hancock, but i think we cannot
 % cite that paper. however, we must acknowledge this in some way
@@ -124,24 +126,25 @@ structural strict order relation as follows.
 The set-valued function $\Phi$ defines the \emph{predecessor indices} $\Phi(\alpha)$
 \emph{for} $\alpha$ by recursion on $\alpha$:
 \begin{align*}
-  \Phi(0)                 &= \emptyset \\
+  \Phi(0)                 &= \nothing \\
   \Phi(\alpha^+)          &= \Phi(\alpha)^? \\
   \Phi(\sqcup_i \alpha_i) &= (\Sigma n \in \mathbb{N}) \; \Phi(\alpha_n)
 \end{align*}
 \end{definition}
 
 By $A^?$ we mean the option type over $A$, or equivalently the disjoint sum
-$1 + A$ of the unit type $1$ and $A$. We use \textsc{none} and \textsc{some
-  $a$} (for $a \in A$) as constructors of $A^?$. Note that the set
-$\Phi(0)$ of predecessor indices for $0$ is uninhabited.
+$1 + A$ of the unit type $1$ and $A$. We use \textsc{left} and
+\textsc{right $a$} (for $a \in A$) as constructors of $A^?$. Note that
+the set $\Phi(0)$ of predecessor indices for $0$ has no inhabitants.
+% TODO: just use disjoint sum, no option type?
 
 \begin{definition}%[Predecessor]
 The function $\_[\_] : (\prod \alpha : \Ord) \; \Phi(\alpha)
 \rightarrow \Ord$ defines the \emph{predecessor} $\alpha[\iota]$
 \emph{of} $\alpha$ \emph{indexed by} $\iota$ recursively on $\alpha$:
 \begin{align*}
-  \alpha^+[\textsc{none}]                     &= \alpha \\
-  \alpha^+[\textsc{some $\iota$}]             &= \alpha[\iota] \\
+  \alpha^+[\textsc{left}]                     &= \alpha \\
+  \alpha^+[\textsc{right $\iota$}]            &= \alpha[\iota] \\
   \sqcup_i \alpha_i[\langle n, \iota \rangle] &= \alpha_n[\iota]
 \end{align*}
 \end{definition}
@@ -159,8 +162,10 @@ non-strict order relation on $\Ord$ that classifies ordinals by rank.
 % the natural numbers, but this definition starting at \alpha_1...
 \begin{definition}\label{def:order}%[Order]
 We define the \emph{order} $\preceq$ as a binary relation on $\Ord$ by
-induction (and write $\alpha \preceq \beta$ for $\langle \alpha, \beta \rangle
-\in \; \preceq$):
+induction:
+% TODO: maybe make a not of infix notation in introduction
+% (and write $\alpha \preceq \beta$ for $\langle \alpha, \beta \rangle
+% \in \; \preceq$)
 \begin{compactenum}
   \item
     $0 \preceq \beta$ for every ordinal $\beta \in \Ord$.
@@ -174,11 +179,12 @@ induction (and write $\alpha \preceq \beta$ for $\langle \alpha, \beta \rangle
 \end{compactenum}
 \end{definition}
 
-Using this order, we can define two other useful binary relations on
-$\Ord$. First, the extensional equality $\alpha \simeq \beta$ by the
-conjunction of $\alpha \preceq \beta$ and $\beta \preceq \alpha$. Second, the
-extensional strict order $\alpha \prec \beta$ if $\alpha \preceq
-\beta[\iota]$ for some $\iota \in \Phi(\beta)$.
+Using this order, we can introduce two other useful binary relations
+on $\Ord$. First, the extensional \emph{equality} $\alpha \simeq
+\beta$ is defined by the conjunction of $\alpha \preceq \beta$ and
+$\beta \preceq \alpha$. Second, the extensional \emph{strict order}
+$\alpha \prec \beta$ holds if $\alpha \preceq \beta[\iota]$ holds for
+some $\iota \in \Phi(\beta)$.
 
 % TODO: maybe define well-formed ordinals here
 
@@ -192,23 +198,23 @@ extensional strict order $\alpha \prec \beta$ if $\alpha \preceq
 We give a short introduction to the basic notions of infinitary term
 rewriting. For a more in-depth treatment of the theory of term rewriting,
 consult \citet{terese-03}. Discussion of infinitary rewriting
-specifically, can be found in \citet[chap. 12]{terese-03} and
+specifically, can be found in \citet[Chap. 12]{terese-03} and
 \citet{klop-de-vrijer-05}. In this section, we use definitions and
 notations from \citet{terese-03}.
 
 % TODO: rewrite this statement (and perhaps we never mention finitary
 % rewriting)
 From now on, we drop the `infinitary' from infinitary rewriting and
-explicitely say so if we mean finitary rewriting.
+explicitly say so if we mean finitary rewriting.
 
 
 \subsection{Definition of a TRS}\label{sub:trs}
 
 \begin{definition}%[Signature]
 A \emph{signature} $\Sigma$ is a non-empty set of \emph{function symbols} $f,
-g, \ldots$. Each function symbol $f$ has a fixed natural number $\#f$, which
-we call its \emph{arity}. A function symbol with arity $0$ is also called a
-\emph{constant}.
+g, \ldots$. Each function symbol $f$ has a fixed natural number
+$\arity{f}$, which we call its \emph{arity}. A function symbol with
+arity $0$ is also called a \emph{constant}.
 \end{definition}
 
 \begin{definition}%[Term]
@@ -218,99 +224,105 @@ set of variables $\X = \{x, y, \ldots\}$ is defined by coinduction:
   \item
     $x \in \TerI(\X)$ for every variable $x \in \X$.
   \item
-    For every $f \in \Sigma$, if $t_1, \ldots, t_{\#f} \in \TerI(\X)$,
-    then $f(t_1, \ldots, t_{\#f}) \in \TerI(\X)$.
+    For every $f \in \Sigma$, if $t_1, \ldots, t_{\arity{f}} \in
+    \TerI(\X)$, then $f(t_1, \ldots, t_{\arity{f}}) \in \TerI(\X)$.
 %  \item
 %    If $f$ is a function symbol with arity $n$ and $t_1, \ldots, t_n \in
 %    \TerI(\X)$, then $f(t_1, \ldots, t_n) \in \TerI(\X)$.
 \end{compactenum}
 \end{definition}
+% TODO: maybe use Ter(\Sigma, X) instead of Ter_\Sigma(X)
 
-The terms $t_i$ are called the \emph{arguments} of $f(t_1, \ldots, t_n)$ and
-the symbol $f$ the \emph{root}. By $\Var(t)$ we denote the set of variables
-occuring in $t$, and $t$ is \emph{closed} if $\Var(t) = \emptyset$. If no
-variable occurs more than once in $t$, we say $t$ is \emph{linear}.
-Often, the set of variables $\X$ is left implicit and $\TerI(\X)$ is
-denoted simply by $\TerI$. By the set of \emph{finite terms} $\Ter$ we
-mean the subset of well-founded terms of $\TerI$.
+The symbol $f$ is called the \emph{root} of $f(t_1, \ldots, t_n)$ and
+the terms $t_i$ are called the \emph{arguments} of $f$. By $\Var(t)$
+we denote the set of variables occurring in $t$, and $t$ is
+\emph{closed} if $\Var(t) = \nothing$. If no variable occurs more than
+once in $t$, we say $t$ is \emph{linear}. Often, the set of variables
+$\X$ is left implicit and $\TerI(\X)$ is denoted simply by $\TerI$. By
+the set of \emph{finite terms} $\Ter$ we mean the subset of
+well-founded terms of $\TerI$.
 
-Preparing for the mechanized setting of Section~\ref{chap:implementation} with
+Preparing for the mechanised setting of Section~\ref{chap:implementation} with
 its constrains of finite memory and computing time, we want to be precise
 about the notions of equality on infinite objects we employ. We consider terms
 to be equal if they are
 \begin{inparaenum}[(i)]
   \item bisimilar or
-  \item syntactically equivalent up to every depth.
+  \item pointwise equivalent up to every depth.
 \end{inparaenum}
 According to Proposition~\ref{prop:equalities} it does not matter
-ultimately which equality we use.
+which equality we use.
 
-\begin{definition}\label{def:bisimilarity}%[Bismilarity]
-We define the \emph{bisimilarity relation} $\sim$ on $\TerI$ by
+\begin{definition}\label{def:bisimilarity}%[Bisimilarity]
+We define the \emph{bisimilarity relation} $\bis$ on $\TerI$ by
 coinduction:
 \begin{compactenum}
   \item
-    $x \sim x$ for every variable $x \in \X$.
+    $x \bis x$ for every variable $x \in \X$.
   \item
-    For every $f \in \Sigma$, if $s_i \sim t_i$ for all $1 \leq i \leq \#f$,
-    then $f(s_1, \ldots s_{\#f}) \sim f(t_1, \ldots, t_{\#f})$.
+    For every $f \in \Sigma$, if $s_i \bis t_i$ for all $1 \leq i \leq
+    \arity{f}$, then $f(s_1, \ldots s_{\arity{f}}) \bis f(t_1, \ldots,
+    t_{\arity{f}})$.
 \end{compactenum}
-We say that $s$ and $t$ are \emph{bisimilar} if $s \sim t$.
+%$\bis$ is the greatest bisimulation on $\TerI$ and
+We say that $s$ and $t$ are \emph{bisimilar} if $s \bis t$.
 \end{definition}
 
-\begin{definition}\label{def:equiv}%[Syntactic equivalence]
-\emph{(Syntactic) equivalence} of terms $s$ and $t$ \emph{up to depth} $d$,
+\begin{definition}\label{def:equiv}%[Pointwise equivalence]
+\emph{(Pointwise) equivalence} of terms $s$ and $t$ \emph{up to depth} $d$,
 written $s \equpto{d} t$, is defined by induction:
 \begin{compactenum}
   \item $s \equpto{0} t$ for every $s, t \in \TerI$.
   \item $x \equpto{d} x$ for every $d \in \mathbb{N}$ and $x \in \X$.
   \item For every $f \in \Sigma$, if $s_i \equpto{d} t_i$ for all $1 \leq i
-    \leq \#f$, then $f(s_1, \ldots s_{\#f}) \equpto{d+1} f(t_1, \ldots,
-    t_{\#f})$.
+    \leq \arity{f}$, then $f(s_1, \ldots s_{\arity{f}}) \equpto{d+1}
+    f(t_1, \ldots, t_{\arity{f}})$.
 \end{compactenum}
-The \emph{(syntactic) equivalence} $s \equiv t$ holds if $s \equpto{d} t$ for
-every depth $d$.
+The \emph{(pointwise) equivalence} $s \equiv t$ holds if $s \equpto{d}
+t$ for every depth $d$.
 \end{definition}
 
 \begin{proposition}\label{prop:equalities}
-$s \sim t \; \Leftrightarrow \; s \equiv t$.
+$s \bis t \; \Leftrightarrow \; s \equiv t$.
 \end{proposition}
 \begin{proof}
-By induction on the depth of syntactical equivalence ($\Rightarrow$) and by
-coinduction on $s$ ($\Leftarrow$).
-\footnote{This proposition is proved in our \Coq development.}
+By induction on the depth of pointwise equivalence ($\Rightarrow$) and
+by coinduction on $s$ ($\Leftarrow$).
+%\footnote{This proposition is proved in our \Coq development.}
 \end{proof}
 
 \begin{definition}%[Rewrite rule]
-  A \emph{rewrite rule} $\rho$ for a signature $\Sigma$ is a pair $\langle l,
-  r \rangle$ of finite terms in $\Ter$ (written $\rho : l \rightarrow
-  r$). We restrict ourselves to rewrite rules where $l$ is not a variable and
-  $\Var(r) \subseteq \Var(l)$.
+  A \emph{rewrite rule} $\rho$ on a signature $\Sigma$ is a pair
+  $\langle l, r \rangle$ of finite terms in $\Ter$ (written $\rho : l
+  \rightarrow r$). We restrict ourselves to rewrite rules where $l$ is
+  not a variable and $\Var(r) \subseteq \Var(l)$.
 \end{definition}
 
-We say a rewrite rule is \emph{left-linear} if its left-hand side is linear.
+The two restrictions on rewrite rules are standard and prevent our
+theory from misbehaving in some particular ways. We say a rewrite rule
+is \emph{left-linear} if its left-hand side is linear.
 
 \begin{definition}%[TRS]
 A \emph{term rewriting system} (TRS) $\mathcal{R}$ is a pair $\langle \Sigma,
-R \rangle$ of a signature $\Sigma$ and a set of rewrite rules $R$ on
-$\Sigma$.
+R \rangle$ of a signature $\Sigma$ and a finite set of rewrite rules
+$R$ on $\Sigma$.
 \end{definition}
 
 
 \subsection{Rewriting}
 
-Subterm positions are sequences of natural numbers. The empty sequence
-is denoted by $\epsilon$ and $\prefix{i}{p}$ is the prefixing of a
+Positions are sequences of natural numbers. The empty sequence is
+denoted by $\epsilon$ and $\prefix{i}{p}$ is the prefixing of a
 sequence $p$ with the number $i$.
 
 \begin{definition}%[Subterm positions]
-  The set of \emph{subterm positions} $\Pos(t)$ \emph{of a term} $t$
-  is inductively defined:
+  The set of \emph{positions} $\Pos(t)$ \emph{of a term} $t$ is
+  inductively defined:
   \begin{compactenum}
     \item $\epsilon \in \Pos(t)$ for every $t \in \TerI$.
-    \item For every $f \in \Sigma$ and $1 \le i \le \#f$, if $p \in
-      \Pos(t_i)$ then $\prefix{i}{p} \in \Pos(f(t_1, \ldots,
-      t_{\#f}))$.
+    \item For every $f \in \Sigma$ and $1 \le i \le \arity{f}$, if $p
+      \in \Pos(t_i)$ then $\prefix{i}{p} \in \Pos(f(t_1, \ldots,
+      t_{\arity{f}}))$.
   \end{compactenum}
   The \emph{subterm} of term $t$ at position $p$, written
   $\subterm{t}{p}$, is inductively defined by
@@ -320,7 +332,7 @@ sequence $p$ with the number $i$.
       \subterm{t_i}{p}$.
   \end{inparaenum}
   Similarly, \emph{updating} a term $t$ at position $p$ with term $s$,
-  written $t[u]_p$, is defined by replacing the subterm
+  written $t[s]_p$, is defined by replacing the subterm
   $\subterm{t}{p}$ at position $p$ in $t$ with $s$.
 \end{definition}
 
@@ -336,32 +348,39 @@ $\Sigma$ is defined by induction:
 \begin{compactenum}
   \item
     $\Box \in \Ctx$.
+%  \item
+%    For every $f \in \Sigma$ and $1 \le n \le \arity{f}$, if $t_1,
+%    \ldots, t_{\arity{f} - 1} \in \TerI$ and $C \in \Ctx$, then
+%    $f(t_1, \ldots, t_{n - 1}, C, t_{n + 1}, \ldots, t_{\arity{f} -
+%      1}) \in \Ctx$.
   \item
-    For every $f \in \Sigma$ and $1 \le n \le \#f$, if $t_1, \ldots, t_{\#f -
-      1} \in \TerI$ and $C \in \Ctx$, then $f(t_1, \ldots, t_{n - 1},
-    C, t_{n + 1}, \ldots, t_{\#f - 1}) \in \Ctx$.
+    For every $f \in \Sigma$ and $1 \le i \le \arity{f}$, if $t_1,
+    \ldots, t_{i - 1}, t_{i + 1}, \ldots, t_{\arity{f}} \in \TerI$ and
+    $C \in \Ctx$, then $f(t_1, \ldots, t_{i - 1}, C, t_{i + 1},
+    \ldots, t_{\arity{f}}) \in \Ctx$.
 \end{compactenum}
 \end{definition}
 
-Thus every context $C$ has exactly one occurence of the symbol $\Box$, called
+Thus every context $C$ has exactly one occurrence of the symbol $\Box$, called
 its \emph{hole}. By the term $C[t]$ we mean the result of replacing the hole
 of $C$ by $t$. We allow a slight abuse of notation by writing
 $t[\Box]_p$ for the context $C$ with $C[\subterm{t}{p}] \equiv t$. We
 also assume obvious extensions to contexts for notions on terms
 (e.g.\ $\Var(C)$ and $\Pos(C)$ for $C \in \Ctx$).
 The \emph{hole depth} of a context $C$ is defined by the length of the
-(unique) positition $p$ with $\subterm{C}{p} = \Box$.
+(unique) position $p$ with $\subterm{C}{p} = \Box$.
+% TODO: hole depth = depth ?
 
 %The \emph{hole depth} of a context $C$ is defined by the number
-%of `$($' symbols minus the number of `$)$' symbols preceeding the $\Box$
+%of `$($' symbols minus the number of `$)$' symbols preceding the $\Box$
 %symbol in $C$.
 %TODO: this seemed to me the shortest way to define the hole depth?
 
 \begin{definition}%[Substitution]
-% TODO: now we only generalize to finite terms
+% TODO: now we only generalise to finite terms
 Given a signature $\Sigma$ and a set of variables $\X$, a
 \emph{substitution} $\sigma$ is a mapping from $\X$ to $\TerI(\X)$. It
-can be generalized to a mapping $\bar{\sigma} : \TerI(\X) \rightarrow
+can be generalised to a mapping $\bar{\sigma} : \TerI(\X) \rightarrow
 \TerI(\X)$ corecursively:
 \begin{align*}
   \bar{\sigma}(x) &= \sigma(x)\\
@@ -439,16 +458,16 @@ length $\alpha$ is
 \end{compactenum}
 \end{definition}
 
-We write $t_0 \twoheadrightarrow t_\alpha$ if there exists a strongly
+We write $t_0 \rewrites t_\alpha$ if there exists a strongly
 convergent rewrite sequence $(t_\beta \rightarrow t_{\beta^+})_{\beta
   < \alpha}$ with limit $t_\alpha$. The \emph{convertibility relation}
 is defined as the reflexive transitive symmetric closure of
-$\twoheadrightarrow$.
+$\rewrites$.
 
 
 \subsection{Normal Forms and Orthogonality}
 
-\begin{definition}\label{def:normalization}%[Normalization]
+\begin{definition}\label{def:normalisation}%[Normalisation]
   Let $\mathcal{R}$ be a TRS.
   \begin{compactenum}
     \item
@@ -456,30 +475,32 @@ $\twoheadrightarrow$.
       rule $\rho$ in $\mathcal{R}$, substitution $\sigma$ and context
       $C$ such that $t \equiv C[l^\sigma]$ (i.e.\ if there is no step
       from $t$). We say $t$ is a normal form \emph{of} $s$ if $s
-      \twoheadrightarrow t$ and $t$ is a normal form.
+      \rewrites t$ and $t$ is a normal form.
     \item
       $\mathcal{R}$ has the (infinitary) \emph{unique normal forms}
       (UN$^\infty$) property if $t \equiv u$ for every two
       convertible normal forms $t$ and $u$.
     \item
+      % TODO: make sure \rewrites renders fine in superscript
       $\mathcal{R}$ has the (infinitary) \emph{unique normal forms
-      with respect to rewriting} (UN$^\twoheadrightarrow$) property if
-      for all terms $s$, we have $t \equiv u$ for every two normal
-      forms $t$ and $u$ of $s$.
+      with respect to rewriting} (UN$^\rewrites$) property if for all
+      terms $s$, we have $t \equiv u$ for every two normal forms $t$
+      and $u$ of $s$.
   \end{compactenum}
 \end{definition}
 % TODO: klop-de-vrijer-05 uses our UN->> definition for UN^\infty,
-% should we destinguish between the two?
+% should we distinguish between the two?
 % TODO: pictures
 
-Obviously we have that UN$^\infty$ implies
-UN$^\twoheadrightarrow$. One source of non-unique normal forms is
-the interference of two redex occurences in a term. Contracting one of
-them may result in a term where (a descendant of) the other redex is
-no longer present, possibly losing confluence. This fenomenon is made
-precise in the following definition.
+Obviously we have that UN$^\infty$ implies UN$^\rewrites$. One source
+of non-unique normal forms is the interference of two redex occurrences
+in a term. Contracting one of them may result in a term where (a
+descendant of) the other redex is no longer present, possibly losing
+confluence. This phenomenon is made precise in the following
+definition.
 % TODO: informal definition of descendants and confluence
 
+% TODO: maybe cite joerg's thesis
 \begin{definition}\label{def:overlap}%[Overlap and critical pairs]
 We say two rewrite rules $\rho_1 : l_1 \rightarrow r_1$ and $\rho_2 :
 l_2 \rightarrow r_2$ have \emph{overlap} if there exists a
@@ -490,7 +511,7 @@ Let $\sigma, \tau$ be substitutions such that $l_1 |_p ^{\,\;\sigma}
 \equiv l_2 ^{\,\;\tau}$ is a most general common instance of $l_1 |_p$
 and $l_2$, and without loss of generality assume that $\dom(\sigma) =
 \Var(l_1 |_p)$ and $\Var(l_1 |_p ^{\,\;\sigma}) \cap \Var(l_1[\Box]_p)
-= \emptyset$. Then $\langle l_1 ^{\,\;\sigma}[r_2^{\,\;\tau}]_p,
+= \nothing$. Then $\langle l_1 ^{\,\;\sigma}[r_2^{\,\;\tau}]_p,
 r_1^{\,\;\sigma} \rangle$ is called a \emph{critical pair of} $\rho_1$
 \emph{with} $\rho_2$. A critical pair $\langle s, t \rangle$ is called
 \emph{trivial} if $s \equiv t$.

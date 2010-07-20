@@ -1,4 +1,4 @@
-\chapter{A Mechanic Formalization}\label{chap:implementation}
+\chapter{A Mechanic Formalisation}\label{chap:implementation}
 
 TODO: introduction.
 
@@ -14,28 +14,28 @@ TODO: we will take some notational liberties (syntax precedence levels, infix
 notation etc)
 
 For example, the type of the \coqdocconstructor{Cons} constructor in listing x
-is written with explicitely generalized variables as
+is written with explicitely generalised variables as
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
 \ensuremath{\forall} (\coqdocvar{s} \coqdocvar{t} :
 \coqref{Term.term}{\coqdocinductive{term}}) (\coqdocvar{$\rho$}
-: \coqdocvar{s} $\twoheadrightarrow_\mathcal{R}$ \coqdocvar{t})
+: \coqdocvar{s} $\rewrites_\mathcal{R}$ \coqdocvar{t})
 (\coqdocvar{u} : \coqref{Term.term}{\coqdocinductive{term}})
 (\coqdocvar{$\pi$} : \coqdocvariable{t}
 $\rightarrow_\mathcal{R}$ \coqdocvar{u}),
-\coqdocvariable{s} $\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{s} $\rewrites_\mathcal{R}$
 \coqdocvariable{u}\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-and can be simplified with automatically generalized variables as
+and can be simplified with automatically generalised variables as
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
 \ensuremath{\forall} `(\coqdocvar{$\rho$} : \coqdocvar{s}
-$\twoheadrightarrow_\mathcal{R}$ \coqdocvar{t},
+$\rewrites_\mathcal{R}$ \coqdocvar{t},
 \coqdocvar{$\pi$} : \coqdocvariable{t} $\rightarrow_\mathcal{R}$ \coqdocvar{u}),
-\coqdocvariable{s} $\twoheadrightarrow_\mathcal{R}$
+\coqdocvariable{s} $\rewrites_\mathcal{R}$
 \coqdocvariable{u}\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
@@ -45,7 +45,7 @@ $\twoheadrightarrow_\mathcal{R}$ \coqdocvar{t},
 \section{Ordinal Numbers}
 
 In the theory of infinitary rewriting, the lengths of rewrite sequences play
-a central role. Therefore, any reasonable formalization of infinitary
+a central role. Therefore, any reasonable formalisation of infinitary
 rewriting ought to have some notion of ordinal numbers.
 
 We define the ordinal numbers using the representation of Brouwer
@@ -222,36 +222,36 @@ definitions will not do, since the corecursive construction of any given
 infinite object is not unique. To this end, we define two extensional
 equalities on \coqref{Term.term}{\coqdocinductive{term}}, following
 Definitions~\ref{def:bisimilarity} and \ref{def:equiv}. The coinductive
-predicate \coqref{TermEquality.termbis}{$\sim$} defines bisimilarity and
-syntactical equality is defined by \coqref{TermEquality.termeq}{$\equiv$}
+predicate \coqref{TermEquality.termbis}{$\bis$} defines bisimilarity and
+pointwise equality is defined by \coqref{TermEquality.termeq}{$\equiv$}
 inductively.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
 \coqdockw{CoInductive}
-\coqdef{TermEquality.termbis}{term\_bis}{$\sim$} :
+\coqdef{TermEquality.termbis}{term\_bis}{$\bis$} :
 \coqref{Term.term}{\coqdocinductive{term}} \ensuremath{\rightarrow}
 \coqref{Term.term}{\coqdocinductive{term}} \ensuremath{\rightarrow}
 \coqdockw{Prop} :=\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|}
-\coqdef{TermEquality.Varbis}{Var\_bis}{\coqdocconstructor{$\sim_\text{Var}$}} :
+\coqdef{TermEquality.Varbis}{Var\_bis}{\coqdocconstructor{$\biss{\text{Var}}$}} :
 \ensuremath{\forall} \coqdocvar{x},
 \coqref{Term.Var}{\coqdocconstructor{Var}} \coqdocvariable{x}
-\coqref{TermEquality.termbis}{$\sim$}
+\coqref{TermEquality.termbis}{$\bis$}
 \coqref{Term.Var}{\coqdocconstructor{Var}} \coqdocvariable{x}\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|}
-\coqdef{TermEquality.Funbis}{Fun\_bis}{\coqdocconstructor{$\sim_\text{Fun}$}} :
+\coqdef{TermEquality.Funbis}{Fun\_bis}{\coqdocconstructor{$\biss{\text{Fun}}$}} :
 \ensuremath{\forall} \coqdocvar{f} \coqdocvar{v} \coqdocvar{w},
 (\ensuremath{\forall} \coqdocvar{i},
 \coqdocvariable{v} \coqdocvariable{i}
-\coqref{TermEquality.termbis}{$\sim$}
+\coqref{TermEquality.termbis}{$\bis$}
 \coqdocvariable{w} \coqdocvariable{i})
 \ensuremath{\rightarrow}
 \coqref{Term.Fun}{\coqdocconstructor{Fun}} \coqdocvariable{f}
 \coqdocvariable{v}
-\coqref{TermEquality.termbis}{$\sim$}
+\coqref{TermEquality.termbis}{$\bis$}
 \coqref{Term.Fun}{\coqdocconstructor{Fun}} \coqdocvariable{f}
 \coqdocvariable{w}.\coqdoceol
 \end{coqdoccode}
@@ -309,7 +309,7 @@ sense that the proof term is built by corecursion.
 \end{coqdoccode}
 \end{singlespace}
 
-We can prove that \coqref{TermEquality.termbis}{$\sim$} and
+We can prove that \coqref{TermEquality.termbis}{$\bis$} and
 \coqref{TermEquality.termeq}{$\equiv$} are the same
 relation, and that indeed it is an equality.
 \begin{singlespace}
@@ -319,7 +319,7 @@ relation, and that indeed it is an equality.
 \coqdef{TermEquality.termbistermeq}{term\_bis\_term\_eq}{\coqdoclemma{term\_bis\_term\_eq}}
 : \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t},
 \coqdocvariable{s}
-\coqref{TermEquality.termbis}{$\sim$}
+\coqref{TermEquality.termbis}{$\bis$}
 \coqdocvariable{t} \ensuremath{\leftrightarrow}
 \coqdocvariable{s}
 \coqref{TermEquality.termeq}{$\equiv$}
@@ -327,35 +327,35 @@ relation, and that indeed it is an equality.
 \coqdocemptyline
 \coqdocnoindent
 \coqdockw{Lemma}
-\coqdef{TermEquality.termbisrefl}{term\_bis\_refl}{\coqdoclemma{$\sim_\text{refl}$}}
+\coqdef{TermEquality.termbisrefl}{term\_bis\_refl}{\coqdoclemma{$\biss{\text{refl}}$}}
 : \ensuremath{\forall} \coqdocvar{t},
 \coqdocvariable{t}
-\coqref{TermEquality.termbis}{$\sim$}
+\coqref{TermEquality.termbis}{$\bis$}
 \coqdocvariable{t}.\coqdoceol
 \coqdocemptyline
 \coqdocnoindent
 \coqdockw{Lemma}
-\coqdef{TermEquality.termbissymm}{term\_bis\_symm}{\coqdoclemma{$\sim_\text{symm}$}}
+\coqdef{TermEquality.termbissymm}{term\_bis\_symm}{\coqdoclemma{$\biss{\text{symm}}$}}
 : \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t},
 \coqdocvariable{s}
-\coqref{TermEquality.termbis}{$\sim$}
+\coqref{TermEquality.termbis}{$\bis$}
 \coqdocvariable{t} $\rightarrow$
 \coqdocvariable{t}
-\coqref{TermEquality.termbis}{$\sim$}
+\coqref{TermEquality.termbis}{$\bis$}
 \coqdocvariable{s}.\coqdoceol
 \coqdocemptyline
 \coqdocnoindent
 \coqdockw{Lemma}
-\coqdef{TermEquality.termbistrans}{term\_bis\_trans}{\coqdoclemma{$\sim_\text{trans}$}}
+\coqdef{TermEquality.termbistrans}{term\_bis\_trans}{\coqdoclemma{$\biss{\text{trans}}$}}
 : \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u},
 \coqdocvariable{s}
-\coqref{TermEquality.termbis}{$\sim$}
+\coqref{TermEquality.termbis}{$\bis$}
 \coqdocvariable{t} $\rightarrow$
 \coqdocvariable{t}
-\coqref{TermEquality.termbis}{$\sim$}
+\coqref{TermEquality.termbis}{$\bis$}
 \coqdocvariable{u} $\rightarrow$
 \coqdocvariable{s}
-\coqref{TermEquality.termbis}{$\sim$}
+\coqref{TermEquality.termbis}{$\bis$}
 \coqdocvariable{u}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
@@ -614,7 +614,7 @@ $\Box$ at position \coqdocvariable{p}.
 % TODO: find correct \rightarrow symbol (this one is too fat)
 
 Throughout this section, let $\mathcal{R}$ be a fixed TRS. We define
-the type of steps using rewrite rules in $\mathcal{R}$, parameterized
+the type of steps using rewrite rules in $\mathcal{R}$, parameterised
 by their source and target terms.
 \begin{singlespace}
 \begin{coqdoccode}
@@ -635,11 +635,11 @@ by their source and target terms.
 \coqdocvar{$\mathcal{R}$} \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{6.50em}
 \coqdocvariable{c}[(\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
-\coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] \coqref{TermEquality.termbis}{$\sim$} \coqdocvariable{s}
+\coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] \coqref{TermEquality.termbis}{$\bis$} \coqdocvariable{s}
 \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{6.50em}
 \coqdocvariable{c}[(\coqref{Rewriting.rhs}{\coqdocprojection{rhs}}
-\coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] \coqref{TermEquality.termbis}{$\sim$} \coqdocvariable{t}
+\coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] \coqref{TermEquality.termbis}{$\bis$} \coqdocvariable{t}
 \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{6.50em}
 \coqdocvariable{s} \coqref{Rewriting.step}{$\rightarrow_\mathcal{R}$}
@@ -661,31 +661,31 @@ the least upper bound of its branches.
 \begin{coqdoccode}
 \coqdocnoindent
 \coqdockw{Inductive}
-\coqdef{Rewriting.sequence}{sequence}{$\twoheadrightarrow_\mathcal{R}$} :
+\coqdef{Rewriting.sequence}{sequence}{$\rewrites_\mathcal{R}$} :
 \coqref{Term.term}{\coqdocinductive{term}} \ensuremath{\rightarrow}
 \coqref{Term.term}{\coqdocinductive{term}} \ensuremath{\rightarrow}
 \coqdockw{Type} :=\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|} \coqdef{Rewriting.Nil}{Nil}{\coqdocconstructor{Nil}} :
 \ensuremath{\forall} \coqdocvar{t}, \coqdocvariable{t}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqdocvariable{t}\coqdoceol \coqdocindent{1.00em}
 \ensuremath{|} \coqdef{Rewriting.Cons}{Cons}{\coqdocconstructor{Cons}} :
 \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u}, \coqdocvar{s}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$} \coqdocvar{t}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvar{t}
 $\rightarrow$
 \coqdocvariable{t} \coqref{Rewriting.step}{$\rightarrow_\mathcal{R}$}
 \coqdocvar{u} $\rightarrow$ \coqdocvariable{s}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqdocvariable{u}\coqdoceol \coqdocindent{1.00em}
 \ensuremath{|} \coqdocconstructor{Lim}   :
 \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t},
 (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
 \ensuremath{\rightarrow} \coqdocvariable{s}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqdef{Rewriting.LimPlaceholder}{LimPlaceholder}{\textbf{?}}) $\rightarrow$
 \coqdocvariable{s}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqdocvariable{t}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
@@ -693,7 +693,7 @@ $\rightarrow$
 This is not yet a satisfying definition, because we cannot fix a value for
 \coqref{Rewriting.LimPlaceholder}{\textbf{?}}. We complete the type for
 \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} as follows. First, we
-parameterize it with the target terms of the branches. Second, we add the
+parameterise it with the target terms of the branches. Second, we add the
 condition that these terms must converge to the target term
 \coqdocvariable{t}.
 \begin{singlespace}
@@ -705,12 +705,12 @@ condition that these terms must converge to the target term
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
 \ensuremath{\rightarrow} \coqref{Term.term}{\coqdocinductive{term}}),
 (\ensuremath{\forall} \coqdocvar{n}, \coqdocvar{s}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqdocvar{ts} \coqdocvariable{n}) $\rightarrow$
 \coqref{Rewriting.converges}{\coqdocdefinition{converges}} \coqdocvariable{ts}
 \coqdocvariable{t} $\rightarrow$
 \coqdocvariable{s}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqdocvariable{t}\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
@@ -723,10 +723,10 @@ its preceeding ones. This would correspond to the
 \coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} property we defined on
 \coqref{Ordinal.ord}{\coqdocinductive{ord}}, where we take $\prec$ to be a
 strict prefix relation on
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}.
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}.
 We return to this issue in Section~\ref{sub:wf}, but
 first consider the definition of an embedding relation on
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}.
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}.
 
 
 \subsection{Embeddings of Rewrite Sequences}
@@ -743,7 +743,7 @@ rewrite sequences. The set of predecessor indices is easily defined as
 \coqdef{Rewriting.predtype}{pred\_type}{\coqdocdefinition{pred\_type}}
 \coqdocvar{s} \coqdocvar{t}
 (\coqdocvar{$\varphi$} : \coqdocvar{s}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$} \coqdocvar{t}) :
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvar{t}) :
 \coqdockw{Type} :=\coqdoceol
 \coqdocindent{1.00em}
 \coqdockw{match} \coqdocvariable{$\varphi$} \coqdockw{with}\coqdoceol
@@ -778,21 +778,21 @@ rewrite sequence (analoguous to an ordinal in the
 \coqref{Ordinal.ord}{\coqdocinductive{ord}} case), but also a rewrite
 step. The \coqref{Rewriting.pred}{\coqdocdefinition{pred}} function gives us
 both the rewrite sequence and the step. For the type checker to accept the
-definition, we use a $\Sigma$-type that contains this pair, parameterized by
+definition, we use a $\Sigma$-type that contains this pair, parameterised by
 the source and target terms of the rewrite step.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
 \coqdockw{Fixpoint} \coqdef{Rewriting.pred}{pred}{\coqdocdefinition{pred}}
 \coqdocvar{s} \coqdocvar{t} (\coqdocvar{$\varphi$} : \coqdocvar{s}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$} \coqdocvar{t})
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvar{t})
 (\coqdocvar{$\iota$} : \coqref{Rewriting.predtype}{\coqdocdefinition{pred\_type}}
 \coqdocvariable{$\varphi$})
 :\coqdoceol \coqdocindent{2.00em}
 \{ \coqdocvar{ts} :
 \coqref{Term.term}{\coqdocabbreviation{term}} \ensuremath{\times}
 \coqref{Term.term}{\coqdocabbreviation{term}} \&
-(\coqdocvariable{s} \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+(\coqdocvariable{s} \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{fst}{\coqdocdefinition{fst}}
 \coqdocvariable{ts}) \ensuremath{\times}
 (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{fst}{\coqdocdefinition{fst}}
@@ -925,15 +925,15 @@ steps necessarily form a cycle, because of typing constraints.
 \coqdockw{Inductive} \coqdef{Rewriting.embed}{embed}{$\sqsubseteq$}
 : \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u}
 \coqdocvar{v}, \coqdocvariable{s}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$} \coqdocvariable{t}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvariable{t}
 $\rightarrow$ \coqdocvariable{u}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$} \coqdocvariable{v}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvariable{v}
 $\rightarrow$ \coqdockw{Prop} :=\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|}
 \coqdef{Rewriting.EmbedNil}{Embed\_Nil}{\coqdocconstructor{$\sqsubseteq_\text{Nil}$}}  :
 \ensuremath{\forall} \coqdocvar{s} \coqdocvar{u} \coqdocvar{v} (\coqdocvar{$\psi$}
-: \coqdocvariable{u} \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+: \coqdocvariable{u} \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqdocvariable{v}),\coqdoceol
 \coqdocindent{9.50em}
 \coqref{Rewriting.Nil}{\coqdocconstructor{Nil}} \coqdocvariable{s}
@@ -943,12 +943,12 @@ $\rightarrow$ \coqdockw{Prop} :=\coqdoceol
 \coqdef{Rewriting.EmbedCons}{Embed\_Cons}{\coqdocconstructor{$\sqsubseteq_\text{Cons}$}} :
 \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u} \coqdocvar{v}
 (\coqdocvar{$\psi$}
-: \coqdocvariable{u} \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+: \coqdocvariable{u} \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqdocvariable{v}) (\coqdocvar{$\iota$} :
 \coqref{Rewriting.predtype}{\coqdocdefinition{pred\_type}}
 \coqdocvariable{$\psi$})
 (\coqdocvar{$\varphi$} : \coqdocvariable{s}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqdocvariable{$\psi$}[\coqdocvariable{$\iota$}]$^\textsc{l}$)\coqdoceol
 \coqdocindent{5.00em}
 (\coqdocvar{$\pi$} :
@@ -977,13 +977,13 @@ $\rightarrow$ \coqdockw{Prop} :=\coqdoceol
 \ensuremath{\rightarrow} \coqref{Term.term}{\coqdocinductive{term}})
 (\coqdocvar{f} : \ensuremath{\forall} \coqdocvar{n},
 \coqdocvariable{s}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqdocvariable{ts} \coqdocvariable{n})\coqdoceol
 \coqdocindent{5.00em}
 (\coqdocvar{c} :
 \coqref{Rewriting.converges}{\coqdocdefinition{converges}} \coqdocvariable{ts}
 \coqdocvar{t}) (\coqdocvar{$\psi$} : \coqdocvar{u}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqdocvar{v}),\coqdoceol
 \coqdocindent{9.50em}
 (\ensuremath{\forall} \coqdocvar{n}, (\coqdocvariable{f} \coqdocvariable{n})
@@ -1006,11 +1006,11 @@ Strict embedding relation. It really expands after the last step!
 \coqdef{Rewriting.embedstrict}{embed\_strict}{$\sqsubset$}
 \coqdocvar{s} \coqdocvar{t} \coqdocvar{u} \coqdocvar{v}
 (\coqdocvar{$\varphi$} : \coqdocvariable{s}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqdocvariable{t},
 \coqdocvar{$\psi$} :
 \coqdocvariable{u}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqdocvariable{v}) := \ensuremath{\exists} \coqdocvar{$\iota$},
 \coqdocvariable{$\varphi$} $\sqsubseteq$
 \coqdocvariable{$\psi$}[\coqdocvariable{$\iota$}]$^\textsc{seq}$.\coqdoceol
@@ -1052,7 +1052,7 @@ als bomen) deelboom (en niet boom-factor).
 \coqdockw{Fixpoint} \coqdef{Rewriting.wf}{wf}{\coqdocdefinition{wf}}
 \coqdocvar{s} \coqdocvar{t}
 (\coqdocvar{$\varphi$} : \coqdocvariable{s}
-\coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqdocvariable{t}) : \coqdockw{Prop}
 :=\coqdoceol
 \coqdocindent{1.00em}
@@ -1145,16 +1145,16 @@ purposes, however, since it has no effect on questions such as
 \coqdocdefinition{is\_var} \coqdocvariable{s} =
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{false}{\coqdocconstructor{false}}
 \ensuremath{\land}
-\coqdocvariable{s}$^{\coqdocvariable{$\sigma$}}$ \coqref{TermEquality.termbis}{$\sim$}
+\coqdocvariable{s}$^{\coqdocvariable{$\sigma$}}$ \coqref{TermEquality.termbis}{$\bis$}
 (\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
 \coqdocvariable{$\rho_2$})$^{\coqdocvariable{$\tau$}}$
 \ensuremath{\land}\coqdoceol
 \coqdocindent{12.00em}
-\coqdocvariable{t$_1$} \coqref{TermEquality.termbis}{$\sim$}
+\coqdocvariable{t$_1$} \coqref{TermEquality.termbis}{$\bis$}
 \coqdocvariable{c}[(\coqref{Rewriting.rhs}{\coqdocprojection{rhs}}
 \coqdocvariable{$\rho_2$})$^{\coqdocvariable{$\tau$}}$]
 \ensuremath{\land}
-\coqdocvariable{t$_2$} \coqref{TermEquality.termbis}{$\sim$}
+\coqdocvariable{t$_2$} \coqref{TermEquality.termbis}{$\bis$}
 (\coqref{Rewriting.rhs}{\coqdocprojection{rhs}}
 \coqdocvariable{$\rho_1$})$^{\coqdocvariable{$\sigma$}}$\coqdoceol
 \coqdocindent{3.00em}
@@ -1193,7 +1193,7 @@ orthogonality and weak orhogonality.
 \ensuremath{\forall} \coqdocvar{t$_1$} \coqdocvar{t$_2$},
 \coqref{Rewriting.criticalpair}{\coqdocdefinition{critical\_pair}}
 \coqdocvariable{t$_1$} \coqdocvariable{t$_2$} \ensuremath{\rightarrow}
-\coqdocvariable{t$_1$} \coqref{TermEquality.termbis}{$\sim$} \coqdocvariable{t$_2$}.\coqdoceol
+\coqdocvariable{t$_1$} \coqref{TermEquality.termbis}{$\bis$} \coqdocvariable{t$_2$}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 
@@ -1214,7 +1214,7 @@ orthogonality and weak orhogonality.
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Lists.List}{In}{\coqdocdefinition{$\in$}}
 \coqdocvar{$\mathcal{R}$} \ensuremath{\land}
 \coqdocvariable{c}[(\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
-\coqdocvariable{r})\coqdocvariable{$^\sigma$}] \coqref{TermEquality.termbis}{$\sim$}
+\coqdocvariable{r})\coqdocvariable{$^\sigma$}] \coqref{TermEquality.termbis}{$\bis$}
 \coqdocvariable{t}.\coqdoceol
 \coqdocemptyline
 \coqdocnoindent
@@ -1223,8 +1223,8 @@ orthogonality and weak orhogonality.
 : \coqdockw{Prop} :=\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u}
-(\coqdocvar{$\varphi$} : \coqdocvariable{s} \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$} \coqdocvariable{t})
-(\coqdocvar{$\psi$} : \coqdocvariable{s} \coqref{Rewriting.sequence}{$\twoheadrightarrow_\mathcal{R}$} \coqdocvariable{u}),\coqdoceol
+(\coqdocvar{$\varphi$} : \coqdocvariable{s} \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvariable{t})
+(\coqdocvar{$\psi$} : \coqdocvariable{s} \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvariable{u}),\coqdoceol
 \coqdocindent{2.00em}
 \coqref{Rewriting.wf}{\coqdocdefinition{wf}} \coqdocvariable{$\varphi$}
 \ensuremath{\rightarrow}
@@ -1234,13 +1234,13 @@ orthogonality and weak orhogonality.
 \coqdocvariable{t} \ensuremath{\rightarrow}
 \coqref{Rewriting.normalform}{\coqdocdefinition{normal\_form}}
 \coqdocvariable{u} \ensuremath{\rightarrow}
-\coqdocvariable{t} \coqref{TermEquality.termbis}{$\sim$} \coqdocvariable{u}.\coqdoceol
+\coqdocvariable{t} \coqref{TermEquality.termbis}{$\bis$} \coqdocvariable{u}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 Note that the
 \coqref{Rewriting.uniquenormalforms}{\coqdocdefinition{unique\_normal\_forms}}
-definition is only a translation of the $UN^\twoheadrightarrow$
-property, not of the more general $UN^\infty$ property (see also
-Definition~\ref{def:normalization}).
+definition is only a translation of the $UN^\rewrites$ property, not
+of the more general $UN^\infty$ property (see also
+Definition~\ref{def:normalisation}).
 
 % TODO: note in chapter unwo that we proved ~UN^\infty with ~UN^->

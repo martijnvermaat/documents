@@ -1,17 +1,23 @@
 \chapter{Introduction}
 \setcounter{page}{1}
 
+TODO: write introduction
+
 Infinitary term rewriting, the \Coq proof assistant, etc.
 
-\Coq has been used for sizeable projects such as CompCert and a verified proof
-of the Four Color Theorem.
+A list of notations can be found on page n.
 
-Examples of formalisations of mathematical theories in \Coq:
-\begin{compactenum}
-\item Logic: A proof of G\"odel's First Incompleteness Theorem (Russel
-  O'Connor).
-\item Analysis: Exact real arithmetic (Russel O'Connor).
-\end{compactenum}
+% Original goal was compression
+
+%\Coq has been used for sizeable projects such as CompCert and a verified proof
+%of the Four Color Theorem.
+
+%Examples of formalisations of mathematical theories in \Coq:
+%\begin{compactenum}
+%\item Logic: A proof of G\"odel's First Incompleteness Theorem (Russel
+%  O'Connor).
+%\item Analysis: Exact real arithmetic (Russel O'Connor).
+%\end{compactenum}
 
 Although this text contains a fair amount of \Coq code, it is not our
 intention to completely list a development ready for compiling. Rather, the
@@ -25,22 +31,20 @@ available at \url{http://martijn.vermaat.name/master-project/}.
 
 \section*{Outline}
 
-TODO: this is no longer correct (no finitary rewriting)
+In Chapter~\ref{chap:rewriting} we introduce ordinal numbers and the
+theory of infinitary term rewriting. This is mostly a recapitulation
+of \citet{terese-03}, included for self-containment, and can be seen
+as preliminaries for the later chapters.
+% TODO: hancock things are not recapitulted from terese
 
-In Chapter~\ref{chap:rewriting} we introduce the theory of infinitary term
-rewriting. To this end we first give a quick summary of traditional (finitary)
-term rewriting and an introduction to the mathematical concept of ordinal
-numbers.
+The goal of Chapter~\ref{chap:implementation} is to present our
+formalisation of infinitary term rewriting in the \Coq proof
+assistant. We first introduce this proof assistant and then review the
+main parts of our development.
 
-The goal of Chapter~\ref{chap:implementation} is to introduce our formalization
-of infinitary term rewriting in the \Coq proof assistant. We first discuss this
-proof assistant and then review the main parts of our development.
+Our formalisation was used to prove that in infinitary rewriting, weak
+orthogonality does not imply uniqueness of normal forms. This
+application is discussed in Chapter~\ref{chap:unwo}.
 
-Our formalization was used to prove that in infinitary rewriting, weak
-orthogonality does not imply unique normal forms. This application is
-discussed in Chapter~\ref{chap:unwo}.
-
-Finally, in Chapter~\ref{chap:discussion} we discuss our results and draw
-conclusions.
-
-% TODO: state that all proofs can be found in the development
+Finally, in Chapter~\ref{chap:discussion} we discuss our results and
+draw conclusions.

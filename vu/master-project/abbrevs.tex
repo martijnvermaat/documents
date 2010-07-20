@@ -6,11 +6,27 @@
 %\newcommand{\equpto}[1]{\ensuremath{\overset{#1}{=}}}
 \newcommand{\equpto}[1]{\ensuremath{\equiv_{\le \, #1}}}
 
+%\def\bis{\ensuremath{\sim}}
+%\newcommand{\sbis}{\text{\raisebox{2pt}{$\underline{\leftrightarrow}$}}}
+%\newcommand{\bis}{\mathrel{\sbis}}
+\def\bis{\;\raisebox{.3ex}{\underline{\makebox[.8em]{\ensuremath{\leftrightarrow}}}}\;}
+\newcommand{\biss}[1]{\;\raisebox{.3ex}{\underline{\makebox[.7em]{\ensuremath{\leftrightarrow}}}}\,_{#1}\,}
+
+\newcommand{\arity}[1]{\ensuremath{\sharp #1}}
+
 %\newcommand{\prefix}[2]{\ensuremath{#1 \! \cdot \! #2}}
 \newcommand{\prefix}[2]{\ensuremath{#1 #2}}
 
 \newcommand{\subterm}[2]{\ensuremath{#1 |_{#2}}}
 
+% TODO: nice symboll for \du?
+%\def\du{\raisebox{1pt}{\ensuremath{\Delta}}\hspace{-7.5pt}\raisebox{-0.5pt}{\ensuremath{\Upsilon}}}
+%\def\du{\text{\begin{arabtext}d\end{arabtext}}}
+%\def\du{\ensuremath{\delta}}
+\def\du{\ensuremath{\upsilon}}
+
+\def\rewrites{\ensuremath{\twoheadrightarrow}}
+\def\nothing{\ensuremath{\varnothing}}
 \def\Ord{\ensuremath{\Omega}}
 \def\dom{\mathvar{dom}}
 \def\X{\ensuremath{\mathcal{X}}}
@@ -24,3 +40,5 @@
 \def\CoLoR{\name{CoLoR}}
 \def\Coccinelle{\name{Coccinelle}}
 \def\CiME{\name{C\textit{i}ME}}
+
+%\usepackage{arabtex}
