@@ -7,7 +7,7 @@ TODO: this intro
 
 Every orthogonal TRS exhibits the infinitary unique normal forms
 (UN$^\infty$) property. We might expect this property to generalise to
-weakly orthogonal systems. However, this does not turn out to be the
+weakly orthogonal systems. However, this turns out not to be the
 case.
 
 
@@ -28,8 +28,8 @@ $U$.\footnote{We can think of $D$ and $U$ as `down' and `up'. The
   in \Coq, we proceed with this modification.}
 In the notation of terms, we omit the brackets around arguments and
 assume right-associativity of function symbol application,
-e.g.\ writing $DU$ for $D(U(x))$. A notation for finite repetitions of
-a function symbol $f$ terminated by a term $t$ is defined by
+e.g.\ writing $DUx$ for $D(U(x))$. A notation for finite repetitions
+of a function symbol $f$ terminated by a term $t$ is defined by
 \begin{inparaenum}[(i)]
 \item $f^0 t = t$ and
 \item $f^{n+1} = ff^nt$.
@@ -48,6 +48,7 @@ $\langle Ux, Ux \rangle$, both of which are trivial, establishing
 weak orthogonality. The infinite term $\du = D^1 U^2 D^3 U^4 \ldots$
 has two normal forms. It rewrites to $U^\omega$ in $\omega$ many
 $\rho_1$-steps and to $D^\omega$ in $\omega$ many $\rho_2$-steps.
+% TODO: give the overlap from which the critical pairs come?
 
 Other interesting properties of this TRS (e.g.\ weak normalisation is
 not preserved under rewriting) and a translation to the infinitary
@@ -63,15 +64,14 @@ to. Rewriting $\du$ to $D^\omega$ is done in a similar way.
 An obvious way to define $\du$ by corecursion is via auxiliary terms
 $\du'_n$ parameterised by $n$ as follows:
 \begin{align*}
-  \du'_n = U^n D^{n + 1} \du'_{n + 2} \qquad \qquad \qquad
-  \du = \du'_0
+  \du = \du'_0 \qquad \qquad \qquad
+  \du'_n = U^n D^{n + 1} \du'_{n + 2}
 \end{align*}
 But a more useful definition for our present purposes, and the one we
 stick with, is the slight reformulation:
 \begin{align*}
-  \du'_n = D^{2 n + 1} U^{2 n + 2} \du'_{n + 1} \qquad
-  \qquad \qquad
-  \du = \du'_0
+  \du = \du'_0 \qquad \qquad \qquad
+  \du'_n = D^{2 n + 1} U^{2 n + 2} \du'_{n + 1}
 \end{align*}
 For any term $t$ and natural numbers $n$ and $m$ we have $U^n D^{m+1}
 U^{m+1} t \rightarrow_{\rho_1} U^n D^m U^m t$ and thus $U^n D^m U^m t
@@ -91,8 +91,9 @@ using the \Coq development described in
 Chapter~\ref{chap:implementation}.
 
 The rewrite rules $\rho_1$ and $\rho_2$ are straightforwardly defined
-and shown left-linear. By a simple proof we obtain that all critical
-pairs are trivial and hence that the TRS is weakly orthogonal.
+and shown to be left-linear. By a simple proof we obtain that all
+critical pairs are trivial and hence that the TRS is weakly
+orthogonal.
 \begin{singlespace}
 \begin{coqdoccode}
 %\coqdocnoindent
@@ -116,10 +117,10 @@ We introduce the notation \begin{coqdoccode}\coqdocvariable{f} @
 \begin{coqdoccode}\coqref{Term.Fun}{\coqdocconstructor{Fun}}
   \coqdocvariable{f} (\coqdocdefinition{vcons} \coqdocvariable{t}
   (\coqdocdefinition{vnil}
-  \coqref{Term.term}{\coqdocinductive{term}}))\end{coqdoccode}. For
-brevity, mirrored constructions for both function symbols are only
-discussed for one of them. The infinite term $U^\omega$ is defined by
-corecursion and finite repetitions $U^n t$ are defined by recursion
+  \coqref{Term.term}{\coqdocinductive{term}}))\end{coqdoccode}. Most
+constructions that exist once for both function symbols are only
+discussed for the symbol $U$. The infinite term $U^\omega$ is defined
+by corecursion and finite repetitions $U^n t$ are defined by recursion
 (and are assumed to generalise to contexts with the same notation).
 % TODO: wording of the generalisation to contexts
 \begin{singlespace}
@@ -153,7 +154,7 @@ corecursion and finite repetitions $U^n t$ are defined by recursion
 \end{coqdoccode}
 \end{singlespace}
 Unfortunately, $\du$ is not as easily defined. Although clearly
-productive, direct translations of the corecursions in
+productive, direct translations of the corecursive definitions in
 Section~\ref{sub:counterexample} do not satisfy \Coq's guardedness
 condition (see also Section~\ref{sub:guardedness}). The conclusion of
 a \emph{trial and error} approach is that we must use anonymous cofix
@@ -216,9 +217,9 @@ constructions. The definition we proceed with is the following.
 \end{singlespace}
 
 We now prove that $U^\omega$ and $D^\omega$ are (distinct) normal
-forms. This is essentially done by exhaustive case analysis of
-the position of redex occurrences in the terms, yielding that there
-can not be such an occurence.
+forms. This is a tedious proof that essentially consists of analysing
+the occurence of a redex in these terms, yielding that there can not
+be such an occurence.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -253,7 +254,12 @@ step that is used in the rewrite sequence. It eliminates one pair of $D,
 U$ constructors in a term of the form $U^n D^{m+1} U^{m+1} t$. The
 omitted argument of the \coqref{Rewriting.Step}{\coqdocconstructor{Step}}
 constructor (denoted by \coqdoclemma{\_}) is a proof of $\rho_1 \in
-\mathcal{R}$.
+\mathcal{R}$. Note that \coqdocvariable{x} is the variable that is
+used in both rewrite rules.
+
+TODO: names of definitions are not so nice and we need some notes
+about the fact lemmas
+
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -351,9 +357,9 @@ the rewrite sequences
 recursive definition, the \coqdocdefinition{snoc}
 function\footnote{With the
   \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}} constructor, we
-  can extend a rewrite sequence with one step at the end. In contrast,
+  can extend a rewrite sequence with one step at the end. Dually,
   \coqdocdefinition{snoc} extends a rewrite sequence
-  with one step at the start. It is the dual of $1 + \alpha$ on
+  with one step at the start. It is the analogue of $1 + \alpha$ on
   ordinals. The type of \coqdocdefinition{snoc}
   is \begin{coqdoccode}\ldots\end{coqdoccode}. TODO: define snoc and
     append in a separate subsection (3.4.2)} is used to
@@ -365,8 +371,7 @@ prepend \begin{coqdoccode}(\coqref{ExampleUNWO.pi}{\coqdocdefinition{$\pi$}}
 \coqdocvariable{t})\end{coqdoccode}. Doing some arithmetic, we obtain
 that these rewrite sequences can be used to define rewrite sequences
 \coqref{ExampleUNWO.phib}{\coqdocdefinition{$\varphi_b$}} of a more
-useful type.\footnote{TODO: note about \coqdockw{Program}
-  construction.}
+useful type.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -402,7 +407,8 @@ useful type.\footnote{TODO: note about \coqdockw{Program}
 \coqdockw{end}.\coqdoceol
 \coqdocemptyline
 \coqdocnoindent
-\coqdockw{Program Definition} % TODO: here the S(2 n) is not correct (?)
+%\coqdockw{Program Definition}
+\coqdockw{Definition} % TODO: here the S(2 n) is not correct (?)
 \coqdef{ExampleUNWO.phib}{phib}{\coqdocdefinition{$\varphi_b$}}
 \coqdocvar{n} : \coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
 (\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\du'$}}
@@ -491,7 +497,7 @@ that the target terms converge to $U^\omega$.
 \end{singlespace}
 
 We can prove $\du \rewrites D^\omega$ in a similar way and
-conclude by proving two general lemmas.
+conclude by proving our main theorem.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -502,7 +508,7 @@ conclude by proving two general lemmas.
 \coqdocdefinition{$\mathcal{R}$}.\coqdoceol
 \coqdocemptyline
 \coqdocnoindent
-\coqdockw{Lemma} \coqdoclemma{no\_un\_wo}
+\coqdockw{Theorem} \coqdoclemma{no\_un\_wo}
 : \ensuremath{\lnot} \ensuremath{\forall} \coqdocvar{F} \coqdocvar{X}
 \coqdocvar{$\mathcal{R}$},\coqdoceol
 \coqdocindent{1.00em}

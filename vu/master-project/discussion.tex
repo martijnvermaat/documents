@@ -44,6 +44,8 @@ $\rewrites_\mathcal{R}$
 
 \subsection{Guardedness}\label{sub:guardedness}
 
+% TODO: cite coquand, gimenez
+
 Objects in a coinductive type may be infinite (i.e.\ contain an infinite
 amount of constructors). However, in order to guarantee productivity,
 definitions of such objects are required by \Coq to be in \emph{guarded}
@@ -53,8 +55,6 @@ constructor (of the same coinductive type). Second, every corecursive call may
 only occur inside abstractions or constructors (of the same coinductive
 type).\footnote{To be more precise, the corecursive call is also allowed to
   occur inside \coqdockw{match} constructs and other corecursive definitions.}
-
-TODO: additional remarks on productivity and guardedness restriction?
 
 In the \coqref{Term.term}{\coqdocinductive{term}} definition, we used a vector
 type, parameterised by the type of its element and its size. Naturally, one
@@ -164,6 +164,8 @@ that is just an abstraction, and therefore solves the guardedness problem in
 
 Bvector vs Vector: we did not really hit the guardedness restriction, so we
 could have used inductive Bvector. But it spells trouble later.
+
+TODO: additional remarks on productivity and guardedness restriction?
 
 
 \section{Conclusions}

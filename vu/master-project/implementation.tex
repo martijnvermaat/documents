@@ -6,40 +6,11 @@ TODO: introduction.
 \section{The \Coq Proof Assistant}
 
 TODO: text
-TODO: very short intro to coq syntax (include `(...) notation)
+TODO: very short intro to coq syntax
 TODO: some notes about code listings. coq has implicit arguments. we aim for
 brevity.
-TODO: label and number listings
 TODO: we will take some notational liberties (syntax precedence levels, infix
 notation etc)
-
-For example, the type of the \coqdocconstructor{Cons} constructor in listing x
-is written with explicitely generalised variables as
-\begin{singlespace}
-\begin{coqdoccode}
-\coqdocnoindent
-\ensuremath{\forall} (\coqdocvar{s} \coqdocvar{t} :
-\coqref{Term.term}{\coqdocinductive{term}}) (\coqdocvar{$\rho$}
-: \coqdocvar{s} $\rewrites_\mathcal{R}$ \coqdocvar{t})
-(\coqdocvar{u} : \coqref{Term.term}{\coqdocinductive{term}})
-(\coqdocvar{$\pi$} : \coqdocvariable{t}
-$\rightarrow_\mathcal{R}$ \coqdocvar{u}),
-\coqdocvariable{s} $\rewrites_\mathcal{R}$
-\coqdocvariable{u}\coqdoceol
-\end{coqdoccode}
-\end{singlespace}
-and can be simplified with automatically generalised variables as
-\begin{singlespace}
-\begin{coqdoccode}
-\coqdocnoindent
-\ensuremath{\forall} `(\coqdocvar{$\rho$} : \coqdocvar{s}
-$\rewrites_\mathcal{R}$ \coqdocvar{t},
-\coqdocvar{$\pi$} : \coqdocvariable{t} $\rightarrow_\mathcal{R}$ \coqdocvar{u}),
-\coqdocvariable{s} $\rewrites_\mathcal{R}$
-\coqdocvariable{u}\coqdoceol
-\end{coqdoccode}
-\end{singlespace}
-% TODO: the other way around
 
 
 \section{Ordinal Numbers}
@@ -118,9 +89,10 @@ We would like to strengthen this, but cannot, since nothing denies
 \ldots \}$ (which has the same rank as $0$). We therefore turn to a subset of
 the Brouwer ordinals where we restrict limit sequences to be strictly
 monotonic. This restriction is encoded in the
-\coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} property. The $\Sigma$-type
-\coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}} defines the
-resulting subset.
+\coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} (well-formedness)
+property. The $\Sigma$-type
+\coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}} defines
+the resulting subset.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -151,8 +123,12 @@ resulting subset.
 \coqdockw{Definition}
 \coqdef{WfOrdinal.wford}{wf\_ord}{\coqdocdefinition{ord$^\text{wf}$}} : \coqdockw{Set}
 :=
-\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{sig}{\coqdocinductive{sig}}
-\coqref{WfOrdinal.wf}{\coqdocdefinition{wf}}.\coqdoceol
+%\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{sig}{\coqdocinductive{sig}}
+%\coqref{WfOrdinal.wf}{\coqdocdefinition{wf}}.\coqdoceol
+\{ \coqdocvariable{$\alpha$} :
+\coqref{Ordinal.ord}{\coqdocinductive{ord}} \ensuremath{|}
+\coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} \coqdocvariable{$\alpha$}
+\}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 Now we can prove the stronger result we were looking for.\footnote{Although
@@ -311,7 +287,7 @@ sense that the proof term is built by corecursion.
 
 We can prove that \coqref{TermEquality.termbis}{$\bis$} and
 \coqref{TermEquality.termeq}{$\equiv$} are the same
-relation, and that indeed it is an equality.
+relation, and that indeed it is an equivalence.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -434,10 +410,16 @@ for \begin{coqdoccode}\coqref{Substitution.substitute}{\coqdocdefinition{substit
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
+\coqdockw{Definition}
+\coqdef{Substitution.substitution}{substitution}{\coqdocdefinition{substitution}}
+:= \coqdocvar{X} \ensuremath{\rightarrow}
+\coqref{Term.term}{\coqdocinductive{term}}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
 \coqdockw{CoFixpoint}
 \coqdef{Substitution.substitute}{substitute}{\coqdocdefinition{substitute}}
 (\coqdocvar{$\sigma$} :
-\coqdocdefinition{substitution})
+\coqref{Substitution.substitution}{\coqdocdefinition{substitution}})
 (\coqdocvar{t} :
 \coqref{Term.term}{\coqdocinductive{term}}) :
 \coqref{Term.term}{\coqdocinductive{term}} :=\coqdoceol
@@ -460,9 +442,9 @@ for \begin{coqdoccode}\coqref{Substitution.substitute}{\coqdocdefinition{substit
 \end{singlespace}
 We apply the recursive function
 \coqdef{Context.fill}{fill}{\coqdocdefinition{fill}} (not shown here)
-to a context \coqdocvariable{c} and a term \coqdocvariable{t}
-(written \begin{coqdoccode}\coqdocvariable{c}[\coqdocvariable{t}]\end{coqdoccode})
-to replace the hole in \coqdocvariable{c} with \coqdocvariable{t}.
+to a context \coqdocvariable{C} and a term \coqdocvariable{t}
+(written \begin{coqdoccode}\coqdocvariable{C}[\coqdocvariable{t}]\end{coqdoccode})
+to replace the hole in \coqdocvariable{C} with \coqdocvariable{t}.
 
 Positions are represented by simple lists of natural numbers. This
 means the subterm at some position in some term may not actually
@@ -567,7 +549,7 @@ $\Box$\coqdoceol
 \coqdocindent{7.00em}
 \ensuremath{|}
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{Some}{\coqdocconstructor{Some}}
-\coqdocvar{c} \ensuremath{\Rightarrow}
+\coqdocvar{C} \ensuremath{\Rightarrow}
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{Some}{\coqdocconstructor{Some}}
 (\coqref{Context.CFun}{\coqdocconstructor{CFun}} \coqdocvariable{f}
 (\coqdoclemma{lt\_plus\_minus\_r}
@@ -579,7 +561,7 @@ $\Box$\coqdoceol
 \coqdocvariable{f}) \coqdocvariable{h})
 \coqdocvariable{args})\coqdoceol
 \coqdocindent{14.00em}
-\coqdocvariable{c}\coqdoceol
+\coqdocvariable{C}\coqdoceol
 \coqdocindent{14.00em}
 (\coqdocdefinition{vdrop} \coqdocvariable{h}
 \coqdocvariable{args}))\coqdoceol
@@ -603,7 +585,7 @@ Now \begin{coqdoccode}\coqref{Term.subterm}{\coqdocdefinition{subterm}}
 subterm of \coqdocvariable{t} (if it exists)
 and \begin{coqdoccode}\coqref{Context.dig}{\coqdocdefinition{dig}}
   \coqdocvariable{t} \coqdocvariable{p}\end{coqdoccode} gives the
-context \coqdocvariable{c} (if it exists) that is \coqdocvariable{t}
+context \coqdocvariable{C} (if it exists) that is \coqdocvariable{t}
 with \begin{coqdoccode}\coqref{Term.subterm}{\coqdocdefinition{subterm}}
   \coqdocvariable{t} \coqdocvariable{p}\end{coqdoccode} replaced by
 $\Box$ at position \coqdocvariable{p}.
@@ -611,11 +593,11 @@ $\Box$ at position \coqdocvariable{p}.
 
 \section{Transfinite Rewrite Sequences}\label{sec:seq}
 
-% TODO: find correct \rightarrow symbol (this one is too fat)
+TODO: this section is the crux of our development and is original work.
 
-Throughout this section, let $\mathcal{R}$ be a fixed TRS. We define
-the type of steps using rewrite rules in $\mathcal{R}$, parameterised
-by their source and target terms.
+Throughout this section, we let $\mathcal{R}$ be a fixed TRS. We
+define the type of steps using rewrite rules in $\mathcal{R}$,
+parameterised by their source and target terms.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -627,18 +609,18 @@ by their source and target terms.
 \ensuremath{|} \coqdef{Rewriting.Step}{Step}{\coqdocconstructor{Step}} :
 \ensuremath{\forall} (\coqdocvar{s} \coqdocvar{t} :
 \coqref{Term.term}{\coqdocinductive{term}}) (\coqdocvar{$\rho$} :
-\coqdocrecord{rule}) (\coqdocvar{c} :
+\coqdocrecord{rule}) (\coqdocvar{C} :
 \coqref{Context.context}{\coqdocinductive{context}}) (\coqdocvar{$\sigma$} :
-\coqdocdefinition{substitution}),\coqdoceol
+\coqref{Substitution.substitution}{\coqdocdefinition{substitution}}),\coqdoceol
 \coqdocindent{6.50em} \coqdocvariable{$\rho$}
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Lists.List}{In}{\coqdocdefinition{$\in$}}
 \coqdocvar{$\mathcal{R}$} \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{6.50em}
-\coqdocvariable{c}[(\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
+\coqdocvariable{C}[(\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
 \coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] \coqref{TermEquality.termbis}{$\bis$} \coqdocvariable{s}
 \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{6.50em}
-\coqdocvariable{c}[(\coqref{Rewriting.rhs}{\coqdocprojection{rhs}}
+\coqdocvariable{C}[(\coqref{Rewriting.rhs}{\coqdocprojection{rhs}}
 \coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] \coqref{TermEquality.termbis}{$\bis$} \coqdocvariable{t}
 \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{6.50em}
@@ -646,10 +628,49 @@ by their source and target terms.
 \coqdocvariable{t}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-We sketch a way to define rewrite sequences as an inductive type. A rewrite
+For the translation of Definition~\ref{def:stepeq} (equality of steps)
+to \Coq, we assume the lifting of bisimilarity to contexts and that
+\coqdef{Substitution.substitutioneq}{substitution\_eq}{\coqdocdefinition{substitution\_eq}}
+defines agreement of substitutions on a given list of variables.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdef{Rewriting.stepeq}{step\_eq}{$\approx$}
+(\coqdocvar{s} \coqdocvar{t} :
+\coqref{Term.term}{\coqdocinductive{term}}) (\coqdocvar{$\pi$} :
+\coqdocvar{s} \coqref{Rewriting.step}{$\rightarrow_\mathcal{R}$} \coqdocvar{t}) (\coqdocvar{u} \coqdocvar{v} :
+\coqref{Term.term}{\coqdocinductive{term}}) (\coqdocvar{$o$} :
+\coqdocvar{u} \coqref{Rewriting.step}{$\rightarrow_\mathcal{R}$}
+\coqdocvar{v}) : \coqdockw{Prop} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{$\pi$}, \coqdocvariable{$o$}
+\coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Step}{\coqdocconstructor{Step}}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{$\rho$} \coqdocvar{C}
+\coqdocvar{$\sigma$} \coqdocvar{\_} \coqdocvar{\_} \coqdocvar{\_},
+\coqref{Rewriting.Step}{\coqdocconstructor{Step}} \coqdocvar{\_}
+\coqdocvar{\_} \coqdocvar{$\rho'$} \coqdocvar{C$'$} \coqdocvar{$\sigma'$}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{\_}
+\ensuremath{\Rightarrow}\coqdoceol
+\coqdocindent{2.00em}
+\coqdocvariable{C} $\bis$ \coqdocvariable{C$'$} \ensuremath{\land}
+\coqdocvariable{$\rho$} = \coqdocvariable{$\rho'$} \ensuremath{\land}
+\coqref{Substitution.substitutioneq}{\coqdocdefinition{substitution\_eq}}
+(\coqdocdefinition{vars}
+(\coqref{Rewriting.lhs}{\coqdocprojection{lhs}} \coqdocvariable{$\rho$}))
+\coqdocvariable{$\sigma$} \coqdocvariable{$\sigma'$}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+% TODO: naming of variables is not so nice here
+
+We describe a way to define rewrite sequences as an inductive type. A rewrite
 sequence of length $\alpha$ can be represented by the Brouwer ordinal $\alpha$
 where we label every occurrence of the $^+$ constructor with a rewrite
-step. To ensure successive steps have the same target and source terms,
+step. To ensure that successive steps have the same target and source terms,
 respectively, we include the source and target terms of the rewrite sequence
 in its type and label accordingly.
 
@@ -690,6 +711,9 @@ $\rightarrow$
 \end{coqdoccode}
 \end{singlespace}
 
+TODO: (in prelims) $\rewrites_\mathcal{R}$ binds stronger than
+$\rightarrow$
+
 This is not yet a satisfying definition, because we cannot fix a value for
 \coqref{Rewriting.LimPlaceholder}{\textbf{?}}. We complete the type for
 \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} as follows. First, we
@@ -721,7 +745,7 @@ constructor may still not actually approximate to a rewrite sequence (of
 length a limit ordinal). The intuition is that each branch should extend on
 its preceeding ones. This would correspond to the
 \coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} property we defined on
-\coqref{Ordinal.ord}{\coqdocinductive{ord}}, where we take $\prec$ to be a
+\coqref{Ordinal.ord}{\coqdocinductive{ord}}, where we lift $\prec$ to a
 strict prefix relation on
 \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}.
 We return to this issue in Section~\ref{sub:wf}, but
@@ -773,7 +797,7 @@ rewrite sequences. The set of predecessor indices is easily defined as
 The predecessor indices defined by
 \coqref{Rewriting.predtype}{\coqdocdefinition{pred\_type}} point to a specific
 occurrence of the \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}}
-constructor in a rewrite sequence. This constructor does not just contain a
+constructor in a rewrite sequence. This constructor does not only contain a
 rewrite sequence (analoguous to an ordinal in the
 \coqref{Ordinal.ord}{\coqdocinductive{ord}} case), but also a rewrite
 step. The \coqref{Rewriting.pred}{\coqdocdefinition{pred}} function gives us
@@ -846,11 +870,11 @@ the source and target terms of the rewrite step.
 \end{singlespace}
 % TODO: we simplified this (mainly type inference helpers)
 
-In an effort to prevent getting lost in a syntacical labyrinth, we define
+In an effort to prevent getting lost in a syntactical labyrinth, we define
 the following notational shortcuts:
 
 % TODO: keep an eye on placement of the table
-% TODO: \coqdoc markup of these notations
+% TODO: maybe add real Coq code in a third column
 {\renewcommand{\arraystretch}{1.1}
 \renewcommand{\tabcolsep}{10pt}
 \begin{tabular}{ll}
@@ -862,17 +886,17 @@ $\varphi[\iota]^\textsc{l}$ & source term of $\varphi[\iota]^\textsc{stp}$ (also
 $\varphi[\iota]^\textsc{r}$ & target term of $\varphi[\iota]^\textsc{stp}$
 \end{tabular}}
 
-As an example, consider the graphical representation of a rewrite
-sequence $\varphi$ of length $\omega + 2$ and its predecessor index
-$\iota = \coqdocconstructor{inr} \; (\coqdocconstructor{inr} \;
-\langle 4, \coqdocconstructor{inl}\rangle)$ in
-Figure~\ref{fig:pred}. The initial part of length $\omega$ is
-represented by a series of finite rewrite sequences, each extending on
-the previous by one step. The sequence of terms $\{ t_1,t_2, t_3,
-\ldots \}$ converges to the term $t_\omega$.
-Here, $\varphi[\iota]^\textsc{seq}$ is a rewrite sequence from $t_1$ to
-$t_3$ and $\varphi[\iota]^\textsc{stp}$ is a step from $t_3$ to
-$t_4$.
+As an example of predecessor indexing, consider the graphical
+representation of a rewrite sequence $\varphi$ of length $\omega + 2$
+and its predecessor index $\iota = \coqdocconstructor{inr} \;
+(\coqdocconstructor{inr} \; \langle 4,
+\coqdocconstructor{inl}\rangle)$ in Figure~\ref{fig:pred}. The initial
+part of length $\omega$ is represented by a series of finite rewrite
+sequences, each one extending on the previous one by one step. The
+sequence of terms $\{ t_1,t_2, t_3, \ldots \}$ converges to the term
+$t_\omega$. Here, $\varphi[\iota]^\textsc{seq}$ is a rewrite sequence
+from $t_1$ to $t_3$ and $\varphi[\iota]^\textsc{stp}$ is a step from
+$t_3$ to $t_4$.
 
 \begin{figure}
 \begin{center}
@@ -888,24 +912,19 @@ $t_4$.
 % TODO: picture of this embedding behaviour?
 Having a closer look at the order $\preceq$ on the Brouwer ordinals, we can
 see that it really defines embeddings of their tree structures. This is due to
-clause~\ref{def:order:succ} of Definition~\ref{def:order}. In this clause,
+clause (\ref{def:order:succ}) of Definition~\ref{def:order}. In this clause,
 two occurrences of the $^+$ constructor (one in both ordinals) are cancelled
 out against each other, but the positions of these occurences in their
-respective ordinals do not necessarily correspond. Since all occurrences of
-$^+$ are equal, this has no effect on the resulting relation.
+respective ordinals do not necessarily correspond. Since occurrences
+of $^+$ carry no additional information, this has no effect on the resulting
+relation.
 
 % TODO: should we use the word 'iff'?
 What this means for a translation of $\preceq$ to the domain of our
 inductively defined rewrite sequences is that, indeed, we get an embedding
-relation. We just have to make sure that in the
+relation. We only have to make sure that in the
 \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}} case, we cancel out two
-equivelent steps against each other.\footnote{Rewrite steps $\pi$ and $o$ are
-  defined to be equivalent ($\pi \approx o$) if % TODO: equivalent vs equal
-\begin{compactenum}
-  \item they use the same rewrite rule $\rho$,
-  \item their contexts are bisimilar and
-  \item their substitutions agree on all variables in $\rho$.
-\end{compactenum}}
+equal steps against each other.
 We say that $\varphi$ is embedded in $\psi$ (written $\varphi
 \sqsubseteq \psi$) if $\psi$ can be obtained from $\varphi$ by inserting
 any number of steps in $\varphi$. We distinguish between inserting a step
@@ -915,7 +934,8 @@ any number of steps in $\varphi$. We distinguish between inserting a step
   \item in between steps
 \end{inparaenum}
 in a rewrite sequence. Note that any steps inserted consecutively in between
-steps necessarily form a cycle, because of typing constraints.
+steps necessarily form a cycle, because of the typing constraints in
+the definition of rewrite sequence.
 % TODO: is the wording good here (the three cases)?
 % TODO: define cycle
 % TODO: explaining image
@@ -960,7 +980,7 @@ $\rightarrow$ \coqdockw{Prop} :=\coqdoceol
 \coqdocvariable{$\psi$}[\coqdocvariable{$\iota$}]$^\textsc{seq}$
 \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{9.50em}
-\coqdocvariable{$\pi$} $\approx$
+\coqdocvariable{$\pi$} \coqref{Rewriting.stepeq}{$\approx$}
 \coqdocvariable{$\psi$}[\coqdocvariable{$\iota$}]$^\textsc{stp}$
 \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{9.50em}
@@ -998,7 +1018,7 @@ $\rightarrow$ \coqdockw{Prop} :=\coqdoceol
 % TODO: (f n) without ()
 % TODO: say what implicit/explicit arguments for cons and lim are
 
-Strict embedding relation. It really expands after the last step!
+TODO: Strict embedding relation. It really expands after the last step!
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -1087,16 +1107,16 @@ als bomen) deelboom (en niet boom-factor).
 
 \section{Properties of Terms and TRSs}
 
-We define some predicates on terms and TRSs. Again, let throughout
-this section $\mathcal{R}$ be a fixed TRS.
+We define some predicates on terms and TRSs. Again, we let
+$\mathcal{R}$ be a fixed TRS throughout this section.
 
 We work with a somewhat relaxed definition of critical pairs. First,
 we do not require the common instance to be a most general
 one. Second, the substitution $\sigma$ might not be minimal and might
 not introduce only fresh variables
-(cf.\ Definition~\ref{def:overlap}). The effect of this variation is
+(cf.\ Definition~\ref{def:overlap}). The effect of this relaxation is
 that for every critical pair, we have a series of critical pairs by
-this relaxed definition. This is precise enough for our present
+this \Coq definition. This is precise enough for our present
 purposes, however, since it has no effect on questions such as
 \emph{`are there critical pairs?'} or \emph{`are all critical pairs
   trivial?'}.
@@ -1141,7 +1161,7 @@ purposes, however, since it has no effect on questions such as
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{Some}{\coqdocconstructor{Some}}
 \coqdocvar{s},
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{Some}{\coqdocconstructor{Some}}
-\coqdocvar{c} \ensuremath{\Rightarrow}
+\coqdocvar{C} \ensuremath{\Rightarrow}
 \coqdocdefinition{is\_var} \coqdocvariable{s} =
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{false}{\coqdocconstructor{false}}
 \ensuremath{\land}
@@ -1151,7 +1171,7 @@ purposes, however, since it has no effect on questions such as
 \ensuremath{\land}\coqdoceol
 \coqdocindent{12.00em}
 \coqdocvariable{t$_1$} \coqref{TermEquality.termbis}{$\bis$}
-\coqdocvariable{c}[(\coqref{Rewriting.rhs}{\coqdocprojection{rhs}}
+\coqdocvariable{C}[(\coqref{Rewriting.rhs}{\coqdocprojection{rhs}}
 \coqdocvariable{$\rho_2$})$^{\coqdocvariable{$\tau$}}$]
 \ensuremath{\land}
 \coqdocvariable{t$_2$} \coqref{TermEquality.termbis}{$\bis$}
@@ -1197,23 +1217,23 @@ orthogonality and weak orhogonality.
 \end{coqdoccode}
 \end{singlespace}
 
-%TODO: some text here?
-
+Next we define when a term is a normal form and when we have unique
+normal forms.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
 \coqdockw{Definition}
 \coqdef{Rewriting.normalform}{normal\_form}{\coqdocdefinition{normal\_form}}
-\coqdocvar{t} :=\coqdoceol
+\coqdocvar{t} : \coqdockw{Prop} :=\coqdoceol
 \coqdocindent{1.00em}
-\ensuremath{\lnot} \ensuremath{\exists} \coqdocvar{c} : \coqref{Context.context}{\coqdocinductive{context}},
+\ensuremath{\lnot} \ensuremath{\exists} \coqdocvar{C} : \coqref{Context.context}{\coqdocinductive{context}},
 \ensuremath{\exists} \coqdocvar{$\rho$} : \coqdocrecord{rule},
 \ensuremath{\exists} \coqdocvar{$\sigma$} :
-\coqdocdefinition{substitution},
+\coqref{Substitution.substitution}{\coqdocdefinition{substitution}},
 \coqdocvariable{$\rho$}
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Lists.List}{In}{\coqdocdefinition{$\in$}}
 \coqdocvar{$\mathcal{R}$} \ensuremath{\land}
-\coqdocvariable{c}[(\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
+\coqdocvariable{C}[(\coqref{Rewriting.lhs}{\coqdocprojection{lhs}}
 \coqdocvariable{r})\coqdocvariable{$^\sigma$}] \coqref{TermEquality.termbis}{$\bis$}
 \coqdocvariable{t}.\coqdoceol
 \coqdocemptyline
