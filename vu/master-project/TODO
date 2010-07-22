@@ -12,6 +12,7 @@ Throw in some examples here and there
 Add some clarifying pictures (ordinals, predecessors, convergence)
 Equality vs equivalence
 Grep for \phi and change to \varphi
+Publish via lulu :)
 
 coqdoc --latex -s -g --coqlib http://coq.inria.fr/stdlib/ -d coqdoc *.v
 

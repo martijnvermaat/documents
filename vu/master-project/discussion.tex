@@ -24,22 +24,42 @@ type parameterised by a term.
 
 \subsection{The Positivity Condition}\label{sub:positivity}
 
-TODO: Sigma type in Lim constructor vs two separate functions
+\Coq restricts inductive definitions to those that satisfy the
+\emph{positivity condition}. The reason for this is that definitions
+that fail this (syntactic) criterion may lead to an inconsistent
+  system. For a precise definition of positivity, consult
+  \citetalias[Section 4.5.3]{coq-refman-09}.
 
-Using a $\Sigma$-type
+Consider again the definition of rewrite sequences from
+Section~\ref{sec:seq}. A more natural way to define the type of the
+\coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} constructor might be
+by using a $\Sigma$-type instead of a separate function for the target
+terms of the branches.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocindent{1.00em}
-\ensuremath{|} \coqdocconstructor{Lim}   :
-\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t},
-(\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
-\ensuremath{\rightarrow} \{ \coqdocvar{t'} \& \coqdocvariable{s}
-$\rewrites_\mathcal{R}$
-\coqdocvariable{t'}\}) $\rightarrow$
-\coqdocvariable{s} $\rewrites_\mathcal{R}$
+\ensuremath{|} \coqdocconstructor{Lim} :
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t}
+(\coqdocvar{f} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+\ensuremath{\rightarrow} \{ \coqdocvar{t'} : \coqref{Term.term}{\coqdocinductive{term}}
+\& \coqdocvar{s}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
+\coqdocvariable{t'} \}),\coqdoceol
+\coqdocindent{5.00em}
+\coqref{Rewriting.converges}{\coqdocdefinition{converges}}
+(\coqdockw{fun} \coqdocvar{n} \ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{projT1}{\coqdocdefinition{projT1}}
+(\coqdocvariable{f} \coqdocvariable{n})) \coqdocvariable{t}
+$\rightarrow$ \coqdocvariable{s}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqdocvariable{t}\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
+However, this type definition does not satisfy the positivity
+condition and therefore we cannot use it. We feel that the definition
+from Section~\ref{sec:seq}, which does satisfy the condition, models
+our intentions adequately.
 
 
 \subsection{Guardedness}\label{sub:guardedness}
@@ -49,12 +69,14 @@ $\rewrites_\mathcal{R}$
 Objects in a coinductive type may be infinite (i.e.\ contain an infinite
 amount of constructors). However, in order to guarantee productivity,
 definitions of such objects are required by \Coq to be in \emph{guarded}
-form. A corecursive definition in guarded form satisfies two (syntactical)
-conditions. First, every corecursive call must occur inside at least one
-constructor (of the same coinductive type). Second, every corecursive call may
-only occur inside abstractions or constructors (of the same coinductive
-type).\footnote{To be more precise, the corecursive call is also allowed to
-  occur inside \coqdockw{match} constructs and other corecursive definitions.}
+form \citep{gimenez-94}. A corecursive definition in guarded form
+satisfies two (syntactical) conditions. First, every corecursive call
+must occur inside at least one constructor (of the same coinductive
+type). Second, every corecursive call may only occur inside
+abstractions or constructors (of the same coinductive
+type).\footnote{To be more precise, the corecursive call is also
+  allowed to occur inside \coqdockw{match} constructs and other
+  corecursive definitions.}
 
 In the \coqref{Term.term}{\coqdocinductive{term}} definition, we used a vector
 type, parameterised by the type of its element and its size. Naturally, one
@@ -164,6 +186,8 @@ that is just an abstraction, and therefore solves the guardedness problem in
 
 Bvector vs Vector: we did not really hit the guardedness restriction, so we
 could have used inductive Bvector. But it spells trouble later.
+% TODO: in this text we *do* assume substitute is defined on infinite
+% terms
 
 TODO: additional remarks on productivity and guardedness restriction?
 

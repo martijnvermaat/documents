@@ -159,16 +159,19 @@ Now we can prove the stronger result we were looking for.\footnote{Although
 
 \section{Coinductive Terms}
 
-In \Coq, coinductive datatypes can be defined using the \coqdockw{CoInductive}
-command. No induction principles are defined for these types, because they are
-not well-founded.\footnote{\Coq automatically derives induction principles for
-  inductive definitions.} The objects of a coinductive type may contain an
-infinite number of constructors, but can only be built in some restricted way
-to ensure productivity of the construction.
+In \Coq, coinductive types can be defined using the
+\coqdockw{CoInductive} keyword \citep{gimenez-casteran-07}. No
+induction principles are defined for these types, because they are not
+well-founded.\footnote{\Coq automatically derives induction principles
+  for inductive definitions.}
+The objects of a coinductive type may contain an infinite number of
+constructors, but can only be built in some restricted way to ensure
+productivity of the construction.
 % TODO: productivity or effectiveness?
-We defer discussion of this restriction to Section~\ref{sub:guardedness}, and
-define the type \coqref{Term.term}{\coqdocinductive{term}} of infinite terms
-with function symbols in \coqdocvar{F} and variables in \coqdocvar{X}.
+We defer discussion of this restriction to
+Section~\ref{sub:guardedness}, and define the type
+\coqref{Term.term}{\coqdocinductive{term}} of infinite terms with
+function symbols in \coqdocvar{F} and variables in \coqdocvar{X}.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
