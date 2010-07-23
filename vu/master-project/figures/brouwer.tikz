@@ -1,0 +1,120 @@
+\tikzstyle{level 1}=[level distance=2cm, sibling distance=3cm]
+\tikzstyle{level 2}=[level distance=0.8cm, sibling distance=0.8cm]
+\tikzstyle{level 3}=[level distance=0.8cm, sibling distance=0.8cm]
+\tikzstyle{level 4}=[level distance=0.8cm, sibling distance=0.8cm]
+\tikzstyle{level 5}=[level distance=0.8cm, sibling distance=0.8cm]
+
+\node {}
+    child {
+        node {}
+            child {
+                node {}
+                edge from parent
+            }
+            child {
+                node {}
+                child { node {} edge from parent }
+                edge from parent
+            }
+            child {
+                node {}
+                child { node {} child { node {} edge from parent } edge from parent }
+                edge from parent
+            }
+            child {
+                node {}
+                child { node {} child { node {} child { node {} edge from parent } edge from parent } edge from parent }
+                edge from parent node[above] {$\qquad \ldots$}
+            }
+    }
+    child {
+        node {}
+        child {
+            node {}
+            child {
+                node {}
+                edge from parent
+            }
+            child {
+                node {}
+                child { node {} edge from parent }
+                edge from parent
+            }
+            child {
+                node {}
+                child { node {} child { node {} edge from parent } edge from parent }
+                edge from parent
+            }
+            child {
+                node {}
+                child { node {} child { node {} child { node {} edge from parent } edge from parent } edge from parent }
+                edge from parent node[above] {$\qquad \ldots$}
+            }
+            edge from parent
+        }
+    }
+    child {
+        node {}
+        child {
+            node {}
+            child {
+              node {}
+            child {
+                node {}
+                edge from parent
+            }
+            child {
+                node {}
+                child { node {} edge from parent }
+                edge from parent
+            }
+            child {
+                node {}
+                child { node {} child { node {} edge from parent } edge from parent }
+                edge from parent
+            }
+            child {
+                node {}
+                child { node {} child { node {} child { node {} edge from parent } edge from parent } edge from parent }
+                edge from parent node[above] {$\qquad \ldots$}
+            }
+            edge from parent
+            }
+            edge from parent
+        }
+    }
+    child {
+        node {}
+        child {
+            node {}
+            child {
+              node {}
+              child {
+                node {}
+            child {
+                node {}
+                edge from parent
+            }
+            child {
+                node {}
+                child { node {} edge from parent }
+                edge from parent
+            }
+            child {
+                node {}
+                child { node {} child { node {} edge from parent } edge from parent }
+                edge from parent
+            }
+            child {
+                node {}
+                child { node {} child { node {} child { node {} edge from parent } edge from parent } edge from parent }
+                edge from parent node[above] {$\qquad \ldots$}
+            }
+            edge from parent
+            }
+            edge from parent
+            }
+            edge from parent
+        }
+            edge from parent node[above] {$\qquad \qquad \ldots$}
+    };
