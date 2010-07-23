@@ -2,7 +2,9 @@
 
 TODO: write introduction
 
-This chapter does not contain original material.
+This chapter does not contain original material. The construction of the
+order relation on Brouwer ordinals in Section~\ref{sub:brouwer} is by
+\citet{hancock-08}.
 
 Before we can study infinitary rewriting, we must introduce ordinal numbers.
 
@@ -16,7 +18,8 @@ compression.
 
 % ordinals are originally by Cantor
 
-Ordinal numbers (ordinals for short) are an extension of the natural numbers
+Ordinal numbers (ordinals for short) \citep{cantor-15}
+are an extension of the natural numbers
 with transfinite objects. Indeed, the finite ordinals are just the natural
 numbers. The smallest infinite ordinal is called $\omega$ and following
 $\omega$ we have $\omega + 1$, $\omega + 2$, \ldots, $\omega \times 2$. Then
@@ -67,7 +70,11 @@ argument:
 
 \subsection{Brouwer Ordinals}\label{sub:brouwer}
 
-The Brouwer ordinals (cite?) are a representation of the countable ordinals as
+% TODO: Possible reference for Brouwer ordinals:
+% Constructivism in Mathematics: An Introduction, A.S. Troelstra en Dirk
+% van Dalen, North-Holland Publishing, Amsterdam, 1988.
+
+The Brouwer ordinals $\Ord$ are a representation of the countable ordinals as
 countably branching well-founded trees. Their inductive definition
 uses constructors $0$ (zero), $^+$ (successor) and $\sqcup$ (limit).
 
@@ -79,7 +86,6 @@ the argument, writing for example $\sqcup \{ \alpha_1, \alpha_2,
 
 % Be alerted that all ordinals cannot form a set (only a class), but we are
 % defining a subset here
-% TODO: can we cite Brouwer?
 \begin{definition}\label{def:ordinals}%[Ordinals]
 The set of \emph{Brouwer ordinals} (ordinals) $\Ord$ is defined by
 induction:
@@ -97,8 +103,8 @@ induction:
 Now zero is represented by $0$, a successor ordinal $\alpha +1$ is represented
 by $\alpha^+$ and a limit ordinal $\lambda$ is represented by $\sqcup_i
 \alpha_i$ if $\lambda$ is the least upper bound of the sequence $\alpha_1,
-\alpha_2, \alpha_3, \ldots$. % TODO: strict or non-strict upper bound
-Again, we identify ordinals and their representation as Brouwer ordinal.
+\alpha_2, \alpha_3, \ldots$. Again, we identify ordinals and their
+representation as Brouwer ordinal.
 
 % TODO: some ordinals have no representation as Brouwer ordinal at all
 Some ordinals have no unique representation as Brouwer ordinal. Consider for
@@ -106,9 +112,11 @@ example the limit ordinals $\sqcup_i i + 3$ and $\sqcup_i i \times 2$. Both
 are representations of $\omega$ and a meaningful order relation would
 have to position them at the same rank.
 
-A more intricate issue is what to make of ordinals such as $\sqcup \{ 3, 3, 3,
-\ldots \}$. In spirit of the intuition given above it represents $3$ ($4$),
-that being the non-strict (strict) upper bound of $3, 3, 3, \ldots$.
+A more intricate issue is what to make of ordinals such as $\sqcup \{
+3, 3, 3, \ldots \}$. In spirit of the intuition given above it
+represents $3$, that being the non-strict least upper bound of $3, 3,
+3, \ldots$.\footnote{Or, if we take the \emph{strict} least upper bound, $\sqcup \{
+3, 3, 3, \ldots \}$ represents $4$.}
 % TODO: this makes it undecidable to compare an ordinal to 0 or 3
 We might like to exclude such representations and require that
 $\sqcup_i \alpha_i$ always represents a limit ordinal. This can be
@@ -116,16 +124,15 @@ done by imposing a strict monotonicity property on the limit
 sequences. Some order relation on the Brouwer ordinals is needed for
 that.
 
-% TODO: much of the following is taken from Hancock, but i think we cannot
-% cite that paper. however, we must acknowledge this in some way
-
-Before we can define an extensional order relation on $\Ord$, we define a
-structural strict order relation as follows.
+The following construction (i.e.\ Definitions~\ref{def:indices}
+through \ref{def:order}) is due to \citet{hancock-08}. In preparation
+for an extensional order relation on $\Ord$, we define a structural
+strict order relation.
 % TODO: , is too close on $\Omega$
 
-\begin{definition}%[Predecessor indices]
-The set-valued function $\Phi$ defines the \emph{predecessor indices} $\Phi(\alpha)$
-\emph{for} $\alpha$ by recursion on $\alpha$:
+\begin{definition}\label{def:indices}%[Predecessor indices]
+The set-valued function $\Phi$ defines the \emph{predecessor indices}
+$\Phi(\alpha)$ \emph{for} $\alpha$ by recursion on $\alpha$:
 \begin{align*}
   \Phi(0)                 &= \nothing \\
   \Phi(\alpha^+)          &= \Phi(\alpha)^? \\
@@ -133,11 +140,16 @@ The set-valued function $\Phi$ defines the \emph{predecessor indices} $\Phi(\alp
 \end{align*}
 \end{definition}
 
-By $A^?$ we mean the option type over $A$, or equivalently the disjoint sum
-$1 + A$ of the unit type $1$ and $A$. We use \textsc{left} and
-\textsc{right $a$} (for $a \in A$) as constructors of $A^?$. Note that
-the set $\Phi(0)$ of predecessor indices for $0$ has no inhabitants.
+By $A^?$ we mean the option type over $A$, or equivalently the
+disjoint sum $1 + A$ of the unit type $1$ and $A$. We use
+\textsc{left} and \textsc{right $a$} (for $a \in A$) as constructors
+of $A^?$. Note that the set $\Phi(0)$ of predecessor indices for $0$
+has no inhabitants.
 % TODO: just use disjoint sum, no option type?
+
+The predecessor indices of an ordinal $\alpha$ are essentially the
+paths on its tree structure starting from the root that cross at least
+one $^+$ constructor.
 
 \begin{definition}%[Predecessor]
 The function $\_[\_] : (\prod \alpha : \Ord) \; \Phi(\alpha)
@@ -152,7 +164,7 @@ The function $\_[\_] : (\prod \alpha : \Ord) \; \Phi(\alpha)
 
 % TODO: explain what I and _[_] mean
 
-This structural predecessor function can be viewed as defining a `subtree'
+This structural predecessor function can be seen as defining a `subtree'
 partial order on $\Ord$. With it we are ready to define an extensional
 non-strict order relation on $\Ord$ that classifies ordinals by rank.
 
