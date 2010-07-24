@@ -1,120 +1,196 @@
-\tikzstyle{level 1}=[level distance=2cm, sibling distance=3cm]
-\tikzstyle{level 2}=[level distance=0.8cm, sibling distance=0.8cm]
-\tikzstyle{level 3}=[level distance=0.8cm, sibling distance=0.8cm]
-\tikzstyle{level 4}=[level distance=0.8cm, sibling distance=0.8cm]
-\tikzstyle{level 5}=[level distance=0.8cm, sibling distance=0.8cm]
+\tikzstyle{level 1}=[level distance=0cm, sibling distance=3cm]
+\tikzstyle{level 2}=[level distance=0.8cm, sibling distance=3cm]
+\tikzstyle{level 3}=[level distance=0.8cm, sibling distance=3cm]
+\tikzstyle{level 4}=[level distance=1.5cm, sibling distance=3cm]
+\tikzstyle{level 5}=[level distance=0.8cm, sibling distance=0.7cm]
+\tikzstyle{level 6}=[level distance=0.8cm, sibling distance=0.7cm]
+\tikzstyle{level 7}=[level distance=0.8cm, sibling distance=0.7cm]
+\tikzstyle{level 8}=[level distance=0.8cm, sibling distance=0.7cm]
 
-\node {}
+\coordinate
+child {
+  [fill] circle (1.5pt) edge from parent
+child {
+  [fill] circle (1.5pt) edge from parent
+child {
+ edge from parent
+child {
+  child {
+    circle (1.5pt) edge from parent
+  }
+  child {
+    [fill] circle (1.5pt)
     child {
-        node {}
-            child {
-                node {}
-                edge from parent
-            }
-            child {
-                node {}
-                child { node {} edge from parent }
-                edge from parent
-            }
-            child {
-                node {}
-                child { node {} child { node {} edge from parent } edge from parent }
-                edge from parent
-            }
-            child {
-                node {}
-                child { node {} child { node {} child { node {} edge from parent } edge from parent } edge from parent }
-                edge from parent node[above] {$\qquad \ldots$}
-            }
+      circle (1.5pt) edge from parent
     }
+    edge from parent
+  }
+  child {
+    [fill] circle (1.5pt)
     child {
-        node {}
-        child {
-            node {}
-            child {
-                node {}
-                edge from parent
-            }
-            child {
-                node {}
-                child { node {} edge from parent }
-                edge from parent
-            }
-            child {
-                node {}
-                child { node {} child { node {} edge from parent } edge from parent }
-                edge from parent
-            }
-            child {
-                node {}
-                child { node {} child { node {} child { node {} edge from parent } edge from parent } edge from parent }
-                edge from parent node[above] {$\qquad \ldots$}
-            }
-            edge from parent
+      [fill] circle (1.5pt)
+      child {
+        circle (1.5pt) edge from parent
+      }
+      edge from parent
+    }
+    edge from parent
+  }
+  child {
+    [fill] circle (1.5pt)
+    child {
+      [fill] circle (1.5pt)
+       child {
+        [fill] circle (1.5pt)
+         child {
+           circle (1.5pt) edge from parent
         }
+        edge from parent
+      }
+      edge from parent
+    }
+    edge from parent node[midway] {$\qquad \; \ldots$}
+  }
+}
+child {
+  [fill] circle (1.5pt)
+  child {
+    child {
+      circle (1.5pt)
+      edge from parent
     }
     child {
-        node {}
+      [fill] circle (1.5pt)
+      child {
+        circle (1.5pt) edge from parent
+      }
+      edge from parent
+    }
+    child {
+      [fill] circle (1.5pt)
+      child {
+        [fill] circle (1.5pt)
         child {
-            node {}
-            child {
-              node {}
-            child {
-                node {}
-                edge from parent
-            }
-            child {
-                node {}
-                child { node {} edge from parent }
-                edge from parent
-            }
-            child {
-                node {}
-                child { node {} child { node {} edge from parent } edge from parent }
-                edge from parent
-            }
-            child {
-                node {}
-                child { node {} child { node {} child { node {} edge from parent } edge from parent } edge from parent }
-                edge from parent node[above] {$\qquad \ldots$}
-            }
-            edge from parent
-            }
-            edge from parent
+          circle (1.5pt) edge from parent
         }
+        edge from parent
+      }
+      edge from parent
     }
     child {
-        node {}
+      [fill] circle (1.5pt)
+      child {
+        [fill] circle (1.5pt)
         child {
-            node {}
+          [fill] circle (1.5pt)
+          child {
+            circle (1.5pt) edge from parent
+          }
+          edge from parent
+        }
+        edge from parent
+      }
+      edge from parent node[midway] {$\qquad \; \ldots$}
+    }
+    edge from parent
+  }
+}
+child {
+  [fill] circle (1.5pt)
+  child {
+    [fill] circle (1.5pt)
+    child {
+      child {
+        circle (1.5pt)
+        edge from parent
+      }
+      child {
+        [fill] circle (1.5pt)
+        child {
+          circle (1.5pt) edge from parent
+        }
+        edge from parent
+      }
+      child {
+        [fill] circle (1.5pt)
+        child {
+          [fill] circle (1.5pt)
+          child {
+            circle (1.5pt) edge from parent
+          }
+          edge from parent
+        }
+        edge from parent
+      }
+      child {
+        [fill] circle (1.5pt)
+        child {
+          [fill] circle (1.5pt)
+          child {
+            [fill] circle (1.5pt)
             child {
-              node {}
+              circle (1.5pt) edge from parent
+            }
+            edge from parent
+          }
+          edge from parent
+        }
+        edge from parent node[midway] {$\qquad \; \ldots$}
+      }
+      edge from parent
+    }
+  }
+}
+child {
+  [fill] circle (1.5pt)
+  child {
+    [fill] circle (1.5pt)
+    child {
+      [fill] circle (1.5pt)
+      child {
+        child {
+          circle (1.5pt)
+          edge from parent
+        }
+        child {
+          [fill] circle (1.5pt)
+          child {
+            circle (1.5pt) edge from parent
+          }
+          edge from parent
+        }
+        child {
+          [fill] circle (1.5pt)
+          child {
+            [fill] circle (1.5pt)
+            child {
+              circle (1.5pt) edge from parent
+            }
+            edge from parent
+          }
+          edge from parent
+        }
+        child {
+          [fill] circle (1.5pt)
+          child {
+            [fill] circle (1.5pt)
+            child {
+              [fill] circle (1.5pt)
               child {
-                node {}
-            child {
-                node {}
-                edge from parent
-            }
-            child {
-                node {}
-                child { node {} edge from parent }
-                edge from parent
-            }
-            child {
-                node {}
-                child { node {} child { node {} edge from parent } edge from parent }
-                edge from parent
-            }
-            child {
-                node {}
-                child { node {} child { node {} child { node {} edge from parent } edge from parent } edge from parent }
-                edge from parent node[above] {$\qquad \ldots$}
+                circle (1.5pt) edge from parent
+              }
+              edge from parent
             }
             edge from parent
-            }
-            edge from parent
-            }
-            edge from parent
+          }
+          edge from parent node[midway] {$\qquad \; \ldots$}
         }
-            edge from parent node[above] {$\qquad \qquad \ldots$}
-    };
+        edge from parent
+      }
+    }
+  }
+  edge from parent node[midway] {$\qquad \qquad \qquad \ldots$}
+}
+}
+}
+};
