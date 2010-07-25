@@ -918,28 +918,24 @@ the least upper bound of its branches.
 \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqdocvariable{t}\coqdoceol \coqdocindent{1.00em}
 \ensuremath{|} \coqdef{Rewriting.Cons}{Cons}{\coqdocconstructor{Cons}} :
-\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u}, \coqdocvar{s}
-\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvar{t}
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u}, (\coqdocvar{s}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvar{t})
 $\rightarrow$
-\coqdocvariable{t} \coqref{Rewriting.step}{$\rightarrow_\mathcal{R}$}
-\coqdocvar{u} $\rightarrow$ \coqdocvariable{s}
+(\coqdocvariable{t} \coqref{Rewriting.step}{$\rightarrow_\mathcal{R}$}
+\coqdocvar{u}) $\rightarrow$ (\coqdocvariable{s}
 \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
-\coqdocvariable{u}\coqdoceol \coqdocindent{1.00em}
+\coqdocvariable{u})\coqdoceol \coqdocindent{1.00em}
 \ensuremath{|} \coqdocconstructor{Lim}   :
 \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t},
 (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
 \ensuremath{\rightarrow} \coqdocvariable{s}
 \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqdef{Rewriting.LimPlaceholder}{LimPlaceholder}{\textbf{?}}) $\rightarrow$
-\coqdocvariable{s}
+(\coqdocvariable{s}
 \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
-\coqdocvariable{t}.\coqdoceol
+\coqdocvariable{t}).\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-
-TODO: (in prelims) $\rewrites_\mathcal{R}$ binds stronger than
-$\rightarrow$
-
 This is not yet a satisfying definition, because we cannot fix a value for
 \coqref{Rewriting.LimPlaceholder}{\textbf{?}}. We complete the type for
 \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} as follows. First, we
@@ -959,9 +955,9 @@ condition that these terms must converge to the target term
 \coqdocvar{ts} \coqdocvariable{n}) $\rightarrow$
 \coqref{Rewriting.converges}{\coqdocdefinition{converges}} \coqdocvariable{ts}
 \coqdocvariable{t} $\rightarrow$
-\coqdocvariable{s}
+(\coqdocvariable{s}
 \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
-\coqdocvariable{t}\coqdoceol
+\coqdocvariable{t})\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 % TODO: maybe first convergence, then branches
@@ -1163,17 +1159,16 @@ in a rewrite sequence. Note that any steps inserted consecutively in between
 steps necessarily form a cycle, because of the typing constraints in
 the definition of rewrite sequence.
 % TODO: is the wording good here (the three cases)?
-% TODO: define cycle
 % TODO: explaining image
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
 \coqdockw{Inductive} \coqdef{Rewriting.embed}{embed}{$\sqsubseteq$}
 : \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u}
-\coqdocvar{v}, \coqdocvariable{s}
-\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvariable{t}
-$\rightarrow$ \coqdocvariable{u}
-\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvariable{v}
+\coqdocvar{v}, (\coqdocvariable{s}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvariable{t})
+$\rightarrow$ (\coqdocvariable{u}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvariable{v})
 $\rightarrow$ \coqdockw{Prop} :=\coqdoceol
 \coqdocindent{1.00em}
 \ensuremath{|}
@@ -1232,7 +1227,7 @@ $\rightarrow$ \coqdockw{Prop} :=\coqdoceol
 \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqdocvar{v}),\coqdoceol
 \coqdocindent{9.50em}
-(\ensuremath{\forall} \coqdocvar{n}, (\coqdocvariable{f} \coqdocvariable{n})
+(\ensuremath{\forall} \coqdocvar{n}, \coqdocvariable{f} \coqdocvariable{n}
 \coqref{Rewriting.embed}{$\sqsubseteq$} \coqdocvariable{$\psi$})
 \ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{9.50em}
@@ -1359,11 +1354,11 @@ Hence, we use an auxiliary function
 \coqref{Term.term}{\coqdocinductive{term}}) (\coqdocvar{$\varphi$} :
 \coqdocvariable{t}
 \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
-\coqdocvariable{u}) : \coqdocvariable{s}
+\coqdocvariable{u}) : (\coqdocvariable{s}
 \coqref{Rewriting.step}{$\rightarrow_\mathcal{R}$}
-\coqdocvariable{t} \ensuremath{\rightarrow} \coqdocvariable{s}
+\coqdocvariable{t}) \ensuremath{\rightarrow} (\coqdocvariable{s}
 \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
-\coqdocvariable{u} :=\coqdoceol
+\coqdocvariable{u}) :=\coqdoceol
 \coqdocindent{1.00em}
 \coqdockw{match} \coqdocvariable{$\varphi$} \coqdockw{with}\coqdoceol
 \coqdocindent{1.00em}
@@ -1421,11 +1416,11 @@ analogue of addition on ordinals. It is defined in the same way as
 \coqref{Term.term}{\coqdocinductive{term}}) (\coqdocvar{$\psi$} :
 \coqdocvariable{t}
 \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
-\coqdocvariable{u}) : \coqdocvariable{s}
+\coqdocvariable{u}) : (\coqdocvariable{s}
 \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
-\coqdocvariable{t} \ensuremath{\rightarrow} \coqdocvariable{s}
+\coqdocvariable{t}) \ensuremath{\rightarrow} (\coqdocvariable{s}
 \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
-\coqdocvariable{u} :=\coqdoceol
+\coqdocvariable{u}) :=\coqdoceol
 \coqdocindent{1.00em}
 \coqdockw{match} \coqdocvariable{$\psi$} \coqdockw{with}\coqdoceol
 \coqdocindent{1.00em}

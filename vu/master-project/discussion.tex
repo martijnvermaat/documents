@@ -8,11 +8,6 @@ One-hole contexts vs multi-hole contexts (possible using extended signature).
 Casteran's ordinals in Veblen nf vs Mamane's set-theoretic ordinals vs Brouwer
 ordinals.
 
-Rewrite sequences as functions from ordinals to steps vs inductive
-definition.
-
-Restriction to rewrite sequences of length $\le \omega$.
-
 Bisimilarity in steps.
 
 The embedding relation and order on ordinals by Hancock, are there other
@@ -20,46 +15,6 @@ choices?
 
 Positions are just lists (using option types) versus a safe position
 type parameterised by a term.
-
-
-\subsection{The Positivity Condition}\label{sub:positivity}
-
-\Coq restricts inductive definitions to those that satisfy the
-\emph{positivity condition}. The reason for this is that definitions
-that fail this (syntactic) criterion may lead to an inconsistent
-  system. For a precise definition of positivity, consult
-  \citetalias[Section 4.5.3]{coq-refman-09}.
-
-Consider again the definition of rewrite sequences from
-Section~\ref{sec:seq}. A more natural way to define the type of the
-\coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} constructor might be
-by using a $\Sigma$-type instead of a separate function for the target
-terms of the branches.
-\begin{singlespace}
-\begin{coqdoccode}
-\coqdocindent{1.00em}
-\ensuremath{|} \coqdocconstructor{Lim} :
-\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t}
-(\coqdocvar{f} :
-\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
-\ensuremath{\rightarrow} \{ \coqdocvar{t'} : \coqref{Term.term}{\coqdocinductive{term}}
-\& \coqdocvar{s}
-\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
-\coqdocvariable{t'} \}),\coqdoceol
-\coqdocindent{5.00em}
-\coqref{Rewriting.converges}{\coqdocdefinition{converges}}
-(\coqdockw{fun} \coqdocvar{n} \ensuremath{\Rightarrow}
-\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{projT1}{\coqdocdefinition{projT1}}
-(\coqdocvariable{f} \coqdocvariable{n})) \coqdocvariable{t}
-$\rightarrow$ \coqdocvariable{s}
-\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
-\coqdocvariable{t}\coqdoceol
-\end{coqdoccode}
-\end{singlespace}
-However, this type definition does not satisfy the positivity
-condition and therefore we cannot use it. We feel that the definition
-from Section~\ref{sec:seq}, which does satisfy the condition, models
-our intentions adequately.
 
 
 \subsection{Guardedness}\label{sub:guardedness}
@@ -180,6 +135,56 @@ that is just an abstraction, and therefore solves the guardedness problem in
 \coqdocvariable{f} (\coqdocvariable{v} \coqdocvariable{i}).\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
+
+
+\subsection{The Positivity Condition}\label{sub:positivity}
+
+\Coq restricts inductive definitions to those that satisfy the
+\emph{positivity condition}. The reason for this is that definitions
+that fail this (syntactic) criterion may lead to an inconsistent
+  system. For a precise definition of positivity, consult
+  \citetalias[Section 4.5.3]{coq-refman-09}.
+
+Consider again the definition of rewrite sequences from
+Section~\ref{sec:seq}. A more natural way to define the type of the
+\coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} constructor might be
+by using a $\Sigma$-type instead of a separate function for the target
+terms of the branches.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Lim} :
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t}
+(\coqdocvar{f} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+\ensuremath{\rightarrow} \{ \coqdocvar{t'} : \coqref{Term.term}{\coqdocinductive{term}}
+\& \coqdocvar{s}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
+\coqdocvariable{t'} \}),\coqdoceol
+\coqdocindent{5.00em}
+\coqref{Rewriting.converges}{\coqdocdefinition{converges}}
+(\coqdockw{fun} \coqdocvar{n} \ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{projT1}{\coqdocdefinition{projT1}}
+(\coqdocvariable{f} \coqdocvariable{n})) \coqdocvariable{t}
+$\rightarrow$ (\coqdocvariable{s}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
+\coqdocvariable{t})\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+However, this type definition does not satisfy the positivity
+condition and therefore we cannot use it. We feel that the definition
+from Section~\ref{sec:seq}, which does satisfy the condition, models
+our intentions adequately.
+
+
+\subsection{Representation of Rewrite Sequences}
+
+Rewrite sequences can also be represented by partial functions from
+ordinals to rewrite steps.
+
+Versus our inductive definition.
+
+Restriction to rewrite sequences of length $\le \omega$.
 
 
 \section{Discussion}
