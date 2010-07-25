@@ -49,7 +49,7 @@ child {
       }
       edge from parent
     }
-    edge from parent node[midway] {$\qquad \; \ldots$}
+    edge from parent node[at end] {$\qquad \quad \ldots$}
   }
 }
 child {
@@ -90,7 +90,7 @@ child {
         }
         edge from parent
       }
-      edge from parent node[midway] {$\qquad \; \ldots$}
+      edge from parent node[at end] {$\qquad \quad \ldots$}
     }
     edge from parent
   }
@@ -135,7 +135,7 @@ child {
           }
           edge from parent
         }
-        edge from parent node[midway] {$\qquad \; \ldots$}
+        edge from parent node[at end] {$\qquad \quad \ldots$}
       }
       edge from parent
     }
@@ -183,13 +183,13 @@ child {
             }
             edge from parent
           }
-          edge from parent node[midway] {$\qquad \; \ldots$}
+          edge from parent node[at end] {$\qquad \quad \ldots$}
         }
         edge from parent
       }
     }
   }
-  edge from parent node[midway] {$\qquad \qquad \qquad \ldots$}
+  edge from parent node[at end] {$\qquad \quad \quad \ldots$}
 }
 }
 }

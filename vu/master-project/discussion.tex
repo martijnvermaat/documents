@@ -179,15 +179,48 @@ our intentions adequately.
 
 \subsection{Representation of Rewrite Sequences}
 
+TODO
+
 Rewrite sequences can also be represented by partial functions from
 ordinals to rewrite steps.
 
-Versus our inductive definition.
+The problem is that comparing ordinals is not decidable. Non-trivial
+rewrite sequences can then not be effectively constructed.
 
-Restriction to rewrite sequences of length $\le \omega$.
+Consider a rewrite sequence of length $\lambda$. For every
+ordinal $\alpha < \lambda$, the function representing this
+rewrite sequence must produce a step. For a non-trivial rewrite
+sequence, this means it has to decide, given an ordinal, what step to
+produce. But it cannot do this in finite time if comparing ordinals is
+not decidable.
+
+Comparing ordinals less than to some given upper bound may be
+decidable, so this would not be a problem if we construct rewrite
+sequences of limited length. Another representation for the ordinals
+might also help here, for example cantor normal forms where comparing
+is decidable (?).
+
+Motivated by the compression lemma, we could go even further and
+restrict our representation to rewrite sequences of length $\le
+\omega$. This is of course not a real option. Much of the theory could
+not be developed with this representation (e.g. compression itself)
+and many rewrite sequences are best represented with length $>
+\omega$.
+
+Versus our inductive definition.
 
 
 \section{Discussion}
+
+Our representation feels natural, but the traditional convergence
+definitions do not fit (easily). Maybe there are alternatives to our
+embedding relation, or can we index the steps in a different way than
+with predecessor indices.
+
+Functions from ordinals to steps have other problems. They could be
+investigated, especially using other ordinal representations such as
+cantor normal form. But this is very not \Coq-like (partial functions
+and algebraic representations).
 
 Bvector vs Vector: we did not really hit the guardedness restriction, so we
 could have used inductive Bvector. But it spells trouble later.
