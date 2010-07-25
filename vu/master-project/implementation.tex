@@ -37,8 +37,8 @@ in \Coq are
 \end{compactitem}
 For example,
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
-is the datatype of natural numbers. It lives in \coqdockw{Set} and is
-defined by induction.
+is the datatype of the natural numbers. It lives in \coqdockw{Set} and
+is defined by induction.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -234,9 +234,40 @@ ordinals (cf.~Definition~\ref{def:ordinals}) in \Coq by
 \coqref{Ordinal.ord}{\coqdocinductive{ord}}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
+Arithmetic operations on ordinals, such as addition, are easily
+defined.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Fixpoint} \coqdef{Ordinal.add}{add}{$+$}
+(\coqdocvar{$\alpha$} \coqdocvar{$\beta$} :
+\coqref{Ordinal.ord}{\coqdocinductive{ord}}) :
+\coqref{Ordinal.ord}{\coqdocinductive{ord}} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{$\beta$} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Ordinal.Zero}{\coqdocconstructor{Zero}}
+\ensuremath{\Rightarrow} \coqdocvariable{$\alpha$}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Ordinal.Succ}{\coqdocconstructor{Succ}}
+\coqdocvar{$\beta$} \ensuremath{\Rightarrow}
+\coqref{Ordinal.Succ}{\coqdocconstructor{Succ}}
+(\coqdocvariable{$\alpha$} \coqref{Ordinal.add}{$+$}
+\coqdocvariable{$\beta$})\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Ordinal.Limit}{\coqdocconstructor{Limit}}
+\coqdocvar{f}   \ensuremath{\Rightarrow}
+\coqref{Ordinal.Limit}{\coqdocconstructor{Limit}} (\coqdockw{fun}
+\coqdocvar{n} \ensuremath{\Rightarrow}
+\coqdocvariable{$\alpha$} \coqref{Ordinal.add}{$+$}
+(\coqdocvariable{f} \coqdocvariable{n}))\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
 In fact, all definitions from Section~\ref{sub:brouwer} translate directly to
-\Coq code. We can now prove basic properties of $\preceq$, for example that it
-is transitive.
+\Coq code. We can now prove basic properties of $\preceq$, for example
+that it is transitive.
 % TODO: maybe add another example
 \begin{singlespace}
 \begin{coqdoccode}
@@ -652,12 +683,12 @@ always \emph{total}).
 \coqdocnoindent
 \coqdockw{Fixpoint}
 \coqdef{Term.subterm}{subterm}{\coqdocdefinition{subterm}}
-(\coqdocvar{t} : \coqref{Term.term}{\coqdocabbreviation{term}})
+(\coqdocvar{t} : \coqref{Term.term}{\coqdocinductive{term}})
 (\coqdocvar{p} :
 \coqdocabbreviation{position})
 \{\coqdockw{struct} \coqdocvar{p}\} :
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{option}{\coqdocinductive{option}}
-\coqref{Term.term}{\coqdocabbreviation{term}} :=\coqdoceol
+\coqref{Term.term}{\coqdocinductive{term}} :=\coqdoceol
 \coqdocindent{1.00em}
 \coqdockw{match} \coqdocvariable{p} \coqdockw{with}\coqdoceol
 \coqdocindent{1.00em}
@@ -701,7 +732,7 @@ always \emph{total}).
 \coqdocemptyline
 \coqdocnoindent
 \coqdockw{Fixpoint} \coqdef{Context.dig}{dig}{\coqdocdefinition{dig}}
-(\coqdocvar{t} : \coqref{Term.term}{\coqdocabbreviation{term}})
+(\coqdocvar{t} : \coqref{Term.term}{\coqdocinductive{term}})
 (\coqdocvar{p} :
 \coqdocabbreviation{position})
 \{\coqdockw{struct} \coqdocvar{p}\} :
@@ -1009,8 +1040,8 @@ the source and target terms of the rewrite step.
 \coqdocvariable{$\varphi$})
 :\coqdoceol \coqdocindent{2.00em}
 \{ \coqdocvar{ts} :
-\coqref{Term.term}{\coqdocabbreviation{term}} \ensuremath{\times}
-\coqref{Term.term}{\coqdocabbreviation{term}} \&
+\coqref{Term.term}{\coqdocinductive{term}} \ensuremath{\times}
+\coqref{Term.term}{\coqdocinductive{term}} \&
 (\coqdocvariable{s} \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{fst}{\coqdocdefinition{fst}}
 \coqdocvariable{ts}) \ensuremath{\times}
@@ -1296,6 +1327,147 @@ als bomen) deelboom (en niet boom-factor).
 \coqdocvariable{f} \coqdocvariable{m}\coqdoceol
 \coqdocindent{1.00em}
 \coqdockw{end}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+
+\subsection{Combining Rewrite Sequences}\label{sub:combining}
+
+% TODO: maybe this should be before the previous subsection
+
+With the \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}}
+constructor, we can extend a rewrite sequence with one step at the
+end. Dually, \coqref{Rewriting.snoc}{\coqdocdefinition{snoc}} extends
+a rewrite sequence with one step at the start. It is the analogue of
+$1 \coqref{Ordinal.add}{+} \alpha$ on ordinals.
+
+\coqref{Rewriting.snoc}{\coqdocdefinition{snoc}} is recursive in its
+right argument, but for the \Coq type checker to accept our
+definition, we must write it such that it consumes this argument
+first.\footnote{The reason for this is rather technical, but the main
+  point is that the match function can be used such that the type of
+  unconsumed arguments change with it. We also give hints to match not
+  shown here. TODO: this formulation (maybe cpdt explains it nicely)}
+Hence, we use an auxiliary function
+\coqref{Rewriting.snocrec}{\coqdocdefinition{snoc\_rec}}.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Fixpoint}
+\coqdef{Rewriting.snocrec}{snoc\_rec}{\coqdocdefinition{snoc\_rec}}
+(\coqdocvar{s} \coqdocvar{t} \coqdocvar{u} :
+\coqref{Term.term}{\coqdocinductive{term}}) (\coqdocvar{$\varphi$} :
+\coqdocvariable{t}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
+\coqdocvariable{u}) : \coqdocvariable{s}
+\coqref{Rewriting.step}{$\rightarrow_\mathcal{R}$}
+\coqdocvariable{t} \ensuremath{\rightarrow} \coqdocvariable{s}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
+\coqdocvariable{u} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{$\varphi$} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Nil}{\coqdocconstructor{Nil}}
+\coqdocvar{\_}          \ensuremath{\Rightarrow} \coqdockw{fun}
+\coqdocvar{$\pi$} \ensuremath{\Rightarrow}
+\coqref{Rewriting.Cons}{\coqdocconstructor{Cons}}
+(\coqref{Rewriting.Nil}{\coqdocconstructor{Nil}} \coqdocvariable{s})
+\coqdocvariable{$\pi$}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{$\psi$} \coqdocvar{\_}
+\coqdocvar{$o$} \ensuremath{\Rightarrow} \coqdockw{fun} \coqdocvar{$\pi$}
+\ensuremath{\Rightarrow}
+\coqref{Rewriting.Cons}{\coqdocconstructor{Cons}}
+(\coqref{Rewriting.snocrec}{\coqdocdefinition{snoc\_rec}}
+\coqdocvariable{$\psi$} \coqdocvariable{$\pi$}) \coqdocvariable{$o$}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{f} \coqdocvar{u}
+\coqdocvar{c}  \ensuremath{\Rightarrow} \coqdockw{fun} \coqdocvar{$\pi$}
+\ensuremath{\Rightarrow}
+\coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} (\coqdockw{fun}
+\coqdocvar{$o$} \ensuremath{\Rightarrow}
+\coqref{Rewriting.snocrec}{\coqdocdefinition{snoc\_rec}}
+(\coqdocvariable{f} \coqdocvariable{$o$}) \coqdocvariable{$\pi$})
+\coqdocvariable{c}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdef{Rewriting.snoc}{snoc}{\coqdocdefinition{snoc}} (\coqdocvar{s}
+\coqdocvar{t} \coqdocvar{u} :
+\coqref{Term.term}{\coqdocinductive{term}}) (\coqdocvar{$\pi$}
+: \coqdocvar{s} \coqref{Rewriting.step}{$\rightarrow_\mathcal{R}$}
+\coqdocvar{t}) (\coqdocvar{$\varphi$} : \coqdocvariable{t}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvar{u}) :
+\coqdocvariable{s}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
+\coqdocvariable{u} :=
+\coqref{Rewriting.snocrec}{\coqdocdefinition{snoc\_rec}}
+\coqdocvariable{$\varphi$} \coqdocvariable{$\pi$}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+A related operation is concatenation of rewrite sequences, the
+analogue of addition on ordinals. It is defined in the same way as
+\coqref{Rewriting.snoc}{\coqdocdefinition{snoc}}.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Fixpoint}
+\coqdef{Rewriting.appendrec}{append\_rec}{\coqdocdefinition{concat\_rec}}
+(\coqdocvar{s} \coqdocvar{t} \coqdocvar{u} :
+\coqref{Term.term}{\coqdocinductive{term}}) (\coqdocvar{$\psi$} :
+\coqdocvariable{t}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
+\coqdocvariable{u}) : \coqdocvariable{s}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
+\coqdocvariable{t} \ensuremath{\rightarrow} \coqdocvariable{s}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
+\coqdocvariable{u} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{$\psi$} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Nil}{\coqdocconstructor{Nil}}
+\coqdocvar{\_}         \ensuremath{\Rightarrow} \coqdockw{fun}
+\coqdocvar{$\varphi$} \ensuremath{\Rightarrow} \coqdocvariable{$\varphi$}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{$\psi$} \coqdocvar{\_}
+\coqdocvar{$\pi$} \ensuremath{\Rightarrow} \coqdockw{fun} \coqdocvar{$\varphi$}
+\ensuremath{\Rightarrow}
+\coqref{Rewriting.Cons}{\coqdocconstructor{Cons}}
+(\coqref{Rewriting.appendrec}{\coqdocdefinition{concat\_rec}}
+\coqdocvariable{$\psi$} \coqdocvariable{$\varphi$}) \coqdocvariable{$\pi$}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{f} \coqdocvar{u}
+\coqdocvar{c}  \ensuremath{\Rightarrow} \coqdockw{fun} \coqdocvar{$\varphi$}
+\ensuremath{\Rightarrow}
+\coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} (\coqdockw{fun}
+\coqdocvar{$o$} \ensuremath{\Rightarrow}
+\coqref{Rewriting.appendrec}{\coqdocdefinition{concat\_rec}}
+(\coqdocvariable{f} \coqdocvariable{$o$}) \coqdocvariable{$\varphi$})
+\coqdocvariable{c}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdef{Rewriting.append}{append}{\coqdocdefinition{concat}}
+(\coqdocvar{s} \coqdocvar{t} \coqdocvar{u} :
+\coqref{Term.term}{\coqdocinductive{term}}) (\coqdocvar{$\varphi$} :
+\coqdocvar{s}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvar{t})
+(\coqdocvar{$\psi$} : \coqdocvariable{t}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvar{u}) :
+\coqdocvariable{s}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
+\coqdocvariable{u} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqref{Rewriting.appendrec}{\coqdocdefinition{concat\_rec}}
+\coqdocvariable{$\psi$} \coqdocvariable{$\varphi$}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 

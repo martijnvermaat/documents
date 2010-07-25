@@ -13,8 +13,6 @@ case.
 
 \section{A Counterexample}\label{sec:counterexample}
 
-% TODO: is the naming D,U really a good idea?
-
 We describe a simple counterexample showing that weak orthogonality
 does not imply the UN$^\infty$ property \citep{endrullis-10}.
 
@@ -107,7 +105,7 @@ orthogonal.
 \coqdocnoindent
 \coqdockw{Lemma}
 \coqdoclemma{wo$_\mathcal{R}$} :
-\coqdocdefinition{weakly\_orthogonal} % TODO: link to definition
+\coqref{Rewriting.weaklyorthogonal}{\coqdocdefinition{weakly\_orthogonal}}
 %\coqref{ExampleUNWO.UNWOtrs}{\coqdocdefinition{$\mathcal{R}$}}.\coqdoceol
 \coqdocdefinition{$\mathcal{R}$}.\coqdoceol
 \end{coqdoccode}
@@ -224,7 +222,7 @@ be such an occurence.
 \begin{coqdoccode}
 \coqdocnoindent
 \coqdockw{Lemma} \coqdoclemma{nf$_{\text{U}^\omega}$} :
-\coqdocdefinition{normal\_form} % TODO: link to definition
+\coqref{Rewriting.normalform}{\coqdocdefinition{normal\_form}}
 (\coqdocvar{system} :=
 \coqdocdefinition{$\mathcal{R}$})
 \coqref{ExampleUNWO.repeatU}{\coqdocdefinition{U$^\omega$}}.\coqdoceol
@@ -355,14 +353,7 @@ Generalising these rewrite steps
 the rewrite sequences
 \coqref{ExampleUNWO.phia}{\coqdocdefinition{$\varphi_a$}}. In their
 recursive definition, the \coqdocdefinition{snoc}
-function\footnote{With the
-  \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}} constructor, we
-  can extend a rewrite sequence with one step at the end. Dually,
-  \coqdocdefinition{snoc} extends a rewrite sequence
-  with one step at the start. It is the analogue of $1 + \alpha$ on
-  ordinals. The type of \coqdocdefinition{snoc}
-  is \begin{coqdoccode}\ldots\end{coqdoccode}. TODO: define snoc and
-    append in a separate subsection (3.4.2)} is used to
+function is used to
 prepend \begin{coqdoccode}(\coqref{ExampleUNWO.pi}{\coqdocdefinition{$\pi$}}
 \coqdocvariable{n} \coqdocvariable{m}
 \coqdocvariable{t})\end{coqdoccode} to
@@ -398,7 +389,7 @@ useful type.
 \ensuremath{|}
 \coqdocconstructor{S}
 \coqdocvar{m} \ensuremath{\Rightarrow}
-\coqdocdefinition{snoc} % TODO: define snoc and link to it
+\coqref{Rewriting.snoc}{\coqdocdefinition{snoc}}
 (\coqref{ExampleUNWO.pi}{\coqdocdefinition{$\pi$}}
 \coqdocvariable{n} \coqdocvariable{m} \coqdocvariable{t})
 (\coqref{ExampleUNWO.phia}{\coqdocdefinition{$\varphi_a$}}
@@ -452,7 +443,7 @@ to any given depth.
 \ensuremath{|}
 \coqdocconstructor{S}
 \coqdocvar{n} \ensuremath{\Rightarrow}
-\coqdocdefinition{append} % TODO: define append and link to it
+\coqref{Rewriting.append}{\coqdocdefinition{concat}}
 (\coqref{ExampleUNWO.phic}{\coqdocdefinition{$\varphi_c$}}
 \coqdocvariable{n})
 (\coqref{ExampleUNWO.phib}{\coqdocdefinition{$\varphi_b$}}
