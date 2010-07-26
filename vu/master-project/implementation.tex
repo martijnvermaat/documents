@@ -205,7 +205,7 @@ of \begin{coqdoccode}\coqref{CoqIntro.Pos}{\coqdocconstructor{Pos}} 3
 % TODO: more?
 
 
-\section{Ordinal Numbers}
+\section{Ordinal Numbers}\label{sec:ordimp}
 
 In the theory of infinitary rewriting, the lengths of rewrite sequences play
 a central role. Therefore, any reasonable formalisation of infinitary
@@ -955,7 +955,7 @@ condition that these terms must converge to the target term
 \coqdocvariable{t}.
 \begin{singlespace}
 \begin{coqdoccode}
-\coqdocindent{1.00em}
+\coqdocindent{1.00em}\label{coq:lim}
 \ensuremath{|} \coqdef{Rewriting.Lim}{Lim}{\coqdocconstructor{Lim}} :
 \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t}
 (\coqdocvar{ts} :
@@ -1107,7 +1107,6 @@ In an effort to prevent getting lost in a syntactical labyrinth, we define
 the following notational shortcuts:
 
 % TODO: keep an eye on placement of the table
-% TODO: maybe add real Coq code in a third column
 {\renewcommand{\arraystretch}{1.1}
 \renewcommand{\tabcolsep}{6pt}
 \begin{tabular}{lll}
@@ -1266,10 +1265,9 @@ $\rightarrow$ \coqdockw{Prop} :=\coqdoceol
 \coqdocvariable{$\psi$}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-% TODO: (f n) without ()
-% TODO: say what implicit/explicit arguments for cons and lim are
 
-TODO: Strict embedding relation. It really expands after the last step!
+Analoguous to the strict order $\prec$ on ordinals, we define a strict
+embedding relation $\sqsubset$ on rewrite sequences.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -1287,17 +1285,24 @@ TODO: Strict embedding relation. It really expands after the last step!
 \coqdocvariable{$\psi$}[\coqdocvariable{$\iota$}]$^\textsc{seq}$.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
+Note that, while non-strictly embedded rewrite sequences may differ in
+any of the three ways defined above, strictly embedded rewrite
+sequences always differ in their last step. Thus, if $\varphi$ is
+strictly embedded in $\psi$ then $\psi$ can be obtained from $\varphi$
+by inserting any number of steps in $\varphi$, but at least one after
+the last step.
 
 
-\subsection{Well-formed Rewrite Sequences and Convergence}\label{sub:wf}
+\subsection{Well-formed Rewrite Sequences}\label{sub:wf}
 
-On \coqref{Ordinal.ord}{\coqdocinductive{ord}} we defined the
-\coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} property to rule out a certain
-class of ordinal representations. This issue translates directly to our
-inductive representation of rewrite sequences.
-
-$\sqsubset$ turns out to be satisfying for our present purposes.
-
+The \coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} property on
+\coqref{Ordinal.ord}{\coqdocinductive{ord}} is defined in
+Section~\ref{sec:ordimp} to rule out a
+certain class of ordinal representations. This issue translates
+directly to our inductive representation of rewrite sequences. We
+define a well-formedness property
+\coqref{Rewriting.wf}{\coqdocdefinition{wf}} on rewrite sequences,
+using the strict embedding relation $\sqsubset$.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -1336,114 +1341,63 @@ $\sqsubset$ turns out to be satisfying for our present purposes.
 \end{coqdoccode}
 \end{singlespace}
 
-TODO: think harder about what it means to have an embedding relation instead
-of a prefix relation. Vincent said this about it:
-\begin{quote}
-Overigens bedachten dat het in principe niet heel erg is $\sqsubseteq$ te
-definieren voor reducties zoals voor ordinalen. alleen zie je dan het meer een
-notie van embedding/deelreductie ipv een notie van prefix geeft, maar ook daar
-kun je denkelijk goed mee werken.
+% TODO: check if this page ref is correct
+On page~\pageref{coq:lim}, we define the
+\coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} constructor with the
+intuition that each of its branches should extend on the preceeding
+ones. Naturally, we would implement this condition using a strict prefix
+relation on rewrite sequences, but the strict embedding relation
+$\sqsubset$ is also satisfying for this purpose.
 
-\ldots
+Consider an instance of
+\coqref{Rewriting.Lim}{\coqdocconstructor{Lim}}, satisfying
+\coqref{Rewriting.wf}{\coqdocdefinition{wf}}, with branches
+\coqdocvar{f}. For every \begin{coqdoccode}\coqdocvariable{n} <
+  \coqdocvariable{m}\end{coqdoccode}, we
+have \begin{coqdoccode}\coqdocvariable{f} \coqdocvariable{n}
+  \coqref{Rewriting.embedstrict}{$\sqsubset$} \coqdocvariable{f}
+  \coqdocvariable{m}\end{coqdoccode}. Thus there is a predecessor
+sequence % \coqdocvariable{$\varphi$}
+of \begin{coqdoccode}\coqdocvariable{f}
+  \coqdocvariable{m}\end{coqdoccode} that can be obtained
+from \begin{coqdoccode}\coqdocvariable{f}
+  \coqdocvariable{n}\end{coqdoccode} by inserting any number of steps
+in \begin{coqdoccode}\coqdocvariable{f}
+  \coqdocvariable{n}\end{coqdoccode}. Steps inserted before the last
+step of \begin{coqdoccode}\coqdocvariable{f}
+  \coqdocvariable{n}\end{coqdoccode} must form a cycle (note that all
+branches start at the same % TODO: is spacing ok after therefore, ?
+term). Therefore, \begin{coqdoccode}\coqdocvariable{f}
+  \coqdocvariable{m}\end{coqdoccode} can be obtained
+from \begin{coqdoccode}\coqdocvariable{f}
+  \coqdocvariable{n}\end{coqdoccode} by adding one or more steps at
+the end of \begin{coqdoccode}\coqdocvariable{f}
+  \coqdocvariable{n}\end{coqdoccode} and possibly inserting cycles at
+other positions of \begin{coqdoccode}\coqdocvariable{f}
+  \coqdocvariable{n}\end{coqdoccode}. This shows that, ignoring
+cycles, $\sqsubset$ actually defines a strict prefix relation on the
+branches of \coqdocvar{f}.
 
-als je een stuk invoegt in het midden in sigma moet dat noodzakelijkerwijs,
-vanwege de constraints op begin-en eindpunten, een reductie cykel zijn. ik zou
-verwachten dat dat uiteindelijk een goede notie van ordening (goede reducties)
-oplevert (``de cykels doen er niet toe voor convergente rijen, en kun je
-weglaten bij compressie''), die natuurlijk niet overeenkomt, ook niet in het
-eindige geval met de prefix notie; het is deelwoord, of (op reductie rijtjes
-als bomen) deelboom (en niet boom-factor).
-\end{quote}
-
-And here are some convergence definitions we cannot seem to work
-with really.
-\begin{singlespace}
-\begin{coqdoccode}
-\coqdocnoindent
-\coqdockw{Fixpoint}
-\coqdef{Rewriting.weaklyconvergent}{weakly\_convergent}{\coqdocdefinition{weakly\_convergent}}
-\coqdocvar{s} \coqdocvar{t} (\coqdocvar{$\varphi$} : \coqdocvar{s} \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvar{t}) : \coqdockw{Prop}
-:=\coqdoceol
-\coqdocindent{1.00em}
-\coqdockw{match} \coqdocvariable{$\varphi$} \coqdockw{with}\coqdoceol
-\coqdocindent{1.00em}
-\ensuremath{|} \coqref{Rewriting.Nil}{\coqdocconstructor{Nil}}
-\coqdocvar{\_}          \ensuremath{\Rightarrow}
-\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Logic}{True}{\coqdocinductive{True}}\coqdoceol
-\coqdocindent{1.00em}
-\ensuremath{|} \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}}
-\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{$\psi$} \coqdocvar{\_}
-\coqdocvar{\_} \ensuremath{\Rightarrow}
-\coqref{Rewriting.weaklyconvergent}{\coqdocdefinition{weakly\_convergent}}
-\coqdocvariable{$\psi$}\coqdoceol
-\coqdocindent{1.00em}
-\ensuremath{|} \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}}
-\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{f} \coqdocvar{t}
-\coqdocvar{\_}  \ensuremath{\Rightarrow}\coqdoceol
-\coqdocindent{2.00em}
-(\ensuremath{\forall} \coqdocvar{n},
-\coqref{Rewriting.weaklyconvergent}{\coqdocdefinition{weakly\_convergent}}
-(\coqdocvariable{f} \coqdocvariable{n})) \ensuremath{\land}\coqdoceol
-\coqdocindent{2.00em}
-\ensuremath{\forall} \coqdocvar{d}, \ensuremath{\exists}
-\coqdocvar{n}, \ensuremath{\forall} \coqdocvar{$\iota$},\coqdoceol
-\coqdocindent{3.00em}
-\coqdocvariable{f} \coqdocvariable{n} \coqref{Rewriting.embed}{$\sqsubseteq$}
-\coqdocvariable{$\varphi$}[\coqdocvariable{$\iota$}]$^\textsc{seq}$
-\ensuremath{\rightarrow}\coqdoceol
-\coqdocindent{3.00em}
-\coqdocvariable{$\varphi$}[\coqdocvariable{$\iota$}]$^\textsc{l}$
-\coqref{TermEquality.termequpto}{\equpto{\coqdocvariable{d}}}
-\coqdocvariable{t}\coqdoceol
-\coqdocindent{1.00em}
-\coqdockw{end}.\coqdoceol
-\coqdocemptyline
-\coqdocnoindent
-\coqdockw{Fixpoint}
-\coqdef{Rewriting.stronglyconvergent}{strongly\_convergent}{\coqdocdefinition{strongly\_convergent}}
-\coqdocvar{s} \coqdocvar{t} (\coqdocvar{$\varphi$} : \coqdocvar{s} \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvar{t}) : \coqdockw{Prop}
-:=\coqdoceol
-\coqdocindent{1.00em}
-\coqdockw{match} \coqdocvariable{$\varphi$} \coqdockw{with}\coqdoceol
-\coqdocindent{1.00em}
-\ensuremath{|} \coqref{Rewriting.Nil}{\coqdocconstructor{Nil}}
-\coqdocvar{\_}          \ensuremath{\Rightarrow}
-\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Logic}{True}{\coqdocinductive{True}}\coqdoceol
-\coqdocindent{1.00em}
-\ensuremath{|} \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}}
-\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{$\psi$} \coqdocvar{\_}
-\coqdocvar{\_} \ensuremath{\Rightarrow}
-\coqref{Rewriting.stronglyconvergent}{\coqdocdefinition{strongly\_convergent}}
-\coqdocvariable{$\psi$}\coqdoceol
-\coqdocindent{1.00em}
-\ensuremath{|} \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}}
-\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{f} \coqdocvar{t}
-\coqdocvar{\_}  \ensuremath{\Rightarrow}\coqdoceol
-\coqdocindent{2.00em}
-(\ensuremath{\forall} \coqdocvar{n},
-\coqref{Rewriting.stronglyconvergent}{\coqdocdefinition{strongly\_convergent}}
-(\coqdocvariable{f} \coqdocvariable{n})) \ensuremath{\land}\coqdoceol
-\coqdocindent{2.00em}
-\ensuremath{\forall} \coqdocvar{d}, \ensuremath{\exists}
-\coqdocvar{i}, \ensuremath{\forall} \coqdocvar{j},\coqdoceol
-\coqdocindent{3.00em}
-\coqdocvariable{$\varphi$}[\coqdocvar{seq} \coqdocvariable{i}]
-\ensuremath{\le} \coqdocvariable{$\varphi$}[\coqdocvar{seq}
-  \coqdocvariable{j}] \ensuremath{\rightarrow}\coqdoceol
-\coqdocindent{3.00em}
-(\coqref{Rewriting.depth}{\coqdocdefinition{depth}}
-(\coqdocvariable{$\varphi$}[\coqdocvar{stp} \coqdocvariable{j}]) >
-\coqdocvariable{d})\%nat\coqdoceol
-\coqdocindent{1.00em}
-\coqdockw{end}.\coqdoceol
-\end{coqdoccode}
-\end{singlespace}
-Strong convergence should include weak convergence.
+%Vincent said this about it:
+%\begin{quote}
+%Overigens bedachten dat het in principe niet heel erg is $\sqsubseteq$ te
+%definieren voor reducties zoals voor ordinalen. alleen zie je dan het meer een
+%notie van embedding/deelreductie ipv een notie van prefix geeft, maar ook daar
+%kun je denkelijk goed mee werken.
+%
+%\ldots
+%
+%als je een stuk invoegt in het midden in sigma moet dat noodzakelijkerwijs,
+%vanwege de constraints op begin-en eindpunten, een reductie cykel zijn. ik zou
+%verwachten dat dat uiteindelijk een goede notie van ordening (goede reducties)
+%oplevert (``de cykels doen er niet toe voor convergente rijen, en kun je
+%weglaten bij compressie''), die natuurlijk niet overeenkomt, ook niet in het
+%eindige geval met de prefix notie; het is deelwoord, of (op reductie rijtjes
+%als bomen) deelboom (en niet boom-factor).
+%\end{quote}
 
 
 \subsection{Combining Rewrite Sequences}\label{sub:combining}
-
-% TODO: maybe this should be before the previous subsection
 
 With the \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}}
 constructor, we can extend a rewrite sequence with one step at the
@@ -1573,6 +1527,29 @@ analogue of addition on ordinals. It is defined in the same way as
 \coqdocvariable{u} :=
 \coqref{Rewriting.appendrec}{\coqdocdefinition{concat\_rec}}
 \coqdocvariable{$\psi$} \coqdocvariable{$\varphi$}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+Well-formedness is preserved under concatenation.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdef{Rewriting.appendwf}{append\_wf}{\coqdoclemma{concat\_wf}} :
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t} \coqdocvar{u}
+(\coqdocvar{$\varphi$} : \coqdocvar{s}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
+\coqdocvar{t}) (\coqdocvar{$\psi$} : \coqdocvariable{t}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
+\coqdocvar{u}),\coqdoceol
+\coqdocindent{9.00em}
+\coqref{Rewriting.wf}{\coqdocdefinition{wf}} \coqdocvariable{$\varphi$}
+\ensuremath{\rightarrow}
+\coqref{Rewriting.wf}{\coqdocdefinition{wf}} \coqdocvariable{$\psi$}
+\ensuremath{\rightarrow}
+\coqref{Rewriting.wf}{\coqdocdefinition{wf}}
+(\coqref{Rewriting.append}{\coqdocdefinition{concat}}
+\coqdocvariable{$\varphi$} \coqdocvariable{$\psi$}).\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 

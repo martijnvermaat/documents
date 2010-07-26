@@ -33,7 +33,7 @@ type).\footnote{To be more precise, the corecursive call is also
   allowed to occur inside \coqdockw{match} constructs and other
   corecursive definitions.}
 
-In the \coqref{Term.term}{\coqdocinductive{term}} definition, we used a vector
+In the \coqref{Term.term}{\coqdocinductive{term}} definition, we use a vector
 type, parameterised by the type of its element and its size. Naturally, one
 would implement a vector type in \Coq inductively, as for example has been
 done in the standard library.
@@ -175,6 +175,94 @@ However, this type definition does not satisfy the positivity
 condition and therefore we cannot use it. We feel that the definition
 from Section~\ref{sec:seq}, which does satisfy the condition, models
 our intentions adequately.
+
+
+\subsection{Convergence Conditions}
+
+And here are some convergence definitions we cannot seem to work
+with really.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Fixpoint}
+\coqdef{Rewriting.weaklyconvergent}{weakly\_convergent}{\coqdocdefinition{weakly\_convergent}}
+\coqdocvar{s} \coqdocvar{t} (\coqdocvar{$\varphi$} : \coqdocvar{s} \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvar{t}) : \coqdockw{Prop}
+:=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{$\varphi$} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Nil}{\coqdocconstructor{Nil}}
+\coqdocvar{\_}          \ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Logic}{True}{\coqdocinductive{True}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{$\psi$} \coqdocvar{\_}
+\coqdocvar{\_} \ensuremath{\Rightarrow}
+\coqref{Rewriting.weaklyconvergent}{\coqdocdefinition{weakly\_convergent}}
+\coqdocvariable{$\psi$}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{f} \coqdocvar{t}
+\coqdocvar{\_}  \ensuremath{\Rightarrow}\coqdoceol
+\coqdocindent{2.00em}
+(\ensuremath{\forall} \coqdocvar{n},
+\coqref{Rewriting.weaklyconvergent}{\coqdocdefinition{weakly\_convergent}}
+(\coqdocvariable{f} \coqdocvariable{n})) \ensuremath{\land}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{\forall} \coqdocvar{d}, \ensuremath{\exists}
+\coqdocvar{n}, \ensuremath{\forall} \coqdocvar{$\iota$},\coqdoceol
+\coqdocindent{3.00em}
+\coqdocvariable{f} \coqdocvariable{n} \coqref{Rewriting.embed}{$\sqsubseteq$}
+\coqdocvariable{$\varphi$}[\coqdocvariable{$\iota$}]$^\textsc{seq}$
+\ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{3.00em}
+\coqdocvariable{$\varphi$}[\coqdocvariable{$\iota$}]$^\textsc{l}$
+\coqref{TermEquality.termequpto}{\equpto{\coqdocvariable{d}}}
+\coqdocvariable{t}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Fixpoint}
+\coqdef{Rewriting.stronglyconvergent}{strongly\_convergent}{\coqdocdefinition{strongly\_convergent}}
+\coqdocvar{s} \coqdocvar{t} (\coqdocvar{$\varphi$} : \coqdocvar{s} \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvar{t}) : \coqdockw{Prop}
+:=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{$\varphi$} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Nil}{\coqdocconstructor{Nil}}
+\coqdocvar{\_}          \ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Logic}{True}{\coqdocinductive{True}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{$\psi$} \coqdocvar{\_}
+\coqdocvar{\_} \ensuremath{\Rightarrow}
+\coqref{Rewriting.stronglyconvergent}{\coqdocdefinition{strongly\_convergent}}
+\coqdocvariable{$\psi$}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}}
+\coqdocvar{\_} \coqdocvar{\_} \coqdocvar{f} \coqdocvar{t}
+\coqdocvar{\_}  \ensuremath{\Rightarrow}\coqdoceol
+\coqdocindent{2.00em}
+(\ensuremath{\forall} \coqdocvar{n},
+\coqref{Rewriting.stronglyconvergent}{\coqdocdefinition{strongly\_convergent}}
+(\coqdocvariable{f} \coqdocvariable{n})) \ensuremath{\land}\coqdoceol
+\coqdocindent{2.00em}
+\ensuremath{\forall} \coqdocvar{d}, \ensuremath{\exists}
+\coqdocvar{i}, \ensuremath{\forall} \coqdocvar{j},\coqdoceol
+\coqdocindent{3.00em}
+\coqdocvariable{$\varphi$}[\coqdocvar{seq} \coqdocvariable{i}]
+\ensuremath{\le} \coqdocvariable{$\varphi$}[\coqdocvar{seq}
+  \coqdocvariable{j}] \ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{3.00em}
+(\coqref{Rewriting.depth}{\coqdocdefinition{depth}}
+(\coqdocvariable{$\varphi$}[\coqdocvar{stp} \coqdocvariable{j}]) >
+\coqdocvariable{d})\%nat\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+Strong convergence should include weak convergence.
 
 
 \subsection{Representation of Rewrite Sequences}
