@@ -249,15 +249,16 @@ with really.
 (\coqdocvariable{f} \coqdocvariable{n})) \ensuremath{\land}\coqdoceol
 \coqdocindent{2.00em}
 \ensuremath{\forall} \coqdocvar{d}, \ensuremath{\exists}
-\coqdocvar{i}, \ensuremath{\forall} \coqdocvar{j},\coqdoceol
+\coqdocvar{$\iota$}, \ensuremath{\forall} \coqdocvar{$\kappa$},\coqdoceol
 \coqdocindent{3.00em}
-\coqdocvariable{$\varphi$}[\coqdocvar{seq} \coqdocvariable{i}]
-\ensuremath{\le} \coqdocvariable{$\varphi$}[\coqdocvar{seq}
-  \coqdocvariable{j}] \ensuremath{\rightarrow}\coqdoceol
+\coqdocvariable{$\varphi$}[\coqdocvariable{$\iota$}]$^\textsc{seq}$
+\coqref{Rewriting.embed}{$\sqsubseteq$}
+\coqdocvariable{$\varphi$}[\coqdocvariable{$\kappa$}]$^\textsc{seq}$
+\ensuremath{\rightarrow}\coqdoceol
 \coqdocindent{3.00em}
-(\coqref{Rewriting.depth}{\coqdocdefinition{depth}}
-(\coqdocvariable{$\varphi$}[\coqdocvar{stp} \coqdocvariable{j}]) >
-\coqdocvariable{d})\%nat\coqdoceol
+\coqdocvariable{d} $\le$
+\coqdocdefinition{depth}
+\coqdocvariable{$\varphi$}[\coqdocvariable{$\kappa$}]$^\textsc{stp}$\coqdoceol
 \coqdocindent{1.00em}
 \coqdockw{end}.\coqdoceol
 \end{coqdoccode}
