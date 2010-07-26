@@ -267,8 +267,16 @@ defined.
 \end{singlespace}
 In fact, all definitions from Section~\ref{sub:brouwer} translate directly to
 \Coq code. We can now prove basic properties of $\preceq$, for example
-that it is transitive.
-% TODO: maybe add another example
+that it is transitive and that, for the finite ordinals, it coincides
+with the standard order on the natural numbers.\footnote{Although
+  \coqdocvariable{n} and \coqdocvariable{m} have type
+  \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+  and $\preceq$ has type \coqref{Ordinal.ord}{\coqdocinductive{ord}}
+  $\rightarrow$ \coqref{Ordinal.ord}{\coqdocinductive{ord}}
+  $\rightarrow$ \coqdockw{Prop}, we can state the lemma in this
+  concise way by defining the trivial coercion from
+  \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+  to \coqref{Ordinal.ord}{\coqdocinductive{ord}}.}
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -285,6 +293,13 @@ that it is transitive.
 \ensuremath{\rightarrow} \coqdocvariable{\ensuremath{\alpha}}
 \ensuremath{\preceq}
 \coqdocvariable{\ensuremath{\gamma}}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdef{Ordinal.ordlele}{ord\_le\_le}{\coqdoclemma{\ensuremath{\preceq_\text{nat}}}} :
+\ensuremath{\forall} \coqdocvar{n} \coqdocvar{m}, \coqdocvariable{n}
+\ensuremath{\le} \coqdocvariable{m} \ensuremath{\leftrightarrow}
+\coqdocvariable{n} \ensuremath{\preceq} \coqdocvariable{m}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 
@@ -354,15 +369,11 @@ the resulting subset.
 \}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-Now we can prove the stronger result we were looking for.\footnote{Although
-  \coqdocvariable{\ensuremath{\alpha}} has type
-  \coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}} and $\preceq$
-  has type \coqref{Ordinal.ord}{\coqdocinductive{ord}} $\rightarrow$
-  \coqref{Ordinal.ord}{\coqdocinductive{ord}} $\rightarrow$ \coqdockw{Prop},
-  we can state the lemma in this concise way by defining a simple coercion
-  from \coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}} to
+Now we can prove the stronger result we were looking
+for.\footnote{Again, defining a simple coercion from
+  \coqref{WfOrdinal.wford}{\coqdocdefinition{ord$^\text{wf}$}} to
   \coqref{Ordinal.ord}{\coqdocinductive{ord}} (first $\Sigma$-type
-  projection).}
+  projection) lets us state this lemma concisely.}
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -1090,22 +1101,41 @@ the source and target terms of the rewrite step.
 \coqdockw{end}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-% TODO: we simplified this (mainly type inference helpers)
 
+% TODO: too dramatic
 In an effort to prevent getting lost in a syntactical labyrinth, we define
 the following notational shortcuts:
 
 % TODO: keep an eye on placement of the table
 % TODO: maybe add real Coq code in a third column
 {\renewcommand{\arraystretch}{1.1}
-\renewcommand{\tabcolsep}{10pt}
-\begin{tabular}{ll}
-$\varphi[\iota]$ & location of $\varphi$ indexed by $\iota$\\
-$\varphi[\iota]^\textsc{seq}$ & predecessor rewrite sequence of $\varphi$ indexed by $\iota$\\
-$\varphi[\iota]^\textsc{stp}$ & step of $\varphi$ indexed by $\iota$\\
-$\varphi[\iota]^\textsc{l}$ & source term of $\varphi[\iota]^\textsc{stp}$ (also target term
-  of $\varphi[\iota]^\textsc{seq}$)\\
-$\varphi[\iota]^\textsc{r}$ & target term of $\varphi[\iota]^\textsc{stp}$
+\renewcommand{\tabcolsep}{6pt}
+\begin{tabular}{lll}
+& \textsc{description} & \textsc{definition}\\
+\hline
+\coqdocvar{$\varphi$}[\coqdocvar{$\iota$}] & location in
+\coqdocvar{$\varphi$} indexed by \coqdocvar{$\iota$} &
+  \begin{coqdoccode}\coqref{Rewriting.pred}{\coqdocdefinition{pred}} \coqdocvar{$\varphi$} \coqdocvar{$\iota$}\end{coqdoccode} \\
+\coqdocvar{$\varphi$}[\coqdocvar{$\iota$}]$^\textsc{seq}$ & predecessor rewrite sequence of
+  \coqdocvar{$\varphi$} indexed by \coqdocvar{$\iota$}
+  & \begin{coqdoccode}\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{fst}{\coqdocdefinition{fst}}
+      (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{projT2}{\coqdocdefinition{projT2}}
+      (\coqref{Rewriting.pred}{\coqdocdefinition{pred}} \coqdocvar{$\varphi$} \coqdocvar{$\iota$}))\end{coqdoccode}
+  \\
+\coqdocvar{$\varphi$}[\coqdocvar{$\iota$}]$^\textsc{stp}$ & step of \coqdocvar{$\varphi$} indexed by \coqdocvar{$\iota$} &
+  \begin{coqdoccode}\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{snd}{\coqdocdefinition{snd}}
+    (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{projT2}{\coqdocdefinition{projT2}}
+    (\coqref{Rewriting.pred}{\coqdocdefinition{pred}} \coqdocvar{$\varphi$} \coqdocvar{$\iota$}))\end{coqdoccode}
+  \\
+\coqdocvar{$\varphi$}[\coqdocvar{$\iota$}]$^\textsc{l}$ & source term of \coqdocvar{$\varphi$}[\coqdocvar{$\iota$}]$^\textsc{stp}$
+  & \begin{coqdoccode}\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{fst}{\coqdocdefinition{fst}}
+      (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{projT1}{\coqdocdefinition{projT1}}
+      (\coqref{Rewriting.pred}{\coqdocdefinition{pred}} \coqdocvar{$\varphi$} \coqdocvar{$\iota$}))\end{coqdoccode}
+  \\
+\coqdocvar{$\varphi$}[\coqdocvar{$\iota$}]$^\textsc{r}$ & target term of
+  \coqdocvar{$\varphi$}[\coqdocvar{$\iota$}]$^\textsc{stp}$ & \begin{coqdoccode}\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{snd}{\coqdocdefinition{snd}}
+    (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{projT1}{\coqdocdefinition{projT1}}
+    (\coqref{Rewriting.pred}{\coqdocdefinition{pred}} \coqdocvar{$\varphi$} \coqdocvar{$\iota$}))\end{coqdoccode}
 \end{tabular}}
 
 As an example of predecessor indexing, consider the graphical
@@ -1134,12 +1164,12 @@ $t_3$ to $t_4$.
 % TODO: picture of this embedding behaviour?
 Having a closer look at the order $\preceq$ on the Brouwer ordinals, we can
 see that it really defines embeddings of their tree structures. This is due to
-clause (\ref{def:order:succ}) of Definition~\ref{def:order}. In this clause,
-two occurrences of the $^+$ constructor (one in both ordinals) are cancelled
-out against each other, but the positions of these occurences in their
-respective ordinals do not necessarily correspond. Since occurrences
-of $^+$ carry no additional information, this has no effect on the resulting
-relation.
+clause {\sc \ref{def:order:succ}} of Definition~\ref{def:order}. In
+this clause, two occurrences of the $^+$ constructor (one in both
+ordinals) are cancelled out against each other, but the positions of
+these occurences in their respective ordinals do not necessarily
+correspond. Since occurrences of $^+$ carry no additional information,
+this has no effect on the resulting relation.
 
 % TODO: should we use the word 'iff'?
 What this means for a translation of $\preceq$ to the domain of our

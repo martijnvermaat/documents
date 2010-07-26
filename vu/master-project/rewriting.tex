@@ -110,14 +110,16 @@ induction:
 \input{figures/brouwer.tikz}
 \end{tikzpicture}
 \end{center}
-\caption{A representation for $\omega \times 2 + 2$.}\label{fig:brouwer}
+\caption{A representation of $\omega \times 2 + 2$.}\label{fig:brouwer}
 \end{figure}
 
 Now zero is represented by $0$, a successor ordinal $\alpha +1$ is represented
 by $\alpha^+$ and a limit ordinal $\lambda$ is represented by $\sqcup_i
 \alpha_i$ if $\lambda$ is the least upper bound of the sequence $\alpha_1,
-\alpha_2, \alpha_3, \ldots$. Again, we identify ordinals and their
-representation as Brouwer ordinal.
+\alpha_2, \alpha_3, \ldots$. As an example of a Brouwer ordinal,
+Figure~\ref{fig:brouwer} visualises a representation of $\omega \times
+2 + 2$. Again, we identify ordinals and their representation as
+Brouwer ordinal.
 
 % TODO: some ordinals have no representation as Brouwer ordinal at all
 Some ordinals have no unique representation as Brouwer ordinal. Consider for
@@ -212,8 +214,12 @@ $\beta \preceq \alpha$. Second, the extensional \emph{strict order}
 $\alpha \prec \beta$ holds if $\alpha \preceq \beta[\iota]$ holds for
 some $\iota \in \Phi(\beta)$.
 
-TODO: prove that $\prec$ is just $<$ on the finite ordinals
-% TODO: maybe define well-formed ordinals here
+%\begin{proposition}\label{prop:ord}
+%$\alpha \le \beta \Leftrightarrow \alpha \preceq \beta$ for all finite ordinals $\alpha$ and $\beta$.
+%\end{proposition}
+%\begin{proof}
+%By induction on $\beta$.
+%\end{proof}
 
 
 \section{Term Rewriting}\label{sec:rewriting}

@@ -164,11 +164,12 @@
 \usepackage[labelfont=sc,labelsep=period]{caption}
 
 % Figure numbering
-\renewcommand{\thefigure}{\arabic{figure}}
+%\renewcommand{\thefigure}{\arabic{figure}}
+\numberwithin{figure}{chapter}
 
 % Additional list environments
 \usepackage{paralist}
-\setdefaultenum{i.}{a.}{}{}
+\setdefaultenum{\sc i.}{a.}{}{}
 
 % TODO: title page layout
 % TODO: bibliography style
