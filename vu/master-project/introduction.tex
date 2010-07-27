@@ -4,9 +4,9 @@
 This thesis describes a formalisation of the theory of infinitary term
 rewriting in the \Coq proof assistant. The foundation of \Coq is a
 constructive type theory with inductive types, whereas infinitary term
-rewriting, building on the theory of finitary rewriting rewriting,
-uses notions from topology, set theory and analysis, but not
-necessarily in a constructive way.
+rewriting, building on the theory of finitary rewriting, uses notions
+from topology, set theory and analysis, but not necessarily in a
+constructive way.
 
 The central question we aim to answer in this thesis is whether the
 traditional notions from infinitary term rewriting can be translated
@@ -19,8 +19,8 @@ it should preserve the semantics of the original notions.
 In the remainder we may simply write `rewriting' instead of
 `infinitary rewriting' and `term' instead of `infinite
 term'. Furthermore, it should be noted that an infinite term is to be
-understood as a term with a \emph{possibly} infinite depth, i.e.\ the
-class of infinite terms includes the finite terms.
+understood as a term with a \emph{possibly} infinite depth, that is,
+the class of infinite terms includes the finite terms.
 
 Although this text contains a fair amount of \Coq code, it is not our
 intention to completely list a development ready for compiling. Rather, the
@@ -31,7 +31,7 @@ are simplified and/or typographically enhanced to a form beyond of what the
 reader is invited to study the full source code, with proofs, which is
 available at \url{http://martijn.vermaat.name/master-project/}.
 
-A list of notations can be found on page~\pageref{chap:glossary}.
+A glossary of notations can be found on page~\pageref{chap:glossary}.
 
 
 \section{Infinitary Rewriting}
@@ -49,9 +49,9 @@ with applications as a model of computation or as logical framework.
 considering infinitely large objects and series of transfinitely many
 transformation steps. One could question the validity of this
 generalization, especially in the context of mechanical formalisation
-with which this thesis is concerned. After all, the word
-\emph{mechanical} implies finite restrictions on the amounts of space
-and time we can use.
+with which this thesis is concerned. After all, the word `mechanical'
+implies finite restrictions on the amounts of space and time we can
+use.
 
 However, mathematicians (and computer scientists for that matter) have
 long had ample reason to include the infinite in their work. In
@@ -90,11 +90,30 @@ what infinite objects are allowed and what we understand by
 transfinite sequences of rewrite steps.
 
 
-\section{Mechanical Formalisation}
+\section{Mechanical Formalisations}
 
-Formalizing on a computer.
+The translation of infinitary rewriting to \Coq is an example of the
+mechanical formalisation of a mathematical theory. By `mechanical' we
+mean that the formalisation must be in a form that can be manipulated
+by a machine. Scriblings on paper or ideas in one's head do not
+qualify as mechanical formalisations. Furthermore, we want the
+formalisation to represent the theory's semantics.
 
-TODO: why formalise a theory? related work.
+The premises of such formalisations include:
+\begin{asparadesc}
+  \item[\normalfont{\emph{Increase of confidence}}\hskip .5em]
+    Errors in proofs or inconsistencies in theories may be detected by
+    the computer. This increases confidence in their correctness.
+  \item[\normalfont{\emph{Automation}}\hskip .5em]
+    Tedious work, whether computationally hard or just boring, is
+    often better suited for computers. They are faster than humans and
+    precise.
+  \item[\normalfont{\emph{Insight}}\hskip .5em]
+    Formalised theories might help gain insights and intuition because
+    they necessarily include all levels of detail.
+\end{asparadesc}
+
+TODO: Related work.
 
 %\Coq has been used for sizeable projects such as CompCert and a verified proof
 %of the Four Color Theorem.
@@ -115,7 +134,7 @@ of \citet{terese-03}, included for self-containment, and can be seen
 as preliminaries for the later chapters.
 % TODO: hancock things are not recapitulted from terese
 
-The goal of Chapter~\ref{chap:implementation} is to present our
+The purpose of Chapter~\ref{chap:implementation} is to present our
 formalisation of infinitary term rewriting in the \Coq proof
 assistant. We first introduce this proof assistant and then review the
 main parts of our development.
