@@ -15,6 +15,9 @@
 % For \iddots
 \usepackage{mathdots}
 
+% For nice inline fractions
+\usepackage{xfrac}
+
 % TeX Gyre Pagella (like Palatino)
 %\usepackage{tgpagella}
 %\usepackage{qpxmath}

@@ -1,16 +1,100 @@
 \chapter{Introduction}
 \setcounter{page}{1}
 
-TODO: write introduction
+This thesis describes a formalisation of the theory of infinitary term
+rewriting in the \Coq proof assistant. The foundation of \Coq is a
+constructive type theory with inductive types, whereas infinitary term
+rewriting, building on the theory of finitary rewriting rewriting,
+uses notions from topology, set theory and analysis, but not
+necessarily in a constructive way.
 
-Infinitary term rewriting, the \Coq proof assistant, etc.
+The central question we aim to answer in this thesis is whether the
+traditional notions from infinitary term rewriting can be translated
+to \Coq in such a way that the resulting definitions are natural for
+the \Coq system. Of course, for such a translation to be satisfactory,
+it should preserve the semantics of the original notions.
 
-A list of notations can be found on page n.
+% functions must be total and terminating for coq to be consistent
 
-From now on, we may drop the `infinitary' from infinitary rewriting
-and explicitly say so if we mean finitary rewriting.
+In the remainder we may simply write `rewriting' instead of
+`infinitary rewriting' and `term' instead of `infinite
+term'. Furthermore, it should be noted that an infinite term is to be
+understood as a term with a \emph{possibly} infinite depth, i.e.\ the
+class of infinite terms includes the finite terms.
 
-% Original goal was compression
+Although this text contains a fair amount of \Coq code, it is not our
+intention to completely list a development ready for compiling. Rather, the
+included code fragments are thought to be the most interesting ones for the
+purpose of discussion of our development. In fact, many of the code listings
+are simplified and/or typographically enhanced to a form beyond of what the
+\Coq compiler will accept. Furthermore, lemmas are stated without proof. The
+reader is invited to study the full source code, with proofs, which is
+available at \url{http://martijn.vermaat.name/master-project/}.
+
+A list of notations can be found on page~\pageref{chap:glossary}.
+
+
+\section{Infinitary Rewriting}
+
+The theory of \emph{(finitary) rewriting} is concerned with the
+repeated transformation of objects by discrete steps following a
+predefined set of rules. Such a set of rules can be understood as
+implementing a programming language if we take programs as the objects
+to be transformed. Indeed, \emph{term rewriting} is the foundational
+model of functional programming. Other examples of rewriting can be
+found in the transformation of knots (cite) and the $\lambda$-calculus
+with applications as a model of computation or as logical framework.
+
+\emph{Infinitary rewriting} generalizes finitary rewriting by
+considering infinitely large objects and series of transfinitely many
+transformation steps. One could question the validity of this
+generalization, especially in the context of mechanical formalisation
+with which this thesis is concerned. After all, the word
+\emph{mechanical} implies finite restrictions on the amounts of space
+and time we can use.
+
+However, mathematicians (and computer scientists for that matter) have
+long had ample reason to include the infinite in their work. In
+\emph{The Quadrature of the Parabola}, Archimedes considers the
+infinite summation
+\begin{align*}
+  1 \,+\, \frac{1}{4} \,+\, \frac{1}{16} \,+\, \frac{1}{64} \,+\, \ldots
+\end{align*}
+in his proof that the area of a parabolic segment is \sfrac{4}{3} that
+of a certain inscribed triangle. Of course we cannot carry out the
+infinite computation to arrive at the outcome \sfrac{4}{3}, but we can
+represent it in finite space and manipulate this representation in
+finite time to deduce its outcome.
+
+As another example to motivate the study of infinite objects, consider
+the \Haskell program
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdocinductive{f} 0 \coqdocindent{0.2em} \textsf{where}
+\coqdocindent{0.2em} \coqdocinductive{f} \coqdocvar{\textsf{n}} =
+\coqdocvariable{\textsf{n}} : \coqdocinductive{f}
+(\coqdocvar{\textsf{n}} + 1)\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+that defines the infinite stream of natural numbers. We can inspect
+the stream at any position, but by \Haskell's lazy evaluation the
+stream is never fully computed. Again, the represented object takes an
+infinite amount of space to store and an infinite amount of time to
+compute, yet we can perfectly reason about it in finite space and
+time.
+
+The theory of infinitary term rewriting is formally introduced in
+Chapter~\ref{chap:rewriting}. In that chapter, we define precisely
+what infinite objects are allowed and what we understand by
+transfinite sequences of rewrite steps.
+
+
+\section{Mechanical Formalisation}
+
+Formalizing on a computer.
+
+TODO: why formalise a theory? related work.
 
 %\Coq has been used for sizeable projects such as CompCert and a verified proof
 %of the Four Color Theorem.
@@ -22,17 +106,8 @@ and explicitly say so if we mean finitary rewriting.
 %\item Analysis: Exact real arithmetic (Russel O'Connor).
 %\end{compactenum}
 
-Although this text contains a fair amount of \Coq code, it is not our
-intention to completely list a development ready for compiling. Rather, the
-included code fragments are thought to be the most interesting ones for the
-purpose of discussion of our development. In fact, many of the code listings
-are simplified and/or typographically enhanced to a form beyond of what the
-\Coq compiler will accept. Furthermore, lemmas are stated without proof. The
-reader is invited to study the full source code, with proofs, which is
-available at \url{http://martijn.vermaat.name/master-project/}.
 
-
-\section*{Outline}
+\section{Outline}
 
 In Chapter~\ref{chap:rewriting} we introduce ordinal numbers and the
 theory of infinitary term rewriting. This is mostly a recapitulation

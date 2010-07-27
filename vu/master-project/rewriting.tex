@@ -1,36 +1,7 @@
-\chapter{Infinitary Rewriting}\label{chap:rewriting}
+\chapter{Infinitary Term Rewriting}\label{chap:rewriting}
 
-TODO: write introduction
-
-The theory of \emph{(finitary) rewriting} is concerned with the
-repeated transformation of objects by discrete steps following a set
-of rules. Such a set of rules can be understood as implementing a
-programming language if we take programs as the objects to be
-transformed. Indeed, \emph{term rewriting} is the foundational model
-of functional programming. Other examples of rewriting can be found in
-the transformation of knots (cite) and the $\lambda$-calculus with
-applications as a model of computation or as logical framework.
-
-\emph{Infinitary rewriting} generalizes finitary rewriting by
-considering infinitely large objects and series of transfinitely many
-transformation steps. One could question the validity of this
-generalization, especially in the context of mechanical formalisation
-with which this thesis is concerned. After all, the word
-\emph{mechanical} implies finite restrictions on the amounts of space
-and time we can use.
-
-However, mathematicians (and computer scientists for that matter) have
-long had ample motivation to include the infinite in their work. In
-\emph{The Quadrature of the Parabola}, Archimedes considers the
-infinite summation
-\begin{align*}
-  1 \,+\, \frac{1}{4} \,+\, \frac{1}{16} \,+\, \frac{1}{64} \,+\, \ldots
-\end{align*}
-in his proof that the area of a parabolic segment is $4/3$ that of a
-certain inscribed triangle.
-
-
-
+Before we formally introduce term rewriting, we give an example of an
+infinitary TRS.
 
 % finitary rewriting: TRS as a programming language, or in theorem
 % provers
