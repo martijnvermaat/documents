@@ -1,12 +1,51 @@
-\chapter{Infinitary Term Rewriting}\label{chap:rewriting}
+\chapter{Infinitary Rewriting}\label{chap:rewriting}
 
 TODO: write introduction
+
+The theory of \emph{(finitary) rewriting} is concerned with the
+repeated transformation of objects by discrete steps following a set
+of rules. Such a set of rules can be understood as implementing a
+programming language if we take programs as the objects to be
+transformed. Indeed, \emph{term rewriting} is the foundational model
+of functional programming. Other examples of rewriting can be found in
+the transformation of knots (cite) and the $\lambda$-calculus with
+applications as a model of computation or as logical framework.
+
+\emph{Infinitary rewriting} generalizes finitary rewriting by
+considering infinitely large objects and series of transfinitely many
+transformation steps. One could question the validity of this
+generalization, especially in the context of mechanical formalisation
+with which this thesis is concerned. After all, the word
+\emph{mechanical} implies finite restrictions on the amounts of space
+and time we can use.
+
+However, mathematicians (and computer scientists for that matter) have
+long had ample motivation to include the infinite in their work. In
+\emph{The Quadrature of the Parabola}, Archimedes considers the
+infinite summation
+\begin{align*}
+  1 \,+\, \frac{1}{4} \,+\, \frac{1}{16} \,+\, \frac{1}{64} \,+\, \ldots
+\end{align*}
+in his proof that the area of a parabolic segment is $4/3$ that of a
+certain inscribed triangle.
+
+
+
+
+% finitary rewriting: TRS as a programming language, or in theorem
+% provers
+
+TODO: I want an intuitive example to introduce infinitary rewriting...
+% nonterminating processes, stream-based programming languages
 
 This chapter does not contain original material. The construction of the
 order relation on Brouwer ordinals in Section~\ref{sub:brouwer} is by
 \citet{hancock-08}.
 
 Before we can study infinitary rewriting, we must introduce ordinal numbers.
+
+% TODO: Short motivation for term rewriting, summation of its applications and
+% aspects of rewriting that are studied.
 
 Orthogonal TRSs have some nice properties, for example UN$^{\infty}$ and
 compression.
@@ -222,21 +261,15 @@ some $\iota \in \Phi(\beta)$.
 
 \section{Term Rewriting}\label{sec:rewriting}
 
-% TODO: Short motivation for term rewriting, summation of its applications and
-% aspects of rewriting that are studied.
 % TODO: we only give definitions or notions we actually use
 
 We give a short introduction to the basic notions of infinitary term
-rewriting. For a more in-depth treatment of the theory of term rewriting,
-consult \citet{terese-03}. Discussion of infinitary rewriting
-specifically, can be found in \citet[Chap. 12]{terese-03} and
+rewriting as required in the following chapters. For a more in-depth
+treatment of the theory of term rewriting, consult
+\citet{terese-03}. Discussion of infinitary rewriting specifically,
+can be found in \citet[Chap. 12]{terese-03} and
 \citet{klop-de-vrijer-05}. In this section, we use definitions and
 notations from \citet{terese-03}.
-
-% TODO: rewrite this statement (and perhaps we never mention finitary
-% rewriting)
-From now on, we drop the `infinitary' from infinitary rewriting and
-explicitly say so if we mean finitary rewriting.
 
 
 \subsection{Definition of a TRS}\label{sub:trs}
@@ -448,8 +481,9 @@ a TRS $\mathcal{R}$ with rewrite rules $R$ is defined as the union of
 $\{ \rightarrow_\rho | \; \rho \in R \}$.
 
 \begin{definition}\label{def:stepeq}%[Equality of steps]
-Rewrite steps $s_1 \rightarrow s_2$ and $t_1 \rightarrow t_2$ are
-defined to be \emph{equal} if
+%Rewrite steps $s_1 \rightarrow s_2$ and $t_1 \rightarrow t_2$ are
+%defined to be \emph{equal} if
+Two rewrite steps are defined to be \emph{equal} if
 \begin{compactenum}
   \item they use the same rewrite rule $\rho$,
   \item their contexts are bisimilar and

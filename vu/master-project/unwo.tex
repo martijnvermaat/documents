@@ -3,12 +3,18 @@
     in\\Weakly Orthogonal Systems}{Unique Normal Forms in Weakly
     Orthogonal Systems}}\label{chap:unwo}
 
-TODO: this intro
+Finitary orthogonal term rewriting systems have unique normal forms
+(cite). In fact, weak orthogonality is enough to establish this
+property for finitary TRSs (cite). To what extend can these results be
+lifted to infinitary rewriting?
 
-Every orthogonal TRS exhibits the infinitary unique normal forms
-(UN$^\infty$) property. We might expect this property to generalise to
-weakly orthogonal systems. However, this turns out not to be the
-case.
+In the infinitary setting, every orthogonal TRS exhibits the unique
+normal forms (UN$^\infty$) property
+\citep{kennaway-95,klop-de-vrijer-05}. We might expect this property
+to generalise to weakly orthogonal systems. After all, the motivation
+for allowing trivial critical pairs in these systems is that,
+intuitively, they are witnesses of harmless overlap. However, this
+intuition turns out to be unjust for the infinitary case.
 
 
 \section{A Counterexample}\label{sec:counterexample}
@@ -46,6 +52,8 @@ $\langle Ux, Ux \rangle$, both of which are trivial, establishing
 weak orthogonality. The infinite term $\du = D^1 U^2 D^3 U^4 \ldots$
 has two normal forms. It rewrites to $U^\omega$ in $\omega$ many
 $\rho_1$-steps and to $D^\omega$ in $\omega$ many $\rho_2$-steps.
+This shows that we don't have UN$^\rewrites$ and therefore also that
+UN$^\infty$ is not satisfied.
 % TODO: give the overlap from which the critical pairs come?
 
 Other interesting properties of this TRS (e.g.\ weak normalisation is
