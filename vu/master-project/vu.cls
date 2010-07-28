@@ -235,7 +235,7 @@
     \thispagestyle{empty}
     \null\vfil
     \vspace{13cm}
-    % TODO: international version of VU logo
+    % TODO: black and white version of VU logo
     {\includegraphics[draft=false,width=5cm]{logos/vu-logo-en} \par}
     \vspace{10pt}
     {\copyright\ 2010 Martijn Vermaat \par}
