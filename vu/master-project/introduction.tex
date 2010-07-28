@@ -18,9 +18,7 @@ it should preserve the semantics of the original notions.
 
 In the remainder we may simply write `rewriting' instead of
 `infinitary rewriting' and `term' instead of `infinite
-term'. Furthermore, it should be noted that an infinite term is to be
-understood as a term with a \emph{possibly} infinite depth, that is,
-the class of infinite terms includes the finite terms.
+term'.
 
 Although this text contains a fair amount of \Coq code, it is not our
 intention to completely list a development ready for compiling. Rather, the
@@ -34,7 +32,7 @@ available at \url{http://martijn.vermaat.name/master-project/}.
 A glossary of notations can be found on page~\pageref{chap:glossary}.
 
 
-\section{Infinitary Rewriting}
+\section*{Infinitary Rewriting}
 
 The theory of \emph{(finitary) rewriting} is concerned with the
 repeated transformation of objects by discrete steps following a
@@ -90,43 +88,62 @@ what infinite objects are allowed and what we understand by
 transfinite sequences of rewrite steps.
 
 
-\section{Mechanical Formalisations}
+\section*{Mechanical Formalisations}
 
 The translation of infinitary rewriting to \Coq is an example of the
 mechanical formalisation of a mathematical theory. By `mechanical' we
 mean that the formalisation must be in a form that can be manipulated
-by a machine. Scriblings on paper or ideas in one's head do not
+by a machine. Definitions on paper or ideas in one's head do not
 qualify as mechanical formalisations. Furthermore, we want the
 formalisation to represent the theory's semantics.
 
+% TODO: indent these premises by 2em or so
 The premises of such formalisations include:
-\begin{asparadesc}
-  \item[\normalfont{\emph{Increase of confidence}}\hskip .5em]
-    Errors in proofs or inconsistencies in theories may be detected by
-    the computer. This increases confidence in their correctness.
+\begin{compactdesc}
+%  \item[\normalfont{\emph{Confidence}}\hskip .5em]
+%  \item[{\makebox[6em][l]{\normalfont{\emph{Confidence}}}}]
+  \item[\normalfont{\emph{Confidence}}\hskip .5em]
+    Proof-checkers can verify the correctness of proofs in a rigorous
+    way. If we trust the implementation of the checker (which is
+    usually kept as small as possible) and its execution on a
+    computer, we can be confident that a verified proof is correct,
+    even if we do not fully comprehend it.
   \item[\normalfont{\emph{Automation}}\hskip .5em]
     Tedious work, whether computationally hard or just boring, is
-    often better suited for computers. They are faster than humans and
+    often better suited to computers. They are faster than humans and
     precise.
-  \item[\normalfont{\emph{Insight}}\hskip .5em]
-    Formalised theories might help gain insights and intuition because
-    they necessarily include all levels of detail.
-\end{asparadesc}
+  \item[\normalfont{\emph{Intuition}}\hskip .5em]
+    Proofs on paper typically abstract away from seemingly
+    uninteresting  details. This is often a good thing, but sometimes
+    the level of detail of a mechanical proof gives us that extra bit
+    of insight to fully understand its workings. Another way of
+    gaining intuition is by building tools on top of the
+    formalisation, e.g.\ providing graphical representations of
+    definitions.
+  \item[\normalfont{\emph{Availability}}\hskip .5em]
+    Formalised theories may be searched and browsed semantically using
+    a computer instead of just syntactically. Furthermore, the
+    internet provides us with excellent methods to share and copy
+    these formalisations globally.
+\end{compactdesc}
 
-TODO: Related work.
+In 1976, the four-colour theorem\footnote{`Four colours suffice to
+  colour any map such that no two neighbouring countries have the same
+  colour.' Posed by Francis Guthrie in 1852. } was proven
+\citep{appel-haken-76}. The proof used a computer program to show that
+a particular set of 1,936 maps satisfy a certain property. This is an
+example of automation by translation to a computer. The correctness of
+the proof, however, remained debatable because this case analysis by
+computer was impossible to perform or verify by hand.
 
-%\Coq has been used for sizeable projects such as CompCert and a verified proof
-%of the Four Color Theorem.
-
-%Examples of formalisations of mathematical theories in \Coq:
-%\begin{compactenum}
-%\item Logic: A proof of G\"odel's First Incompleteness Theorem (Russel
-%  O'Connor).
-%\item Analysis: Exact real arithmetic (Russel O'Connor).
-%\end{compactenum}
+Even though a simpler proof was published by \citet{robertson-97}, it
+was not untill \citet{gonthier-05} formally verified the entire proof,
+including the computer program part, that all remaining doubts were
+dispelled. This formalisation thus helped gain confidence in the
+validity of the theorem.
 
 
-\section{Outline}
+\section*{Outline}
 
 In Chapter~\ref{chap:rewriting} we introduce ordinal numbers and the
 theory of infinitary term rewriting. This is mostly a recapitulation
