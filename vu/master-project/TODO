@@ -13,11 +13,13 @@ Add some clarifying pictures (ordinals, predecessors, convergence)
 Equality vs equivalence
 Grep for \phi and change to \varphi
 Publish via lulu :)
+Serial commas?
 
 coqdoc --latex -s -g --coqlib http://coq.inria.fr/stdlib/ -d coqdoc *.v
 
 http://wiki.cs.vu.nl/mp/index.php/Main_Page
 
+http://en.wikipedia.org/wiki/Serial_comma
 http://www.tug.org/pracjourn/2008-1/mori/
 http://merkel.zoneo.net/Latex/natbib.php
 http://www.texample.net/tikz/examples/rotated-triangle/

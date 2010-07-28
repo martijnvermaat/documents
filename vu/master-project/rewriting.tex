@@ -1,5 +1,8 @@
 \chapter{Infinitary Term Rewriting}\label{chap:rewriting}
 
+
+
+
 Before we formally introduce term rewriting, we give an example of an
 infinitary TRS.
 
@@ -240,16 +243,16 @@ some $\iota \in \Phi(\beta)$.
 
 \section{Term Rewriting}\label{sec:rewriting}
 
-% TODO: we only give definitions or notions we actually use
-
 We give a short introduction to the basic notions of infinitary term
 rewriting as required in the following chapters. For a more in-depth
 treatment of the theory of term rewriting, consult
 \citet{terese-03}. Discussion of infinitary rewriting specifically,
-can be found in \citet[Chap. 12]{terese-03} and
-\citet{klop-de-vrijer-05}. In this section, we use definitions and
-notations from \citet{terese-03}.
-
+can be found in \citet[Chapter 12]{terese-03} and
+\citet{klop-de-vrijer-05}. In this section, we try to follow
+definitions and notations from \citet{terese-03}, but diverge where
+our \Coq formalisation discussed in Chapter~\ref{chap:implementation}
+does. % ... does so. ?
+% TODO: wording is not so nice
 
 \subsection{Definition of a TRS}\label{sub:trs}
 
@@ -595,6 +598,18 @@ A TRS is called
     are trivial.
 \end{compactenum}
 \end{definition}
+
+A fundamental result in the theory of infinitary rewriting is the
+Compression Lemma.
+\begin{lemma}[{\normalfont{Compression}}]\label{thm:compression}
+  Every strongly convergent rewrite sequence in a left-linear TRS can
+  be compressed to length less than or equal to $\omega$.
+\end{lemma}
+\begin{proof}
+  By transfinite induction on the length of the rewrite sequence. See
+  for example \citet[Theorem 12.7.1, page 689]{terese-03} or
+  \citet{endrullis-10}.
+\end{proof}
 
 Orthogonal systems enjoy the UN$^\infty$ property
 \citep{kennaway-95,klop-de-vrijer-05}. In Chapter~\ref{chap:unwo} we

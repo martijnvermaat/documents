@@ -154,6 +154,13 @@
 \theoremseparator{.}
 \newtheorem{proposition}{Proposition}
 
+\theoremstyle{plain}
+\theoremheaderfont{\sc}
+\theorembodyfont{\normalfont}
+\theoremsymbol{}
+\theoremseparator{.}
+\newtheorem{lemma}{Lemma}
+
 % TODO: style propositions
 \theoremstyle{nonumberplain}
 \theoremheaderfont{\sc}

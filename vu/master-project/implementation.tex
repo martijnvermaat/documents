@@ -98,9 +98,10 @@ and is not dependent.
 \subsection{Terms and Proofs}
 
 Proofs of logical propositions can be defined in two ways. First, we
-can type a proof term directly. The only requirement is that this term
-has as type the logical proposition that we want to prove. Second, we
-can use \emph{tactics} to construct a proof term interactively.
+can write a proof term directly. The only requirement is that this
+term has as type the logical proposition that we want to
+prove. Second, we can use \emph{tactics} to construct a proof term
+interactively.
 
 As an example of the use of tactics, we prove the proposition from the
 previous section. This is done by stating the proposition, after which
@@ -145,10 +146,9 @@ the goal is simple enough to be solved directly by the
 
 Recursive functions are defined using the \coqdockw{Fixpoint}
 keyword. The recursive call must have a structurally decreasing
-argument of an inductive type. Consider the definition of the
-factorial function for example, which also shows how a case analysis
-on values of inductive types can be done with the \coqdockw{match}
-keyword.
+argument of an inductive type. Consider for example the definition of
+the factorial function, which also shows how a case analysis on values
+of inductive types can be done with the \coqdockw{match} keyword.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
