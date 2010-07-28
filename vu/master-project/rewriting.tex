@@ -1,32 +1,144 @@
 \chapter{Infinitary Term Rewriting}\label{chap:rewriting}
 
+Before formally introducing term rewriting, we give an example of an
+infinitary TRS taken from \citet{klop-de-vrijer-05} and trust the
+reader to pick up the general ideas.
 
+Let $A$, $B$ and $P$ be symbols with arities $0$, $1$ and $2$,
+respectively. We consider the rule $A \rightarrow B(A)$. The term $A$
+rewrites to $B(B(B(A)))$, written $B^3(A)$, in $3$ steps, or more
+generally to $B^n(A)$ in $n$ steps for every $n \in \mathbb{N}$.
+%\begin{align*}
+%  A \rightarrow B(A) \rightarrow B(B(A)) \rightarrow \cdots \mbox{($n$
+%    steps)} \cdots \rightarrow B^n(A)
+%\end{align*}
+\begin{center}
+\vspace{0pt}
+\begin{tikzpicture}[node distance=60pt]
+\tikzstyle{level}=[level distance=25pt, sibling distance=30pt]
+\node (a) {$A$};
+\node (b) [right of=a] {$B$} child { node {$A$} };
+\node (c) [right of=b] {$B$} child { node {$B$} child { node {$A$} } };
+\node (d) [right of=c] {$B$} child { node {$B$} child { node {$B$}
+    child { node {$A$} } } };
+\path (a) -- (b) node[midway,below=-1pt] {$\rightarrow$};
+\path (b) -- (c) node[midway,below=-1pt] {$\rightarrow$};
+\path (c) -- (d) node[midway,below=-1pt] {$\rightarrow$};
+\end{tikzpicture}
+\end{center}
+In the finitary setting, these are the only rewrite sequences from $A$
+and all of them allow an additional step. Hence, $A$ has no normal
+form.
 
+The limit of these rewrite sequences, although non-existent in
+finitary rewriting, is intuitively well-defined. It is reached by
+$\omega$ many rewrite steps and we denote it by $B^\omega$. Infinitary
+rewriting allows \begin{inparaenum}[(i)]
+  \item infinite terms such as $B^\omega$ and
+  \item rewrite sequences of transfinite length such as $A
+    \rightarrow^\omega B^\omega$.
+\end{inparaenum}
+\begin{center}
+\vspace{0pt}
+\begin{tikzpicture}[node distance=60pt]
+\tikzstyle{level}=[level distance=25pt, sibling distance=30pt]
+\node (a) {$A$};
+\node (b) [right of=a] {$B$} child { node {$A$} };
+\node (c) [right of=b] {$B$} child { node {$B$} child { node {$A$} } };
+\node (d) [right of=c,node distance=90pt] {$B$} child { node {$B$} child { node {$B$}
+    child { node[below=-8pt] {$\vdots$} } } };
+\path (a) -- (b) node[midway,below=-1pt] {$\rightarrow$};
+\path (b) -- (c) node[midway,below=-1pt] {$\rightarrow$};
+\path (c) -- (d) node[midway,below=-1pt] {$\rightarrow \quad \cdots$};
+\end{tikzpicture}
+\end{center}
+The word `transfinite' hints that there are also rewrite sequences of
+length $> \omega$. For consider the term $P(A, A)$. It rewrites in
+$\omega$ many steps to $P(B^\omega, A)$, which in turn rewrites in
+$\omega$ many steps to $P(B^\omega, B^\omega)$. Therefore we have
+$P(A, A) \rightarrow^{\omega \times 2} P(B^\omega, B^\omega)$.
+\begin{center}
+\vspace{0pt}
+\begin{tikzpicture}[node distance=45pt]
+\tikzstyle{level}=[level distance=25pt, sibling distance=20pt]
+\node (a) {$P$} child { node {$A$} } child { node {$A$} };
+\node (b) [right of=a] {$P$} child { node {$B$} child { node {$A$} } } child { node {$A$} };
+\node (c) [right of=b] {$P$} child { node {$B$} child { node {$B$}
+    child { node {$A$} } } } child { node {$A$} };
+\node (d) [right of=c,node distance=70pt] {$P$} child { node {$B$} child { node {$B$}
+    child { node {$B$} child { node[below=-8pt] {$\vdots$} } } } } child { node {$A$} };
+\node (e) [right of=d] {$P$} child { node {$B$} child { node {$B$}
+    child { node {$B$} child { node[below=-8pt] {$\vdots$} } } } }
+child { node {$B$} child { node {$A$} } };
+\node (f) [right of=e] {$P$} child { node {$B$} child { node {$B$}
+    child { node {$B$} child { node[below=-8pt] {$\vdots$} } } } }
+child { node {$B$} child { node {$B$} child { node {$A$} } } };
+\node (g) [right of=f,node distance=70pt] {$P$} child { node {$B$} child { node {$B$}
+    child { node {$B$} child { node[below=-8pt] {$\vdots$} } } } }
+child { node {$B$} child { node {$B$} child { node {$B$} child {
+        node[below=-8pt] {$\vdots$} } } } };
+\path (a) -- (b) node[midway,below=-1pt] {$\rightarrow$};
+\path (b) -- (c) node[midway,below=-1pt] {$\rightarrow$};
+\path (c) -- (d) node[midway,below=-1pt] {$\rightarrow \, \: \cdots$};
+\path (d) -- (e) node[midway,below=-1pt] {$\rightarrow$};
+\path (e) -- (f) node[midway,below=-1pt] {$\rightarrow$};
+\path (f) -- (g) node[midway,below=-1pt] {$\rightarrow \, \: \cdots$};
+\end{tikzpicture}
+\end{center}
+However, $P(B^\omega, B^\omega)$ can also be reached from $P(A, A)$ in
+$\omega$ many steps, alternating the steps from the two $\omega$-step
+rewrite sequences.
+\begin{center}
+\vspace{0pt}
+\begin{tikzpicture}[node distance=60pt]
+\tikzstyle{level}=[level distance=25pt, sibling distance=28pt]
+\node (a) {$P$} child { node {$A$} } child { node {$A$} };
+\node (b) [right of=a] {$P$} child { node {$B$} child { node {$A$} } } child { node {$A$} };
+\node (c) [right of=b] {$P$} child { node {$B$} child { node {$A$} } }
+child { node {$B$} child { node {$A$} } };
+\node (d) [right of=c] {$P$} child { node {$B$} child { node {$B$}
+    child { node {$A$} } } }
+child { node {$B$} child { node {$A$} } };
+\node (e) [right of=d] {$P$} child { node {$B$} child { node {$B$}
+    child { node {$A$} } } }
+child { node {$B$} child { node {$B$} child { node {$A$} } } };
+\node (f) [right of=e,node distance=90pt] {$P$} child { node {$B$} child { node {$B$}
+    child { node {$B$} child { node[below=-8pt] {$\vdots$} } } } }
+child { node {$B$} child { node {$B$} child { node {$B$} child {
+        node[below=-8pt] {$\vdots$} } } } };
+\path (a) -- (b) node[midway,below=-1pt] {$\rightarrow$};
+\path (b) -- (c) node[midway,below=-1pt] {$\rightarrow$};
+\path (c) -- (d) node[midway,below=-1pt] {$\rightarrow$};
+\path (d) -- (e) node[midway,below=-1pt] {$\rightarrow$};
+\path (e) -- (f) node[midway,below=-1pt] {$\rightarrow \quad \cdots$};
+\end{tikzpicture}
+\end{center}
+This observation is generalised in the Compression Lemma
+(Lemma~\ref{lem:compression}).
 
-Before we formally introduce term rewriting, we give an example of an
-infinitary TRS.
+In the following sections, we introduce the ordinal numbers and a
+representation for them known as the Brouwer ordinals, and we present
+the basic notions from the theory of term rewriting as required in the
+following chapters. None of this is original material.
+
+%This chapter does not contain original material. The construction of the
+%order relation on Brouwer ordinals in Section~\ref{sub:brouwer} is by
+%\citet{hancock-08}.
 
 % finitary rewriting: TRS as a programming language, or in theorem
 % provers
 
-TODO: I want an intuitive example to introduce infinitary rewriting...
 % nonterminating processes, stream-based programming languages
-
-This chapter does not contain original material. The construction of the
-order relation on Brouwer ordinals in Section~\ref{sub:brouwer} is by
-\citet{hancock-08}.
-
-Before we can study infinitary rewriting, we must introduce ordinal numbers.
 
 % TODO: Short motivation for term rewriting, summation of its applications and
 % aspects of rewriting that are studied.
 
-It should be noted that an infinite term is to be understood as a term
-with a \emph{possibly} infinite depth, that is, the class of infinite
-terms includes the finite terms.
+%It should be noted that an infinite term is to be understood as a term
+%with a \emph{possibly} infinite depth, that is, the class of infinite
+%terms includes the finite terms.
 
-Orthogonal TRSs have some nice properties, for example UN$^{\infty}$ and
-compression.
+%Orthogonal TRSs have some nice properties, for example UN$^{\infty}$ and
+%compression.
 
 % TODO: note that we are explicit in the wording: sequence vs rewrite sequence
 
@@ -248,10 +360,10 @@ rewriting as required in the following chapters. For a more in-depth
 treatment of the theory of term rewriting, consult
 \citet{terese-03}. Discussion of infinitary rewriting specifically,
 can be found in \citet[Chapter 12]{terese-03} and
-\citet{klop-de-vrijer-05}. In this section, we try to follow
-definitions and notations from \citet{terese-03}, but diverge where
-our \Coq formalisation discussed in Chapter~\ref{chap:implementation}
-does. % ... does so. ?
+\citet{klop-de-vrijer-05}. In this section, we try to conform to
+definitions and notations from \citet{terese-03}, but sometimes choose
+to follow more closely our \Coq formalisation discussed in
+Chapter~\ref{chap:implementation} when the two diverge.
 % TODO: wording is not so nice
 
 \subsection{Definition of a TRS}\label{sub:trs}
@@ -518,8 +630,9 @@ A rewrite sequence $(t_\beta \rightarrow t_{\beta^+})_{\beta \prec
 
 We write $t_0 \rewrites t_\alpha$ if there exists a strongly
 convergent rewrite sequence $(t_\beta \rightarrow t_{\beta^+})_{\beta
-  \prec \alpha}$. The \emph{convertibility relation} is defined as the
-equivalence closure of $\rewrites$.
+  \prec \alpha}$ (or $t_0 \rightarrow^\alpha t_\alpha$ if we want to
+stress its length). The \emph{convertibility relation} is defined as
+the equivalence closure of $\rewrites$.
 
 
 \subsection{Normal Forms and Orthogonality}
@@ -601,7 +714,7 @@ A TRS is called
 
 A fundamental result in the theory of infinitary rewriting is the
 Compression Lemma.
-\begin{lemma}[{\normalfont{Compression}}]\label{thm:compression}
+\begin{lemma}[{\normalfont{Compression}}]\label{lem:compression}
   Every strongly convergent rewrite sequence in a left-linear TRS can
   be compressed to length less than or equal to $\omega$.
 \end{lemma}
