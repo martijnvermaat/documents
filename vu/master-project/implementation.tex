@@ -1,9 +1,22 @@
 \chapter{A Mechanic Formalisation}\label{chap:implementation}
 
-TODO: introduction.
+In this chapter we present our formalisation of infinitary rewriting
+in the \Coq proof assistant. Section~\ref{sec:ordimp} translates the
+Brouwer ordinals from Section~\ref{sub:brouwer} to \Coq. Coinductive
+terms are defined in Section~\ref{sec:terms}. In Section~\ref{sec:seq}
+we present a novel representation of transfinite rewrite sequences
+based on the structure of the Brouwer ordinals. We start with a short
+introduction to \Coq in Section~\ref{sec:coq}.
 
-% include short characterisation of our development (brouwer ordinals,
-% inductive sequences, coinductive terms, etc)
+Large scale mechanical formalisation of mathematics goes back to the
+late 1960s with de Bruijn's \Automath project
+\citep{nederpelt-94}. A full text book on Analysis \citep{landau-65}
+was formalised and verified for correctness in \Automath.
+
+We name a few formalisations that have since been undertaken. The four
+colour theorem (Gonthier). TODO.
+
+Related to our formalisation of infinitary rewriting are \CoLoR, TODO.
 
 %\Coq has been used for sizeable projects such as CompCert and a verified proof
 %of the Four Color Theorem.
@@ -16,7 +29,7 @@ TODO: introduction.
 %\end{compactenum}
 
 
-\section{The \Coq Proof Assistant}
+\section{The \Coq Proof Assistant}\label{sec:coq}
 
 \Coq \citep{coq-refman-09} is based on the formal
 language \emph{Calculus of Inductive Constructions}
@@ -404,7 +417,7 @@ for.\footnote{Again, defining a simple coercion from
 \end{singlespace}
 
 
-\section{Coinductive Terms}
+\section{Coinductive Terms}\label{sec:terms}
 
 In \Coq, coinductive types can be defined using the
 \coqdockw{CoInductive} keyword \citep{gimenez-casteran-07}. No
