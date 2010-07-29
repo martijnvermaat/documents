@@ -1,11 +1,20 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{vu}
+\ProvidesClass{vu}[2010/07/29 A simple VU University Msc thesis class]
+
+\makeatletter
+\newif\if@vucolors
+  \@vucolorsfalse
+\DeclareOption{color}{\@vucolorstrue}
+\makeatother
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{report}}
 
 \ProcessOptions
 
-\LoadClass[11pt,a4paper]{report}
+\LoadClass[11pt,a4paper,twoside,openright]{report}
+
+% Stupid a4 package changes margins from a4paper option, why?
+\usepackage{a4}
 
 % AMS math fonts
 \usepackage{amsmath}
@@ -38,9 +47,6 @@
 
 % Use T1 font encoding
 \usepackage[T1]{fontenc}
-
-% A4 page
-\usepackage{a4}
 
 % Abstract
 \usepackage{abstract}
@@ -191,7 +197,7 @@
     \thispagestyle{empty}
     \null\vfil
     \vspace{2cm}
-    {\Huge \@title (DRAFT) \par}
+    {\Huge \@title \par}
     \vspace{6cm}
     {\@author \par}
     \vfil\null
@@ -210,7 +216,7 @@
     \begin{center}
     {VU UNIVERSITY AMSTERDAM \par}
     \vspace{2cm}
-    {\Huge \@title (DRAFT) \par}
+    {\Huge \@title \par}
     \vspace{3cm}
     {THESIS \par}
     \vspace{2cm}
@@ -236,7 +242,11 @@
     \null\vfil
     \vspace{13cm}
     % TODO: black and white version of VU logo
-    {\includegraphics[draft=false,width=5cm]{logos/vu-logo-en} \par}
+    \if@vucolors
+      {\includegraphics[draft=false,width=5cm]{logos/vu-logo-en}\par}
+    \else
+      {\includegraphics[draft=false,width=5cm]{logos/vu-logo-en-grayscale}\par}
+    \fi
     \vspace{10pt}
     {\copyright\ 2010 Martijn Vermaat \par}
     \vspace{10pt}
