@@ -11,10 +11,13 @@
 
 \ProcessOptions
 
-\LoadClass[11pt,a4paper,twoside,openright]{report}
+\LoadClass[10pt,b5paper,twoside,openright]{report}
 
-% Stupid a4 package changes margins from a4paper option, why?
-\usepackage{a4}
+% TODO: Tweak the inner margin to align all text as nice as possible
+% Paper format 'Royal'
+\usepackage[nohead,
+  vmarginratio=2:3,hmarginratio=1:1,
+  papersize={15.593cm,23.389cm},total={11.0cm,19.5cm}]{geometry}
 
 % AMS math fonts
 \usepackage{amsmath}
@@ -57,23 +60,26 @@
 \pagestyle{fancy}
 
 \fancyhf{} % reset headers and footers
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
 
 % Redefine plain page style
 \fancypagestyle{plain}{%
-  \fancyhead{}
+  %\fancyhead{}
+  \fancyhf{}
   \renewcommand{\headrulewidth}{0pt}
   \renewcommand{\footrulewidth}{0pt}
 }
 
 \renewcommand{\chaptermark}[1]{\markboth{\textsc{Chapter
-      \thechapter}\hskip 1em #1}{}}
+      \thechapter}\hskip 1em {\emph{#1}}}{}}
 %\renewcommand{\sectionmark}[1]{\markright{\textsc{Section
 %      \thesection}\hskip 1em #1}}
 \renewcommand{\sectionmark}[1]{\markright{\textsc{\thesection}\hskip
-    1em #1}}
+    1em {\emph{#1}}}}
 
-\fancyhead[LE]{\leftmark}
-\fancyhead[RO]{\rightmark}
+\fancyfoot[RE]{\leftmark}
+\fancyfoot[LO]{\rightmark}
 \fancyfoot[LE,RO]{\textsc{\thepage}}
 % TODO: fix page numbering (check if they are all textsc)
 
@@ -123,6 +129,7 @@
 \setlength{\parindent}{0pt}
 
 % Linespacing
+% TODO: singlespacing for some things (bibliography, notation glossary)
 \usepackage[onehalfspacing]{setspace}
 
 % Section numbering in margin
@@ -132,7 +139,7 @@
 
 % Natbib for the bibliography, always. sort&compress will make i.e. [1-5,7].
 %\usepackage[square,numbers,sort&compress]{natbib}
-\usepackage[round,authoryear,sort&compress,longnamesfirst]{natbib}
+\usepackage[round,authoryear,longnamesfirst]{natbib}
 %\usepackage[numbers]{natbib}
 \bibliographystyle{plainnat}
 %\setlength{\bibhang}{0ex}

@@ -7,9 +7,9 @@
 
 # Configuration
 THESIS = thesis
-THESISDEPS = vu.cls abbrevs.tex discussion.tex glossary.tex implementation.tex introduction.tex preface.tex rewriting.tex unwo.tex
+THESISDEPS = vu.cls abbrevs.tex discussion.tex glossary.tex implementation.tex introduction.tex preface.tex rewriting.tex unwo.tex figures/brouwer.tikz figures/predecessor.tikz
 SLIDES = slides
-SLIDESDEPS = abbrevs.tex
+SLIDESDEPS = abbrevs.tex figures/predecessor.tikz
 PDFLATEX = /usr/bin/pdflatex
 PDFLATEXFLAGS = -halt-on-error -interaction errorstopmode
 BIBTEX = /usr/bin/bibtex
