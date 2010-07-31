@@ -113,12 +113,12 @@ This observation is generalised in the Compression Lemma
 (page~\pageref{lem:compression}).
 
 In the following sections, we introduce the ordinal numbers and a
-representation for them known as the Brouwer ordinals, and we present
-the basic notions from the theory of term rewriting as required in the
+representation for them known as tree ordinals, and we present the
+basic notions from the theory of term rewriting as required in the
 following chapters. None of this is original material.
 
 %This chapter does not contain original material. The construction of the
-%order relation on Brouwer ordinals in Section~\ref{sub:brouwer} is by
+%order relation on tree ordinals in Section~\ref{sub:tree} is by
 %\citet{hancock-08}.
 
 % finitary rewriting: TRS as a programming language, or in theorem
@@ -175,11 +175,12 @@ can be either zero, a successor ordinal, or a limit ordinal.
 From now on, we make no distinction between an ordinal and its set-theoretic
 representation (e.g.\ between $0$ and $\nothing$). Examples of successor
 ordinals are $4$, $\omega + 7$  and $\omega^{\omega \times 2} + 1$. Examples
-of limit ordinals are $\omega$ and $\omega \times 3$.
+of limit ordinals are $\omega$ and $\omega \times 3$. Henceforth we
+use $\alpha, \beta, \gamma, \lambda$ to denote ordinals where
+$\lambda$ always denotes a limit ordinal.
 
-% TODO: we also make no distinction between the ordinal and its brouwer
+% TODO: we also make no distinction between the ordinal and its tree
 % ordinal
-% TODO: explain we use \lambda for limit ordinals
 
 One can do arithmetics on ordinals much like we do arithmetics on natural
 numbers. For example, addition can be defined by recursion on the right
@@ -191,7 +192,7 @@ argument:
 \end{align*}
 
 
-\subsection{Brouwer Ordinals}\label{sub:brouwer}
+\subsection{Tree Ordinals}\label{sub:tree}
 
 % TODO: Possible reference for Brouwer ordinals:
 % Constructivism in Mathematics: An Introduction, A.S. Troelstra en Dirk
@@ -206,14 +207,15 @@ argument:
 %
 % See also Hydra Games and Tree Ordinals (Ariya Isihara)
 
-The Brouwer ordinals are a representation of the countable ordinals as
-countably branching well-founded trees. Their inductive definition
-uses constructors $0$ (zero), $^+$ (successor) and $\sqcup$ (limit).
+The tree ordinals \citep{dennis-jones-wainer-84} are a representation
+of the countable ordinals as countably branching well-founded
+trees. Their inductive definition uses constructors $0$ (zero), $^+$
+(successor) and $\sqcup$ (limit).
 
 % Be alerted that all ordinals cannot form a set (only a class), but we are
 % defining a subset here
 \begin{definition}\label{def:ordinals}%[Ordinals]
-The set of \emph{Brouwer ordinals} $\Ord$ is defined by induction:
+The set of \emph{tree ordinals} $\Ord$ is defined by induction:
 \begin{compactenum}
   \item
     $0 \in \Ord$.
@@ -234,22 +236,22 @@ the argument, writing for example $\sqcup \{ \alpha_1, \alpha_2,
 \begin{figure}
 \begin{center}
 \begin{tikzpicture}
-\input{figures/brouwer.tikz}
+\input{figures/tree-ordinal.tikz}
 \end{tikzpicture}
 \end{center}
-\caption{A representation of $\omega \times 2 + 2$.}\label{fig:brouwer}
+\caption{A representation of $\omega \times 2 + 2$.}\label{fig:tree}
 \end{figure}
 
 Now zero is represented by $0$, a successor ordinal $\alpha +1$ is represented
 by $\alpha^+$ and a limit ordinal $\lambda$ is represented by $\sqcup_i
 \alpha_i$ if $\lambda$ is the least upper bound of the sequence $\alpha_1,
-\alpha_2, \alpha_3, \ldots$. As an example of a Brouwer ordinal,
-Figure~\ref{fig:brouwer} visualises a representation of $\omega \times
-2 + 2$. Again, we identify ordinals and their representation as
-Brouwer ordinal.
+\alpha_2, \alpha_3, \ldots$. As an example of a tree ordinal representation,
+Figure~\ref{fig:tree} visualises $\omega \times 2 + 2$ as a tree
+ordinal. Again, we identify ordinals and their representation as tree
+ordinal.
 
-% TODO: some ordinals have no representation as Brouwer ordinal at all
-Some ordinals have no unique representation as Brouwer ordinal. Consider for
+% TODO: some ordinals have no representation as tree ordinal at all
+Some ordinals have no unique representation as tree ordinal. Consider for
 example the limit ordinals $\sqcup_i i + 3$ and $\sqcup_i i \times 2$. Both
 are representations of $\omega$ and a meaningful order relation would
 have to position them at the same rank.
@@ -263,8 +265,7 @@ represents $3$, that being the non-strict least upper bound of $3, 3,
 We might like to exclude such representations and require that
 $\sqcup_i \alpha_i$ always represents a limit ordinal. This can be
 done by imposing a strict monotonicity property on the limit
-sequences. Some order relation on the Brouwer ordinals is needed for
-that.
+sequences. Some order relation on tree ordinals is needed for that.
 
 The following construction (i.e.\ Definitions~\ref{def:indices}
 through \ref{def:order}) is due to \citet{hancock-08}. In preparation
@@ -361,6 +362,7 @@ definitions and notations from \citet{terese-03}, but sometimes choose
 to follow more closely our \Coq formalisation discussed in
 Chapter~\ref{chap:implementation} when the two diverge.
 % TODO: wording is not so nice
+% TODO: hyphenation of de vrijer
 
 \subsection{Definition of a TRS}\label{sub:trs}
 

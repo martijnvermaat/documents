@@ -1,6 +1,12 @@
-\chapter{A Mechanic Formalisation}\label{chap:implementation}
+\chapter{A Mechanical Formalisation}\label{chap:implementation}
 
-Related to our formalisation of infinitary rewriting are \CoLoR, TODO.
+% TODO: cite color and coccinelle
+In this chapter we present a formalisation of the notions from
+Chapter~\ref{chap:rewriting} in the \Coq proof assistant. Related work
+are \CoLoR \citep{blanqui-koprowski-10} and \Coccinelle
+\citep{contejean-07}, libraries on finitary rewriting and termination,
+and the representation of ordinal numbers up to $\epsilon_0$ and
+$\Gamma_0$ in Cantor and Veblen normal form by \citet{casteran-06}.
 
 %\Coq has been used for sizeable projects such as CompCert and a verified proof
 %of the Four Color Theorem.
@@ -14,12 +20,11 @@ Related to our formalisation of infinitary rewriting are \CoLoR, TODO.
 
 % Stick close to nature of Coq
 
-In this chapter we present our formalisation of infinitary rewriting
-in the \Coq proof assistant. Section~\ref{sec:ordimp} translates the
-Brouwer ordinals from Section~\ref{sub:brouwer} to \Coq. Coinductive
+Section~\ref{sec:ordimp} translates the
+tree ordinals from Section~\ref{sub:tree} to \Coq. Coinductive
 terms are defined in Section~\ref{sec:terms}. In Section~\ref{sec:seq}
 we present a novel representation of transfinite rewrite sequences
-based on the structure of the Brouwer ordinals. We start with a short
+based on the structure of the tree ordinals. We start with a short
 introduction to \Coq. % in Section~\ref{sec:coq}.
 
 
@@ -227,11 +232,12 @@ of \begin{coqdoccode}\coqref{CoqIntro.Pos}{\coqdocconstructor{Pos}} 3
 
 \section{Ordinal Numbers}\label{sec:ordimp}
 
+% TODO: rewrite this paragraph
 In the theory of infinitary rewriting, the lengths of rewrite sequences play
 a central role. Therefore, any reasonable formalisation of infinitary
 rewriting ought to have some notion of ordinal numbers.
 
-We define the ordinal numbers using the representation of Brouwer
+We define the ordinal numbers using the representation of tree
 ordinals (cf.~Definition~\ref{def:ordinals}) in \Coq by
 \coqref{Ordinal.ord}{\coqdocinductive{ord}}.
 \begin{singlespace}
@@ -285,7 +291,7 @@ defined.
 \coqdockw{end}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-In fact, all definitions from Section~\ref{sub:brouwer} translate directly to
+In fact, all definitions from Section~\ref{sub:tree} translate directly to
 \Coq code. We can now prove basic properties of $\preceq$, for example
 that it is transitive and that, for the finite ordinals, it coincides
 with the standard order on the natural numbers.\footnote{Although
@@ -323,7 +329,7 @@ with the standard order on the natural numbers.\footnote{Although
 \end{coqdoccode}
 \end{singlespace}
 
-Recalling our discussion in Section~\ref{sub:brouwer} of limit ordinals whose
+Recalling our discussion in Section~\ref{sub:tree} of limit ordinals whose
 sequences do not actually approximate to a limit ordinal, we consider the
 lemma
 \coqref{Ordinal.ordlezeroright}{\coqdoclemma{\ensuremath{\preceq_{\text{zero\_right}}}}}
@@ -343,9 +349,9 @@ as an example of this issue.
 \end{coqdoccode}
 \end{singlespace}
 We would like to strengthen this, but cannot, since nothing denies
-\coqdocvariable{$\alpha$} from being the Brouwer ordinal $\sqcup \{ 0, 0, 0,
+\coqdocvariable{$\alpha$} from being the tree ordinal $\sqcup \{ 0, 0, 0,
 \ldots \}$ (which has the same rank as $0$). We therefore turn to a subset of
-the Brouwer ordinals where we restrict limit sequences to be strictly
+the tree ordinals where we restrict limit sequences to be strictly
 monotonic. This restriction is encoded in the
 \coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} (well-formedness)
 property. The $\Sigma$-type
@@ -852,7 +858,7 @@ $\Box$ at position \coqdocvariable{p}.
 
 In this section we present the essence of our development. Rewrite
 sequences of length $\alpha$ are represented using the tree structure
-of the Brouwer ordinal $\alpha$. Much of the definitions on ordinals
+of the tree ordinal $\alpha$. Much of the definitions on ordinals
 are lifted to rewrite sequences and we once more come to a notion of
 well-formedness. The resulting representation is discussed in relation
 to the traditional theory of rewriting in
@@ -931,14 +937,14 @@ defines agreement of substitutions on a given list of variables.
 % TODO: naming of variables is not so nice here
 
 We describe a way to define rewrite sequences as an inductive type. A rewrite
-sequence of length $\alpha$ can be represented by the Brouwer ordinal $\alpha$
+sequence of length $\alpha$ can be represented by the tree ordinal $\alpha$
 where we label every occurrence of the $^+$ constructor with a rewrite
 step. To ensure that successive steps have the same target and source terms,
 respectively, we include the source and target terms of the rewrite sequence
 in its type and label accordingly.
 
 At this point, it is not immediately clear what the type of the limit
-constructor should be. Following the Brouwer ordinals, we think of a rewrite
+constructor should be. Following the tree ordinals, we think of a rewrite
 sequence as a countably branching tree with every branching node representing
 the least upper bound of its branches.
 \begin{singlespace}
@@ -1187,7 +1193,7 @@ $t_3$ to $t_4$.
 
 % TODO: better wording for 'canceled out'?
 % TODO: picture of this embedding behaviour?
-Having a closer look at the order $\preceq$ on the Brouwer ordinals, we can
+Having a closer look at the order $\preceq$ on the tree ordinals, we can
 see that it really defines embeddings of their tree structures. This is due to
 clause {\sc \ref{def:order:succ}} of Definition~\ref{def:order}. In
 this clause, two occurrences of the $^+$ constructor (one in both
