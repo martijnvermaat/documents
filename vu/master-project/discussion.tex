@@ -1,4 +1,4 @@
-\chapter{Discussion and Conclusion}\label{chap:discussion}
+\chapter{Discussion}\label{chap:discussion}
 
 
 \section{Design Choices}
@@ -181,12 +181,101 @@ from Section~\ref{sec:seq}, which does satisfy the condition, models
 our intentions adequately.
 
 
-\subsection{Convergence Conditions}
+\subsection{Convergence of Rewrite Sequences}\label{sub:convergence}
 
-TODO
+The inductively defined rewrite sequences from Section~\ref{sec:seq}
+are not necessarily (weakly) convergent. A rewrite sequence of limit
+length satisfies the condition that the target terms of the
+\coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} branches converge but
+this is obviously too weak to establish convergence of the rewrite
+sequence itself.
 
-And here are some convergence definitions we cannot seem to work
-with really.
+The depths of the rewrite steps are not considered at all in our
+formalisation and therefore it obviously does not implement strong
+convergence.
+
+We consider an example of a rewrite sequence that satisfies the
+inductive definition but is not weakly convergent. Let $A$ be a
+constant and $B, C, D$ unary function symbols. We use the following
+three rewrite rules:
+\begin{align*}
+  \rho_1 \, : \, A \to B(A) \qquad \qquad
+  \rho_2 \, : \, C(x) \to D(x) \qquad \qquad
+  \rho_3 \, : \, D(x) \to C(x)
+\end{align*}
+The term $C(A)$ rewrites in $\omega$ many $\rho_1$-steps to
+$C(B^\omega)$.
+\begin{center}
+{\footnotesize\begin{tikzpicture}[node distance=50pt]
+\tikzstyle{level}=[level distance=20pt,sibling distance=22pt]
+\node (a) {$C$} child { node {$A$} };
+\node (b) [right of=a] {$C$} child { node {$B$} child { node {$A$} } };
+\node (c) [right of=b] {$C$} child { node {$B$} child { node {$B$}
+    child { node {$A$} } } };
+\node (d) [right of=c,node distance=80pt] {$C$} child { node {$B$}
+  child { node {$B$} child { node {$B$} child { node[below=-6pt]
+        {\scriptsize$\vdots$} } } } };
+\path (a) -- (b) node[midway,below=-1pt] {$\rightarrow_{\rho_1}$};
+\path (b) -- (c) node[midway,below=-1pt] {$\rightarrow_{\rho_1}$};
+\path (c) -- (d) node[midway,below=-1pt] {$\rightarrow_{\rho_1} \quad \cdots$};
+\end{tikzpicture}}
+\end{center}\vspace{-0.8\baselineskip}
+We modify this rewrite sequence such that in between every two
+$\rho_1$-steps, the root symbol $C$ is changed to $D$ and back to
+$C$. The resulting rewrite sequence does not have a limit and is not
+weakly convergent.
+\begin{center}
+{\footnotesize\begin{tikzpicture}[node distance=40pt]
+\tikzstyle{level}=[level distance=20pt,sibling distance=22pt]
+\node (a) {$C$} child { node {$A$} };
+\node (a') [right of=a] {$C$} child { node {$B$} child { node {$A$} } };
+\node (a'') [right of=a'] {$D$} child { node {$B$} child { node {$A$} } };
+\node (b) [right of=a''] {$C$} child { node {$B$} child { node {$A$} } };
+\node (b') [right of=b] {$C$} child { node {$B$} child { node {$B$}
+    child { node {$A$} } } };
+\node (b'') [right of=b'] {$D$} child { node {$B$} child { node {$B$}
+    child { node {$A$} } } };
+\node (c) [right of=b''] {$C$} child { node {$B$} child { node {$B$}
+    child { node {$A$} } } };
+\node (d) [right of=c] {};
+\path (a) -- (a') node[midway,below=-1pt] {$\rightarrow_{\rho_1}$};
+\path (a') -- (a'') node[midway,below=-1pt] {$\rightarrow_{\rho_2}$};
+\path (a'') -- (b) node[midway,below=-1pt] {$\rightarrow_{\rho_3}$};
+\path (b) -- (b') node[midway,below=-1pt] {$\rightarrow_{\rho_1}$};
+\path (b') -- (b'') node[midway,below=-1pt] {$\rightarrow_{\rho_2}$};
+\path (b'') -- (c) node[midway,below=-1pt] {$\rightarrow_{\rho_3}$};
+\path (c) -- (d) node[pos=.8,below=-1pt] {$\rightarrow_{\rho_1} \quad \cdots$};
+\end{tikzpicture}}
+\end{center}\vspace{-0.8\baselineskip}
+We can define this rewrite sequence as the limit of
+$(\varphi_n)_{n \in \mathbb{N}}$, where $\concat$ denotes
+concatenation of rewrite sequences:
+\begin{align*}
+  \varphi_0 \, &: \, \mbox{\emph{empty}}\\
+  \varphi_{n + 1} \, &: \, \varphi_n \concat C(B^n(A)) \to_{\rho_1}
+  C(B^{n + 1}(A)) \to_{\rho_2} D(B^{n + 1}(A)) \to_{\rho_3} C(B^{n +
+    1}(A))
+\end{align*}
+The target terms $C(B^{n + 1}(A))$ converge to $C(B^\omega)$ and this
+construction can thus be used with our inductive definition of rewrite
+sequences, where we take $\varphi_n$ to be the $n$\textsuperscript{th}
+branch of the \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}}
+constructor.
+
+% $\varphi_n$ is the prefix of length $3n$.
+
+% 'stuttering convergence'
+% convergence with hiccups
+% the difference between t_n and the limit t is oscillating
+
+It is not clear to us whether there is some natural translation of the
+convergence conditions to our formalisation. Without such a
+translation, we feel our definitions are not satisfactory.
+
+For completeness we include a (not so natural) translation of
+convergence, but we were not able to use this in our development. Even
+proving the simplest of rewrite sequences to satisfy these definitions
+seemed over our head.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -307,8 +396,6 @@ Versus our inductive definition.
 
 \section{Discussion}
 
-TODO
-
 Our representation feels natural, but the traditional convergence
 definitions do not fit (easily). Maybe there are alternatives to our
 embedding relation, or can we index the steps in a different way than
@@ -325,6 +412,8 @@ could have used inductive Bvector. But it spells trouble later.
 % terms
 
 TODO: additional remarks on productivity and guardedness restriction?
+
+Related work.
 
 
 \section{Conclusions}

@@ -39,3 +39,12 @@ http://groups.google.com/group/comp.text.tex/browse_thread/thread/fce5d39f69052b
 
 http://perso.ens-lyon.fr/pierre.lescanne/not_accessible.html
 http://books.google.com/books?id=_hsUmpc6OfcC&pg=PA418&lpg=PA418&dq=schwichtenberg+%22tree+ordinal%22&source=bl&ots=PiwnKytq5C&sig=9_RpDlf89Oz3X_sHfkN0-VbDrZY#v=onepage&q&f=false
+
+Document dependencies, at least (Ubuntu Lucid packages)
+  texlive
+  texlive-math-extra
+  texlive-generic-extra
+  texlive-latex3
+  tex-gyre
+  texlive-lang-polish
+and coqdoc.sty from Coq 8.3 beta0-1
