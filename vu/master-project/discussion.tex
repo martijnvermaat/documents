@@ -179,10 +179,11 @@ definitions seems too involved.
 \coqdockw{end}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-Here it should be possible to prove that
-\coqref{Rewriting.stronglyconvergent}{\coqdocdefinition{strongly\_convergent}}
-implies
-\coqref{Rewriting.weaklyconvergent}{\coqdocdefinition{weakly\_convergent}}.
+
+%Here it should be possible to prove that
+%\coqref{Rewriting.stronglyconvergent}{\coqdocdefinition{strongly\_convergent}}
+%implies
+%\coqref{Rewriting.weaklyconvergent}{\coqdocdefinition{weakly\_convergent}}.
 
 
 \section{Representing Rewrite Sequences}
@@ -222,26 +223,58 @@ representation can be seen as a generalisation of inductively defined
 finite lists to lists of transfinite length.
 
 
-\section{Design Choices}
+\section{Design Decisions}
 
 We describe a number of design choices for our formalisation.
-
-%One-hole contexts vs multi-hole contexts (possible using extended signature).
-
-%Casteran's ordinals in Veblen nf vs Mamane's set-theoretic ordinals vs tree
-%ordinals.
-
-%Bisimilarity in steps.
-
-%The embedding relation and order on ordinals by Hancock, are there other
-%choices?
-
-%Positions are just lists (using option types) versus a safe position
-%type parameterised by a term.
 
 %Coinductive terms versus functions from lists of positions.
 
 %Why \Coq?
+
+
+\subsection{Positions}
+
+The set of positions of a given term is a restricted list of natural
+numbers. This could probably be translated to \Coq by encoding the
+restriction in the type of positions. It would result in quite
+complicated definitions, however, and therefore we choose for
+\coqref{Term.subterm}{\coqdocdefinition{subterm}} and
+\coqref{Context.dig}{\coqdocdefinition{dig}} to take any list of
+natural numbers and return option types to distinguish between
+existing and non-existing positions. This comes at the cost of having
+to handle the option types with every call of
+\coqref{Term.subterm}{\coqdocdefinition{subterm}} or
+\coqref{Context.dig}{\coqdocdefinition{dig}}.
+
+
+\subsection{Bisimilarity in Rewrite Steps}
+
+In the definition of rewrite steps (Section~\ref{sec:seq}), we include
+bisimilarity conditions on the source and target terms. The reason is
+that we cannot rely on \Coq's small Leibniz equality. For consider two
+rewrite steps $s_1 \to s_2$ and $t_1 \to t_2$, where $s_2 \bis
+t_1$. We should be able to construct the rewrite sequence consisting
+of these two steps, but the fact that we the target term of the first
+and the source term of the second can be identified must be encoded
+somewhere. There are two places to do this: in the
+\coqref{Rewriting.Cons}{\coqdocconstructor{Cons}} constructor
+for rewrite sequences, or in the definition of rewrite steps. We
+choose the latter because it turns out to be technically more
+elegant.
+
+
+\subsection{One-Hole Contexts}\label{sub:contexts}
+
+We know of two obvious ways to represent multi-hole contexts:
+by the coinductive term datatype augmented with a constructor for
+holes or by a function whose arguments represent holes.
+Both are unsatisfactory. The first representation requires a dynamic
+check on the number of holes and it admits contexts with infinitely
+many holes. The second representation cannot guarantee
+that each hole occurs exactly once and its type, encoding the number of
+holes, cannot be generalised. \citet{lindley-08} presents a quite
+involved solution based on a type-level difference encoding of natural
+numbers. We bypass the problem by only considering one-hole contexts.
 
 
 \section{Conclusion}
@@ -258,6 +291,12 @@ and algebraic representations). See also recent work by Ketema.
 
 TODO: additional remarks on productivity and guardedness restriction?
 There has been a lot of work in termination of recursive definitions.
+
+%Casteran's ordinals in Veblen nf vs Mamane's set-theoretic ordinals vs tree
+%ordinals.
+
+%The embedding relation and order on ordinals by Hancock, are there other
+%choices?
 
 Representation is original.
 

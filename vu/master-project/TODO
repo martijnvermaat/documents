@@ -15,6 +15,7 @@ Grep for \phi and change to \varphi
 Publish via lulu :)
 Serial commas?
 Mechanic vs mechanical
+Subsection or always Section?
 
 coqdoc --latex -s -g --coqlib http://coq.inria.fr/stdlib/ -d coqdoc *.v
 
