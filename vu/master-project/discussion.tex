@@ -1,6 +1,49 @@
 \chapter{Discussion}\label{chap:discussion}
 
-We discuss our formalisation. Finally a conclusion.
+In Chapter~\ref{chap:implementation} we present our formalisation of
+infinitary term rewriting and in the current chapter we discuss some
+aspects of it. First, the representation we use for rewrite sequences
+is motivated and the resulting definitions are related to the notion
+of convergence. We then comment on some technicalities in the
+implementation. Finally, we conclude with an evaluation of our
+formalisation.
+
+
+\section{Representing Rewrite Sequences}
+
+% TODO: leave out ', with the appropriate conditions...' ?
+In Definition~\ref{def:seq}, transfinite rewrite sequences are
+introduced as partial functions from ordinals to rewrite steps, with
+the appropriate conditions on source and target terms of subsequent
+rewrite steps. Could we not translate this directly to \Coq?
+
+% TODO: one problem, and other problem?
+A problem is that we would need a decidable order on the
+ordinals.\footnote{Consider a non-trivial rewrite sequence of length
+  $\lambda$. For every ordinal $\alpha < \lambda$, the partial
+  function representing this rewrite sequence must decide what step to
+  produce.}
+The order on our tree ordinals is not decidable. This could be
+remedied by using a different representation for the ordinals, for
+example axiomatically, as Cantor normal forms, or as sets. We feel
+that the inductively defined tree ordinals are a more natural
+representation in the constructive type theory of \Coq.
+
+Comparison of ordinals up to some given upper bound may be decidable,
+so another remedy for this problem would be to only consider rewrite
+sequences of limited length. Motivated by the Compression Lemma, we
+could go even further and restrict our representation to rewrite
+sequences of length $\le \omega$. This would severely cripple our
+formalisation, since much of the theory of infinitary rewriting could
+not be developed with this representation (e.g. the Compression Lemma
+itself). % and many compressed rewrite sequences are unnatural
+
+Another argument in favour of our representation based on tree
+ordinals is that it seems natural for a \Coq formalisation. As a
+comparison, lists of finite length are usually defined by induction in
+\Coq, not as partial functions from the natural numbers. Our
+representation can be seen as a generalisation of inductively defined
+finite lists to lists of transfinite length.
 
 
 \section{Convergence of Rewrite Sequences}\label{sec:convergence}
@@ -74,7 +117,7 @@ We can define this rewrite sequence as the limit of
 $(\varphi_n)_{n \in \mathbb{N}}$, where $\concat$ denotes
 concatenation of rewrite sequences:
 \begin{align*}
-  \varphi_0 \, &: \, \mbox{\emph{empty}}\\ % TODO: or C(A) \to^0 C(A)
+  \varphi_0 \, &: \, C(A) \to^0 C(A)\\ % or \mbox{\emph{empty}}
   \varphi_{n + 1} \, &: \, \varphi_n \concat C(B^n(A)) \to_{\rho_1}
   C(B^{n + 1}(A)) \to_{\rho_2} D(B^{n + 1}(A)) \to_{\rho_3} C(B^{n +
     1}(A))
@@ -186,50 +229,23 @@ definitions seems too involved.
 %\coqref{Rewriting.weaklyconvergent}{\coqdocdefinition{weakly\_convergent}}.
 
 
-\section{Representing Rewrite Sequences}
-
-% TODO: leave out ', with the appropriate conditions...' ?
-In Definition~\ref{def:seq}, transfinite rewrite sequences are
-introduced as partial functions from ordinals to rewrite steps, with
-the appropriate conditions on source and target terms of subsequent
-rewrite steps. Could we not translate this directly to \Coq?
-
-% TODO: one problem, and other problem?
-A problem is that we would need a decidable order on the
-ordinals.\footnote{Consider a non-trivial rewrite sequence of length
-  $\lambda$. For every ordinal $\alpha < \lambda$, the partial
-  function representing this rewrite sequence must decide what step to
-  produce.}
-The order on our tree ordinals is not decidable. This could be
-remedied by using a different representation for the ordinals, for
-example axiomatically, as Cantor normal forms, or as sets. We feel
-that the inductively defined tree ordinals are a more natural
-representation in the constructive type theory of \Coq.
-
-Comparison of ordinals up to some given upper bound may be decidable,
-so another remedy for this problem would be to only consider rewrite
-sequences of limited length. Motivated by the Compression Lemma, we
-could go even further and restrict our representation to rewrite
-sequences of length $\le \omega$. This would severely cripple our
-formalisation, since much of the theory of infinitary rewriting could
-not be developed with this representation (e.g. the Compression Lemma
-itself). % and many compressed rewrite sequences are unnatural
-
-Another argument in favour of our representation based on tree
-ordinals is that it seems natural for a \Coq formalisation. As a
-comparison, lists of finite length are usually defined by induction in
-\Coq, not as partial functions from the natural numbers. Our
-representation can be seen as a generalisation of inductively defined
-finite lists to lists of transfinite length.
-
-
 \section{Design Decisions}
 
-We describe a number of design choices for our formalisation.
-
-%Coinductive terms versus functions from lists of positions.
+We describe a number of design decisions that we had to make during
+implementation.
 
 %Why \Coq?
+
+
+\subsection{Coinductive Terms}
+
+We define the type of infinite terms by coinduction. Another often
+used definition of $\TerI$ is by partial functions from positions to
+symbols. This definition is troublesome to translate to \Coq, which
+admits no partial functions. It might be possible to circumvent this
+restriction using option types, or by some other means, but we suspect
+that the resulting notion of terms would not be elegant. Coinduction
+is a native concept in \Coq and we use it as such.
 
 
 \subsection{Positions}
@@ -279,6 +295,7 @@ numbers. We bypass the problem by only considering one-hole contexts.
 
 \section{Conclusion}
 
+
 Our representation feels natural, but the traditional convergence
 definitions do not fit (easily). Maybe there are alternatives to our
 embedding relation, or can we index the steps in a different way than
@@ -288,6 +305,9 @@ Functions from ordinals to steps have other problems. They could be
 investigated, especially using other ordinal representations such as
 cantor normal form. But this is very not \Coq-like (partial functions
 and algebraic representations). See also recent work by Ketema.
+
+A lot of work in \Coq. Implementation of the counterexample took some
+2000 lines of code.
 
 TODO: additional remarks on productivity and guardedness restriction?
 There has been a lot of work in termination of recursive definitions.
@@ -301,6 +321,8 @@ There has been a lot of work in termination of recursive definitions.
 Representation is original.
 
 Original goal was compression.
+
+Formalising transfinite objects is hard.
 
 %It is not clear to us whether there is some natural translation of the
 %convergence conditions to our formalisation.
