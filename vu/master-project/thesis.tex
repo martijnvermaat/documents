@@ -9,16 +9,14 @@
 %\usepackage[british]{babel}
 \usepackage[english]{babel}
 
-% Tweak the inner margin to align all text as nice as possible
-%\usepackage[inner=3.83cm]{geometry}
-
 % Abbreviations
 \input{abbrevs}
 
 % Citation aliases
 \defcitealias{coq-refman-09}{The \Coq Reference Manual}
+%\defcitealias{terese-03}{Terese}
 
-% TODO: maybe in vu.cls
+% Figures
 \usepackage{tikz}
 \usetikzlibrary{arrows,positioning,chains,trees}
 
@@ -26,7 +24,7 @@
 \usepackage{coqdoc}
 \setlength{\coqdocbaseindent}{0.7em}
 
-%\usepackage{hyperref}
+%\usepackage{hyperref} % Is included through coqdoc
 \hypersetup{
   final,
   colorlinks=true,
@@ -48,11 +46,6 @@
 \author{Martijn Vermaat}
 \date{August 2010}
 %\date{MSc. Thesis (\emph{draft r\svnrev})}
-% TODO: good title page
-% Thesis submitted for the degree of Master of Science by research at the VU
-% University Amsterdam
-% by Martijn Vermaat
-% August 2010
 
 \begin{document}
 
@@ -84,6 +77,7 @@
 
 \appendix
 
+\include{appendix}
 \include{glossary}
 
 \nocite{*}
