@@ -293,38 +293,43 @@ involved solution based on a type-level difference encoding of natural
 numbers. We bypass the problem by only considering one-hole contexts.
 
 
-\section{Conclusion}
+\section{Conclusions}
 
+Our representation of transfinite rewrite sequences based on tree
+ordinals is original work. While the representation is natural to
+implement in \Coq, we are disappointed by not being able to come up
+with a natural translation of convergence for this
+representation. Without such a translation, we feel our definitions
+are not satisfactory and hope that future work can remedy this.
 
-Our representation feels natural, but the traditional convergence
-definitions do not fit (easily). Maybe there are alternatives to our
-embedding relation, or can we index the steps in a different way than
-with predecessor indices.
+%For example, it is quite conceivable that other means of indexing our
+%rewrite sequences can be defined. Alternatives to our embedding
+%relation might also be possible.
 
-Functions from ordinals to steps have other problems. They could be
-investigated, especially using other ordinal representations such as
-cantor normal form. But this is very not \Coq-like (partial functions
-and algebraic representations). See also recent work by Ketema.
+% TODO: cite Ketema
+The alternative representation of partial functions from ordinals to
+rewrite steps has other problems. However, it seems worthwile to also
+investigate this representation further, for example using the
+ordinals in Cantor normal form by \citet{casteran-06}. Recent work by
+Ketema (2010) shows that, assuming some decidable properties on the
+ordinal representation, constructive formalisation of some of the
+infinitary rewriting theory is possible.
 
-A lot of work in \Coq. Implementation of the counterexample took some
-2000 lines of code.
+Working with \Coq has been an overal pleasant experience. During this
+development, our main disturbance was with the guardedness condition
+on corecursive definitions. Sometimes unguarded but natural
+definitions are easily seen to be productive yet not accepted by
+\Coq. On could hope for future additions to \Coq, for example in the
+form of user-supplied productivity proofs for corecursive definitions
+to be admitted.
 
-TODO: additional remarks on productivity and guardedness restriction?
-There has been a lot of work in termination of recursive definitions.
+% TODO: count number of lines
+Still, the amount of work that is required for a formalisation like
+this is disproportionally large. Especially the implementation of the
+counterexample to UN$^\infty$ in weakly orthogonal systems from
+Chapter~\ref{chap:unwo} takes only a page to formulate on paper, while
+it took us some $2,000$ lines of \Coq code to formalise.
 
-%Casteran's ordinals in Veblen nf vs Mamane's set-theoretic ordinals vs tree
-%ordinals.
+%Original goal was compression.
 
-%The embedding relation and order on ordinals by Hancock, are there other
-%choices?
-
-Representation is original.
-
-Original goal was compression.
-
-Formalising transfinite objects is hard.
-
-%It is not clear to us whether there is some natural translation of the
-%convergence conditions to our formalisation.
-Without such a translation, we feel our definitions are not
-satisfactory.
+%Formalising transfinite objects is hard.
