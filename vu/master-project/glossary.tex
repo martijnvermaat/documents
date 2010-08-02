@@ -1,14 +1,13 @@
 \chapter{Notation Glossary}\label{chap:glossary}
 
-This chapter is used during writing, probably won't be in final
-thesis. Or perhaps will be, but in some other form. Note that some
-notations are used more than once, but with roughly comparable
-meaning.
-
+The first table gives an overview of the conventions we use in naming
+variables. The second table lists notations as used in this text and
+as written in \Coq.
+\begin{center}
 {\renewcommand{\arraystretch}{1.1}
 \renewcommand{\tabcolsep}{10pt}
-\begin{tabular}{p{150pt} p{175pt}}
-\textsc{names} & \textsc{used for}\\
+\begin{tabular}{p{130pt} p{130pt}}
+\textsc{variables} & \textsc{denoting}\\
 \hline
 \multicolumn{2}{l}{\bf Ordinals}\\
 $\alpha, \beta, \gamma$ & ordinals\\
@@ -25,13 +24,14 @@ $\sigma$ & substitutions\\
 $\pi, o$ & rewrite steps\\
 $\varphi, \psi$ & rewrite sequences\\
 \end{tabular}}
+\end{center}
 % TODO: choose notation for rules/steps/sequences
 % We first had \rho and \tau for sequences, but also for rules (bad
 % clash). Joerg uses \varphi and \psi for steps.
 
 {\renewcommand{\arraystretch}{1.1}
 \renewcommand{\tabcolsep}{10pt}
-\begin{tabular}{l l p{175pt}}
+\begin{tabular}{l l p{160pt}}
 \textsc{thesis} & \Coq & \textsc{meaning}\\
 \hline
 \multicolumn{3}{l}{\bf Ordinals}\\

@@ -1,5 +1,5 @@
 % Options are: draft, color
-\documentclass[color]{vu}
+\documentclass[draft]{vu}
 
 % Text encoding to take for data input stream (i.e. the text we write in)
 \usepackage[latin1]{inputenc}
@@ -54,16 +54,7 @@
 \maketitle
 
 \begin{abstract}
-  % 250 words
-  TODO: this is a temporary abstract
-
-  We formalize the basic notions from the theory of infinitary
-  rewriting in the \Coq proof assistant. Infinite terms are defined by
-  coinduction and rewrite sequences of ordinal length are based on the
-  inductive structure of the tree ordinals. We discuss an
-  application of the formalization in a verification of the
-  counterexample to unique normal forms in weakly orthogonal iTRSs,
-  introduced by \citet{endrullis-10}.
+  \input{abstract}
 \end{abstract}
 
 \include{preface}
@@ -87,7 +78,7 @@
 
 \cleardoublepage
 \phantomsection
-\addcontentsline{toc}{chapter}{\bibname}
+\addcontentsline{toc}{chapter}{\protect\thispagestyle{empty}\bibname}
 \singlespacing
 \nocite{*}
 \bibliography{thesis}

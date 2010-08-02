@@ -860,7 +860,8 @@ sequences of length $\alpha$ are represented using the tree structure
 of the tree ordinal $\alpha$. Much of the definitions on ordinals
 are lifted to rewrite sequences and we once more come to a notion of
 well-formedness. The resulting representation is discussed in relation
-to the traditional theory of rewriting in Section~\ref{sub:convergence}.
+to the traditional theory of rewriting in
+Section~\ref{sec:convergence}.
 
 Throughout this section, we let $\mathcal{R}$ be a fixed TRS. We
 define the type of steps using rewrite rules in $\mathcal{R}$,
@@ -990,7 +991,8 @@ condition that these terms must converge to the target term
 \ensuremath{\forall} \coqdocvar{s} \coqdocvar{t}
 (\coqdocvar{ts} :
 \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
-\ensuremath{\rightarrow} \coqref{Term.term}{\coqdocinductive{term}}),
+\ensuremath{\rightarrow} \coqref{Term.term}{\coqdocinductive{term}}),\coqdoceol
+\coqdocindent{5.0em}
 (\ensuremath{\forall} \coqdocvar{n}, \coqdocvar{s}
 \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
 \coqdocvar{ts} \coqdocvariable{n}) $\rightarrow$
@@ -1135,17 +1137,16 @@ the source and target terms of the rewrite step.
 % TODO: too dramatic
 In an effort to prevent getting lost in a syntactical labyrinth, we define
 the following notational shortcuts:
-
-% TODO: keep an eye on placement of the table
+\begin{center}
 {\renewcommand{\arraystretch}{1.1}
-\renewcommand{\tabcolsep}{6pt}
+\renewcommand{\tabcolsep}{8pt}
 \begin{tabular}{lll}
 & \textsc{description} & \textsc{definition}\\
 \hline
 \coqdocvar{$\varphi$}[\coqdocvar{$\iota$}] & location in
 \coqdocvar{$\varphi$} indexed by \coqdocvar{$\iota$} &
   \begin{coqdoccode}\coqref{Rewriting.pred}{\coqdocdefinition{pred}} \coqdocvar{$\varphi$} \coqdocvar{$\iota$}\end{coqdoccode} \\
-\coqdocvar{$\varphi$}[\coqdocvar{$\iota$}]$^\textsc{seq}$ & predecessor rewrite sequence of
+\coqdocvar{$\varphi$}[\coqdocvar{$\iota$}]$^\textsc{seq}$ & rewrite sequence in
   \coqdocvar{$\varphi$} indexed by \coqdocvar{$\iota$}
   & \begin{coqdoccode}\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{fst}{\coqdocdefinition{fst}}
       (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{projT2}{\coqdocdefinition{projT2}}
@@ -1166,7 +1167,7 @@ the following notational shortcuts:
     (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{projT1}{\coqdocdefinition{projT1}}
     (\coqref{Rewriting.pred}{\coqdocdefinition{pred}} \coqdocvar{$\varphi$} \coqdocvar{$\iota$}))\end{coqdoccode}
 \end{tabular}}
-
+\end{center}
 As an example of predecessor indexing, consider the graphical
 representation of a rewrite sequence $\varphi$ of length $\omega + 2$
 and its predecessor index $\iota = \coqdocconstructor{inr} \;
@@ -1181,7 +1182,7 @@ $t_3$ to $t_4$.
 
 \begin{figure}
 \begin{center}
-\begin{tikzpicture}
+\begin{tikzpicture}[scale=0.85]
 \input{figures/predecessor.tikz}
 \end{tikzpicture}
 \end{center}
@@ -1445,10 +1446,10 @@ $1 \coqref{Ordinal.add}{+} \alpha$ on ordinals.
 \coqref{Rewriting.snoc}{\coqdocdefinition{snoc}} is recursive in its
 right argument, but for the \Coq type checker to accept our
 definition, we must write it such that it consumes this argument
-first.\footnote{The reason for this is rather technical, but the main
-  point is that the match function can be used such that the type of
-  unconsumed arguments change with it. We also give hints to match not
-  shown here. TODO: this formulation (maybe cpdt explains it nicely)}
+first.\footnote{The reason for this is rather technical, but the idea
+  is that the return type nicely follows the case analysis on the
+  rewrite sequence in the \coqdockw{match} construction. We also give
+  some hints to the \Coq type checker that are not shown here.}
 Hence, we use an auxiliary function
 \coqref{Rewriting.snocrec}{\coqdocdefinition{snoc\_rec}}.
 \begin{singlespace}
@@ -1561,7 +1562,8 @@ analogue of addition on ordinals. It is defined in the same way as
 \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$} \coqdocvar{u}) :
 \coqdocvariable{s}
 \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
-\coqdocvariable{u} :=
+\coqdocvariable{u} :=\coqdoceol
+\coqdocindent{1.0em}
 \coqref{Rewriting.appendrec}{\coqdocdefinition{concat\_rec}}
 \coqdocvariable{$\psi$} \coqdocvariable{$\varphi$}.\coqdoceol
 \end{coqdoccode}

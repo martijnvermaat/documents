@@ -247,7 +247,7 @@
     {\sc \@date \par}
     \vspace{2cm}
     {\renewcommand{\arraystretch}{1.1}
-      \renewcommand{\tabcolsep}{50pt}
+      \renewcommand{\tabcolsep}{35pt}
       \begin{tabular}{c c}
         {\sc supervisor} & {\sc second reader}\\
         {\sc dr.} R.D.A.\ Hendriks & {\sc dr.} R.C.\ de Vrijer
@@ -258,7 +258,7 @@
   \newpage
     \thispagestyle{empty}
     \null\vfil
-    \vspace{13cm}
+    \vspace{10cm}
     % TODO: black and white version of VU logo
     \if@vucolors
       {\includegraphics[draft=false,width=5cm]{logos/vu-logo-en}\par}
@@ -271,8 +271,8 @@
     % TODO: check license text
     % TODO: attribute Sebastian Pipping for cc logo,
     % http://blog.hartwork.org/?p=52
-    % TODO: this is ugly (333pt should exactly fill the page)
-    {\begin{tabular}{c p{333pt}}
+    % TODO: this is ugly (250pt does not completely fill the page)
+    {\begin{tabular}{c p{250pt}}
       \raisebox{-10pt}{\includegraphics[draft=false,scale=1.0]{logos/cc-by}} &
       This work is licensed under the Creative Commons
       Attribution 3.0 Netherlands License. To view a copy of this

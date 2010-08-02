@@ -235,7 +235,7 @@ the argument, writing for example $\sqcup \{ \alpha_1, \alpha_2,
 % TODO: make this a nice picture
 \begin{figure}
 \begin{center}
-\begin{tikzpicture}
+\begin{tikzpicture}[scale=0.9]
 \input{figures/tree-ordinal.tikz}
 \end{tikzpicture}
 \end{center}
@@ -646,12 +646,12 @@ the equivalence closure of $\rewrites$.
       (i.e.\ if there is no step from $t$). We say $t$ is a normal
       form \emph{of} $s$ if $s \rewrites t$ and $t$ is a normal form.
     \item
-      $\mathcal{R}$ has the (infinitary) \emph{unique normal forms}
+      $\mathcal{R}$ has the \emph{unique normal forms}
       (UN$^\infty$) property if $t \equiv u$ for every two
       convertible normal forms $t$ and $u$.
     \item
       % TODO: make sure \rewrites renders fine in superscript
-      $\mathcal{R}$ has the (infinitary) \emph{unique normal forms
+      $\mathcal{R}$ has the \emph{unique normal forms
       with respect to rewriting} (UN$^\rewrites$) property if for all
       terms $s$, we have $t \equiv u$ for every normal forms $t$ and
       $u$ of $s$.
