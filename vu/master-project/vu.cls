@@ -71,8 +71,8 @@
   \renewcommand{\footrulewidth}{0pt}
 }
 
-\renewcommand{\chaptermark}[1]{\markboth{\textsc{Chapter
-      \thechapter}\hskip 1em {\emph{#1}}}{}}
+\renewcommand{\chaptermark}[1]{\markboth{\textsc{\chaptername
+     \ \thechapter}\hskip 1em {\emph{#1}}}{}}
 %\renewcommand{\sectionmark}[1]{\markright{\textsc{Section
 %      \thesection}\hskip 1em #1}}
 \renewcommand{\sectionmark}[1]{\markright{\textsc{\thesection}\hskip
@@ -142,6 +142,7 @@
 \usepackage[round,authoryear,longnamesfirst]{natbib}
 %\usepackage[numbers]{natbib}
 \bibliographystyle{plainnat}
+%\bibliographystyle{dcu}
 %\setlength{\bibhang}{0ex}
 
 % Customizable theorem environments
@@ -193,6 +194,16 @@
 % Additional list environments
 \usepackage{paralist}
 \setdefaultenum{\sc i.}{a.}{}{}
+
+\usepackage{url}
+%% Define a new 'leo' style for the package that will use a smaller
+%% font.
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
+\makeatother
+%% Now actually use the newly defined style.
+\urlstyle{leo}
 
 % TODO: title page layout
 % TODO: bibliography style

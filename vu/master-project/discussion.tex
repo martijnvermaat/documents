@@ -300,28 +300,28 @@ ordinals is original work. While the representation is natural to
 implement in \Coq, we are disappointed by not being able to come up
 with a natural translation of convergence for this
 representation. Without such a translation, we feel our definitions
-are not satisfactory and hope that future work can remedy this.
+are not satisfactory and we hope that future work can remedy this.
 
 %For example, it is quite conceivable that other means of indexing our
 %rewrite sequences can be defined. Alternatives to our embedding
 %relation might also be possible.
 
 % TODO: cite Ketema
-The alternative representation of partial functions from ordinals to
-rewrite steps has other problems. However, it seems worthwile to also
-investigate this representation further, for example using the
-ordinals in Cantor normal form by \citet{casteran-06}. Recent work by
-Ketema (2010) shows that, assuming some decidable properties on the
-ordinal representation, constructive formalisation of some of the
-infinitary rewriting theory is possible.
+An obvious alternative representation as partial functions from
+ordinals to rewrite steps has other problems. However, it seems
+worthwile to also investigate this representation further, for example
+using the ordinals in Cantor normal form by
+\citet{casteran-06}. Recent work by Ketema (2010) shows that, assuming
+some decidable properties on the ordinal representation, constructive
+formalisation of some of the infinitary rewriting theory is possible.
 
 Working with \Coq has been an overal pleasant experience. During this
 development, our main disturbance was with the guardedness condition
 on corecursive definitions. Sometimes unguarded but natural
 definitions are easily seen to be productive yet not accepted by
-\Coq. On could hope for future additions to \Coq, for example in the
-form of user-supplied productivity proofs for corecursive definitions
-to be admitted.
+\Coq. One could hope for future additions to \Coq in this area, for
+example in the form of user-supplied productivity proofs for
+corecursive definitions to be admitted.
 
 % TODO: count number of lines
 Still, the amount of work that is required for a formalisation like

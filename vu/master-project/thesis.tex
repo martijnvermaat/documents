@@ -8,6 +8,7 @@
 % TODO: check if UKenglish actually works (otherwise use english)
 %\usepackage[british]{babel}
 \usepackage[english]{babel}
+\addto\captionsenglish{\renewcommand{\bibname}{References}}
 
 % Abbreviations
 \input{abbrevs}
@@ -76,10 +77,18 @@
 \include{discussion}
 
 \appendix
+\renewcommand{\chaptername}{\appendixname}
 
 \include{appendix}
 \include{glossary}
 
+% TODO; is the page counter ok for bibliography??
+% http://www.markschenk.com/tensegrity/latexexplanation.html
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\bibname}
+\singlespacing
 \nocite{*}
 \bibliography{thesis}
 
