@@ -192,10 +192,10 @@ of inductive types can be done with the \coqdockw{match} keyword.
 
 \subsection{Reading the Code Fragments}
 
-In the \Coq code fragments, we take some notational liberties in favor
+In the \Coq code fragments, we take some notational liberties in favour
 of readability. Sometimes we omit (part of) the type information. We
 also freely use infix notations without declaration. Furthermore,
-variable and definition names are typeset liberaly.
+variable and definition names are typeset liberally.
 
 Some definitions have implicit arguments, meaning those arguments can
 be inferred by the system from the context. As an example, consider
@@ -1008,7 +1008,7 @@ condition that these terms must converge to the target term
 Of course, the branches of a \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}}
 constructor may still not actually approximate to a rewrite sequence (of
 length a limit ordinal). The intuition is that each branch should extend on
-its preceeding ones. This would correspond to the
+its preceding ones. This would correspond to the
 \coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} property we defined on
 \coqref{Ordinal.ord}{\coqdocinductive{ord}}, where we lift $\prec$ to a
 strict prefix relation on
@@ -1063,7 +1063,7 @@ The predecessor indices defined by
 \coqref{Rewriting.predtype}{\coqdocdefinition{pred\_type}} point to a specific
 occurrence of the \coqref{Rewriting.Cons}{\coqdocconstructor{Cons}}
 constructor in a rewrite sequence. This constructor does not only contain a
-rewrite sequence (analoguous to an ordinal in the
+rewrite sequence (analogous to an ordinal in the
 \coqref{Ordinal.ord}{\coqdocinductive{ord}} case), but also a rewrite
 step. The \coqref{Rewriting.pred}{\coqdocdefinition{pred}} function gives us
 both the rewrite sequence and the step. For the type checker to accept the
@@ -1190,14 +1190,14 @@ $t_3$ to $t_4$.
   index.}\label{fig:pred}
 \end{figure}
 
-% TODO: better wording for 'canceled out'?
+% TODO: better wording for 'cancelled out'?
 % TODO: picture of this embedding behaviour?
 Having a closer look at the order $\preceq$ on the tree ordinals, we can
 see that it really defines embeddings of their tree structures. This is due to
 clause {\sc \ref{def:order:succ}} of Definition~\ref{def:order}. In
 this clause, two occurrences of the $^+$ constructor (one in both
 ordinals) are cancelled out against each other, but the positions of
-these occurences in their respective ordinals do not necessarily
+these occurrences in their respective ordinals do not necessarily
 correspond. Since occurrences of $^+$ carry no additional information,
 this has no effect on the resulting relation.
 
@@ -1297,7 +1297,7 @@ $\rightarrow$ \coqdockw{Prop} :=\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 
-Analoguous to the strict order $\prec$ on ordinals, we define a strict
+Analogous to the strict order $\prec$ on ordinals, we define a strict
 embedding relation $\sqsubset$ on rewrite sequences.
 \begin{singlespace}
 \begin{coqdoccode}
@@ -1375,7 +1375,7 @@ using the strict embedding relation $\sqsubset$.
 % TODO: check if this page ref is correct
 On page~\pageref{coq:lim}, we define the
 \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} constructor with the
-intuition that each of its branches should extend on the preceeding
+intuition that each of its branches should extend on the preceding
 ones. Naturally, we would implement this condition using a strict prefix
 relation on rewrite sequences, but the strict embedding relation
 $\sqsubset$ is also satisfying for this purpose.
@@ -1674,7 +1674,7 @@ purposes, however, since it has no effect on questions such as
 \end{coqdoccode}
 \end{singlespace}
 Now we can in a straightforward manner define the properties of
-orthogonality and weak orhogonality.
+orthogonality and weak orthogonality.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
