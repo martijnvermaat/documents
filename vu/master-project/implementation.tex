@@ -233,8 +233,15 @@ of \begin{coqdoccode}\coqref{CoqIntro.Pos}{\coqdocconstructor{Pos}} 3
 
 % TODO: rewrite this paragraph
 In the theory of infinitary rewriting, the lengths of rewrite sequences play
-a central role. Therefore, any reasonable formalisation of infinitary
-rewriting ought to have some notion of ordinal numbers.
+a central role. One might even suspect that any representation of transfinite
+rewrite sequences needs a representation of ordinal numbers. But this is not
+the case. Consider the analoguous example of finite lists. They are naturally
+encoded inductively, without the need for a representation of natural
+numbers.
+% TODO
+
+% Therefore, any reasonable formalisation of infinitary
+%rewriting ought to have some notion of ordinal numbers.
 
 We define the ordinal numbers using the representation of tree
 ordinals (cf.~Definition~\ref{def:ordinals}) in \Coq by
