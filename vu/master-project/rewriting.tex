@@ -5,7 +5,11 @@ infinitary TRS taken from \citet{klop-de-vrijer-05} and trust the
 reader to pick up the general ideas.
 
 Let $A$, $B$ and $P$ be symbols with arities $0$, $1$ and $2$,
-respectively. We consider the rule $A \rightarrow B(A)$. The term $A$
+respectively. We consider the system consisting of the following rule:
+\begin{align*}
+A \rightarrow B(A)
+\end{align*}
+The term $A$
 rewrites to $B(B(B(A)))$, written $B^3(A)$, in $3$ steps, or more
 generally to $B^n(A)$ in $n$ steps for every $n \in \mathbb{N}$.
 %\begin{align*}
@@ -51,10 +55,11 @@ rewriting allows \begin{inparaenum}[(i)]
 \end{tikzpicture}}
 \end{center}\vspace{-0.8\baselineskip}
 The word `transfinite' hints that there are also rewrite sequences of
-length $> \omega$. For consider the term $P(A, A)$. It rewrites in
-$\omega$ many steps to $P(B^\omega, A)$, which in turn rewrites in
-$\omega$ many steps to $P(B^\omega, B^\omega)$. Therefore we have
-$P(A, A) \rightarrow^{\omega \times 2} P(B^\omega, B^\omega)$.
+length $> \omega$. Consider for example the term $P(A, A)$. We can
+rewrite this term to $P(B^\omega, A)$ in $\omega$ many steps, and
+rewrite $P(B^\omega, A)$ to $P(B^\omega, B^\omega)$ in another
+$\omega$ many steps. Therefore we have $P(A, A) \rightarrow^{\omega
+  \times 2} P(B^\omega, B^\omega)$.
 \begin{center}
 {\footnotesize\begin{tikzpicture}[node distance=41pt]
 \tikzstyle{level}=[level distance=17pt,sibling distance=16pt]
@@ -115,8 +120,8 @@ This observation is generalised in the Compression Lemma
 In the following sections, we introduce the ordinal numbers and a
 representation for them known as tree ordinals, and we present the
 basic notions from the theory of term rewriting as required in the
-following chapters. None of this is original material.
-% Include none of this is original material?
+following chapters.
+% None of this is original material.
 
 %This chapter does not contain original material. The construction of the
 %order relation on tree ordinals in Section~\ref{sub:tree} is by
@@ -137,8 +142,6 @@ following chapters. None of this is original material.
 %Orthogonal TRSs have some nice properties, for example UN$^{\infty}$ and
 %compression.
 
-% TODO: note that we are explicit in the wording: sequence vs rewrite sequence
-
 
 \section{Ordinal Numbers}\label{sec:ordinals}
 
@@ -157,8 +160,8 @@ ordinals $\omega \times 2 + 1$, $\omega \times 2 + 2$, \ldots, $\omega
   \omega^{\omega^{\omega^{\iddots}}} = \epsilon_0
 \end{displaymath}
 Note that this is all merely notation, we have not yet defined a
-representation for ordinals or what $+$ and $\times$ are.
-% TODO: and exponentiation
+representation for ordinals or what $+$, $\times$ and superscripts
+are.
 
 In set theory, ordinals are usually represented by hereditarily transitive
 sets. Zero corresponds to the empty set $\nothing$, one to the
@@ -173,15 +176,13 @@ ordinal $\beta$. If $\alpha$ is not a successor ordinal and $\alpha
 \neq \nothing$, it is called a \emph{limit ordinal}. Hence, an ordinal
 can be either zero, a successor ordinal, or a limit ordinal.
 
-From now on, we make no distinction between an ordinal and its set-theoretic
-representation (e.g.\ between $0$ and $\nothing$). Examples of successor
-ordinals are $4$, $\omega + 7$  and $\omega^{\omega \times 2} + 1$. Examples
-of limit ordinals are $\omega$ and $\omega \times 3$. Henceforth we
-use $\alpha, \beta, \gamma, \lambda$ to denote ordinals where
-$\lambda$ always denotes a limit ordinal.
-
-% TODO: we also make no distinction between the ordinal and its tree
-% ordinal
+%From now on, we make no distinction between an ordinal and its
+%set-theoretic representation (e.g.\ between $0$ and $\nothing$).
+Examples of successor ordinals are $4$, $\omega + 7$  and
+$\omega^{\omega \times 2} + 1$. Examples of limit ordinals are
+$\omega$ and $\omega \times 3$. Henceforth we use $\alpha, \beta,
+\gamma, \lambda$ to denote ordinals where $\lambda$ always denotes a
+limit ordinal.
 
 One can do arithmetic on ordinals much like we do arithmetics on natural
 numbers. For example, addition can be defined by recursion on the right
@@ -195,18 +196,21 @@ argument:
 
 \subsection{Tree Ordinals}\label{sub:tree}
 
-% TODO: Possible reference for Brouwer ordinals:
+% Possible reference for Brouwer ordinals:
 % Constructivism in Mathematics: An Introduction, A.S. Troelstra en Dirk
 % van Dalen, North-Holland Publishing, Amsterdam, 1988.
 
-% Other possible reference:
+% Possible reference for Brouwer ordinals:
 % Combinators, Lambda-Terms and Proof Theory, S. Stenlund, 1972
 
-% Other possible reference, Brouwer's Phd thesis:
+% Possible reference for Brouwer ordinals, Brouwer's Phd thesis:
 % http://poortman.kb.nl/long2.php?TABEL=T_TITEL&ID=36516
 % L. E. J. Brouwer en de grondslagen van de wiskunde
 % Bewerkt door Dirk van Dalen, 2001
 % ISBN 9050410618
+%
+% Structure of 'Brouwer ordinals' should have been in an early draft
+% of this thesis and might be found in the annotated version.
 
 % Reference for tree ordinals:
 % Subrecursive hierarchies via direct limits, E.C. Dennis-Jones and
@@ -234,10 +238,11 @@ The set of \emph{tree ordinals} $\Ord$ is defined by induction:
 \end{compactenum}
 \end{definition}
 The $\sqcup$ constructor has type $(\mathbb{N} \rightarrow \Ord) \rightarrow
-\Ord$, but for our convenience we write $\sqcup_i \cdots i \cdots$ instead
+\Ord$. For our convenience we write $\sqcup_i \cdots i \cdots$ instead
 of $\sqcup (\lambda i . \cdots i \cdots)$. Sometimes we explicitly enumerate
 the argument, writing for example $\sqcup \{ \alpha_1, \alpha_2,
 \alpha_3, \ldots \}$.
+% or: we write $\sqcup_i (f i)$ instead of $\sqcup_i f$
 
 % TODO: make this a nice picture
 \begin{figure}
@@ -246,7 +251,9 @@ the argument, writing for example $\sqcup \{ \alpha_1, \alpha_2,
 \input{figures/tree-ordinal.tikz}
 \end{tikzpicture}
 \end{center}
-\caption{A representation of $\omega \times 2 + 2$.}\label{fig:tree}
+\caption{A representation of $\omega \times 2 + 2$. Branching points,
+  filled dots, and open dots denote $\sqcup$, $^+$, and $0$
+  constructors, respectively.}\label{fig:tree}
 \end{figure}
 
 Now zero is represented by $0$, a successor ordinal $\alpha +1$ is represented
