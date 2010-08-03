@@ -231,7 +231,7 @@ of \begin{coqdoccode}\coqref{CoqIntro.Pos}{\coqdocconstructor{Pos}} 3
 
 \section{Ordinal Numbers}\label{sec:ordimp}
 
-% TODO: rewrite this paragraph
+% TODO: rewrite this paragraph ('likewise')
 In the theory of infinitary rewriting, the lengths of rewrite sequences play
 a central role. One might even suspect that any representation of transfinite
 rewrite sequences needs a representation of ordinal numbers. But this is not
@@ -456,6 +456,7 @@ function symbols in \coqdocvar{F} and variables in \coqdocvar{X}.
 Here, \coqref{Vector.vector}{\coqdocdefinition{vector}} is assumed to
 implement dependently typed lists (the type depending on their length).
 
+% TODO: equivalent to Leibniz' equality
 The standard Leibniz equality defined in \Coq, written $=$, does not suffice
 for establishing that two terms are equal, given that the only way to build
 infinite objects is by corecursion. Because the amount of memory available is
