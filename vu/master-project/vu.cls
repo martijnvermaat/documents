@@ -185,7 +185,7 @@
 \newtheorem{proof}{Proof}
 
 % Figure captions
-\usepackage[labelfont=sc,labelsep=period]{caption}
+\usepackage[labelfont={sc,footnotesize},textfont=footnotesize,labelsep=period,margin=15pt]{caption}
 
 % Figure numbering
 %\renewcommand{\thefigure}{\arabic{figure}}

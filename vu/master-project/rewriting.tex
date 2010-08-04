@@ -240,8 +240,8 @@ The set of \emph{tree ordinals} $\Ord$ is defined by induction:
 The $\sqcup$ constructor has type $(\mathbb{N} \rightarrow \Ord) \rightarrow
 \Ord$. For our convenience we write $\sqcup_i \cdots i \cdots$ instead
 of $\sqcup (\lambda i . \cdots i \cdots)$. Sometimes we explicitly enumerate
-the argument, writing for example $\sqcup \{ \alpha_1, \alpha_2,
-\alpha_3, \ldots \}$.
+the argument, writing for example $\sqcup ( \alpha_1, \alpha_2,
+\alpha_3, \ldots )$.
 % or: we write $\sqcup_i (f i)$ instead of $\sqcup_i f$
 
 % TODO: make this a nice picture
@@ -261,48 +261,53 @@ by $\alpha^+$ and a limit ordinal $\lambda$ is represented by $\sqcup_i
 \alpha_i$ if $\lambda$ is the least upper bound of the sequence $\alpha_1,
 \alpha_2, \alpha_3, \ldots$. As an example of a tree ordinal representation,
 Figure~\ref{fig:tree} visualises $\omega \times 2 + 2$ as a tree
-ordinal. Again, we identify ordinals and their representation as tree
 ordinal.
+%From now on, we identify ordinals and their representation as tree
+%ordinal.
 
-% TODO: some ordinals have no representation as tree ordinal at all
+% some ordinals have no representation as tree ordinal at all
 Some ordinals have no unique representation as tree ordinal. Consider for
 example the limit ordinals $\sqcup_i i + 3$ and $\sqcup_i i \times 2$. Both
 are representations of $\omega$ and a meaningful order relation would
 have to position them at the same rank.
 
-A more intricate issue is what to make of ordinals such as $\sqcup \{
-3, 3, 3, \ldots \}$. In spirit of the intuition given above it
+A more intricate issue is what to make of ordinals such as $\sqcup (
+3, 3, 3, \ldots )$. In spirit of the intuition given above it
 represents $3$, that being the non-strict least upper bound of $3, 3,
-3, \ldots$.\footnote{Or, if we take the \emph{strict} least upper bound, $\sqcup \{
-3, 3, 3, \ldots \}$ represents $4$.}
-% TODO: this makes it undecidable to compare an ordinal to 0 or 3
+3, \ldots$.\footnote{Or, if we take the \emph{strict} least upper bound, $\sqcup (
+3, 3, 3, \ldots )$ represents $4$.}
+% this makes it undecidable to compare an ordinal to 0 or 3
 We might like to exclude such representations and require that
 $\sqcup_i \alpha_i$ always represents a limit ordinal. This can be
-done by imposing a strict monotonicity property on the limit
+done by imposing a strict monotonicity condition on the limit
 sequences. Some order relation on tree ordinals is needed for that.
 
-The following construction (i.e.\ Definitions~\ref{def:indices}
+The following construction (Definitions~\ref{def:indices}
 through \ref{def:order}) is due to \citet{hancock-08}. In preparation
 for an extensional order relation on $\Ord$, we define a structural
 strict order relation.
-% TODO: , is too close on $\Omega$
 
 \begin{definition}\label{def:indices}%[Predecessor indices]
 The set-valued function $\Phi$ defines the \emph{predecessor indices}
 $\Phi(\alpha)$ \emph{for} $\alpha$ by recursion on $\alpha$:
 \begin{align*}
   \Phi(0)                 &= \nothing \\
-  \Phi(\alpha^+)          &= \Phi(\alpha)^? \\
+  \Phi(\alpha^+)          &= 1 + \Phi(\alpha) \\ %\Phi(\alpha)^? \\
   \Phi(\sqcup_i \alpha_i) &= (\Sigma n \in \mathbb{N}) \; \Phi(\alpha_n)
 \end{align*}
 \end{definition}
 
-By $A^?$ we mean the option type over $A$, or equivalently the
-disjoint sum $1 + A$ of the unit type $1$ and $A$. We use
-\textsc{left} and \textsc{right $a$} (for $a \in A$) as constructors
-of $A^?$. Note that the set $\Phi(0)$ of predecessor indices for $0$
-has no inhabitants.
-% TODO: just use disjoint sum, no option type?
+By $1 + A$ we mean the disjoint sum of the unit type $1$ and $A$,
+where we use \textsc{left} and \textsc{right $a$} (for $a \in A$) as
+constructors of $1 + A$.
+The $\Sigma$-type $(\Sigma a \in A) B_a$ consists of the pairs
+$\langle a, b \rangle$ such that $a \in A$ and $b \in B_a$.
+%By $A^?$ we mean the option type over $A$, or equivalently the
+%disjoint sum $1 + A$ of the unit type $1$ and $A$. We use
+%\textsc{left} and \textsc{right $a$} (for $a \in A$) as constructors
+%of $A^?$.
+Note that the set $\Phi(0)$ of predecessor indices for $0$ has no
+inhabitants.
 
 The predecessor indices of an ordinal $\alpha$ are essentially the
 paths on its tree structure starting from the root that cross at least
@@ -319,21 +324,15 @@ The function $\_[\_] : (\prod \alpha : \Ord) \; \Phi(\alpha)
 \end{align*}
 \end{definition}
 
-% TODO: explain what I and _[_] mean
-
 This structural predecessor function can be seen as defining a `subtree'
 partial order on $\Ord$. With it we are ready to define an extensional
 non-strict order relation on $\Ord$ that classifies ordinals by rank.
 
-% TODO: note <= infix notation
-% TODO: or use the set-theoretic definitions from hancock?
-% TODO: infix notations are used all the time, maybe state this at front
 % TODO: does \sqcup_i start at 0 or 1? we have pred_type saying all of
 % the natural numbers, but this definition starting at \alpha_1...
 \begin{definition}\label{def:order}%[Order]
 We define the \emph{order} $\preceq$ as a binary relation on $\Ord$ by
 induction:
-% TODO: maybe make a not of infix notation in introduction
 % (and write $\alpha \preceq \beta$ for $\langle \alpha, \beta \rangle
 % \in \; \preceq$)
 \begin{compactenum}
@@ -349,12 +348,38 @@ induction:
 \end{compactenum}
 \end{definition}
 
-Using this order, we can introduce two other useful binary relations
-on $\Ord$. First, the extensional \emph{equality} $\alpha \simeq
-\beta$ is defined by the conjunction of $\alpha \preceq \beta$ and
-$\beta \preceq \alpha$. Second, the extensional \emph{strict order}
-$\alpha \prec \beta$ holds if $\alpha \preceq \beta[\iota]$ holds for
-some $\iota \in \Phi(\beta)$.
+An extensional equality on $\Ord$ can now be defined on top of this
+order.
+
+\begin{definition}%[Equality on tree ordinals]
+  The \emph{equality} $\alpha \simeq \beta$ holds if
+  $\alpha \preceq \beta$ and $\beta \preceq \alpha$ hold.
+\end{definition}
+
+The following proposition states that this equality implements our
+requirement of identifying $\sqcup_i i + 3$ and $\sqcup_i i \times
+2$.
+
+\begin{proposition}
+  $\sqcup_i i + 3 \simeq \sqcup_i i \times 2$.
+\end{proposition}
+\begin{proof}
+  Trivial.
+\end{proof}
+
+We extend the non-strict order on $\Ord$ to a strict order.
+
+\begin{definition}%[Strict order]
+  The \emph{strict order} $\alpha \prec \beta$ holds if for some
+  $\iota \in \Phi(\beta)$ we have that $\alpha \preceq \beta[\iota]$
+  holds.
+\end{definition}
+
+%First, the extensional \emph{equality} $\alpha \simeq
+%\beta$ is defined by the conjunction of $\alpha \preceq \beta$ and
+%$\beta \preceq \alpha$. Second, the extensional \emph{strict order}
+%$\alpha \prec \beta$ holds if $\alpha \preceq \beta[\iota]$ holds for
+%some $\iota \in \Phi(\beta)$.
 
 %\begin{proposition}\label{prop:ord}
 %$\alpha \le \beta \Leftrightarrow \alpha \preceq \beta$ for all finite ordinals $\alpha$ and $\beta$.
@@ -362,6 +387,30 @@ some $\iota \in \Phi(\beta)$.
 %\begin{proof}
 %By induction on $\beta$.
 %\end{proof}
+
+Now that the tree ordinals are equiped with a strict order, we can
+express the aforementioned monotonicity condition on the arguments of
+$\sqcup$ constructors.
+
+\begin{definition}%[Well-formedness]
+  We say that an ordinal is \emph{well-formed} if it satisfies the
+  $\mathvar{wf}$ property, defined by induction:
+\begin{compactenum}
+  \item
+    $\mathvar{wf} \, 0$.
+  \item
+    For every $\alpha \in \Ord$, if $\mathvar{wf} \alpha$ then
+    $\mathvar{wf} \alpha^+$.
+  \item
+    For all $\alpha_1, \alpha_2, \alpha_3, \ldots \in \Ord$, if for
+    all $n,m \in \mathbb{N}$ we have $\mathvar{wf} \alpha_n$ and that
+    $n < m$ implies $\alpha_n \prec \alpha_m$, then $\mathvar{wf}
+    \sqcup_i \alpha_i$.
+\end{compactenum}
+\end{definition}
+
+The tree ordinal $\sqcup_i (3, 3, 3, \ldots)$ is, obviously, not
+well-formed.
 
 
 \section{Term Rewriting}\label{sec:rewriting}
