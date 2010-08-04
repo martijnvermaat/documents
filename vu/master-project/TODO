@@ -16,6 +16,8 @@ Publish via lulu :)
 Serial commas?
 Mechanic vs mechanical
 Subsection or always Section?
+Coq intro in appendix?
+Ter(\Sigma) versus Ter_\Sigma
 
 coqdoc --latex -s -g --coqlib http://coq.inria.fr/stdlib/ -d coqdoc *.v
 

@@ -352,8 +352,10 @@ An extensional equality on $\Ord$ can now be defined on top of this
 order.
 
 \begin{definition}%[Equality on tree ordinals]
-  The \emph{equality} $\alpha \simeq \beta$ holds if
-  $\alpha \preceq \beta$ and $\beta \preceq \alpha$ hold.
+  $\alpha, \beta \in \Ord$ are \emph{equal}, written $\alpha \simeq
+  \beta$, if $\alpha \preceq \beta$ and $\beta \preceq \alpha$.
+%  The \emph{equality} $\alpha \simeq \beta$ holds if
+%  $\alpha \preceq \beta$ and $\beta \preceq \alpha$ hold.
 \end{definition}
 
 The following proposition states that this equality implements our
@@ -370,9 +372,12 @@ requirement of identifying $\sqcup_i i + 3$ and $\sqcup_i i \times
 We extend the non-strict order on $\Ord$ to a strict order.
 
 \begin{definition}%[Strict order]
-  The \emph{strict order} $\alpha \prec \beta$ holds if for some
-  $\iota \in \Phi(\beta)$ we have that $\alpha \preceq \beta[\iota]$
-  holds.
+  $\alpha, \beta \in \Ord$ are in \emph{strict order}, written
+  $\alpha \prec \beta$, if $\alpha \preceq \beta[\iota]$ for some
+  $\iota \in \Phi(\beta)$.
+%  The \emph{strict order} $\alpha \prec \beta$ holds if for some
+%  $\iota \in \Phi(\beta)$ we have that $\alpha \preceq \beta[\iota]$
+%  holds.
 \end{definition}
 
 %First, the extensional \emph{equality} $\alpha \simeq
@@ -418,20 +423,17 @@ well-formed.
 We give a short introduction to the basic notions of infinitary term
 rewriting as required in the following chapters. For a more in-depth
 treatment of the theory of term rewriting, consult
-\citet{terese-03}. Discussion of infinitary rewriting specifically,
+\citet{terese-03}. Discussion of infinitary rewriting specifically
 can be found in \citet[Chapter 12]{terese-03} and
 \citet{klop-de-vrijer-05}. In this section, we try to conform to
 definitions and notations from \citet{terese-03}, but sometimes choose
 to follow more closely our \Coq formalisation discussed in
 Chapter~\ref{chap:implementation} when the two diverge.
-% TODO: wording is not so nice
-% TODO: hyphenation of de vrijer
 
-% TODO: is ordered multiset correct here?
 Note that we routinely denote infinite terms by just `terms' and infinitary
 rewriting by just `rewriting'. We understand a `sequence' to mean a finite or
-infinite list of objects (i.e.\ an ordered multiset) and always explicitely
-write `rewrite sequence' if that is what we mean to say.
+infinite list of objects and always explicitely write `rewrite
+sequence' if this is what we mean to say.
 
 
 \subsection{Definition of a TRS}\label{sub:trs}
@@ -444,8 +446,9 @@ arity $0$ is also called a \emph{constant}.
 \end{definition}
 
 \begin{definition}%[Term]
-The set of \emph{terms} $\TerI(X)$ over a signature $\Sigma$ and a
-set of variables $\X = \{x, y, \ldots\}$ is defined by coinduction:
+The set of (possibly infinite) \emph{terms} $\TerI(X)$ over a
+signature $\Sigma$ and a set of variables $\X = \{x, y, \ldots\}$ is
+defined by coinduction:
 \begin{compactenum}
   \item
     $x \in \TerI(\X)$ for every variable $x \in \X$.
@@ -486,9 +489,13 @@ coinduction:
   \item
     $x \bis x$ for every variable $x \in \X$.
   \item
-    For every $f \in \Sigma$, if $s_i \bis t_i$ for all $1 \leq i \leq
-    \arity{f}$, then $f(s_1, \ldots s_{\arity{f}}) \bis f(t_1, \ldots,
-    t_{\arity{f}})$.
+%    For every $f \in \Sigma$, if $s_i \bis t_i$ for all $1 \leq i \leq
+%    \arity{f}$, then $f(s_1, \ldots s_{\arity{f}}) \bis f(t_1, \ldots,
+%    t_{\arity{f}})$.
+    % ugly solution to prevent line overflow
+    For every $f \! \in \! \Sigma$, if $s_1 \! \bis \! t_1, \ldots,
+    s_{\arity{f}} \! \bis t_{\arity{f}}$, then $f(s_1, \ldots
+    s_{\arity{f}}) \bis f(t_1, \ldots, t_{\arity{f}})$.
 \end{compactenum}
 %$\bis$ is the greatest bisimulation on $\TerI$ and
 We say that $s$ and $t$ are \emph{bisimilar} if $s \bis t$.
@@ -500,12 +507,17 @@ written $s \equpto{d} t$, is defined by induction:
 \begin{compactenum}
   \item $s \equpto{0} t$ for every $s, t \in \TerI$.
   \item $x \equpto{d} x$ for every $d \in \mathbb{N}$ and $x \in \X$.
-  \item For every $f \in \Sigma$, if $s_i \equpto{d} t_i$ for all $1 \leq i
-    \leq \arity{f}$, then $f(s_1, \ldots s_{\arity{f}}) \equpto{d+1}
-    f(t_1, \ldots, t_{\arity{f}})$.
+%  \item For every $f \in \Sigma$, if $s_i \equpto{d} t_i$ for all $1 \leq i
+%    \leq \arity{f}$, then $f(s_1, \ldots s_{\arity{f}}) \equpto{d+1}
+%    f(t_1, \ldots, t_{\arity{f}})$.
+  \item For every $f \in \Sigma$, if $s_1 \equpto{d} t_1, \ldots,
+    s_{\arity{f}} \equpto{d} t_{\arity{f}}$, then $f(s_1, \ldots
+    s_{\arity{f}}) \equpto{d+1} f(t_1, \ldots, t_{\arity{f}})$.
 \end{compactenum}
-The \emph{(pointwise) equality} $s \equiv t$ holds if $s \equpto{d}
-t$ for every depth $d$.
+Terms $s, t$ are \emph{pointwise equal}, written $s \equiv t$, if $s
+\equpto{d} t$ for every depth $d$.
+%The \emph{(pointwise) equality} $s \equiv t$ holds if $s \equpto{d}
+%$ for every depth $d$.
 \end{definition}
 
 \begin{proposition}\label{prop:equalities}
@@ -513,15 +525,18 @@ $s \bis t \; \Leftrightarrow \; s \equiv t$.
 \end{proposition}
 \begin{proof}
 By induction on the depth of pointwise equality ($\Rightarrow$) and
-by coinduction on $s$ ($\Leftarrow$).
+by coinduction on $\bis$ ($\Leftarrow$).
+%by coinduction on $s$ ($\Leftarrow$).
 %\footnote{This proposition is proved in our \Coq development.}
 \end{proof}
 
 \begin{definition}%[Rewrite rule]
-  A \emph{rewrite rule} $\rho$ on a signature $\Sigma$ is a pair
+  A \emph{rewrite rule} $\rho$ over a signature $\Sigma$ is a pair
   $\langle l, r \rangle$ of finite terms in $\Ter$ (written $\rho : l
-  \rightarrow r$). We restrict ourselves to rewrite rules where $l$ is
-  not a variable and $\Var(r) \subseteq \Var(l)$.
+  \rightarrow r$). We only consider rewrite rules where $l$
+  is not a variable and $\Var(r) \subseteq \Var(l)$.
+% We restrict ourselves to rewrite rules where $l$ is
+%  not a variable and $\Var(r) \subseteq \Var(l)$.
 \end{definition}
 
 The two restrictions on rewrite rules are standard and prevent our
@@ -531,7 +546,7 @@ is \emph{left-linear} if its left-hand side is linear.
 \begin{definition}%[TRS]
 A \emph{term rewriting system} (TRS) $\mathcal{R}$ is a pair $\langle \Sigma,
 R \rangle$ of a signature $\Sigma$ and a finite set of rewrite rules
-$R$ on $\Sigma$.
+$R$ over $\Sigma$.
 \end{definition}
 
 
@@ -543,10 +558,10 @@ sequence $p$ with the number $i$.
 
 \begin{definition}%[Subterm positions]
   The set of \emph{positions} $\Pos(t)$ \emph{of a term} $t$ is
-  inductively defined:
+  inductively defined by:
   \begin{compactenum}
     \item $\epsilon \in \Pos(t)$ for every $t \in \TerI$.
-    \item For every $f \in \Sigma$ and $1 \le i \le \arity{f}$, if $p
+    \item For every $f \! \in \! \Sigma$ and $1 \le i \le \arity{f}$, if $p
       \in \Pos(t_i)$ then $\prefix{i}{p} \in \Pos(f(t_1, \ldots,
       t_{\arity{f}}))$.
   \end{compactenum}
@@ -563,11 +578,13 @@ sequence $p$ with the number $i$.
 \end{definition}
 
 In contrast to \cite{terese-03}, we do not define contexts as terms over an
-extended signature. Instead, a direct inductive definition is given since this
-is how we defined the notion of context in our \Coq development (the main
-reason being that we choose not to consider multi-hole contexts, see
-also Section~\ref{sub:contexts}).
-% TODO: maybe this needs more explaining
+extended signature. Instead, a direct inductive definition of one-hole
+contexts is given, in line with our \Coq development. See also
+Section~\ref{sub:contexts}.
+% since this
+%is how we defined the notion of context in our \Coq development (the main
+%reason being that we choose not to consider multi-hole contexts, see
+%also Section~\ref{sub:contexts}).
 
 \begin{definition}%[Context]
 The set of (one-hole) \emph{contexts} $\Ctx$ over a signature
@@ -593,7 +610,7 @@ its \emph{hole}. By the term $C[t]$ we mean the result of replacing the hole
 of $C$ by $t$. We allow a slight abuse of notation by writing
 $t[\Box]_p$ for the context $C$ with $C[\subterm{t}{p}] \equiv t$. We
 also assume obvious extensions to contexts for notions on terms
-(e.g.\ $\Var(C)$ and $\Pos(C)$ for $C \in \Ctx$).
+(e.g.\ bisimilarity and $\Var(C)$ and $\Pos(C)$ for $C \in \Ctx$).
 The \emph{depth} of a context $C$ is defined by the length of the
 (unique) position $p$ with $\subterm{C}{p} = \Box$.
 
@@ -647,6 +664,12 @@ $\{ \rightarrow_\rho | \; \rho \in R \}$.
 %standard Leibniz equality.
 %TODO
 
+Related to equality of (infinite) terms is equality of rewrite
+steps. Since rewrite steps contain possibly infinite contexts, it
+makes sense to define equality of rewrite steps via equality of their
+contexts. This is made precise in the following definition and the
+resulting equality is used in Section~\ref{sub:embedding}.
+
 \begin{definition}\label{def:stepeq}%[Equality of steps]
 %Rewrite steps $s_1 \rightarrow s_2$ and $t_1 \rightarrow t_2$ are
 %defined to be \emph{equal} if
@@ -665,8 +688,8 @@ steps $(t_\beta \rightarrow t_{\beta^+})_{\beta \prec \alpha}$.
 
 This definition only makes sense if we somehow require that for every limit
 ordinal $\lambda \prec \alpha$, the terms $(t_\beta)_{\beta \prec
-  \lambda}$ approach $t_\lambda$ in the limit and sometimes even
-further restrictions are desirable. We define the notion of Cauchy
+  \lambda}$ approach $t_\lambda$ in the limit and usually an even
+further restrictions is desirable. We define the notion of Cauchy
 convergence and, using that, four conditions on rewrite sequences.
 
 \begin{definition}\label{def:cauchy}%[Cauchy convergence]
@@ -703,8 +726,8 @@ A rewrite sequence $(t_\beta \rightarrow t_{\beta^+})_{\beta \prec
 
 We write $t_0 \rewrites t_\alpha$ if there exists a strongly
 convergent rewrite sequence $(t_\beta \rightarrow t_{\beta^+})_{\beta
-  \prec \alpha}$ (or $t_0 \rightarrow^\alpha t_\alpha$ if we want to
-stress its length). The \emph{convertibility relation} is defined as
+  \prec \alpha}$ or $t_0 \rightarrow^\alpha t_\alpha$ if we want to
+stress its length. The \emph{convertibility} relation is defined as
 the equivalence closure of $\rewrites$.
 
 
@@ -714,20 +737,23 @@ the equivalence closure of $\rewrites$.
   Let $\mathcal{R}$ be a TRS.
   \begin{compactenum}
     \item
-      A term $t$ is a \emph{normal form} if there do not exist a
-      rewrite rule $l \rightarrow r$ in $\mathcal{R}$, a substitution
-      $\sigma$ and a context $C$ such that $t \equiv C[l^\sigma]$
-      (i.e.\ if there is no step from $t$). We say $t$ is a normal
+      A term $t$ is a \emph{normal form} if there is no rewrite step
+      from $t$.
+%      A term $t$ is a \emph{normal form} if there do not exist a
+%      rewrite rule $l \rightarrow r$ in $\mathcal{R}$, a substitution
+%      $\sigma$ and a context $C$ such that $t \equiv C[l^\sigma]$
+%      (i.e.\ if there is no step from $t$).
+      We say $t$ is a normal
       form \emph{of} $s$ if $s \rewrites t$ and $t$ is a normal form.
     \item
-      $\mathcal{R}$ has the \emph{unique normal forms}
-      (UN$^\infty$) property if $t \equiv u$ for every two
+      $\mathcal{R}$ has the property of \emph{unique normal forms}
+      (UN$^\infty$) if $t \equiv u$ for every two
       convertible normal forms $t$ and $u$.
     \item
       % TODO: make sure \rewrites renders fine in superscript
-      $\mathcal{R}$ has the \emph{unique normal forms
-      with respect to rewriting} (UN$^\rewrites$) property if for all
-      terms $s$, we have $t \equiv u$ for every normal forms $t$ and
+      $\mathcal{R}$ has the property of \emph{unique normal forms
+      with respect to rewriting} (UN$^\rewrites$) if for all
+      terms $s$, we have $t \equiv u$ for all normal forms $t$ and
       $u$ of $s$.
   \end{compactenum}
 \end{definition}
@@ -748,7 +774,8 @@ definition.
 \begin{definition}\label{def:overlap}%[Overlap and critical pairs]
 We say two rewrite rules $\rho_1 : l_1 \rightarrow r_1$ and $\rho_2 :
 l_2 \rightarrow r_2$ have \emph{overlap} if there exists a
-non-variable position $p$ such that $l_1 |_p$ and $l_2$ have a common
+non-variable position $p \in \Pos(l_1)$ such that $l_1 |_p$ and $l_2$
+have a common
 instance. (We exclude the trivial case of overlap between a rewrite
 rule and itself at the root position.)
 Let $\sigma, \tau$ be substitutions such that $l_1 |_p ^{\,\;\sigma}
@@ -797,7 +824,7 @@ Compression Lemma.
   \citet{endrullis-10}.
 \end{proof}
 
-Orthogonal systems enjoy the UN$^\infty$ property
+Orthogonal rewrite systems enjoy the UN$^\infty$ property
 \citep{kennaway-95,klop-de-vrijer-05}. In Chapter~\ref{chap:unwo} we
 formalise the counterexample to UN$^\infty$ for weakly orthogonal TRSs
 from \citet{endrullis-10}.
