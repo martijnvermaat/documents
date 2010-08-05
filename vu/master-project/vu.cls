@@ -13,13 +13,10 @@
 
 \LoadClass[10pt,b5paper,twoside,openright]{report}
 
-% TODO: Tweak the inner margin to align all text as nice as possible
 % Paper format 'Royal'
 \usepackage[nohead,
   vmarginratio=2:3,hmarginratio=1:1,
   papersize={15.593cm,23.389cm},total={11.0cm,19.5cm}]{geometry}
-
-\usepackage{lastpage}
 
 % AMS math fonts
 \usepackage{amsmath}
@@ -83,7 +80,6 @@
 \fancyfoot[RE]{\leftmark}
 \fancyfoot[LO]{\rightmark}
 \fancyfoot[LE,RO]{\textsc{\thepage}}
-% TODO: fix page numbering (check if they are all textsc)
 
 % Cleared left pages must be really empty
 \let\origdoublepage\cleardoublepage
@@ -94,15 +90,13 @@
 \let\cleardoublepage\clearemptydoublepage
 
 % Empty page style in table of contents
-% TODO: get empty page style for toc, this doesn't seem to work
+% hmm get empty page style for toc, this doesn't seem to work
 \addtocontents{toc}{\protect\thispagestyle{empty}}
 
 % Chapter and section title styles
 \usepackage{titlesec}
 
 % Smallcaps for 'Chapter n' and section numbering
-% TODO: smallcaps for footnote and page numbering
-% TODO: footmisc package with bottom option
 \titleformat{\chapter}[display]
 {\normalfont\huge}{\sc\chaptertitlename\ \thechapter}{20pt}{\Huge}
 %\titleformat{\section}
@@ -131,8 +125,10 @@
 \setlength{\parindent}{0pt}
 
 % Linespacing
-% TODO: singlespacing for some things (bibliography, notation glossary)
 \usepackage[onehalfspacing]{setspace}
+
+% Footnotes
+\usepackage[perpage,hang,flushmargin]{footmisc}
 
 % Section numbering in margin
 %\usepackage{sectsty}
@@ -177,7 +173,6 @@
 \theoremseparator{.}
 \newtheorem{lemma}{Lemma}
 
-% TODO: style propositions
 \theoremstyle{nonumberplain}
 \theoremheaderfont{\sc}
 \theorembodyfont{\upshape}
@@ -239,7 +234,6 @@
     \vspace{3cm}
     {THESIS \par}
     \vspace{2cm}
-    % TODO: submitted in partial fulfillment for the degree?
     {submitted in partial fulfillment of the requirements for\\
       the degree of Master of Science by research at\\
       the VU University Amsterdam \par}
@@ -268,12 +262,15 @@
       {\includegraphics[draft=false,width=5cm]{logos/vu-logo-en-grayscale}\par}
     \fi
     \vspace{10pt}
+    {Typeset using \LaTeX\ by Leslie Lamport, based on
+      \TeX\ by Donald Knuth. \par}
+    {Creative Commons Attribution logo by Sebastian Pipping. \par}
+    \vspace{10pt}
     {\copyright\ 2010 Martijn Vermaat \par}
     \vspace{10pt}
-    % TODO: attribute Sebastian Pipping for cc logo,
-    % http://blog.hartwork.org/?p=52
-    % TODO: this is ugly (250pt does not completely fill the page)
-    {\begin{singlespace}\begin{tabular}{c p{250pt}}
+    % CC Logo by Sebastian Pipping, http://blog.hartwork.org/?p=52
+    % this is ugly (255pt does not completely fill the page)
+    {\begin{singlespace}\begin{tabular}{c p{255pt}}
       \raisebox{-10pt}{\includegraphics[draft=false,scale=1.0]{logos/cc-by}}
       %\includegraphics[draft=false,scale=1.0]{logos/cc-by}
       &
