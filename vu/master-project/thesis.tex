@@ -1,11 +1,10 @@
-% Options are: draft, color
 \documentclass[color]{vu}
+% Options are: draft, color
 
 % Text encoding to take for data input stream (i.e. the text we write in)
 \usepackage[latin1]{inputenc}
 
-% Hyphenation patterns for UK English
-% TODO: check if UKenglish actually works (otherwise use english)
+% Hyphenation patterns
 %\usepackage[british]{babel}
 \usepackage[english]{babel}
 \addto\captionsenglish{\renewcommand{\bibname}{References}}
@@ -25,7 +24,7 @@
 \usepackage{coqdoc}
 \setlength{\coqdocbaseindent}{0.7em}
 
-%\usepackage{hyperref} % Is included through coqdoc
+%\usepackage{hyperref} % is included through coqdoc
 \hypersetup{
   final,
   hyperfootnotes=false, % for package footmisc
@@ -47,7 +46,6 @@
 
 \author{Martijn Vermaat}
 \date{August 2010}
-%\date{MSc. Thesis (\emph{draft r\svnrev})}
 
 \begin{document}
 
@@ -74,12 +72,10 @@
 \include{coq}
 \include{glossary}
 
-% TODO; is the page counter ok for bibliography??
-% http://www.markschenk.com/tensegrity/latexexplanation.html
-
 \cleardoublepage
 \phantomsection
-\addcontentsline{toc}{chapter}{\protect\thispagestyle{empty}\bibname}
+% This is a hack to have the second page of TOC with empty page style
+\addcontentsline{toc}{chapter}{\texorpdfstring{\protect\thispagestyle{empty}}{}\bibname}
 \singlespacing
 %\nocite{*}
 \bibliography{thesis}

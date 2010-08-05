@@ -1,5 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{vu}[2010/07/29 A simple VU University Msc thesis class]
+\ProvidesClass{vu}[2010/08/05 A simple VU University Msc thesis class]
+
+% This class is quite specific to my (Martijn Vermaat) needs...
 
 \makeatletter
 \newif\if@vucolors
