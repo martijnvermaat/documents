@@ -1,19 +1,21 @@
 % TODO: check for capitalization
+% TODO: sorting value for complex names
 
-@Book{girard-89,
+@book{girard-89,
   author      = {Jean-Yves Girard},
   publisher   = {Cambridge University Press},
-  series      = {Cambridge Tracts in Theoretical Computer Science 7},
+  series      = {Cambridge Tracts in Theoretical Computer Science},
+  volume      = {7},
   title       = {Proofs and Types},
   year        = {1989},
-  note        = {Translated by and with appendices by Yves Lafont and Paul Taylor}
+  note        = {Translated and with appendices by Paul Taylor and Yves Lafont}
 }
 
 @book{chlipala-09,
  title = {Certified Programming with Dependent Types},
  author = {Chlipala, Adam},
  year = {2009},
- note = {\url{http://adam.chlipala.net/cpdt/}}
+ note = {Draft textbook, \url{http://adam.chlipala.net/cpdt/}}
 }
 
 @article{coquand-huet-88,
@@ -24,17 +26,15 @@
  number = {2-3},
  year = {1988},
  pages = {95--120},
- publisher = {Academic Press},
- address = {Duluth, MN, USA}
+ publisher = {Academic Press}
 }
 
 @inproceedings{mohring-93,
-  title       = {Inductive Definitions in the System {C}oq - Rules and Properties},
+  title       = {Inductive Definitions in the System {C}oq---Rules and Properties},
   author      = {Christine Paulin--Mohring},
   booktitle   = {Proceedings of the conference Typed Lambda Calculi and Applications},
-  editor      = {M. Bezem and J.-F. Groote},
-  note        = {LIP research report 92-49},
-  number      = {664},
+  editor      = {M. Bezem and J.F. Groote},
+  volume      = {664},
   publisher   = {Springer-Verlag},
   series      = {Lecture Notes in Computer Science},
   year        = {1993}
@@ -43,13 +43,13 @@
 @inproceedings{endrullis-10,
   title ={Unique Normal Forms in Infinitary Weakly Orthogonal Rewriting},
   author ={J{\"o}rg Endrullis and Clemens Grabmayer and Dimitri Hendriks and Jan Willem Klop and Vincent van Oostrom},
-  booktitle ={Proceedings of the 21st International Conference on Rewriting Techniques and Applications},
+  booktitle ={RTA '10},
   pages ={85--102},
   series ={Leibniz International Proceedings in Informatics (LIPIcs)},
   year ={2010},
   volume ={6},
-  editor ={Christopher Lynch},
-  publisher ={Schloss Dagstuhl--Leibniz-Zentrum fuer Informatik}
+  editor ={C. Lynch},
+  publisher ={Schloss Dagstuhl}
 }
 
 @article{kennaway-95,
@@ -57,7 +57,6 @@ title = {Transfinite Reductions in Orthogonal Term Rewriting Systems},
 author = {Richard Kennaway and Jan Willem Klop and Ronan Sleep and Fer-Jan de Vries},
 journal = {Information and Computation},
 volume = {119},
-number = {1},
 pages = {18--38},
 year = {1995}
 }
@@ -65,7 +64,7 @@ year = {1995}
 @incollection{klop-de-vrijer-05,
     title = {Infinitary Normalization},
     author = {Klop, Jan Willem and \mbox{de Vrijer}, Roel},
-    booktitle = {We Will Show Them: Essays in Honour of Dov Gabbay},
+    booktitle = {We Will Show Them: Essays in Honour of {D}ov {G}abbay},
     editor = {Artemov, S. N. and Barringer, H. and d'Avila Garcez, A. S. and Lamb, L. C. and Woods, J.},
     pages = {169--192},
     publisher = {College Publications},
@@ -78,7 +77,7 @@ year = {1995}
   title        = {Interactive Theorem Proving and Program Development. {Coq'Art}: The Calculus of Inductive Constructions},
   series       = {Texts in Theoretical Computer Science},
   year         = {2004},
-  publisher    = {Springer Verlag}
+  publisher    = {Springer-Verlag}
 }
 
 @manual{coq-refman-09,
@@ -92,9 +91,12 @@ year = {1995}
 @inproceedings{gimenez-94,
   title = {Codifying Guarded Definitions with Recursive Schemes},
   author = {Gim{\'e}nez, Eduardo},
-  booktitle = {TYPES},
+  booktitle = {TYPES '94},
+  series = {Lecture Notes in Computer Science},
+  volume = {996},
   year = {1994},
-  pages = {39--59}
+  pages = {39--59},
+  publisher = {Springer-Verlag}
 }
 
 @book{cantor-15,
@@ -102,7 +104,6 @@ year = {1995}
   author = {Cantor, Georg},
   year = {1915},
   series = {The Open Court Series of Classics of Science and Philosophy},
-  number = {1},
   publisher = {The Open Court},
   note = {Translated by Philip Jourdain; reprinted by Dover, 1955}
 }
@@ -120,11 +121,12 @@ year = {1995}
     title = {A computer-checked proof of the Four Colour Theorem},
     author = {Georges Gonthier},
     year = {2005},
-    note = {\url{http://research.microsoft.com/~gonthier/4colproof.pdf}}
+    note = {\linebreak[4]\url{http://research.microsoft.com/~gonthier/4colproof.pdf}}
 }
 
+% hack to have empty page style
 @article{wiedijk-08,
-	title = {Formal Proof -- Getting Started{\protect\thispagestyle{empty}}},
+	title = {Formal Proof---Getting Started{\protect\thispagestyle{empty}}},
 	author = {Freek Wiedijk},
     journal = {Notices of the American Mathematical Society},
     volume = {55},
@@ -134,21 +136,20 @@ year = {1995}
 }
 
 @article{hales-09,
-    title = {A Revision of the Proof of the Kepler Conjecture},
+    title = {A Revision of the Proof of the {K}epler Conjecture},
     author = {Hales, Thomas C. and Harrison, John and McLaughlin, Sean and Nipkow, Tobias and Obua, Steven and Zumkeller, Roland},
     journal = {Discrete and Computational Geometry},
     volume = {44},
-    number = {1},
     pages = {1--34},
     year = {2009},
 }
 
 @inproceedings{contejean-07,
-  author = {{\'E}velyne Contejean and Pierre Courtieu and Julien Forest and Olivier Pons and Xavier Urbain},
   title = {Certification of automated termination proofs},
-  booktitle = {6th International Symposium on Frontiers of Combining Systems (FroCos 07)},
+  author = {{\'E}velyne Contejean and Pierre Courtieu and Julien Forest and Olivier Pons and Xavier Urbain},
+  booktitle = {FroCos '07},
   year = 2007,
-  editor = {Boris Konev and Frank Wolter},
+  editor = {B. Konev and F. Wolter},
   volume = 4720,
   pages = {148--162},
   series = {Lecture Notes in Artificial Intelligence},
@@ -171,17 +172,13 @@ year = {1995}
 }
 
 @inproceedings{lindley-08,
- title = {Many Holes in {H}indley-{M}ilner},
+ title = {Many Holes in {H}indley--{M}ilner},
  author = {Lindley, Sam},
- booktitle = {ML '08: Proceedings of the 2008 {ACM} {SIGPLAN} workshop on {ML}},
+ booktitle = {ML '08},
  year = {2008},
- isbn = {978-1-60558-062-3},
  pages = {59--68},
  publisher = {ACM}
 }
-
-% TODO: check from here on
-% TODO: sorting value for 'de kleijn'
 
 % Esther (?) Dennis-Jones and Stan Wainer
 @incollection{dennis-jones-wainer-84,
@@ -214,10 +211,13 @@ year = {1995}
   volume={133}
 }
 
-@misc{robertson-97,
-    author = {Neil Robertson and Daniel Sanders and Paul Seymour and Robin Thomas},
+@article{robertson-97,
     title = {The four-colour theorem},
-    year = {1997}
+    author = {Neil Robertson and Daniel Sanders and Paul Seymour and Robin Thomas},
+    year = {1997},
+    journal = {Journal of Combinatorial Theory, Series B},
+    volume = {70},
+    pages = {2--44}
 }
 
 @incollection{appel-haken-76,
@@ -229,19 +229,17 @@ year = {1995}
   pages = {711--712}
 }
 
+% hack to have empty page style
 @unpublished{hancock-08,
+    title = {({O}rdinal-theoretic) Proof Theory},
     author = {Peter Hancock},
-    title = {({O}rdinal-theoretic) {P}roof Theory},
     year = {2008},
     note = {Course notes from Midlands Graduate School{\protect\thispagestyle{empty}}}
 }
 
 @unpublished{gimenez-casteran-07,
-    author = {Gim{\'e}nez, Eduardo and Cast{\'e}ran, Pierre},
-    citeulike-article-id = {5856239},
-    keywords = {coinduction, coq, functional-programming, master-project, types},
-    posted-at = {2009-09-30 00:01:17},
-    priority = {2},
     title = {A Tutorial on [Co-]Inductive Types in {C}oq},
-    year = {2007}
+    author = {Gim{\'e}nez, Eduardo and Cast{\'e}ran, Pierre},
+    year = {2007},
+    note = {\url{http://coq.inria.fr/documentation}}
 }
