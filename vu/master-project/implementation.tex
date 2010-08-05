@@ -18,7 +18,7 @@ $\Gamma_0$ in Cantor and Veblen normal form by \citet{casteran-06}.
 %\end{compactenum}
 
 Section~\ref{sec:ordimp} translates the
-tree ordinals from Section~\ref{sub:tree} to \Coq. Coinductive
+tree ordinals from Subsection~\ref{sub:tree} to \Coq. Coinductive
 terms are defined in Section~\ref{sec:terms}. In Section~\ref{sec:seq}
 we present a novel representation of transfinite rewrite sequences
 based on the structure of the tree ordinals. This we regard as the main
@@ -137,7 +137,7 @@ defined.
 \coqdockw{end}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-In fact, all definitions from Section~\ref{sub:tree} translate directly to
+In fact, all definitions from Subsection~\ref{sub:tree} translate directly to
 \Coq code. We can now prove basic properties of $\preceq$, for example
 that it is transitive and that, for the finite ordinals, it coincides
 with the standard order on the natural numbers.\footnote{Although
@@ -175,7 +175,7 @@ with the standard order on the natural numbers.\footnote{Although
 \end{coqdoccode}
 \end{singlespace}
 
-Recalling our discussion in Section~\ref{sub:tree} of limit ordinals whose
+Recalling our discussion in Subsection~\ref{sub:tree} of limit ordinals whose
 sequences do not actually approximate to a limit ordinal, we consider the
 lemma
 \coqref{Ordinal.ordlezeroright}{\coqdoclemma{\ensuremath{\preceq_{\text{zero\_right}}}}}
@@ -289,7 +289,7 @@ The objects of a coinductive type can only be built in some restricted way to
 ensure productivity of the construction. This restriction implies a technical
 difficulty in the definition of the
 \coqref{Vector.vector}{\coqdocdefinition{vector}} type, which is discussed in
-Section~\ref{sub:guardedness}.
+Subsection~\ref{sub:guardedness}.
 For now, we assume \coqref{Vector.vector}{\coqdocdefinition{vector}} to
 implement dependently typed lists (the type depending on their length).
 
@@ -468,7 +468,7 @@ Definition~\ref{def:cauchy} in \Coq for sequences of length $\omega$.
 \end{coqdoccode}
 \end{singlespace}
 The definitions of finite term, rewrite rule, TRS and left-linearity
-from Section~\ref{sub:trs} translate to \Coq directly. We define
+from Subsection~\ref{sub:trs} translate to \Coq directly. We define
 \coqdef{Rewriting.lhs}{lhs}{\coqdocprojection{lhs}} and
 \coqdef{Rewriting.rhs}{rhs}{\coqdocprojection{rhs}} to be first and
 second projection on rewrite rules.
@@ -710,7 +710,7 @@ Section~\ref{sec:convergence}.
 Throughout this section, we let $\mathcal{R}$ be a fixed TRS. We
 define the type of steps using rewrite rules in $\mathcal{R}$,
 parameterised by their source and target terms. These terms are generalised up
-to bisimilarity, motivated in Section~\ref{sub:bissteps}.
+to bisimilarity, motivated in Subsection~\ref{sub:bissteps}.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -861,7 +861,7 @@ its preceding ones. This would correspond to the
 \coqref{Ordinal.ord}{\coqdocinductive{ord}}, where we lift $\prec$ to a
 strict prefix relation on
 \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}.
-We return to this issue in Section~\ref{sub:wf}, but
+We return to this issue in Subsection~\ref{sub:wf}, but
 first consider the definition of an embedding relation on
 \coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}.
 
@@ -1275,7 +1275,7 @@ branches of \coqdocvar{f}.
 %als bomen) deelboom (en niet boom-factor).
 %\end{quote}
 
-There is still an important omission in our formalisation,
+There is still an important omission in our formalisation
 though: even rewrite sequences satisfying
 \coqref{Rewriting.wf}{\coqdocdefinition{wf}} are not necessarily
 convergent. How the convergence conditions from
