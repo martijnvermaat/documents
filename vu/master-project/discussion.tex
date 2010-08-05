@@ -18,12 +18,15 @@ the appropriate conditions on source and target terms of subsequent
 rewrite steps. Could we not translate this directly to \Coq?
 
 % TODO: one problem, and other problem?
-A problem is that we would need a decidable order on the
-ordinals.\footnote{Consider a non-trivial rewrite sequence of length
-  $\lambda$. For every ordinal $\alpha < \lambda$, the partial
-  function representing this rewrite sequence must decide what step to
-  produce.}
-The order on our tree ordinals is not decidable. This could be
+A problem with partial functions from ordinals to rewrite steps is that we
+would need a decidable order on the ordinals. Consider a non-trivial rewrite
+sequence of length $\alpha$. The partial function representing this
+rewrite sequence must compare its input value (an ordinal) to all possible
+input values (ordinals up to $\alpha$) in order to decide what rewrite step to
+produce, in finite time.
+
+The order on our tree ordinals is not decidable (consider comparing the upper
+bounds of two infinite sequences). This could be
 remedied by using a different representation for the ordinals, for
 example axiomatically, as Cantor normal forms, or as sets. We feel
 that the inductively defined tree ordinals are a more natural
@@ -52,7 +55,7 @@ The inductively defined rewrite sequences from Section~\ref{sec:seq}
 are not necessarily (weakly) convergent. A rewrite sequence of limit
 length satisfies the condition that the target terms of the
 \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} branches converge but
-this is obviously too weak to establish convergence of the rewrite
+this is too weak to establish convergence of the rewrite
 sequence itself.
 
 The depths of the rewrite steps are not considered at all in our
@@ -60,10 +63,10 @@ formalisation and therefore it obviously does not implement strong
 convergence. Furthermore, the discussion in this section also applies
 to the notions of continuity.
 
-We consider an example of a rewrite sequence that satisfies the
-inductive definition but is not weakly convergent. Let $A$ be a
-constant and $B, C, D$ unary function symbols. We use the following
-three rewrite rules:
+We consider an example of a rewrite sequence that satisfies our
+inductive definition from Section~\ref{sec:seq} but is not weakly
+convergent. Let $A$ be a constant and $B, C, D$ unary function symbols. We use
+the following three rewrite rules:
 \begin{align*}
   \rho_1 \, : \, A \to B(A) \qquad \qquad
   \rho_2 \, : \, C(x) \to D(x) \qquad \qquad
@@ -142,6 +145,8 @@ For completeness we include a (not so natural) translation of
 convergence, but we were not able to use it in our development. Even
 proving the simplest convergent rewrite sequences to satisfy these
 definitions seems too involved.
+% TODO: try with the really simplest example and explain better why it doesn't
+% work for us
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -245,7 +250,9 @@ symbols. This definition is troublesome to translate to \Coq, which
 admits no partial functions. It might be possible to circumvent this
 restriction using option types, or by some other means, but we suspect
 that the resulting notion of terms would not be elegant. Coinduction
-is a native concept in \Coq and we use it as such.
+is a native concept in \Coq and we use it as such. The consequence is, that in
+defining infinite terms, we are restricted to definitions in guarded form, see
+Section~\ref{sec:guardedness}.
 
 
 \subsection{Positions}
@@ -307,13 +314,15 @@ are not satisfactory and we hope that future work can remedy this.
 %relation might also be possible.
 
 % TODO: cite Ketema
-An alternative representation as partial functions from
-ordinals to rewrite steps has other problems. However, it seems
+In an alternative representation as partial functions from
+ordinals to rewrite steps, convergence can be expresssed directly, but it has
+other problems. However, it seems
 worthwhile to also investigate this representation further, for example
 using the ordinals in Cantor normal form by
-\citet{casteran-06}. Recent work by Ketema (2010) shows that, assuming
-some decidable properties on the ordinal representation, constructive
-formalisation of some of the infinitary rewriting theory is possible.
+\citet{casteran-06}. Jeroen Ketema showed by personal communication
+that, assuming some decidable properties on the ordinal representation,
+constructive formalisation of some of the infinitary rewriting theory is
+possible.
 
 Working with \Coq has been an overall pleasant experience. During this
 development, our main disturbance was with the guardedness condition
