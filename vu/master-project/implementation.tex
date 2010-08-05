@@ -1,5 +1,7 @@
 \chapter{A Mechanical Formalisation}\label{chap:implementation}
 
+% TODO: nogmaals url voor code noemen
+
 In this chapter we present a formalisation of some of the notions from
 Chapter~\ref{chap:rewriting} in the \Coq proof
 assistant. Section~\ref{sec:ordimp} translates the
@@ -468,11 +470,11 @@ Definition~\ref{def:cauchy} in \Coq for sequences of length $\omega$.
 \coqdocvariable{t}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-The definitions of finite term, rewrite rule, TRS and left-linearity
+The definitions of finite term, rewrite rule, TRS, and left-linearity
 from Subsection~\ref{sub:trs} translate to \Coq directly. We define
 \coqdef{Rewriting.lhs}{lhs}{\coqdocprojection{lhs}} and
 \coqdef{Rewriting.rhs}{rhs}{\coqdocprojection{rhs}} to be first and
-second projection on rewrite rules.
+second projection on rewrite rules, respectively.
 
 The type of contexts is inductively defined, where the hole always
 occurs at a finite depth.
@@ -1062,7 +1064,7 @@ We say that $\varphi$ is embedded in $\psi$ (written $\varphi
 any number of steps in $\varphi$. We distinguish between inserting a step
 \begin{inparaenum}[(i)]
   \item before the first step,
-  \item after the last step and
+  \item after the last step, and
   \item in between steps
 \end{inparaenum}
 in a rewrite sequence. Note that any steps inserted consecutively in between

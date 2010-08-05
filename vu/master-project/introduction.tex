@@ -5,7 +5,7 @@ This thesis describes a formalisation of the theory of infinitary term
 rewriting in the \Coq proof assistant. The foundation of \Coq is a
 constructive type theory with inductive types, whereas infinitary term
 rewriting, building on the theory of finitary rewriting, uses notions
-from topology, set theory and analysis, but not necessarily in a
+from topology, set theory, and analysis, but not necessarily in a
 constructive way.
 
 The central question we aim to answer in this thesis is whether the
@@ -34,20 +34,18 @@ A glossary of notations can be found in Appendix~\ref{chap:glossary}.
 
 \section*{Infinitary Rewriting}
 
-% TODO: cite knots
-% TODO: or better use braids?
 The theory of \emph{(finitary) rewriting} is concerned with the
 repeated transformation of objects by discrete steps following a
 predefined set of rules. Such a set of rules can be understood as
 implementing a programming language if we take programs as the objects
 to be transformed. Indeed, \emph{term rewriting} is the foundational
 model of functional programming. Other examples of rewriting can be
-found in the transformation of braids and the $\lambda$-calculus
-with applications as a model of computation or as logical framework.
+found in the transformation of braids \citep{mellies-95} and the
+$\lambda$-calculus. As a matter of fact, $\lambda$-calculus is of
+prime importance, both as a model of computation and as a logical
+framework.
 
-% TODO:
-% as a matter of fact, \lambda-calculus is of prime importance, both
-% as a model of computation and as logical framework
+%with applications as a model of computation or as logical framework.
 
 \emph{Infinitary rewriting} generalises finitary rewriting by
 considering infinitely large objects and series of transfinitely many

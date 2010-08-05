@@ -4,7 +4,7 @@ Before formally introducing term rewriting, we give an example of an
 infinitary TRS taken from \citet{klop-de-vrijer-05} and trust the
 reader to pick up the general ideas.
 
-Let $A$, $B$ and $P$ be symbols with arities $0$, $1$ and $2$,
+Let $A$, $B$, and $P$ be symbols with arities $0$, $1$, and $2$,
 respectively. We consider the system consisting of the following rule:
 \begin{align*}
 A \rightarrow B(A)
@@ -160,7 +160,7 @@ ordinals $\omega \times 2 + 1$, $\omega \times 2 + 2$, \ldots, $\omega
   \omega^{\omega^{\omega^{\iddots}}} = \epsilon_0
 \end{displaymath}
 Note that this is all merely notation, we have not yet defined a
-representation for ordinals or what $+$, $\times$ and superscripts
+representation for ordinals or what $+$, $\times$, and superscripts
 are.
 
 In set theory, ordinals are usually represented by hereditarily transitive
@@ -178,7 +178,7 @@ can be either zero, a successor ordinal, or a limit ordinal.
 
 %From now on, we make no distinction between an ordinal and its
 %set-theoretic representation (e.g.\ between $0$ and $\nothing$).
-Examples of successor ordinals are $4$, $\omega + 7$  and
+Examples of successor ordinals are $4$, $\omega + 7$, and
 $\omega^{\omega \times 2} + 1$. Examples of limit ordinals are
 $\omega$ and $\omega \times 3$. Henceforth we use $\alpha, \beta,
 \gamma, \lambda$ to denote ordinals where $\lambda$ always denotes a
@@ -221,7 +221,7 @@ argument:
 The tree ordinals \citep{dennis-jones-wainer-84} are a representation
 of the countable ordinals as countably branching well-founded
 trees. Their inductive definition uses constructors $0$ (zero), $^+$
-(successor) and $\sqcup$ (limit).
+(successor), and $\sqcup$ (limit).
 
 % Be alerted that all ordinals cannot form a set (only a class), but we are
 % defining a subset here
@@ -257,7 +257,7 @@ the argument, writing for example $\sqcup ( \alpha_1, \alpha_2,
 \end{figure}
 
 Now zero is represented by $0$, a successor ordinal $\alpha +1$ is represented
-by $\alpha^+$ and a limit ordinal $\lambda$ is represented by $\sqcup_i
+by $\alpha^+$, and a limit ordinal $\lambda$ is represented by $\sqcup_i
 \alpha_i$ if $\lambda$ is the least upper bound of the sequence $\alpha_1,
 \alpha_2, \alpha_3, \ldots$. As an example of a tree ordinal representation,
 Figure~\ref{fig:tree} visualises $\omega \times 2 + 2$ as a tree
@@ -676,7 +676,7 @@ resulting equality is used in Subsection~\ref{sub:embedding}.
 Two rewrite steps are defined to be \emph{equal} if
 \begin{compactenum}
   \item they use the same rewrite rule $\rho$,
-  \item their contexts are bisimilar and
+  \item their contexts are bisimilar, and
   \item their substitutions agree on all variables in $\rho$.
 \end{compactenum}
 \end{definition}
@@ -715,7 +715,7 @@ A rewrite sequence $(t_\beta \rightarrow t_{\beta^+})_{\beta \prec
   \item
     \emph{weakly convergent} if for every limit ordinal $\lambda
     \preceq \alpha$, the sequence $(t_\beta)_{\beta \prec \lambda}$
-    converges to the term $t_\lambda$ and
+    converges to the term $t_\lambda$, and
   \item
     \emph{strongly convergent} if it is weakly convergent and for
     every limit ordinal $\lambda \preceq \alpha$, the depth of the
@@ -806,7 +806,7 @@ notions we can define some useful classes of term rewriting systems.
 A TRS is called
 \begin{compactenum}
   \item \emph{left-linear} if all its rewrite rules are left-linear,
-  \item \emph{orthogonal} if it is left-linear and there are no critical pairs and
+  \item \emph{orthogonal} if it is left-linear and there are no critical pairs, and
   \item \emph{weakly orthogonal} if it is left-linear and all critical pairs
     are trivial.
 \end{compactenum}
