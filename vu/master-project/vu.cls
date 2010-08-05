@@ -19,6 +19,8 @@
   vmarginratio=2:3,hmarginratio=1:1,
   papersize={15.593cm,23.389cm},total={11.0cm,19.5cm}]{geometry}
 
+\usepackage{lastpage}
+
 % AMS math fonts
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -205,7 +207,6 @@
 %% Now actually use the newly defined style.
 \urlstyle{leo}
 
-% TODO: title page layout
 % TODO: bibliography style
 % http://tug.ctan.org/tex-archive/macros/latex/contrib/ucthesis/
 
@@ -239,7 +240,8 @@
     {THESIS \par}
     \vspace{2cm}
     % TODO: submitted in partial fulfillment for the degree?
-    {submitted for the degree of Master of Science by research at\\
+    {submitted in partial fulfillment of the requirements for\\
+      the degree of Master of Science by research at\\
       the VU University Amsterdam \par}
     \vspace{1cm}
     {by \@author \par}
@@ -268,19 +270,20 @@
     \vspace{10pt}
     {\copyright\ 2010 Martijn Vermaat \par}
     \vspace{10pt}
-    % TODO: check license text
     % TODO: attribute Sebastian Pipping for cc logo,
     % http://blog.hartwork.org/?p=52
     % TODO: this is ugly (250pt does not completely fill the page)
-    {\begin{tabular}{c p{250pt}}
-      \raisebox{-10pt}{\includegraphics[draft=false,scale=1.0]{logos/cc-by}} &
+    {\begin{singlespace}\begin{tabular}{c p{250pt}}
+      \raisebox{-10pt}{\includegraphics[draft=false,scale=1.0]{logos/cc-by}}
+      %\includegraphics[draft=false,scale=1.0]{logos/cc-by}
+      &
       This work is licensed under the Creative Commons
       Attribution 3.0 Netherlands License. To view a copy of this
       license, visit
       \url{http://creativecommons.org/licenses/by/3.0/nl/} or send
       a letter to Creative Commons, 171 Second Street, Suite 300,
       San Francisco, California 94105, US.
-    \end{tabular} \par}
+    \end{tabular}\end{singlespace}\par}
     \vfil\null
 }
 \makeatother

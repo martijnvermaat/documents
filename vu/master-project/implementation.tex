@@ -1,11 +1,13 @@
 \chapter{A Mechanical Formalisation}\label{chap:implementation}
 
 In this chapter we present a formalisation of some of the notions from
-Chapter~\ref{chap:rewriting} in the \Coq proof assistant. Related work
-are \CoLoR \citep{blanqui-koprowski-10} and \Coccinelle
-\citep{contejean-07}, libraries on finitary rewriting and termination,
-and the representation of ordinal numbers up to $\epsilon_0$ and
-$\Gamma_0$ in Cantor and Veblen normal form by \citet{casteran-06}.
+Chapter~\ref{chap:rewriting} in the \Coq proof
+assistant. Section~\ref{sec:ordimp} translates the
+tree ordinals from Subsection~\ref{sub:tree} to \Coq. Coinductive
+terms are defined in Section~\ref{sec:terms}. In Section~\ref{sec:seq}
+we present a novel representation of transfinite rewrite sequences
+based on the structure of the tree ordinals. This we regard as the main
+contribution of this thesis.
 
 %\Coq has been used for sizeable projects such as CompCert and a
 %verified proof of the Four Color Theorem.
@@ -17,18 +19,12 @@ $\Gamma_0$ in Cantor and Veblen normal form by \citet{casteran-06}.
 %\item Analysis: Exact real arithmetic (Russel O'Connor).
 %\end{compactenum}
 
-Section~\ref{sec:ordimp} translates the
-tree ordinals from Subsection~\ref{sub:tree} to \Coq. Coinductive
-terms are defined in Section~\ref{sec:terms}. In Section~\ref{sec:seq}
-we present a novel representation of transfinite rewrite sequences
-based on the structure of the tree ordinals. This we regard as the main
-contribution of this thesis. We start with a short
-introduction to \Coq. % in Section~\ref{sec:coq}.
-
-In the \Coq code fragments, we take some notational liberties in favour
-of readability. Sometimes we omit (part of) the type information. We
-also freely use infix notations without declaration. Furthermore,
-variable and definition names are typeset liberally.
+A short introduction to \Coq is included in
+Appendix~\ref{chap:coq}. In the \Coq code fragments, we take some
+notational liberties in favour of readability. Sometimes we omit (part
+of) the type information. We also freely use infix notations without
+declaration. Furthermore, variable and definition names are typeset
+liberally.
 
 Some definitions have implicit arguments, meaning those arguments can
 be inferred by the system from the context. As an example, consider
@@ -60,6 +56,11 @@ of \begin{coqdoccode}\coqref{CoqIntro.Pos}{\coqdocconstructor{Pos}} 3
   \coqdocvariable{H}\end{coqdoccode}.
 
 % TODO: more?
+
+Related work are \CoLoR \citep{blanqui-koprowski-10} and \Coccinelle
+\citep{contejean-07}, libraries on finitary rewriting and termination,
+and the representation of ordinal numbers up to $\epsilon_0$ and
+$\Gamma_0$ in Cantor and Veblen normal form by \citet{casteran-06}.
 
 
 \section{Ordinal Numbers}\label{sec:ordimp}
