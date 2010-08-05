@@ -1,0 +1,339 @@
+\chapter{The \Coq Proof Assistant}\label{chap:coq}
+
+% TODO: cite curry-howard
+
+\Coq \citep{coq-refman-09} is based on the formal
+language \emph{Calculus of Inductive Constructions}
+\citep{coquand-huet-88,mohring-93}, which is essentially a typed
+$\lambda$-calculus with inductive types. In this language, logical
+propositions are represented as types and proofs of such propositions
+are $\lambda$-terms, motivated by the Curry--Howard--de Bruijn
+correspondence \citep{girard-89}. The core of the \Coq system is its type
+checking algorithm.
+
+We present a very short introduction to \Coq and refer to
+\citet{bertot-casteran-04} and \citet{chlipala-09} for further
+reading. Sections~\ref{sec:guardedness} and \ref{sec:positivity} discuss two
+technicallities related to the \Coq development described in
+Chapter~\ref{chap:implementation}.
+%The seasoned \Coq user can skip to Section~\ref{sec:ordimp}.
+
+
+\section{Types and Propositions}
+
+Every term in \Coq has a type and every type is also a
+term. The type of a type is called a \emph{sort} and the sorts
+in \Coq are
+\begin{compactitem}
+\item \coqdockw{Prop}, the sort of logical propositions,
+\item \coqdockw{Set}, the sort of program specifications and datatypes,
+\item \coqdockw{Type}$_0$, the sort of \coqdockw{Prop} and
+  \coqdockw{Set}, and
+\item \coqdockw{Type}$_{i+1}$, the sort of
+  \coqdockw{Type}$_i$.\footnote{The subscripts $i$ of the sorts
+    \coqdockw{Type}$_i$ are invisible to the user and only used
+    internally.}
+\end{compactitem}
+For example,
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+is the datatype of the natural numbers. It lives in \coqdockw{Set} and
+is defined inductively.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Inductive} \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+:
+\coqdockw{Set} :=\coqdoceol
+\coqdocindent{1.0em}
+\ensuremath{|} \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{O}{\coqdocconstructor{O}}
+:
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}\coqdoceol
+\coqdocindent{1.0em}
+\ensuremath{|} \coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+:
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}} $\rightarrow$
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+The logical proposition that for every natural number $n$, there
+exists a natural number $m$ larger than $n$, can be stated as a term
+of sort \coqdockw{Prop}.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+(\ensuremath{\forall} \coqdocvar{n} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}},
+\ensuremath{\exists} \coqdocvar{m} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}},
+\coqdocvariable{n} < \coqdocvariable{m}) : \coqdockw{Prop}\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+Using the vocabulary of types and terms, the universal quantifier
+$\forall$ is called the \emph{product type constructor}. A product
+type \begin{coqdoccode}$\forall$ \coqdocvar{x} : $T$,
+  $U$\end{coqdoccode} is called \emph{dependent} if \coqdocvar{x} occurs free
+in $U$, otherwise it is written $T \rightarrow U$. The type of the
+constructor symbol \coqdocconstructor{S} defined above, for example,
+is that of functions from
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+to
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+and is not dependent. The non-dependent function space notation $T \rightarrow
+U$ is also used for logical implication, justified by the Curry--Howard--de
+Bruijn correspondence.
+
+
+\section{Terms and Proofs}
+
+Proofs of logical propositions can be defined in two ways. First, we
+can write a proof term directly. The only requirement is that this
+term has as type the logical proposition that we want to
+prove (again, justified by the Curry--Howard--de Bruijn
+correspondence). Second, we can use \emph{tactics} to construct a proof term
+interactively, in a way mimicking natural deduction.
+
+As an example of the use of tactics, we prove the proposition from the
+previous section. This is done by stating the proposition, after which
+the system enters a goal-directed proof mode. In this mode, we are
+presented with a goal, consisting of
+\begin{inparaenum}[(i)]
+\item a context of local variables that are available
+\item a proposition denoting what remains to be proven.
+\end{inparaenum}
+Tactics can now be applied to progressively transform the goal into a
+simpler goal. When the goal is simple enough to be solved directly by
+applying a tactic, we are done proving the proposition.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Lemma}
+\coqdef{CoqIntro.ltserial}{lt\_serial}{\coqdoclemma{lt\_serial}} :
+\ensuremath{\forall} \coqdocvar{n} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}},
+\ensuremath{\exists} \coqdocvar{m} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}},
+\coqdocvariable{n} < \coqdocvariable{m}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Proof}.\coqdoceol
+\coqdocindent{1.0em}
+\coqdoctac{intro} \coqdocvar{n}.\coqdoceol
+\coqdocindent{1.0em}
+\coqdoctac{exists}
+(\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqdocvar{n}).\coqdoceol
+\coqdocindent{1.0em}
+\coqdoctac{auto}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Qed}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+In this example, we use the tactic \coqdoctac{intro} to introduce the
+variable \coqdocvariable{n} to the context. With \coqdoctac{exists},
+we supply a witness for the existential quantification. At this point,
+the goal is simple enough to be solved directly by the
+\coqdoctac{auto} tactic.
+
+Recursive functions are defined using the \coqdockw{Fixpoint}
+keyword. The function must have an argument of an inductive type that is
+structurally decreasing with each recursive call. Consider for example the
+definition of
+the factorial function, which also shows how a case analysis on values
+of inductive types can be done with the \coqdockw{match} keyword.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Fixpoint}
+\coqdef{CoqIntro.factorial}{factorial}{\coqdocdefinition{factorial}}
+(\coqdocvar{n} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}})
+:
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+:=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{n} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{O}{\coqdocconstructor{O}}
+\ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{O}{\coqdocconstructor{O}}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqdocvar{n} \ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqdocvariable{n} \ensuremath{\times}
+(\coqref{CoqIntro.factorial}{\coqdocdefinition{factorial}}
+\coqdocvariable{n})\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+
+%\chapter{Two Syntactical Criteria in \texorpdfstring{\Coq}{Coq}}\label{chap:appendix}
+%
+%We include a short discussion of two \Coq technicalities.
+
+
+\section{The Positivity Condition}\label{sub:positivity}
+
+\Coq restricts inductive definitions to those that satisfy the
+\emph{positivity condition}. The reason for this is that definitions
+that fail this (syntactic) criterion may lead to an inconsistent
+  system. For a precise definition of positivity, consult
+  \citetalias[Section 4.5.3]{coq-refman-09}.
+
+Consider again the definition of rewrite sequences from
+Section~\ref{sec:seq}. A more natural way to define the type of the
+\coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} constructor might be
+by using a $\Sigma$-type instead of a separate function for the target
+terms of the branches.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocconstructor{Lim} :
+\ensuremath{\forall} \coqdocvar{s} \coqdocvar{t}
+(\coqdocvar{f} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+\ensuremath{\rightarrow} \{ \coqdocvar{t'} : \coqref{Term.term}{\coqdocinductive{term}}
+\& \coqdocvar{s}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
+\coqdocvariable{t'} \}),\coqdoceol
+\coqdocindent{5.00em}
+\coqref{Rewriting.converges}{\coqdocdefinition{converges}}
+(\coqdockw{fun} \coqdocvar{n} \ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{projT1}{\coqdocdefinition{projT1}}
+(\coqdocvariable{f} \coqdocvariable{n})) \coqdocvariable{t}
+$\rightarrow$ (\coqdocvariable{s}
+\coqref{Rewriting.sequence}{$\rewrites_\mathcal{R}$}
+\coqdocvariable{t})\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+However, this type definition does not satisfy the positivity
+condition and therefore we cannot use it. We feel that the definition
+from Section~\ref{sec:seq}, which does satisfy the condition, models
+our intentions adequately.
+
+
+\section{Guardedness in Corecursive Definitions}\label{sub:guardedness}
+
+In \Coq, coinductive types can be defined using the
+\coqdockw{CoInductive} keyword \citep{gimenez-casteran-07}. No
+induction principles are defined for these types, because they are not
+necessarily well-founded.\footnote{\Coq automatically derives induction
+  principles for inductive definitions.}
+Objects in a coinductive type may be infinite (i.e.\ contain an infinite
+amount of constructors). However, in order to guarantee productivity,
+definitions of such objects are required by \Coq to be in \emph{guarded}
+form \citep{gimenez-94}. A corecursive definition in guarded form
+satisfies two (syntactical) conditions. First, every corecursive call
+must occur inside at least one constructor (of the same coinductive
+type). Second, every corecursive call may only occur inside
+abstractions or constructors (of the same coinductive
+type).\footnote{To be more precise, the corecursive call is also
+  allowed to occur inside \coqdockw{match} constructs and other
+  corecursive definitions.}
+
+In the \coqref{Term.term}{\coqdocinductive{term}} definition, we use a vector
+type, parameterised by the type of its element and its size. Naturally, one
+would implement a vector type in \Coq inductively, as for example has been
+done in the standard library.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Inductive} \coqdef{Bvector.vector}{vector}{\coqdocinductive{vector}}
+(\coqdocvar{A} : \coqdockw{Type}) :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+\ensuremath{\rightarrow} \coqdockw{Type} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{Bvector.Vnil}{Vnil}{\coqdocconstructor{Vnil}}  :
+\coqref{Bvector.vector}{\coqdocinductive{vector}} \coqdocvariable{A} 0\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{Bvector.Vcons}{Vcons}{\coqdocconstructor{Vcons}} :
+\coqdocvariable{A} \ensuremath{\rightarrow} \ensuremath{\forall} \coqdocvar{n},
+\coqref{Bvector.vector}{\coqdocinductive{vector}} \coqdocvariable{A}
+\coqdocvariable{n} \ensuremath{\rightarrow}
+\coqref{Bvector.vector}{\coqdocinductive{vector}} \coqdocvariable{A}
+(\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqdocvariable{n}).\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+
+Now consider the following trivial example of a basic operation on terms by
+corecursive traversal.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{CoFixpoint} \coqdef{Term.id}{id}{\coqdocdefinition{id}}
+(\coqdocvar{t} : \coqref{Term.term}{\coqdocinductive{term}}) :
+\coqref{Term.term}{\coqdocinductive{term}} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{t} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Term.Var}{\coqdocconstructor{Var}} \coqdocvar{x}
+\ensuremath{\Rightarrow} \coqref{Term.Var}{\coqdocconstructor{Var}}
+\coqdocvariable{x}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqref{Term.Fun}{\coqdocconstructor{Fun}} \coqdocvar{f}
+\coqdocvar{args} \ensuremath{\Rightarrow}
+\coqref{Term.Fun}{\coqdocconstructor{Fun}} \coqdocvariable{f}
+(\coqdocdefinition{vmap} \coqref{Term.id}{\coqdocdefinition{id}}
+\coqdocvariable{args})\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+This definition is ill-formed, since the corecursive call to
+\coqref{Term.id}{\coqdocdefinition{id}} is not guarded.\footnote{The call to
+  \coqref{Term.id}{\coqdocdefinition{id}} is hidden inside
+  \coqdocdefinition{vmap}, which is defined by recursion on the vector
+  \coqdocvariable{args}.}
+We define a recursive type of vectors as an alternative to the inductive type:
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Inductive} \coqdef{Vector.Fin}{Fin}{\coqdocinductive{Fin}} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}}
+\ensuremath{\rightarrow} \coqdockw{Type} :=\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{Vector.First}{First}{\coqdocconstructor{First}} :
+\ensuremath{\forall} \coqdocvar{n}, \coqref{Vector.Fin}{\coqdocinductive{Fin}}
+(\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqdocvariable{n})\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdef{Vector.Next}{Next}{\coqdocconstructor{Next}}  :
+\ensuremath{\forall} \coqdocvar{n}, \coqref{Vector.Fin}{\coqdocinductive{Fin}}
+\coqdocvariable{n} \ensuremath{\rightarrow}
+\coqref{Vector.Fin}{\coqdocinductive{Fin}}
+(\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
+\coqdocvariable{n}).\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Definition}
+\coqdef{Vector.vector}{vector}{\coqdocdefinition{vector}} (\coqdocvar{A} :
+\coqdockw{Type}) (\coqdocvar{n} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nat}{\coqdocinductive{nat}})
+:= \coqref{Vector.Fin}{\coqdocinductive{Fin}} \coqdocvariable{n}
+\ensuremath{\rightarrow} \coqdocvariable{A}.\coqdoceol
+\end{coqdoccode}
+\end{singlespace}
+% TODO: explain this vector type
+This makes for a definition of \coqref{Vector.vmap}{\coqdocdefinition{vmap}}
+that is just an abstraction, and therefore solves the guardedness problem in
+\coqref{Term.id}{\coqdocdefinition{id}}.
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Definition} \coqdef{Vector.vmap}{vmap}{\coqdocdefinition{vmap}}
+\coqdocvar{A} \coqdocvar{B} (\coqdocvar{f} :
+\coqdocvariable{A} \ensuremath{\rightarrow} \coqdocvariable{B}) \coqdocvar{n}
+: \coqref{Vector.vector}{\coqdocdefinition{vector}} \coqdocvariable{A}
+\coqdocvariable{n} \ensuremath{\rightarrow}
+\coqref{Vector.vector}{\coqdocdefinition{vector}} \coqdocvariable{B}
+\coqdocvariable{n} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{fun} \coqdocvar{v} \coqdocvar{i} \ensuremath{\Rightarrow}
+\coqdocvariable{f} (\coqdocvariable{v} \coqdocvariable{i}).\coqdoceol
+\end{coqdoccode}
+\end{singlespace}

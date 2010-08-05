@@ -7,7 +7,7 @@
 
 # Configuration
 THESIS = thesis
-THESISDEPS = vu.cls abstract.tex abbrevs.tex discussion.tex glossary.tex implementation.tex introduction.tex acknowledgements.tex rewriting.tex unwo.tex appendix.tex figures/tree-ordinal.tikz figures/predecessor.tikz
+THESISDEPS = vu.cls abstract.tex abbrevs.tex discussion.tex glossary.tex implementation.tex introduction.tex acknowledgements.tex rewriting.tex unwo.tex coq.tex figures/tree-ordinal.tikz figures/predecessor.tikz
 SLIDES = slides
 SLIDESDEPS = abbrevs.tex figures/predecessor.tikz
 PDFLATEX = /usr/bin/pdflatex
