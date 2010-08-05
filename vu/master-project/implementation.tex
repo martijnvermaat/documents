@@ -195,8 +195,8 @@ as an example of this issue.
 \end{coqdoccode}
 \end{singlespace}
 We would like to strengthen this, but cannot, since nothing denies
-\coqdocvariable{$\alpha$} from being the tree ordinal $\sqcup \{ 0, 0, 0,
-\ldots \}$ (which has the same rank as $0$). We therefore turn to a subset of
+\coqdocvariable{$\alpha$} from being the tree ordinal $\sqcup ( 0, 0, 0,
+\ldots )$ (which has the same rank as $0$). We therefore turn to a subset of
 the tree ordinals where we restrict limit sequences to be strictly
 monotonic. This restriction is encoded in the
 \coqref{WfOrdinal.wf}{\coqdocdefinition{wf}} (well-formedness)
@@ -286,10 +286,10 @@ function symbols in \coqdocvar{F} and variables in \coqdocvar{X}.
 \end{coqdoccode}
 \end{singlespace}
 The objects of a coinductive type can only be built in some restricted way to
-ensure productivity of the construction. This restriction implies a technical
+ensure productivity of their construction. This restriction implies a technical
 difficulty in the definition of the
 \coqref{Vector.vector}{\coqdocdefinition{vector}} type, which is discussed in
-Subsection~\ref{sub:guardedness}.
+Section~\ref{sec:guardedness}.
 For now, we assume \coqref{Vector.vector}{\coqdocdefinition{vector}} to
 implement dependently typed lists (the type depending on their length).
 
