@@ -989,11 +989,11 @@ the source and target terms of the rewrite step.
 % TODO: too dramatic
 In an effort to prevent getting lost in a syntactical labyrinth, we define
 the following notational shortcuts:
-\begin{center}
-{\renewcommand{\arraystretch}{1.1}
+\begin{center}\begin{singlespace}
+{\renewcommand{\arraystretch}{1.4}
 \renewcommand{\tabcolsep}{8pt}
 \begin{tabular}{lll}
-& \textsc{description} & \textsc{definition}\\
+\textsc{short} & \textsc{explanation} & \textsc{definition}\\
 \hline
 \coqdocvar{$\varphi$}[\coqdocvar{$\iota$}] & location in
 \coqdocvar{$\varphi$} indexed by \coqdocvar{$\iota$} &
@@ -1019,7 +1019,8 @@ the following notational shortcuts:
     (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{projT1}{\coqdocdefinition{projT1}}
     (\coqref{Rewriting.pred}{\coqdocdefinition{pred}} \coqdocvar{$\varphi$} \coqdocvar{$\iota$}))\end{coqdoccode}
 \end{tabular}}
-\end{center}
+\end{singlespace}\end{center}
+
 As an example of predecessor indexing, consider the graphical
 representation of a rewrite sequence $\varphi$ of length $\omega + 2$
 and its predecessor index $\iota = \coqdocconstructor{inr} \;
