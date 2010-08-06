@@ -1,23 +1,4 @@
-Order of abstract/preamble/toc
-Use of infinite vs infinitary
-Layout title page
-Use we or I?
 Spell check
-1, 2, 3, and 5 or 1, 2, 3 and 5?
-Refer to Section 4 or to section 4?
-Write Coq the right way
-Coinduction or co-induction?
-Look at chap 15 of terese for implementations of rewriting
-Throw in some examples here and there
-Add some clarifying pictures (ordinals, predecessors, convergence)
-Equality vs equivalence
-Grep for \phi and change to \varphi
-Publish via lulu :)
-Serial commas?
-Mechanic vs mechanical
-Subsection or always Section?
-Coq intro in appendix?
-Ter(\Sigma) versus Ter_\Sigma
 
 coqdoc --latex -s -g --coqlib http://coq.inria.fr/stdlib/ -d coqdoc *.v
 

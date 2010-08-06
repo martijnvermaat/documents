@@ -132,9 +132,6 @@ following chapters.
 
 % nonterminating processes, stream-based programming languages
 
-% TODO: Short motivation for term rewriting, summation of its applications and
-% aspects of rewriting that are studied.
-
 %It should be noted that an infinite term is to be understood as a term
 %with a \emph{possibly} infinite depth, that is, the class of infinite
 %terms includes the finite terms.
@@ -244,7 +241,6 @@ the argument, writing for example $\sqcup ( \alpha_1, \alpha_2,
 \alpha_3, \ldots )$.
 % or: we write $\sqcup_i (f i)$ instead of $\sqcup_i f$
 
-% TODO: make this a nice picture
 \begin{figure}
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -328,8 +324,6 @@ This structural predecessor function can be seen as defining a `subtree'
 partial order on $\Ord$. With it we are ready to define an extensional
 non-strict order relation on $\Ord$ that classifies ordinals by rank.
 
-% TODO: does \sqcup_i start at 0 or 1? we have pred_type saying all of
-% the natural numbers, but this definition starting at \alpha_1...
 \begin{definition}\label{def:order}%[Order]
 We define the \emph{order} $\preceq$ as a binary relation on $\Ord$ by
 induction:
@@ -342,7 +336,7 @@ induction:
     For all $\alpha, \beta \in \Ord$ and $\iota \in \Phi(\beta)$, if
     $\alpha \preceq \beta[\iota]$ then $\alpha^+ \preceq \beta$.
   \item
-    For all $\alpha_1, \alpha_2, \alpha_3, \ldots, \beta \in \Ord$, if
+    For all $\alpha_0, \alpha_1, \alpha_2, \ldots, \beta \in \Ord$, if
     $\alpha_n \preceq \beta$ for all $n \in \mathbb{N}$, then $\sqcup_i
     \alpha_i \preceq \beta$.
 \end{compactenum}
@@ -407,7 +401,7 @@ $\sqcup$ constructors.
     For every $\alpha \in \Ord$, if $\mathvar{wf} \alpha$ then
     $\mathvar{wf} \alpha^+$.
   \item
-    For all $\alpha_1, \alpha_2, \alpha_3, \ldots \in \Ord$, if for
+    For all $\alpha_0, \alpha_1, \alpha_2, \ldots \in \Ord$, if for
     all $n,m \in \mathbb{N}$ we have $\mathvar{wf} \alpha_n$ and that
     $n < m$ implies $\alpha_n \prec \alpha_m$, then $\mathvar{wf}
     \sqcup_i \alpha_i$.
@@ -460,7 +454,7 @@ defined by coinduction:
 %    \TerI(\X)$, then $f(t_1, \ldots, t_n) \in \TerI(\X)$.
 \end{compactenum}
 \end{definition}
-% TODO: maybe use Ter(\Sigma, X) instead of Ter_\Sigma(X)
+% maybe use Ter(\Sigma, X) instead of Ter_\Sigma(X)
 
 The symbol $f$ is called the \emph{root} of $f(t_1, \ldots, t_n)$ and
 the terms $t_i$ are called the \emph{arguments} of $f$. By $\Var(t)$
@@ -617,10 +611,8 @@ The \emph{depth} of a context $C$ is defined by the length of the
 %The \emph{hole depth} of a context $C$ is defined by the number
 %of `$($' symbols minus the number of `$)$' symbols preceding the $\Box$
 %symbol in $C$.
-%TODO: this seemed to me the shortest way to define the hole depth?
 
 \begin{definition}%[Substitution]
-% TODO: now we only generalise to finite terms
 Given a signature $\Sigma$ and a set of variables $\X$, a
 \emph{substitution} $\sigma$ is a mapping from $\X$ to $\TerI(\X)$. It
 can be generalised to a mapping $\bar{\sigma} : \TerI(\X) \rightarrow
@@ -639,7 +631,6 @@ Since $\bar{\sigma}$ is completely defined by $\sigma$ we refer to both as
 %and $\sigma(y) = y$ for all other $y$.
 Applying a substitution $\sigma$ to a term $t$ is usually written
 $t^\sigma$ and the result is called an \emph{instance} of $t$.
-% TODO: at this moment, we don't use the [x := y] notation (get rid of it?)
 
 If we view a rewriting rule $\rho : l \rightarrow r$ as a \emph{scheme}, an
 \emph{instance} of $\rho$ can be obtained by applying a substitution
@@ -662,7 +653,6 @@ $\{ \rightarrow_\rho | \; \rho \in R \}$.
 
 %In Section~\ref{sec:blaat} we need an equality on rewrite steps other than the
 %standard Leibniz equality.
-%TODO
 
 Related to equality of (infinite) terms is equality of rewrite
 steps. Since rewrite steps contain possibly infinite contexts, it
@@ -750,27 +740,25 @@ the equivalence closure of $\rewrites$.
       (UN$^\infty$) if $t \equiv u$ for every two
       convertible normal forms $t$ and $u$.
     \item
-      % TODO: make sure \rewrites renders fine in superscript
       $\mathcal{R}$ has the property of \emph{unique normal forms
       with respect to rewriting} (UN$^\rewrites$) if for all
       terms $s$, we have $t \equiv u$ for all normal forms $t$ and
       $u$ of $s$.
   \end{compactenum}
 \end{definition}
-% TODO: klop-de-vrijer-05 uses our UN->> definition for UN^\infty,
+% klop-de-vrijer-05 uses our UN->> definition for UN^\infty,
 % should we distinguish between the two?
-% TODO: pictures
+% pictures?
 
-% TODO: tegenvoorbeeld voor UN$^\rewrites$ => UN$^\infty$
 Obviously we have that UN$^\infty$ implies UN$^\rewrites$. One source
 of non-unique normal forms is the interference of two redex occurrences
 in a term. Contracting one of them may result in a term where (a
 descendant of) the other redex is no longer present, possibly losing
 confluence. This phenomenon is made precise in the following
 definition.
-% TODO: informal definition of descendants and confluence
+% informal definition of descendants and confluence
 
-% TODO: maybe cite joerg's thesis
+% maybe cite joerg's thesis
 \begin{definition}\label{def:overlap}%[Overlap and critical pairs]
 We say two rewrite rules $\rho_1 : l_1 \rightarrow r_1$ and $\rho_2 :
 l_2 \rightarrow r_2$ have \emph{overlap} if there exists a

@@ -274,7 +274,7 @@ to handle the option types with every call of
 
 In the definition of rewrite steps (Section~\ref{sec:seq}), we include
 bisimilarity conditions on the source and target terms. The reason is
-that we cannot rely on \Coq's small Leibniz equality. For consider two
+that we cannot rely on \Coq's small standard equality. For consider two
 rewrite steps $s_1 \to s_2$ and $t_1 \to t_2$, where $s_2 \bis
 t_1$. We should be able to construct the rewrite sequence consisting
 of these two steps, but the fact that the target term of the first

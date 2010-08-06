@@ -1,7 +1,5 @@
 \chapter{The \texorpdfstring{\Coq}{Coq} Proof Assistant}\label{chap:coq}
 
-% TODO: cite curry-howard
-
 \Coq \citep{coq-refman-09} is based on the formal
 language \emph{Calculus of Inductive Constructions}
 \citep{coquand-huet-88,mohring-93}, which is essentially a typed
@@ -289,7 +287,8 @@ This definition is ill-formed, since the corecursive call to
   \coqref{Term.id}{\coqdocdefinition{id}} is hidden inside
   \coqdocdefinition{vmap}, which is defined by recursion on the vector
   \coqdocvariable{args}.}
-We define a recursive type of vectors as an alternative to the inductive type:
+We define a recursive type of vectors as an alternative to the
+inductive type.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -318,7 +317,7 @@ We define a recursive type of vectors as an alternative to the inductive type:
 \ensuremath{\rightarrow} \coqdocvariable{A}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-% TODO: explain this vector type
+% further explain this vector type?
 This makes for a definition of \coqref{Vector.vmap}{\coqdocdefinition{vmap}}
 that is just an abstraction, and therefore solves the guardedness problem in
 \coqref{Term.id}{\coqdocdefinition{id}}.

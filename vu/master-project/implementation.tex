@@ -1,6 +1,6 @@
 \chapter{A Mechanical Formalisation}\label{chap:implementation}
 
-% TODO: nogmaals url voor code noemen
+% nogmaals url voor code noemen?
 
 In this chapter we present a formalisation of some of the notions from
 Chapter~\ref{chap:rewriting} in the \Coq proof
@@ -57,17 +57,15 @@ write \begin{coqdoccode}\coqref{CoqIntro.Pos}{\coqdocconstructor{Pos}}
 of \begin{coqdoccode}\coqref{CoqIntro.Pos}{\coqdocconstructor{Pos}} 3
   \coqdocvariable{H}\end{coqdoccode}.
 
-% TODO: more?
-
-Related work are \CoLoR \citep{blanqui-koprowski-10} and \Coccinelle
-\citep{contejean-07}, libraries on finitary rewriting and termination,
-and the representation of ordinal numbers up to $\epsilon_0$ and
-$\Gamma_0$ in Cantor and Veblen normal form by \citet{casteran-06}.
+Related work are the \CoLoR \citep{blanqui-koprowski-10} and \Coccinelle
+\citep{contejean-07} projects, libraries on finitary rewriting and
+termination, and the representation of ordinal numbers up to
+$\epsilon_0$ and $\Gamma_0$ in Cantor and Veblen normal form by
+\citet{casteran-06}.
 
 
 \section{Ordinal Numbers}\label{sec:ordimp}
 
-% TODO: rewrite this paragraph ('likewise')
 In the theory of infinitary rewriting, the lengths of rewrite sequences play
 a central role. One might even suspect that any representation of transfinite
 rewrite sequences needs a representation of ordinal numbers. But this is not
@@ -781,7 +779,6 @@ defines agreement of substitutions on a given list of variables.
 \coqdockw{end}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-% TODO: naming of variables is not so nice here
 
 We describe a way to define rewrite sequences as an inductive type. A rewrite
 sequence of length $\alpha$ can be represented by the tree ordinal $\alpha$
@@ -795,7 +792,7 @@ constructor should be. Following the tree ordinals, we think of a rewrite
 sequence as a countably branching tree with every branching node representing
 the least upper bound of its branches. As a first step towards a type of
 rewrite sequences, we write down an incomplete try. Note that the
-\coqdef{Rewriting.Cons}{Cons}{\coqdocconstructor{Cons}} constructor appends
+\coqref{Rewriting.Cons}{\coqdocconstructor{Cons}} constructor appends
 (not prepends) a step to a sequence.
 \begin{singlespace}
 \begin{coqdoccode}
@@ -854,7 +851,6 @@ condition that these terms must converge to the target term
 \coqdocvariable{t})\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
-% TODO: maybe first convergence, then branches
 
 Of course, the branches of a \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}}
 constructor may still not actually approximate to a rewrite sequence (of
@@ -986,7 +982,6 @@ the source and target terms of the rewrite step.
 \end{coqdoccode}
 \end{singlespace}
 
-% TODO: too dramatic
 In an effort to prevent getting lost in a syntactical labyrinth, we define
 the following notational shortcuts:
 \begin{center}\begin{singlespace}
@@ -1043,8 +1038,6 @@ $t_3$ to $t_4$.
   index.}\label{fig:pred}
 \end{figure}
 
-% TODO: better wording for 'cancelled out'?
-% TODO: picture of this embedding behaviour?
 Having a closer look at the order $\preceq$ on the tree ordinals, we can
 see that it really defines embeddings of their tree structures. This is due to
 clause {\sc \ref{def:order:succ}} of Definition~\ref{def:order}. In
@@ -1054,7 +1047,6 @@ these occurrences in their respective ordinals do not necessarily
 correspond. Since occurrences of $^+$ carry no additional information,
 this has no effect on the resulting relation.
 
-% TODO: should we use the word 'iff'?
 What this means for a translation of $\preceq$ to the domain of our
 inductively defined rewrite sequences is that, indeed, we get an embedding
 relation. We only have to make sure that in the
@@ -1224,7 +1216,6 @@ using the strict embedding relation $\sqsubset$.
 \end{coqdoccode}
 \end{singlespace}
 
-% TODO: check if this page ref is correct
 On page~\pageref{coq:lim}, we define the
 \coqref{Rewriting.Lim}{\coqdocconstructor{Lim}} constructor with the
 intuition that each of its branches should extend on the preceding
@@ -1249,7 +1240,7 @@ in \begin{coqdoccode}\coqdocvariable{f}
   \coqdocvariable{n}\end{coqdoccode}. Steps inserted before the last
 step of \begin{coqdoccode}\coqdocvariable{f}
   \coqdocvariable{n}\end{coqdoccode} must form a cycle (note that all
-branches start at the same % TODO: is spacing ok after therefore, ?
+branches start at the same
 term). Therefore, \begin{coqdoccode}\coqdocvariable{f}
   \coqdocvariable{m}\end{coqdoccode} can be obtained
 from \begin{coqdoccode}\coqdocvariable{f}
@@ -1535,7 +1526,7 @@ orthogonality and weak orthogonality.
 \coqdocdefinition{trs})
 : \coqdockw{Prop} :=\coqdoceol
 \coqdocindent{1.00em}
-\coqdocdefinition{trs\_left\_linear} % TODO: maybe define trs_left_linear and link to it
+\coqdocdefinition{trs\_left\_linear}
 \coqdocvariable{$\mathcal{R}$} \ensuremath{\land}
 \ensuremath{\forall} \coqdocvar{t$_1$} \coqdocvar{t$_2$},
 \ensuremath{\lnot}
@@ -1602,5 +1593,3 @@ Note that the
 definition is only a translation of the $UN^\rewrites$ property, not
 of the more general $UN^\infty$ property (see also
 Definition~\ref{def:normalisation}).
-
-% TODO: note in chapter unwo that we proved ~UN^\infty with ~UN^->

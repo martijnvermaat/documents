@@ -204,9 +204,6 @@
 %% Now actually use the newly defined style.
 \urlstyle{leo}
 
-% TODO: bibliography style
-% http://tug.ctan.org/tex-archive/macros/latex/contrib/ucthesis/
-
 \makeatletter
 \def\makefrontmatter{
   \newpage
@@ -217,7 +214,8 @@
     \vspace{6cm}
     {\@author \par}
     \vfil\null
-%    \setcounter{page}{1}
+    \pagenumbering{alph}
+    \setcounter{page}{1}
   \newpage
     \thispagestyle{empty}
     \null\vfil\null
@@ -252,12 +250,12 @@
     \end{tabular}}
     \end{center}
     \vfil\null
-%    \setcounter{page}{1}
+    \pagenumbering{alph}
+    \setcounter{page}{3}
   \newpage
     \thispagestyle{empty}
     \null\vfil
     \vspace{10cm}
-    % TODO: black and white version of VU logo
     \if@vucolors
       {\includegraphics[draft=false,width=5cm]{logos/vu-logo-en}\par}
     \else
@@ -272,6 +270,8 @@
     \vspace{10pt}
     % CC Logo by Sebastian Pipping, http://blog.hartwork.org/?p=52
     % this is ugly (255pt does not completely fill the page)
+    \pagenumbering{alph}
+    \setcounter{page}{4}
     {\begin{singlespace}\begin{tabular}{c p{255pt}}
       \raisebox{-10pt}{\includegraphics[draft=false,scale=1.0]{logos/cc-by}}
       %\includegraphics[draft=false,scale=1.0]{logos/cc-by}
