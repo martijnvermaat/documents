@@ -562,56 +562,6 @@ Section~\ref{sec:design}.
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
-\coqdockw{Fixpoint}
-\coqdef{Term.subterm}{subterm}{\coqdocdefinition{subterm}}
-(\coqdocvar{t} : \coqref{Term.term}{\coqdocinductive{term}})
-(\coqdocvar{p} :
-\coqdocabbreviation{position})
-\{\coqdockw{struct} \coqdocvar{p}\} :
-\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{option}{\coqdocinductive{option}}
-\coqref{Term.term}{\coqdocinductive{term}} :=\coqdoceol
-\coqdocindent{1.00em}
-\coqdockw{match} \coqdocvariable{p} \coqdockw{with}\coqdoceol
-\coqdocindent{1.00em}
-\ensuremath{|}
-\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nil}{\coqdocconstructor{nil}}
-\ensuremath{\Rightarrow}
-\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{Some}{\coqdocconstructor{Some}}
-\coqdocvariable{t}\coqdoceol
-\coqdocindent{1.00em}
-\ensuremath{|} \coqdocvar{n} :: \coqdocvar{p} \ensuremath{\Rightarrow}
-\coqdockw{match} \coqdocvariable{t} \coqdockw{with}\coqdoceol
-\coqdocindent{7.00em}
-\ensuremath{|} \coqref{Term.Var}{\coqdocconstructor{Var}}
-\coqdocvar{\_}      \ensuremath{\Rightarrow}
-\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{None}{\coqdocconstructor{None}}\coqdoceol
-\coqdocindent{7.00em}
-\ensuremath{|} \coqref{Term.Fun}{\coqdocconstructor{Fun}}
-\coqdocvar{f} \coqdocvar{args} \ensuremath{\Rightarrow}
-\coqdockw{match}
-\coqexternalref{http://coq.inria.fr/stdlib/Coq.Arith.Bool\_nat}{ltgedec}{\coqdocdefinition{lt\_ge\_dec}}
-\coqdocvariable{n} (\coqdocprojection{arity}
-\coqdocvariable{f}) \coqdockw{with}\coqdoceol
-\coqdocindent{15.00em}
-\ensuremath{|}
-\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{left}{\coqdocconstructor{left}}
-\coqdocvar{h}  \ensuremath{\Rightarrow}
-\coqref{Term.subterm}{\coqdocdefinition{subterm}}
-(\coqdocdefinition{vnth} \coqdocvariable{h}
-\coqdocvariable{args}) \coqdocvariable{p}\coqdoceol
-\coqdocindent{15.00em}
-\ensuremath{|}
-\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{right}{\coqdocconstructor{right}}
-\coqdocvar{\_} \ensuremath{\Rightarrow}
-\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{None}{\coqdocconstructor{None}}\coqdoceol
-\coqdocindent{15.00em}
-\coqdockw{end}\coqdoceol
-\coqdocindent{7.00em}
-\coqdockw{end}\coqdoceol
-\coqdocindent{1.00em}
-\coqdockw{end}.\coqdoceol
-\coqdocemptyline
-\coqdocnoindent
 \coqdockw{Fixpoint} \coqdef{Context.dig}{dig}{\coqdocdefinition{dig}}
 (\coqdocvar{t} : \coqref{Term.term}{\coqdocinductive{term}})
 (\coqdocvar{p} :
@@ -685,6 +635,69 @@ $\Box$\coqdoceol
 \coqdockw{end}\coqdoceol
 \coqdocindent{1.00em}
 \coqdockw{end}.\coqdoceol
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\end{coqdoccode}
+\end{singlespace}
+%\pagebreak[4]
+\begin{singlespace}
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Fixpoint}
+\coqdef{Term.subterm}{subterm}{\coqdocdefinition{subterm}}
+(\coqdocvar{t} : \coqref{Term.term}{\coqdocinductive{term}})
+(\coqdocvar{p} :
+\coqdocabbreviation{position})
+\{\coqdockw{struct} \coqdocvar{p}\} :
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{option}{\coqdocinductive{option}}
+\coqref{Term.term}{\coqdocinductive{term}} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvariable{p} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{nil}{\coqdocconstructor{nil}}
+\ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{Some}{\coqdocconstructor{Some}}
+\coqdocvariable{t}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{n} :: \coqdocvar{p} \ensuremath{\Rightarrow}
+\coqdockw{match} \coqdocvariable{t} \coqdockw{with}\coqdoceol
+\coqdocindent{7.00em}
+\ensuremath{|} \coqref{Term.Var}{\coqdocconstructor{Var}}
+\coqdocvar{\_}      \ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{None}{\coqdocconstructor{None}}\coqdoceol
+\coqdocindent{7.00em}
+\ensuremath{|} \coqref{Term.Fun}{\coqdocconstructor{Fun}}
+\coqdocvar{f} \coqdocvar{args} \ensuremath{\Rightarrow}
+\coqdockw{match}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Arith.Bool\_nat}{ltgedec}{\coqdocdefinition{lt\_ge\_dec}}
+\coqdocvariable{n} (\coqdocprojection{arity}
+\coqdocvariable{f}) \coqdockw{with}\coqdoceol
+\coqdocindent{15.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{left}{\coqdocconstructor{left}}
+\coqdocvar{h}  \ensuremath{\Rightarrow}
+\coqref{Term.subterm}{\coqdocdefinition{subterm}}
+(\coqdocdefinition{vnth} \coqdocvariable{h}
+\coqdocvariable{args}) \coqdocvariable{p}\coqdoceol
+\coqdocindent{15.00em}
+\ensuremath{|}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Specif}{right}{\coqdocconstructor{right}}
+\coqdocvar{\_} \ensuremath{\Rightarrow}
+\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{None}{\coqdocconstructor{None}}\coqdoceol
+\coqdocindent{15.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{7.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}.\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 Now \begin{coqdoccode}\coqref{Term.subterm}{\coqdocdefinition{subterm}}
@@ -736,10 +749,9 @@ of bisimilarity is allowed, motivated in Subsection~\ref{sub:bissteps}.
 \coqdocindent{6.50em}
 \coqdocvariable{C}[(\coqref{Rewriting.rhs}{\coqdocprojection{rhs}}
 \coqdocvariable{$\rho$})\coqdocvariable{$^\sigma$}] \coqref{TermEquality.termbis}{$\bis$} \coqdocvariable{t}
-\ensuremath{\rightarrow}\coqdoceol
-\coqdocindent{6.50em}
-\coqdocvariable{s} \coqref{Rewriting.step}{$\rightarrow_\mathcal{R}$}
-\coqdocvariable{t}.\coqdoceol
+\ensuremath{\rightarrow}
+(\coqdocvariable{s} \coqref{Rewriting.step}{$\rightarrow_\mathcal{R}$}
+\coqdocvariable{t}).\coqdoceol
 \end{coqdoccode}
 \end{singlespace}
 For the translation of Definition~\ref{def:stepeq} (equality of steps)
@@ -868,10 +880,15 @@ first consider the definition of an embedding relation on
 \subsection{Embeddings of Rewrite Sequences}\label{sub:embedding}
 
 We lift the notions of predecessor and predecessor indices to the domain of
-rewrite sequences. The set of predecessor indices is easily defined as
+transfinite rewrite sequences. The set of predecessor indices is
+easily defined as
 \coqref{Rewriting.predtype}{\coqdocdefinition{pred\_type}}.
+
 %\footnote{We employ some notational overloading by reusing $I(\_)$ and
 %  $[\_]\_$ for the corresponding definitions on rewrite sequences.}
+%\pagebreak[4]
+\pagebreak[3]
+
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -1016,6 +1033,8 @@ the following notational shortcuts:
 \end{tabular}}
 \end{singlespace}\end{center}
 
+%\pagebreak[4]
+
 As an example of predecessor indexing, consider the graphical
 representation of a rewrite sequence $\varphi$ of length $\omega + 2$
 and its predecessor index $\iota = \coqdocconstructor{inr} \;
@@ -1064,6 +1083,9 @@ in a rewrite sequence. Note that any steps inserted consecutively in between
 steps necessarily form a cycle, because of the typing constraints in
 the definition of rewrite sequence.
 % is this good or bad? (cycle)
+
+\pagebreak[4]
+
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -1355,6 +1377,7 @@ Hence, we use an auxiliary function
 A related operation is concatenation of rewrite sequences, the
 analogue of addition on ordinals. It is defined in the same way as
 \coqref{Rewriting.snoc}{\coqdocdefinition{snoc}}.
+\pagebreak[4]
 \begin{singlespace}
 \begin{coqdoccode}
 \coqdocnoindent
@@ -1532,7 +1555,13 @@ orthogonality and weak orthogonality.
 \ensuremath{\lnot}
 \coqref{Rewriting.criticalpair}{\coqdocdefinition{critical\_pair}}
 \coqdocvariable{t$_1$} \coqdocvariable{t$_2$}.\coqdoceol
-\coqdocemptyline
+\end{coqdoccode}
+\end{singlespace}
+
+\pagebreak[3]
+
+\begin{singlespace}
+\begin{coqdoccode}
 \coqdocnoindent
 \coqdockw{Definition}
 \coqdef{Rewriting.weaklyorthogonal}{weakly\_orthogonal}{\coqdocdefinition{weakly\_orthogonal}} (\coqdocvar{$\mathcal{R}$} :

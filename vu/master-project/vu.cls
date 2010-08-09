@@ -16,9 +16,13 @@
 \LoadClass[10pt,b5paper,twoside,openright]{report}
 
 % Paper format 'Royal'
+%\usepackage[nohead,
+%  vmarginratio=2:3,hmarginratio=1:1,
+%  papersize={15.593cm,23.389cm},total={11.0cm,19.5cm}]{geometry}
+% Paper format 'US Commerce'
 \usepackage[nohead,
   vmarginratio=2:3,hmarginratio=1:1,
-  papersize={15.593cm,23.389cm},total={11.0cm,19.5cm}]{geometry}
+  papersize={6in,9in},total={11.0cm,19.0cm}]{geometry}
 
 % AMS math fonts
 \usepackage{amsmath}
@@ -255,7 +259,7 @@
   \newpage
     \thispagestyle{empty}
     \null\vfil
-    \vspace{10cm}
+    \vspace{9cm}
     \if@vucolors
       {\includegraphics[draft=false,width=5cm]{logos/vu-logo-en}\par}
     \else

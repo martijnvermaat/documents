@@ -5,11 +5,11 @@
 
 Finitary orthogonal term rewriting systems have unique normal forms.
 In fact, weak orthogonality is enough to establish this
-property for finitary TRSs \citep[Chapter 4]{terese-03}.
+property for finitary systems \citep[Chapter 4]{terese-03}.
 To what extent can these results be lifted to infinitary rewriting?
 
-In the infinitary setting, orthogonal TRSs exhibit the unique
-normal forms (UN$^\infty$) property
+In the infinitary setting, orthogonal TRSs exhibit the infinitary
+unique normal forms (UN$^\infty$) property
 \citep{kennaway-95,klop-de-vrijer-05}. We might expect this property
 to generalise to weakly orthogonal systems. After all, the motivation
 for allowing trivial critical pairs in these systems is that,
@@ -77,7 +77,7 @@ stick with, is the slight reformulation: % TODO: why more useful?
   \du = \du'_0 \qquad \qquad \qquad
   \du'_n = D^{2 n + 1} U^{2 n + 2} \du'_{n + 1}
 \end{align*}
-For any term $t$ and natural numbers $n$ and $m$ we have $U^n D^{m+1}
+For any term $t$ and natural numbers $n,m$ we have $U^n D^{m+1}
 U^{m+1} t \rightarrow_{\rho_1} U^n D^m U^m t$ and thus $U^n D^m U^m t
 \rewrites U^n t$ by iterating $m$ such steps. Instantiating
 $m$ with $2 n + 1$ and $t$ with $U \du'_{n + 1}$, we obtain
@@ -404,7 +404,7 @@ useful type.
 \coqdocemptyline
 \coqdocnoindent
 %\coqdockw{Program Definition}
-\coqdockw{Definition} % TODO: here the S(2 n) is not correct (?)
+\coqdockw{Definition} % here the S(2 n) is not correct (?) -- i think it is
 \coqdef{ExampleUNWO.phib}{phib}{\coqdocdefinition{$\varphi_b$}}
 \coqdocvar{n} : \coqref{ExampleUNWO.Unt}{\coqdocdefinition{U}}$^\coqdocvariable{n}$
 (\coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\du'$}}
@@ -417,7 +417,7 @@ useful type.
 \coqref{ExampleUNWO.phia}{\coqdocdefinition{$\varphi_a$}}
 \coqdocvariable{n} (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
 (2
-$\times$ \coqdocvariable{n})) (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}} @
+$\times$ \coqdocvariable{n})) (\coqdocdefinition{U} @
 \coqref{ExampleUNWO.psi'}{\coqdocdefinition{$\du'$}} (\coqexternalref{http://coq.inria.fr/stdlib/Coq.Init.Datatypes}{S}{\coqdocconstructor{S}}
 \coqdocvariable{n})).\coqdoceol
 \end{coqdoccode}

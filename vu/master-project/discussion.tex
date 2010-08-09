@@ -174,11 +174,10 @@ definitions seems too involved.
 \coqdocvar{\_}  \ensuremath{\Rightarrow}
 (\ensuremath{\forall} \coqdocvar{n},
 \coqref{Rewriting.weaklyconvergent}{\coqdocdefinition{weakly\_convergent}}
-(\coqdocvariable{f} \coqdocvariable{n})) \ensuremath{\land}\coqdoceol
-\coqdocindent{2.00em}
+(\coqdocvariable{f} \coqdocvariable{n})) \ensuremath{\land}
 \ensuremath{\forall} \coqdocvar{d}, \ensuremath{\exists}
 \coqdocvar{$\iota$}, \ensuremath{\forall} \coqdocvar{$\kappa$},\coqdoceol
-\coqdocindent{3.00em}
+\coqdocindent{10.00em}
 \coqdocvariable{$\varphi$}[\coqdocvariable{$\iota$}]$^\textsc{seq}$ \coqref{Rewriting.embed}{$\sqsubseteq$}
 \coqdocvariable{$\varphi$}[\coqdocvariable{$\kappa$}]$^\textsc{seq}$
 \ensuremath{\rightarrow}
@@ -302,8 +301,6 @@ numbers. We bypass the problem by only considering one-hole contexts.
 
 \section{Conclusions}
 
-% TODO: add code metrics
-
 Our representation of transfinite rewrite sequences based on tree
 ordinals is original work. While the representation is natural to
 implement in \Coq, we are disappointed by not being able to come up
@@ -333,13 +330,34 @@ definitions are easily seen to be productive yet not accepted by
 example in the form of user-supplied productivity proofs for
 corecursive definitions to be admitted.
 
-% TODO: count number of lines
 Still, the amount of work that is required for a formalisation like
 this is disproportionally large. Especially the implementation of the
 counterexample to UN$^\infty$ in weakly orthogonal systems from
 Chapter~\ref{chap:unwo} takes only a page to formulate on paper, while
-it took us some $2,000$ lines of \Coq code to formalise.
+it took us some 2,000 lines of \Coq code to formalise.
 
 %Original goal was compression.
 
 %Formalising transfinite objects is hard.
+
+The complete formalisation consists of some 6,500 physical source
+lines of code (LOC), roughly distributed as follows:
+\begin{center}\begin{singlespace}
+{\renewcommand{\arraystretch}{1.4}
+\renewcommand{\tabcolsep}{10pt}
+\begin{tabular}{p{140pt} r}
+\textsc{logical module} & \textsc{LOC}\\
+\hline
+coinductive terms & 1,250\\
+tree ordinals & 900\\
+transfinite rewriting & 1,500\\
+UN$^\infty$ and weak orthogonality & 2,000\\
+total & $\approx$ 6,500
+\end{tabular}}
+\end{singlespace}\end{center}
+
+%\begin1,250 for terms
+%\item 900 for ordinals
+%\item 1,500 for rewriting
+%\item 3,000 for UN$^\infty$ and weak orthogonality\\[1em]
+%\end{compactitem}
