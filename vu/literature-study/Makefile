@@ -6,8 +6,10 @@
 # Martijn Vermaat, martijn@vermaat.name
 
 # Configuration
-ARTICLE = literature-study
-SLIDES = slides
+PAPER = binding
+PAPERDEPS = 
+SLIDES = binding-slides
+SLIDESDEPS = 
 PDFLATEX = /usr/bin/pdflatex
 PDFLATEXFLAGS = -halt-on-error -interaction errorstopmode
 BIBTEX = /usr/bin/bibtex
@@ -17,28 +19,45 @@ PDFVIEW = /usr/bin/evince
 all: pdf
 
 # Create PDF and have a look at it
-preview: $(ARTICLE).pdf
+preview: $(PAPER).pdf
 	$(PDFVIEW) $< &
 
 # Compile BibTeX source file (run this when citations or .bib file change)
-bibtex: $(ARTICLE).bbl
+bibtex: $(PAPER).bbl
 
 # Create the files
-pdf: $(ARTICLE).pdf $(SLIDES).pdf
+pdf: $(PAPER).pdf $(SLIDES).pdf
+
+# The paper depends on these files
+$(PAPER).pdf: $(PAPERDEPS)
+
+# The slides depend on these files
+$(PAPER).pdf: $(PAPERDEPS)
 
 # For the PDF, we need a .tex LaTeX source. Actually, we also need a .bbl
 # BibTeX database, but we don't want to regenerate that on every .tex change.
 # We compile the file twice to make sure all references are okay.
 %.pdf: %.tex
-	$(PDFLATEX) $(PDFLATEXFLAGS) $< && $(PDFLATEX) $(PDFLATEXFLAGS) $<
+	$(PDFLATEX) $(PDFLATEXFLAGS) $<
+	while egrep -q -s 'Rerun (LaTeX|to get cross-references right)' $*.log ;\
+	    do \
+	        $(PDFLATEX) $(PDFLATEXFLAGS) $< ;\
+	    done
 
 # For the .bbl BibTeX database we need the .bib BibTeX source and .tex LaTeX
 # source.
 # Afterwards, we remove the resulting PDF, because we require some additional
 # compilation passes that are done by the %.pdf rule.
 %.bbl: %.bib %.tex
-	$(PDFLATEX) $(PDFLATEXFLAGS) $* && $(BIBTEX) $* && $(PDFLATEX) $(PDFLATEXFLAGS) $* && /bin/rm $*.pdf
+	$(PDFLATEX) $(PDFLATEXFLAGS) $*
+	$(BIBTEX) $*
+	$(PDFLATEX) $(PDFLATEXFLAGS) $*
+	while egrep -q -s 'Rerun (LaTeX|to get cross-references right)' $*.log ;\
+	    do \
+	        $(PDFLATEX) $(PDFLATEXFLAGS) $* ;\
+	    done
+	/bin/rm $*.pdf
 
 # Please make sure we don't kill any sources...
 clean:
-	rm -f *.aux *.pdf *.log *.toc *.out *.bbl *.blg *.nav *.snm *.vrb *.svn
+	rm -f *.aux *.pdf *.log *.toc *.out *.bbl *.blg *.nav *.snm *.vrb
