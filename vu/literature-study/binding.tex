@@ -1,26 +1,45 @@
 \documentclass[a4paper,11pt]{article}
 \usepackage[english]{babel}
-\usepackage{a4}
 
 
 % TODO:
-% opmaak code blokken (misschien floating numbered listings)
 % citations
 % variable convention
 % make it clear that there are more ways to program things in coq
 % check if naming is consistent (term, variable, index, etc names)
 % check other locally nameless approaches (do they use freshening?)
-
-
-% Use some subversion information
-\usepackage{svnkw}
-\svnid{$Id: binding.tex -1   $}
+% natbib
+% coqdoc
+% 'dual' vs 'analoguous'
 
 
 \usepackage{amsmath}
+\usepackage{amsfonts}
 \usepackage{amssymb}
-\usepackage{amsthm}
 
+\usepackage{tgtermes}
+\usepackage{qtxmath}
+
+\renewcommand{\ttdefault}{txtt}
+
+\usepackage[scaled=0.95]{helvet}
+
+\usepackage{url}
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
+\makeatother
+\urlstyle{leo}
+
+\usepackage[T1]{fontenc}
+
+\usepackage[amsmath,thmmarks]{ntheorem}
+%\theoremstyle{plain}
+%\theoremheaderfont{\sc}
+%theorembodyfont{\normalfont}
+%theoremsymbol{\ensuremath{\ast}}
+%\theoremseparator{.}
+%\newtheorem{definition}{Definition}
 
 \usepackage{listings}
 
@@ -33,7 +52,7 @@
     destruct, change, Variable, Inductive, CoInductive, Fixpoint, CoFixpoint, Definition,
     Lemma, Theorem, Proof, Axiom, Local, Save, Grammar, Syntax, Intro, Trivial,
     Qed, Intros, Symmetry, Simpl, Rewrite, Apply, Elim, Assumption, Left,
-    Cut, Case, Auto, Unfold, Exact, Right},
+    Cut, Case, Auto, Unfold, Exact, Right, Defined, Function},
   morekeywords={Section, Module, End},
   %emph={[1]Type, Set, nat, bool}, emphstyle={[1]\textit},
   comment=[s]{(*}{*)},
@@ -67,19 +86,15 @@
   pdfauthor={Martijn Vermaat},
   pdftitle={Mechanized Reasoning about Languages with Binding},
   pdfsubject={TODO},
-  pdfkeywords={lambda calculus, binding, types, program verification, poplmark},
-  draft=true % TODO: draft false, remove draft note in title page
+  pdfkeywords={lambda calculus, binding, types, program verification, poplmark}
 ]{hyperref}
 \usepackage[figure]{hypcap}
 
 
 \title{Mechanized Reasoning about Languages~with~Binding}
 
-\author{
-  Martijn Vermaat\\[0.3em]
-  \href{mailto:mvermaat@cs.vu.nl}{\texttt{mvermaat@cs.vu.nl}}
-}
-\date{Literature Study (\emph{draft r\svnrev})}
+\author{Martijn Vermaat}
+\date{}
 
 
 \begin{document}
@@ -694,7 +709,7 @@ Nominal, higher order abstract syntax \cite{Capretta-Felty-06}, nested datatypes
 
 \nocite{*}
 \bibliographystyle{amsplain}
-\bibliography{literature-study}
+\bibliography{binding}
 
 
 \end{document}
