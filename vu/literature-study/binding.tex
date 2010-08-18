@@ -33,14 +33,6 @@
 
 \usepackage[T1]{fontenc}
 
-\usepackage[amsmath,thmmarks]{ntheorem}
-%\theoremstyle{plain}
-%\theoremheaderfont{\sc}
-%theorembodyfont{\normalfont}
-%theoremsymbol{\ensuremath{\ast}}
-%\theoremseparator{.}
-%\newtheorem{definition}{Definition}
-
 \usepackage{listings}
 
 \lstdefinelanguage{Coq}{
@@ -52,7 +44,8 @@
     destruct, change, Variable, Inductive, CoInductive, Fixpoint, CoFixpoint, Definition,
     Lemma, Theorem, Proof, Axiom, Local, Save, Grammar, Syntax, Intro, Trivial,
     Qed, Intros, Symmetry, Simpl, Rewrite, Apply, Elim, Assumption, Left,
-    Cut, Case, Auto, Unfold, Exact, Right, Defined, Function},
+    Cut, Case, Auto, Unfold, Exact, Right, Defined, Function, end,
+    struct, measure},
   morekeywords={Section, Module, End},
   %emph={[1]Type, Set, nat, bool}, emphstyle={[1]\textit},
   comment=[s]{(*}{*)},
