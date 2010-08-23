@@ -1,13 +1,14 @@
-(*
-  Substitution in untyped lambda-calculus with a locally-nameless 
-  representation.
-  March 2009, Martijn Vermaat
-  Developed with Coq version 8.2 in CoqIDE
-*)
+(** Substitution in untyped lambda-calculus with a locally-nameless
+   representation.
+
+   March 2009, Martijn Vermaat <martijn@vermaat.name> *)
+
 
 Require Import Arith.
 
-(* Assume some type for names on which equality is decidable. *)
+
+(** Assume some type for names on which equality is decidable. *)
+
 Parameter name : Set.
 Parameter eq_name : forall (x y : name), {x = y} + {x <> y}.
 
@@ -17,7 +18,7 @@ Inductive term : Set :=
   | Abs      : term -> term
   | App      : term -> term -> term.
 
-Fixpoint subst_free (t:term) (x:name) (t':term) {struct t'} : term :=
+Fixpoint subst_free (t : term) (x : name) (t' : term) {struct t'} : term :=
   match t' with
   | FreeVar y  => if eq_name x y then t else t'
   | BoundVar n => t'
@@ -25,7 +26,7 @@ Fixpoint subst_free (t:term) (x:name) (t':term) {struct t'} : term :=
   | App f a    => App (subst_free t x f) (subst_free t x a)
 end.
 
-Fixpoint subst_bound (t:term) (n:nat) (t':term) {struct t'} : term :=
+Fixpoint subst_bound (t : term) (n : nat) (t' : term) {struct t'} : term :=
   match t' with
   | FreeVar x  => t'
   | BoundVar m => if eq_nat_dec m n then t else t'
@@ -33,4 +34,4 @@ Fixpoint subst_bound (t:term) (n:nat) (t':term) {struct t'} : term :=
   | App f a    => App (subst_bound t n f) (subst_bound t n a)
 end.
 
-Definition freshen (t:term) (x:name) : term := subst_bound (FreeVar x) 0 t.
+Definition freshen (t : term) (x : name) : term := subst_bound (FreeVar x) 0 t.
