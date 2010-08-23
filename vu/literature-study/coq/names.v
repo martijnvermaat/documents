@@ -22,12 +22,12 @@ Inductive term : Set :=
 (** A non-capture-avoiding substitution. It could be useful if we maintain
    Barendregt's Variable Convention. *)
 
-Fixpoint subst_naive (t : term) (n : name) (t' : term) {struct t'} : term :=
-  match t' with
-  | Var x   => if eq_name x n then t else t'
-  | Abs x b => if eq_name x n then t' else Abs x (subst_naive t n b)
-  | App f a => App (subst_naive t n f) (subst_naive t n a)
-end.
+Fixpoint subst_naive (s : term) (n : name) (t : term) {struct t} : term :=
+  match t with
+  | Var x   => if eq_name x n then s else t
+  | Abs x b => if eq_name x n then t else Abs x (subst_naive s n b)
+  | App f a => App (subst_naive s n f) (subst_naive s n a)
+  end.
 
 (** Well-founded measure on terms. *)
 
@@ -36,20 +36,20 @@ Fixpoint size (t : term) : nat :=
   | Var _   => 0
   | Abs _ b => S (size b)
   | App f a => S (size f + size a)
-end.
+  end.
 
 (** Just naively rename n to n'. *)
 
-Fixpoint rename (n n' : name) (t : term) {struct t} : term :=
+Fixpoint rename (n m : name) (t : term) {struct t} : term :=
   match t with
-  | Var x =>   if eq_name x n then Var n' else t
-  | Abs x b => Abs (if eq_name x n then n' else x) (rename n n' b)
-  | App f a => App (rename n n' f) (rename n n' a)
-end.
+  | Var x =>   if eq_name x n then Var m else t
+  | Abs x b => Abs (if eq_name x n then m else x) (rename n m b)
+  | App f a => App (rename n m f) (rename n m a)
+  end.
 
 (** Size is invariant under renaming. *)
 
-Lemma size_rename : forall n n' t, size (rename n n' t) = size t.
+Lemma size_rename : forall n m t, size (rename n m t) = size t.
 Proof.
 induction t as [x | |]; simpl;
   [destruct (eq_name x n); reflexivity | congruence | congruence].
@@ -57,12 +57,12 @@ Qed.
 
 (** List all free variable occurences. *)
 
-Fixpoint free_vars (t:term) : list name :=
+Fixpoint free_vars (t : term) : list name :=
   match t with
   | Var x   => x :: nil
   | Abs x b => remove eq_name x (free_vars b)
   | App f a => (free_vars f) ++ (free_vars a)
-end.
+  end.
 
 (** Assume we have some way to generate names... *)
 
@@ -70,14 +70,14 @@ Parameter fresh_name : (list name) -> name.
 
 (** Capture-avoiding substitution by recursion on size. *)
 
-Function subst (t : term) (n : name) (t' : term) {measure size t'} : term :=
-  match t' with
-  | Var x   => if eq_name x n then t else t'
-  | Abs x b => let z := fresh_name (n :: (free_vars t) ++ (free_vars b))
+Function subst (s : term) (n : name) (t : term) {measure size t} : term :=
+  match t with
+  | Var x   => if eq_name x n then s else t
+  | Abs x b => let z := fresh_name (n :: (free_vars s) ++ (free_vars b))
                in (** We always rename, this could of course be improved. *)
-               Abs z (subst t n (rename x z b))
-  | App f a => App (subst t n f) (subst t n a)
-end.
+               Abs z (subst s n (rename x z b))
+  | App f a => App (subst s n f) (subst s n a)
+  end.
 (** Obligation 1. *)
 intros.
 rewrite size_rename.
@@ -98,7 +98,7 @@ Fixpoint apply_subst (l : list (term*name)) (n : name) {struct l} : term :=
   match l with
   | nil        => Var n
   | (t, x)::l' => if eq_name x n then t else apply_subst l' n
-end.
+  end.
 
 (** Free variables in substituted terms. *)
 
@@ -106,7 +106,7 @@ Fixpoint free_vars_sub (l : list (term*name)) : list name :=
   match l with
   | nil        => nil
   | (t, _)::l' => (free_vars t) ++ (free_vars_sub l')
-end.
+  end.
 
 (* Capture-avoiding simultaneous substitution by structural recursion. *)
 
@@ -115,14 +115,14 @@ Fixpoint sim_subst (l : list (term*name)) (t : term) {struct t} : term :=
   | Var x =>   apply_subst l x
   | Abs x b => let z := fresh_name ((free_vars_sub l) ++ (free_vars b))
                in
-               Abs z (sim_subst ((Var z, x)::l) b)
+               Abs z (sim_subst ((Var z, x) :: l) b)
   | App f a => App (sim_subst l f) (sim_subst l a)
-end.
+  end.
 
 (** Simple substitution in terms of simultaneous substitution. *)
 
-Definition subst' (t : term) (n : name) (t' : term) : term :=
-  sim_subst ((t, n) :: nil) t'.
+Definition subst' (s : term) (n : name) (t : term) : term :=
+  sim_subst ((s, n) :: nil) t.
 
 (** Substitution Lemma.
 

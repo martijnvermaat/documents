@@ -23,9 +23,9 @@ end.
 
 (** Capture-avoiding substitution. *)
 
-Fixpoint subst (t : term) (n : nat) (t' : term) {struct t'} : term :=
-  match t' with
-  | Var m   => if eq_nat_dec n m then t else t'
-  | Abs u   => Abs (subst (lift 0 t) (S n) u)
-  | App u v => App (subst t n u) (subst t n v)
+Fixpoint subst (s : term) (n : nat) (t : term) {struct t} : term :=
+  match t with
+  | Var m   => if eq_nat_dec n m then s else t
+  | Abs u   => Abs (subst (lift 0 s) (S n) u)
+  | App u v => App (subst s n u) (subst s n v)
 end.

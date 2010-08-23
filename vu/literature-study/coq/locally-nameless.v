@@ -18,20 +18,20 @@ Inductive term : Set :=
   | Abs      : term -> term
   | App      : term -> term -> term.
 
-Fixpoint subst_free (t : term) (x : name) (t' : term) {struct t'} : term :=
-  match t' with
-  | FreeVar y  => if eq_name x y then t else t'
-  | BoundVar n => t'
-  | Abs b      => Abs (subst_free t x b)
-  | App f a    => App (subst_free t x f) (subst_free t x a)
+Fixpoint subst_free (s : term) (x : name) (t : term) {struct t} : term :=
+  match t with
+  | FreeVar y  => if eq_name x y then s else t
+  | BoundVar n => t
+  | Abs b      => Abs (subst_free s x b)
+  | App f a    => App (subst_free s x f) (subst_free s x a)
 end.
 
-Fixpoint subst_bound (t : term) (n : nat) (t' : term) {struct t'} : term :=
-  match t' with
-  | FreeVar x  => t'
-  | BoundVar m => if eq_nat_dec m n then t else t'
-  | Abs b      => Abs (subst_bound t (S n) b)
-  | App f a    => App (subst_bound t n f) (subst_bound t n a)
+Fixpoint subst_bound (s : term) (n : nat) (t : term) {struct t} : term :=
+  match t with
+  | FreeVar x  => t
+  | BoundVar m => if eq_nat_dec m n then s else t
+  | Abs b      => Abs (subst_bound s (S n) b)
+  | App f a    => App (subst_bound s n f) (subst_bound s n a)
 end.
 
 Definition freshen (t : term) (x : name) : term := subst_bound (FreeVar x) 0 t.
