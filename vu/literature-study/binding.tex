@@ -77,6 +77,7 @@
 \def\LNgen{\name{LNgen}}
 \def\Ott{\name{Ott}}
 \def\ML{\name{ML}}
+\def\NominalIsabelle{\name{Nominal Isabelle}}
 
 % Must be last in preamble
 \usepackage[
@@ -803,29 +804,53 @@ users to focus on the more interesting aspects of their developments.
 \subsection{Related Work}
 
 We presented three common concrete representations for terms with
-bindings. A first alternative is the nominal representation based on
+bindings. An alternative is the {\em nominal} representation based on
 nominal logic \cite{pitts-03}, using names for variables and
-equivalence classes for terms.
+equivalence classes for terms, in accordance with what one usually
+does on paper. Nominal reasoning is implemented in \NominalIsabelle
+\cite{urban-08} which is actively used.
 
-
-* names for variables
-* equivalence classes for terms
-* built on nominal logic
-* this is what we actually do on paper
-
-Higher-order abstract syntax:
-* meta-variables for variables and meta-functions for functions
-* alpha-equivalence and substitution for free
-* incompatible with coq and hol logics
-* leads to statements quite different from what we do on paper
-
-
-Nominal, higher order abstract syntax \cite{capretta-felty-06}, nested datatypes (Hirschowitz and Maggesi).
+Another alternative representation uses {\em higher-order abstract
+  syntax} \cite{capretta-felty-06},
+where the issues of binding are delegated to the meta language:
+variables are represented by meta-variables and bindings are
+represented by meta-bindings. This approach leads to statements that
+are quite different from what we write on paper, but gives us
+$\alpha$-equivalence and capture-avoiding substitution for free.
 
 
 \subsection{Conclusion}
 
-Bla.
+Representation of languages with binding enjoys active research, and a
+number of approaches have been successfully applied to large-scale
+formalizations.
+Using names for bound variables in a concrete representation is close
+to what we do on paper, but probably brings too much technical
+trouble in large formalizations.
+By using de Bruijn indices, much of the technical trouble reappears
+in another form that is usually easier to work with.
+A disadvantage of de Bruijn indices is that they are far away from
+on-paper notations.
+The locally nameless representation tries to combine the best of both
+worlds, but requires quite some boilerplate code. Fortunately, tools
+like \LNgen might make using this representation feasible. Although
+not discussed here, nominal representations provide a promising
+approach and are under active study.
+
+It is impossible to choose a definite prefered representation for
+language formalization in general, since different formalizations have
+different needs. For example, one can imagine that for a language
+implementation such as a compiler it adds no value to its users if the
+language representation is close to its concrete syntax. On the other
+hand, metatheory of a language that is studied by many researches does
+benefit from a representation that is close to the original
+representation.
+
+%  \ldots and on your environment:
+%  \begin{itemize}
+%    \item We focussed on Coq
+%    \item There are other tools
+%  \end{itemize}
 
 
 \nocite{*} % TODO: remove
