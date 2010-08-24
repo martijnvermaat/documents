@@ -123,14 +123,3 @@ Fixpoint sim_subst (l : list (term*name)) (t : term) {struct t} : term :=
 
 Definition subst' (s : term) (n : name) (t : term) : term :=
   sim_subst ((s, n) :: nil) t.
-
-(** Substitution Lemma.
-
-[[
-Lemma substitution :
-  forall s t u x y,
-    x <> y ->
-    ~In x (free_vars u) ->
-    subst u y (subst t x s) = subst (subst u y t) x (subst u y s).
-]]
-*)

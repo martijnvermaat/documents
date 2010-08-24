@@ -74,6 +74,9 @@
 \def\Coq{\name{Coq}}
 \def\POPLmark{\name{POPLmark}}
 \def\POPL{POPL}
+\def\LNgen{\name{LNgen}}
+\def\Ott{\name{Ott}}
+\def\ML{\name{ML}}
 
 % Must be last in preamble
 \usepackage[
@@ -779,19 +782,50 @@ the \POPLmark Challenge and employs a locally nameless
 representation. Reasoning about equivariance is obviated by using
 cofinite quantification of names in inductive definitions of relations
 on terms. The style is implemented using \Coq and applied to carry out
-several large developments.
+several large developments (e.g., parts of the \POPLmark Challenge,
+type soundnes of core \ML, and subject reduction of the Calculus of
+Constructions).
 
-LNgen \cite{aydemir-weirich-09}.
+\LNgen \cite{aydemir-weirich-09} takes this style of formalizing
+metatheory and provides a tool for automatically generating the
+\Coq infrastructure for such formalizations. The input language of
+\LNgen is the same as that of \Ott, a tool for translating language
+specifications to definitions in proof assistants such as \Coq. The
+goal of \LNgen is to automate as much as possible of language
+formalization in the locally nameless style. \Ott specifications are
+used to generate recursion schemes and infrastructure lemmas, allowing
+users to focus on the more interesting aspects of their developments.
 
 
 \section{Discussion}\label{sec:discussion}
 
-\subsection{Others Representations}
+
+\subsection{Related Work}
+
+We presented three common concrete representations for terms with
+bindings. A first alternative is the nominal representation based on
+nominal logic \cite{pitts-03}, using names for variables and
+equivalence classes for terms.
+
+
+* names for variables
+* equivalence classes for terms
+* built on nominal logic
+* this is what we actually do on paper
+
+Higher-order abstract syntax:
+* meta-variables for variables and meta-functions for functions
+* alpha-equivalence and substitution for free
+* incompatible with coq and hol logics
+* leads to statements quite different from what we do on paper
+
 
 Nominal, higher order abstract syntax \cite{capretta-felty-06}, nested datatypes (Hirschowitz and Maggesi).
 
 
-\subsection{Conclusion and Related Work}
+\subsection{Conclusion}
+
+Bla.
 
 
 \nocite{*} % TODO: remove
