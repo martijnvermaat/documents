@@ -1,18 +1,6 @@
 \documentclass[a4paper,11pt]{article}
 \usepackage[english]{babel}
 
-
-% TODO:
-% citations
-% variable convention
-% make it clear that there are more ways to program things in coq
-% check if naming is consistent (term, variable, index, etc names)
-% check other locally nameless approaches (do they use freshening?)
-% natbib
-% coqdoc
-% 'dual' vs 'analoguous'
-
-
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -33,7 +21,6 @@
 
 \usepackage[T1]{fontenc}
 
-% Typesetting evaluation rules (http://cristal.inria.fr/~remy/latex/)
 \usepackage{mathpartir}
 
 \usepackage{listings}
@@ -44,16 +31,15 @@
   keywords={Require, Declare},
   morekeywords={forall, exists, with, match, let, in, if, then, else},
   morekeywords={
-    Variable, Inductive, CoInductive, Fixpoint, CoFixpoint, Definition,
-    Lemma, Theorem, Proof, Axiom, Local, Save, Grammar, Syntax, Intro, Trivial,
-    Qed, Intros, Symmetry, Simpl, Rewrite, Apply, Elim, Assumption, Left,
-    Cut, Case, Auto, Unfold, Exact, Right, Defined, Function, end,
-    struct, measure},
+    Variable, Inductive, CoInductive, Fixpoint, CoFixpoint,
+    Definition, Lemma, Theorem, Proof, Axiom, Local, Save, Grammar,
+    Syntax, Intro, Trivial, Qed, Intros, Symmetry, Simpl, Rewrite,
+    Apply, Elim, Assumption, Left, Cut, Case, Auto, Unfold, Exact,
+    Right, Defined, Function, end, struct, measure},
   morekeywords={Section, Module, End},
-  %emph={[1]Type, Set, nat, bool}, emphstyle={[1]\textit},
   comment=[s]{(*}{*)},
   showstringspaces=false,
-}%[keywords,comments,strings]%
+}
 
 \lstset{
   numbers=none,
@@ -66,9 +52,6 @@
   belowskip=1em
 }
 
-% Add subsection to listing numbering
-%\renewcommand\thelstlisting{\thesubsection .\arabic{lstlisting}}
-
 \usepackage{xspace}
 \newcommand{\name}[1]{\textsc{#1}\xspace}
 \def\Coq{\name{Coq}}
@@ -79,7 +62,6 @@
 \def\ML{\name{ML}}
 \def\NominalIsabelle{\name{Nominal Isabelle}}
 
-% Must be last in preamble
 \usepackage[
   pdftex,
   colorlinks,
@@ -89,8 +71,9 @@
   urlcolor=black,
   pdfauthor={Martijn Vermaat},
   pdftitle={Mechanized Reasoning about Languages with Binding},
-  pdfsubject={TODO},
-  pdfkeywords={lambda calculus, binding, types, program verification, poplmark}
+  pdfsubject={A literature study in names and numbers in binding},
+  pdfkeywords={lambda calculus, binding, types, formalization, program
+    verification, poplmark}
 ]{hyperref}
 \usepackage[figure]{hypcap}
 
@@ -658,7 +641,7 @@ For more complex operations, however, this may not be the case.
 
 \section{Implementations}
 
-In this section we discuss three real-world cases of representing % TODO: really 3?
+In this section we discuss two real-world cases of representing
 languages with binding. Again, we focus on applications using the \Coq
 proof assistant.
 
@@ -818,6 +801,8 @@ represented by meta-bindings. This approach leads to statements that
 are quite different from what we write on paper, but gives us
 $\alpha$-equivalence and capture-avoiding substitution for free.
 
+% related work: chlipala, other poplmarks, compcert
+
 
 \subsection{Conclusion}
 
@@ -842,15 +827,10 @@ language formalization in general, since different formalizations have
 different needs. For example, one can imagine that for a language
 implementation such as a compiler it adds no value to its users if the
 language representation is close to its concrete syntax. On the other
-hand, metatheory of a language that is studied by many researches does
-benefit from a representation that is close to the original
-representation.
-
-%  \ldots and on your environment:
-%  \begin{itemize}
-%    \item We focussed on Coq
-%    \item There are other tools
-%  \end{itemize}
+hand, metatheory that is studied by many researchers does benefit from
+a representation that is close to the original representation of the
+language. Furthermore, the environment of a formalization (e.g., some
+proof assistant) might suit one representation better than another.
 
 
 \nocite{*} % TODO: remove
