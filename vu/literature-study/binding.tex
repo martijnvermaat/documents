@@ -33,6 +33,9 @@
 
 \usepackage[T1]{fontenc}
 
+% Typesetting evaluation rules (http://cristal.inria.fr/~remy/latex/)
+\usepackage{mathpartir}
+
 \usepackage{listings}
 
 \lstdefinelanguage{Coq}{
@@ -158,7 +161,7 @@ other representations.
 Some representations however, have analogue notions, for example {\em lifting}
 of so-called {\em de Bruijn indices} is dual to $\alpha$-conversion.
 
-We use untyped pure $\lambda$-calculus \cite{Barendregt-84} to introduce
+We use untyped pure $\lambda$-calculus \cite{barendregt-84} to introduce
 three concrete representations for terms using names and numbers for
 variables. To illustrate, the representations are implemented in the
 \Coq proof assistant, where we make use of a type for names on which
@@ -331,7 +334,7 @@ Defined.
 \subsubsection*{Simultaneous Substitution}
 
 In search of a structural recursive substitution operation, Stoughton
-\cite{Stoughton-88} suggests the {\em simultaneous substitution} $M \sigma$
+\cite{stoughton-88} suggests the {\em simultaneous substitution} $M \sigma$
 \begin{align*}
   x \sigma              &= \sigma x\\
   (\lambda x.M') \sigma &= \lambda y.(M' \; \sigma[y/x])  && \text{$y$ not free in $M', \sigma$}\\
@@ -404,7 +407,7 @@ the way it is represented.
 \subsection{de Bruijn Indices}
 
 As an alternative representation for $\lambda$-calculus terms, de Bruijn
-\cite{deBruijn-72} proposes a representation using natural numbers instead
+\cite{debruijn-72} proposes a representation using natural numbers instead
 of names.
 A variable is represented by the number of binders between itself and its
 abstraction (called a de Bruijn index), yielding the grammar
@@ -512,7 +515,7 @@ $\alpha$-conversion is to make sure free and bound variables are drawn
 from disjoint sets.
 This strategy is implemented by the {\em locally nameless} representation,
 where free variables are represented by names and bound variables are
-represented by de Bruijn indices \cite{McBride-McKinna-04}, effectively
+represented by de Bruijn indices \cite{mcbride-mckinna-04}, effectively
 obeying Barendregt's variable convention.
 The resulting grammar is
 \begin{align*}
@@ -649,51 +652,143 @@ on.
 For more complex operations, however, this may not be the case.
 
 
-\section{Applications}
+\section{Implementations}
 
-In this section, we discuss three real-world cases of representing
+In this section we discuss three real-world cases of representing % TODO: really 3?
 languages with binding. Again, we focus on applications using the \Coq
 proof assistant.
 
 
 \subsection{The \POPLmark Challenge}
 
-In the introduction, we debated that mechanized formalisation of
+In the introduction we debated that mechanized formalisation of
 programming language metatheory has the potential of bringing the
 academic tradition of rigoruous formal reasoning to the implementation
 of everyday programming languages.
-The \POPLmark Challenge \cite{Poplmark-Challenge-05} proposes a set of
+The \POPLmark Challenge \cite{poplmark-challenge-05} proposes a set of
 benchmarks to measure progress in this area, under the slogan {\em
   mechanized metatheory for the masses}.
-
 The benchmarks are based on the metatheory of System
 F$_\texttt{<\!:}$, a polymorphic $\lambda$-calculus with subtyping,
 and revolve in large part around binding.
+Several solutions, some of them partial, to the chalange have since
+been submitted. We discuss some of the solutions to part 1a that are
+implemented in the \Coq proof assistant.
 
-Several solutions to the chalange have since been submitted.
-We discuss some of those implemented in the \Coq proof assistant.
+\POPLmark 1a considers only the type language of System
+F$_\texttt{<\!:}$ and consists of proving transitivity of
+subtyping. The grammar
+\begin{align*}
+  T ::=             &\; X
+  && \text{type variable} \\
+  \llap{\textbar\:} &\; \texttt{Top}
+  && \text{maximum type} \\
+  \llap{\textbar\:} &\; T \rightarrow T
+  && \text{type of functions} \\
+  \llap{\textbar\:} &\; \forall X\texttt{\small<\!:}T.T
+  && \text{universal type} \\[1.2em]
+  \Gamma ::=        &\; \emptyset
+  && \text{empty type environment} \\
+  \llap{\textbar\:} &\; \Gamma, X \texttt{\small<\!:}T
+  && \text{type variable binding}
+\end{align*}
+defines types $T$ and type environments $\Gamma$. The following are
+the five subtyping rules of System F$_\texttt{<\!:}$:
+\begin{mathpar}
+  \infer*[right=SA-Top]
+         {\:}
+         {\Gamma \vdash S \texttt{\large<\!:} \texttt{Top}}
+  \and
+  \infer*[right=SA-Refl-TVar]
+         {\:}
+         {\Gamma \vdash X \texttt{\large<\!:} X}
+  \\
+  \infer*[right=SA-Trans-TVar]
+         {X \texttt{\small<\!:} U \in \Gamma
+           \\ \Gamma \vdash U \texttt{\large<\!:} T}
+         {\Gamma \vdash X \texttt{\large<\!:} T}
+  \\
+  \infer*[right=SA-Arrow]
+         {\Gamma \vdash T_1 \texttt{\large<\!:} S_1
+           \\ \Gamma \vdash S_2 \texttt{\large<\!:} T_2}
+         {\Gamma \vdash S_1 \rightarrow S_2 \; \texttt{\large<\!:}
+           \; T_1 \rightarrow T_2}
+  \\
+  \infer*[right=SA-All]
+         {\Gamma \vdash T_1 \texttt{\large<\!:} S_1
+           \\ \Gamma, X \texttt{\small<\!:} T_1 \vdash S_2
+           \texttt{\large<\!:} T_2}
+         {\Gamma \vdash \forall X \texttt{\small<\!:} S_1.S_2 \;
+           \texttt{\large<\!:} \; \forall X \texttt{\small<\!:}
+           T_1.T_2}
+\end{mathpar}
 
-Named variables (1a) in \Coq by Stump \cite{Stump-05}.
+\subsubsection*{Stump: Named Variables}
 
-de Bruijn indices in \Coq by Vouillon \cite{Vouillon-05}.
+Stump \cite{stump-05} implements the type language of System
+F$_\texttt{<\!:}$ using names for bound variables. Two main techniques
+are employed to avoid difficulties with binding of named variables.
+First, free and bound variables are taken from disjoint sets,
+implementing Barendregt's variable convention. This reduces
+capture-avoiding substitution to the simple method of grafting.
+Second, the {\sc SA-All} rule is slightly adjusted to use a common
+variable in the bodies of the two universal types:
+\begin{mathpar}
+  \infer*[right=SA-All]
+         {\Gamma \vdash T_1 \texttt{\large<\!:} S_1
+           \\ \Gamma, X \texttt{\small<\!:} T_1 \vdash
+           S_2[X/X_1] \; \texttt{\large<\!:} \; T_2[X/X_2]}
+         {\Gamma \vdash \forall X_1 \texttt{\small<\!:}
+           S_1.S_2 \; \texttt{\large<\!:} \; \forall X_2
+           \texttt{\small<\!:} T_1.T_2}
+\end{mathpar}
+This avoids $\alpha$-equivalence issues in comparing $S_2$ and $T_2$.
 
-Locally nameless in \Coq by Leroy \cite{Leroy-07}.
+\subsubsection*{Vouillon: de Bruijn Indices}
 
-Chargu\'eraud uses proofs by induction on the derivation of the
-well-formation relation (locally nameless) instead of induction on the
-size of types. See \POPLmark site (and his paper?).
+A very clear implementation (even suggested as baseline by the
+\POPLmark team) using de Bruijn indices is the solution by Vouillon
+\cite{vouillon-05}. As is to be expected with de Bruijn indices, a lot
+of the code deals with shifting of indices. However, this low-level
+manipulation of terms is largely kept from polluting the definitions
+and lemma statements, which closely follow the paper presentation.
+The proofs are by induction on the size of types instead of by
+structural induction. Unfortunately, this solution has no accompanying
+paper.
+
+\subsubsection*{Leroy: Locally Nameless Represenation}
+
+The solution by Leroy \cite{leroy-07} uses a locally nameless
+representation of types. Two substitution operations, one for
+names and one for numbers, are used and no renaming or lifting is
+needed. As in the solution by Vouillon, proofs are not by structural
+induction but by induction on the size of types. A large part of the
+code deals with \emph{swaps}, a special case of renaming. Swaps are
+used in equivariance proofs.
+Chargu\'eraud \cite{chargueraud-09} improves on this solution in some
+ways. His solution uses proofs by induction on the derivation of the
+well-formation relation instead of by induction on the size of types.
 
 
 \subsection{Engineering Formal Metatheory}
 
-LNgen and \cite{Aydemir-et-al-08}.
+\emph{Engineering Formal Metatheory} \cite{aydemir-et-al-08} proposes
+a complete style for mechanically formalizing programming language
+metatheory. The approach builds on the experience from solutions to
+the \POPLmark Challenge and employs a locally nameless
+representation. Reasoning about equivariance is obviated by using
+cofinite quantification of names in inductive definitions of relations
+on terms. The style is implemented using \Coq and applied to carry out
+several large developments.
+
+LNgen \cite{aydemir-weirich-09}.
 
 
 \section{Discussion}\label{sec:discussion}
 
 \subsection{Others Representations}
 
-Nominal, higher order abstract syntax \cite{Capretta-Felty-06}, nested datatypes (Hirschowitz and Maggesi).
+Nominal, higher order abstract syntax \cite{capretta-felty-06}, nested datatypes (Hirschowitz and Maggesi).
 
 
 \subsection{Conclusion and Related Work}

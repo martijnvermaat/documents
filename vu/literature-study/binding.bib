@@ -1,5 +1,14 @@
 @PREAMBLE{ {\providecommand{\noopsort}[1]{}} }
 
+@inproceedings{aydemir-et-al-08,
+	author = {B. Aydemir and A. Chargu\'eraud and B. C. Pierce and R. Pollack and S. Weirich},
+	booktitle = {{ACM} {SIGPLAN} - {SIGACT} Symposium on Principles of Programming Languages},
+	pages = {3--15},
+	publisher = {ACM},
+	title = {Engineering Formal Metatheory},
+	year = {2008}
+}
+
 @manual{coq-refman-09,
   title =        {The {C}oq proof assistant reference manual},
   author =       {\mbox{The {C}oq development team}},
@@ -16,7 +25,23 @@
   publisher    = {Springer-Verlag}
 }
 
-@inproceedings{Poplmark-Challenge-05,
+@unpublished{chargueraud-09,
+  author       = {Arthur Chargu{\'e}raud},
+  title        = {The Locally Nameless Representation},
+  year         = {2009},
+  note         = {Unpublished. \url{http://arthur.chargueraud.org/research/2009/ln/}}
+}
+
+@unpublished{aydemir-weirich-09,
+  author       = {Brian Aydemir and Stephanie Weirich},
+  title        = {LNgen: Tool Support for Locally Nameless Representations},
+  year         = {2009},
+  note         = {Draft. \url{http://www.cis.upenn.edu/~baydemir/papers/lngen/index.html}}
+}
+
+% TODO: check from here
+
+@inproceedings{poplmark-challenge-05,
 	author = {B. E. Aydemir and A. Bohannon and M. Fairbairn and N. J. Foster and B. C. Pierce and P. Sewell and D. Vytiniotis and G. Washburn and S. Weirich and S. Zdancewic},
 	booktitle = {International Conference on Theorem Proving in Higher Order Logics (TPHOLs)},
 	pdf = {http://www.cis.upenn.edu/~geoffw/research/papers/poplmark.pdf},
@@ -36,21 +61,21 @@
  publisher = {ACM Press},
 }
 
-@techreport{Leroy-07,
+@techreport{leroy-07,
   author = {X. Leroy},
   title = {A Locally Nameless Solution to the {POPLmark} Challenge},
   institution = {INRIA},
   year = 2007
 }
 
-@misc{Stump-05,
+@misc{stump-05,
 	author = {A. Stump},
 	title = {{POPLmark} 1a with Named Bound Variables},
 	url = {http://cl.cse.wustl.edu/poplmark.html},
 	year = {2005}
 }
 
-@inproceedings{Capretta-Felty-06,
+@inproceedings{capretta-felty-06,
 	author = {V. Capretta and A. Felty},
 	booktitle = {Logic Colloquium 2006},
 	title = {Higher Order Abstract Syntax in Type Theory},
@@ -58,7 +83,7 @@
 	year = {2006}
 }
 
-@inproceedings{Cardelli-Martini-Mitchell-Scedrov-94,
+@inproceedings{cardelli-martini-mitchell-scedrov-94,
 	author = {L. Cardelli and S. Martini and J. C. Mitchell and A. Scedrov},
 	booktitle = {Information and Computation},
 	pages = {750--770},
@@ -68,14 +93,14 @@
 	year = {1994}
 }
 
-@misc{Vouillon-05,
+@misc{vouillon-05,
   title =        {{POPLMark} Challenge, Parts 1 and 2},
   author =       {J. Vouillon},
   year =         {2005},
-  url =          "http://www.cis.upenn.edu/~plclub/wiki-static/vouillon-coq.tar.gz"
+  note =         {\url{http://www.cis.upenn.edu/~plclub/wiki-static/vouillon-coq.tar.gz}}
 }
 
-@Unpublished{Altenkirch-02,
+@Unpublished{altenkirch-02,
   author = 	 {T. Altenkirch},
   title = 	 {$\alpha$-conversion Is Easy},
   note = 	 {Under Revision},
@@ -85,7 +110,7 @@
   OPTannote = 	 {}
 }
 
-@inproceedings{McBride-McKinna-04,
+@inproceedings{mcbride-mckinna-04,
 	author = {C. Mc{B}ride and J. Mc{K}inna},
 	booktitle = {Haskell '04: {P}roceedings of the {ACM SIGPLAN} workshop on {H}askell},
 	isbn = {1581138504},
@@ -96,7 +121,7 @@
 	year = {2004}
 }
 
-@article{Cardelli-Wegner-85,
+@article{cardelli-wegner-85,
 	author = {L. Cardelli and P. Wegner},
 	journal = {ACM Computing Surveys},
 	pages = {471--522},
@@ -106,7 +131,7 @@
 	year = {1985}
 }
 
-@article{deBruijn-72,
+@article{debruijn-72,
 	author = "{\noopsort{Bruijn}{N. G. de Bruijn}}",
 	journal = {Indagationes Mathematicae},
 	pages = {381--392},
@@ -115,19 +140,7 @@
 	year = {1972}
 }
 
-@inproceedings{Aydemir-et-al-08,
-	address = {New York, NY, USA},
-	author = {B. Aydemir and A. Chargu\'eraud and B. C. Pierce and R. Pollack and S. Weirich},
-	booktitle = {POPL '08: Proceedings of the 35th annual ACM SIGPLAN-SIGACT symposium on Principles of programming languages},
-	isbn = {9781595936899},
-	pages = {3--15},
-	publisher = {ACM},
-	title = {Engineering formal metatheory},
-	url = {http://dx.doi.org/10.1145/1328438.1328443},
-	year = {2008}
-}
-
-@article{Stoughton-88,
+@article{stoughton-88,
 	author = {A. Stoughton},
 	issn = {0304-3975},
 	journal = {Theor. Comput. Sci.},
@@ -141,7 +154,7 @@
 	year = {1988}
 }
 
-@book{Barendregt-84,
+@book{barendregt-84,
 	author = {H. P. Barendregt},
 	title = {The {L}ambda {C}alculus: its {S}yntax and {S}emantics},
 	volume = {103},
