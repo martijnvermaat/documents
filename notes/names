@@ -1,4 +1,4 @@
-B1;2202;0cBritney    Lambda Calculus interpreter (http://www.cs.vu.nl/~mvermaat/britney)
+Britney    Lambda Calculus interpreter (http://www.cs.vu.nl/~mvermaat/britney)
 Priscilla  Desktop PC of Martijn
 Christina  Server of Martijn
 Melissa    Desktop PC of the Vermaat family
@@ -28,3 +28,6 @@ Wanda      Encrypted partition for use @ VU on Wynne
 Sookie     Telfort ZyXEL ADSL wireless modem
 Sheila     VirtualBox guest
 Drew       virtualBox guest running Debian 4 Etch
+Ruby       1GB encrypted USB credit card
+Tabita     VirtualBox guest running Ubuntu 9.10 server
+Willy      VirtualBox guest
