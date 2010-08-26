@@ -669,7 +669,8 @@ The \POPLmark Challenge \cite{poplmark-challenge-05} proposes a set of
 benchmarks to measure progress in this area, under the slogan {\em
   mechanized metatheory for the masses}.
 The benchmarks are based on the metatheory of System
-F$_\texttt{<\!:}$, a polymorphic $\lambda$-calculus with subtyping,
+F$_\texttt{<\!:}$ \cite{cardelli-martini-mitchell-scedrov-94},
+a polymorphic $\lambda$-calculus with subtyping,
 and revolve in large part around binding.
 Several solutions, some of them partial, to the chalange have since
 been submitted. We discuss some of the solutions to part 1a that are
@@ -814,8 +815,6 @@ represented by meta-bindings. This approach leads to statements that
 are quite different from what we write on paper, but gives us
 $\alpha$-equivalence and capture-avoiding substitution for free.
 
-% related work: chlipala, other poplmarks, compcert
-
 
 \subsection{Conclusion}
 
@@ -846,7 +845,6 @@ language. Furthermore, the environment of a formalization (e.g., some
 proof assistant) might suit one representation better than another.
 
 
-\nocite{*} % TODO: remove
 \bibliographystyle{amsplain}
 \bibliography{binding}
 
