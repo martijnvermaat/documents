@@ -35,7 +35,8 @@
     Definition, Lemma, Theorem, Proof, Axiom, Local, Save, Grammar,
     Syntax, Intro, Trivial, Qed, Intros, Symmetry, Simpl, Rewrite,
     Apply, Elim, Assumption, Left, Cut, Case, Auto, Unfold, Exact,
-    Right, Defined, Function, end, struct, measure},
+    Right, Defined, Function, Parameter, Hypothesis, end, struct,
+    measure},
   morekeywords={Section, Module, End},
   comment=[s]{(*}{*)},
   showstringspaces=false,
@@ -167,13 +168,14 @@ variables. To illustrate, the representations are implemented in the
 \Coq proof assistant, where we make use of a type for names on which
 equality is decidable.
 \begin{lstlisting}
-Parameter name : Set.
-Parameter eq_name : forall (x y : name), {x = y} + {x <> y}.
+Variable name : Set.
+Hypothesis eq_name : forall (x y : name), {x = y} + {x <> y}.
 \end{lstlisting}
 We also assume a way to generate fresh names with \lstinline{fresh_name},
 which returns a name that is not in a given list of names.
 \begin{lstlisting}
-Parameter fresh_name : (list name) -> name.
+Variable fresh_name : (list name) -> name.
+Hypothesis fresh_name_fresh : forall l, ~ In (fresh_name l) l.
 \end{lstlisting}
 
 

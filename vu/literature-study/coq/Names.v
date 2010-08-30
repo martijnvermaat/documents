@@ -9,10 +9,17 @@ Require Import List.
 Require Import Recdef.
 
 
+Section Names.
+
 (** Assume some type for names on which equality is decidable. *)
 
-Parameter name : Set.
-Parameter eq_name : forall (x y : name), {x = y} + {x <> y}.
+Variable name : Set.
+Hypothesis eq_name : forall (x y : name), {x = y} + {x <> y}.
+
+(** Assume we have some way to generate names... *)
+
+Variable fresh_name : (list name) -> name.
+Hypothesis fresh_name_fresh : forall l, ~ In (fresh_name l) l.
 
 Inductive term : Set :=
   | Var : name -> term
@@ -63,10 +70,6 @@ Fixpoint free_vars (t : term) : list name :=
   | Abs x b => remove eq_name x (free_vars b)
   | App f a => (free_vars f) ++ (free_vars a)
   end.
-
-(** Assume we have some way to generate names... *)
-
-Parameter fresh_name : (list name) -> name.
 
 (** Capture-avoiding substitution by recursion on size. *)
 
@@ -123,3 +126,5 @@ Fixpoint sim_subst (l : list (term*name)) (t : term) {struct t} : term :=
 
 Definition subst' (s : term) (n : name) (t : term) : term :=
   sim_subst ((s, n) :: nil) t.
+
+End Names.

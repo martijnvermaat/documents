@@ -6,6 +6,8 @@
 Require Import Arith.
 
 
+Section Numbers.
+
 Inductive term : Set :=
   | Var : nat -> term
   | Abs : term -> term
@@ -29,3 +31,5 @@ Fixpoint subst (s : term) (n : nat) (t : term) {struct t} : term :=
   | Abs u   => Abs (subst (lift 0 s) (S n) u)
   | App u v => App (subst s n u) (subst s n v)
 end.
+
+End Numbers.

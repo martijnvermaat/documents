@@ -7,10 +7,12 @@
 Require Import Arith.
 
 
+Section LocallyNameless.
+
 (** Assume some type for names on which equality is decidable. *)
 
-Parameter name : Set.
-Parameter eq_name : forall (x y : name), {x = y} + {x <> y}.
+Variable name : Set.
+Hypothesis eq_name : forall (x y : name), {x = y} + {x <> y}.
 
 Inductive term : Set :=
   | FreeVar  : name -> term
@@ -35,3 +37,5 @@ Fixpoint subst_bound (s : term) (n : nat) (t : term) {struct t} : term :=
 end.
 
 Definition freshen (t : term) (x : name) : term := subst_bound (FreeVar x) 0 t.
+
+End LocallyNameless.
