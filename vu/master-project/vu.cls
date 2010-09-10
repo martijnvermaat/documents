@@ -269,6 +269,7 @@
     {Typeset using \LaTeX\ by Leslie Lamport, based on
       \TeX\ by Donald Knuth. \par}
     {Creative Commons Attribution logo by Sebastian Pipping. \par}
+    {\emph{Oiseau d'infini} cover by Bastiaan Terhorst, \url{http://perceptor.nl}. \par}
     \vspace{10pt}
     {\copyright\ 2010 Martijn Vermaat \par}
     \vspace{10pt}
