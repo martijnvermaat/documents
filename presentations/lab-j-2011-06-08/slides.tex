@@ -24,7 +24,17 @@
 % Make the title page.
 \bodytemplate
 
+%\frame{
+%  \frametitle{Genome of the Netherlands}
+%  \tableofcontents
+%}
+
 \section{Introduction}
+
+\frame{
+  \frametitle{Genome of the Netherlands}
+  \tableofcontents[currentsection]
+}
 
 \begin{frame}
   \frametitle{Genome of the Netherlands}
@@ -94,7 +104,7 @@
   \begin{itemize}
     \item Illumina HiSeq
     \item Full-genome
-    \item 500M paired reads of 90bp
+    \item 500M paired reads of 90b
     \item 12x average coverage
   \end{itemize}
 
@@ -107,33 +117,90 @@
 
 \section{Sample processing}
 
+\frame{
+  \frametitle{Genome of the Netherlands}
+  \tableofcontents[currentsection]
+}
+
 \begin{frame}
-  Pipeline developed at UMCG based on the BROAD (GATK) pipeline.
+  \frametitle{Raw sequencing data}
 
   \vspace{\baselineskip}
 
-  120GB per sample.
+  \begin{itemize}
+    \item 750 samples
+    \item 100GB per sample
+    \item 75TB of FASTQ files
+  \end{itemize}
+
+  \vspace{\baselineskip}
+
+\begin{center}
+{\renewcommand{\arraystretch}{0.6}
+\renewcommand{\tabcolsep}{10pt}
+\begin{tabular}{p{200pt} r@{.}l}
+  Human genome & 0&001\\
+  Average PC & 0&1\\
+  GoNL & \multicolumn{1}{r@{\phantom{.}}}{75}&\\
+  3D effects rendering for Avatar & \multicolumn{1}{r@{\phantom{.}}}{1,000}&\\
+  Google processes per day & \multicolumn{1}{r@{\phantom{.}}}{24,000}&
+\end{tabular}}
+\end{center}
 \end{frame}
 
 \begin{frame}
-  Done in about 5 weeks from now.
+  \frametitle{Pipeline}
 
   \vspace{\baselineskip}
 
-  On UMCG millipede cluster, Sara grid, Rotterdam, Hubrecht, ...
+  Developed at UMCG
+
+  \vspace{\baselineskip}
+
+  \begin{itemize}
+    \item Alignment
+    \item SNP calling
+    \item Based on Broad (GATK) pipeline
+  \end{itemize}
+
+  \vspace{\baselineskip}
+
+  \url{http://www.bbmriwiki.nl/wiki/SnpCallingPipeline}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hardware}
+
+  \vspace{\baselineskip}
+
+  Originally on Millipede cluster (RUG)
+
+  \vspace{\baselineskip}
+
+  Now also AMC (grid), UU, EMC.
 \end{frame}
 
 \section{Quality control}
 
+\frame{
+  \frametitle{Genome of the Netherlands}
+  \tableofcontents[currentsection]
+}
+
 \begin{frame}
   \frametitle{SNP call concordance}
 
-  Work of Laurent.
+  Work of Laurent
 
-  Validate results against our owen pipeline.
+  Validate results against our owen pipeline
 \end{frame}
 
 \section{Mitochondrion}
+
+\frame{
+  \frametitle{Genome of the Netherlands}
+  \tableofcontents[currentsection]
+}
 
 \begin{frame}
   \frametitle{Analysis}
@@ -141,11 +208,21 @@
 
 \section{Y chromosome}
 
+\frame{
+  \frametitle{Genome of the Netherlands}
+  \tableofcontents[currentsection]
+}
+
 \begin{frame}
   \frametitle{Analysis}
 \end{frame}
 
 \section{Questions?}
+
+\frame{
+  \frametitle{Genome of the Netherlands}
+  \tableofcontents[currentsection]
+}
 
 \lastpagetemplate
 \begin{frame}

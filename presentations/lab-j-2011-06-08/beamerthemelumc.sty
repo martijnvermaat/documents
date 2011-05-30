@@ -39,12 +39,23 @@
 \setbeamercolor{structure}{fg = white}
 \setbeamercolor{normal text}{fg = white}
 \setbeamercolor{frametitle}{fg = white}
+\setbeamercolor{section in toc shaded}{fg = black}
 
 % Change the bullets in the itemize environment.
 \setbeamertemplate{itemize items}[circle]
 
 % Macro for bold text.
 \newcommand{\bt}[1]{\textbf{#1}}
+
+\usepackage{url}
+%% Define a new 'leo' style for the package that will use a smaller
+%% font.
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
+\makeatother
+%% Now actually use the newly defined style.
+\urlstyle{leo}
 
 % Enable numbering of figures and tables.
 \setbeamertemplate{caption}[numbered]
