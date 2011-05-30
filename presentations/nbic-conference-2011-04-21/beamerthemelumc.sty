@@ -1,0 +1,194 @@
+% Copyright 2011 by Jeroen F. J. Laros
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+% See the file doc/licenses/LICENSE for more details.
+
+\ProvidesPackageRCS $Header: /svnroot/presentation/trunk/beamerthemelumc.sty,v 1.0 2011/03/02 $
+
+\mode<presentation>
+
+% For the footer.
+\usepackage{tabularx}
+
+% Select a nicer font.
+\usepackage{newcent}
+\renewcommand{\sfdefault}{pnc}
+
+% Package for making graphs and automata.
+\usepackage{gastex}
+% Spaces around `=' break functionality.
+\gasset{Nadjust=w, linecolor=white, linewidth=0.5}
+
+% Custom colours (use the gimp colour picker and divide by 255).
+\definecolor{LUMCBlue}{rgb}{0, 0.11372, 0.38039}
+\definecolor{ULBlue}{rgb}{0.06274, 0.07843, 0.38823}
+
+% Disable the navigation bar.
+\usenavigationsymbolstemplate{}
+
+% Set default colours.
+\setbeamercolor{structure}{fg = white}
+\setbeamercolor{normal text}{fg = white}
+\setbeamercolor{frametitle}{fg = black}
+
+% Change the bullets in the itemize environment.
+\setbeamertemplate{itemize items}[circle]
+
+% Macro for bold text.
+\newcommand{\bt}[1]{\texttt{\textbf{#1}}}
+
+% Enable numbering of figures and tables.
+\setbeamertemplate{caption}[numbered]
+
+%
+% Settings for displaying code.
+%
+
+% This is for code listing in a presentation and to use references in captions.
+\usepackage{listings}
+\usepackage{cleveref}
+
+% Prevent an overlay to increase the listing counter.
+\resetcounteronoverlays{lstlisting}
+
+% Make a nice layout for code.
+\lstset{
+  language = Python,
+  basicstyle = \footnotesize,
+  lineskip = -0.40ex,
+  frame = shadowbox,
+  rulesepcolor = \color{black},
+  showstringspaces = false,
+  captionpos = b,
+  numbers = left,
+  numbersep = -1em,
+  numberstyle = \tiny
+} 
+
+%
+% Settings for the title page.
+%
+
+% The header of the title page.
+\providecommand{\titletemplate}{
+  \setbeamertemplate{headline}{
+    \colorbox{LUMCBlue}{
+      \begin{tabularx}{0.98\textwidth}{X}
+        \vspace{-0.3cm} % Space above the logo.
+        \hfill
+        \includegraphics[scale = 0.25, angle = 270]{lumc_logo}
+        \hfill \phantom{.}
+        \vspace{0.1cm} % Space above the logo.
+      \end{tabularx}
+    }
+  }
+}
+
+% The footer of the title page.
+\setbeamertemplate{footline}{
+  \colorbox{ULBlue}{
+    \begin{tabularx}{0.98\textwidth}{X}
+      \vspace{0.05cm}    % Space above the logo.
+      \hfill
+      \includegraphics[scale = 0.25]{ul_logo}
+      \hfill \phantom{.}
+      \vspace{0.1cm}    % Space below the logo.
+    \end{tabularx}
+  }
+}
+
+%
+% Settings for the body.
+%
+
+% The header of the body.
+\setbeamertemplate{headline}{
+  \colorbox{white}{\color{LUMCBlue}
+    \begin{tabularx}{0.98\textwidth}{ll}
+      \includegraphics[scale = 0.25]{lumc_logo_small} & 
+      \hspace{0.8cm}    % Space between the logo and the title of the section.
+      {\normalsize {\bf \insertsection}}
+      \raisebox{0.9cm}{\phantom{.}}
+    \end{tabularx}
+  }
+}
+
+% Switch to the normal layout.
+\providecommand{\bodytemplate}{
+  % The title page.
+  {
+    \titletemplate
+    \begin{frame}
+      \begin{minipage}[b][6cm][c]{0.98\textwidth}
+        \begin{center}
+          \vspace{1.5cm}
+
+          \color{black} {\Large {\bf \inserttitle}}
+  
+          \vfill
+          {\bf 
+            {\scriptsize
+              \color{LUMCBlue} 
+              \insertauthor
+              \smallskip
+  
+              \myGroup
+              \smallskip
+  
+              \myDepartment
+  
+              \vspace{-0.1cm}
+              \myCenter
+            }
+          }
+        \end{center}
+      \end{minipage}
+    \end{frame}
+  }
+
+  % Set the background colour.
+  \beamersetaveragebackground{LUMCBlue}
+
+  % Reset the frame counter.
+  \setcounter{framenumber}{0}
+
+  % The footer of the body.
+  \setbeamertemplate{footline}{
+    \colorbox{white}{\color{LUMCBlue}
+      \begin{tabularx}{0.98\textwidth}{XXX}
+        \\ [-3ex]       % Space above the footer line.
+        \myConference & 
+        \hfill \insertframenumber/\inserttotalframenumber 
+          \hfill \phantom{.} & 
+        \hfill \myDate 
+        \\ [-1ex]       % Space below the footer line.
+      \end{tabularx}
+    }
+  }
+}
+
+\providecommand{\lastpagetemplate}{
+  % The header of the body.
+  \setbeamertemplate{headline}{
+    \colorbox{white}{\color{LUMCBlue}
+      \begin{tabularx}{0.98\textwidth}{llXX}
+        \includegraphics[scale = 0.25]{lumc_logo_small} & 
+        \hspace{0.8cm}    % Space between the logo and the title of the section.
+        {\normalsize {\bf \insertsection}} & 
+        \hfill
+        \lastCenterLogo
+        \hfill \phantom{.} &
+        \hfill
+        \lastRightLogo
+        \hfill \phantom{.}
+      \end{tabularx}
+    }
+  }
+}
+
+\mode
+<all>
