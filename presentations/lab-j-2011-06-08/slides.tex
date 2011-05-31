@@ -213,6 +213,7 @@
     \item Coverage distribution
     \item Mapping quality distribution
   \end{itemize}
+  % todo: picture of aligned reads?
 \end{frame}
 
 \begin{frame}
@@ -226,7 +227,6 @@
     \item Mutation rate Y/mtDNA/autosomal
     \item Distribution of SNPs found in dnSNP
     \item Indel / substitution rate
-    \item Cross check with immuno-chip
   \end{itemize}
 \end{frame}
 
@@ -243,6 +243,7 @@
     \item SOAP pipeline (BGI)
     \item Broad pipeline (UMCG)
     \item GAPSS3 pipeline (LUMC)
+    \item (Immuno-chip)
   \end{itemize}
 \end{frame}
 
@@ -270,11 +271,23 @@
 
   \vspace{\baselineskip}
 
-  \begin{itemize}
-    \item 3 samples
-    \item SOAP (BGI) versus Broad (UMCG) versus GAPSS3 (LUMC)
-    \item Site and allele concordance
-  \end{itemize}
+  Process 9 samples with GAPSS3 (LUMC)
+
+  \vspace{\baselineskip}
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.0}
+\renewcommand{\tabcolsep}{10pt}
+\begin{tabular}{p{140pt} r}
+Pipeline & A4a SNPs\\
+\hline
+SOAP (BGI) & 3,204,825\\
+Broad (UMCG) & 3,769,099\\
+GAPSS3 (LUMC) & 3,374,486\\
+GAPSS3 filtered & 2,459,515
+\end{tabular}}
+\end{center}
+
 \end{frame}
 
 {
