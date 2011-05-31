@@ -188,14 +188,108 @@
 }
 
 \begin{frame}
-  \frametitle{SNP call concordance}
+  \frametitle{Pre-alignment}
 
-  Work of Laurent
+  \vspace{\baselineskip}
 
-  Validate results against our owen pipeline
+  \begin{itemize}
+    \item Duplicate input checking
+    \item FASTQ quality scores
+    \item GC content
+    \item N-content
+    \item Read length distribution
+    \item Over-representation of reads
+  \end{itemize}
 \end{frame}
 
-\section{Mitochondrion}
+\begin{frame}
+  \frametitle{Alignment}
+
+  \vspace{\baselineskip}
+
+  \begin{itemize}
+    \item Percentage aligned
+    \item Insert size distribution
+    \item Coverage distribution
+    \item Mapping quality distribution
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Variant-calling}
+
+  \vspace{\baselineskip}
+
+  \begin{itemize}
+    \item Transition / transversion rate
+    \item X, Y coverage
+    \item Mutation rate Y/mtDNA/autosomal
+    \item Distribution of SNPs found in dnSNP
+    \item Indel / substitution rate
+    \item Cross check with immuno-chip
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Pipeline concordance}
+
+  \vspace{\baselineskip}
+
+  Comparison of pipelines on alignment and variant calling
+
+  \vspace{\baselineskip}
+
+  \begin{itemize}
+    \item SOAP pipeline (BGI)
+    \item Broad pipeline (UMCG)
+    \item GAPSS3 pipeline (LUMC)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{SNP call concordance}
+
+  \vspace{\baselineskip}
+
+  Laurent Francioli:
+  \begin{itemize}
+    \item 50 samples
+    \item SOAP (BGI) versus Broad (UMCG)
+    \item Site and allele concordance
+  \end{itemize}
+\end{frame}
+
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{\includegraphics[width=\paperwidth,keepaspectratio=true,clip=true,trim=2cm 10cm 3cm 0]{bgi-concordance.pdf}}
+  \frame{}
+}
+
+\begin{frame}
+  \frametitle{SNP call concordance}
+
+  \vspace{\baselineskip}
+
+  \begin{itemize}
+    \item 3 samples
+    \item SOAP (BGI) versus Broad (UMCG) versus GAPSS3 (LUMC)
+    \item Site and allele concordance
+  \end{itemize}
+\end{frame}
+
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{\includegraphics[width=0.65\paperwidth,keepaspectratio=true,clip=true,trim=0 3cm 3cm 5cm]{lumc-comparison.pdf}}
+  \frame{}
+}
+
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{\includegraphics[width=0.65\paperwidth,keepaspectratio=true,clip=true,trim=0 3cm 3cm 5cm]{lumc-concordance.pdf}}
+  \frame{}
+}
+
+\section{Mitochondrial DNA}
 
 \frame{
   \frametitle{Genome of the Netherlands}
@@ -204,6 +298,14 @@
 
 \begin{frame}
   \frametitle{Analysis}
+
+  \vspace{\baselineskip}
+
+  \begin{enumerate}
+    \item Haplogroep info
+    \item Heteroplasmy/sequence artefact herkenning
+    \item DE-NOVO herkenning
+  \end{enumerate}
 \end{frame}
 
 \section{Y chromosome}
@@ -215,6 +317,15 @@
 
 \begin{frame}
   \frametitle{Analysis}
+
+  \vspace{\baselineskip}
+
+  \begin{enumerate}
+    \item Focus on 150,000bp non-repetitive part
+    \item Compare to Y-tree and look voor DE-NOVO's
+    \item Focus on Chris Tyler's Y-part
+    \item Look at female reads mapping to Y
+  \end{enumerate}
 \end{frame}
 
 \section{Questions?}
@@ -230,7 +341,7 @@
     Acknowledgements:
     \bigskip
     \bigskip
-
+    Jeroen Laros
   \end{center}
 \end{frame}
 
