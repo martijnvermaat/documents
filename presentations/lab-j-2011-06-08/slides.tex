@@ -2,10 +2,6 @@
 
 % TODO:
 % Lookup expected QC results (numbers)
-% Add TB (terabytes)
-% Add FASTQC plots
-% Reads -> k-mers
-% Add mapped reads picture for false positive snp
 
 \title{Genome of the Netherlands}
 \providecommand{\myConference}{Lab-J work discussion}
@@ -141,17 +137,16 @@
     \item 75TB of FASTQ files
   \end{itemize}
 
-  \vspace{\baselineskip}
-
   \pause
 
 \begin{center}
 {\renewcommand{\arraystretch}{0.6}
 \renewcommand{\tabcolsep}{10pt}
 \begin{tabular}{p{200pt} r@{.}l}
-  Human genome in terabytes & 0&001\\
+  & \multicolumn{2}{l}{\footnotesize \# terabytes:}\\
+  Human genome & 0&001\\
   Average PC & 0&1\\
-  GoNL & \multicolumn{1}{r@{\phantom{.}}}{75}&\\
+  GoNL & \multicolumn{1}{r@{\phantom{.}}}{75}& \pause \\
   3D effects rendering for Avatar & \multicolumn{1}{r@{\phantom{.}}}{1,000}&\\
   Google processes per day & \multicolumn{1}{r@{\phantom{.}}}{24,000}&
 \end{tabular}}
@@ -232,7 +227,32 @@
     \item Read length distribution
     \item Over-representation of k-mers
   \end{itemize}
+
+  % http://bioinfo-core.org/index.php/9th_Discussion-28_October_2010
+  % http://code.google.com/p/cutadapt/
 \end{frame}
+
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{
+    \parbox[c][\paperheight]{\paperwidth}{%
+      \vfill \begin{center}
+      \includegraphics[width=0.9\paperwidth,keepaspectratio=true]{quality.png}
+      \end{center} \vfill}
+  }
+  \frame{}
+}
+
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{
+    \parbox[c][\paperheight]{\paperwidth}{%
+      \vfill \begin{center}
+      \includegraphics[width=0.9\paperwidth,keepaspectratio=true]{gc.png}
+      \end{center} \vfill}
+  }
+  \frame{}
+}
 
 \begin{frame}
   \frametitle{Alignment}
@@ -392,16 +412,19 @@ Sites called & BGI SOAP & UMCG & LUMC & LUMC filtered\\
 
   \begin{itemize}
     \item Haplogroups
-    \item Heteroplasmy / sequencing artefacts
-    \item De novo
-    \item Paternal inheritance?
+    \item Heteroplasmy
+      \begin{itemize}
+        \item Sequencing artefacts
+        \item De novo
+        \item Paternal inheritance?
+      \end{itemize}
   \end{itemize}
 
   % circular alignment
 \end{frame}
 
 \begin{frame}
-  \frametitle{Early exploration}
+  \frametitle{Early explorations}
 
   \vspace{\baselineskip}
 
@@ -419,7 +442,7 @@ Sites called & BGI SOAP & UMCG & LUMC & LUMC filtered\\
 }
 
 \begin{frame}
-  \frametitle{Early exploration}
+  \frametitle{Early explorations}
 
   \vspace{\baselineskip}
 
@@ -444,7 +467,7 @@ Sites called & BGI SOAP & UMCG & LUMC & LUMC filtered\\
 \end{frame}
 
 \begin{frame}
-  \frametitle{Early exploration}
+  \frametitle{Early explorations}
 
   \vspace{\baselineskip}
 
@@ -473,10 +496,6 @@ Sites called & BGI SOAP & UMCG & LUMC & LUMC filtered\\
 
 \begin{frame}
   \frametitle{Analysis}
-
-  \vspace{\baselineskip}
-
-  TODO
 
   \vspace{\baselineskip}
 
@@ -509,7 +528,7 @@ Sites called & BGI SOAP & UMCG & LUMC & LUMC filtered\\
 
   \vspace{\baselineskip}
 
-  The GoNL consortium
+  The Genome of the Netherlands consortium
 \end{frame}
 
 \end{document}
