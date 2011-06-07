@@ -55,6 +55,7 @@
     \item VUMC
     \item UMCU
   \end{itemize}
+  % UvA?
 \end{frame}
 
 \begin{frame}
@@ -217,8 +218,8 @@
   \begin{itemize}
     %\item Duplicate input checking
     \item FASTQ quality scores
-    \item GC content
-    \item N-content
+    \item GC\%
+    \item N\%
     \item Read length distribution
     \item Over-representation of reads
   \end{itemize}
@@ -232,7 +233,7 @@
   \begin{itemize}
     \item Percentage aligned
     \item Insert size distribution
-    \item Coverage distribution (X/Y/autosomal)
+    \item Coverage distribution (X/Y/autosomes)
     \item Mapping quality distribution
   \end{itemize}
   % todo: picture of aligned reads?
@@ -244,10 +245,10 @@
   \vspace{\baselineskip}
 
   \begin{itemize}
-    \item Transition / transversion rate
-    \item Mutation rate Y/mtDNA/autosomal
+    \item Transition / transversion ratio
+    \item Mutation rate (Y/mtDNA/autosomes)
     \item Distribution of SNPs found in dnSNP
-    \item Indel / substitution rate
+    \item Indel / substitution ratio
   \end{itemize}
 \end{frame}
 
@@ -323,6 +324,30 @@ GAPSS3 filtered & 2,459,515
   \frame{}
 }
 
+\begin{frame}
+  \frametitle{SNP call concordance}
+  \vspace{-\baselineskip}
+\begin{center}
+{\footnotesize\renewcommand{\arraystretch}{1.2}
+\renewcommand{\tabcolsep}{8pt}
+\begin{tabular}{r c c c c}
+Sites called & BGI SOAP & UMCG & LUMC & LUMC filtered\\
+\hline
+7,236 & $\bullet$ (0.2\%) & & $\bullet$ (0.2\%) &\\
+11,696 & $\bullet$ (0.4\%) & & $\bullet$ (0.3\%) & $\bullet$ (0.5\%)\\
+35,678 & & & $\bullet$ (1.1\%) & $\bullet$ (1.5\%)\\
+114,468 & & & $\bullet$ (3.4\%) &\\
+125,048 & $\bullet$ (3.9\%) & & &\\
+143,303 & & $\bullet$ (3.8\%) & $\bullet$ (4.2\%) & $\bullet$ (5.8\%)\\
+247,947 & $\bullet$ (7.7\%) & $\bullet$ (6.6\%) & &\\
+249,208 & & $\bullet$ (6.6\%) & $\bullet$ (7.4\%) &\\
+315,744 & & $\bullet$ (8.4\%) & &\\
+544,059 & $\bullet$ (17.0\%) & $\bullet$ (14.4\%) & $\bullet$ (16.1\%) &\\
+2,268,838 & $\bullet$ (70.8\%) & $\bullet$ (60.2\%) & $\bullet$ (67.2\%) & $\bullet$ (92.2\%)
+\end{tabular}}
+\end{center}
+\end{frame}
+
 \section{Mitochondrial DNA}
 
 \frame{
@@ -348,21 +373,29 @@ GAPSS3 filtered & 2,459,515
 
   \vspace{-\baselineskip}
 
-  %\begin{center}
   \hspace{0.6\linewidth}\includegraphics[width=0.3\linewidth,transparent]{mitochondrion.png}
-  %\end{center}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Analysis}
+  \frametitle{Study}
 
   \vspace{\baselineskip}
 
-  \begin{enumerate}
-    \item Haplogroep info
-    \item Heteroplasmy/sequence artefact herkenning
-    \item DE-NOVO herkenning
-  \end{enumerate}
+  \begin{itemize}
+    \item Haplogroups
+    \item Heteroplasmy / de novo / sequencing artefacts
+    \item Paternal inheritance?
+  \end{itemize}
+
+  % circular alignment
+\end{frame}
+
+\begin{frame}
+  \frametitle{Early results}
+
+  \vspace{\baselineskip}
+
+  Some early results here...
 \end{frame}
 
 \section{Y chromosome}
@@ -377,12 +410,16 @@ GAPSS3 filtered & 2,459,515
 
   \vspace{\baselineskip}
 
-  \begin{enumerate}
+  TODO
+
+  \vspace{\baselineskip}
+
+  \begin{itemize}
     \item Focus on 150,000bp non-repetitive part
     \item Compare to Y-tree and look voor DE-NOVO's
     \item Focus on Chris Tyler's Y-part
     \item Look at female reads mapping to Y
-  \end{enumerate}
+  \end{itemize}
 \end{frame}
 
 \section{Questions?}
@@ -394,12 +431,20 @@ GAPSS3 filtered & 2,459,515
 
 \lastpagetemplate
 \begin{frame}
-  \begin{center}
-    Acknowledgements:
-    \bigskip
-    \bigskip
-    Jeroen Laros
-  \end{center}
+  \frametitle{Acknowledgements}
+
+  \vspace{\baselineskip}
+
+  Jeroen Laros\\
+  Peter de Knijff\\
+  Johan den Dunnen
+
+  \vspace{\baselineskip}
+
+  UMCG\\
+  Erasmus MC\\
+  VUMC\\
+  UMCU
 \end{frame}
 
 \end{document}
