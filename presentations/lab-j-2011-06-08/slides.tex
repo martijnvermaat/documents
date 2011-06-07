@@ -383,7 +383,8 @@ Sites called & BGI SOAP & UMCG & LUMC & LUMC filtered\\
 
   \begin{itemize}
     \item Haplogroups
-    \item Heteroplasmy / de novo / sequencing artefacts
+    \item Heteroplasmy / sequencing artefacts
+    \item De novo
     \item Paternal inheritance?
   \end{itemize}
 
@@ -391,11 +392,67 @@ Sites called & BGI SOAP & UMCG & LUMC & LUMC filtered\\
 \end{frame}
 
 \begin{frame}
-  \frametitle{Early results}
+  \frametitle{Scanning for SNPs}
 
   \vspace{\baselineskip}
 
-  Some early results here...
+  \begin{itemize}
+    \item High coverage
+    \item Allele frequencies
+    \item Mapping/read artefacts
+  \end{itemize}
+\end{frame}
+
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{\includegraphics[width=\paperwidth,keepaspectratio=true]{overlaps.png}}
+  \frame{}
+}
+
+\begin{frame}
+  \frametitle{Scanning for SNPs}
+
+  \vspace{\baselineskip}
+
+  Position 15171, reference G
+
+  \vspace{\baselineskip}
+
+  A3c (child):
+  \begin{itemize}
+  %\item Coverage 1979x
+    \item 99\% {\color{Red} A}
+  \end{itemize}
+
+  \vspace{\baselineskip}
+
+  A3b (mother):
+  \begin{itemize}
+  %\item Coverage 1863x
+    \item 89\% {\color{Red} A}
+    \item 10\% {\color{Green} G}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Scanning for SNPs}
+
+  \vspace{\baselineskip}
+
+  Position 9287, reference A
+%82\% A (avg pos 48/90,  0\% unpaired, 39\% reverse, avg readq 30, avg baseq 29, avg mapq 39)  15\% C (avg pos 18/90,  0\% unpaired,  0\% reverse, avg readq 27, avg baseq  6, avg mapq 47)
+
+  \vspace{\baselineskip}
+
+  A4a:
+  \begin{itemize}
+  %\item Coverage 939x
+    \item 82\% {\color{Green} A}
+    \item 15\% {\color{Red} C}
+    \item Avg position for {\color{Red} C} is 18/90
+    \item Low base quality
+    \item Allmost all {\color{Red} C} reads on one strand
+  \end{itemize}
 \end{frame}
 
 \section{Y chromosome}
@@ -415,10 +472,10 @@ Sites called & BGI SOAP & UMCG & LUMC & LUMC filtered\\
   \vspace{\baselineskip}
 
   \begin{itemize}
-    \item Focus on 150,000bp non-repetitive part
-    \item Compare to Y-tree and look voor DE-NOVO's
+    \item Focus on 150kbp non-repetitive part
+    \item Compare to Y-tree and look for de novo
     \item Focus on Chris Tyler's Y-part
-    \item Look at female reads mapping to Y
+    \item Female reads mapping to Y
   \end{itemize}
 \end{frame}
 
@@ -437,6 +494,7 @@ Sites called & BGI SOAP & UMCG & LUMC & LUMC filtered\\
 
   Jeroen Laros\\
   Peter de Knijff\\
+  Michiel van Galen\\
   Johan den Dunnen
 
   \vspace{\baselineskip}
