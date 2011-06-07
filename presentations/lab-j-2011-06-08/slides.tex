@@ -1,5 +1,12 @@
 \documentclass[slidestop,14pt]{beamer}
 
+% TODO:
+% Lookup expected QC results (numbers)
+% Add TB (terabytes)
+% Add FASTQC plots
+% Reads -> k-mers
+% Add mapped reads picture for false positive snp
+
 \title{Genome of the Netherlands}
 \providecommand{\myConference}{Lab-J work discussion}
 \providecommand{\myDate}{Wednesday, 8 June 2011}
@@ -49,13 +56,12 @@
 
   Consortium of
   \begin{itemize}
-    \item UMCG
-    \item LUMC
-    \item Erasmus MC
-    \item VUMC
-    \item UMCU
+    \item UMCG (Groningen)
+    \item Erasmus MC (Rotterdam)
+    \item VUMC and AMC (Amsterdam)
+    \item UMCU (Utrecht)
+    \item LUMC (Leiden)
   \end{itemize}
-  % UvA?
 \end{frame}
 
 \begin{frame}
@@ -86,6 +92,7 @@
 
   \begin{itemize}
     \item 250 trios of parents and adult child
+      % Also 10 twins
     \item Sequencing in China (BGI)
     \item Analysis in the Netherlands
   \end{itemize}
@@ -136,11 +143,13 @@
 
   \vspace{\baselineskip}
 
+  \pause
+
 \begin{center}
 {\renewcommand{\arraystretch}{0.6}
 \renewcommand{\tabcolsep}{10pt}
 \begin{tabular}{p{200pt} r@{.}l}
-  Human genome & 0&001\\
+  Human genome in terabytes & 0&001\\
   Average PC & 0&1\\
   GoNL & \multicolumn{1}{r@{\phantom{.}}}{75}&\\
   3D effects rendering for Avatar & \multicolumn{1}{r@{\phantom{.}}}{1,000}&\\
@@ -221,7 +230,7 @@
     \item GC\%
     \item N\%
     \item Read length distribution
-    \item Over-representation of reads
+    \item Over-representation of k-mers
   \end{itemize}
 \end{frame}
 
@@ -392,7 +401,7 @@ Sites called & BGI SOAP & UMCG & LUMC & LUMC filtered\\
 \end{frame}
 
 \begin{frame}
-  \frametitle{Scanning for SNPs}
+  \frametitle{Early exploration}
 
   \vspace{\baselineskip}
 
@@ -410,7 +419,7 @@ Sites called & BGI SOAP & UMCG & LUMC & LUMC filtered\\
 }
 
 \begin{frame}
-  \frametitle{Scanning for SNPs}
+  \frametitle{Early exploration}
 
   \vspace{\baselineskip}
 
@@ -435,7 +444,7 @@ Sites called & BGI SOAP & UMCG & LUMC & LUMC filtered\\
 \end{frame}
 
 \begin{frame}
-  \frametitle{Scanning for SNPs}
+  \frametitle{Early exploration}
 
   \vspace{\baselineskip}
 
@@ -493,16 +502,14 @@ Sites called & BGI SOAP & UMCG & LUMC & LUMC filtered\\
   \vspace{\baselineskip}
 
   Jeroen Laros\\
-  Peter de Knijff\\
   Michiel van Galen\\
-  Johan den Dunnen
+  Peter de Knijff\\
+  Johan den Dunnen\\
+  Gert-Jan van Ommen
 
   \vspace{\baselineskip}
 
-  UMCG\\
-  Erasmus MC\\
-  VUMC\\
-  UMCU
+  The GoNL consortium
 \end{frame}
 
 \end{document}
