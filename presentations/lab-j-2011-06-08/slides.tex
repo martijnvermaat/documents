@@ -265,8 +265,18 @@
     \item Coverage distribution (X/Y/autosomes)
     \item Mapping quality distribution
   \end{itemize}
-  % todo: picture of aligned reads?
 \end{frame}
+
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{
+    \parbox[c][\paperheight]{\paperwidth}{%
+      \vfill \begin{center}
+      \includegraphics[width=\paperwidth,keepaspectratio=true]{savant.png}
+      \end{center} \vfill}
+  }
+  \frame{}
+}
 
 \begin{frame}
   \frametitle{Variant calling}
@@ -290,7 +300,9 @@
 
   \vspace{\baselineskip}
 
-  \begin{itemize}
+  \pause
+
+  \begin{itemize}[<+->]
     \item SOAP pipeline (BGI)
     \item Broad pipeline (UMCG)
     \item GAPSS3 pipeline (LUMC)
@@ -325,6 +337,8 @@
   Process 9 samples with GAPSS3 (LUMC)
 
   \vspace{\baselineskip}
+
+  \pause
 
 \begin{center}
 {\renewcommand{\arraystretch}{1.0}
@@ -450,6 +464,8 @@ Sites called & BGI SOAP & UMCG & LUMC & LUMC filtered\\
 
   \vspace{\baselineskip}
 
+  \pause
+
   A3c (child):
   \begin{itemize}
   %\item Coverage 1979x
@@ -457,6 +473,8 @@ Sites called & BGI SOAP & UMCG & LUMC & LUMC filtered\\
   \end{itemize}
 
   \vspace{\baselineskip}
+
+  \pause
 
   A3b (mother):
   \begin{itemize}
@@ -473,7 +491,7 @@ Sites called & BGI SOAP & UMCG & LUMC & LUMC filtered\\
 %\put(100,-80){\includegraphics[width=0.2\paperwidth,keepaspectratio=true]{snp.png}}
 %\end{picture}
 
-  \uncover<2>{\includegraphics[width=0.8\paperwidth,keepaspectratio=true]{snp.png}}
+  \uncover<3>{\includegraphics[width=0.8\paperwidth,keepaspectratio=true]{snp.png}}
 
   \vspace{-0.214\paperwidth}
 
@@ -482,14 +500,16 @@ Sites called & BGI SOAP & UMCG & LUMC & LUMC filtered\\
 
   \vspace{\baselineskip}
 
+  \pause
+
   A4a:
   \begin{itemize}
   %\item Coverage 939x
     \item 82\% {\color{Green} A}
     \item 15\% {\color{Red} C}
-    \item Avg position for {\color{Red} C} is 18/90
-    \item Low base quality
-    \item Allmost all {\color{Red} C} reads on one strand
+    \item<3-> Avg position for {\color{Red} C} is 18/90
+    \item<3-> Low base quality
+    \item<3-> Allmost all {\color{Red} C} reads on one strand
   \end{itemize}
 \end{frame}
 
@@ -508,8 +528,8 @@ Sites called & BGI SOAP & UMCG & LUMC & LUMC filtered\\
   \begin{itemize}
     \item Focus on 150kbp non-repetitive part
     \item Compare to Y-tree and look for de novo
-    \item Focus on Chris Tyler's Y-part
-    \item Female reads mapping to Y
+    \item<2-> Focus on Chris Tyler's Y-part
+    \item<2-> Female reads mapping to Y
   \end{itemize}
 \end{frame}
 
