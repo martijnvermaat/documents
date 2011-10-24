@@ -32,6 +32,9 @@
   belowskip=1em
 }
 
+\usepackage{tikz}
+\usetikzlibrary{shapes,snakes,positioning}
+
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{headline}{}
 \setbeamertemplate{footline}{}
@@ -162,6 +165,19 @@
 
   \frametitle{Open Source}
 
+  Permissive licenses
+
+  Copyleft licenses
+
+}
+
+
+\frame{
+
+  \frametitle{MIT license}
+
+  Not public domain!
+
 }
 
 
@@ -169,12 +185,73 @@
 
   \frametitle{GNU General Public License}
 
+  The GNU General Public License is a free, copyleft license for
+  software and other kinds of works.
+
 }
 
 
 \frame{
 
-  \frametitle{Case study: Python MySQLdb and closed source software}
+  \frametitle{MySQLdb}
+
+  Case study: Python MySQLdb library and closed source software
+
+%\colorbox{blue}{\makebox[\linewidth][l]{hi!}}
+
+%\begin{tikzpicture}
+%  \draw node[draw=black,fill=black!20,rounded corners,inner sep=1ex,text width=15em] {
+%    world-changing program
+%    };
+%\end{tikzpicture}
+
+}
+
+
+\frame{
+
+\tikzstyle{mybox} = [draw=red, fill=blue!20, very thick,
+    rectangle, rounded corners, inner sep=10pt, inner ysep=15pt]
+\tikzstyle{fancytitle} = [fill=red, text=white]
+
+
+\begin{tikzpicture}
+
+\node [mybox] (box1){%
+    \begin{minipage}{0.80\linewidth}
+      our program
+    \end{minipage}
+};
+\node[fancytitle, rounded corners] at (box1.east) {GPL};
+
+\node [mybox,below=8pt of box1.south] (box2) {%
+    \begin{minipage}[t!]{0.8\linewidth}
+      MySQLdb
+    \end{minipage}
+    };
+\node[fancytitle, rounded corners] at (box2.east) {MIT};
+
+\draw [mybox] (box1) -- (box2);
+
+\node [mybox,below=8pt of box2.south] (box3) {%
+    \begin{minipage}[t!]{0.8\linewidth}
+      libmysql
+    \end{minipage}
+    };
+\node[fancytitle, rounded corners] at (box3.east) {GPL};
+
+\draw [mybox] (box2) -- (box3);
+
+\node [mybox,below=20pt of box3.south] (box4) {%
+    \begin{minipage}[t!]{0.8\linewidth}
+      MySQL Server
+    \end{minipage}
+    };
+\node[fancytitle, rounded corners] at (box4.east) {GPL};
+
+\draw[style=densely dashed] [mybox] (box3) -- (box4);
+
+\end{tikzpicture}
 
 }
 
