@@ -35,6 +35,10 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes,snakes,positioning}
 
+\tikzstyle{mybox} = [draw=red, fill=blue!20, very thick,
+    rectangle, rounded corners, inner sep=10pt, inner ysep=12pt]
+\tikzstyle{fancytitle} = [fill=red, text=white]
+
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{headline}{}
 \setbeamertemplate{footline}{}
@@ -195,45 +199,39 @@
 
   \frametitle{MySQLdb}
 
-  Case study: Python MySQLdb library and closed source software
+  Case study: using MySQL from a Python program
 
-%\colorbox{blue}{\makebox[\linewidth][l]{hi!}}
+  \vspace{\baselineskip}
 
-%\begin{tikzpicture}
-%  \draw node[draw=black,fill=black!20,rounded corners,inner sep=1ex,text width=15em] {
-%    world-changing program
-%    };
-%\end{tikzpicture}
+  \begin{itemize}
+    \item MySQL (client and server) is GPL-licensed
+    \item Python MySQLdb library is GPL-licensed
+    \item MySQLdb uses libmysql (part of MySQL)
+  \end{itemize}
 
 }
 
 
 \frame{
 
-\tikzstyle{mybox} = [draw=red, fill=blue!20, very thick,
-    rectangle, rounded corners, inner sep=10pt, inner ysep=15pt]
-\tikzstyle{fancytitle} = [fill=red, text=white]
-
-
 \begin{tikzpicture}
 
 \node [mybox] (box1){%
     \begin{minipage}{0.80\linewidth}
-      our program
+      {\bf our program}
     \end{minipage}
 };
-\node[fancytitle, rounded corners] at (box1.east) {GPL};
 
-\node [mybox,below=8pt of box1.south] (box2) {%
+\node [mybox,below=5pt of box1.south] (box2) {%
     \begin{minipage}[t!]{0.8\linewidth}
       MySQLdb
     \end{minipage}
     };
-\node[fancytitle, rounded corners] at (box2.east) {MIT};
+\node[fancytitle, rounded corners] at (box2.east) {GPL};
 
 \draw [mybox] (box1) -- (box2);
 
-\node [mybox,below=8pt of box2.south] (box3) {%
+\node [mybox,below=5pt of box2.south] (box3) {%
     \begin{minipage}[t!]{0.8\linewidth}
       libmysql
     \end{minipage}
@@ -249,9 +247,105 @@
     };
 \node[fancytitle, rounded corners] at (box4.east) {GPL};
 
-\draw[style=densely dashed] [mybox] (box3) -- (box4);
+\draw[style=densely dotted] [mybox] (box3) -- (box4);
 
 \end{tikzpicture}
+
+}
+
+
+\frame{
+
+  \frametitle{MySQLdb license}
+
+  Is it really GPL-licensed?
+
+  \begin{itemize}
+    \item Most Linux distributions say GPL
+    \item Sourceforge project page says ``GNU General Public License
+      (GPL), Python License (CNRI Python License), Zope Public License''
+    \item Source code says ``GPL or the original license based on Python
+      1.5.2's license''
+  \end{itemize}
+
+  The Python 1.5.2 license is an MIT-like license ({\em not} the CNRI
+  Python License)
+
+}
+
+
+\frame{
+
+  \frametitle{GPL violation?}
+
+  MySQLdb links to libmysql (GPL)
+
+  \vspace{\baselineskip}
+
+  Doesn't MySQLdb's dual licensing violate libmysql's GPL
+  license?
+
+}
+
+
+\frame{
+
+  \frametitle{libmysql}
+
+  MySQL FLOSS License Exception:
+  \begin{quote}We want specified Free/Libre and Open Source Software (``FLOSS'')
+    applications to be able to use specified GPL-licensed MySQL client
+    libraries (the ``Program'') despite the fact that not all FLOSS
+    licenses are compatible with version 2 of the GNU General Public
+    License (the ``GPL'').
+  \end{quote}
+
+}
+
+
+\frame{
+
+\begin{tikzpicture}
+
+\node [mybox] (box1){%
+    \begin{minipage}{0.80\linewidth}
+      {\bf our program}
+    \end{minipage}
+};
+
+\node [mybox,below=5pt of box1.south] (box2) {%
+    \begin{minipage}[t!]{0.8\linewidth}
+      MySQLdb
+    \end{minipage}
+    };
+\node[fancytitle, rounded corners] at (box2.east) {GPL/MIT$^1$};
+
+\draw [mybox] (box1) -- (box2);
+
+\node [mybox,below=5pt of box2.south] (box3) {%
+    \begin{minipage}[t!]{0.8\linewidth}
+      libmysql
+    \end{minipage}
+    };
+\node[fancytitle, rounded corners] at (box3.east) {GPL$^2$};
+
+\draw [mybox] (box2) -- (box3);
+
+\node [mybox,below=20pt of box3.south] (box4) {%
+    \begin{minipage}[t!]{0.8\linewidth}
+      MySQL Server
+    \end{minipage}
+    };
+\node[fancytitle, rounded corners] at (box4.east) {GPL};
+
+\draw[style=densely dotted] [mybox] (box3) -- (box4);
+
+\end{tikzpicture}
+
+\vspace{\baselineskip}
+
+$^1$ dual-licensed\\
+$^2$ with client exception
 
 }
 
@@ -261,12 +355,19 @@
   \frametitle{Acknowledgements}
 
   Software Licensing Workshop\\
-  {\small NBIC}
+  {\small NBIC, September 8, 2011}
 
   \vspace{\baselineskip}
 
   Maurits Westerik\\
   {\small Bird\&Bird}
+
+  \vspace{\baselineskip}
+
+  Peter Taschner\\
+  Ivo Fokkema\\
+  Jeroen Laros\\
+  {\small Human Genetics, LUMC}
 
 }
 
