@@ -20,6 +20,8 @@
 
 %\usepackage[amsmath,thmmarks]{ntheorem}
 
+\usepackage{wasysym}
+
 \usepackage{graphics}
 \usepackage{url}
 \usepackage{listings}
@@ -47,7 +49,7 @@
 
 
 \title{Software Licensing\\
-  {\small the GPL in combination with closed source software}}
+  {\footnotesize and the GPL in combination with closed source software}}
 
 \author{Martijn Vermaat}
 \institute{Human Genetics, LUMC}
@@ -62,14 +64,17 @@
 
 \frame{
 
-  \frametitle{Intellectual property (IP) law}
+  \frametitle{IP law}
+
+  Intellectual property (IP) law:
+
+  \vspace{\baselineskip}
 
   \begin{itemize}
-    \item creations of the mind
-    \item for which property rights are recognized
-    \item various fields of law
-    \item exclusive rights
-    \item in some jurisdictions
+    \item applies to creations of the mind
+    \item spans various fields of law
+    \item recognizes exclusive rights
+    \item (in some jurisdictions)
   \end{itemize}
 
 }
@@ -79,6 +84,7 @@
 
   \frametitle{IP rights}
 
+  IP rights include:
   \begin{itemize}
     \item {\bf copyrights}
     \item {\bf patents}
@@ -96,17 +102,20 @@
 
   \frametitle{Copyright}
 
+  A copyright is a set of {\em exclusive} rights that are
   \begin{itemize}
+    \item automatic
     \item free
     \item long-lasting
     \item international
-    \item no formalities
   \end{itemize}
 
-  works that are
+  \vspace{\baselineskip}
+
+  Copyright applies to works that are
   \begin{itemize}
-    \item not copied
     \item the result of creative choices
+    \item not copied
   \end{itemize}
 
 }
@@ -114,14 +123,9 @@
 
 \frame{
 
-  \frametitle{Works protected by copyright}
+  \frametitle{Copyrighted works}
 
-  every original work of authorship, irrespective of its literary or
-  artistic merit. the ideas in the work do not need to be original,
-  but the form of expression must be an original creation of the
-  author.
-
-  examples:
+  Examples of copyrighted works:
   \begin{itemize}
     \item {\bf books}
     \item maps
@@ -131,7 +135,6 @@
     \item photographs
     \item architectural drawings
     \item sound recordings
-    \item motion pictures
     \item computer programs
   \end{itemize}
 
@@ -140,18 +143,17 @@
 
 \frame{
 
-  \frametitle{Rights protected by copyright}
+  \frametitle{Copyrights}
 
+  Rights protected by copyright:
   \begin{itemize}
-    \item reproduction in various forms, such as printed publications or sound recordings
+    \item reproduction in various forms
     \item distribution of copies
     \item public performance
-    \item broadcasting or other communication to the public
+    \item communication to the public
     \item translation into other languages
-    \item adaptation, such as a novel into a screenplay
+    \item adaptation
   \end{itemize}
-
-  duration: at least life of the author plus 50 years (but getting longer)
 
 }
 
@@ -160,18 +162,29 @@
 
   \frametitle{Licensing}
 
-  give others some of your exclusive rights (under certain conditions)
+  All use covered by copyright requires permission
+
+  \vspace{\baselineskip}
+
+  Exclusive rights can be {\em licensed} to others by the copyright owner
 
 }
 
 
 \frame{
 
-  \frametitle{Open Source}
+  \frametitle{Software licenses}
 
-  Permissive licenses
+  Proprietary licenses
 
-  Copyleft licenses
+  \vspace{\baselineskip}
+
+  Free and open source licenses
+
+  \begin{itemize}
+    \item permissive licenses
+    \item copyleft licenses
+  \end{itemize}
 
 }
 
@@ -179,6 +192,14 @@
 \frame{
 
   \frametitle{MIT license}
+
+  Permissive license
+
+  \vspace{\baselineskip}
+
+  Similar to 2-clause BSD license
+
+  \vspace{\baselineskip}
 
   Not public domain!
 
@@ -189,8 +210,40 @@
 
   \frametitle{GNU General Public License}
 
-  The GNU General Public License is a free, copyleft license for
-  software and other kinds of works.
+  Copyleft license
+
+  \vspace{\baselineskip}
+
+  Most widely used free software license
+
+  \vspace{\baselineskip}
+
+  Clever use of copyright law
+
+  \vspace{\baselineskip}
+
+  Derivative works of code under the GPL must themselves be under the GPL
+
+}
+
+
+\frame{
+
+  \frametitle{Derivative works}
+
+  What is a derivative work?
+
+  \vspace{\baselineskip}
+
+  \begin{enumerate}
+    \item a modified version of the original program
+    \item code that calls the original program via \texttt{fork} and \texttt{exec}
+    \item code that is linked with the original program (read: library)
+  \end{enumerate}
+
+  \vspace{\baselineskip}
+
+  \uncover<2->{1. yes} $\qquad$ \uncover<3->{2. no} $\qquad$ \uncover<4->{3. maybe}
 
 }
 
@@ -207,6 +260,7 @@
     \item MySQL (client and server) is GPL-licensed
     \item Python MySQLdb library is GPL-licensed
     \item MySQLdb uses libmysql (part of MySQL)
+    \item MySQLdb is linked {\em dynamically}
   \end{itemize}
 
 }
@@ -262,7 +316,7 @@
 
   \begin{itemize}
     \item Most Linux distributions say GPL
-    \item Sourceforge project page says ``GNU General Public License
+    \item SF project page says ``GNU General Public License
       (GPL), Python License (CNRI Python License), Zope Public License''
     \item Source code says ``GPL or the original license based on Python
       1.5.2's license''
@@ -276,14 +330,62 @@
 
 \frame{
 
+\begin{tikzpicture}
+
+\node [mybox] (box1){%
+    \begin{minipage}{0.80\linewidth}
+      {\bf our program}
+    \end{minipage}
+};
+
+\node [mybox,below=5pt of box1.south] (box2) {%
+    \begin{minipage}[t!]{0.8\linewidth}
+      MySQLdb
+    \end{minipage}
+    };
+\node[fancytitle, rounded corners] at (box2.east) {GPL/MIT$^1$};
+
+\draw [mybox] (box1) -- (box2);
+
+\node [mybox,below=5pt of box2.south] (box3) {%
+    \begin{minipage}[t!]{0.8\linewidth}
+      libmysql
+    \end{minipage}
+    };
+\node[fancytitle, rounded corners] at (box3.east) {GPL};
+
+\draw [mybox] (box2) -- (box3);
+
+\node [mybox,below=20pt of box3.south] (box4) {%
+    \begin{minipage}[t!]{0.8\linewidth}
+      MySQL Server
+    \end{minipage}
+    };
+\node[fancytitle, rounded corners] at (box4.east) {GPL};
+
+\draw[style=densely dotted] [mybox] (box3) -- (box4);
+
+\end{tikzpicture}
+
+\vspace{\baselineskip}
+
+$^1$ dual-licensed
+
+}
+
+
+\frame{
+
   \frametitle{GPL violation?}
 
-  MySQLdb links to libmysql (GPL)
+  \begin{enumerate}
+    \item MySQLdb licensed under MIT-like license
+    \item MySQLdb links to libmysql (GPL-licensed)
+  \end{enumerate}
 
   \vspace{\baselineskip}
 
-  Doesn't MySQLdb's dual licensing violate libmysql's GPL
-  license?
+  1 + 2 = GPL violation
 
 }
 
@@ -292,12 +394,18 @@
 
   \frametitle{libmysql}
 
-  MySQL FLOSS License Exception:
-  \begin{quote}We want specified Free/Libre and Open Source Software (``FLOSS'')
-    applications to be able to use specified GPL-licensed MySQL client
-    libraries (the ``Program'') despite the fact that not all FLOSS
-    licenses are compatible with version 2 of the GNU General Public
-    License (the ``GPL'').
+  MySQL FLOSS License Exception
+
+  \vspace{\baselineskip}
+
+  Included as file \texttt{EXCEPTIONS-CLIENT}
+
+  \vspace{\baselineskip}
+
+  Rationale:
+  \begin{quote}
+    We want specified [open source software] to be able to
+    use specified GPL-licensed MySQL client libraries [\ldots]
   \end{quote}
 
 }
@@ -312,6 +420,71 @@
       {\bf our program}
     \end{minipage}
 };
+
+\node [mybox,below=5pt of box1.south] (box2) {%
+    \begin{minipage}[t!]{0.8\linewidth}
+      MySQLdb
+    \end{minipage}
+    };
+\node[fancytitle, rounded corners] at (box2.east) {GPL/MIT$^1$};
+
+\draw [mybox] (box1) -- (box2);
+
+\node [mybox,below=5pt of box2.south] (box3) {%
+    \begin{minipage}[t!]{0.8\linewidth}
+      libmysql
+    \end{minipage}
+    };
+\node[fancytitle, rounded corners] at (box3.east) {GPL$^2$};
+
+\draw [mybox] (box2) -- (box3);
+
+\node [mybox,below=20pt of box3.south] (box4) {%
+    \begin{minipage}[t!]{0.8\linewidth}
+      MySQL Server
+    \end{minipage}
+    };
+\node[fancytitle, rounded corners] at (box4.east) {GPL};
+
+\draw[style=densely dotted] [mybox] (box3) -- (box4);
+
+\end{tikzpicture}
+
+\vspace{\baselineskip}
+
+$^1$ dual-licensed\\
+$^2$ with client exception
+
+}
+
+
+\frame{
+
+  \frametitle{PEP 249}
+
+  MySQLdb implements PEP 249 (Python Database API spec)
+
+  \vspace{\baselineskip}
+
+  Interchangeable with other implementations
+
+  \vspace{\baselineskip}
+
+  \texttt{import MySQLdb} $\quad \Rightarrow \quad$ \texttt{import drizzle}
+
+}
+
+
+\frame{
+
+\begin{tikzpicture}
+
+\node [mybox] (box1){%
+    \begin{minipage}{0.80\linewidth}
+      {\bf our program}
+    \end{minipage}
+};
+\node[fancytitle, rounded corners] at (box1.east) {$\blacksmiley$};
 
 \node [mybox,below=5pt of box1.south] (box2) {%
     \begin{minipage}[t!]{0.8\linewidth}
