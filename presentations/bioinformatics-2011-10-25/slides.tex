@@ -16,7 +16,7 @@
 %\usepackage{cmbright}
 \usepackage{qtxmath}
 %\usepackage{kpfonts}
-%\renewcommand{\ttdefault}{txtt}
+\renewcommand{\ttdefault}{txtt}
 
 %\usepackage[amsmath,thmmarks]{ntheorem}
 
@@ -60,6 +60,18 @@
 
 
 \frame{\titlepage}
+
+
+\frame{
+
+  \frametitle{Software Licensing}
+
+  \tableofcontents
+
+}
+
+
+\section{Software copyright}
 
 
 \frame{
@@ -158,6 +170,18 @@
 }
 
 
+\section{Software licensing}
+
+
+\frame{
+
+  \frametitle{Software Licensing}
+
+  \tableofcontents[currentsection]
+
+}
+
+
 \frame{
 
   \frametitle{Licensing}
@@ -193,36 +217,32 @@
 
   \frametitle{MIT license}
 
-  Permissive license
+  Example: MIT license
 
   \vspace{\baselineskip}
 
-  Similar to 2-clause BSD license
-
-  \vspace{\baselineskip}
-
-  Not public domain!
+  \begin{itemize}
+    \item Permissive license
+    \item Similar to 2-clause BSD license
+    \item Not public domain!
+  \end{itemize}
 
 }
 
 
 \frame{
 
-  \frametitle{GNU General Public License}
+  \frametitle{GPL}
 
-  Copyleft license
-
-  \vspace{\baselineskip}
-
-  Most widely used free software license
+  Example: GNU General Public License
 
   \vspace{\baselineskip}
 
-  Clever use of copyright law
-
-  \vspace{\baselineskip}
-
-  Derivative works of code under the GPL must themselves be under the GPL
+  \begin{itemize}
+    \item Copyleft license
+    \item Most widely used free software license
+    \item {\em Derivative works} of code under the GPL must themselves be under the GPL
+  \end{itemize}
 
 }
 
@@ -248,11 +268,23 @@
 }
 
 
+\section{Case study: Python and MySQL}
+
+
 \frame{
 
-  \frametitle{MySQLdb}
+  \frametitle{Software Licensing}
 
-  Case study: using MySQL from a Python program
+  \tableofcontents[currentsection]
+
+}
+
+
+\frame{
+
+  \frametitle{Python and MySQL}
+
+  Using MySQL from a Python program
 
   \vspace{\baselineskip}
 
@@ -260,7 +292,7 @@
     \item MySQL (client and server) is GPL-licensed
     \item Python MySQLdb library is GPL-licensed
     \item MySQLdb uses libmysql (part of MySQL)
-    \item MySQLdb is linked {\em dynamically}
+    \item (MySQLdb is linked {\em dynamically})
   \end{itemize}
 
 }
@@ -272,7 +304,7 @@
 
 \node [mybox] (box1){%
     \begin{minipage}{0.80\linewidth}
-      {\bf our program: $\quad$ \texttt{import MySQLdb}}
+      {\bf our program:} $\quad$ \texttt{import MySQLdb}
     \end{minipage}
 };
 
@@ -334,7 +366,7 @@
 
 \node [mybox] (box1){%
     \begin{minipage}{0.80\linewidth}
-      {\bf our program: $\quad$ \texttt{import MySQLdb}}
+      {\bf our program:} $\quad$ \texttt{import MySQLdb}
     \end{minipage}
 };
 
@@ -417,7 +449,7 @@ $^1$ dual-licensed
 
 \node [mybox] (box1){%
     \begin{minipage}{0.80\linewidth}
-      {\bf our program: $\quad$ \texttt{import MySQLdb}}
+      {\bf our program:} $\quad$ \texttt{import MySQLdb}
     \end{minipage}
 };
 
@@ -481,7 +513,7 @@ $^2$ with client exception
 
 \node [mybox] (box1){%
     \begin{minipage}{0.80\linewidth}
-      {\bf our program: $\quad$ \texttt{import MySQLdb}}
+      {\bf our program:} $\quad$ \texttt{import MySQLdb}
     \end{minipage}
 };
 \node[fancytitle, rounded corners] at (box1.east) {$\blacksmiley$};
@@ -519,6 +551,159 @@ $^2$ with client exception
 
 $^1$ dual-licensed\\
 $^2$ with client exception
+
+}
+
+
+\section{Case study: PHP and MySQL}
+
+
+\frame{
+
+  \frametitle{Software Licensing}
+
+  \tableofcontents[currentsection]
+
+}
+
+
+\frame{
+
+  \frametitle{PHP and MySQL}
+
+  Using MySQL from a PHP program
+
+  \vspace{\baselineskip}
+
+  \begin{itemize}
+    \item MySQL (client and server) is GPL-licensed
+    \item Several PHP interfaces to MySQL exist
+    \item These interfaces use libmysql (part of MySQL)
+    \item (And they are linked {\em dynamically})
+  \end{itemize}
+
+}
+
+
+\frame{
+
+\begin{tikzpicture}
+
+\node [mybox] (box1){%
+    \begin{minipage}{0.80\linewidth}
+      {\bf our program:} $\quad$ {\small \texttt{mysql\_connect(\ldots);}}
+    \end{minipage}
+};
+
+\node [mybox,below=5pt of box1.south] (box2) {%
+    \begin{minipage}[t!]{0.8\linewidth}
+      mysql / mysqli / PDO
+    \end{minipage}
+    };
+\node[fancytitle, rounded corners] at (box2.east) {PHP License};
+
+\draw [mybox] (box1) -- (box2);
+
+\node [mybox,below=5pt of box2.south] (box3) {%
+    \begin{minipage}[t!]{0.8\linewidth}
+      libmysql
+    \end{minipage}
+    };
+\node[fancytitle, rounded corners] at (box3.east) {GPL$^1$};
+
+\draw [mybox] (box2) -- (box3);
+
+\node [mybox,below=20pt of box3.south] (box4) {%
+    \begin{minipage}[t!]{0.8\linewidth}
+      MySQL Server
+    \end{minipage}
+    };
+\node[fancytitle, rounded corners] at (box4.east) {GPL};
+
+\draw[style=densely dotted] [mybox] (box3) -- (box4);
+
+\end{tikzpicture}
+
+\vspace{\baselineskip}
+
+$^1$ with client exception
+
+}
+
+
+\frame{
+
+  \frametitle{MySQL Native Driver}
+
+  Replacement for libmysql
+
+  \vspace{\baselineskip}
+
+  Under PHP License
+
+  \vspace{\baselineskip}
+
+  Our program can function without libmysql
+
+}
+
+
+\frame{
+
+\begin{tikzpicture}
+
+\node [mybox] (box1){%
+    \begin{minipage}{0.80\linewidth}
+      {\bf our program:} $\quad$ {\small \texttt{mysql\_connect(\ldots);}}
+    \end{minipage}
+};
+\node[fancytitle, rounded corners] at (box1.east) {$\blacksmiley$};
+
+\node [mybox,below=5pt of box1.south] (box2) {%
+    \begin{minipage}[t!]{0.8\linewidth}
+      mysql / mysqli / PDO
+    \end{minipage}
+    };
+\node[fancytitle, rounded corners] at (box2.east) {PHP License};
+
+\draw [mybox] (box1) -- (box2);
+
+\node [mybox,below=5pt of box2.south] (box3) {%
+    \begin{minipage}[t!]{0.8\linewidth}
+      MySQL Native Driver
+    \end{minipage}
+    };
+\node[fancytitle, rounded corners] at (box3.east) {PHP License};
+
+\draw [mybox] (box2) -- (box3);
+
+\node [mybox,below=20pt of box3.south] (box4) {%
+    \begin{minipage}[t!]{0.8\linewidth}
+      MySQL Server
+    \end{minipage}
+    };
+\node[fancytitle, rounded corners] at (box4.east) {GPL};
+
+\draw[style=densely dotted] [mybox] (box3) -- (box4);
+
+\end{tikzpicture}
+
+}
+
+
+\frame{
+
+  \frametitle{Conclusion}
+
+  Don't ignore software licensing
+
+  \vspace{\baselineskip}
+
+  \begin{itemize}
+    \item choose licenses for your software wisely
+    \item make the licensing of your software clear
+    \item study the licenses of software you use
+  \end{itemize}
 
 }
 
