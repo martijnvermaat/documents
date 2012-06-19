@@ -1,0 +1,80 @@
+\documentclass[slidestop]{beamer}
+
+\usepackage[english]{babel}
+
+\title{Dutch Variant Database: design and implementation}
+\providecommand{\myConference}{Lab-J work discussion}
+\providecommand{\myDate}{Wednesday, 20 June 2012}
+\author{Martijn Vermaat}
+\providecommand{\myGroup}{}
+\providecommand{\myDepartment}{Department of Human Genetics}
+\providecommand{\myCenter}{Center for Human and Clinical Genetics}
+\providecommand{\lastCenterLogo}{
+%  \raisebox{-0.1cm}{
+%    \includegraphics[height = 1cm]{lgtc_logo}
+%  }
+}
+\providecommand{\lastRightLogo}{
+  \includegraphics[height = 0.7cm]{nbic_logo}
+  %\includegraphics[height = 0.8cm]{nwo_logo_en}
+}
+
+\usetheme{lumc}
+
+\begin{document}
+
+% This disables the \pause command, handy in the editing phase.
+%\renewcommand{\pause}{}
+
+% Make the title page.
+\bodytemplate
+
+% First page of the presentation.
+\section{Introduction}
+\begin{frame}
+ \frametitle{Title of this frame.}
+ First line.
+
+ \pause
+
+ Second line.
+\end{frame}
+
+\section{Topic2}
+\begin{frame}
+  \begin{itemize}
+    \item Item 1.
+    \item Item 2.
+    \pause
+    \item Item 3.
+    \pause
+    \begin{itemize}
+      \item Subitem 1.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  The second slide in the same section.
+\end{frame}
+
+\begin{frame}[fragile]
+  And an example of displaying code, mind the [fragile] option.
+
+  \begin{lstlisting}[caption = {Example input}]
+    print "Hello"
+  \end{lstlisting}
+\end{frame}
+
+\section{Questions?}
+\lastpagetemplate
+\begin{frame}
+  \begin{center}
+    Acknowledgements:
+    \bigskip
+    \bigskip
+
+  \end{center}
+\end{frame}
+
+\end{document}
