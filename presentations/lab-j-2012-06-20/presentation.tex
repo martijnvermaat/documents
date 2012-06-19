@@ -29,41 +29,205 @@
 % Make the title page.
 \bodytemplate
 
-% First page of the presentation.
 \section{Introduction}
+
 \begin{frame}
- \frametitle{Title of this frame.}
- First line.
-
- \pause
-
- Second line.
+ \frametitle{Dutch Variant Database}
+ Or: Diagnostic Variant Database
 \end{frame}
 
-\section{Topic2}
 \begin{frame}
+  \frametitle{Dutch Variant Database}
   \begin{itemize}
-    \item Item 1.
-    \item Item 2.
-    \pause
-    \item Item 3.
-    \pause
-    \begin{itemize}
-      \item Subitem 1.
-    \end{itemize}
+    \item What: Human genomic variant database
+    \item Why: Share variants detected in NGS
+    \item Who: LUMC, UMCU, UMCN, UMCG
+    \item How: Using is sharing
+  \end{itemize}
+\end{frame}
+
+\section{Data model}
+
+\begin{frame}
+  \frametitle{Variants}
+  Agree on one reference genome (hg19)
+  \begin{itemize}
+    \item Read from a VCF file
+    \item SNPs and small INDELs
+    \item Genomic location
+    \item Reference sequence
+    \item Variant sequence
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  The second slide in the same section.
+  \frametitle{Coverage}
+  To distinguish true negatives from false negatives
+  \begin{itemize}
+    \item Read from a BED file
+    \item Derived from coverage profile (WIGGLE track)
+    \item Regions with sufficient coverage
+  \end{itemize}
+  % Todo: picture of WIG and BED track
 \end{frame}
 
-\begin{frame}[fragile]
-  And an example of displaying code, mind the [fragile] option.
+\begin{frame}
+  \frametitle{Pooled samples}
+  Some samples can only be shared anonymized
+  \begin{itemize}
+    \item Merge VCF files into one (sorted) VCF file
+    \item Keep all coverage tracks
+    \item Frequency information can still be calculated
+  \end{itemize}
+\end{frame}
 
-  \begin{lstlisting}[caption = {Example input}]
-    print "Hello"
-  \end{lstlisting}
+\begin{frame}
+  DATA MODEL
+\end{frame}
+
+\section{Using is sharing}
+
+\begin{frame}
+  \frametitle{Sample import {\em and} annotation}
+  \begin{enumerate}
+    \item Send to the server:
+      \begin{itemize}
+        \item VCF file with variants
+        \item BED file with regions of sufficient coverage
+      \end{itemize}
+    \item Server annotates variants with frequencies
+    \item Download annotation from server
+    \item Server imports variants
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sample re-annotating}
+  \begin{enumerate}
+    \item Send to the server:
+      \begin{itemize}
+        \item VCF file with variants
+        \item BED file with regions of sufficient coverage
+      \end{itemize}
+    \item {\bf Server calculates sample checksum H}
+    \item Server annotates variants with frequencies {\bf skipping H}
+    \item Download annotation from server
+    \item Server imports variants {\bf if H is new}
+  \end{enumerate}
+\end{frame}
+
+\section{Implementation}
+
+\begin{frame}
+  \frametitle{Server and client model}
+  Central server:
+  \begin{enumerate}
+    \item MySQL database
+    \item SOAP webservice
+    \item Implemented in Python
+    \item Open Source (AGPL)
+  \end{enumerate}
+  User clients:
+  \begin{enumerate}
+    \item Example implementation available
+    \item Conversion from WIG to BED is done locally
+    \item Any language speaking SOAP possible
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Security and privacy}
+  Sensitive data
+  \begin{enumerate}
+    \item Pooling of samples
+    \item Only registered users have access
+    \item Server-client communication is encrypted
+    \item Only bcrypt hash of passwords stored
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{VCF format}
+  The VCF file format is more complex than you might think
+  \begin{itemize}
+    \item Plain text file with tab-separated columns
+    \item Chromosome, position, reference, variant columns
+    \item INFO and FORMAT columns
+    \item Described in the header
+    \item DP4
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{PyVCF}
+  PyVCF is a Python library for reading VCF files
+  \begin{itemize}
+    \item Deals with all VCF files
+    \item Fast
+    \item Being incorporated into BioPython
+  \end{itemize}
+\end{frame}
+
+\section{Efficient querying}
+
+\begin{frame}
+  \frametitle{How indices work}
+  Consider a table with 3 columns: first name, last name, phone number
+  \begin{itemize}
+    \item Search on any of the columns, efficiently
+    \item Solution 1: sort the table
+    \item Solution 2: have a separate sorted list of some column(s) with pointers to the table
+    \item This is an index
+    \item Usually implemented as e.g. B-trees
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{When indices don't work}
+  Consider a table with 3 columns: gene name, start position, end position
+  \begin{itemize}
+    \item Search for any genes contained in some region, efficiently
+    \item Try:
+      \begin{enumerate}
+        \item First find genes with start position greater than region start
+        \item In this set, find genes with with end position smaller than region end
+        \item The second part is hard
+      \end{enumerate}
+    \item Simple indices won't help
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Spatial search}
+  Searching things contained in some region is an example of a spatial search
+  \begin{itemize}
+    \item Or: what restaurants are nearby?
+    \item Solution: UCSC binning scheme
+    \item Essentially the same as R-trees
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{UCSC binning scheme: setup}
+  Divide genome into bins where for any two, either:
+  \begin{enumerate}
+    \item one is contained in the other, or
+    \item they are non-overlapping
+  \end{enumerate}
+  A gene gets assigned the smalles bin in which it fits
+
+  BINNING PICTURE
+\end{frame}
+
+\begin{frame}
+  \frametitle{UCSC binning scheme: spatial search}
+  Consider a table with 4 columns: gene name, start position, end position, bin
+  \begin{itemize}
+    \item Search for any genes contained in some region, efficiently
+    \item Calculate bins overlapping the region
+    \item Find genes in these bins
+    \item In this set, filter on start and end positions
+  \end{itemize}
 \end{frame}
 
 \section{Questions?}
