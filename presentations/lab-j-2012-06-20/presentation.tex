@@ -187,7 +187,7 @@
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{VCF format}
+  \frametitle{VCF format example}
   {\tiny
   \begin{verbatim}
 ##fileformat=VCFv4.0
@@ -207,12 +207,12 @@
 ##FORMAT=<ID=GQ,Number=1,Type=Integer,Description=''Genotype Quality''>
 ##FORMAT=<ID=DP,Number=1,Type=Integer,Description=''Read Depth''>
 ##FORMAT=<ID=HQ,Number=2,Type=Integer,Description=''Haplotype Quality''>
-#CHROM POS ID REF ALT QUAL FILTER INFO FORMAT NA00001 NA00002 NA00003
-20 14370 rs6054257 G A 29 PASS NS=3;DP=14;AF=0.5;DB;H2 GT:GQ:DP:HQ 0|0:48:1:51,511|0:48:8:51,511/1:43:5:.,.
-20 17330 . T A 30 q10 NS=3;DP=11;AF=0.017 GT:GQ:DP:HQ 0|0:49:3:58,500|1:3:5:65,30/0:41:3
-20 1110696 rs6040355 A G,T 29 PASS NS=2;DP=10;AF=0.333,0.667;AA=T;DB GT:GQ:DP:HQ 1|2:21:6:23,272|1:2:0:18,22/2:35:4
-20 1230237 . T . 47 PASSNS=3;DP=13;AA=T GT:GQ:DP:HQ 0|0:54:7:56,600|0:48:4:51,510/0:61:2
-20 1234567 microsat1 GTCT G,GTACT . PASS NS=3;DP=9;AA=G GT:GQ:DP ./.:35:40/2:17:21/1:40:3
+#CHROM POS ID        REF  ALT   QUAL FILTER INFO                  FORMAT NA00001 NA00002 NA00003
+20   14370 rs6054257 G    A       29 PASS NS=3;DP=14;AF=0.5;DB;H2 GT:GQ:DP:HQ 0|0:48:1:51,511|0:48:8:51,511/1:43:5:.,.
+20   17330 .         T    A       30 q10  NS=3;DP=11;AF=0.017     GT:GQ:DP:HQ 0|0:49:3:58,500|1:3:5:65,30/0:41:3
+20 1110696 rs6040355 A    G,T     29 PASS NS=2;DP=10;AF=0.333,0.667;AA=T;DB GT:GQ:DP:HQ 1|2:21:6:23,272|1:2:0:18,22/2:35:4
+20 1230237 .         T    .       47 PASS NS=3;DP=13;AA=T         GT:GQ:DP:HQ 0|0:54:7:56,600|0:48:4:51,510/0:61:2
+20 1234567 microsat1 GTCT G,GTACT  . PASS NS=3;DP=9;AA=G          GT:GQ:DP    ./.:35:40/2:17:21/1:40:3
   \end{verbatim}}
 \end{frame}
 
