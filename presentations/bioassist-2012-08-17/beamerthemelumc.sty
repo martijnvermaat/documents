@@ -202,5 +202,19 @@
   }
 }
 
+\providecommand{\extrapagetemplate}{
+  % The header of the body.
+  \setbeamertemplate{headline}{
+    \colorbox{white}{\color{LUMCBlue}
+      \begin{tabularx}{0.98\textwidth}{ll}
+        \includegraphics[scale = 0.25]{lumc_logo_small} &
+        \hspace{0.8cm}    % Space between the logo and the title of the section.
+        {\normalsize {\bf \insertsection}}
+        \raisebox{0.9cm}{\phantom{.}}
+      \end{tabularx}
+    }
+  }
+}
+
 \mode
 <all>
