@@ -1,0 +1,293 @@
+\documentclass{beamer}
+
+\usepackage[english]{babel}
+
+\usepackage[latin1]{inputenc}
+
+\usepackage[T1]{fontenc}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+%\usepackage{tgtermes}
+\usepackage{tgheros}
+%\usepackage{cmbright}
+\usepackage{qtxmath}
+%\usepackage{kpfonts}
+\renewcommand{\ttdefault}{txtt}
+
+%\usepackage[amsmath,thmmarks]{ntheorem}
+
+\usepackage{beamerthemesplit}
+
+\setbeamertemplate{background canvas}[vertical shading][bottom=red!10,top=blue!10]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\usetheme{Warsaw}
+\useinnertheme{rectangles}
+
+\colorlet{darkred}{red!80!black}
+\colorlet{darkblue}{blue!80!black}
+\colorlet{darkgreen}{green!80!black}
+
+\title{SVEP: A sequence variant effect predictor}
+
+\author{Martijn Vermaat}
+\institute{Human Genetics, LUMC}
+\date{Bioinformaticians work discussion January 3, 2011}
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+\frame{
+
+  \frametitle{SVEP: A sequence variant effect predictor}
+
+  \tableofcontents
+
+}
+
+
+\section{Context}
+
+
+\frame{
+
+  \frametitle{SVEP: A sequence variant effect predictor}
+
+  \tableofcontents[currentsection]
+
+}
+
+
+\frame{
+
+  \frametitle{Effect prediction for variants}
+
+  Identify or predict:
+  \begin{itemize}
+    \item Splice sites
+    \item Exonic splicing enhancers
+    \item Branch points
+    \item Transcription factor binding sites
+    \item Protein level changes
+    \item $\ldots$
+  \end{itemize}
+
+  \vskip10pt
+
+  \pause
+
+  Many tools exist:
+  \begin{itemize}
+    \item Online, for local installation, or both
+    \item Different models and algorithms
+    \item Different input/output formats
+    \item Different use cases (with overlap)
+    \item $\ldots$
+  \end{itemize}
+
+}
+
+
+\frame{
+
+  \frametitle{Problems}
+
+  Problems with using these tools:
+  \begin{itemize}
+    \item Which tools exist?
+    \item Where are they?
+    \item Which tools should I use?
+    \item How can I compare tool results?
+    \item $\ldots$
+  \end{itemize}
+
+  \vskip10pt
+
+  \pause
+
+  \begin{block}{Short version}
+    It takes a lot of time.
+  \end{block}
+
+}
+
+
+\section{SVEP}
+
+
+\frame{
+
+  \frametitle{SVEP: A sequence variant effect predictor}
+
+  \tableofcontents[currentsection]
+
+}
+
+
+\frame{
+
+  \frametitle{SVEP: A sequence variant effect predictor}
+
+  \begin{block}{Basic idea}
+    We want to automate:
+    \begin{enumerate}
+      \item Deciding which tools are interesting
+      \item Running these tools
+      \item Analysing their results
+      \item Drawing conclusions
+    \end{enumerate}
+  \end{block}
+
+}
+
+
+\frame{
+
+  \frametitle{1: Deciding which tools are interesting}
+
+  \begin{block}{Might be a recursive process}
+    \begin{enumerate}
+      \item Choose tool(s) to run
+      \item Run tool(s)
+      \item Goto \textbf{1}
+    \end{enumerate}
+  \end{block}
+
+  \vskip10pt
+
+  \pause
+
+  Based on
+  \begin{itemize}
+    \item heuristics from biologists
+    \item statistics from results with a test set
+    \item static tool properties (organism, \# base pairs, etc)
+  \end{itemize}
+  we can assign weights to all tools.\\[1em]
+
+  \pause
+
+  Basically: construct a decision tree.
+
+}
+
+
+\frame{
+
+  \frametitle{2: Running these tools}
+
+  Interface with:
+  \begin{itemize}
+    \item Webservices (preferably)
+    \item Websites (HTML scraping results)
+    \item Locally running tools
+  \end{itemize}
+
+  \vskip10pt
+
+  \pause
+
+  We have to deal with:
+  \begin{itemize}
+    \item Long (or very long) running tools
+    \item Failing tools
+    \item Tool limitations
+  \end{itemize}
+
+}
+
+
+\frame{
+
+  \frametitle{3: Analysing their results}
+
+  \begin{itemize}
+    \item Normalize
+    \item Compare
+    \item Present
+    \item $\ldots$
+  \end{itemize}
+
+}
+
+
+\frame{
+
+  \frametitle{4: Drawing conclusions}
+
+  (Needs input from biologists.)
+
+}
+
+
+\section{Implementation}
+
+
+\frame{
+
+  \frametitle{SVEP: A sequence variant effect predictor}
+
+  \tableofcontents[currentsection]
+
+}
+
+
+\frame{
+
+  \frametitle{Existing SVEP implementation}
+
+  By Tessa Dorival (2007) and Miranda ter Laak (2009).
+
+  \vskip10pt
+
+  Written in Python with a frontend in PHP.
+
+  \vskip10pt
+
+  \begin{itemize}
+    \item Interfaces $\approx 10$ tools by HTML scraping
+    \item Runs all tools sequentially
+    \item Does not use Mutalyzer
+    \item Unfinished
+  \end{itemize}
+
+}
+
+
+\frame{
+
+  \frametitle{New SVEP implementation}
+
+  Mostly a rewrite by me (December) in Python.
+
+  \vskip10pt
+
+  \begin{itemize}
+    \item Interfaces $\approx 14$ tools by HTML scraping and SOAP
+    \item Runs tools in parallel
+    \item Stores processed tool results
+    \item Unfinished
+  \end{itemize}
+
+  \vskip10pt
+
+  \pause
+
+  Run many jobs and store heterogeneous data:
+  \begin{itemize}
+    \item gevent: micro threads on top of libevent
+    \item MongoDB: high-performance schema-less document store
+  \end{itemize}
+
+}
+
+
+\end{document}
