@@ -1,0 +1,121 @@
+\documentclass[slidestop]{beamer}
+
+\usepackage[english]{babel}
+
+\title{Diagnostic Variant Database:\\ design and implementation}
+\providecommand{\myConference}{BioAssist programmers meeting}
+\providecommand{\myDate}{Friday, 17 August 2012}
+\author{Martijn Vermaat}
+\providecommand{\myGroup}{}
+\providecommand{\myDepartment}{Department of Human Genetics}
+\providecommand{\myCenter}{Center for Human and Clinical Genetics}
+\providecommand{\lastCenterLogo}{
+%  \raisebox{-0.1cm}{
+%    \includegraphics[height = 1cm]{lgtc_logo}
+%  }
+}
+\providecommand{\lastRightLogo}{
+  \includegraphics[height = 0.7cm]{nbic_logo}
+  %\includegraphics[height = 0.8cm]{nwo_logo_en}
+}
+
+\usetheme{lumc}
+
+\begin{document}
+
+% This disables the \pause command, handy in the editing phase.
+%\renewcommand{\pause}{}
+
+% Make the title page.
+\bodytemplate
+
+\section{Introduction}
+
+\frame{
+  \frametitle{Diagnostic Variant Database}
+  \tableofcontents
+}
+
+\section*{\tiny{\texttt{https://twitter.com/ianholmes/status/288689712636493824}}}
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{
+    \parbox[c][\paperheight]{\paperwidth}{%
+      \vfill \begin{center}
+      \includegraphics[width=0.9\paperwidth,keepaspectratio=true]{overlyhonestmethods}
+      \end{center} \vfill}
+  }
+  \frame{}
+}
+
+\section*{\tiny{\texttt{http://www.osnews.com/story/19266/WTFs\_m}}}
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{
+    \parbox[c][\paperheight]{\paperwidth}{%
+      \vfill \begin{center}
+      \includegraphics[width=0.55\paperwidth,keepaspectratio=true]{wtfm}
+      \end{center} \vfill}
+  }
+  \frame{}
+}
+
+\section{Using is sharing}
+
+\begin{frame}
+  \frametitle{Sample import {\em and} annotation}
+  \begin{enumerate}
+    \item<1-> Send to the server:
+      \begin{itemize}
+        \item List of variant (VCF file)
+        \item List of covered regions (BED file)
+      \end{itemize}
+    \item<5-> {\bf Server calculates sample checksum H}
+    \item<2-> Server annotates variants with frequencies \uncover<6->{\bf skipping H}
+    \item<3-> Download annotation from server
+    \item<4-> Server imports variants \uncover<7->{\bf if H is new}
+  \end{enumerate}
+\end{frame}
+
+\section{Questions?}
+\lastpagetemplate
+\begin{frame}
+  \begin{center}
+    Acknowledgements:\\
+    \vspace{0.8cm}
+    Jeroen Laros\\
+    Bradley ten Broeke\\
+    Michiel van Galen\\
+    Johan den Dunnen\\
+    \vspace{0.8cm}
+    Leon Mei (NBIC)\\
+    David van Enckevort (NBIC)\\
+    The rest of the DVD team
+  \end{center}
+  \vspace{1cm}
+  {\tiny
+    \begin{enumerate}
+      \item Kent et al. The Human Genome Browser at UCSC. Genome Research 2002.12:996-1006
+      \item PyVCF: \texttt{github.com/jamescasbon/PyVCF}
+      \item DVD: \texttt{trac.nbic.nl/dvd}
+    \end{enumerate}
+  }
+\end{frame}
+
+\section{Extra}
+\extrapagetemplate
+\begin{frame}
+  \frametitle{Spatial search}
+  Alternative solutions?
+  \begin{itemize}
+    \item Assume regions are of limited length
+    \item Assume regions are non-overlapping
+    \item 2-column table: position, coverage
+    \item Split table on chromosome
+    \item Spatial database
+  \end{itemize}
+  \vspace{1cm}
+  All have their downsides
+\end{frame}
+
+\end{document}
