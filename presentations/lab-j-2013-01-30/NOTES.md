@@ -79,6 +79,47 @@ the world to see."
 
 Code descriptions are ambiguous.
 
+http://scofield.bx.psu.edu/~dannon/encodevm/
+
+As part of the supplementary material for this paper, we have established a
+virtual machine instance of the software, using the code bundles from
+ftp.ebi.ac.uk/pub/databases/ensembl/encode/supplementary/, where each analysis
+program has been tested and run.
+
+Where possible the VM enables complete reproduction of the analysis as it was
+performed to generate the figures, tables or other information.
+
+
+Incentives for good software practices in academia
+--------------------------------------------------
+
+http://www.bendmorris.com/2012/12/what-incentives-are-there-to-maintain.html
+
+Time spent on software development that doesn't result in widely-recognized
+deliverables such as publications or grants is essentially time wasted, and
+will be inversely correlated with your chances of success as an academic.
+
+Changing attitudes in academia to value software as much as (or more than)
+publications. It's all about reputation.
+
+http://www.galter.northwestern.edu/news/index.cfm/2012/10/9/Datasets-Software-Eligible-for-Listing-in-NSF-Biosketches
+
+This week, the National Science Foundation announced changes to its grant
+proposal guide (GPG). One of the changes is the acknowledgement of datasets,
+patents, software, and copyrights as citable products of research, eligible
+for inclusion in a researcher's biosketch.
+
+The editors of Bioinformatics encourage authors to make their source code
+available and, if possible, to provide access through an open source license
+(see http://www.opensource.org for examples). Authors should make every effort
+to use URLs that will remain stable. At the minimum, authors must provide one
+of: webserver, source code or binary.
+
+http://www.slideshare.net/jandot/b-temperton-the-bioinformatics-testing-consortium
+http://biotest.cgrb.oregonstate.edu/
+http://bytesizebio.net/wp-content/uploads/2012/08/btc.png
+https://twitter.com/luispedrocoelho/status/238632048313647104
+
 
 In silico research in the era of cloud computing
 ------------------------------------------------
@@ -162,58 +203,168 @@ http://jrjohansson.github.com/
 IPython Notebook.
 
 
+The Ten Commandments of Scientific Coding
+-----------------------------------------
+
 1. Thou shall use version control.
-----------------------------------
 
-Reproducability, go back to computation of previous results.
+   - Keeping track (files, versions, changes)
+   - Collaborating
 
-Source code, input data sets, instructions, Makefile, result data
-sets.
+   Reproducability, go back to computation of previous results.
+
+   Source code, input data sets, instructions, Makefile, result data
+   sets.
 
 
 2. Thou shall comment thy code.
--------------------------------
 
 
 3. Thou shall use existing libraries whenever possible.
--------------------------------------------------------
 
-This can conflict with commandment 1.
+   This can conflict with commandment 1.
+
+   Also see commandment 9.
 
 
 4. Thou shall try to unit test.
--------------------------------
 
-Regression testing.
-Automated.
+   Regression testing.
+   Automated.
 
 
 5. Thou shall not make up statistical procedures.
--------------------------------------------------
 
 
 6. Thou shall read code other than thy own.
--------------------------------------------
+
+   Tunnel vision.
+
+   Researchers also read literature.
 
 
 7. Thou shall write documentation.
-----------------------------------
+
+   For users and for developers.
 
 
 8. Thou shall beware of floating point issues.
-----------------------------------------------
 
 
 9. Thou shall write modular code.
----------------------------------
 
-Extreme would be Taverna.
+   Extreme would be Taverna.
+
+   Re-use.
 
 
 10. Thou shall follow coding standards.
----------------------------------------
 
 
+Ten Simple Rules for the Open Development of Scientific Software
+----------------------------------------------------------------
+
+1. Don't Reinvent the Wheel
+2. Code Well
+3. Be Your Own User
+4. Be Transparent
+5. Be Simple
+6. Don't Be a Perfectionist
+7. Nurture and Grow Your Community
+8. Promote Your Project
+9. Find Sponsors
+10. Science Counts
+
+
+Best Practices for Scientiﬁc Computing
+--------------------------------------
+
+http://arxiv.org/abs/1210.0530
+
+1. Write programs for people, not computers
+   - People: users and developers
+   - Consistent and predictable interface
+   - Coding standards
+
+2. Automate repetitive tasks
+   - Tools to automate workflows
+   - Store commands in a script
+
+3. Use the computer to record history
+
+4. Make incremental changes
+
+5. Use version control
+   - Everything that has been created manually
+
+6. Don't repeat yourself (or others)
+   - Modularize instead of copy/paste
+   - Have a single representation for every piece of data
+   - Re-use instead of rewrite
+
+7. Plan for mistakes
+   - Use assertions
+   - Have unit tests
+   - Turn bugs into test cases
+
+8. Optimize software only after it works correctly
+
+9. Document design and purpose, not mechanics
+   - Interfaces and reasons, not implementations
+   - Refactor rather than explain
+   - Embed the documentation for a piece of software in that software
+
+10. Collaborate
+   - Use code review and pair programming
+   - Pre-merge code reviews (often found to be intrusive)
+   - Tools for issue tracking
+
+"A large body of research has shown that code reviews are the most
+cost-effective way of finding bugs in code"
+
+"recent high-proﬁle retractions, technical comments, and corrections because
+of errors in computational methods include papers in Science [6], PNAS [39],
+the Journal of Molecular Biology [5], Ecology Letters [37, 8], the Journal of
+Mammalogy [33], and Hypertension [26]."
+
+
+Where to host data and code
+---------------------------
+
+http://gettinggeneticsdone.blogspot.nl/2013/01/stop-hosting-data-and-code-on-your-lab.html
+
+Schultheiss, Sebastian J., et al. "Persistence and availability of web
+services in computational biology." PLoS one 6.9 (2011): e24914.
+
+In a survey of nearly 1000 web services published in the Nucleic Acids Web
+Server Issue between 2003 and 2009:
+- Only 72% were still available at the published address.
+- The authors could not test the functionality for 33% because there was no
+  example data, and 13% no longer worked as expected.
+- The authors could only confirm positive functionality for 45%.
+- Only 274 of the 872 corresponding authors answered an email.
+- Of these 78% said a service was developed by a student or temporary
+  researcher, and many had no plan for maintenance after the researcher had
+  moved on to a permanent position.
+
+Wren, Jonathan D. "404 not found: the stability and persistence of URLs
+published in MEDLINE." Bioinformatics 20.5 (2004): 668-672.
+
+- Of 1630 URLs identified in Pubmed abstracts only 63% were consistently
+  available.
+- That rate was far worse for anonymous login FTP sites (33%).
+
+
+Software Carpentry
+------------------
+
+http://software-carpentry.org/
+
+http://software-carpentry.org/files/papers/aranda-assessment-2012-07.pdf
+
+"Most scientists are self-taught programmers, they have fundamental weaknesses
+in their software development expertise, and these weaknesses affect their
+ability to answer their research questions."
 
 
 Links
@@ -236,3 +387,4 @@ http://matt.might.net/articles/crapl/
 https://speakerdeck.com/ptomato/open-and-reproducible-scientific-programming
 http://www.ncbi.nlm.nih.gov/pubmed/16646837
 http://software-carpentry.org/
+http://manu.sporny.org/2011/public-domain-genome/
