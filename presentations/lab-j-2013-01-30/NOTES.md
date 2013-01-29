@@ -1,6 +1,139 @@
 The Ten Commandments of Scientific Coding
 =========================================
 
+- Scientific findings should be:
+  - Replicable (verify the method and result)
+  - Reproducable (verify the result by other means)
+  - Reusable (build on previous results)
+
+- Publish data
+  - "Authors must follow standards and practice for data deposition in
+  publicly available resources including those created for gene sequences,
+  microarray expression, structural studies, and similar kinds of
+  data. Failure to comply with community standards may result in rejection."
+  (PLOS ONE Publication Criteria, http://www.plosone.org/static/publication)
+  - Publish variants
+  - Use data standards (part of certain requirements the data publishing is
+  subject to)
+  (http://www.nature.com/nbt/journal/v28/n11/full/nbt1110-1181.html)
+
+- Publish code
+  - Computational science, results depend on software
+
+- Incentives
+  - "Of the 20 most-cited journals in 2010 from all fields of science (15), only
+  three (16–18) (including Science) have editorial policies requiring
+  availability of computer source code upon publication. This stands in stark
+  contrast to near-universal agreement among the 20 on policies regarding
+  availability of data and other enabling materials."
+  (http://www.sciencemag.org/content/336/6078/159.full)
+  - "[Requiring that source code be made available upon publication] would
+   bring disclosure and publication requirements for computer codes in line
+   with other types of scientific data and materials"
+  (http://www.sciencemag.org/content/336/6078/159.full)
+  - "Although it is now accepted that data should be made available on
+  request, the current regulations regarding the availability of software
+  are inconsistent. We argue that, with some exceptions, anything less than
+  the release of source programs is intolerable for results that depend on
+  computation."
+  (http://www.nature.com/nature/journal/v482/n7386/full/nature10836.html)
+  - "To address the growing complexity of data and analyses, Science is
+  extending our data access requirement listed above to include computer
+  codes involved in the creation or analysis of data."
+  http://www.sciencemag.org/content/331/6018/649.full
+  - "Nature does not require authors to make code available, but we do
+  expect a description detailed enough to allow others to write their
+  own code to do a similar analysis."
+  (http://www.sciencemag.org/content/331/6018/649.full)
+  - "The editors of Bioinformatics encourage authors to make their source code
+  available and, if possible, to provide access through an open source license
+  (see http://www.opensource.org for examples). Authors should make every
+  effort to use URLs that will remain stable. At the minimum, authors must
+  provide one of: webserver, source code or binary."
+
+- Software development is not research
+  - "Time spent on software development that doesn't result in
+  widely-recognized deliverables such as publications or grants is essentially
+  time wasted, and will be inversely correlated with your chances of success
+  as an academic."
+  - Changing attitudes in academia to value software as much as (or more than)
+  publications. It's all about reputation.
+  - "This week, the National Science Foundation announced changes to its grant
+  proposal guide (GPG). One of the changes is the acknowledgement of datasets,
+  patents, software, and copyrights as citable products of research, eligible
+  for inclusion in a researcher's biosketch."
+  (http://www.galter.northwestern.edu/news/index.cfm/2012/10/9/Datasets-Software-Eligible-for-Listing-in-NSF-Biosketches)
+
+- Good examples
+  - "The 1000 Genomes Project, for example, a project to sequence and
+  analyse more than a thousand genomes, has carefully detailed its
+  workflows, and makes both its data and its procedures available for
+  the world to see."
+  (http://www.nature.com/nature/journal/v470/n7334/full/470305b.html)
+  - "As part of the supplementary material for this paper, we have established a
+  virtual machine instance of the software, using the code bundles from
+  ftp.ebi.ac.uk/pub/databases/ensembl/encode/supplementary/, where each analysis
+  program has been tested and run."
+  "Where possible the VM enables complete reproduction of the analysis as it was
+  performed to generate the figures, tables or other information."
+  (http://scofield.bx.psu.edu/~dannon/encodevm/)
+
+- Why not publish code
+  - Someone will run with my idea -> claim territory
+  - Ashamed to publish bad code -> don't be, write better code, CRAPL license
+  - Algorithmic description is enough -> replication difficult, ambiguous descriptions, not reusable
+  - Publishing oblicates you to support -> no it doesn't
+  - Time, effort, money -> perfect and easy free options
+
+- Reproducability
+  - http://www.sciencemag.org/content/334/6060/1226.full Reproducability in
+  Computational Science
+  - Not only for verification, also to regenerate lost data and to generate
+  further data that "matches" the existing data
+  - Required, any or all of the following:
+    1. Same input data
+    2. Same build tools and settings
+    3. Same source code
+    4. Same software settings
+    5. Same OS and environment
+    6. Same hardware
+    Need provenance for this information.
+
+- Computational analysis
+  - Workflow systems
+  - Web services
+  - "We propose capturing and exchanging computational pipelines using
+  complete digital representations of the entire computing environment
+  needed to execute the pipeline."
+  (http://www.nature.com/nbt/journal/v28/n11/full/nbt1110-1181.html)
+
+- Research and source code
+  - Integrate code with data, graphs, and article text
+  - Literate programming (R)
+  - IPython Notebook
+
+- Write good code
+  - Just as with publishing data, publishing source code could be subject to
+    certain requirements
+  - Follow best practices
+
+- In practice
+  - The ten commandments of scientific coding
+  - Ten Simple Rules for the Open Development of Scientific Software
+  - Best Practices for Scientiﬁc Computing
+  - All have 10 commandments/rules/practices, but different
+  - In all three: Don't reinvent the wheel (and collaborate)
+
+- Things are changing
+  - Science Code Manifesto http://sciencecodemanifesto.org/
+  - Bioinformatics Testing Consortium http://biotest.cgrb.oregonstate.edu/
+  - Software Carpentry http://software-carpentry.org/
+  - Programming course
+
+
+Sources
+-------
+
 overlyhonestmethods https://twitter.com/ianholmes/status/288689712636493824
 wtfm http://www.osnews.com/story/19266/WTFs_m
 
@@ -207,57 +340,28 @@ The Ten Commandments of Scientific Coding
 -----------------------------------------
 
 1. Thou shall use version control.
-
    - Keeping track (files, versions, changes)
    - Collaborating
-
    Reproducability, go back to computation of previous results.
-
    Source code, input data sets, instructions, Makefile, result data
    sets.
-
-
 2. Thou shall comment thy code.
-
-
 3. Thou shall use existing libraries whenever possible.
-
    This can conflict with commandment 1.
-
    Also see commandment 9.
-
-
 4. Thou shall try to unit test.
-
    Regression testing.
    Automated.
-
-
 5. Thou shall not make up statistical procedures.
-
-
 6. Thou shall read code other than thy own.
-
    Tunnel vision.
-
    Researchers also read literature.
-
-
 7. Thou shall write documentation.
-
    For users and for developers.
-
-
 8. Thou shall beware of floating point issues.
-
-
 9. Thou shall write modular code.
-
    Extreme would be Taverna.
-
    Re-use.
-
-
 10. Thou shall follow coding standards.
 
 
