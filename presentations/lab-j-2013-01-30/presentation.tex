@@ -200,35 +200,66 @@
   (ENCODE Virtual Machine and Cloud Resource)
 \end{frame}
 
-\section{Reasons not to publish your source code}
+\section*{}
 
-% Todo: order of these reasons
+\frame{
+  \frametitle{Open and Reproducible Scientific Programming}
+  \tableofcontents
+}
+
+\section{Reasons not to open your source code}
 
 \begin{frame}
-  \frametitle{``Obligates me to support it''}
+  \frametitle{1. ``Obligates me to support it''}
   \pause
   No, it doesn't.
 \end{frame}
 
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{
+    \parbox[c][\paperheight]{\paperwidth}{%
+      \vfill \begin{center}
+      \includegraphics[width=0.55\paperwidth,keepaspectratio=true]{wtfm}
+      \end{center} \vfill}
+  }
+  \frame{}
+}
+
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{
+    \parbox[c][\paperheight]{\paperwidth}{%
+      \vfill \begin{center}
+      \includegraphics[clip=true,trim=0cm 17cm 0cm 0cm,width=\paperwidth,keepaspectratio=true]{publish}
+      \end{center} \vfill}
+  }
+  \frame{}
+}
+
 \begin{frame}
-  \frametitle{``I'm ashamed of my bad code''}
+  \frametitle{2. ``I'm ashamed of my bad code''}
   \pause
-  \begin{itemize}
+  \begin{itemize}[<+->]
     \item If it is good enough to do the job, it's good enough to be released
       (supporting the publication)
     \item Opening might improve it
+    \item CRAPL license:
+      \begin{enumerate}
+        \item Source and modifications used to validate scientific claims be
+          released with those claims
+        \item Authors are absolved of shame, embarrassment and ridicule for
+          ugly code
+      \end{enumerate}
   \end{itemize}
 \end{frame}
 
-% Todo:
-% http://www.nature.com/news/2010/101013/full/467753a.html
-% CRAPL license
-
 \begin{frame}
-  \frametitle{``It takes time/effort/money''}
+  \frametitle{3. ``It takes time/effort/money''}
   \pause
   \begin{itemize}
     \item It doesn't have to
+    \item For scientists, publication signifies perfectionism
     \item Very good infrastructure is available (GitHub, Bitbucket, Google
       Code, SourceForge)
     \item These are free and easy to use
@@ -236,7 +267,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{``They will steal my idea''}
+  \frametitle{4. ``They will steal my idea''}
   \pause
   \begin{itemize}
     \item I think this rarely matters in practice
@@ -250,15 +281,22 @@
 % https://twitter.com/ianholmes/status/250608825428746242
 
 \begin{frame}
-  \frametitle{``An algorithmic description is good enough''}
+  \frametitle{5. ``An algorithmic description is good enough''}
   \pause
   \begin{itemize}
-    \item No, it isn't
+    \item It really isn't
     \item Descriptions are ambiguous and imperfect
     \item Makes replication impossible
     \item Makes reuse impossible
   \end{itemize}
 \end{frame}
+
+\section*{}
+
+\frame{
+  \frametitle{Open and Reproducible Scientific Programming}
+  \tableofcontents
+}
 
 \section{Sharing computational analyses}
 
@@ -317,6 +355,13 @@
 
 % Todo: IPython Notebook example
 
+\section*{}
+
+\frame{
+  \frametitle{Open and Reproducible Scientific Programming}
+  \tableofcontents
+}
+
 \section{Best practices}
 
 \begin{frame}
@@ -330,17 +375,17 @@
 
 \begin{frame}
   \frametitle{Rules, commandments, and best practices}
-  Prli\'c A, Procter JB. Ten Simple Rules for the Open Development of Scientific
-  Software. PLoS Comput Biol 8(12), 2012.
+  Prli\'c A, Procter JB. {\bf Ten Simple Rules for the Open Development of
+    Scientific Software}. PLoS Comput Biol 8(12), 2012.
 
   \vspace{0.5cm}
 
-  Vince Buffalo. The ten commandments of scientific coding. Published on
+  Vince Buffalo. {\bf The ten commandments of scientific coding}. Published on
   GitHub, August 10, 2012.
 
   \vspace{0.5cm}
 
-  Wilson et al. Best Practices for Scientific Computing. Preprint,
+  Wilson et al. {\bf Best Practices for Scientific Computing}. Preprint,
   arXiv:1210.0530, 29 Nov 2012.
 \end{frame}
 
@@ -489,17 +534,6 @@
   \end{itemize}
 \end{frame}
 
-{
-  \setbeamercolor{background canvas}{bg=}
-  \usebackgroundtemplate{
-    \parbox[c][\paperheight]{\paperwidth}{%
-      \vfill \begin{center}
-      \includegraphics[width=0.55\paperwidth,keepaspectratio=true]{wtfm}
-      \end{center} \vfill}
-  }
-  \frame{}
-}
-
 \begin{frame}
   \frametitle{The ten commandments of scientific coding}
   \begin{enumerate}
@@ -516,16 +550,6 @@
   \end{enumerate}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Thou shall write documentation}
-  \begin{itemize}
-    \item For users and for developers
-    \item Interfaces and reasons, not implementations
-    \item Refactor rather than explain
-    \item Idealy embedded in the software
-  \end{itemize}
-\end{frame}
-
 {
   \setbeamercolor{background canvas}{bg=}
   \usebackgroundtemplate{
@@ -536,6 +560,16 @@
   }
   \frame{}
 }
+
+\begin{frame}
+  \frametitle{Thou shall write documentation}
+  \begin{itemize}
+    \item For users and for developers
+    \item Interfaces and reasons, not implementations
+    \item Refactor rather than explain
+    \item Idealy embedded in the software
+  \end{itemize}
+\end{frame}
 
 \begin{frame}
   \frametitle{The ten commandments of scientific coding}
@@ -626,7 +660,14 @@
   \end{itemize}
 \end{frame}
 
-\section{Questions?}
+\section*{Open and Reproducible Scientific Programming}
+
+\begin{frame}
+  \frametitle{Conclusions}
+  Todo.
+\end{frame}
+
+\section*{Questions?}
 \lastpagetemplate
 \begin{frame}
   \begin{center}
