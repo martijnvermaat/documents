@@ -445,8 +445,16 @@
   \end{enumerate}
 \end{frame}
 
-% Todo:
-% https://twitter.com/vsbuffalo/status/233805828803665920
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{
+    \parbox[c][\paperheight]{\paperwidth}{%
+      \vfill \begin{center}
+      \includegraphics[width=0.9\paperwidth,keepaspectratio=true]{commandments}
+      \end{center} \vfill}
+  }
+  \frame{}
+}
 
 \begin{frame}
   \frametitle{The ten commandments of scientific coding}
@@ -483,16 +491,19 @@
 \begin{frame}
   \frametitle{Thou shall use version control}
   Two main uses:
-  \begin{enumerate}
+  \pause
+  \begin{enumerate}[<+->]
     \item Keeping track of files, versions, changes
     \item Collaboration
   \end{enumerate}
 
   \vspace{1cm}
+  \pause
 
   Everything that has been created manually goes in.
 
   \vspace{1cm}
+  \pause
 
   Being able to go back to computation of previous results aids
   replicability.
@@ -516,8 +527,9 @@
 
 \begin{frame}
   \frametitle{Thou shall use existing libraries whenever possible}
-  \begin{itemize}
+  \begin{itemize}[<+->]
     \item Re-use instead of rewrite
+    \item Search on Google, GitHub, etc
     \item Document dependencies and their versions
   \end{itemize}
 \end{frame}
@@ -540,12 +552,23 @@
 
 \begin{frame}
   \frametitle{Thou shall try to unit test}
-  \begin{itemize}
+  \begin{itemize}[<+->]
     \item Prevent regressions
     \item Turn bugs into test cases
     \item Automate this
   \end{itemize}
 \end{frame}
+
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{
+    \parbox[c][\paperheight]{\paperwidth}{%
+      \vfill \begin{center}
+      \includegraphics[width=0.9\paperwidth,keepaspectratio=true]{travis}
+      \end{center} \vfill}
+  }
+  \frame{}
+}
 
 \begin{frame}
   \frametitle{The ten commandments of scientific coding}
@@ -563,7 +586,6 @@
   \end{enumerate}
 \end{frame}
 
-
 \begin{frame}
   \frametitle{Thou shall read code other than thy own}
   \begin{itemize}
@@ -572,6 +594,28 @@
     \item Code review (idealy pre-merge)
   \end{itemize}
 \end{frame}
+
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{
+    \parbox[c][\paperheight]{\paperwidth}{%
+      \vfill \begin{center}
+      \includegraphics[width=0.9\paperwidth,keepaspectratio=true]{review}
+      \end{center} \vfill}
+  }
+  \frame{}
+}
+
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{
+    \parbox[c][\paperheight]{\paperwidth}{%
+      \vfill \begin{center}
+      \includegraphics[width=0.9\paperwidth,keepaspectratio=true]{comments}
+      \end{center} \vfill}
+  }
+  \frame{}
+}
 
 \begin{frame}
   \frametitle{The ten commandments of scientific coding}
@@ -602,7 +646,7 @@
 
 \begin{frame}
   \frametitle{Thou shall write documentation}
-  \begin{itemize}
+  \begin{itemize}[<+->]
     \item For users and for developers
     \item Interfaces and reasons, not implementations
     \item Refactor rather than explain
@@ -628,7 +672,7 @@
 
 \begin{frame}
   \frametitle{Thou shall write modular code}
-  \begin{itemize}
+  \begin{itemize}[<+->]
     \item Generalize instead of copy/paste and edit
     \item Have a single representation for every piece of data
     \item One extreme would be Taverna
@@ -650,6 +694,17 @@
     \item Thou shall follow coding standards
   \end{enumerate}
 \end{frame}
+
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{
+    \parbox[c][\paperheight]{\paperwidth}{%
+      \vfill \begin{center}
+      \includegraphics[clip=true,trim=1.5cm 21cm 0cm 0cm,width=\paperwidth,keepaspectratio=true]{practices}
+      \end{center}\vspace{3cm} \vfill}
+  }
+  \frame{}
+}
 
 \begin{frame}
   \frametitle{Best practices for scientific computing}
