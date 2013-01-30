@@ -1,6 +1,8 @@
 \documentclass[slidestop]{beamer}
 
 \usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
 
 \title{Open and Reproducible Scientific Programming}
 \providecommand{\myConference}{Lab-J work discussion}
@@ -781,7 +783,6 @@
   \vspace{1cm}
   {\tiny
     Links to all sources are included on last slide
-    % This is actually todo
   }
 \end{frame}
 
@@ -817,6 +818,54 @@
   \end{itemize}
   Schultheiss, Sebastian J., et al. Persistence and availability of web
   services in computational biology. PLoS one 6.9 (2011): e24914.
+\end{frame}
+
+\section*{Sources}
+\extrapagetemplate
+\begin{frame}
+  Clickable links, in no particular order
+
+  \vspace{0.3cm}
+
+  {\fontsize{3.5}{5}\selectfont
+    \href{http://www.nature.com/nbt/journal/v28/n11/full/nbt1110-1181.html}{J.T. Dudley and A.J. Butte. In silico research in the era of cloud computing. Nature Biotechnology 28, 1181--1185 (2010)}\\
+    \href{http://www.sciencemag.org/content/336/6078/159.summary}{A. Morin et al. Shining Light into Black Boxes. Science 13 April 2012: Vol. 336 no. 6078 pp. 159-160}\\
+    \href{http://www.nature.com/nature/journal/v482/n7386/full/nature10836.html}{D.C. Ince, L. Hatton and J. Graham-Cumming. The case for open computer programs. Nature 482, 485--488 (23 February 2012)}\\
+    \href{http://www.sciencemag.org/content/331/6018/649.summary}{B. Hanson, A. Sugden, and B. Alberts. Making Data Maximally Available. Science 11 February 2011: Vol. 331 no. 6018 p. 649}\\
+    \href{http://www.nature.com/nature/journal/v470/n7334/full/470305b.html}{Editorial. Devil in the details. Nature 470, 305--306 (17 February 2011)}\\
+    \href{http://www.sciencemag.org/content/334/6060/1226.abstract}{R.D. Peng. Reproducible Research in Computational Science. Science 2 December 2011: Vol. 334 no. 6060 pp. 1226--1227}\\
+    \href{http://online.liebertpub.com/doi/abs/10.1089/omi.2006.10.94}{C. Brooksbank and J. Quackenbush. Data Standards: A Call to Action. OMICS: A Journal of Integrative Biology. June 2006, 10(2): 94--99}\\
+    \href{http://arxiv.org/abs/1210.0530}{G. Wilson et al. Best Practices for Scientific Computing. Preprint, arXiv:1210.0530, 29 Nov 2012}\\
+    \href{http://arxiv.org/abs/1010.1092}{K.A. Baggerly and K.R. Coombes. Deriving chemosensitivity from cell lines: Forensic bioinformatics and reproducible research in high-throughput biology. Preprint, arXiv:1010.1092, 6 Oct 2010}\\
+    \href{http://www.nature.com/news/2010/101013/full/467775a.html}{Z. Merali. Computational science: ...Error. Nature 467, 775--777 (2010)}\\
+    \href{https://www.zotero.org/scottbot/items/itemKey/GCQEH25G}{B. D. McCullough et al. Lessons from the JMCB Archive. Journal of Money, Credit, and Banking. Volume 38, Number 4, June 2006}\\
+    \href{http://www.ncbi.nlm.nih.gov/pubmed/16646837}{R. Gentleman. Reproducible research: a bioinformatics case study. Stat Appl Genet Mol Biol. 2005;4:Article2. Epub 2005 Jan 11}\\
+    \href{http://www.nature.com/news/2010/101013/full/467753a.html}{N. Barnes. Publish your computer code: it is good enough. Nature 467, 753 (2010)}\\
+    \href{http://www.oxfordjournals.org/our_journals/bioinformatics/for_authors/general.html}{Oxford Bioinformatics Instructions to Authors}\\
+    \href{http://www.plosone.org/static/publication}{PLOS ONE Publication Criteria}\\
+    \href{http://www.galter.northwestern.edu/news/index.cfm/2012/10/9/Datasets-Software-Eligible-for-Listing-in-NSF-Biosketches}{P. Shaw. Datasets, Software Eligible for Listing in NSF Biosketches. Galter Health Sciences Library website (9 October 2012}\\
+    \href{http://scofield.bx.psu.edu/~dannon/encodevm/}{ENCODE Virtual Machine and Cloud Resource}\\
+    \href{http://simplystatistics.org/2013/01/23/statisticians-and-computer-scientists-if-there-is-no-code-there-is-no-paper/}{J. Leek. Statisticians and computer scientists -- if there is no code, there is no paper. Simply Statistics (23 January 2013)}\\
+    \href{http://www.bendmorris.com/2012/12/what-incentives-are-there-to-maintain.html}{B. Morris. What incentives are there to maintain software in academia? Ben Morris' Macroblog (29 December, 2012)}\\
+    \href{http://gettinggeneticsdone.blogspot.nl/2013/01/stop-hosting-data-and-code-on-your-lab.html}{S. Turner. Stop Hosting Data and Code on your Lab Website. Getting Genetics Done (8 January 2013))}\\
+    \href{http://www.johndcook.com/blog/2010/10/19/buggy-simulation-code-is-biased/}{J.D. Cook. Buggy code is biased code. The Endeavour (19 October 2010)}\\
+    \href{https://gist.github.com/3311557}{V. Buffalo. The Ten Commandments of Scientific Coding. GitHub Gist (8 Oct 2012)}\\
+    \href{http://www.slideshare.net/jandot/b-temperton-the-bioinformatics-testing-consortium}{B. Temperton. The Bioinformatics Testing Consortium. BOSC2012 (Jul 16, 2012)}\\
+    \href{https://speakerdeck.com/ptomato/open-and-reproducible-scientific-programming}{P. Chimento. Open and reproducible scientific programming. Apr 5, 2012}\\
+    \href{http://www.osnews.com/story/19266/WTFs_m}{OSNews on WTFs/m}\\
+    \href{https://twitter.com/ianholmes/status/288689712636493824}{Ian Holmes (@ianholmes) on Twitter about \#overlyhonestmethods}\\
+    \href{https://twitter.com/luispedrocoelho/status/238632048313647104}{Luis Pedro Coelho (@luispedrocoelho) on Twitter about scientists ashamed of their code}\\
+    \href{https://twitter.com/ianholmes/status/250608615361241089}{Ian Holmes (@ianholmes) on Twitter about biologists, physicists and preprints (1)}\\
+    \href{https://twitter.com/ianholmes/status/250608825428746242}{Ian Holmes (@ianholmes) on Twitter about biologists, physicists and preprints (2)}\\
+    \href{http://jrjohansson.github.com/}{R. Johansson. Lectures on scientific computing with Python}\\
+    \href{http://matt.might.net/articles/crapl/}{M. Might. The CRAPL: An academic-strength open source license}\\
+    \href{http://sciencecodemanifesto.org/}{Science Code Manifesto}\\
+    \href{http://biotest.cgrb.oregonstate.edu/}{Bioinformatics Testing Consortium}\\
+    \href{http://software-carpentry.org/}{Software Carpentry}\\
+    \href{http://ipython.org/}{F. P\'erez and B.E. Granger. IPython: a System for Interactive Scientific Computing. Science and Engineering, vol. 9, no. 3, pp. 21--29, May/June 2007}\\
+    \href{https://travis-ci.org/}{Travis CI. A hosted continuous integration service for the open source community}\\
+    \href{https://github.com/}{GitHub. Build software better, together}\\
+  }
 \end{frame}
 
 \end{document}
