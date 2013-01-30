@@ -2,17 +2,17 @@
 
 \usepackage[english]{babel}
 
-\title{Diagnostic Variant Database:\\ design and implementation}
-\providecommand{\myConference}{BioAssist programmers meeting}
-\providecommand{\myDate}{Friday, 17 August 2012}
+\title{Open and Reproducible Scientific Programming}
+\providecommand{\myConference}{Lab-J work discussion}
+\providecommand{\myDate}{Wednesday, 30 Januari 2013}
 \author{Martijn Vermaat}
 \providecommand{\myGroup}{}
 \providecommand{\myDepartment}{Department of Human Genetics}
 \providecommand{\myCenter}{Center for Human and Clinical Genetics}
 \providecommand{\lastCenterLogo}{
-%  \raisebox{-0.1cm}{
-%    \includegraphics[height = 1cm]{lgtc_logo}
-%  }
+  \raisebox{-0.1cm}{
+    \includegraphics[height = 1cm]{lgtc_logo}
+  }
 }
 \providecommand{\lastRightLogo}{
   \includegraphics[height = 0.7cm]{nbic_logo}
@@ -29,12 +29,385 @@
 % Make the title page.
 \bodytemplate
 
-\section{Introduction}
+%\section{Introduction}
 
 \frame{
-  \frametitle{Diagnostic Variant Database}
+  \frametitle{Open and Reproducible Scientific Programming}
   \tableofcontents
 }
+
+\section{Academic publishing}
+
+\begin{frame}
+  \frametitle{Scientific findings}
+  Should be
+  \begin{itemize}
+    \item Replicable
+
+      \uncover<2->{Verify method and result}
+    \item Reproducible
+
+      \uncover<3->{Verify result by other means}
+    \item Reusable
+
+      \uncover<4->{Build on previous results}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Data}
+  \begin{itemize}[<+->]
+    \item Data should be published with the paper
+    \item Policies often include additional requirements
+    \item Use data standards
+    \item E.g. publish genomic variants
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Data policy example}
+  \begin{quote}
+    Authors must follow standards and practice for data deposition in
+    publicly available resources including those created for gene sequences,
+    microarray expression, structural studies, and similar kinds of
+    data. Failure to comply with community standards may result in rejection.
+  \end{quote}
+  (PLOS ONE Publication Criteria)
+\end{frame}
+
+\begin{frame}
+  \frametitle{Source code}
+  \begin{itemize}[<+->]
+    \item Results often depend on computational analysis
+    \item Source code should be published with the paper
+    \item Are there policies?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Source code policy example (1)}
+  \begin{quote}
+    Of the 20 most-cited journals in 2010 from all fields of science, only
+    three (including Science) have editorial policies requiring
+    availability of computer source code upon publication. This stands in stark
+    contrast to near-universal agreement among the 20 on policies regarding
+    availability of data and other enabling materials.
+  \end{quote}
+  (A. Morin et al. Shining Light into Black Boxes. Science 13 April 2012:
+  Vol. 336 no. 6078 pp. 159--160)
+\end{frame}
+
+\begin{frame}
+  \frametitle{Source code policy example (2)}
+  \begin{quote}
+    Although it is now accepted that data should be made available on
+    request, the current regulations regarding the availability of software
+    are inconsistent. We argue that, with some exceptions, anything less than
+    the release of source programs is intolerable for results that depend on
+    computation.
+  \end{quote}
+  (D.C. Ince et al. The case for open computer programs. Nature 482, 485--488
+  (23 February 2012))
+\end{frame}
+
+\begin{frame}
+  \frametitle{Source code policy example (3)}
+  \begin{quote}
+    Nature does not require authors to make code available, but we do
+    expect a description detailed enough to allow others to write their
+    own code to do a similar analysis.
+  \end{quote}
+  (Devil in the details. Nature 470, 305--306 (17 February 2011))
+\end{frame}
+
+\begin{frame}
+  \frametitle{Source code policy example (4)}
+  \begin{quote}
+    The editors of Bioinformatics encourage authors to make their source
+    code available and, if possible, to provide access through an open source
+    license (see http://www.opensource.org for examples). Authors should make
+    every effort to use URLs that will remain stable. At the minimum, authors
+    must provide one of: webserver, source code or binary.
+  \end{quote}
+  (Bioinformatics Instructions to Authors)
+\end{frame}
+
+\begin{frame}
+  \frametitle{Source code policy example (5)}
+  \begin{quote}
+    To address the growing complexity of data and analyses, Science is
+    extending our data access requirement listed above to include computer
+    codes involved in the creation or analysis of data.
+  \end{quote}
+  (B. Hanson et al. Making Data Maximally Available. Science 11 February 2011:
+  Vol. 331 no. 6018 p. 649)
+\end{frame}
+
+% Todo: new section?
+
+\begin{frame}
+  \frametitle{Value of software}
+  \begin{quote}
+    Time spent on software development that doesn't result in
+    widely-recognized deliverables such as publications or grants is essentially
+    time wasted, and will be inversely correlated with your chances of success
+    as an academic.
+  \end{quote}
+  \vspace{1cm}
+  \pause
+  \begin{itemize}[<+->]
+    \item What counts in academia?
+    \item Reputation
+    \item Recognize software as a product of research
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Value of software}
+  Recent change to the NSF grant proposal guide:
+  \begin{quote}
+    The acknowledgement of datasets, patents, software, and copyrights as
+    citable products of research, eligible for inclusion in a researcher's
+    biosketch.
+  \end{quote}
+  (National Science Foundation, January 2013)
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: 1000 Genomes Project}
+  \begin{quote}
+    The 1000 Genomes Project, for example, a project to sequence and
+    analyse more than a thousand genomes, has carefully detailed its
+    workflows, and makes both its data and its procedures available for
+    the world to see.
+  \end{quote}
+  (Devil in the details. Nature 470, 305--306 (17 February 2011))
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: ENCODE}
+  \begin{quote}
+    As part of the supplementary material for this paper, we have established
+    a virtual machine instance of the software, using the code bundles from
+    ftp.ebi.ac.uk/pub/databases/ensembl/encode/supplementary/, where each
+    analysis program has been tested and run.
+  \end{quote}
+  \begin{quote}
+    Where possible the VM enables complete reproduction of the analysis as it
+    was performed to generate the figures, tables or other information.
+  \end{quote}
+  (ENCODE Virtual Machine and Cloud Resource)
+\end{frame}
+
+\section{Reasons not to publish your source code}
+
+% Todo: order of these reasons
+
+\begin{frame}
+  \frametitle{``Obligates me to support it''}
+  \pause
+  No, it doesn't.
+\end{frame}
+
+\begin{frame}
+  \frametitle{``I'm ashamed of my bad code''}
+  \pause
+  \begin{itemize}
+    \item If it is good enough to do the job, it's good enough to be released
+    \item Opening might improve it
+  \end{itemize}
+\end{frame}
+
+% Todo:
+% http://www.nature.com/news/2010/101013/full/467753a.html
+% CRAPL license
+
+\begin{frame}
+  \frametitle{``It takes time/effort/money''}
+  \pause
+  \begin{itemize}
+    \item It doesn't have to
+    \item Very good infrastructure is available (GitHub, Bitbucket, Google
+      Code, SourceForge)
+    \item These are free and easy to use
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{``They will steal my idea''}
+  \pause
+  \begin{itemize}
+    \item I think this rarely matters in practice
+    \item If you must, await publication
+    \item Getting it out claims territory %establishes precedence
+  \end{itemize}
+\end{frame}
+
+% Todo:
+% https://twitter.com/ianholmes/status/250608615361241089
+% https://twitter.com/ianholmes/status/250608825428746242
+
+\begin{frame}
+  \frametitle{``An algorithmic description is good enough''}
+  \pause
+  \begin{itemize}
+    \item No, it isn't
+    \item Descriptions are ambiguous and imperfect
+    \item Makes replication impossible
+    \item Makes reuse impossible
+  \end{itemize}
+\end{frame}
+
+\section{Sharing computational analyses}
+
+\begin{frame}
+  \frametitle{Replicability}
+  Not only for verification, also to regenerate lost data and to generate
+  further data.
+
+  \vspace{0.5cm}
+  \pause
+
+  Requirements:
+  \begin{enumerate}
+    \item Same input data
+    \item Same build tools and settings
+    \item Same source code
+    \item Same software settings
+    \item Same OS and environment
+    \item Same hardware
+  \end{enumerate}
+
+  \vspace{0.5cm}
+  \pause
+
+  Provenance needed
+\end{frame}
+
+\begin{frame}
+  \frametitle{Data analysis}
+  \begin{itemize}
+    \item<1-> Many workflow systems exist
+    \item<2-> myExperiment to share workflows
+    \item<3-> Taverna (using web services)
+    \item<4-> A more extreme approach:
+  \end{itemize}
+
+  \uncover<4->{
+  \begin{quote}
+    We propose capturing and exchanging computational pipelines using
+    complete digital representations of the entire computing environment
+    needed to execute the pipeline.
+  \end{quote}
+  (J.T. Dudley et al. In silico research in the era of cloud computing. Nature
+  Biotechnology 28, 1181--1185 (2010))
+  }
+\end{frame}
+
+\begin{frame}
+  \frametitle{Integrate code with data, figures, and text}
+  \begin{itemize}[<+->]
+    \item Literate programming (e.g. Sweave)
+    \item IPython Notebook
+    \item Great for exploratory research
+  \end{itemize}
+\end{frame}
+
+% Todo: IPython Notebook example
+
+\section{Best practices}
+
+\begin{frame}
+  \frametitle{The next step}
+  \begin{itemize}
+    \item We can do better than just having code
+    \item Policies should define additional requirements
+    \item Follow best practices (compare data standards)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Rules, commandments, and best practices}
+  Prli\'c A, Procter JB. Ten Simple Rules for the Open Development of Scientific
+  Software. PLoS Comput Biol 8(12), 2012.
+
+  \vspace{0.5cm}
+
+  Vince Buffalo. The ten commandments of scientific coding. Published on
+  GitHub, August 10, 2012.
+
+  \vspace{0.5cm}
+
+  Wilson et al. Best Practices for Scientific Computing. Preprint,
+  arXiv:1210.0530, 29 Nov 2012.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ten simple rules for the open development of scientific
+    software}
+  \begin{enumerate}
+    \item Don't Reinvent the Wheel
+    \item Code Well
+    \item Be Your Own User
+    \item Be Transparent
+    \item Be Simple
+    \item Don't Be a Perfectionist
+    \item Nurture and Grow Your Community
+    \item Promote Your Project
+    \item Find Sponsors
+    \item Science Counts
+  \end{enumerate}
+\end{frame}
+
+% Todo:
+% https://twitter.com/vsbuffalo/status/233805828803665920
+
+\begin{frame}
+  \frametitle{The ten commandments of scientific coding}
+  \begin{enumerate}
+    \item Thou shall use version control
+    \item Thou shall comment thy code
+    \item Thou shall use existing libraries whenever possible
+    \item Thou shall try to unit test
+    \item Thou shall not make up statistical procedures
+    \item Thou shall read code other than thy own
+    \item Thou shall write documentation
+    \item Thou shall beware of floating point issues
+    \item Thou shall write modular code
+    \item Thou shall follow coding standards
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Best practices for scientific computing}
+  \begin{enumerate}
+    \item Write programs for people, not computers
+    \item Automate repetitive tasks
+    \item Use the computer to record history
+    \item Make incremental changes
+    \item Use version control
+    \item Don't repeat yourself (or others)
+    \item Plan for mistakes
+    \item Optimize software only after it works correctly
+    \item Document design and purpose, not mechanics
+    \item Collaborate
+  \end{enumerate}
+\end{frame}
+
+
+
+
+\begin{frame}
+  \frametitle{Initiatives}
+  \begin{itemize}
+    \item Science Code Manifesto http://sciencecodemanifesto.org/
+    \item Bioinformatics Testing Consortium http://biotest.cgrb.oregonstate.edu/
+    \item Software Carpentry http://software-carpentry.org/
+    \item Programming course
+  \end{itemize}
+\end{frame}
+
+
 
 \section*{\tiny{\texttt{https://twitter.com/ianholmes/status/288689712636493824}}}
 {
@@ -60,22 +433,6 @@
   \frame{}
 }
 
-\section{Using is sharing}
-
-\begin{frame}
-  \frametitle{Sample import {\em and} annotation}
-  \begin{enumerate}
-    \item<1-> Send to the server:
-      \begin{itemize}
-        \item List of variant (VCF file)
-        \item List of covered regions (BED file)
-      \end{itemize}
-    \item<5-> {\bf Server calculates sample checksum H}
-    \item<2-> Server annotates variants with frequencies \uncover<6->{\bf skipping H}
-    \item<3-> Download annotation from server
-    \item<4-> Server imports variants \uncover<7->{\bf if H is new}
-  \end{enumerate}
-\end{frame}
 
 \section{Questions?}
 \lastpagetemplate
@@ -84,24 +441,17 @@
     Acknowledgements:\\
     \vspace{0.8cm}
     Jeroen Laros\\
-    Bradley ten Broeke\\
-    Michiel van Galen\\
-    Johan den Dunnen\\
-    \vspace{0.8cm}
-    Leon Mei (NBIC)\\
-    David van Enckevort (NBIC)\\
-    The rest of the DVD team
+    Leon Mei\\
+    Johan den Dunnen
   \end{center}
   \vspace{1cm}
   {\tiny
-    \begin{enumerate}
-      \item Kent et al. The Human Genome Browser at UCSC. Genome Research 2002.12:996-1006
-      \item PyVCF: \texttt{github.com/jamescasbon/PyVCF}
-      \item DVD: \texttt{trac.nbic.nl/dvd}
-    \end{enumerate}
+    Links to all sources are included on last slide
+    % This is actually todo
   }
 \end{frame}
 
+% Todo: bonus slide on don't use your own lab website
 \section{Extra}
 \extrapagetemplate
 \begin{frame}

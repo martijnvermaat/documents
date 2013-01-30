@@ -1,9 +1,9 @@
-The Ten Commandments of Scientific Coding
-=========================================
+Open and Reproducible Scientific Programming
+============================================
 
 - Scientific findings should be:
   - Replicable (verify the method and result)
-  - Reproducable (verify the result by other means)
+  - Reproducible (verify the result by other means)
   - Reusable (build on previous results)
 
 - Publish data
@@ -21,12 +21,6 @@ The Ten Commandments of Scientific Coding
   - Computational science, results depend on software
 
 - Incentives
-  - "Of the 20 most-cited journals in 2010 from all fields of science (15), only
-  three (16–18) (including Science) have editorial policies requiring
-  availability of computer source code upon publication. This stands in stark
-  contrast to near-universal agreement among the 20 on policies regarding
-  availability of data and other enabling materials."
-  (http://www.sciencemag.org/content/336/6078/159.full)
   - "[Requiring that source code be made available upon publication] would
    bring disclosure and publication requirements for computer codes in line
    with other types of scientific data and materials"
@@ -37,6 +31,12 @@ The Ten Commandments of Scientific Coding
   the release of source programs is intolerable for results that depend on
   computation."
   (http://www.nature.com/nature/journal/v482/n7386/full/nature10836.html)
+  - "Of the 20 most-cited journals in 2010 from all fields of science (15), only
+  three (16–18) (including Science) have editorial policies requiring
+  availability of computer source code upon publication. This stands in stark
+  contrast to near-universal agreement among the 20 on policies regarding
+  availability of data and other enabling materials."
+  (http://www.sciencemag.org/content/336/6078/159.full)
   - "To address the growing complexity of data and analyses, Science is
   extending our data access requirement listed above to include computer
   codes involved in the creation or analysis of data."
@@ -44,7 +44,7 @@ The Ten Commandments of Scientific Coding
   - "Nature does not require authors to make code available, but we do
   expect a description detailed enough to allow others to write their
   own code to do a similar analysis."
-  (http://www.sciencemag.org/content/331/6018/649.full)
+  (http://www.nature.com/nature/journal/v470/n7334/full/470305b.html)
   - "The editors of Bioinformatics encourage authors to make their source code
   available and, if possible, to provide access through an open source license
   (see http://www.opensource.org for examples). Authors should make every
@@ -85,7 +85,7 @@ The Ten Commandments of Scientific Coding
   - Publishing oblicates you to support -> no it doesn't
   - Time, effort, money -> perfect and easy free options
 
-- Reproducability
+- Reproducibility
   - http://www.sciencemag.org/content/334/6060/1226.full Reproducability in
   Computational Science
   - Not only for verification, also to regenerate lost data and to generate
