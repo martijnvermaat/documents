@@ -59,7 +59,8 @@
   \begin{itemize}[<+->]
     \item Data should be published with the paper
     \item Policies often include additional requirements
-    \item Use data standards
+    \item Data standards
+    \item Specific databases
     \item E.g. publish genomic variants
   \end{itemize}
 \end{frame}
@@ -214,6 +215,7 @@
   \pause
   \begin{itemize}
     \item If it is good enough to do the job, it's good enough to be released
+      (supporting the publication)
     \item Opening might improve it
   \end{itemize}
 \end{frame}
@@ -379,6 +381,204 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{The ten commandments of scientific coding}
+  \begin{enumerate}
+    \item {\bf Thou shall use version control}
+    \item Thou shall comment thy code
+    \item Thou shall use existing libraries whenever possible
+    \item Thou shall try to unit test
+    \item Thou shall not make up statistical procedures
+    \item Thou shall read code other than thy own
+    \item Thou shall write documentation
+    \item Thou shall beware of floating point issues
+    \item Thou shall write modular code
+    \item Thou shall follow coding standards
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Thou shall use version control}
+  Two main uses:
+  \begin{enumerate}
+    \item Keeping track of files, versions, changes
+    \item Collaboration
+  \end{enumerate}
+
+  \vspace{1cm}
+
+  Everything that has been created manually goes in.
+
+  \vspace{1cm}
+
+  Being able to go back to computation of previous results aids
+  replicability.
+\end{frame}
+
+\begin{frame}
+  \frametitle{The ten commandments of scientific coding}
+  \begin{enumerate}
+    \item Thou shall use version control
+    \item Thou shall comment thy code
+    \item {\bf Thou shall use existing libraries whenever possible}
+    \item Thou shall try to unit test
+    \item Thou shall not make up statistical procedures
+    \item Thou shall read code other than thy own
+    \item Thou shall write documentation
+    \item Thou shall beware of floating point issues
+    \item Thou shall write modular code
+    \item Thou shall follow coding standards
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Thou shall use existing libraries whenever possible}
+  \begin{itemize}
+    \item Re-use instead of rewrite
+    \item Document dependencies and their versions
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The ten commandments of scientific coding}
+  \begin{enumerate}
+    \item Thou shall use version control
+    \item Thou shall comment thy code
+    \item Thou shall use existing libraries whenever possible
+    \item {\bf Thou shall try to unit test}
+    \item Thou shall not make up statistical procedures
+    \item Thou shall read code other than thy own
+    \item Thou shall write documentation
+    \item Thou shall beware of floating point issues
+    \item Thou shall write modular code
+    \item Thou shall follow coding standards
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Thou shall try to unit test}
+  \begin{itemize}
+    \item Prevent regressions
+    \item Turn bugs into test cases
+    \item Automate this
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The ten commandments of scientific coding}
+  \begin{enumerate}
+    \item Thou shall use version control
+    \item Thou shall comment thy code
+    \item Thou shall use existing libraries whenever possible
+    \item Thou shall try to unit test
+    \item Thou shall not make up statistical procedures
+    \item {\bf Thou shall read code other than thy own}
+    \item Thou shall write documentation
+    \item Thou shall beware of floating point issues
+    \item Thou shall write modular code
+    \item Thou shall follow coding standards
+  \end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Thou shall read code other than thy own}
+  \begin{itemize}
+    \item Like academics should keep up with the literature
+    \item Prevents isolation and tunnel vision
+    \item Code review (idealy pre-merge)
+  \end{itemize}
+\end{frame}
+
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{
+    \parbox[c][\paperheight]{\paperwidth}{%
+      \vfill \begin{center}
+      \includegraphics[width=0.55\paperwidth,keepaspectratio=true]{wtfm}
+      \end{center} \vfill}
+  }
+  \frame{}
+}
+
+\begin{frame}
+  \frametitle{The ten commandments of scientific coding}
+  \begin{enumerate}
+    \item Thou shall use version control
+    \item Thou shall comment thy code
+    \item Thou shall use existing libraries whenever possible
+    \item Thou shall try to unit test
+    \item Thou shall not make up statistical procedures
+    \item Thou shall read code other than thy own
+    \item {\bf Thou shall write documentation}
+    \item Thou shall beware of floating point issues
+    \item Thou shall write modular code
+    \item Thou shall follow coding standards
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Thou shall write documentation}
+  \begin{itemize}
+    \item For users and for developers
+    \item Interfaces and reasons, not implementations
+    \item Refactor rather than explain
+    \item Idealy embedded in the software
+  \end{itemize}
+\end{frame}
+
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{
+    \parbox[c][\paperheight]{\paperwidth}{%
+      \vfill \begin{center}
+      \includegraphics[width=0.9\paperwidth,keepaspectratio=true]{overlyhonestmethods}
+      \end{center} \vfill}
+  }
+  \frame{}
+}
+
+\begin{frame}
+  \frametitle{The ten commandments of scientific coding}
+  \begin{enumerate}
+    \item Thou shall use version control
+    \item Thou shall comment thy code
+    \item Thou shall use existing libraries whenever possible
+    \item Thou shall try to unit test
+    \item Thou shall not make up statistical procedures
+    \item Thou shall read code other than thy own
+    \item Thou shall write documentation
+    \item Thou shall beware of floating point issues
+    \item {\bf Thou shall write modular code}
+    \item Thou shall follow coding standards
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Thou shall write modular code}
+  \begin{itemize}
+    \item Generalize instead of copy/paste and edit
+    \item Have a single representation for every piece of data
+    \item One extreme would be Taverna
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The ten commandments of scientific coding}
+  \begin{enumerate}
+    \item Thou shall use version control
+    \item Thou shall comment thy code
+    \item Thou shall use existing libraries whenever possible
+    \item Thou shall try to unit test
+    \item Thou shall not make up statistical procedures
+    \item Thou shall read code other than thy own
+    \item Thou shall write documentation
+    \item Thou shall beware of floating point issues
+    \item Thou shall write modular code
+    \item Thou shall follow coding standards
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
   \frametitle{Best practices for scientific computing}
   \begin{enumerate}
     \item Write programs for people, not computers
@@ -394,45 +594,37 @@
   \end{enumerate}
 \end{frame}
 
-
-
-
 \begin{frame}
   \frametitle{Initiatives}
   \begin{itemize}
-    \item Science Code Manifesto http://sciencecodemanifesto.org/
-    \item Bioinformatics Testing Consortium http://biotest.cgrb.oregonstate.edu/
-    \item Software Carpentry http://software-carpentry.org/
-    \item Programming course
+    \item Science Code Manifesto
+    \item Bioinformatics Testing Consortium
+    \item Software Carpentry
+    \item Our programming course
   \end{itemize}
 \end{frame}
 
-
-
-\section*{\tiny{\texttt{https://twitter.com/ianholmes/status/288689712636493824}}}
 {
   \setbeamercolor{background canvas}{bg=}
   \usebackgroundtemplate{
     \parbox[c][\paperheight]{\paperwidth}{%
       \vfill \begin{center}
-      \includegraphics[width=0.9\paperwidth,keepaspectratio=true]{overlyhonestmethods}
+      \includegraphics[width=0.8\paperwidth,keepaspectratio=true]{manifesto}
       \end{center} \vfill}
   }
   \frame{}
 }
 
-\section*{\tiny{\texttt{http://www.osnews.com/story/19266/WTFs\_m}}}
-{
-  \setbeamercolor{background canvas}{bg=}
-  \usebackgroundtemplate{
-    \parbox[c][\paperheight]{\paperwidth}{%
-      \vfill \begin{center}
-      \includegraphics[width=0.55\paperwidth,keepaspectratio=true]{wtfm}
-      \end{center} \vfill}
-  }
-  \frame{}
-}
-
+\begin{frame}
+  \frametitle{Programming course with Python}
+  Why Python?
+  \begin{itemize}
+    \item Language itself (level of abstraction, syntax)
+    \item Suitable for exploratory research
+    \item Investement of scientific community and our department
+    \item Many bioinformatics tools available
+  \end{itemize}
+\end{frame}
 
 \section{Questions?}
 \lastpagetemplate
@@ -451,21 +643,38 @@
   }
 \end{frame}
 
-% Todo: bonus slide on don't use your own lab website
-\section{Extra}
+\section*{Extra}
+
 \extrapagetemplate
 \begin{frame}
-  \frametitle{Spatial search}
-  Alternative solutions?
+  \frametitle{Stop Hosting Data and Code on your Lab Website (1)}
+  Survey of URL stability:
   \begin{itemize}
-    \item Assume regions are of limited length
-    \item Assume regions are non-overlapping
-    \item 2-column table: position, coverage
-    \item Split table on chromosome
-    \item Spatial database
+    \item Of 1630 URLs identified in Pubmed abstracts only 63\% were
+      consistently available
+    \item That rate was far worse for anonymous login FTP sites (33\%)
   \end{itemize}
-  \vspace{1cm}
-  All have their downsides
+  Wren, Jonathan D. 404 not found: the stability and persistence of URLs
+  published in MEDLINE. Bioinformatics 20.5 (2004): 668-672.
+\end{frame}
+
+\extrapagetemplate
+\begin{frame}
+  \frametitle{Stop Hosting Data and Code on your Lab Website (2)}
+  Survey of 1000 web services published in Nucleic Acids Web
+  Server Issue (2003--2009):
+  \begin{itemize}
+    \item 72\% available at the published address
+    \item Unable to test functionality for 33\% because of no example data,
+      13\% not working as expected
+    \item Positive functionality confirmed for 45\%
+    \item 274 of 872 corresponding authors answered email
+    \item Of these 78\% said a service was developed by a student or temporary
+      researcher, and many had no plan for maintenance after the researcher
+      had moved on to a permanent position
+  \end{itemize}
+  Schultheiss, Sebastian J., et al. Persistence and availability of web
+  services in computational biology. PLoS one 6.9 (2011): e24914.
 \end{frame}
 
 \end{document}
