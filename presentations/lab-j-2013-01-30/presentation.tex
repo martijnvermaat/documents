@@ -220,17 +220,6 @@
   \usebackgroundtemplate{
     \parbox[c][\paperheight]{\paperwidth}{%
       \vfill \begin{center}
-      \includegraphics[width=0.55\paperwidth,keepaspectratio=true]{wtfm}
-      \end{center} \vfill}
-  }
-  \frame{}
-}
-
-{
-  \setbeamercolor{background canvas}{bg=}
-  \usebackgroundtemplate{
-    \parbox[c][\paperheight]{\paperwidth}{%
-      \vfill \begin{center}
       \includegraphics[clip=true,trim=0cm 17cm 0cm 0cm,width=\paperwidth,keepaspectratio=true]{publish}
       \end{center} \vfill}
   }
@@ -364,14 +353,37 @@
 
 \section{Best practices}
 
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{
+    \parbox[c][\paperheight]{\paperwidth}{%
+      \vfill \begin{center}
+      \includegraphics[width=0.55\paperwidth,keepaspectratio=true]{wtfm}
+      \end{center} \vfill}
+  }
+  \frame{}
+}
+
 \begin{frame}
   \frametitle{The next step}
   \begin{itemize}
     \item We can do better than just having code
     \item Policies should define additional requirements
     \item Follow best practices (compare data standards)
+    \item Academcis are not necessarily good programmers
   \end{itemize}
 \end{frame}
+
+{
+  \setbeamercolor{background canvas}{bg=}
+  \usebackgroundtemplate{
+    \parbox[c][\paperheight]{\paperwidth}{%
+      \vfill \begin{center}
+      \includegraphics[clip=true,trim=1cm 10cm 3cm 0cm,width=\paperwidth,keepaspectratio=true]{compute}
+      \end{center} \vfill}
+  }
+  \frame{}
+}
 
 \begin{frame}
   \frametitle{Rules, commandments, and best practices}
@@ -664,7 +676,14 @@
 
 \begin{frame}
   \frametitle{Conclusions}
-  Todo.
+  \begin{itemize}
+    \item Disclosure and publication requirements for source code is not in
+      line with other types of scientific data and materials
+    \item This is changing
+    \item There is no good reason not to open code
+    \item Tool support for managing scientific code
+    \item Many best practices are available
+  \end{itemize}
 \end{frame}
 
 \section*{Questions?}
